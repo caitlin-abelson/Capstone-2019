@@ -48,12 +48,17 @@
     <Compile Include="IDepartmentAccessor.cs" />
     <Compile Include="IEmployeeAccessor.cs" />
     <Compile Include="iItemTypeAccessor.cs" />
+    <Compile Include="IMemberAccessor.cs" />
     <Compile Include="iProductAccessor.cs" />
+    <Compile Include="IReservationAccessor.cs" />
     <Compile Include="ISupplyAccessor.cs" />
     <Compile Include="ItemTypeAccessorMSSQL.cs" />
+    <Compile Include="MemberAccessorMSSQL.cs" />
     <Compile Include="ProductAccessorMock.cs" />
     <Compile Include="ProductAccessorMSSQL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ReservationAccessorMock.cs" />
+    <Compile Include="ReservationAccessorMSSQL.cs" />
     <Compile Include="SupplyAccessor.cs" />
     <Compile Include="UserAccessor.cs" />
   </ItemGroup>

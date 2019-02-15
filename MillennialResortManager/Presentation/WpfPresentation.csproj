@@ -58,6 +58,7 @@
     <Compile Include="BrowseEmployee.xaml.cs">
       <DependentUpon>BrowseEmployee.xaml</DependentUpon>
     </Compile>
+    <Compile Include="BrowseReservation.xaml.cs" />
     <Compile Include="BrowseSupplier.xaml.cs">
       <DependentUpon>BrowseSupplier.xaml</DependentUpon>
     </Compile>
@@ -65,7 +66,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="BrowseReservation.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="CreateProduct.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="CreateReservation.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="DeactivateReservation.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -86,6 +99,8 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="CreateProduct.xaml.cs" />
+    <Compile Include="CreateReservation.xaml.cs" />
+    <Compile Include="DeactivateReservation.xaml.cs" />
     <Compile Include="EmployeeDetail.xaml.cs">
       <DependentUpon>EmployeeDetail.xaml</DependentUpon>
     </Compile>

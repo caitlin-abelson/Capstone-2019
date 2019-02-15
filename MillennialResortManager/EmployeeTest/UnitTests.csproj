@@ -51,6 +51,7 @@
   <ItemGroup>
     <Compile Include="EmployeeManagerTests.cs" />
     <Compile Include="ProductManagerTests.cs" />
+    <Compile Include="ReservationManagerTests.cs" />
     <Compile Include="UnitTest1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
