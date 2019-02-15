@@ -598,6 +598,237 @@ AS
 	END
 GO
 
+print '' print '*** Creating Product Table'
+GO
+
+CREATE TABLE [dbo].[Product](
+	[ItemID]		[int]	IDENTITY(100000, 1)						NOT NULL,
+	[ItemTypeID]			[nvarchar](15)			NOT NULL,
+	[Description]			[nvarchar](250),
+	[OnHandQuantity]	[int]				NOT NULL,
+	[Name]				[nvarchar](50)		NOT NULL,
+	[ReOrderQuantity]	[int]				NOT NULL,
+	[DateActive]		[date]				NOT NULL,
+	[Active]			[bit]				NOT NULL	DEFAULT 1,
+	[CustomerPurchasable]	[bit]			NOT NULL 	DEFAULT 1,
+	[RecipeID]			[int]				,
+	
+	CONSTRAINT [pk_ItemID] PRIMARY KEY([ItemID] ASC)
+)
+GO
+
+print '' print '*** Creating ItemType Table'
+GO
+CREATE TABLE [dbo].[ItemType] (
+	[ItemTypeID]		[nvarchar](15)				NOT NULL,
+	[Description]		[nvarchar](250)				,
+	CONSTRAINT [pk_ItemTypeID] PRIMARY KEY([ItemTypeID] ASC)
+)
+GO
+
+print '' print '*** Adding Foreign Key ItemTypeID for Product'
+GO
+ALTER TABLE [dbo].[Product] WITH NOCHECK
+	ADD CONSTRAINT [fk_ItemTypeID] FOREIGN KEY([ItemTypeID])
+	REFERENCES [dbo].[ItemType]([ItemTypeID])
+	ON UPDATE CASCADE
+GO
+
+
+print '' print '*** Inserting ItemType Records'
+GO
+
+INSERT INTO [dbo].[ItemType]
+		([ItemTypeID])
+	VALUES
+		('Food'),
+		('Hot Sauce'),
+		('Shoe'),
+		('Hat'),
+		('Tshirt'),
+		('Pet'),
+		('Beverage')
+GO
+		
+print '' print '*** Creating sp_retrieve_itemtypes' 
+GO
+
+CREATE PROCEDURE [dbo].[sp_retrieve_itemtypes]
+AS
+	BEGIN
+		SELECT [ItemTypeID]
+		FROM [ItemType]
+	END
+GO
+
+print'' print '*** Creating sp_insert_product'
+GO
+
+CREATE PROCEDURE [dbo].[sp_insert_product]
+(
+	@ItemTypeID		[nvarchar](15),
+	@Description	[nvarchar](250),
+	@OnHandQuantity		[int],
+	@Name				[nvarchar](50),
+	@ReOrderQuantity	[int],
+	@DateActive			[date],
+	@CustomerPurchasable	[bit],
+	@RecipeID		[int]
+)
+AS
+	BEGIN
+		INSERT INTO [Product]
+			([ItemTypeID],[Description], [OnHandQuantity], [Name], [ReOrderQuantity], [DateActive], [CustomerPurchasable], [RecipeID])
+		VALUES
+			(@ItemTypeID, @Description, @OnHandQuantity, @Name, @ReOrderQuantity, @DateActive, @CustomerPurchasable, @RecipeID)
+		SELECT SCOPE_IDENTITY()
+	END
+GO
+
+print '' print '*** Creating sp_deactivate_product'
+GO
+
+CREATE PROCEDURE [dbo].[sp_deactivate_product]
+(
+	@ItemID		[int]
+)
+AS
+BEGIN
+	UPDATE [Product]
+		SET [Active] = 0
+		WHERE [ItemID] = @ItemID
+		RETURN @@ROWCOUNT
+		END
+GO
+print '' print '*** Creating sp_delete_product'
+GO
+
+CREATE PROCEDURE [dbo].[sp_delete_product]
+(
+	@ItemID		[int]
+)
+AS
+BEGIN
+	DELETE FROM [Product]
+		WHERE 	[ItemID] = @ItemID
+		END
+GO
+
+print'' print '**** Creating sp_update_product'
+GO
+
+CREATE PROCEDURE [dbo].[sp_update_product]
+(
+	@ItemID		[int],
+	@oldItemTypeID		[nvarchar](15),
+	@oldDescription	[nvarchar](250),
+	@oldOnHandQuantity		[int],
+	@oldName				[nvarchar](50),
+	@oldReOrderQuantity	[int],
+	@oldDateActive			[date],
+	@oldActive				[bit],
+	@oldCustomerPurchasable 	[bit],
+	@oldRecipeID		[int],
+	
+	@newItemTypeID		[nvarchar](15),
+	@newDescription	[nvarchar](250),
+	@newOnHandQuantity		[int],
+	@newName				[nvarchar](50),
+	@newReOrderQuantity	[int],
+	@newDateActive			[date],
+	@newActive				[bit],
+	@newCustomerPurchasable 	[bit],
+	@newRecipeID		[int]
+	
+)
+AS
+	BEGIN
+		UPDATE [Product]
+				SET [ItemTypeID] = @newItemTypeID,
+					[Description] = @newDescription,
+					[OnHandQuantity] = @newOnHandQuantity,
+					[Name] = @newName,
+					[ReOrderQuantity] = @newReOrderQuantity,
+					[DateActive] = @newDateActive,
+					[Active] = @newActive
+				WHERE [ItemID] = @ItemID
+					AND [ItemTypeID] = @oldItemTypeID
+					AND [Description] = @oldDescription
+					AND	[OnHandQuantity] = @oldOnHandQuantity
+					AND	[Name]	= @oldName
+					AND [ReOrderQuantity] = @oldReOrderQuantity
+					AND	[DateActive] = @oldDateActive
+					AND [Active] =	@oldActive
+			RETURN @@ROWCOUNT
+	END
+GO
+
+print '' print '*** Creating sp_select_item'
+GO
+
+CREATE PROCEDURE [dbo].[sp_select_item]
+(
+	@ItemID 	[int]
+)
+AS
+	BEGIN
+		SELECT [ItemTypeID], [Description], [OnHandQuantity], [Name], [ReOrderQuantity], [DateActive], [Active], [CustomerPurchasable], [RecipeID]
+		FROM	[Product]
+		WHERE 	[ItemID] = @ItemID
+	END
+GO
+
+print'' print '*** Creating procedure sp_select_all_items'
+GO
+CREATE PROCEDURE [dbo].[sp_select_all_items]			
+	AS
+		BEGIN
+		SELECT [ItemID], [ItemTypeID], [Description], [OnHandQuantity], [Name], [ReOrderQuantity], [DateActive], [Active], [CustomerPurchasable], [RecipeID]
+		FROM	[Product] 
+	END
+GO
+print'' print '*** Creating procedure sp_select_all_active_items'
+GO
+CREATE PROCEDURE [dbo].[sp_select_all_active_items]			
+	AS
+		BEGIN
+		SELECT [ItemID], [ItemTypeID], [Description], [OnHandQuantity], [Name], [ReOrderQuantity], [DateActive], [Active], [CustomerPurchasable], [RecipeID]
+		FROM	[Product] 
+		WHERE [Active] =1
+	END
+GO	
+	
+print'' print '*** Creating procedure sp_select_all_deactivated_items'
+GO
+CREATE PROCEDURE [dbo].[sp_select_all_deactivated_items]			
+	AS
+		BEGIN
+		SELECT [ItemID], [ItemTypeID], [Description], [OnHandQuantity], [Name], [ReOrderQuantity], [DateActive], [Active], [CustomerPurchasable], [RecipeID]
+		FROM	[Product] 
+		WHERE [Active] =0
+	END
+GO			
+			
+			
+print '' print '*** Inserting Product Records'
+GO
+
+INSERT INTO [dbo].[Product]
+		([ItemTypeID], [Description],[OnHandQuantity], [Name], [ReOrderQuantity], [DateActive], [Active], [CustomerPurchasable], [RecipeID])
+	VALUES
+		('Food', 'Its a food item', 4, 'Its a large taco', 1, '2019-02-01', 1, 1, 1051),
+		('Shoe', 'Its a shoe item', 4, 'Its a small light up shoe', 1, '2019-02-01', 0, 1, 1051),
+		('Hat', 'Its a hat item', 4, 'Its a large sombrero', 1, '2019-02-01', 1, 1, 1051),
+		('Food', 'Its a fodd item', 4, 'Its a large burrito', 1, '2019-02-01', 0,1, 1051),
+		('Hat', '', 4, 'Abe Lincoln Hat', 1, '2019-02-01', 1, 1, 1051),
+		('Food', 'Wonderful & delicious', 9, 'Hickory smoked salt', 15, '2019-02-01', 1, 1, 1051),
+		('Food', 'Its a food item', 4, 'Hamburger', 1, '2019-02-11', 1, 0, 1051),
+		('Food', 'I wonder if its a steak', 4, '8 oz. New York Strip', 1, '2019-02-01', 1, 0, 1051),
+		('Food', 'I am hungry right now', 25, '6 oz. Ahi Tuna Steak', 10, '2019-02-01', 1, 1, 1051),
+		('Food', 'Its a food item', 4, 'Its popcorn', 1, '2019-02-01', 1, 1, 1051)
+		
+GO
+
 
 
 	

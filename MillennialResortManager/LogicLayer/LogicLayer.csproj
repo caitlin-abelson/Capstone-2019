@@ -45,7 +45,11 @@
     <Compile Include="EmployeeManager.cs" />
     <Compile Include="IDepartmentManager.cs" />
     <Compile Include="IEmployeeManager.cs" />
+    <Compile Include="iItemTypeManager.cs" />
+    <Compile Include="iProductManager.cs" />
     <Compile Include="ISupplierManager.cs" />
+    <Compile Include="ItemTypeManagerMSSQL.cs" />
+    <Compile Include="ProductManagerMSSQL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SupplierManager.cs" />
     <Compile Include="UserManager.cs" />
