@@ -829,10 +829,252 @@ INSERT INTO [dbo].[Product]
 		
 GO
 
+/*
+Author: Matt LaMarche
+Created Date: 1/23/19
+
+This is where I have the Reservation code
+*/
+
+/*Created by Matt L on 01/23/19. Updated by X on Y*/
+print '' print '*** Creating Reservation Table'
+GO
+CREATE TABLE [dbo].[Reservation] (
+	[ReservationID]		[int] IDENTITY(100000, 1)	NOT NULL,
+	[MemberID]			[int] 						NOT NULL,
+	[NumberOfGuests]	[int]						NOT NULL,
+	[NumberOfPets]		[int]						NOT NULL,
+	[ArrivalDate]		[Date]						NOT NULL,
+	[DepartureDate]		[Date]						NOT NULL,
+	[Notes]				[nvarchar](250)						,
+	[Active]			[bit]						NOT NULL DEFAULT 1
+	CONSTRAINT [pk_ReservationID] PRIMARY KEY([ReservationID] ASC)
+
+)
+GO
 
 
-	
+/*Created by Matt L on 01/24/19. Updated by X on Y*/
+print '' print '*** Creating Member Table'
+GO
+CREATE TABLE [dbo].[Member] (
+	[MemberID]			[int] IDENTITY(100000, 1)			NOT NULL,
+	[FirstName]			[nvarchar](50)						NOT NULL,
+	[LastName]			[nvarchar](100)						NOT NULL,
+	[PhoneNumber]		[nvarchar](11)						NOT NULL,
+	[Email]				[nvarchar](250)						NOT NULL,
+	[PasswordHash]		[nvarchar](100)						NOT NULL 	DEFAULT
+		'9c9064c59f1ffa2e174ee754d2979be80dd30db552ec03e7e327e9b1a4bd594e',
+	[Active]			[bit]											DEFAULT 1
+	CONSTRAINT [pk_MemberID] PRIMARY KEY([MemberID] ASC)
+
+)
+GO	
 
 
+/*Created by Matt L on 01/23/19. Updated by X on Y*/
+print '' print '*** Inserting Reservation Records'
+GO
+
+INSERT INTO [dbo].[Reservation]
+		([MemberID],[NumberOfGuests],[NumberOfPets],[ArrivalDate],[DepartureDate],[Notes])
+	VALUES
+		(100000,1,0,'2008-11-11','2008-11-12','test')
+GO
+
+/*Created by Matt L on 01/24/19. Updated by X on Y*/
+print '' print '*** Inserting Reservation Records'
+GO
+
+INSERT INTO [dbo].[Member]
+		([FirstName],[LastName],[PhoneNumber],[Email])
+	VALUES
+		('Spongebob','Squarepants','1112223333','bobswag@kk.com'),
+		('Patrick','Star','2223334444','starboi@kk.com')
+GO
 
 
+/*Created by Matt L on 01/23/19. Updated by X on Y*/
+print '' print '*** Creating sp_create_reservation'
+GO
+
+CREATE PROCEDURE [dbo].[sp_create_reservation]
+	(
+		@MemberID 			[int],
+		@NumberOfGuests		[int],
+		@NumberOfPets		[int],
+		@ArrivalDate 		[Date],
+		@DepartureDate 		[Date],
+		@Notes 				[nvarchar](250)
+	)
+AS
+	BEGIN
+		INSERT INTO [Reservation]
+		([MemberID],[NumberOfGuests],[NumberOfPets],[ArrivalDate],[DepartureDate],[Notes])
+		VALUES 
+		(@MemberID, @NumberOfGuests, @NumberOfPets, @ArrivalDate, @DepartureDate, @Notes)
+	END
+GO
+
+/*Created by Matt L on 01/24/19. Updated by X on Y*/
+print '' print '*** Creating sp_retrieve_all_members'
+GO
+
+CREATE PROCEDURE [dbo].[sp_retrieve_all_members]
+AS
+	BEGIN
+		SELECT [MemberID],[FirstName],[LastName],[PhoneNumber],[Email],[Active]
+		FROM Member
+	END
+GO
+
+/*Created by Matt L on 01/26/19. Updated by X on Y*/
+print '' print '*** Creating sp_update_reservation'
+GO
+
+CREATE PROCEDURE [dbo].[sp_update_reservation]
+	(
+		@ReservationID 				[int],
+		@oldMemberID				[int],
+		@oldNumberOfGuests 			[int],
+		@oldNumberOfPets 			[int],
+		@oldArrivalDate 			[Date],
+		@oldDepartureDate 			[Date],
+		@oldNotes 					[nvarchar](250),
+		@oldActive 					[bit],
+		@newMemberID				[int],
+		@newNumberOfGuests 			[int],
+		@newNumberOfPets 			[int],
+		@newArrivalDate 			[Date],
+		@newDepartureDate 			[Date],
+		@newNotes 					[nvarchar](250),
+		@newActive					[bit]
+	)
+AS
+	BEGIN
+		UPDATE [Reservation]
+			SET [MemberID] = @newMemberID,
+				[NumberOfGuests] = @newNumberOfGuests,
+				[NumberOfPets] = @newNumberOfPets,
+				[ArrivalDate] = @newArrivalDate,
+				[DepartureDate] = @newDepartureDate,
+				[Notes] = @newNotes,
+				[Active] = @newActive
+			WHERE 	
+				[ReservationID] = @ReservationID
+			AND [MemberID] = @oldMemberID
+			AND	[NumberOfGuests] = @oldNumberOfGuests
+			AND	[NumberOfPets] = @oldNumberOfPets
+			AND	[ArrivalDate] = @oldArrivalDate
+			AND	[DepartureDate] = @oldDepartureDate
+			AND	[Notes] = @oldNotes
+			AND	[Active] = @oldActive
+		RETURN @@ROWCOUNT
+	END
+GO
+
+/*Created by Matt L on 01/26/19. Updated by X on Y*/
+print '' print '*** Creating sp_retrieve_all_reservations'
+GO
+
+CREATE PROCEDURE [dbo].[sp_retrieve_all_reservations]
+AS
+	BEGIN
+		SELECT [ReservationID],[MemberID],[NumberOfGuests],[NumberOfPets],[ArrivalDate],[DepartureDate],[Notes],[Active]
+		FROM Reservation
+	END
+GO
+
+
+/*Created by Matt L on 01/26/19. Updated by X on Y*/
+print '' print '*** Creating sp_retrieve_all_view_model_reservations'
+GO
+
+CREATE PROCEDURE [dbo].[sp_retrieve_all_view_model_reservations]
+AS
+	BEGIN
+		SELECT [Reservation].[ReservationID],
+		[Reservation].[MemberID],
+		[Reservation].[NumberOfGuests],
+		[Reservation].[NumberOfPets],
+		[Reservation].[ArrivalDate],
+		[Reservation].[DepartureDate],
+		[Reservation].[Notes],
+		[Reservation].[Active], 
+		[Member].[FirstName], 
+		[Member].[LastName], 
+		[Member].[PhoneNumber], 
+		[Member].[Email]
+		FROM Reservation INNER JOIN Member ON Reservation.MemberID = Member.MemberID
+
+	END
+GO
+
+/*Created by Matt L on 01/26/19. Updated by X on Y*/
+print '' print '*** Creating sp_select_reservation'
+GO
+
+CREATE PROCEDURE [dbo].[sp_select_reservation]
+(
+	@ReservationID 				[int]
+)
+AS
+	BEGIN
+		SELECT [ReservationID],[MemberID],[NumberOfGuests],[NumberOfPets],[ArrivalDate],[DepartureDate],[Notes],[Active]
+		FROM Reservation
+		WHERE [ReservationID] = @ReservationID
+
+	END
+GO
+
+/*Created by Matt L on 01/26/19. Updated by X on Y*/
+print '' print '*** Creating sp_deactivate_reservation'
+GO
+
+CREATE PROCEDURE [dbo].[sp_deactivate_reservation]
+	(
+		@ReservationID 				[int]
+	)
+AS
+	BEGIN
+		UPDATE [Reservation]
+			SET [Active] = 0
+			WHERE 	
+				[ReservationID] = @ReservationID
+		RETURN @@ROWCOUNT
+	END
+GO
+
+
+/*Created by Matt L on 01/26/19. Updated by X on Y*/
+print '' print '*** Creating sp_delete_reservation'
+GO
+
+CREATE PROCEDURE [dbo].[sp_delete_reservation]
+	(
+		@ReservationID 				[int]
+	)
+AS
+	BEGIN
+		DELETE 
+		FROM [Reservation]
+		WHERE  [ReservationID] = @ReservationID
+		RETURN @@ROWCOUNT
+	END
+GO
+
+/*Created by Matt L on 02/07/19. Updated by X on Y*/
+print '' print '*** Creating sp_select_member_by_id'
+GO
+
+CREATE PROCEDURE [dbo].[sp_select_member_by_id]
+(
+	@MemberID 				[int]
+)
+AS
+	BEGIN
+		SELECT [MemberID],[FirstName],[LastName],[PhoneNumber],[Email],[Active]
+		FROM Member
+		WHERE [MemberID] = @MemberID
+	END
+GO
