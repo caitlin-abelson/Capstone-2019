@@ -1,2 +1,6 @@
 Scrum Teams for the Capstone 2019
-Software Development Project
+Kirkwood College Software Development Project
+
+Resort Management System
+
+
