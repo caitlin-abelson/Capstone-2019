@@ -597,7 +597,12 @@ AS
 		FROM		[Suppliers]
 	END
 GO
+/*
+Author: Kevin Broskow
+Created Date: 1/28/19
 
+The Product table is used to keep track of all the products the resort uses.
+*/
 print '' print '*** Creating Product Table'
 GO
 
@@ -616,7 +621,12 @@ CREATE TABLE [dbo].[Product](
 	CONSTRAINT [pk_ItemID] PRIMARY KEY([ItemID] ASC)
 )
 GO
+/*
+Author: Kevin Broskow
+Created Date: 1/28/19
 
+The ItemType table is used to keep track of all the Item types for products that the resort uses.
+*/
 print '' print '*** Creating ItemType Table'
 GO
 CREATE TABLE [dbo].[ItemType] (
@@ -625,7 +635,12 @@ CREATE TABLE [dbo].[ItemType] (
 	CONSTRAINT [pk_ItemTypeID] PRIMARY KEY([ItemTypeID] ASC)
 )
 GO
+/*
+Author: Kevin Broskow
+Created Date: 1/28/19
 
+Used to at the forgeign key constraint on the Product table for ItemTypes
+*/
 print '' print '*** Adding Foreign Key ItemTypeID for Product'
 GO
 ALTER TABLE [dbo].[Product] WITH NOCHECK
@@ -634,7 +649,13 @@ ALTER TABLE [dbo].[Product] WITH NOCHECK
 	ON UPDATE CASCADE
 GO
 
+/*
+Author: Kevin Broskow
+Created Date: 1/28/19
 
+Used to insert generic ItemTypes for testing purposees. Client has not given a list of item types they wish
+to use.
+*/
 print '' print '*** Inserting ItemType Records'
 GO
 
@@ -649,7 +670,12 @@ INSERT INTO [dbo].[ItemType]
 		('Pet'),
 		('Beverage')
 GO
-		
+/*
+Author: Kevin Broskow
+Created Date: 1/28/19
+
+This stored procedure is used to retrieve all the item types that exist in the database
+*/		
 print '' print '*** Creating sp_retrieve_itemtypes' 
 GO
 
@@ -660,7 +686,12 @@ AS
 		FROM [ItemType]
 	END
 GO
+/*
+Author: Kevin Broskow
+Created Date: 1/28/19
 
+this stored procedure is used to insert new products into the database.
+*/
 print'' print '*** Creating sp_insert_product'
 GO
 
@@ -684,7 +715,12 @@ AS
 		SELECT SCOPE_IDENTITY()
 	END
 GO
+/*
+Author: Kevin Broskow
+Created Date: 2/5/19
 
+This stored procedure is used to deactivate a product that is currently active in the database.
+*/
 print '' print '*** Creating sp_deactivate_product'
 GO
 
@@ -702,7 +738,13 @@ BEGIN
 GO
 print '' print '*** Creating sp_delete_product'
 GO
+/*
+Author: Kevin Broskow
+Created Date: 1/28/19
 
+This stored procedure is used to delete a product that is currently deactivated in the database. 
+Can also be thought of as purging the product.
+*/
 CREATE PROCEDURE [dbo].[sp_delete_product]
 (
 	@ItemID		[int]
@@ -713,7 +755,12 @@ BEGIN
 		WHERE 	[ItemID] = @ItemID
 		END
 GO
+/*
+Author: Kevin Broskow
+Created Date: 1/28/19
 
+This stored procedure is used to update products that already exist in the database.
+*/
 print'' print '**** Creating sp_update_product'
 GO
 
@@ -762,7 +809,13 @@ AS
 			RETURN @@ROWCOUNT
 	END
 GO
+/*
+Author: Kevin Broskow
+Created Date: 1/28/19
 
+This stored procedure is used to select an item by it's ItemID. Used to return a single item from 
+the database
+*/
 print '' print '*** Creating sp_select_item'
 GO
 
@@ -777,7 +830,13 @@ AS
 		WHERE 	[ItemID] = @ItemID
 	END
 GO
+/*
+Author: Kevin Broskow
+Created Date: 1/28/19
 
+This stored procedure is used to return all of the items within the database.
+
+*/
 print'' print '*** Creating procedure sp_select_all_items'
 GO
 CREATE PROCEDURE [dbo].[sp_select_all_items]			
@@ -787,6 +846,12 @@ CREATE PROCEDURE [dbo].[sp_select_all_items]
 		FROM	[Product] 
 	END
 GO
+/*
+Author: Kevin Broskow
+Created Date: 1/28/19
+
+This procedure is used to retrieve all active items from the database.
+*/
 print'' print '*** Creating procedure sp_select_all_active_items'
 GO
 CREATE PROCEDURE [dbo].[sp_select_all_active_items]			
@@ -797,7 +862,12 @@ CREATE PROCEDURE [dbo].[sp_select_all_active_items]
 		WHERE [Active] =1
 	END
 GO	
-	
+/*
+Author: Kevin Broskow
+Created Date: 1/28/19
+
+This stored procedure is used to retrieve all deactivated items from the database.
+*/
 print'' print '*** Creating procedure sp_select_all_deactivated_items'
 GO
 CREATE PROCEDURE [dbo].[sp_select_all_deactivated_items]			
@@ -809,7 +879,13 @@ CREATE PROCEDURE [dbo].[sp_select_all_deactivated_items]
 	END
 GO			
 			
-			
+			/*
+Author: Kevin Broskow
+Created Date: 1/28/19
+
+This is used to insert data into the item table for purpose of testing. 
+The client has not supplied any items for the working database.
+*/
 print '' print '*** Inserting Product Records'
 GO
 
