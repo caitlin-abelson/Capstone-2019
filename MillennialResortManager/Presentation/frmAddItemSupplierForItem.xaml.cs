@@ -289,7 +289,7 @@ namespace Presentation
             }
             _itemSupplier.ItemID = _item.ProductID;
 
-            if (!(_supplier is null))
+            if (!(_supplier == null))
             {
                 _itemSupplier.SupplierID = _supplier.SupplierID;
             }       
@@ -436,7 +436,7 @@ namespace Presentation
             bool isChanged = false;
 
             if (_oldItemSupplier.LeadTimeDays != int.Parse(txtLeadTime.Text) || _oldItemSupplier.UnitPrice != decimal.Parse(txtUnitPrice.Text)
-                || (!(_supplier is null)) || _oldItemSupplier.PrimarySupplier != chkPrimarySupplier.IsChecked)
+                || (!(_supplier == null)) || _oldItemSupplier.PrimarySupplier != chkPrimarySupplier.IsChecked)
             {
                 isChanged = true;
             }
