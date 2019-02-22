@@ -47,12 +47,15 @@
     <Compile Include="EmployeeAccessorMock.cs" />
     <Compile Include="IDepartmentAccessor.cs" />
     <Compile Include="IEmployeeAccessor.cs" />
+    <Compile Include="IItemSupplierAccessor.cs" />
     <Compile Include="iItemTypeAccessor.cs" />
     <Compile Include="IMemberAccessor.cs" />
     <Compile Include="iProductAccessor.cs" />
     <Compile Include="IReservationAccessor.cs" />
     <Compile Include="IRoomAccessor.cs" />
     <Compile Include="ISupplyAccessor.cs" />
+    <Compile Include="ItemSupplierAccessor.cs" />
+    <Compile Include="ItemSupplierAccessorMock.cs" />
     <Compile Include="ItemTypeAccessorMSSQL.cs" />
     <Compile Include="MemberAccessorMSSQL.cs" />
     <Compile Include="MockRoomAccessor.cs" />

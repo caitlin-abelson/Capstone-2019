@@ -105,6 +105,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="frmAddItemSupplierForItem.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="frmManageItemSuppliers.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="frmRoomManagment.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -130,6 +138,8 @@
     <Compile Include="frmAddEditViewRoom.xaml.cs">
       <DependentUpon>frmAddEditViewRoom.xaml</DependentUpon>
     </Compile>
+    <Compile Include="frmAddItemSupplierForItem.xaml.cs" />
+    <Compile Include="frmManageItemSuppliers.xaml.cs" />
     <Compile Include="frmRoomManagment.xaml.cs">
       <DependentUpon>frmRoomManagment.xaml</DependentUpon>
     </Compile>

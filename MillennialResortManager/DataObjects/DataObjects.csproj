@@ -45,6 +45,7 @@
     <Compile Include="Department.cs" />
     <Compile Include="Employee.cs" />
     <Compile Include="Enumerations.cs" />
+    <Compile Include="ItemSupplier.cs" />
     <Compile Include="ItemType.cs" />
     <Compile Include="Member.cs" />
     <Compile Include="Product.cs" />
@@ -52,6 +53,7 @@
     <Compile Include="Reservation.cs" />
     <Compile Include="Room.cs" />
     <Compile Include="RoomType.cs" />
+    <Compile Include="Supplier.cs" />
     <Compile Include="Suppliers.cs" />
     <Compile Include="User.cs" />
     <Compile Include="VMBrowseReservation.cs" />

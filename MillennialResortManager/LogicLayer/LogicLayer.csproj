@@ -45,12 +45,14 @@
     <Compile Include="EmployeeManager.cs" />
     <Compile Include="IDepartmentManager.cs" />
     <Compile Include="IEmployeeManager.cs" />
+    <Compile Include="IItemSupplierManager.cs" />
     <Compile Include="iItemTypeManager.cs" />
     <Compile Include="IMemberManager.cs" />
     <Compile Include="iProductManager.cs" />
     <Compile Include="IReservationManager.cs" />
     <Compile Include="IRoomManager.cs" />
     <Compile Include="ISupplierManager.cs" />
+    <Compile Include="ItemSupplierManager.cs" />
     <Compile Include="ItemTypeManagerMSSQL.cs" />
     <Compile Include="MemberManagerMSSQL.cs" />
     <Compile Include="ProductManagerMSSQL.cs" />

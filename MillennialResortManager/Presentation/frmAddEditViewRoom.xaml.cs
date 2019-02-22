@@ -26,7 +26,7 @@ namespace Presentation
     {
         private RoomManager _roomMgr;
         bool inputsGood = false;
-        private RoomDetailMode _mode = RoomDetailMode.Add;
+        private EditMode _mode = EditMode.Add;
         Room rm;
         Building bd;
         RoomType rt;
@@ -44,7 +44,7 @@ namespace Presentation
             rm = new Room();
             bd = new Building();
             rt = new RoomType();
-            RoomDetailMode _mode = RoomDetailMode.Add;
+            EditMode _mode = EditMode.Add;
             InitializeComponent();
             
         }
@@ -57,7 +57,7 @@ namespace Presentation
         /// <param name="mode">If the window sould be in View mode or Edit Mode</param>
         /// <param name="roomID">The ID of the Room to View or Edit</param>
         /// </summary>
-        public frmAddEditViewRoom(RoomDetailMode mode, int roomID)
+        public frmAddEditViewRoom(EditMode mode, int roomID)
         {
             _roomMgr = new RoomManager();
             this._mode = mode;
@@ -73,7 +73,7 @@ namespace Presentation
         /// </summary>
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            if (_mode == RoomDetailMode.View)
+            if (_mode == EditMode.View)
             {
                 try
                 {
@@ -88,7 +88,7 @@ namespace Presentation
                     MessageBox.Show(ex.ToString());
                 }
             }
-            else if (_mode == RoomDetailMode.Edit)
+            else if (_mode == EditMode.Edit)
             {
                 try
                 {
@@ -122,12 +122,12 @@ namespace Presentation
         /// </summary>
         private void BtnAddEdit_Click(object sender, RoutedEventArgs e)
         {
-            if(_mode == RoomDetailMode.View)
+            if(_mode == EditMode.View)
             {
-                _mode = RoomDetailMode.Edit;
+                _mode = EditMode.Edit;
                 setupEditMode();
             }
-            else if(_mode == RoomDetailMode.Edit)
+            else if(_mode == EditMode.Edit)
             {
                 CheckInputs();
                 if(inputsGood)
