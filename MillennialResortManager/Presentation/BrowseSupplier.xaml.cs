@@ -21,8 +21,8 @@ namespace Presentation
     /// </summary>
     public partial class BrowseSupplier : Window
     {
-        private List<Suppliers> _suppliers;
-        private List<Suppliers> _currentSuppliers;
+        private List<Supplier> _suppliers;
+        private List<Supplier> _currentSuppliers;
         private SupplierManager _supplierManager = new SupplierManager();
         public BrowseSupplier()
         {
@@ -30,37 +30,91 @@ namespace Presentation
             populateSuppliers();
         }
 
+        /// <summary>
+        /// Author: James Heim
+        /// Created Date: 2019/01/31
+        /// 
+        /// View the selected record.
+        /// </summary>
+        public void ViewSelectedRecord()
+        {
+            var supplier = (Supplier)dgSuppliers.SelectedItem;
 
+            if (supplier != null)
+            {
+                var viewSupplierForm = new frmSupplier(supplier);
 
+                // Capture the result of the Dialog.
+                var result = viewSupplierForm.ShowDialog();
+
+                if (result == true)
+                {
+                    // If the form was edited, refresh the datagrid.
+                    try
+                    {
+                        _currentSuppliers = null;
+                        _suppliers = _supplierManager.RetrieveAllSuppliers();
+
+                        if (_currentSuppliers == null)
+                        {
+                            _currentSuppliers = _suppliers;
+                        }
+                        dgSuppliers.ItemsSource = _currentSuppliers;
+                    }
+                    catch (Exception ex)
+                    {
+
+                        MessageBox.Show(ex.Message); ;
+                    }
+
+                }
+            }
+        }
 
         /// <summary>
         /// Author: Caitlin Abelson
         /// Created Date: 1/23/19
         /// 
-        /// Brings up the data grid for the user to view.
+        /// Calls the procedure to view the selected record.
         /// </summary>
+        /// <remarks>
+        /// Author: Caitlin Abelson
+        /// Created Date: 1/23/19
+        /// Brings up the data grid for the user to view.
+        /// 
+        /// Modified: James Heim
+        /// Modified: 2019/01/31
+        /// Repurposed the button to view the details for the selected record
+        /// since the datagrid populates on form load.
+        /// </remarks>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void BtnReadSuppliers_Click(object sender, RoutedEventArgs e)
         {
-            populateSuppliers();
+            ViewSelectedRecord();
         }
 
         /// <summary>
         /// Author: Caitlin Abelson
         /// Created Date: 1/25/19
         /// 
-        /// This is a helper method that we can use to populate the data grid when the 
-        /// program starts.
+        /// This is a helper method that we can use to populate the data grid with
+        /// only active Suppliers.
+        /// 
+        /// <remarks>
+        /// Updated by James Heim
+        /// Updated 2019/02/21
+        /// Now only populates _currentSuppliers with active suppliers.
+        /// </remarks>
         /// </summary>
         private void populateSuppliers()
         {
             try
             {
-                _suppliers = _supplierManager.GetAllSuppliers();
+                _suppliers = _supplierManager.RetrieveAllSuppliers();
                 if (_currentSuppliers == null)
                 {
-                    _currentSuppliers = _suppliers;
+                    _currentSuppliers = _suppliers.FindAll(s => s.Active == true);
                 }
                 dgSuppliers.ItemsSource = _currentSuppliers;
 
@@ -76,11 +130,39 @@ namespace Presentation
         /// Author: Caitlin Abelson
         /// Created Date: 1/23/19
         /// 
-        /// The ReadSuppliers button allows for filtering by the company name and city location using lambda expressions.
+        /// Calls the method to filter the datagrid.
         /// </summary>
+        /// <remarks>
+        /// Author: Caitlin Abelson
+        /// Created Date: 1/23/19
+        /// The ReadSuppliers button allows for filtering by the company name and city location using lambda expressions.
+        /// 
+        /// Modified by James Heim
+        /// Modified 2019/01/31
+        /// Extracted the filter code to a method the button calls.
+        /// 
+        /// </remarks>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void BtnFilter_Click(object sender, RoutedEventArgs e)
+        {
+            FilterSuppliers();
+        }
+
+        /// <summary>
+        /// Author: Caitlin Abelson
+        /// Created Date: 1/23/19
+        /// 
+        /// The ReadSuppliers button allows for filtering by the company name and city location using lambda expressions.
+        /// 
+        /// <remarks>
+        /// Modified by James Heim
+        /// Modified 2019/01/31
+        /// Moved this code out of BtnFilter_Click into its own method.
+        /// 
+        /// </remarks>
+        /// </summary>
+        public void FilterSuppliers()
         {
             try
             {
@@ -173,6 +255,112 @@ namespace Presentation
             }
         }
 
+        private void BtnAddSuppliers_Click(object sender, RoutedEventArgs e)
+        {
+            var createSupplierForm = new frmSupplier();
+            var formResult = createSupplierForm.ShowDialog();
 
+            if (formResult == true)
+            {
+                // If the create form was saved, refresh the datagrid.
+                try
+                {
+                    _currentSuppliers = null;
+                    _suppliers = _supplierManager.RetrieveAllSuppliers();
+
+                    if (_currentSuppliers == null)
+                    {
+                        _currentSuppliers = _suppliers;
+                    }
+                    dgSuppliers.ItemsSource = _currentSuppliers;
+                }
+                catch (Exception ex)
+                {
+
+                    MessageBox.Show(ex.Message); ;
+                }
+            }
+        }
+
+        private void DgSuppliers_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            ViewSelectedRecord();
+        }
+
+        /// <summary>
+        /// Author James Heim
+        /// Created 2019/02/21
+        /// 
+        /// Handle logic for deleting a record.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void BtnDeleteSuppliers_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                var supplier = (Supplier)dgSuppliers.SelectedItem;
+
+                // Remove the supplier from the Grid to update faster.
+                _currentSuppliers.Remove(supplier);
+                dgSuppliers.Items.Refresh();
+
+
+                // Remove the supplier from the DB.
+                _supplierManager.DeleteSupplier(supplier);
+
+                // Refresh the Supplier List.
+                _currentSuppliers = null;
+                populateSuppliers();
+            }
+            catch (NullReferenceException)
+            {
+                // Nothing selected. Do nothing.
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message + "\n" + ex.InnerException);                
+            }
+        }
+
+        /// <summary>
+        /// Author: James Heim
+        /// Created 2019/02/21
+        /// 
+        /// Set the Supplier to Inactive.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void BtnDeactivateSuppliers_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                var supplier = (Supplier)dgSuppliers.SelectedItem;
+
+                // Remove the record from the list of Active Suppliers.
+                _currentSuppliers.Remove(supplier);
+                dgSuppliers.Items.Refresh();
+
+                // Set the record to inactive.
+                _supplierManager.DeactivateSupplier(supplier);
+
+                // Refresh the Supplier List.
+                _currentSuppliers = null;
+                populateSuppliers();
+            }
+            catch (NullReferenceException)
+            {
+                // Nothing selected. Do nothing.
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message + "\n" + ex.InnerException);
+            }
+        }
+
+        private void RbtnInactiveSupplier_Checked(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

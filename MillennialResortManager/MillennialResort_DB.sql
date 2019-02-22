@@ -525,78 +525,6 @@ AS
 	END
 GO
 
-
-
-
-
-/*
-Author: Caitlin Abelson
-Created Date: 1/23/19
-
-A table that holds all of the companies that supply goods for the rerort.
-*/
-print '' print '*** Creating Suppliers Table'
-GO
-CREATE TABLE [dbo].[Suppliers] (
-	[SupplierID]		[int] IDENTITY(100000, 1) 	  NOT NULL,
-	[Name]				[nvarchar](50)			  	  NOT NULL,
-	[PhoneNumber] 		[nvarchar](11)				  NOT NULL,
-	[SupplierEmail]		[nvarchar](250)				  NOT NULL,
-	[DateAdded]			[date]						  NOT NULL DEFAULT
-		'1900-01-01',
-	[Address]			[nvarchar](100)			  	  NOT NULL,
-	[City]				[nvarchar](100)			  	  NOT NULL,
-	[StateCode]			[nvarchar](2)			  	  NOT NULL,
-	[Country]			[nvarchar](25)				  NOT NULL,
-	[ZipCode]			[nvarchar](6)			  	  NOT NULL,
-	[ContactFirstName]	[nvarchar](50)			  	  NOT NULL,
-	[ContactLastName]	[nvarchar](100)				  NOT NULL,
-	[Description]  		[nvarchar](1000)			  NULL,
-	[Active] 			[bit]						  NOT NULL DEFAULT 1,
-	
-	CONSTRAINT [pk_SupplierID] PRIMARY KEY([SupplierID] ASC),
-	CONSTRAINT [ak_SupplierEmail] UNIQUE([SupplierEmail] ASC)
-)
-GO
-
-
-/*
-Author: Caitlin Abelson
-Created Date: 1/23/19
-
-These are the records for the suppliers that provide goods for the resort.
-*/
-print '' print '*** Inserting Supplier Test Records'
-GO
-
-INSERT INTO [dbo].[Suppliers]
-		([Name], [ContactFirstName], [ContactLastName], [PhoneNumber], [SupplierEmail], [DateAdded], [Address], [City], [StateCode], [Country], [ZipCode], [Description])
-	VALUES
-		('Dunder Soaps', 'Jim', 'Halpert', '1319551111', 'dunder@soaps.com', '2002-03-14', '1234 Washington St.', 'Cedar Rapids', 'IA', 'USA', '52242', 'All of the tiny soaps for the hotel rooms are supplied by them.'),
-		('Bob Vance Fruit', 'Bob', 'Vance', '1319551112', 'Bob-Vance@fruit.com', '1998-08-27', '1234 Washington St.', 'Iowa City', 'IA', 'USA', '52242', 'ALl of our fruits for the kitchen and catering come from them.'),
-		('Plates and Silverware', 'Carly', 'Jones', '1319551116', 'plates@silverware.com', '2000-07-02', '1234 Washington St.', 'Cedar Rapids', 'IA', 'USA', '52242', 'The finest plates and silverware you will ever find.'),
-		('Pets Plus', 'Kevin', 'Bentley', '1319551117', 'pets@plus.com', '1997-05-30', '1234 Washington St.', 'Des Moines', 'IA', 'USA', '52242', 'They give us the pet supplies so we can feed them and make them look nice.'),
-		('Vending Machines', 'Harry', 'Plarth', '1319551118', 'vending@machines.com', '2016-12-20', '1234 Washington St.', 'North Liberty', 'IA', 'USA', '52242', 'They put the snack in the vending machines.'),
-		('Alcohol Whole Supply', 'Frank', 'Welsh', '1319551119', 'alcohol@supply.com', '2018-01-19', '1234 Washington St.', 'Cedar Rapids', 'IA', 'USA', '52242', 'They supply us with all of our alcohol for the bars and the kitchen.')
-
-GO
-
-/*
-Author: Caitlin Abelson
-Created Date: 1/23/19
-
-This stored procedure selects all of the fields from the suppliers table.
-*/
-print '' print '*** Creating sp_select_suppliers'
-GO
-CREATE PROCEDURE [dbo].[sp_select_suppliers]
-
-AS
-	BEGIN
-		SELECT 	    [Name], [ContactFirstName], [ContactLastName],	[PhoneNumber], [SupplierEmail], [DateAdded], [Address], [City], [StateCode], [Country], [ZipCode], [Description], [Active]
-		FROM		[Suppliers]
-	END
-GO
 /*
 Author: Kevin Broskow
 Created Date: 1/28/19
@@ -1345,6 +1273,38 @@ AS
 		ORDER BY 	[BuildingID], [RoomNumber]
 	END
 GO
+/*
+ * Author: Caitlin Abelson
+ * Created: 2019/01/23
+ * 
+ * Modified by James Heim
+ * 2019/01/30
+ * Combined our almost identical tables and
+ * modified slightly based on the updated Data Dictionary.
+ */
+print '' print '*** Creating Supplier Table'
+GO
+CREATE TABLE [dbo].[Supplier](
+	[SupplierID]		[int] 			IDENTITY(100000, 1)	NOT NULL,
+	[Name]				[nvarchar](50)						NOT NULL,
+	[Address]			[nvarchar](25)						NOT NULL,
+	[City]				[nvarchar](50)						NOT NULL,
+	[State]				[nchar](2)							NOT NULL,
+	[PostalCode]		[nvarchar](12)						NOT NULL,
+	[Country]			[nvarchar](25)						NOT NULL,
+	[PhoneNumber]		[nvarchar](11)						NOT NULL,
+	[Email]				[nvarchar](50)						NOT NULL,
+	[ContactFirstName]	[nvarchar](50)						NOT NULL,
+	[ContactLastName]	[nvarchar](100)						NOT NULL,
+	[DateAdded]			[DateTime]							NOT NULL DEFAULT GetDate(),
+	[Description]		[nvarchar](250),
+	[Active]			[bit]								NOT NULL DEFAULT 1
+	
+	CONSTRAINT [pk_SupplierID] PRIMARY KEY([SupplierID] ASC),
+	CONSTRAINT [ak_SupplierEmail] UNIQUE([Email] ASC)
+)
+GO
+
 
 print '' print '*** Creating ItemSupplier Table'
 --Eric Bostwick 
@@ -1371,7 +1331,7 @@ print '' print '*** Adding Foreign Key for ItemSupplier'
 
 ALTER TABLE [dbo].[ItemSupplier] WITH NOCHECK
 	ADD CONSTRAINT [fk_ItemID] FOREIGN KEY ([ItemID])
-	REFERENCES [dbo].[Item]([ItemID])
+	REFERENCES [dbo].[Product]([ItemID])
 	ON UPDATE CASCADE
 GO
 
@@ -1506,12 +1466,62 @@ AS
 					[s].[Name], [s].[ContactFirstName], [s].[ContactLastName], [s].[PhoneNumber], 
 					[s].[Email], [s].[DateAdded], [s].[Address], [s].[City], [s].[State], 
 					[s].[Country], [s].[PostalCode], [s].[Description],[s].[Active] AS SupplierActive,
-					[i].[ItemTypeID], [i].[Description] AS [ItemDescripton], [i].[OnHandQty], [i].[Name], 
+					[i].[ItemTypeID], [i].[Description] AS [ItemDescripton], [i].[Name], 
 					[i].[DateActive], [i].[Active] AS [SupplierActive]
 		FROM		[ItemSupplier] [isup] 
-					JOIN [Item] [i] ON [i].[ItemID] = [isup].[ItemID] 
+					JOIN [Product] [i] ON [i].[ItemID] = [isup].[ItemID] 
 					JOIN [Supplier] [s] ON [s].[SupplierID] = [isup].[SupplierID]
 		WHERE		[isup].[itemID] = @ItemID
+
+	END
+GO
+
+/*
+ * Author: Caitlin Abelson
+ * Created: 2019/01/23
+ */
+print '' print '*** Creating sp_insert_supplier ***'
+GO
+CREATE PROCEDURE [dbo].[sp_insert_supplier]
+	(
+		@Name 				nvarchar(50),
+		@Address 			nvarchar(25),
+		@City				nvarchar(50),
+		@State				nchar(2),
+		@PostalCode				nvarchar(12),
+		@Country			nvarchar(25),
+		@PhoneNumber		nvarchar(11),
+		@Email				nvarchar(50),
+		@ContactFirstName	nvarchar(50),
+		@ContactLastName	nvarchar(100),
+		@Description		nvarchar(250)
+	)
+AS
+	BEGIN
+		INSERT INTO [dbo].[Supplier]
+		([Name], [Address], [City], [State], [PostalCode], [Country], [PhoneNumber], [Email], [ContactFirstName], [ContactLastName], [Description])
+		VALUES
+			(@Name, @Address, @City, @State, @PostalCode, @Country, @PhoneNumber, @Email, @ContactFirstName, @ContactLastName, @Description)
+	END
+GO
+
+/*
+ * Author: Caitlin Abelson
+ * Created: 2019/01/23
+ * Retrieve all suppliers
+ * 
+ * Modified by James Heim
+ * Modified on 2019/01/31
+ * Added SupplierID to the select statement.
+ */
+print '' print '*** Creating sp_retrieve_suppliers'
+GO
+CREATE PROCEDURE [dbo].[sp_retrieve_suppliers]
+
+AS
+	BEGIN
+		SELECT 	    [SupplierID], [Name], [ContactFirstName], [ContactLastName],	[PhoneNumber], [Email], [DateAdded], [Address], [City], [State], [Country], [PostalCode], [Description], [Active]
+		FROM		[Supplier]
 	END
 GO
 
@@ -1534,10 +1544,10 @@ AS
 					[s].[Name], [s].[ContactFirstName], [s].[ContactLastName], [s].[PhoneNumber], 
 					[s].[Email], [s].[DateAdded], [s].[Address], [s].[City], [s].[State], [s].[Country], 
 					[s].[PostalCode], [s].[Description],[s].[Active] AS SupplierActive,
-					[i].[ItemTypeID], [i].[Description] AS [ItemDescripton], [i].[OnHandQty], [i].[Name], 
+					[i].[ItemTypeID], [i].[Description] AS [ItemDescripton], [i].[OnHandQuantity], [i].[Name], 
 					[i].[DateActive], [i].[Active] AS [ItemActive]
 		FROM		[ItemSupplier] [isup] 
-					JOIN [Item] [i] ON [i].[ItemID] = [isup].[ItemID] 
+					JOIN [Product] [i] ON [i].[ItemID] = [isup].[ItemID] 
 					JOIN [Supplier] [s] ON [s].[SupplierID] = [isup].[SupplierID]
 		WHERE		[isup].[ItemID] = @ItemID AND [isup].[SupplierID] = @SupplierID
 	END
@@ -1580,10 +1590,149 @@ AS
 		UPDATE		[ItemSupplier]
 		SET [Active] = 0			
 		WHERE		[ItemID] = @ItemID AND [SupplierID] = @SupplierID
+END
+GO
+ /* Author: James Heim
+ * Created: 2019/01/31
+ 
+ * Update a supplier by providing the new data and ensure
+ * the old data hasn't changed since it was accessed.
+ */
+ 
+print '' print '*** Creating sp_update_supplier'
+GO
+CREATE PROCEDURE [dbo].[sp_update_supplier]
+	(
+		@SupplierID			int,
+		
+		@OldName 				nvarchar(50),
+		@OldAddress 			nvarchar(25),
+		@OldCity				nvarchar(50),
+		@OldState				nchar(2),
+		@OldPostalCode			nvarchar(12),
+		@OldCountry				nvarchar(25),
+		@OldPhoneNumber			nvarchar(11),
+		@OldEmail				nvarchar(50),
+		@OldContactFirstName	nvarchar(50),
+		@OldContactLastName		nvarchar(100),
+		@OldDescription			nvarchar(250),
+		@OldActive				bit,
+		
+		@NewName 				nvarchar(50),
+		@NewAddress 			nvarchar(25),
+		@NewCity				nvarchar(50),
+		@NewState				nchar(2),
+		@NewPostalCode			nvarchar(12),
+		@NewCountry				nvarchar(25),
+		@NewPhoneNumber			nvarchar(11),
+		@NewEmail				nvarchar(50),
+		@NewContactFirstName	nvarchar(50),
+		@NewContactLastName		nvarchar(100),
+		@NewDescription			nvarchar(250),
+		@NewActive				bit
+	)
+AS
+	BEGIN
+		UPDATE [Supplier]
+			SET [Name] = @NewName,
+				[Address] = @NewAddress,
+				[City] = @NewCity,
+				[State] = @NewState,
+				[PostalCode] = @NewPostalCode,
+				[Country] = @NewCountry,
+				[PhoneNumber] = @NewPhoneNumber,
+				[Email] = @NewEmail,
+				[ContactFirstName] = @NewContactFirstName,
+				[ContactLastName] = @NewContactLastName,
+				[Description] = @NewDescription,
+				[Active] = @NewActive
+			WHERE [SupplierID] = @SupplierID
+				AND [Name] = @OldName
+				AND [Address] = @OldAddress
+				AND [City] = @OldCity
+				AND [State] = @OldState
+				AND [PostalCode] = @OldPostalCode
+				AND [Country] = @OldCountry
+				AND [PhoneNumber] = @OldPhoneNumber
+				AND [Email] = @OldEmail
+				AND [ContactFirstName] = @OldContactFirstName
+				AND [ContactLastName] = @OldContactLastName
+				AND [Description] = @OldDescription
+				AND [Active] = @OldActive
+				
+		RETURN @@ROWCOUNT
+	END
+GO
+	
+/*
+ * Author: Caitlin Abelson
+ * Created: 2019/01/23
+ */
+print '' print '*** Inserting Supplier Test Records'
+GO
+
+INSERT INTO [dbo].[Supplier]
+		([Name], [ContactFirstName], [ContactLastName], [PhoneNumber], [Email], [DateAdded], [Address], [City], [State], [Country], [PostalCode], [Description])
+	VALUES
+		('Dunder Soaps', 'Jim', 'Halpert', '1319551111', 'dunder@soaps.com', '2002-03-14', '1234 Washington St.', 'Cedar Rapids', 'IA', 'USA', '52242', 'All of the tiny soaps for the hotel rooms are supplied by them.'),
+		('Bob Vance Fruit', 'Bob', 'Vance', '1319551112', 'Bob-Vance@fruit.com', '1998-08-27', '1234 Washington St.', 'Iowa City', 'IA', 'USA', '52242', 'ALl of our fruits for the kitchen and catering come from them.'),
+		('Plates and Silverware', 'Carly', 'Jones', '1319551116', 'plates@silverware.com', '2000-07-02', '1234 Washington St.', 'Cedar Rapids', 'IA', 'USA', '52242', 'The finest plates and silverware you will ever find.'),
+		('Pets Plus', 'Kevin', 'Bentley', '1319551117', 'pets@plus.com', '1997-05-30', '1234 Washington St.', 'Des Moines', 'IA', 'USA', '52242', 'They give us the pet supplies so we can feed them and make them look nice.'),
+		('Vending Machines', 'Harry', 'Plarth', '1319551118', 'vending@machines.com', '2016-12-20', '1234 Washington St.', 'North Liberty', 'IA', 'USA', '52242', 'They put the snack in the vending machines.'),
+		('Alcohol Whole Supply', 'Frank', 'Welsh', '1319551119', 'alcohol@supply.com', '2018-01-19', '1234 Washington St.', 'Cedar Rapids', 'IA', 'USA', '52242', 'They supply us with all of our alcohol for the bars and the kitchen.')
+
+GO
+
+
+
+/*
+ * Author: James Heim
+ * Created 2019/02/15
+ * 
+ * Retrieve Supplier by ID
+ */
+ print '' print '*** Creating sp_retrieve_supplier_by_id'
+ GO
+ CREATE PROCEDURE [dbo].[sp_retrieve_supplier_by_id]
+	(
+		@SupplierID int
+	)
+AS
+	BEGIN
+		SELECT [SupplierID], [Name], [ContactFirstName], [ContactLastName],
+				[PhoneNumber], [Email], [DateAdded], [Address], [City], [State],
+				[Country], [PostalCode], [Description], [Active]
+		FROM 	[Supplier]
+		WHERE 	[SupplierID] = @SupplierID
 	END
 GO
 
 /*
+ * Author: James Heim
+ * Created: 2019/02/15
+ 
+ * Deactivate a Supplier if it is active.
+ */
+print '' print '*** Creating sp_deactivate_supplier'
+GO
+CREATE PROCEDURE [dbo].[sp_deactivate_supplier]
+	(
+		@SupplierID			int
+	)
+AS
+	BEGIN
+		UPDATE [Supplier]
+			SET [Active] = 0
+			WHERE [SupplierID] = @SupplierID
+				AND [Active] = 1
+				
+		RETURN @@ROWCOUNT
+
+	END
+GO
+
+/*
+
  * Author: Eric Bostwick
  * Created: 2/7/2019
  * Description: Returns all the suppliers not setup in the itemsupplier table for that item
@@ -1615,5 +1764,27 @@ AS
 
 		FROM		[Supplier] [s] LEFT OUTER JOIN [ItemSupplier] [isup] ON [isup].[SupplierID] = [s].[SupplierID]					
 		WHERE		[isup].[Itemid] != @ItemID OR [isup].[Itemid] is Null
+END
+GO
+ /* 
+ * Author: James Heim
+ * Created 2019/02/15
+ * Permanently delete a Supplier.
+ */
+print '' print '*** Creating sp_delete_supplier'
+GO
+CREATE PROCEDURE sp_delete_supplier
+	(
+		@SupplierID				[nvarchar](17)
+	)
+AS
+	BEGIN
+		DELETE	
+		FROM	[Supplier]
+		WHERE	[SupplierID] = @SupplierID
+		  AND 	[Active] = 0
+		  
+		RETURN @@ROWCOUNT
+
 	END
 GO
