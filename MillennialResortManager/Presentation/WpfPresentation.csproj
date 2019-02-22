@@ -109,6 +109,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="frmSupplier.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="frmUpdatePassword.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -133,6 +137,7 @@
     <Compile Include="frmRoomManagment.xaml.cs">
       <DependentUpon>frmRoomManagment.xaml</DependentUpon>
     </Compile>
+    <Compile Include="frmSupplier.xaml.cs" />
     <Compile Include="frmUpdatePassword.xaml.cs">
       <DependentUpon>frmUpdatePassword.xaml</DependentUpon>
     </Compile>

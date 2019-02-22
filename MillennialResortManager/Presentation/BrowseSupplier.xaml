@@ -4,11 +4,11 @@
         Title="BrowseSupplier" Height="700" Width="1020">
     <Grid>
         <Grid.RowDefinitions>
-            
+
             <RowDefinition Height="55"></RowDefinition>
             <RowDefinition></RowDefinition>
             <RowDefinition Height="55"></RowDefinition>
-            
+
         </Grid.RowDefinitions>
 
 
@@ -36,7 +36,7 @@
                     </Grid.ColumnDefinitions>
 
                     <Label Grid.Column="0" Content="Inactive" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-                    <RadioButton x:Name="rbtnInactiveSupplier" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="5"/>
+                    <RadioButton x:Name="rbtnInactiveSupplier" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="5" Checked="RbtnInactiveSupplier_Checked"/>
                     <Label Grid.Column="1" Content="Active" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" />
                     <RadioButton x:Name="rbtnActiveSupplier" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="5" IsChecked="True"/>
 
@@ -46,20 +46,29 @@
                     <Label Grid.Column="4" Content="Supplier Name: " Padding="5" HorizontalAlignment="Right" VerticalContentAlignment="Center" />
                     <TextBox x:Name="txtSearchSupplierName" Grid.Column="5" HorizontalContentAlignment="Center" Text="" Margin="5"/>
                     <Button x:Name="btnFilter" Grid.Column="6" Margin="5" Content="Filter" Click="BtnFilter_Click" />
-                   
+
                     <!-- Caitlin Abelson 1/23/19
                             The Clear button was not in the user interface that was drawn up in the design phase. There needs
                             needs to be a clear button in order to reset the data grid back to it's original state from the 
                             filtering that a user does.-->
                     <Button x:Name="btnClearSuppliers"  Grid.Column="7" Content="Clear" Margin="5" Click="BtnClearSuppliers_Click" />
-                
+
                 </Grid>
 
-                
+
             </Grid>
 
         </Grid>
-        <DataGrid Grid.Row="1" x:Name="dgSuppliers" VerticalGridLinesBrush="{x:Null}" SelectionMode="Single" AlternatingRowBackground="#FF3DD8CA" RowBackground="LightGoldenrodYellow"  IsReadOnly="True" AutoGenerateColumns="True" AutoGeneratingColumn="dgSuppliers_AutoGeneratingColumn"/>
+        <!-- Modified 2019/01/31 by James Heim
+        Disable AutoGenerating Columns to remove the SupplierID from the list. -->
+        <DataGrid Grid.Row="1" x:Name="dgSuppliers" VerticalGridLinesBrush="{x:Null}" SelectionMode="Single" IsReadOnly="True" AutoGenerateColumns="False" ItemsSource="{Binding}" MouseDoubleClick="DgSuppliers_MouseDoubleClick">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Supplier Name" Binding="{Binding Name}"/>
+                <DataGridTextColumn Header="City" Binding="{Binding City}"/>
+                <DataGridTextColumn Header="Country" Binding="{Binding Country}"/>
+                <DataGridTextColumn Header="Description" Binding="{Binding Description}"/>
+            </DataGrid.Columns>
+        </DataGrid>
         <Grid Grid.Row="2">
 
             <Grid>
@@ -79,10 +88,10 @@
 
                     </Grid.ColumnDefinitions>
                     <Button x:Name="btnCancelBrowseSupplier" Grid.Column="0" Margin="5" Content="Cancel"/>
-                    <Button x:Name="btnAddSuppliers" Grid.Column="2" Content="Add Supplier" Margin="5"></Button>
-                    <Button x:Name="btnReadSuppliers" Grid.Column="3" Margin="5" Content="Browse" Click="BtnReadSuppliers_Click"/>
-                    <Button x:Name="btnDeleteSuppliers"  Grid.Column="4" Content="Delete" Margin="5" Click="BtnClearSuppliers_Click" />
-
+                    <Button x:Name="btnAddSuppliers" Grid.Column="2" Content="Add Supplier" Margin="5" Click="BtnAddSuppliers_Click"></Button>
+                    <Button x:Name="btnReadSuppliers" Grid.Column="3" Margin="5" Content="View" Click="BtnReadSuppliers_Click"/>
+                    <Button x:Name="btnDeactivateSuppliers" Grid.Column="4" Content="Deactivate" Margin="5" Click="BtnDeactivateSuppliers_Click" />
+                    <Button x:Name="btnDeleteSuppliers" IsEnabled="False" Visibility="Hidden" Grid.Column="4" Content="Delete" Margin="5" Click="BtnDeleteSuppliers_Click" />
                 </Grid>
 
 
