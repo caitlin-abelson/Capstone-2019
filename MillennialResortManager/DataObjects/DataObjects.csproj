@@ -45,6 +45,8 @@
     <Compile Include="Department.cs" />
     <Compile Include="Employee.cs" />
     <Compile Include="Enumerations.cs" />
+    <Compile Include="Event.cs" />
+    <Compile Include="EventType.cs" />
     <Compile Include="InternalOrder.cs" />
     <Compile Include="InternalOrderLine.cs" />
     <Compile Include="Item.cs" />

@@ -1970,3 +1970,327 @@ AS
 
 	END
 GO
+
+/* **************************************************** */
+/*CREATE EVENT CODE STARTS HERE*/
+/*@AUTHOR: Phillip Hansen
+  @CREATED: 1/23/2019
+  */
+/* **************************************************** */
+
+/* EventType lookup table*/
+print '' print '*** Creating EventType Table'
+GO
+CREATE TABLE [dbo].[EventType] (
+	[EventTypeID]		[nvarchar](15)						NOT NULL,
+	[Description]		[nvarchar](1000)						
+	
+	CONSTRAINT [pk_EventTypeID]	PRIMARY KEY([EventTypeID] ASC)
+)
+GO
+
+/* **************************************************** */
+/* May need to be deleted for Gunardi's code */
+/* Done by Gunardi(?)*/
+print '' print '*** Creating Sponsor Table'
+GO
+CREATE TABLE [dbo].[Sponsor] (
+	[SponsorID]			[int]								NOT NULL,
+	[SponsorName]		[nvarchar](50)						NOT NULL,
+	[Address]			[nvarchar](25)						NOT NULL,
+	[City]				[nvarchar](50)						NOT NULL,
+	[State]				[nvarchar](2)						NOT NULL,
+	[PhoneNumber]		[nvarchar](11)						NOT NULL,
+	[Email]				[nvarchar](50)						NOT NULL,
+	[ContactFirstName]	[nvarchar](50)						NOT NULL,
+	[ContactLastName]	[nvarchar](100)						NOT NULL,
+	[DateAdded]			[Date]								NOT NULL,
+	[Active]			[bit]								NOT NULL DEFAULT 1
+	
+	CONSTRAINT [pk_SponsorID] PRIMARY KEY([SponsorID] ASC)
+)
+GO
+
+/*Done by Gunardi(?)*/
+print '' print '*** Inserting Sponsor Record'
+GO
+
+INSERT INTO [dbo].[Sponsor]
+        ([SponsorID], [SponsorName], [Address], [City], [State], [PhoneNumber], [Email], 
+			[ContactFirstName], [ContactLastName], [DateAdded], [Active])
+    VALUES
+        (1001, 'Best Resorts', '123 Seuss Street', 'Shell City', 'IA', '111-1111111', 'bestresorts@email.com', 'John', 'Doe', '2017-06-21', 1),
+		(0, ' ', 'NA', 'NA', 'IA', 'NA', 'NA', 'NA', 'NA', '2010-01-01', 0)
+
+/* Inserting Event Types by Craig Barkley */
+print '' print '*** Inserting Event Type Records'
+GO
+
+INSERT INTO [dbo].[EventType]
+        ([EventTypeID], [Description])
+    VALUES
+        ('Concert Event', 'A concert is a live music performance in front of an audience.'),
+        ('Beach Party', 'There are plenty of opportunities to have a great time at the beach.'),
+        ('Wedding', 'Romantic Florals typically make up a romantic wedding also those who never been one to take the normal route?')
+GO
+/* **************************************************** */
+
+/*@Author Phillip Hansen	
+* @Created 1/23/2019
+*/
+print '' print '*** Creating Event Table'
+GO
+CREATE TABLE [dbo].[Event] (
+	[EventID]				[int] IDENTITY(100000, 1) 	  				NOT NULL,
+	[EventTitle]			[nvarchar](50)								NOT NULL,
+	[EmployeeID]			[int]   									NOT NULL,
+	[EventTypeID]			[nvarchar](15)								NOT NULL,
+	[Description]			[nvarchar](1000)									,
+	[EventStartDate]		[date]										NOT NULL,
+	[EventEndDate]			[date]										NOT NULL,
+	[KidsAllowed]			[bit]										NOT NULL DEFAULT 0,
+	[NumGuests]				[int]										NOT NULL,
+	[Location]				[nvarchar](50)								NOT NULL,
+	[Sponsored]				[bit]										NOT NULL DEFAULT 0,
+	[SponsorID]				[int]										NOT NULL DEFAULT 0,
+	[Approved]				[bit]										NOT NULL DEFAULT 0
+	
+	CONSTRAINT [pk_EventID]	PRIMARY KEY([EventID] ASC)
+)
+GO
+
+/*Done by Gunardi(?)*/
+print '' print '*** Adding Foreign Key for Event [EventType]'
+
+ALTER TABLE [dbo].[Event] WITH NOCHECK
+	ADD CONSTRAINT [fk_EventType] FOREIGN KEY ([EventTypeID])
+	REFERENCES [dbo].[EventType]([EventTypeID])
+	ON UPDATE CASCADE
+GO
+
+/*@Author Phillip Hansen	
+* @Created 1/23/2019
+*/
+print '' print '*** Adding Foreign Key for Event [Employee]'
+
+ALTER TABLE [dbo].[Event] WITH NOCHECK
+	ADD CONSTRAINT [fk_EventEmployeeID] FOREIGN KEY ([EmployeeID])
+	REFERENCES [dbo].[Employee]([EmployeeID])
+	ON UPDATE CASCADE
+GO
+
+/*@Author Phillip Hansen	
+* @Created 1/23/2019
+*/
+print '' print '*** Adding Foreign Key for Event [SponsorID]'
+
+ALTER TABLE [dbo].[Event] WITH NOCHECK
+	ADD CONSTRAINT [fk_EventSponsorID] FOREIGN KEY ([SponsorID])
+	REFERENCES [dbo].[Sponsor]([SponsorID])
+	ON UPDATE CASCADE
+GO
+
+/*@Author Phillip Hansen	
+* @Created 1/23/2019
+*/
+print '' print '*** Inserting Event Records'
+GO
+
+INSERT INTO [dbo].[Event]
+        ([EventTitle],[EmployeeID],[EventTypeID],[Description],[EventStartDate],
+				[EventEndDate],[KidsAllowed],[NumGuests], [Location], [Sponsored], [SponsorID], [Approved])
+    VALUES
+        ('Opening Event', 100001, 'Concert Event', 'An opening event with live music.', '2019-05-13',
+			'2019-05-20', 1, 100, 'Everywhere', 1, 1001, 1)
+GO
+
+/*@Author Phillip Hansen		*/
+print '' print '***Creating sp_retrieve_all_events'
+GO
+CREATE PROCEDURE sp_retrieve_all_events
+AS
+	BEGIN
+		SELECT 	[EventID],[EventTitle],[Event].[EmployeeID],[Employee].[FirstName],[EventTypeID] AS [EventType],[Description],[EventStartDate],
+				[EventEndDate],[KidsAllowed],[NumGuests],[Location],[Sponsored],[Event].[SponsorID],[Sponsor].[SponsorName], [Approved]
+		FROM	[dbo].[Employee] INNER JOIN [dbo].[Event]
+			ON		[Employee].[EmployeeID] = [Event].[EmployeeID]
+				INNER JOIN [dbo].[Sponsor]
+			ON		[Event].[SponsorID] = [Sponsor].[SponsorID]
+	END
+GO
+
+/*@Author Phillip Hansen	
+* @Created 1/23/2019
+*/
+print '' print '***Creating sp_retrieve_all_event_types'
+GO
+CREATE PROCEDURE sp_retrieve_all_event_types
+AS
+	BEGIN
+		SELECT [EventTypeID]
+		FROM	[dbo].[EventType]
+	END
+GO
+
+/*@Author Phillip Hansen	
+* @Created 1/23/2019
+*/
+print '' print '*** Creating sp_insert_event'
+
+GO
+CREATE PROCEDURE sp_insert_event
+	(
+		@EventTitle					[nvarchar](50),
+		@EmployeeID			 		[int],
+		@EventTypeID				[nvarchar](15),
+		@Description				[nvarchar](1000),
+		@EventStartDate				[date],
+		@EventEndDate				[date],
+		@KidsAllowed				[bit],
+		@NumGuests					[int],
+		@Location					[nvarchar](50),
+		@Sponsored					[bit],
+		@Approved					[bit]	
+		
+	)
+AS
+	BEGIN
+		INSERT INTO [dbo].[Event]
+			([EventTitle],[EmployeeID],[EventTypeID],[Description],[EventStartDate],[EventEndDate],[KidsAllowed],[NumGuests], [Location], [Sponsored], [Approved])
+			VALUES
+			(@EventTitle, @EmployeeID, @EventTypeID, @Description, @EventStartDate, @EventEndDate, @KidsAllowed, @NumGuests, @Location, @Sponsored, @Approved )
+			
+			RETURN @@ROWCOUNT
+	END
+GO
+
+/*@Author Phillip Hansen	
+* @Created 1/23/2019
+*/
+print '' print '*** Creating sp_update_event'
+GO
+CREATE PROCEDURE sp_update_event
+	(
+		@EventID					[int],
+		@EventTitle					[nvarchar](50),
+		@EmployeeID			 		[int],
+		@EventTypeID				[nvarchar](15),
+		@Description				[nvarchar](1000),
+		@EventStartDate				[date],
+		@EventEndDate				[date],
+		@KidsAllowed				[bit],
+		@NumGuests					[int],
+		@Location					[nvarchar](50),
+		@Sponsored					[bit],
+		@SponsorID					[int],
+		@Approved					[bit],
+		
+		@OldEventTitle					[nvarchar](50),
+		@OldEmployeeID			 		[int],
+		@OldEventTypeID					[nvarchar](15),
+		@OldDescription					[nvarchar](1000),
+		@OldEventStartDate				[date],
+		@OldEventEndDate				[date],
+		@OldKidsAllowed					[bit],
+		@OldNumGuests					[int],
+		@OldLocation					[nvarchar](50),
+		@OldSponsored					[bit],
+		@OldSponsorID					[int],
+		@OldApproved					[bit]
+		
+	)
+AS
+	BEGIN
+		UPDATE [Event]
+		SET		[EventTitle] = @EventTitle,
+				[EmployeeID] = @EmployeeID,
+				[EventTypeID] = @EventTypeID,
+				[Description] = @Description,
+				[EventStartDate] = @EventStartDate,
+				[EventEndDate] = @EventEndDate,
+				[KidsAllowed] = @KidsAllowed,
+				[NumGuests] = @NumGuests,
+				[Location] = @Location,
+				[Sponsored] = @Sponsored,
+				[SponsorID] = @SponsorID,
+				[Approved] = @Approved
+		FROM 	[dbo].[Event]
+		WHERE	[EventID] = @EventID
+		AND 	[EventTitle] = @OldEventTitle
+		AND		[EmployeeID] = @OldEmployeeID
+		AND		[EventTypeID] = @OldEventTypeID
+		AND		[Description] = @OldDescription
+		AND		[EventStartDate] = @OldEventStartDate
+		AND		[EventEndDate] = @OldEventEndDate
+		AND		[KidsAllowed] = @OldKidsAllowed
+		AND		[NumGuests] = @OldNumGuests
+		AND		[Location] = @OldLocation
+		AND 	[Sponsored] = @OldSponsored
+		AND 	[SponsorID] = @OldSponsorID
+		AND		[Approved] = @OldApproved
+			
+			RETURN @@ROWCOUNT
+	END
+GO
+
+/*@Author Phillip Hansen	
+* @Created 1/23/2019
+*/
+print '' print '*** Creating sp_delete_event'
+GO
+CREATE PROCEDURE sp_delete_event
+(
+	@EventID		[int]
+)
+AS
+	BEGIN
+		DELETE
+		FROM	[Event]
+		WHERE	[EventID] = @EventID
+		AND		[Approved] = 0
+		
+		RETURN @@ROWCOUNT
+	END
+GO
+
+/*@Author Phillip Hansen	
+* @Created 1/23/2019
+*/
+print '' print '*** Creating sp_retrieve_event'
+GO
+CREATE PROCEDURE sp_retrieve_event
+	(
+		@EventID [int]
+	)
+AS
+	BEGIN
+		SELECT  [EventID],[EventTitle],[EmployeeID],[EventTypeID],[Description],
+				[EventStartDate],[EventEndDate],[KidsAllowed],[NumGuests], [Location], [Sponsored], [SponsorID], [Approved]
+		FROM	[dbo].[Event]
+		WHERE	[EventID] = @EventID
+	END
+GO
+
+/*@Author Phillip Hansen	
+* @Created 1/23/2019
+*/
+print '' print '*** Creating sp_insert_eventType'
+GO
+CREATE PROCEDURE sp_insert_eventType
+	(
+		@EventTypeID 	[nvarchar](15),
+		@Description 	[nvarchar](1000)
+	)
+AS
+	BEGIN
+		INSERT INTO [dbo].[EventType]
+			([EventTypeID],[Description])
+		VALUES
+			(@EventTypeID, @Description)
+			
+		RETURN @@ROWCOUNT
+	END
+GO
+
+/*CREATE EVENT CODE ENDS HERE*/
+/* **************************************************** */

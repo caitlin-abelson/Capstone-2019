@@ -43,8 +43,11 @@
   <ItemGroup>
     <Compile Include="DepartmentManager.cs" />
     <Compile Include="EmployeeManager.cs" />
+    <Compile Include="EventManager.cs" />
+    <Compile Include="EventTypeManager.cs" />
     <Compile Include="IDepartmentManager.cs" />
     <Compile Include="IEmployeeManager.cs" />
+    <Compile Include="IEventManager.cs" />
     <Compile Include="IInternalOrderManager.cs" />
     <Compile Include="IItemManager.cs" />
     <Compile Include="IItemTypeManager.cs" />

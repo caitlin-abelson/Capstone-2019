@@ -108,11 +108,23 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="frmAddEditEvent.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="frmAddEditViewRoom.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
     <Page Include="frmAddItemSupplierForItem.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="frmEventDeleteConfirmation.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="frmEventMain.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -150,10 +162,13 @@
     <Compile Include="EmployeeDetail.xaml.cs">
       <DependentUpon>EmployeeDetail.xaml</DependentUpon>
     </Compile>
+    <Compile Include="frmAddEditEvent.xaml.cs" />
     <Compile Include="frmAddEditViewRoom.xaml.cs">
       <DependentUpon>frmAddEditViewRoom.xaml</DependentUpon>
     </Compile>
     <Compile Include="frmAddItemSupplierForItem.xaml.cs" />
+    <Compile Include="frmEventDeleteConfirmation.xaml.cs" />
+    <Compile Include="frmEventMain.xaml.cs" />
     <Compile Include="frmManageItemSuppliers.xaml.cs" />
     <Compile Include="frmRoomManagment.xaml.cs">
       <DependentUpon>frmRoomManagment.xaml</DependentUpon>
