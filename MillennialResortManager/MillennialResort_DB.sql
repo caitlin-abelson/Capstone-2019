@@ -1154,3 +1154,194 @@ AS
 		WHERE [MemberID] = @MemberID
 	END
 GO
+
+/* Wes' Script starts here */
+print '' print '*** Creating Building Table'
+GO
+CREATE TABLE [dbo].[Building](
+	[BuildingID]	[nvarchar](15)			NOT NULL,
+	[Description]  	[nvarchar](250)			NOT NULL,
+	[Active]		[bit]					NOT NULL DEFAULT 1
+	CONSTRAINT [pk_BuildingID] PRIMARY KEY([BuildingID] ASC)
+
+)
+GO
+
+print '' print '*** Inserting Data into Building Table'
+GO
+INSERT INTO [dbo].[Building]
+		([BuildingID], [Description])
+	VALUES
+		('Building 1', 'Building 1'),
+		('Building 2', 'Building 2'),
+		('Building 3', 'Building 3'),
+		('Building 4', 'Building 4')
+GO
+
+print '' print '*** Creating Room Type Table'
+GO
+CREATE TABLE [dbo].[RoomType](
+	[RoomTypeID]	[nvarchar](15)			NOT NULL,
+	[Description]  	[nvarchar](250)			NOT NULL,
+	[Active]		[bit]					NOT NULL DEFAULT 1
+	CONSTRAINT [pk_RoomTypeID] PRIMARY KEY([RoomTypeID] ASC)
+
+)
+GO
+
+print '' print '*** Inserting Data into RoomType Table'
+GO
+INSERT INTO [dbo].[RoomType]
+		([RoomTypeID], [Description])
+	VALUES
+		('RoomType 1', 'RoomType 1'),
+		('RoomType 2', 'RoomType 2'),
+		('RoomType 3', 'RoomType 3'),
+		('RoomType 4', 'RoomType 4')
+GO
+
+print '' print '*** Creating Room Table'
+GO
+CREATE TABLE [dbo].[Room](
+	[RoomID]		[int] IDENTITY(100000, 1) 	NOT NULL,
+	[RoomNumber]	[nvarchar](15)				NOT NULL,
+	[BuildingID]	[nvarchar](15)				NOT NULL,
+	[RoomTypeID]	[nvarchar](15)				NOT NULL,
+	[Description]  	[nvarchar](250)				NULL,
+	[Capacity]		[int]						NOT NULL DEFAULT 2,
+	[Available]		[bit]						NOT NULL,
+	[Active]		[bit]						NOT NULL DEFAULT 1
+	CONSTRAINT [pk_RoomID] PRIMARY KEY([RoomID] ASC),
+	CONSTRAINT [ak_RoomNumber_BuildingID] UNIQUE (RoomNumber, BuildingID)
+
+)
+GO
+
+print '' print '*** Inserting Data into Room Table'
+GO
+INSERT INTO [dbo].[Room]
+		([RoomNumber], [BuildingID], [RoomTypeID], [Description], [Capacity], [Available])
+	VALUES
+		('101', 'Building 1', 'RoomType 1', 'Room 101 in Building 1', 2, 1),
+		('102', 'Building 1', 'RoomType 2', 'Room 102 in Building 1', 3, 1),
+		('101', 'Building 2', 'RoomType 3', 'Room 101 in Building 2', 4, 1),
+		('102', 'Building 2', 'RoomType 4', 'Room 102 in Building 2', 5, 1),
+		('101', 'Building 3', 'RoomType 1', 'Room 101 in Building 3', 2, 1),
+		('102', 'Building 3', 'RoomType 2', 'Room 102 in Building 3', 3, 1),
+		('101', 'Building 4', 'RoomType 1', 'Room 101 in Building 4', 2, 1),
+		('102', 'Building 4', 'RoomType 4', 'Room 102 in Building 4', 5, 1),
+		('103', 'Building 4', 'RoomType 3', 'Room 103 in Building 4', 5, 1)
+GO
+
+print '' print '*** Adding Foreign Key for BuildingID in Room Table'
+
+ALTER TABLE [dbo].[Room] WITH NOCHECK
+	ADD CONSTRAINT [fk_Room_BuildingID] FOREIGN KEY ([BuildingID])
+	REFERENCES [dbo].[Building]([BuildingID])
+	ON UPDATE CASCADE
+GO
+
+print '' print '*** Adding Foreign Key for RoomTypeID in Room Table'
+
+ALTER TABLE [dbo].[Room] WITH NOCHECK
+	ADD CONSTRAINT [fk_Room_RoomTypeID] FOREIGN KEY ([RoomTypeID])
+	REFERENCES [dbo].[RoomType]([RoomTypeID])
+	ON UPDATE CASCADE
+GO
+
+print '' print '*** Creating sp_retrieve_buildings'
+GO
+
+CREATE PROCEDURE [dbo].[sp_select_buildings]
+AS
+	BEGIN
+		SELECT [BuildingID], [Description]
+		FROM Building
+	END
+GO
+
+print '' print '*** Creating sp_select_room_types'
+GO
+
+CREATE PROCEDURE [dbo].[sp_select_room_types]
+AS
+	BEGIN
+		SELECT [RoomTypeID], [Description]
+		FROM RoomType
+	END
+GO
+
+print '' print'*** Creating sp_insert_room'
+GO
+CREATE PROCEDURE [dbo].[sp_insert_room]
+	(
+	@RoomNumber			[nvarchar](15),
+	@BuildingID			[nvarchar](15),
+	@RoomTypeID			[nvarchar](15),
+	@Description		[nvarchar](250),
+	@Capacity			[int],
+	@Available			[bit]
+	)
+AS
+	BEGIN
+		INSERT INTO [dbo].[Room]
+			([RoomNumber], [BuildingID], [RoomTypeID], [Description], [Capacity], [Available])
+		VALUES
+			(@RoomNumber, @BuildingID, @RoomTypeID, @Description, @Capacity, @Available)
+		SELECT SCOPE_IDENTITY()
+	END
+GO
+
+print '' print'*** Creating sp_insert_room'
+GO
+CREATE PROCEDURE [dbo].[sp_update_room]
+	(
+	@RoomID				[int],
+	@RoomNumber			[nvarchar](15),
+	@BuildingID			[nvarchar](15),
+	@RoomTypeID			[nvarchar](15),
+	@Description		[nvarchar](250),
+	@Capacity			[int],
+	@Available			[bit]
+	)
+AS
+	BEGIN
+		UPDATE [Room]
+			SET 	[RoomNumber] = @RoomNumber, 
+					[BuildingID] = @BuildingID, 
+					[RoomTypeID] = @RoomTypeID, 
+					[Description] = @Description, 
+					[Capacity] = @Capacity, 
+					[Available] = @Available
+			WHERE	[RoomID] = @RoomID
+		RETURN @@ROWCOUNT
+	END
+GO
+
+print '' print '*** Adding sp_select_room_by_ID'
+GO
+CREATE PROCEDURE [dbo].[sp_select_room_by_ID]
+(
+	@RoomID		[int]
+)
+AS	
+	BEGIN
+		SELECT 		
+					[RoomNumber], [BuildingID], [RoomTypeID], [Description], [Capacity], [Available]
+		FROM 		[Room]
+		WHERE		[RoomID] = @RoomID
+	END
+GO
+
+print '' print '*** Adding sp_select_room_list'
+GO
+CREATE PROCEDURE [dbo].[sp_select_room_list]
+
+AS	
+	BEGIN
+		SELECT 		
+					[RoomID], [RoomNumber], [BuildingID], [RoomTypeID], [Description], [Capacity], [Available], [Active]
+		FROM 		[Room]
+		ORDER BY 	[BuildingID], [RoomNumber]
+	END
+GO
