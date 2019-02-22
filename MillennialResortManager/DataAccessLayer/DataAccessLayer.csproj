@@ -57,8 +57,8 @@
     <Compile Include="IProductAccessor.cs" />
     <Compile Include="IReservationAccessor.cs" />
     <Compile Include="IRoomAccessor.cs" />
-    <Compile Include="ISupplyAccessor.cs" />
     <Compile Include="ItemAccessor.cs" />
+    <Compile Include="ISupplierAccessor.cs" />
     <Compile Include="ItemTypeAccessorMSSQL.cs" />
     <Compile Include="MemberAccessorMSSQL.cs" />
     <Compile Include="MockRoomAccessor.cs" />
@@ -68,7 +68,8 @@
     <Compile Include="ReservationAccessorMock.cs" />
     <Compile Include="ReservationAccessorMSSQL.cs" />
     <Compile Include="RoomAccessor.cs" />
-    <Compile Include="SupplyAccessor.cs" />
+    <Compile Include="SupplierAccessor.cs" />
+    <Compile Include="SupplierAccessorMock.cs" />
     <Compile Include="UserAccessor.cs" />
   </ItemGroup>
   <ItemGroup>

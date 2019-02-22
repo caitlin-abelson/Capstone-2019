@@ -5,29 +5,24 @@
 /// This is the interface for the Suppliers that provide goods and services for the resort.
 /// </summary>
 
+using DataObjects;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using DataObjects;
 
 namespace LogicLayer
 {
-    /// <summary>
-    /// Author: Caitlin Abelson
-    /// Created Date: 1/25/19
-    /// 
-    /// The ISupplierManager is the interface for Supplier and hold all the CRUD methods for the logic layer.
-    /// </summary>
-    interface ISupplierManager
+    public interface ISupplierManager
     {
-        bool AddSupplier(Suppliers newSupplier);
-        void EditSupplier(Suppliers newSupplier, Suppliers oldSuppliers);
-        Suppliers GetSupplier();
-        List<Suppliers> GetAllSuppliers();
-        void DeleteSupplier();
+        void CreateSupplier(Supplier newSupplier);
+        Supplier RetrieveSupplier(int id);
+        List<Supplier> RetrieveAllSuppliers();
+        void UpdateSupplier(Supplier newSupplier, Supplier oldSupplier);
+        void DeleteSupplier(Supplier supplier);
 
-        
+        void DeactivateSupplier(Supplier supplier);
+
     }
 }

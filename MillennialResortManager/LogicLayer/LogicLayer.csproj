@@ -63,6 +63,7 @@
     <Compile Include="RoomManager.cs" />
     <Compile Include="RoomVerifier.cs" />
     <Compile Include="SupplierManager.cs" />
+    <Compile Include="SupplierValidator.cs" />
     <Compile Include="UserManager.cs" />
   </ItemGroup>
   <ItemGroup>
