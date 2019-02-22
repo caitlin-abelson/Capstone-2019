@@ -48,6 +48,7 @@
     <Compile Include="InternalOrder.cs" />
     <Compile Include="InternalOrderLine.cs" />
     <Compile Include="Item.cs" />
+    <Compile Include="ItemSupplier.cs" />
     <Compile Include="ItemType.cs" />
     <Compile Include="Member.cs" />
     <Compile Include="Product.cs" />
@@ -56,6 +57,7 @@
     <Compile Include="Room.cs" />
     <Compile Include="RoomType.cs" />
     <Compile Include="Supplier.cs" />
+    <Compile Include="Suppliers.cs" />
     <Compile Include="User.cs" />
     <Compile Include="VMBrowseReservation.cs" />
     <Compile Include="VMInternalOrder.cs" />

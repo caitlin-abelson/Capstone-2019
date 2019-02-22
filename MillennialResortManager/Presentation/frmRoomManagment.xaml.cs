@@ -52,7 +52,7 @@ namespace Presentation
             var room = (Room)dgRoom.SelectedItem;
             if (room != null)
             {
-                var roomForm = new frmAddEditViewRoom(RoomDetailMode.View, room.RoomID);
+                var roomForm = new frmAddEditViewRoom(EditMode.View, room.RoomID);
                 var results = roomForm.ShowDialog();
             }
             else

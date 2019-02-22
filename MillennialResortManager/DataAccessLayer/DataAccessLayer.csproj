@@ -51,6 +51,7 @@
     <Compile Include="IInternalOrderAccessor.cs" />
     <Compile Include="IItemAccessor.cs" />
     <Compile Include="IItemTypeAccessor.cs" />
+    <Compile Include="IItemSupplierAccessor.cs" />
     <Compile Include="IMemberAccessor.cs" />
     <Compile Include="InternalOrderAccessor.cs" />
     <Compile Include="InternalOrderAccessorMock.cs" />
@@ -58,6 +59,8 @@
     <Compile Include="IReservationAccessor.cs" />
     <Compile Include="IRoomAccessor.cs" />
     <Compile Include="ItemAccessor.cs" />
+    <Compile Include="ItemSupplierAccessor.cs" />
+    <Compile Include="ItemSupplierAccessorMock.cs" />
     <Compile Include="ISupplierAccessor.cs" />
     <Compile Include="ItemTypeAccessorMSSQL.cs" />
     <Compile Include="MemberAccessorMSSQL.cs" />

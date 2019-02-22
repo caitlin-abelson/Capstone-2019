@@ -48,6 +48,7 @@
     <Compile Include="IInternalOrderManager.cs" />
     <Compile Include="IItemManager.cs" />
     <Compile Include="IItemTypeManager.cs" />
+    <Compile Include="IItemSupplierManager.cs" />
     <Compile Include="IMemberManager.cs" />
     <Compile Include="InternalOrderManager.cs" />
     <Compile Include="IProductManager.cs" />
@@ -55,6 +56,7 @@
     <Compile Include="IRoomManager.cs" />
     <Compile Include="ISupplierManager.cs" />
     <Compile Include="ItemManager.cs" />
+    <Compile Include="ItemSupplierManager.cs" />
     <Compile Include="ItemTypeManagerMSSQL.cs" />
     <Compile Include="MemberManagerMSSQL.cs" />
     <Compile Include="ProductManagerMSSQL.cs" />

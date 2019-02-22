@@ -1455,9 +1455,6 @@ AS
 GO
 
 
-
-
-
 /*
  * Author: Caitlin Abelson
  * Created: 2019/01/23
@@ -1488,6 +1485,177 @@ CREATE TABLE [dbo].[Supplier](
 	CONSTRAINT [pk_SupplierID] PRIMARY KEY([SupplierID] ASC),
 	CONSTRAINT [ak_SupplierEmail] UNIQUE([Email] ASC)
 )
+GO
+
+
+print '' print '*** Creating ItemSupplier Table'
+--Eric Bostwick 
+--Created 2/4/19
+--Updated 2/14/19 to Add Active
+GO
+CREATE TABLE [dbo].[ItemSupplier] (
+	[ItemID]			[int]                         NOT NULL,
+	[SupplierID]		[int]					  	  NOT NULL,
+	[PrimarySupplier]	[bit]						  NULL,
+	[LeadTimeDays]		[int]						  NULL DEFAULT 0,
+	[UnitPrice]			[money]						  NULL DEFAULT 0.0,
+	[Active]			[bit]						  NOT NULL DEFAULT 1
+	
+	CONSTRAINT [pk_ItemID_ItemID] PRIMARY KEY([ItemID] ASC, [SupplierID] ASC)
+)
+
+GO
+
+print '' print '*** Adding Foreign Key for ItemSupplier'
+--Eric Bostwick 
+--Created 2/4/19
+--Foreign Keys For ItemSupplier Join Table
+
+ALTER TABLE [dbo].[ItemSupplier] WITH NOCHECK
+	ADD CONSTRAINT [fk_ItemID] FOREIGN KEY ([ItemID])
+	REFERENCES [dbo].[Product]([ItemID])
+	ON UPDATE CASCADE
+GO
+
+print '' print '*** Adding Foreign Key SupplierID for ItemSupplier'
+
+ALTER TABLE [dbo].[ItemSupplier] WITH NOCHECK
+	ADD CONSTRAINT [fk_SupplierID] FOREIGN KEY ([SupplierID])
+	REFERENCES [dbo].[Supplier]([SupplierID])
+	ON UPDATE CASCADE
+GO
+
+/*
+ * Eric Bostwick
+ * Created: 2/4/2019
+ * Creates ItemSupplier Table
+ */
+print '' print '*** Creating sp_create_itemsupplier ***'
+GO
+CREATE PROCEDURE [dbo].[sp_create_itemsupplier]
+	(
+		@ItemID 			[int],
+		@SupplierID			[int],
+		@PrimarySupplier	[bit],
+		@LeadTimeDays		[int],
+		@UnitPrice			[money]		
+	)
+AS
+BEGIN
+	BEGIN TRY
+		/* We can only have one primary supplier for each itemid
+		*  so if we are setting the primary supplier to this supplier
+		*  we need to set the primary supplier to false for each itemsupplier record for
+		*  this item before we set it to true for this one.
+		*  This seems like a good place for a transaction.
+		*/
+
+		BEGIN TRANSACTION 
+			    DECLARE @ItemSupplierCount int
+				SET @ItemSupplierCount = (SELECT COUNT(*) FROM ItemSupplier WHERE ItemID = @ItemID )
+				IF (@PrimarySupplier = 1  AND @ItemSupplierCount > 0)					
+					BEGIN
+						UPDATE [dbo].[ItemSupplier] 
+						SET [PrimarySupplier] = 0 					
+					END	
+
+				IF (@ItemSupplierCount = 0)  --IF the record(s) was updated then insert the the itemsupplier OR the supplier count is 0 for this item
+				BEGIN
+					SET @PrimarySupplier = 1
+				END
+				BEGIN					
+					INSERT INTO [dbo].[ItemSupplier]
+					([ItemID], [SupplierID], [PrimarySupplier], [LeadTimeDays], [UnitPrice])
+					VALUES
+					(@ItemID, @SupplierID, @PrimarySupplier, @LeadTimeDays, @UnitPrice)
+
+					COMMIT
+				END		
+	END TRY
+	BEGIN CATCH		
+			ROLLBACK  --If anything went wrong rollback the transaction
+	END CATCH
+	
+END
+GO
+
+/*
+ * Eric Bostwick
+ * Created: 2/4/2019
+ * Updates Item Supplier Table
+ */
+print '' print '*** Creating sp_update_itemsupplier ***'
+GO
+CREATE PROCEDURE [dbo].[sp_update_itemsupplier]
+	(
+		@ItemID 			[int],
+		@SupplierID			[int],
+		@PrimarySupplier	[bit],
+		@LeadTimeDays		[int],
+		@UnitPrice			[money],
+		@Active				[bit],
+
+		@OldItemID 			[int],
+		@OldSupplierID		[int],
+		@OldPrimarySupplier	[bit],
+		@OldLeadTimeDays	[int],
+		@OldUnitPrice		[money],
+		@OldActive			[bit]
+	)
+AS
+BEGIN
+		IF(@PrimarySupplier = 1)
+			BEGIN
+				UPDATE [dbo].[ItemSupplier]
+				SET [PrimarySupplier]= 0
+				WHERE [ItemID] = @ItemID 			
+			END	
+					
+		UPDATE [dbo].[ItemSupplier]
+		SET [ItemID] = @ItemID,
+			[SupplierID] = @SupplierID,
+			[PrimarySupplier] = @PrimarySupplier,
+			[LeadTimeDays] = @LeadTimeDays, 
+			[UnitPrice] = @UnitPrice,
+			[Active] = @Active
+		WHERE
+			[ItemID] = @OldItemID AND
+			[SupplierID] = @OldSupplierID AND
+			[PrimarySupplier] = @OldPrimarySupplier AND
+			[LeadTimeDays] = @OldLeadTimeDays AND
+			[UnitPrice] = @OldUnitPrice AND
+			[Active] = @OldActive	
+END
+					
+GO
+
+/*
+ * Author: Eric Bostwick
+ * Created: 2/4/2019
+ * Selects ItemSuppliers by Itemid
+ */
+print '' print '*** Creating sp_select_itemsuppliers_by_itemid'
+GO
+CREATE PROCEDURE [dbo].[sp_select_itemsuppliers_by_itemid] 
+(
+	@ItemID [int]
+)
+
+AS
+	BEGIN
+		SELECT 	    [isup].[ItemID], [isup].[SupplierID], [isup].[PrimarySupplier], [isup].[LeadTimeDays], 
+					[isup].[UnitPrice],[isup].[Active] as [ItemSupplierActive],
+					[s].[Name], [s].[ContactFirstName], [s].[ContactLastName], [s].[PhoneNumber], 
+					[s].[Email], [s].[DateAdded], [s].[Address], [s].[City], [s].[State], 
+					[s].[Country], [s].[PostalCode], [s].[Description],[s].[Active] AS SupplierActive,
+					[i].[ItemTypeID], [i].[Description] AS [ItemDescripton], [i].[Name], 
+					[i].[DateActive], [i].[Active] AS [SupplierActive]
+		FROM		[ItemSupplier] [isup] 
+					JOIN [Product] [i] ON [i].[ItemID] = [isup].[ItemID] 
+					JOIN [Supplier] [s] ON [s].[SupplierID] = [isup].[SupplierID]
+		WHERE		[isup].[itemID] = @ItemID
+
+	END
 GO
 
 /*
@@ -1540,12 +1708,79 @@ AS
 GO
 
 /*
- * Author: James Heim
+ * Author: Eric Bostwick
+ * Created: 2/4/2019
+ * Selects an Item Supplier by ItemID and SupplierID
+ */
+print '' print '*** Creating sp_select_itemsupplier_by_itemid_and_supplierid'
+GO
+CREATE PROCEDURE [dbo].[sp_select_itemsupplier_by_itemid_and_supplierid]
+(
+	@ItemID [int],
+	@SupplierID [int]
+)
+AS
+	BEGIN
+		SELECT 	    [isup].[ItemID], [isup].[SupplierID], [isup].PrimarySupplier, [isup].[LeadTimeDays], 
+					[isup].[UnitPrice], [isup].[Active] as [ItemSupplierActive],
+					[s].[Name], [s].[ContactFirstName], [s].[ContactLastName], [s].[PhoneNumber], 
+					[s].[Email], [s].[DateAdded], [s].[Address], [s].[City], [s].[State], [s].[Country], 
+					[s].[PostalCode], [s].[Description],[s].[Active] AS SupplierActive,
+					[i].[ItemTypeID], [i].[Description] AS [ItemDescripton], [i].[OnHandQuantity], [i].[Name], 
+					[i].[DateActive], [i].[Active] AS [ItemActive]
+		FROM		[ItemSupplier] [isup] 
+					JOIN [Product] [i] ON [i].[ItemID] = [isup].[ItemID] 
+					JOIN [Supplier] [s] ON [s].[SupplierID] = [isup].[SupplierID]
+		WHERE		[isup].[ItemID] = @ItemID AND [isup].[SupplierID] = @SupplierID
+	END
+GO
+
+/*
+ * Author: Eric Bostwick
+ * Created: 2/7/2019
+ * deletes an itemsupplier record based upon the itemid and supplierid
+ */
+print '' print '*** Creating sp_delete_itemsupplier_by_itemid_and_supplierid'
+GO
+CREATE PROCEDURE [dbo].[sp_delete_itemsupplier_by_itemid_and_supplierid]
+(
+	@ItemID [int],
+	@SupplierID [int]
+)
+AS
+	BEGIN
+		DELETE
+		FROM		[ItemSupplier]					
+		WHERE		[ItemID] = @ItemID AND [SupplierID] = @SupplierID
+	END
+GO
+/*
+ * Author: Eric Bostwick
+ * Created: 2/7/2019
+ * deletes an itemsupplier record based upon the itemid and supplierid
+ */
+print '' print '*** Creating sp_deactivate_itemsupplier_by_itemid_and_supplierid'
+GO
+CREATE PROCEDURE [dbo].[sp_deactivate_itemsupplier_by_itemid_and_supplierid]
+(
+	@ItemID [int],
+	@SupplierID [int]
+)
+AS
+	BEGIN
+		
+		UPDATE		[ItemSupplier]
+		SET [Active] = 0			
+		WHERE		[ItemID] = @ItemID AND [SupplierID] = @SupplierID
+END
+GO
+ /* Author: James Heim
  * Created: 2019/01/31
  
  * Update a supplier by providing the new data and ensure
  * the old data hasn't changed since it was accessed.
  */
+ 
 print '' print '*** Creating sp_update_supplier'
 GO
 CREATE PROCEDURE [dbo].[sp_update_supplier]
@@ -1674,13 +1909,48 @@ AS
 				AND [Active] = 1
 				
 		RETURN @@ROWCOUNT
+
 	END
 GO
 
 /*
+
+ * Author: Eric Bostwick
+ * Created: 2/7/2019
+ * Description: Returns all the suppliers not setup in the itemsupplier table for that item
+ * This is so user doesn't get the option to add a supplier that will create a primary key
+ * violation on the item supplier table.
+ */
+print '' print '*** Creating sp_select_suppliers_for_itemsupplier_mgmt_by_itemid'
+GO
+CREATE PROCEDURE [dbo].[sp_select_suppliers_for_itemsupplier_mgmt_by_itemid]
+(
+	@ItemID [int]
+)
+AS
+	BEGIN
+		SELECT		[s].[SupplierID], 
+					[s].[Name],
+					[s].[Address],
+					[s].[City],
+					[s].[State],
+					[s].[PostalCode],
+					[s].[Country],
+					[s].[PhoneNumber],
+					[s].[Email],
+					[s].[ContactFirstName],
+					[s].[ContactLastName],
+					[s].[DateAdded],
+					[s].[Description],
+					[s].[Active]
+
+		FROM		[Supplier] [s] LEFT OUTER JOIN [ItemSupplier] [isup] ON [isup].[SupplierID] = [s].[SupplierID]					
+		WHERE		[isup].[Itemid] != @ItemID OR [isup].[Itemid] is Null
+END
+GO
+ /* 
  * Author: James Heim
  * Created 2019/02/15
- * 
  * Permanently delete a Supplier.
  */
 print '' print '*** Creating sp_delete_supplier'
@@ -1697,5 +1967,6 @@ AS
 		  AND 	[Active] = 0
 		  
 		RETURN @@ROWCOUNT
+
 	END
 GO

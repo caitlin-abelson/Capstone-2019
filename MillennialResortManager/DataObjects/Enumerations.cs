@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace DataObjects
 {
-    public enum RoomDetailMode
+    public enum EditMode
     {
         View,
         Edit,
