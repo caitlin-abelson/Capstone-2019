@@ -50,6 +50,30 @@ namespace LogicLayer
             return user;
         }
 
+        /// <summary>
+        /// Richard Carroll
+        /// Created: 2019/02/05
+        /// 
+        /// Requests a full user from the data access layer and 
+        /// passses it to the presentation layer if it's found.
+        /// </summary>
+        public User RetrieveFullUserByEmail(string email)
+        {
+            User user = null;
+
+            try
+            {
+                user = UserAccessor.RetrieveFullUserByEmail(email);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+            return user;
+        }
+
         // method to allow a password to be changed (10/2)
         public bool UpdatePassword(string userName, string oldPassword, string newPassword)
         {

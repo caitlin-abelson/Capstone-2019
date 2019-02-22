@@ -138,6 +138,62 @@ namespace DataAccessLayer
             return user;
         }
 
+        /// <summary>
+        /// Richard Carroll
+        /// Created: 2019/01/30
+        /// 
+        /// This method is a modified version of RetrieveUserByEmail
+        /// that takes all the user Data needed for populating fields
+        /// in the presentation layer and filling in user data for 
+        /// other Data Access methods.
+        /// </summary>
+        public static User RetrieveFullUserByEmail(string email)
+        {
+            User user = null;
+
+            var cmdText = "sp_retrieve_user_by_email";
+            var conn = DBConnection.GetDbConnection();
+            var cmd = new SqlCommand(cmdText, conn);
+            cmd.Parameters.AddWithValue("@Email", email);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            try
+            {
+                conn.Open();
+                int UserID;
+                string FirstName;
+                string LastName;
+                string DepartmentID;
+                string Email;
+                string Phone;
+
+
+                var reader = cmd.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        UserID = reader.GetInt32(0);
+                        FirstName = reader.GetString(1);
+                        LastName = reader.GetString(2);
+                        Phone = reader.GetString(3);
+                        Email = reader.GetString(4);
+                        DepartmentID = reader.GetString(5);
+                        user = new User(UserID, FirstName, LastName, Phone, Email, DepartmentID);
+
+                    }
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+
+            return user;
+        }
+
 
         public static List<string> RetrieveRolesByEmail(string email)
         {

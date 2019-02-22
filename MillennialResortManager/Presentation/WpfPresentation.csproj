@@ -73,6 +73,9 @@
     <Compile Include="BrowseEmployee.xaml.cs">
       <DependentUpon>BrowseEmployee.xaml</DependentUpon>
     </Compile>
+    <Compile Include="BrowseOrders.xaml.cs">
+      <DependentUpon>BrowseOrders.xaml</DependentUpon>
+    </Compile>
     <Compile Include="BrowseReservation.xaml.cs" />
     <Compile Include="BrowseSupplier.xaml.cs">
       <DependentUpon>BrowseSupplier.xaml</DependentUpon>
@@ -80,6 +83,10 @@
     <Page Include="BrowseEmployee.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="BrowseOrders.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="BrowseReservation.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -113,6 +120,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="InternalOrderDetail.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -135,6 +146,9 @@
     </Compile>
     <Compile Include="frmUpdatePassword.xaml.cs">
       <DependentUpon>frmUpdatePassword.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="InternalOrderDetail.xaml.cs">
+      <DependentUpon>InternalOrderDetail.xaml</DependentUpon>
     </Compile>
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>

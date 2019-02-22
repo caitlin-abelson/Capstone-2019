@@ -33,6 +33,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Transactions" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -47,12 +48,17 @@
     <Compile Include="EmployeeAccessorMock.cs" />
     <Compile Include="IDepartmentAccessor.cs" />
     <Compile Include="IEmployeeAccessor.cs" />
-    <Compile Include="iItemTypeAccessor.cs" />
+    <Compile Include="IInternalOrderAccessor.cs" />
+    <Compile Include="IItemAccessor.cs" />
+    <Compile Include="IItemTypeAccessor.cs" />
     <Compile Include="IMemberAccessor.cs" />
-    <Compile Include="iProductAccessor.cs" />
+    <Compile Include="InternalOrderAccessor.cs" />
+    <Compile Include="InternalOrderAccessorMock.cs" />
+    <Compile Include="IProductAccessor.cs" />
     <Compile Include="IReservationAccessor.cs" />
     <Compile Include="IRoomAccessor.cs" />
     <Compile Include="ISupplyAccessor.cs" />
+    <Compile Include="ItemAccessor.cs" />
     <Compile Include="ItemTypeAccessorMSSQL.cs" />
     <Compile Include="MemberAccessorMSSQL.cs" />
     <Compile Include="MockRoomAccessor.cs" />

@@ -14,7 +14,7 @@ namespace UnitTests
     public class ProductManagerTests
     {
         private List<Product> _products;
-        private iProductManager _productManager;
+        private IProductManager _productManager;
         private ProductAccessorMock _prod;
 
         [TestInitialize]

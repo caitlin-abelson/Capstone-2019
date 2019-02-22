@@ -14,7 +14,7 @@ namespace DataAccessLayer
 	/// 
 	/// ItemType Acccessor that utilizes SQL
 	/// </summary>
-    public class ItemTypeAccessorMSSQL : iItemTypeAccessor
+    public class ItemTypeAccessorMSSQL : IItemTypeAccessor
     {
         public void CreateItemType(ItemType newItemType)
         {

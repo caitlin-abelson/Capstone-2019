@@ -13,7 +13,7 @@ namespace DataAccessLayer
 	/// 
 	/// Interface for accessing ItemType Data
 	/// </summary>
-    interface iItemTypeAccessor
+    interface IItemTypeAccessor
     {
         void CreateItemType(ItemType newItemType);
         ItemType RetrieveItemType();

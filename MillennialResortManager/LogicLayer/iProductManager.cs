@@ -8,12 +8,12 @@ using DataObjects;
 namespace LogicLayer
 {
     /// <summary>
-	/// Kevin Broskow
-	/// Created: 2019/01/20
-	/// 
-	/// Interface for the Product managers.
-	/// </summary>
-    public interface iProductManager
+    /// Kevin Broskow
+    /// Created: 2019/01/20
+    /// 
+    /// Interface for the Product managers.
+    /// </summary>
+    public interface IProductManager
     {
         int CreateProduct(Product newProduct);
         void UpdateProduct(Product newProduct, Product oldProduct);

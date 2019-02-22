@@ -14,7 +14,7 @@ namespace LogicLayer
 	/// 
 	/// Manages ItemType objects for use with MSSQL
 	/// </summary>
-    public class ItemTypeManagerMSSQL : iItemTypeManager
+    public class ItemTypeManagerMSSQL : IItemTypeManager
     {
         ItemTypeAccessorMSSQL _itemTypeAccessor = new ItemTypeAccessorMSSQL();
         public void AddItemType(ItemType newItemType)

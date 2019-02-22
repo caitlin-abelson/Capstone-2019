@@ -7,7 +7,7 @@ using DataObjects;
 
 namespace DataAccessLayer
 {
-    public class ProductAccessorMock : iProductAccessor
+    public class ProductAccessorMock : IProductAccessor
     {
         private List<Product> _products;
         public ProductAccessorMock()

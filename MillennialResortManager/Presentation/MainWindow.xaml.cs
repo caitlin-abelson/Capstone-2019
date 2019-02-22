@@ -14,6 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using DataObjects;
+using Presentation;
 
 namespace WpfPresentation
 {
@@ -24,6 +25,7 @@ namespace WpfPresentation
     {
         private UserManager _userManager = new UserManager();
         private User _user;
+        private User _fullUser = new User();
 
         // helper methods
         private void resetWindow()
@@ -193,6 +195,12 @@ namespace WpfPresentation
                         break;
                 }
             }
+        }
+
+        private void BtnViewOrderList_Click(object sender, RoutedEventArgs e)
+        {
+            var viewOrders = new BrowseOrders(_fullUser);
+            viewOrders.ShowDialog();
         }
 
 

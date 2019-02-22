@@ -13,7 +13,7 @@ namespace DataAccessLayer
 	/// 
 	/// Interface for accessing Product Data
 	/// </summary>
-    public interface iProductAccessor
+    public interface IProductAccessor
     {
         int InsertProduct(Product newProduct);
         Product RetrieveProduct(int productID);

@@ -45,6 +45,9 @@
     <Compile Include="Department.cs" />
     <Compile Include="Employee.cs" />
     <Compile Include="Enumerations.cs" />
+    <Compile Include="InternalOrder.cs" />
+    <Compile Include="InternalOrderLine.cs" />
+    <Compile Include="Item.cs" />
     <Compile Include="ItemType.cs" />
     <Compile Include="Member.cs" />
     <Compile Include="Product.cs" />
@@ -55,6 +58,8 @@
     <Compile Include="Suppliers.cs" />
     <Compile Include="User.cs" />
     <Compile Include="VMBrowseReservation.cs" />
+    <Compile Include="VMInternalOrder.cs" />
+    <Compile Include="VMInternalOrderLine.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

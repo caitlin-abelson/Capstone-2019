@@ -14,7 +14,7 @@ namespace DataAccessLayer
 	/// 
 	/// Product Acccessor that utilizes SQL
 	/// </summary>
-    public class ProductAccessorMSSQL : iProductAccessor
+    public class ProductAccessorMSSQL : IProductAccessor
     {
         /// <summary>
         /// Kevin Broskow

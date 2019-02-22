@@ -15,9 +15,9 @@ namespace LogicLayer
 	/// 
 	///Manages products using MSSQL 
 	/// </summary>
-    public class ProductManagerMSSQL : iProductManager
+    public class ProductManagerMSSQL : IProductManager
     {
-        private iProductAccessor _productAccessor;
+        private IProductAccessor _productAccessor;
 
         public ProductManagerMSSQL()
         {

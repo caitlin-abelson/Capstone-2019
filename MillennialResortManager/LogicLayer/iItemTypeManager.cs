@@ -13,7 +13,7 @@ namespace LogicLayer
 	/// 
 	/// Interface for the ItemType managers.
 	/// </summary>
-    interface iItemTypeManager
+    interface IItemTypeManager
     {
         void AddItemType(ItemType newItemType);
         void EditItemType(ItemType newItemType, ItemType oldItemType);
