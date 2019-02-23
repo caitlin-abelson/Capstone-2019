@@ -4,19 +4,6 @@ GO
 /* Developers place their test code here to be submitted to database */
 /*********************************************************************/
 
-/* Start Ramesh, submitted 2019-02-21 */
-
-/* CREATE PROCEDURE [dbo].[sp_retrieve_members]
---Currently DQ'd for sp_retrieve_all_members
---Also, why do we retrieve the password?
-AS
-	BEGIN
-		SELECT 	    [MemberID], [FirstName], [LastName], [PhoneNumber],	[Email], [Password]
-		, [Active]
-		FROM		[Member]
-	END
---GO*/
-
 /* Start Phil, submitted 2019-02-18 */
 
 /* CREATE PROCEDURE sp_retrieve_all_events
@@ -107,7 +94,7 @@ AS
 			([FirstName], [LastName], [PhoneNumber], [Email], [DepartmentID])
 		VALUES
 			(@FirstName, @LastName, @PhoneNumber, @Email, @DepartmentID)
-	  
+
 		RETURN @@ROWCOUNT
 	END
 GO
@@ -116,14 +103,14 @@ GO
 CREATE PROCEDURE [dbo].[sp_update_employee_by_id]
 	(
 		@EmployeeID			[int],
-		
+
 		@FirstName			[nvarchar](50),
 		@LastName			[nvarchar](100),
 		@PhoneNumber 		[nvarchar](11),
 		@Email				[nvarchar](250),
 		@DepartmentID		[nvarchar](50),
 		@Active				[bit],
-		
+
 		@OldFirstName		[nvarchar](50),
 		@OldLastName		[nvarchar](100),
 		@OldPhoneNumber 	[nvarchar](11),
@@ -147,7 +134,7 @@ AS
 		  AND	[Email] = @OldEmail
 		  AND	[DepartmentID] = @OldDepartmentID
 		  AND	[Active] = @OldActive
-				
+
 		RETURN @@ROWCOUNT
 	END
 GO
@@ -162,7 +149,7 @@ AS
 		UPDATE [Employee]
 		SET [Active] = 0
 		WHERE [EmployeeID] = @EmployeeID
-		
+
 		RETURN @@ROWCOUNT
 	END
 GO
@@ -172,7 +159,7 @@ CREATE PROCEDURE [dbo].[sp_delete_employeeID_role]
 	(
 		@EmployeeID		[int]
 	)
-	
+
 AS
 	BEGIN
 		DELETE
@@ -187,7 +174,7 @@ CREATE PROCEDURE [dbo].[sp_delete_employee]
 	(
 		@EmployeeID		[int]
 	)
-	
+
 AS
 	BEGIN
 		DELETE
@@ -207,17 +194,153 @@ AS
 	END
 GO
 
+/* Caitlin Properties */
+
+EXEC sys.sp_addextendedproperty
+	@name = N'Author'
+	,@value = N'Caitlin Abelson'
+	,@level0type = N'Schema', @level0name = 'dbo'
+	,@level1type = N'Procedure', @level1name = 'sp_select_employee_inactive'
+GO
+EXEC sys.sp_addextendedproperty
+	@name = N'Created Date'
+	,@value = N'2019-02-14'
+	,@level0type = N'Schema', @level0name = 'dbo'
+	,@level1type = N'Procedure', @level1name = 'sp_select_employee_inactive'
+GO
+
+EXEC sys.sp_addextendedproperty
+	@name = N'Author'
+	,@value = N'Caitlin Abelson'
+	,@level0type = N'Schema', @level0name = 'dbo'
+	,@level1type = N'Procedure', @level1name = 'sp_select_suppliers'
+GO
+EXEC sys.sp_addextendedproperty
+	@name = N'Created Date'
+	,@value = N'2019-01-23'
+	,@level0type = N'Schema', @level0name = 'dbo'
+	,@level1type = N'Procedure', @level1name = 'sp_select_suppliers'
+GO
+EXEC sys.sp_addextendedproperty
+	@name = N'Author'
+	,@value = N'Caitlin Abelson'
+	,@level0type = N'Schema', @level0name = 'dbo'
+	,@level1type = N'Procedure', @level1name = 'sp_select_employee_active'
+GO
+EXEC sys.sp_addextendedproperty
+	@name = N'Created Date'
+	,@value = N'2019-02-14'
+	,@level0type = N'Schema', @level0name = 'dbo'
+	,@level1type = N'Procedure', @level1name = 'sp_select_employee_active'
+GO
+EXEC sys.sp_addextendedproperty
+	@name = N'Author'
+	,@value = N'Caitlin Abelson'
+	,@level0type = N'Schema', @level0name = 'dbo'
+	,@level1type = N'Procedure', @level1name = 'sp_select_all_employees'
+GO
+EXEC sys.sp_addextendedproperty
+	@name = N'Created Date'
+	,@value = N'2019-02-06'
+	,@level0type = N'Schema', @level0name = 'dbo'
+	,@level1type = N'Procedure', @level1name = 'sp_select_all_employees'
+GO
+EXEC sys.sp_addextendedproperty
+	@name = N'Author'
+	,@value = N'Caitlin Abelson'
+	,@level0type = N'Schema', @level0name = 'dbo'
+	,@level1type = N'Procedure', @level1name = 'sp_select_employee_by_id'
+GO
+EXEC sys.sp_addextendedproperty
+	@name = N'Created Date'
+	,@value = N'2019-01-27'
+	,@level0type = N'Schema', @level0name = 'dbo'
+	,@level1type = N'Procedure', @level1name = 'sp_select_employee_by_id'
+GO
+EXEC sys.sp_addextendedproperty
+	@name = N'Author'
+	,@value = N'Caitlin Abelson'
+	,@level0type = N'Schema', @level0name = 'dbo'
+	,@level1type = N'Procedure', @level1name = 'sp_insert_employee'
+GO
+EXEC sys.sp_addextendedproperty
+	@name = N'Created Date'
+	,@value = N'2019-01-27'
+	,@level0type = N'Schema', @level0name = 'dbo'
+	,@level1type = N'Procedure', @level1name = 'sp_insert_employee'
+GO
+EXEC sys.sp_addextendedproperty
+	@name = N'Author'
+	,@value = N'Caitlin Abelson'
+	,@level0type = N'Schema', @level0name = 'dbo'
+	,@level1type = N'Procedure', @level1name = 'sp_update_employee_by_id'
+GO
+EXEC sys.sp_addextendedproperty
+	@name = N'Created Date'
+	,@value = N'2019-02-01'
+	,@level0type = N'Schema', @level0name = 'dbo'
+	,@level1type = N'Procedure', @level1name = 'sp_update_employee_by_id'
+GO
+EXEC sys.sp_addextendedproperty
+	@name = N'Author'
+	,@value = N'Caitlin Abelson'
+	,@level0type = N'Schema', @level0name = 'dbo'
+	,@level1type = N'Procedure', @level1name = 'sp_deactivate_employee'
+GO
+EXEC sys.sp_addextendedproperty
+	@name = N'Created Date'
+	,@value = N'2019-02-02'
+	,@level0type = N'Schema', @level0name = 'dbo'
+	,@level1type = N'Procedure', @level1name = 'sp_deactivate_employee'
+GO
+EXEC sys.sp_addextendedproperty
+	@name = N'Author'
+	,@value = N'Caitlin Abelson'
+	,@level0type = N'Schema', @level0name = 'dbo'
+	,@level1type = N'Procedure', @level1name = 'sp_delete_employeeID_role'
+GO
+EXEC sys.sp_addextendedproperty
+	@name = N'Created Date'
+	,@value = N'2019-02-12'
+	,@level0type = N'Schema', @level0name = 'dbo'
+	,@level1type = N'Procedure', @level1name = 'sp_delete_employeeID_role'
+GO
+EXEC sys.sp_addextendedproperty
+	@name = N'Author'
+	,@value = N'Caitlin Abelson'
+	,@level0type = N'Schema', @level0name = 'dbo'
+	,@level1type = N'Procedure', @level1name = 'sp_delete_employee'
+GO
+EXEC sys.sp_addextendedproperty
+	@name = N'Created Date'
+	,@value = N'2019-02-02'
+	,@level0type = N'Schema', @level0name = 'dbo'
+	,@level1type = N'Procedure', @level1name = 'sp_delete_employee'
+GO
+EXEC sys.sp_addextendedproperty
+	@name = N'Author'
+	,@value = N'Caitlin Abelson'
+	,@level0type = N'Schema', @level0name = 'dbo'
+	,@level1type = N'Procedure', @level1name = 'sp_select_department'
+GO
+EXEC sys.sp_addextendedproperty
+	@name = N'Created Date'
+	,@value = N'2019-01-29'
+	,@level0type = N'Schema', @level0name = 'dbo'
+	,@level1type = N'Procedure', @level1name = 'sp_select_department'
+GO
+
 /* Start Kevin */
 
 -- Created: 2019-01-28
-CREATE PROCEDURE [dbo].[sp_select_all_deactivated_items]			
+CREATE PROCEDURE [dbo].[sp_select_all_deactivated_items]
 	AS
 		BEGIN
 		SELECT [ItemID], [ItemTypeID], [Description], [OnHandQuantity], [Name], [ReOrderQuantity], [DateActive], [Active], [CustomerPurchasable], [RecipeID]
-		FROM	[Product] 
+		FROM	[Product]
 		WHERE [Active] =0
 	END
-GO	
+GO
 
 -- Created: 2019-01-28
 CREATE PROCEDURE [dbo].[sp_select_item]
@@ -233,23 +356,75 @@ AS
 GO
 
 -- Created: 2019-01-28
-CREATE PROCEDURE [dbo].[sp_select_all_items]			
+CREATE PROCEDURE [dbo].[sp_select_all_items]
 	AS
 		BEGIN
 		SELECT [ItemID], [ItemTypeID], [Description], [OnHandQuantity], [Name], [ReOrderQuantity], [DateActive], [Active], [CustomerPurchasable], [RecipeID]
-		FROM	[Product] 
+		FROM	[Product]
 	END
 GO
 
 -- Created: 2019-01-28
-CREATE PROCEDURE [dbo].[sp_select_all_active_items_extended]			
+CREATE PROCEDURE [dbo].[sp_select_all_active_items_extended]
 	AS
 		BEGIN
 		SELECT [ItemID], [ItemTypeID], [Description], [OnHandQuantity], [Name], [ReOrderQuantity], [DateActive], [Active], [CustomerPurchasable], [RecipeID]
-		FROM	[Product] 
+		FROM	[Product]
 		WHERE [Active] =1
 	END
 GO
+
+/* Kevin properties */
+
+EXEC sys.sp_addextendedproperty
+	@name = N'Author'
+	,@value = N'Kevin Broskow'
+	,@level0type = N'Schema', @level0name = 'dbo'
+	,@level1type = N'Procedure', @level1name = 'sp_select_all_deactivated_items'
+GO
+EXEC sys.sp_addextendedproperty
+	@name = N'Created Date'
+	,@value = N'2019-01-28'
+	,@level0type = N'Schema', @level0name = 'dbo'
+	,@level1type = N'Procedure', @level1name = 'sp_select_all_deactivated_items'
+GO
+EXEC sys.sp_addextendedproperty
+	@name = N'Author'
+	,@value = N'Kevin Broskow'
+	,@level0type = N'Schema', @level0name = 'dbo'
+	,@level1type = N'Procedure', @level1name = 'sp_select_item'
+GO
+EXEC sys.sp_addextendedproperty
+	@name = N'Created Date'
+	,@value = N'2019-01-28'
+	,@level0type = N'Schema', @level0name = 'dbo'
+	,@level1type = N'Procedure', @level1name = 'sp_select_item'
+GO
+EXEC sys.sp_addextendedproperty
+	@name = N'Author'
+	,@value = N'Kevin Broskow'
+	,@level0type = N'Schema', @level0name = 'dbo'
+	,@level1type = N'Procedure', @level1name = 'sp_select_all_items'
+GO
+EXEC sys.sp_addextendedproperty
+	@name = N'Created Date'
+	,@value = N'2019-01-28'
+	,@level0type = N'Schema', @level0name = 'dbo'
+	,@level1type = N'Procedure', @level1name = 'sp_select_all_items'
+GO
+EXEC sys.sp_addextendedproperty
+	@name = N'Author'
+	,@value = N'Kevin Broskow'
+	,@level0type = N'Schema', @level0name = 'dbo'
+	,@level1type = N'Procedure', @level1name = 'sp_select_all_active_items_extended'
+GO
+EXEC sys.sp_addextendedproperty
+	@name = N'Created Date'
+	,@value = N'2019-01-28'
+	,@level0type = N'Schema', @level0name = 'dbo'
+	,@level1type = N'Procedure', @level1name = 'sp_select_all_active_items_extended'
+GO
+
 
 /* Start Matt L. */
 
@@ -282,7 +457,7 @@ AS
 				[DepartureDate] = @newDepartureDate,
 				[Notes] = @newNotes,
 				[Active] = @newActive
-			WHERE 	
+			WHERE
 				[ReservationID] = @ReservationID
 			AND [MemberID] = @oldMemberID
 			AND	[NumberOfGuests] = @oldNumberOfGuests
@@ -315,10 +490,10 @@ AS
 		[Reservation].[ArrivalDate],
 		[Reservation].[DepartureDate],
 		[Reservation].[Notes],
-		[Reservation].[Active], 
-		[Member].[FirstName], 
-		[Member].[LastName], 
-		[Member].[PhoneNumber], 
+		[Reservation].[Active],
+		[Member].[FirstName],
+		[Member].[LastName],
+		[Member].[PhoneNumber],
 		[Member].[Email]
 		FROM Reservation INNER JOIN Member ON Reservation.MemberID = Member.MemberID
 
@@ -359,7 +534,7 @@ CREATE PROCEDURE [dbo].[sp_delete_reservation]
 	)
 AS
 	BEGIN
-		DELETE 
+		DELETE
 		FROM [Reservation]
 		WHERE  [ReservationID] = @ReservationID
 		RETURN @@ROWCOUNT
@@ -375,12 +550,102 @@ AS
 	BEGIN
 		UPDATE [Reservation]
 			SET [Active] = 0
-			WHERE 	
+			WHERE
 				[ReservationID] = @ReservationID
 		RETURN @@ROWCOUNT
 	END
 GO
-EXEC sys.sp_addextendedproperty 
+
+/* Matt L. Properties */ 
+
+EXEC sys.sp_addextendedproperty
+	@name = N'Author'
+	,@value = N'Matt Lamarche'
+	,@level0type = N'Schema', @level0name = 'dbo'
+	,@level1type = N'Procedure', @level1name = 'sp_update_reservation'
+GO
+EXEC sys.sp_addextendedproperty
+	@name = N'Created Date'
+	,@value = N'2019-01-26'
+	,@level0type = N'Schema', @level0name = 'dbo'
+	,@level1type = N'Procedure', @level1name = 'sp_update_reservation'
+GO
+EXEC sys.sp_addextendedproperty
+	@name = N'Author'
+	,@value = N'Matt Lamarche'
+	,@level0type = N'Schema', @level0name = 'dbo'
+	,@level1type = N'Procedure', @level1name = 'sp_retrieve_all_reservations'
+GO
+EXEC sys.sp_addextendedproperty
+	@name = N'Created Date'
+	,@value = N'2019-01-26'
+	,@level0type = N'Schema', @level0name = 'dbo'
+	,@level1type = N'Procedure', @level1name = 'sp_retrieve_all_reservations'
+GO
+EXEC sys.sp_addextendedproperty
+	@name = N'Author'
+	,@value = N'Matt Lamarche'
+	,@level0type = N'Schema', @level0name = 'dbo'
+	,@level1type = N'Procedure', @level1name = 'sp_retrieve_all_view_model_reservations'
+GO
+EXEC sys.sp_addextendedproperty
+	@name = N'Created Date'
+	,@value = N'2019-01-26'
+	,@level0type = N'Schema', @level0name = 'dbo'
+	,@level1type = N'Procedure', @level1name = 'sp_retrieve_all_view_model_reservations'
+GO
+EXEC sys.sp_addextendedproperty
+	@name = N'Author'
+	,@value = N'Matt Lamarche'
+	,@level0type = N'Schema', @level0name = 'dbo'
+	,@level1type = N'Procedure', @level1name = 'sp_select_reservation'
+GO
+EXEC sys.sp_addextendedproperty
+	@name = N'Created Date'
+	,@value = N'2019-01-26'
+	,@level0type = N'Schema', @level0name = 'dbo'
+	,@level1type = N'Procedure', @level1name = 'sp_select_reservation'
+GO
+EXEC sys.sp_addextendedproperty
+	@name = N'Author'
+	,@value = N'Matt Lamarche'
+	,@level0type = N'Schema', @level0name = 'dbo'
+	,@level1type = N'Procedure', @level1name = 'sp_select_member_by_id'
+GO
+EXEC sys.sp_addextendedproperty
+	@name = N'Created Date'
+	,@value = N'2019-02-07'
+	,@level0type = N'Schema', @level0name = 'dbo'
+	,@level1type = N'Procedure', @level1name = 'sp_select_member_by_id'
+GO
+EXEC sys.sp_addextendedproperty
+	@name = N'Author'
+	,@value = N'Matt Lamarche'
+	,@level0type = N'Schema', @level0name = 'dbo'
+	,@level1type = N'Procedure', @level1name = 'sp_delete_reservation'
+GO
+EXEC sys.sp_addextendedproperty
+	@name = N'Created Date'
+	,@value = N'2019-01-26'
+	,@level0type = N'Schema', @level0name = 'dbo'
+	,@level1type = N'Procedure', @level1name = 'sp_delete_reservation'
+GO
+EXEC sys.sp_addextendedproperty
+	@name = N'Author'
+	,@value = N'Matt Lamarche'
+	,@level0type = N'Schema', @level0name = 'dbo'
+	,@level1type = N'Procedure', @level1name = 'sp_deactivate_reservation'
+GO
+EXEC sys.sp_addextendedproperty
+	@name = N'Created Date'
+	,@value = N'2019-01-26'
+	,@level0type = N'Schema', @level0name = 'dbo'
+	,@level1type = N'Procedure', @level1name = 'sp_deactivate_reservation'
+GO
+
+/* Austin B. Properties */
+
+EXEC sys.sp_addextendedproperty
 	@name=N'Author', @value=N'Austin Berquam',
 	@level0type=N'SCHEMA',@level0name=N'dbo',
 	@level1type=N'PROCEDURE',@level1name=N'sp_retrieve_roomTypes'
