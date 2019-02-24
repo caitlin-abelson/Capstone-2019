@@ -22,15 +22,15 @@ AS
 /* Start Eric Bostwick */
 
 -- Created 2/4/19
---Updated 2/14/19 to Add Active
+-- Updated 2/14/19 to Add Active
 GO
 CREATE TABLE [dbo].[ItemSupplier] (
-	[ItemID]			[int]                         NOT NULL,
-	[SupplierID]		[int]					  	  NOT NULL,
-	[PrimarySupplier]	[bit]						  NULL,
-	[LeadTimeDays]		[int]						  NULL DEFAULT 0,
-	[UnitPrice]			[money]						  NULL DEFAULT 0.0,
-	[Active]			[bit]						  NOT NULL DEFAULT 1
+	[ItemID] [int] NOT NULL,
+	[SupplierID] [int] NOT NULL,
+	[PrimarySupplier] [bit] NULL,
+	[LeadTimeDays] [int] NULL DEFAULT 0,
+	[UnitPrice] [money] NULL DEFAULT 0.0,
+	[Active] [bit] NOT NULL DEFAULT 1
 
 	CONSTRAINT [pk_ItemID_ItemID] PRIMARY KEY([ItemID] ASC, [SupplierID] ASC)
 )
@@ -40,7 +40,7 @@ GO
 -- Created 2/4/19
 --Foreign Keys For ItemSupplier Join Table
 ALTER TABLE [dbo].[ItemSupplier] WITH NOCHECK
-	ADD CONSTRAINT [fk_ItemID] FOREIGN KEY ([ItemID])
+	ADD CONSTRAINT [fk_ItemSupplier_ItemID] FOREIGN KEY ([ItemID])
 	REFERENCES [dbo].[Item]([ItemID])
 	ON UPDATE CASCADE
 GO
@@ -110,12 +110,11 @@ GO
 AS
 BEGIN
 	BEGIN TRY
-		/* We can only have one primary supplier for each itemid
-		*  so if we are setting the primary supplier to this supplier
-		*  we need to set the primary supplier to false for each itemsupplier record for
-		*  this item before we set it to true for this one.
-		*  This seems like a good place for a transaction.
-		* /
+		-- We can only have one primary supplier for each itemid
+		-- so if we are setting the primary supplier to this supplier
+		-- we need to set the primary supplier to false for each itemsupplier record for
+		-- this item before we set it to true for this one.
+		-- This seems like a good place for a transaction.
 
 		BEGIN TRANSACTION
 			    DECLARE @ItemSupplierCount int
