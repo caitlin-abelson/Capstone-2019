@@ -288,3 +288,360 @@ AS
 		WHERE		[ItemSupplier].[ItemID] = @ItemID AND [ItemSupplier].[SupplierID] = @SupplierID
 	END
 --GO */
+
+/* Start Carlos */
+
+CREATE TABLE [dbo].[SupplierOrder]
+	(
+		[SupplierOrderID]   [int] IDENTITY(100005,1)   NOT NULL, 
+		[EmployeeID]  		[int]					   NOT NULL,
+		[Description]       [nvarchar](50)             NOT NULL,
+		[OrderComplete]     [bit]                      NOT NULL,
+        [DateOrdered]       [DateTime]                 NOT NULL,
+        [SupplierID]        [int]				   	   NOT NULL,
+
+        CONSTRAINT [pk SupplierOrderID] PRIMARY KEY ([SupplierOrderID] ASC),
+	)
+GO
+CREATE TABLE[dbo].[SupplierOrderLine]
+	(
+
+		[ItemID]  			 [int]  			NOT NULL, 
+		[SupplierOrderID]    [int]              NOT NULL, 
+		[Description]        [nvarchar](1000)   NOT NULL,
+		[OrderQty]           [int]              NOT NULL, 
+		[QtyReceived] 		 [int]              NULL, 
+
+	)
+GO
+CREATE PROCEDURE [dbo].[sp_create_supplierOrder]
+	(
+		@SupplierOrderID    [int],
+		@EmployeeID    	    [int],
+		@Description    	[nvarchar](50),
+		@OrderComplete  	[bit],
+		@DateOrdered 		[DateTime],
+		@SupplierID			[int]
+
+	)
+AS
+	BEGIN	
+		
+		SET IDENTITY_INSERT [dbo].[SupplierOrder] ON
+		
+		INSERT INTO [dbo].[SupplierOrder]
+			([SupplierOrderID], [EmployeeID],  [Description], [OrderComplete], 
+			 [DateOrdered], [SupplierID])
+		VALUES
+			(@SupplierOrderID, @EmployeeID, @Description, @OrderComplete,
+			 @DateOrdered, @SupplierID)
+				
+		SET IDENTITY_INSERT [dbo].[SupplierOrder] OFF
+			
+		RETURN @@ROWCOUNT	
+
+	END
+GO	
+CREATE PROCEDURE [dbo].[sp_retrieve_all_supplier_order]
+	
+AS
+	BEGIN
+				
+		SELECT [SupplierOrderID],[EmployeeID],[SupplierID],[Description],[OrderComplete],
+			   [DateOrdered] 
+		FROM 	[dbo].[SupplierOrder]
+	END	
+GO	
+CREATE PROCEDURE [dbo].[sp_update_SupplierOrder]
+	(
+		@SupplierOrderID    	[int],
+		
+		@EmployeeID  			[int],
+		@Description      		[nvarchar](50),
+		@OrderComplete          [bit],
+		@DateOrdered 	        [DateTime],
+		@SupplierID				[int],
+		
+		@OldEmployeeID  		[int],
+		@OldDescription     	[nvarchar](50),
+		@OldOrderComplete       [bit],   
+		@OldDateOrdered 	    [DateTime], 
+		@OldSupplierID			[int]
+	)
+AS
+	BEGIN
+		UPDATE		[SupplierOrder]
+			SET		[EmployeeID]  		=	@EmployeeID,  
+					[Description]      	=	@Description,      
+					[OrderComplete]     =	@OrderComplete,                  
+					[DateOrdered] 		=	@DateOrdered,
+					[SupplierID]        =	@SupplierID
+			FROM	[dbo].[SupplierOrder]
+			WHERE	[SupplierOrderID]   =   @SupplierOrderID	
+			  AND   [EmployeeID]  	    =	@OldEmployeeID  
+			  AND   [Description]      	=	@OldDescription     
+			  AND	[OrderComplete]     =	@OldOrderComplete 
+			  AND	[DateOrdered] 	    =	@OldDateOrdered 
+			  AND	[SupplierID]        =	@OldSupplierID
+			  
+			RETURN @@ROWCOUNT
+    END
+GO	
+CREATE PROCEDURE [dbo].[sp_deactivate_SupplierOrder]
+	(
+		@SupplierOrderID		[int]	
+	)
+AS
+	BEGIN
+		UPDATE  [SupplierOrder]
+		SET 	[OrderComplete] = 0
+		WHERE   [SupplierOrderID] = @SupplierOrderID
+		
+		RETURN @@ROWCOUNT
+	END
+GO	
+CREATE PROCEDURE [sp_read_all_internal_orders]
+AS
+	BEGIN
+		SELECT *
+		FROM SupplierOrder
+	END
+GO
+CREATE PROCEDURE [dbo].[sp_retrieve_List_of_EmployeeID]
+AS
+	BEGIN
+		SELECT [EmployeeID]			
+		FROM [dbo].[EmployeeRole]	    			
+		RETURN @@ROWCOUNT		
+	END
+GO
+CREATE PROCEDURE [dbo].[sp_count_supplier_order]
+	
+AS
+	BEGIN
+		SELECT COUNT([SupplierOrderID])
+		FROM [dbo].[SupplierOrder]
+	END
+GO
+
+/* Start Dani */
+
+-- Created: 2019-02-20
+CREATE TABLE [dbo].[ResortPropertyType](
+	[ResortPropertyTypeID]	[nvarchar](20) NOT NULL,
+
+	CONSTRAINT[pk_ResortPropertyTypeID] PRIMARY KEY([ResortPropertyTypeID] ASC)
+)
+GO
+
+-- Created: 2019-02-20
+CREATE TABLE [dbo].[ResortProperty](
+	[ResortPropertyID]		[int] IDENTITY(100000, 1) 	NOT NULL,
+	[ResortPropertyTypeID]	[nvarchar](20) 				NOT NULL,
+
+	CONSTRAINT[pk_ResortPropertyID] PRIMARY KEY ([ResortPropertyID] ASC),
+	CONSTRAINT[fk_ResortPropertyTypeID] FOREIGN KEY ([ResortPropertyTypeID])
+		REFERENCES [dbo].[ResortPropertyType]([ResortPropertyTypeID])
+		ON UPDATE CASCADE
+)
+GO
+
+-- Created: 2019-02-18
+CREATE TABLE [dbo].[BuildingStatus](
+	[BuildingStatusID]	[nvarchar](25)		NOT NULL,
+	[Description]		[nvarchar](1000)	NOT NULL,
+
+	CONSTRAINT[pk_BuildingStatusID] PRIMARY KEY([BuildingStatusID] ASC)
+)
+GO
+
+-- Created: 2019-01-22
+-- Update 2019-02-18 Author: Dani
+-- Update 2019-02-18 Desc: Changed length for Description, added nulls to BuildingName, Address, & Description added BuildingSatusID field
+-- Update 2019-02-20 Author: Dani
+-- Update 2019-02-20 Desc: Removed Active field, added ResortPropertyID field
+ALTER TABLE [dbo].[Building]
+	add [BuildingStatusID]	[nvarchar](25)		NOT NULL
+GO
+ALTER TABLE [dbo].[Building]
+	add [ResortPropertyID]	[int]				NOT NULL
+GO
+ALTER TABLE [dbo].[Building] WITH NOCHECK
+	add CONSTRAINT[fk_BuildingStatusID_Building] FOREIGN KEY ([BuildingStatusID])
+		REFERENCES [dbo].[BuildingStatus]([BuildingStatusID]) ON UPDATE CASCADE
+GO
+
+-- Created: 2019-02-20
+ALTER TABLE [dbo].[Building] WITH NOCHECK
+	ADD CONSTRAINT [fk_ResortPropertyID_Building] FOREIGN KEY ([ResortPropertyID])
+	REFERENCES [dbo].[ResortProperty]([ResortPropertyID])
+	ON UPDATE CASCADE
+GO
+
+-- Created: 2019-02-20
+CREATE PROCEDURE [dbo].[sp_insert_resortproperty]
+	(
+		@ResortPropertyTypeID	[nvarchar](25)
+	)
+AS
+	BEGIN
+		INSERT INTO [ResortProperty]
+			([ResortPropertyTypeID])
+		VALUES
+			(@ResortPropertyTypeID)
+
+		SELECT SCOPE_IDENTITY()
+	END
+GO
+
+DROP PROCEDURE [dbo].[sp_insert_building]
+GO
+-- Created: 2019-01-22
+-- Update 2019-02-18 Author: Dani
+-- Update 2019-02-18 Desc: Changed length for Description, added BuildingStatusID parameter and field
+-- Update 2019-02-20 Author: Dani
+-- Update 2019-02-20 Desc: Added ResortPropertyID parameter and field
+-- Update 2019-02-22 Author: Jared Greenfield and Jim Glasgow
+-- Update 2019-02-22 Desc: Syntax update for the ResortProperty field and removed param
+CREATE PROCEDURE [dbo].[sp_insert_building]
+	(
+		@BuildingID			[nvarchar](50),
+		@BuildingName		[nvarchar](150),
+		@Address			[nvarchar](150),
+		@Description		[nvarchar](1000),
+		@BuildingStatusID	[nvarchar](25)
+	)
+AS
+	BEGIN
+
+		INSERT INTO [ResortProperty]
+			([ResortPropertyTypeID])
+		VALUES
+			('Building')
+
+		SELECT @@IDENTITY AS [@@IDENTITY]
+
+		INSERT INTO [Building]
+			([BuildingID],[BuildingName], [Address], [Description], [BuildingStatusID], [ResortPropertyID])
+		VALUES
+			(@BuildingID, @BuildingName, @Address, @Description, @BuildingStatusID, @@IDENTITY)
+
+		RETURN @@ROWCOUNT
+	END
+GO
+
+-- Created: 2019-01-30
+-- Update 2019-02-18 Author: Dani
+-- Update 2019-02-18 Desc: Added BuildingStatusID field
+-- Update 2019-02-20 Author: Dani
+-- Update 2019-02-20 Desc: Removed Active field
+CREATE PROCEDURE sp_select_building_by_id
+	(
+		@BuildingID		[nvarchar](50)
+	)
+AS
+	BEGIN
+		SELECT	[BuildingID], [BuildingName], [Address], [Description], [BuildingStatusID]
+		FROM	[Building]
+		WHERE	[BuildingID] = @BuildingID
+	END
+GO
+
+-- Created: 2019-02-02
+-- Update 2019-02-18 Author: Dani
+-- Update 2019-02-18 Desc: Added BuildingSatusID field
+-- Update 2019-02-20 Author: Dani
+-- Update 2019-02-20 Desc: Removed Active field, removed "Order by Active"
+CREATE PROCEDURE sp_select_building_by_keyword_in_building_name
+	(
+		@Keyword		[nvarchar](150)
+	)
+AS
+	BEGIN
+		SELECT		[BuildingID], [BuildingName], [Address], [Description], [BuildingStatusID]
+		FROM		[Building]
+		WHERE		[BuildingName] LIKE '%' + @Keyword + '%'
+		ORDER BY	[BuildingID]
+	END
+GO
+
+-- Created: 2019-02-19
+-- Update 2019-02-20 Author: Dani
+-- Update 2019-02-20 Desc: Removed Active field, removed "Order by Active"
+CREATE PROCEDURE sp_select_building_by_buildingstatusid
+	(
+		@BuildingStatusID		[nvarchar](25)
+	)
+AS
+	BEGIN
+		SELECT		[BuildingID], [BuildingName], [Address], [Description], [BuildingStatusID]
+		FROM		[Building]
+		WHERE		[BuildingStatusID] = @BuildingStatusID
+		ORDER BY	[BuildingID]
+	END
+GO
+
+-- Created: 2019-01-30
+-- Update 2019-02-18 Author: Dani
+-- Update 2019-02-18 Desc: Added BuildingStatusID field
+-- Update 2019-02-18 Author: Dani
+-- Update 2019-02-18 Desc: Removed Active field, removed "Order by Active"
+CREATE PROCEDURE sp_select_buildings
+AS
+	BEGIN
+		SELECT 		[BuildingID], [BuildingName], [Address], [Description], [BuildingStatusID]
+		FROM		[Building]
+		ORDER BY	[BuildingID]
+	END
+GO
+
+-- Created: 2019-02-20
+CREATE PROCEDURE sp_select_all_statusids
+AS
+	BEGIN
+		SELECT 		[BuildingStatusID]
+		FROM		[BuildingStatus]
+		ORDER BY	[BuildingStatusID]
+	END
+GO
+
+-- Created: 2019-01-30
+-- Update 2019-02-18 Author: Dani
+-- Update 2019-02-18 Desc: Changed length of Description parameters, added BuildingStatusID field and parameters
+CREATE PROCEDURE sp_update_building
+	(
+		@BuildingID				[nvarchar](50),
+
+		@NewBuildingName 		[nvarchar](150),
+		@NewAddress				[nvarchar](150),
+		@NewDescription			[nvarchar](1000),
+		@NewBuildingStatusID	[nvarchar](25),
+
+		@OldBuildingName		[nvarchar](150),
+		@OldAddress				[nvarchar](150),
+		@OldDescription			[nvarchar](250),
+		@OldBuildingStatusID	[nvarchar](25)
+	)
+AS
+	BEGIN
+		UPDATE	[Building]
+			SET	[BuildingName] 		= @NewBuildingName,
+				[Address]			= @NewAddress,
+				[Description]		= @NewDescription,
+				[BuildingStatusID]	= @NewBuildingStatusID
+		WHERE	[BuildingID] 		= @BuildingID
+			AND [BuildingName] 		= @OldBuildingName
+			AND [Address]			= @OldAddress
+			AND	[Description]		= @OldDescription
+			AND	[BuildingStatusID]	= @OldBuildingStatusID
+
+		Return @@ROWCOUNT
+	END
+GO
+
+
+--print '' print '*** TO DO: Create Inspection Table ***'
+--print '' print '*** TO DO: Create sp to find all maintance tickets for buildings ResortPropertyID ***'
+--print '' print '*** TO DO: Create sp to find all maintance tickets for each building by rooms ResortPropertyID ***'
+--print '' print '*** TO DO: Create sp to find all inspection records for buildings ResortPropertyID ***'
+
