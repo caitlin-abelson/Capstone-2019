@@ -60,6 +60,7 @@ namespace Presentation
             var product = (Product)dgProducts.SelectedItem;
             var createForm = new CreateProduct(product);
             var productAdded = createForm.ShowDialog();
+            refreshProducts();
         }
         /// <summary>
         /// Kevin Broskow
@@ -143,6 +144,7 @@ namespace Presentation
         {
             var createForm = new CreateProduct();
             createForm.ShowDialog();
+            refreshProducts();
         }
         /// <summary>
         /// Kevin Broskow
@@ -170,6 +172,7 @@ namespace Presentation
             {
                 MessageBox.Show("You must have a product selected.");
             }
+            refreshProducts();
         }
         /// <summary>
         /// Kevin Broskow

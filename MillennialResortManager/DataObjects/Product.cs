@@ -24,6 +24,7 @@ namespace DataObjects
         public bool Active { get; set; }
         public bool CustomerPurchasable { get; set; }
         public int RecipeID { get; set; }
+        public int OfferingID { get; set; }
 
         public bool IsValid()
         {
@@ -53,7 +54,7 @@ namespace DataObjects
         }
         public bool ValidateDescription()
         {
-            if (Description != null && Description != "" && Description.Length < 1001)
+            if (Description.Length < 1001)
             {
                 return true;
             }

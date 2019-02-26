@@ -48,6 +48,7 @@ namespace DataAccessLayer
             cmd.Parameters.AddWithValue("@DateActive", newProduct.DateActive);
             cmd.Parameters.AddWithValue("@CustomerPurchasable", newProduct.CustomerPurchasable);
             cmd.Parameters.AddWithValue("@RecipeID", newProduct.RecipeID);
+            cmd.Parameters.AddWithValue("@OfferingID", newProduct.OfferingID);
 
             try
             {
@@ -144,7 +145,7 @@ namespace DataAccessLayer
         {
             List<Product> allProducts = new List<Product>();
             var conn = DBConnection.GetDbConnection();
-            var cmdText = @"sp_retrieve_all_items";
+            var cmdText = @"sp_select_all_items";
 
             SqlCommand cmd = new SqlCommand(cmdText, conn);
             cmd.CommandType = System.Data.CommandType.StoredProcedure;
@@ -168,7 +169,8 @@ namespace DataAccessLayer
                             DateActive = reader.GetDateTime(6),
                             Active = reader.GetBoolean(7),
                             CustomerPurchasable = reader.GetBoolean(8),
-                            RecipeID = reader.GetInt32(9)
+                            RecipeID = reader.GetInt32(9),
+                            OfferingID = reader.GetInt32(10)
                         });
                     }
                 }
@@ -226,7 +228,8 @@ namespace DataAccessLayer
                             DateActive = reader.GetDateTime(6),
                             Active = reader.GetBoolean(7),
                             CustomerPurchasable = reader.GetBoolean(8),
-                            RecipeID = reader.GetInt32(9)
+                            RecipeID = reader.GetInt32(9),
+                            OfferingID = reader.GetInt32(10)
                         });
                     }
                 }
@@ -285,7 +288,8 @@ namespace DataAccessLayer
                             DateActive = reader.GetDateTime(6),
                             Active = reader.GetBoolean(7),
                             CustomerPurchasable = reader.GetBoolean(8),
-                            RecipeID = reader.GetInt32(9)
+                            RecipeID = reader.GetInt32(9),
+                            OfferingID = reader.GetInt32(10)
                         });
                     }
                 }
@@ -343,6 +347,7 @@ namespace DataAccessLayer
                     product.Active = reader.GetBoolean(6);
                     product.CustomerPurchasable = reader.GetBoolean(8);
                     product.RecipeID = reader.GetInt32(9);
+                    product.OfferingID = reader.GetInt32(10);
                 }
             }
             catch (Exception ex)
@@ -386,6 +391,7 @@ namespace DataAccessLayer
             cmd.Parameters.AddWithValue("@oldActive", oldProduct.Active);
             cmd.Parameters.AddWithValue("@oldCustomerPurchasable", oldProduct.CustomerPurchasable);
             cmd.Parameters.AddWithValue("@oldRecipeID", oldProduct.RecipeID);
+            cmd.Parameters.AddWithValue("@oldOfferingID", oldProduct.OfferingID);
             cmd.Parameters.AddWithValue("@newItemTypeID", newProduct.ItemType);
             cmd.Parameters.AddWithValue("@newDescription", newProduct.Description);
             cmd.Parameters.AddWithValue("@newOnHandQuantity", newProduct.OnHandQty);
@@ -395,6 +401,7 @@ namespace DataAccessLayer
             cmd.Parameters.AddWithValue("@newActive", newProduct.Active);
             cmd.Parameters.AddWithValue("@newCustomerPurchasable", newProduct.CustomerPurchasable);
             cmd.Parameters.AddWithValue("@newRecipeID", newProduct.RecipeID);
+            cmd.Parameters.AddWithValue("@newOfferingID", newProduct.OfferingID);
             try
             {
                 conn.Open();

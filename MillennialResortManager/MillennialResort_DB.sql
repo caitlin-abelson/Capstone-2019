@@ -545,6 +545,7 @@ CREATE TABLE [dbo].[Product](
 	[Active]			[bit]				NOT NULL	DEFAULT 1,
 	[CustomerPurchasable]	[bit]			NOT NULL 	DEFAULT 1,
 	[RecipeID]			[int]				,
+	[OfferingID]		[int],
 	
 	CONSTRAINT [pk_ItemID] PRIMARY KEY([ItemID] ASC)
 )
@@ -632,7 +633,8 @@ CREATE PROCEDURE [dbo].[sp_insert_product]
 	@ReOrderQuantity	[int],
 	@DateActive			[date],
 	@CustomerPurchasable	[bit],
-	@RecipeID		[int]
+	@RecipeID		[int],
+	@OfferingID		[int]	
 )
 AS
 	BEGIN
@@ -704,6 +706,7 @@ CREATE PROCEDURE [dbo].[sp_update_product]
 	@oldActive				[bit],
 	@oldCustomerPurchasable 	[bit],
 	@oldRecipeID		[int],
+	@oldOfferingID		[int],
 	
 	@newItemTypeID		[nvarchar](15),
 	@newDescription	[nvarchar](250),
@@ -713,7 +716,8 @@ CREATE PROCEDURE [dbo].[sp_update_product]
 	@newDateActive			[date],
 	@newActive				[bit],
 	@newCustomerPurchasable 	[bit],
-	@newRecipeID		[int]
+	@newRecipeID		[int],
+	@newOfferingID		[int]
 	
 )
 AS
@@ -753,7 +757,7 @@ CREATE PROCEDURE [dbo].[sp_select_item]
 )
 AS
 	BEGIN
-		SELECT [ItemTypeID], [Description], [OnHandQuantity], [Name], [ReOrderQuantity], [DateActive], [Active], [CustomerPurchasable], [RecipeID]
+		SELECT [ItemTypeID], [Description], [OnHandQuantity], [Name], [ReOrderQuantity], [DateActive], [Active], [CustomerPurchasable], [RecipeID], [OfferingID]
 		FROM	[Product]
 		WHERE 	[ItemID] = @ItemID
 	END
@@ -770,7 +774,7 @@ GO
 CREATE PROCEDURE [dbo].[sp_select_all_items]			
 	AS
 		BEGIN
-		SELECT [ItemID], [ItemTypeID], [Description], [OnHandQuantity], [Name], [ReOrderQuantity], [DateActive], [Active], [CustomerPurchasable], [RecipeID]
+		SELECT [ItemID], [ItemTypeID], [Description], [OnHandQuantity], [Name], [ReOrderQuantity], [DateActive], [Active], [CustomerPurchasable], [RecipeID], [OfferingID]
 		FROM	[Product] 
 	END
 GO
@@ -785,7 +789,7 @@ GO
 CREATE PROCEDURE [dbo].[sp_select_all_active_items]			
 	AS
 		BEGIN
-		SELECT [ItemID], [ItemTypeID], [Description], [OnHandQuantity], [Name], [ReOrderQuantity], [DateActive], [Active], [CustomerPurchasable], [RecipeID]
+		SELECT [ItemID], [ItemTypeID], [Description], [OnHandQuantity], [Name], [ReOrderQuantity], [DateActive], [Active], [CustomerPurchasable], [RecipeID], [OfferingID]
 		FROM	[Product] 
 		WHERE [Active] =1
 	END
@@ -801,13 +805,13 @@ GO
 CREATE PROCEDURE [dbo].[sp_select_all_deactivated_items]			
 	AS
 		BEGIN
-		SELECT [ItemID], [ItemTypeID], [Description], [OnHandQuantity], [Name], [ReOrderQuantity], [DateActive], [Active], [CustomerPurchasable], [RecipeID]
+		SELECT [ItemID], [ItemTypeID], [Description], [OnHandQuantity], [Name], [ReOrderQuantity], [DateActive], [Active], [CustomerPurchasable], [RecipeID], [OfferingID]
 		FROM	[Product] 
 		WHERE [Active] =0
 	END
 GO			
 			
-			/*
+/*
 Author: Kevin Broskow
 Created Date: 1/28/19
 
@@ -818,18 +822,18 @@ print '' print '*** Inserting Product Records'
 GO
 
 INSERT INTO [dbo].[Product]
-		([ItemTypeID], [Description],[OnHandQuantity], [Name], [ReOrderQuantity], [DateActive], [Active], [CustomerPurchasable], [RecipeID])
+		([ItemTypeID], [Description],[OnHandQuantity], [Name], [ReOrderQuantity], [DateActive], [Active], [CustomerPurchasable], [RecipeID], [OfferingID])
 	VALUES
-		('Food', 'Its a food item', 4, 'Its a large taco', 1, '2019-02-01', 1, 1, 1051),
-		('Shoe', 'Its a shoe item', 4, 'Its a small light up shoe', 1, '2019-02-01', 0, 1, 1051),
-		('Hat', 'Its a hat item', 4, 'Its a large sombrero', 1, '2019-02-01', 1, 1, 1051),
-		('Food', 'Its a fodd item', 4, 'Its a large burrito', 1, '2019-02-01', 0,1, 1051),
-		('Hat', '', 4, 'Abe Lincoln Hat', 1, '2019-02-01', 1, 1, 1051),
-		('Food', 'Wonderful & delicious', 9, 'Hickory smoked salt', 15, '2019-02-01', 1, 1, 1051),
-		('Food', 'Its a food item', 4, 'Hamburger', 1, '2019-02-11', 1, 0, 1051),
-		('Food', 'I wonder if its a steak', 4, '8 oz. New York Strip', 1, '2019-02-01', 1, 0, 1051),
-		('Food', 'I am hungry right now', 25, '6 oz. Ahi Tuna Steak', 10, '2019-02-01', 1, 1, 1051),
-		('Food', 'Its a food item', 4, 'Its popcorn', 1, '2019-02-01', 1, 1, 1051)
+		('Food', 'Its a food item', 4, 'Its a large taco', 1, '2019-02-01', 1, 1, 1051,1001),
+		('Shoe', 'Its a shoe item', 4, 'Its a small light up shoe', 1, '2019-02-01', 0, 1, 1051,1001),
+		('Hat', 'Its a hat item', 4, 'Its a large sombrero', 1, '2019-02-01', 1, 1, 1051,1001),
+		('Food', 'Its a fodd item', 4, 'Its a large burrito', 1, '2019-02-01', 0,1, 1051,1001),
+		('Hat', '', 4, 'Abe Lincoln Hat', 1, '2019-02-01', 1, 1, 1051,1001),
+		('Food', 'Wonderful & delicious', 9, 'Hickory smoked salt', 15, '2019-02-01', 1, 1, 1051,1001),
+		('Food', 'Its a food item', 4, 'Hamburger', 1, '2019-02-11', 1, 0, 1051,1001),
+		('Food', 'I wonder if its a steak', 4, '8 oz. New York Strip', 1, '2019-02-01', 1, 0, 1051,1001),
+		('Food', 'I am hungry right now', 25, '6 oz. Ahi Tuna Steak', 10, '2019-02-01', 1, 1, 1051,1001),
+		('Food', 'Its a food item', 4, 'Its popcorn', 1, '2019-02-01', 1, 1, 1051,1001)
 		
 GO
 

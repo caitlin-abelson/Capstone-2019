@@ -51,6 +51,7 @@ namespace Presentation
             this.cbPurchasable.IsEnabled = false;
             this.cbActive.IsEnabled = false;
             this.dpDateActive.IsEnabled = false;
+            this.txtOfferingID.IsEnabled = false;
             this.btnSubmit.Visibility = Visibility.Hidden;
             this.btnEdit.Visibility = Visibility.Visible;
             this.lblDateActive.Visibility = Visibility.Visible;
@@ -62,6 +63,7 @@ namespace Presentation
             this.txtName.Text = selectedProduct.Name;
             this.txtOnHand.Text = selectedProduct.OnHandQty.ToString();
             this.txtReorder.Text = selectedProduct.ReorderQty.ToString();
+            this.txtOfferingID.Text = selectedProduct.OfferingID.ToString();
             if (selectedProduct.Active)
             {
                 this.cbActive.IsChecked = true;
@@ -100,6 +102,7 @@ namespace Presentation
                     oldProduct.DateActive = DateTime.Now;
                     oldProduct.ProductID = _productManager.CreateProduct(oldProduct);
                     oldProduct.RecipeID = Int32.Parse(this.txtRecipeID.Text);
+                    oldProduct.OfferingID = Int32.Parse(this.txtOfferingID.Text);
                     if ((bool)this.cbPurchasable.IsChecked)
                     {
                         oldProduct.CustomerPurchasable = true;
@@ -124,6 +127,7 @@ namespace Presentation
                 newProduct.DateActive = (DateTime)this.dpDateActive.SelectedDate;
                 MessageBox.Show(oldProduct.ProductID.ToString());
                 newProduct.RecipeID = Int32.Parse(this.txtRecipeID.Text);
+                oldProduct.OfferingID = Int32.Parse(this.txtOfferingID.Text);
                 if ((bool)this.cbPurchasable.IsChecked)
                 {
                     newProduct.CustomerPurchasable = true;
@@ -137,7 +141,7 @@ namespace Presentation
                     newProduct.Active = false;
                 }
                 _productManager.UpdateProduct(newProduct, oldProduct);
-                    
+                  
                 }
             this.Close();
         }
@@ -159,16 +163,11 @@ namespace Presentation
                         {
                             if (ValidItemType())
                             {
-                                if (ValidRecipeID())
-                                {
+                                
 
                                     MessageBox.Show("Valid Data");
                                     return true;
-                                }
-                                else
-                                {
-                                    MessageBox.Show("Invalid RecipeID");
-                                }
+                                
                             }
 
                             else
@@ -197,16 +196,7 @@ namespace Presentation
             }
             return false;
         }
-
-        private bool ValidRecipeID()
-        {
-            if(this.txtRecipeID == null)
-            {
-                return false;
-            }
-
-            return true;
-        }
+        
 
         /// <summary>
         ///Kevin Broskow
@@ -348,6 +338,7 @@ namespace Presentation
             this.lblActive.Visibility = Visibility.Visible;
             this.dpDateActive.Visibility = Visibility.Visible;
             this.cbActive.Visibility = Visibility.Visible;
+            this.txtOfferingID.IsReadOnly = true;
             this.dpDateActive.SelectedDate = oldProduct.DateActive; if (oldProduct.Active)
             {
                 this.cbActive.IsChecked = true;
@@ -371,6 +362,7 @@ namespace Presentation
             this.cbActive.IsEnabled = true;
             this.txtRecipeID.IsReadOnly = false;
             this.dpDateActive.IsEnabled = false;
+            this.txtOfferingID.IsReadOnly = false;
             this.btnSubmit.Visibility = Visibility.Visible;
             this.btnEdit.Visibility = Visibility.Hidden;
             this.lblDateActive.Visibility = Visibility.Visible;
