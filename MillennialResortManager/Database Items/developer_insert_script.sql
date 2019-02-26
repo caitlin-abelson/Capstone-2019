@@ -1,7 +1,18 @@
 USE [MillennialResort_DB]
 GO
+
+/*********************************************************************/
+/*                          How to comment                           */
+
+/* Start {Your name} */
+
+-- Created: {Date you wrote the script 
+/* The first line of your code here */
+
+
 /*********************************************************************/
 /* Developers place their test code here to be submitted to database */
+/* vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv */
 /*********************************************************************/
 
 /* Start Phil, submitted 2019-02-18 */
@@ -10,8 +21,21 @@ GO
 --DQ'd for error 'SponsorName is not valid field'
 AS
 	BEGIN
-		SELECT 	[EventID],[EventTitle],[Event].[EmployeeID],[Employee].[FirstName],[EventTypeID] AS [EventType],[Description],[EventStartDate],
-				[EventEndDate],[KidsAllowed],[NumGuests],[Location],[Sponsored],[Event].[SponsorID],[Sponsor].[SponsorName], [Approved]
+		SELECT
+		[EventID],
+		[EventTitle],
+		[Event].[EmployeeID],
+		[Employee].[FirstName],
+		[EventTypeID] AS [EventType],
+		[Description],[EventStartDate],
+		[EventEndDate],
+		[KidsAllowed],
+		[NumGuests],
+		[Location],
+		[Sponsored],
+		[Event].[SponsorID],
+		[Sponsor].[SponsorName],
+		[Approved]
 		FROM	[dbo].[Employee] INNER JOIN [dbo].[Event]
 			ON		[Employee].[EmployeeID] = [Event].[EmployeeID]
 				INNER JOIN [dbo].[Sponsor]
@@ -20,79 +44,6 @@ AS
 --GO*/
 
 /* Start Eric Bostwick */
-
--- Created 2/4/19
---Updated 2/14/19 to Add Active
-GO
-CREATE TABLE [dbo].[ItemSupplier] (
-	[ItemID]			[int]                         NOT NULL,
-	[SupplierID]		[int]					  	  NOT NULL,
-	[PrimarySupplier]	[bit]						  NULL,
-	[LeadTimeDays]		[int]						  NULL DEFAULT 0,
-	[UnitPrice]			[money]						  NULL DEFAULT 0.0,
-	[Active]			[bit]						  NOT NULL DEFAULT 1
-
-	CONSTRAINT [pk_ItemID_ItemID] PRIMARY KEY([ItemID] ASC, [SupplierID] ASC)
-)
-
-GO
-
--- Created 2/4/19
---Foreign Keys For ItemSupplier Join Table
-ALTER TABLE [dbo].[ItemSupplier] WITH NOCHECK
-	ADD CONSTRAINT [fk_ItemID] FOREIGN KEY ([ItemID])
-	REFERENCES [dbo].[Item]([ItemID])
-	ON UPDATE CASCADE
-GO
-ALTER TABLE [dbo].[ItemSupplier] WITH NOCHECK
-	ADD CONSTRAINT [fk_SupplierID] FOREIGN KEY ([SupplierID])
-	REFERENCES [dbo].[Supplier]([SupplierID])
-	ON UPDATE CASCADE
-GO
-
--- Created: 2019-02-04
-CREATE PROCEDURE [dbo].[sp_update_itemsupplier]
-	(
-		@ItemID 			[int],
-		@SupplierID			[int],
-		@PrimarySupplier	[bit],
-		@LeadTimeDays		[int],
-		@UnitPrice			[money],
-		@Active				[bit],
-
-		@OldItemID 			[int],
-		@OldSupplierID		[int],
-		@OldPrimarySupplier	[bit],
-		@OldLeadTimeDays	[int],
-		@OldUnitPrice		[money],
-		@OldActive			[bit]
-	)
-AS
-BEGIN
-		IF(@PrimarySupplier = 1)
-			BEGIN
-				UPDATE [dbo].[ItemSupplier]
-				SET [PrimarySupplier]= 0
-				WHERE [ItemID] = @ItemID
-			END
-
-		UPDATE [dbo].[ItemSupplier]
-		SET [ItemID] = @ItemID,
-			[SupplierID] = @SupplierID,
-			[PrimarySupplier] = @PrimarySupplier,
-			[LeadTimeDays] = @LeadTimeDays,
-			[UnitPrice] = @UnitPrice,
-			[Active] = @Active
-		WHERE
-			[ItemID] = @OldItemID AND
-			[SupplierID] = @OldSupplierID AND
-			[PrimarySupplier] = @OldPrimarySupplier AND
-			[LeadTimeDays] = @OldLeadTimeDays AND
-			[UnitPrice] = @OldUnitPrice AND
-			[Active] = @OldActive
-END
-
-GO
 
 -- Created: 2019-02-04
 /*CREATE PROCEDURE [dbo].[sp_create_itemsupplier]
@@ -110,12 +61,11 @@ GO
 AS
 BEGIN
 	BEGIN TRY
-		/* We can only have one primary supplier for each itemid
-		*  so if we are setting the primary supplier to this supplier
-		*  we need to set the primary supplier to false for each itemsupplier record for
-		*  this item before we set it to true for this one.
-		*  This seems like a good place for a transaction.
-		* /
+		-- We can only have one primary supplier for each itemid
+		-- so if we are setting the primary supplier to this supplier
+		-- we need to set the primary supplier to false for each itemsupplier record for
+		-- this item before we set it to true for this one.
+		-- This seems like a good place for a transaction.
 
 		BEGIN TRANSACTION
 			    DECLARE @ItemSupplierCount int
@@ -157,7 +107,7 @@ END
 
 AS
 	BEGIN
-		SELECT 	    
+		SELECT
 		[ItemSupplier].[ItemID],
 		[ItemSupplier].[SupplierID],
 		[ItemSupplier].[PrimarySupplier],
@@ -189,63 +139,6 @@ AS
 		WHERE		[ItemSupplier].[itemID] = @ItemID
 	END
 --GO */
-
--- Created: 2019-02-07
-CREATE PROCEDURE [dbo].[sp_delete_itemsupplier_by_itemid_and_supplierid]
-(
-	@ItemID [int],
-	@SupplierID [int]
-)
-AS
-	BEGIN
-		DELETE
-		FROM		[ItemSupplier]
-		WHERE		[ItemID] = @ItemID AND [SupplierID] = @SupplierID
-	END
-GO
-
--- Created: 2019-02-07
-CREATE PROCEDURE [dbo].[sp_deactivate_itemsupplier_by_itemid_and_supplierid]
-(
-	@ItemID [int],
-	@SupplierID [int]
-)
-AS
-	BEGIN
-
-		UPDATE		[ItemSupplier]
-		SET [Active] = 0
-		WHERE		[ItemID] = @ItemID AND [SupplierID] = @SupplierID
-	END
-GO
-
--- Created: 2019-02-07
--- Description: Returns all the suppliers not setup in the itemsupplier table for that item. This is so user doesn't get the option to add a supplier that will create a primary key violation on the item supplier table.
-CREATE PROCEDURE [dbo].[sp_select_suppliers_for_itemsupplier_mgmt_by_itemid]
-(
-	@ItemID [int]
-)
-AS
-	BEGIN
-		SELECT		[Supplier].[SupplierID],
-					[Supplier].[Name],
-					[Supplier].[Address],
-					[Supplier].[City],
-					[Supplier].[State],
-					[Supplier].[PostalCode],
-					[Supplier].[Country],
-					[Supplier].[PhoneNumber],
-					[Supplier].[Email],
-					[Supplier].[ContactFirstName],
-					[Supplier].[ContactLastName],
-					[Supplier].[DateAdded],
-					[Supplier].[Description],
-					[Supplier].[Active]
-
-		FROM		[Supplier] LEFT OUTER JOIN [ItemSupplier] [isup] ON [isup].[SupplierID] = [Supplier].[SupplierID]
-		WHERE		[isup].[Itemid] != @ItemID OR [isup].[Itemid] is Null
-	END
-GO
 
 -- Created: 2019-02-04
 /*CREATE PROCEDURE [dbo].[sp_select_itemsupplier_by_itemid_and_supplierid]
@@ -289,3 +182,49 @@ AS
 		WHERE		[ItemSupplier].[ItemID] = @ItemID AND [ItemSupplier].[SupplierID] = @SupplierID
 	END
 --GO */
+
+/* Start Carlos */
+
+/*CREATE PROCEDURE [sp_read_all_internal_orders]
+-- Pending add per Austin D.
+-- Does this do something different than sp_retrieve_all_supplier_order?
+-- Also does not follow naming conventions
+AS
+	BEGIN
+		SELECT *
+		FROM SupplierOrder
+	END
+--GO */
+
+/* Start Dani */
+
+-- TABLE NOTATION TO BE ADDED BY AUSTIN D.
+-- Created: 2019-01-22
+-- Update 2019-02-18 Author: Dani
+-- Update 2019-02-18 Desc: Changed length for Description, added nulls to BuildingName, Address, & Description added BuildingSatusID field
+-- Update 2019-02-20 Author: Dani
+-- Update 2019-02-20 Desc: Removed Active field, added ResortPropertyID field
+
+-- Created: 2019-02-20
+/* CREATE PROCEDURE [dbo].[sp_insert_resortproperty]
+-- Pending add per Austin D.
+-- Could be used as a shortcut from inside other SP's, but should not be called from the app.
+	(
+		@ResortPropertyTypeID	[nvarchar](25)
+	)
+AS
+	BEGIN
+		INSERT INTO [ResortProperty]
+			([ResortPropertyTypeID])
+		VALUES
+			(@ResortPropertyTypeID)
+
+		SELECT SCOPE_IDENTITY()
+	END
+GO */
+
+--print '' print '*** TO DO: Create Inspection Table ***'
+--print '' print '*** TO DO: Create sp to find all maintance tickets for buildings ResortPropertyID ***'
+--print '' print '*** TO DO: Create sp to find all maintance tickets for each building by rooms ResortPropertyID ***'
+--print '' print '*** TO DO: Create sp to find all inspection records for buildings ResortPropertyID ***'
+
