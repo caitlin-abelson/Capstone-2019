@@ -21,7 +21,7 @@
             <ColumnDefinition/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <Label x:Name="txtGreeting" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2"/>
+        <Label x:Name="txtGreeting" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3"/>
         <Button x:Name="btnLogout" Grid.Column="3" Content="Logout" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="10" Click="btnLogout_Click"/>
         <Button Grid.Row="1" Grid.Column="0" x:Name="btnReservationLauncher" Content="Reservation" Margin="5" Click="btnReservationLauncher_Click"/>
         <Button Grid.Row="1" Grid.Column="1" x:Name="btnEmployeeLauncher" Content="Employee" Margin="5" Click="btnEmployeeLauncher_Click"/>

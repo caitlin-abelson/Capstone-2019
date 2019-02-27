@@ -16,7 +16,9 @@ using System.Windows.Shapes;
 namespace Presentation
 {
     /// <summary>
-    /// Interaction logic for DevLauncher.xaml
+    /// Author: Matt LaMarche
+    /// Created : 2/27/2019
+    /// This is a launcher for Developers to use while we develop functionality for our program
     /// </summary>
     public partial class DevLauncher : Window
     {
@@ -25,7 +27,7 @@ namespace Presentation
         {
             _employee = employee;
             InitializeComponent();
-            txtGreeting.Content = "Hello there "+_employee.FirstName;
+            txtGreeting.Content = "Hello there "+_employee.FirstName + ". This is a temporary page meant for developers to quickly launch their code";
         }
 
         private void btnReservationLauncher_Click(object sender, RoutedEventArgs e)

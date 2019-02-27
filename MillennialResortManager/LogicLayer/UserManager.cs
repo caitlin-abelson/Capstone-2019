@@ -50,6 +50,14 @@ namespace LogicLayer
             return user;
         }
 
+        /// <summary>
+        /// Author: Matt LaMarche
+        /// Created : 2/6/2019
+        /// Similar to AuthenticateUser but returns an Employee object
+        /// </summary>
+        /// <param name="userName">Username for this employee to log in</param>
+        /// <param name="password">Password for this employee to log in</param>
+        /// <returns></returns>
         public Employee AuthenticateEmployee(string userName, string password)
         {
             

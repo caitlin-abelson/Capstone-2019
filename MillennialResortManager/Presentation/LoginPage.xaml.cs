@@ -33,7 +33,11 @@ namespace Presentation
         }
 
 
-
+        /// <summary>
+        /// Author: Matt LaMarche
+        /// Created : 2/27/2019
+        /// Attempts to log in and retrieve an Employee from our database
+        /// </summary>
         private void btnLogin_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -68,10 +72,15 @@ namespace Presentation
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Invalid login attempt: "+ex );
+                MessageBox.Show("Invalid login attempt: "+ex.Message );
             }
         }
 
+        /// <summary>
+        /// Author: Matt LaMarche
+        /// Created : 2/27/2019
+        /// Logs in with a valid Email and Passwword. Meant to save time for developers
+        /// </summary>
         private void btnSpeedLogin_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -95,7 +104,7 @@ namespace Presentation
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Invalid login attempt: " + ex);
+                MessageBox.Show("Invalid login attempt: " + ex.Message);
             }
         }
     }
