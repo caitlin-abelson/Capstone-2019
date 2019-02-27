@@ -228,3 +228,17 @@ GO */
 --print '' print '*** TO DO: Create sp to find all maintance tickets for each building by rooms ResortPropertyID ***'
 --print '' print '*** TO DO: Create sp to find all inspection records for buildings ResortPropertyID ***'
 
+
+/* Start Matt */
+-- Retrieves an employee based on email
+CREATE PROCEDURE [sp_retrieve_employee_by_email]
+(
+	@Email 		[nvarchar](250)
+)
+AS
+	BEGIN
+		SELECT [EmployeeID], [FirstName], [LastName], [Email], [PhoneNumber], [DepartmentID], [Active]
+		FROM [Employee]
+		WHERE [Email] = @Email
+	END
+GO

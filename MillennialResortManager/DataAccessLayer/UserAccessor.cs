@@ -290,7 +290,86 @@ namespace DataAccessLayer
             return result;
         }
 
+        public static Employee RetrieveEmployeeByEmail(string email)
+        {
+            Employee user = new Employee();
 
+            // get a connection
+            var conn = DBConnection.GetDbConnection();
+
+            // command text
+            string cmdText1 = @"sp_retrieve_employee_by_email";
+            //string cmdText2 = @"sp_retrieve_employee_roles";
+
+            // command objects
+            var cmd1 = new SqlCommand(cmdText1, conn);
+            //var cmd2 = new SqlCommand(cmdText2, conn);
+
+            // set the command type
+            cmd1.CommandType = CommandType.StoredProcedure;
+            //cmd2.CommandType = CommandType.StoredProcedure;
+
+            // parameters
+            cmd1.Parameters.Add("@Email", SqlDbType.NVarChar, 250);
+            //cmd2.Parameters.Add("@Email", SqlDbType.NVarChar, 250);
+
+
+            // values
+            cmd1.Parameters["@Email"].Value = email;
+            //cmd2.Parameters["@Email"].Value = email;
+
+            try
+            {
+                // open the connection
+                conn.Open();
+                //List<string> roles = new List<string>();
+
+                // process cmd1
+                SqlDataReader reader1 = cmd1.ExecuteReader();
+
+                if (reader1.HasRows)
+                {
+                    reader1.Read();     // reads the first line
+                    user.EmployeeID = reader1.GetInt32(0);
+                    user.FirstName = reader1.GetString(1);
+                    user.LastName = reader1.GetString(2);
+                    user.Email = reader1.GetString(3);
+                    user.PhoneNumber = reader1.GetString(4);
+                    user.DepartmentID = reader1.GetString(5);
+                    user.Active = reader1.GetBoolean(6);
+                }
+                else
+                {
+                    throw new ApplicationException("User not found.");      // only be possible if user was deleted while this is executed
+                }
+
+                // process cmd2
+                //SqlDataReader reader2 = cmd2.ExecuteReader();
+                //if (reader2.HasRows)
+                //{
+                //    while (reader2.Read())
+                //    {
+                //        string role = reader2.GetString(0);     // grabbing the string
+                //        roles.Add(role);                        // build list of roles
+                //    }
+                //}
+                //reader2.Close();
+
+                // build user object to be returned
+                //user = new User(userID, firstName, lastName, roles);
+
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            return user;
+        }
 
 
     }

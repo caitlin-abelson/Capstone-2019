@@ -15,9 +15,9 @@ namespace LogicLayer
         // need to authenticate the user
         public User AuthenticateUser(string userName, string password)
         {
-            
+
             User user = null;
-            
+
 
             // hast the password
             password = hashSHA256(password);
@@ -48,6 +48,43 @@ namespace LogicLayer
             }
 
             return user;
+        }
+
+        public Employee AuthenticateEmployee(string userName, string password)
+        {
+            
+            Employee employee = null;
+            
+
+            // hast the password
+            password = hashSHA256(password);
+
+            // this is unsafe code...
+            try
+            {
+                if (1 == UserAccessor.VerifyUsernameAndPassword(userName, password))     // if the user is verified I want to create a user object
+                {
+                    // the user is validated, so instantiate a user
+                    employee = UserAccessor.RetrieveEmployeeByEmail(userName);
+
+                    if (password == hashSHA256("newuser"))
+                    {
+                        //user.Roles.Clear();
+                        //user.Roles.Add("New User");
+                    }
+                }
+                else
+                {
+                    throw new ApplicationException("User not found.");
+                }
+
+            }
+            catch (Exception ex)       // this is were we would communicate with the log
+            {
+                throw new ApplicationException("User not validated.", ex);  // ex as the inner exception, we we are preserving the inner exception
+            }
+
+            return employee;
         }
 
         /// <summary>

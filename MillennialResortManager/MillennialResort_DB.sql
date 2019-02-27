@@ -2298,3 +2298,17 @@ GO
 
 /*CREATE EVENT CODE ENDS HERE*/
 /* **************************************************** */
+
+print '' print '*** Creating sp_retrieve_employee_by_email'
+GO
+CREATE PROCEDURE [sp_retrieve_employee_by_email]
+(
+	@Email 		[nvarchar](250)
+)
+AS
+	BEGIN
+		SELECT [EmployeeID], [FirstName], [LastName], [Email], [PhoneNumber], [DepartmentID], [Active]
+		FROM [Employee]
+		WHERE [Email] = @Email
+	END
+GO
