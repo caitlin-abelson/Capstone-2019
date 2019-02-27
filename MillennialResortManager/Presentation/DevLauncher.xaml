@@ -7,6 +7,31 @@
         mc:Ignorable="d"
         Title="DevLauncher" Height="450" Width="800">
     <Grid>
-        <Label x:Name="txtGreeting"/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Label x:Name="txtGreeting" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2"/>
+        <Button x:Name="btnLogout" Grid.Column="3" Content="Logout" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="10" Click="btnLogout_Click"/>
+        <Button Grid.Row="1" Grid.Column="0" x:Name="btnReservationLauncher" Content="Reservation" Margin="5" Click="btnReservationLauncher_Click"/>
+        <Button Grid.Row="1" Grid.Column="1" x:Name="btnEmployeeLauncher" Content="Employee" Margin="5" Click="btnEmployeeLauncher_Click"/>
+        <Button Grid.Row="1" Grid.Column="2" x:Name="btnSupplierLauncher" Content="Supplier" Margin="5" Click="btnSupplierLauncher_Click"/>
+        <Button Grid.Row="1" Grid.Column="3" x:Name="btnEventLauncher" Content="Event" Margin="5" Click="btnEventLauncher_Click"/>
+
+        <Button Grid.Row="2" Grid.Column="0" x:Name="btnProductLauncher" Content="Product" Margin="5" Click="btnProductLauncher_Click"/>
+        <Button Grid.Row="2" Grid.Column="1" x:Name="btnLauncher" Content="New" Margin="5"/>
+        <Button Grid.Row="2" Grid.Column="2" x:Name="btnLauncher1" Content="New" Margin="5"/>
+        <Button Grid.Row="2" Grid.Column="3" x:Name="btnLauncher2" Content="New" Margin="5"/>
+
     </Grid>
 </Window>

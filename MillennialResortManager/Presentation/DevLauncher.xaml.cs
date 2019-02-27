@@ -27,5 +27,40 @@ namespace Presentation
             InitializeComponent();
             txtGreeting.Content = "Hello there "+_employee.FirstName;
         }
+
+        private void btnReservationLauncher_Click(object sender, RoutedEventArgs e)
+        {
+            var browseReservation = new BrowseReservation(_employee);
+            browseReservation.ShowDialog();
+        }
+
+        private void btnEmployeeLauncher_Click(object sender, RoutedEventArgs e)
+        {
+            var browseEmployee = new BrowseEmployee();
+            browseEmployee.ShowDialog();
+        }
+
+        private void btnSupplierLauncher_Click(object sender, RoutedEventArgs e)
+        {
+            var browseSupplier = new BrowseSupplier();
+            browseSupplier.ShowDialog();
+        }
+
+        private void btnEventLauncher_Click(object sender, RoutedEventArgs e)
+        {
+            
+        }
+
+        private void btnProductLauncher_Click(object sender, RoutedEventArgs e)
+        {
+            
+        }
+
+        private void btnLogout_Click(object sender, RoutedEventArgs e)
+        {
+            var login = new LoginPage();
+            this.Close();
+            login.ShowDialog();
+        }
     }
 }

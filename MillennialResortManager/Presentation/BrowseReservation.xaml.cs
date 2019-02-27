@@ -26,6 +26,7 @@ namespace Presentation
         List<VMBrowseReservation> _allReservations;
         List<VMBrowseReservation> _currentReservations;
         ReservationManagerMSSQL _reservationManager;
+        private Employee _employee;
         /// <summary>
         /// Author: Matt LaMarche
         /// Created : 1/31/2019
@@ -34,8 +35,9 @@ namespace Presentation
         /// This will be the only place we create an instance of ReservationManager
         /// This will populate the list upon loading
         /// </summary>
-        public BrowseReservation()
+        public BrowseReservation(Employee employee)
         {
+            _employee = employee;
             InitializeComponent();
             _reservationManager = new ReservationManagerMSSQL();
             refreshAllReservations();
