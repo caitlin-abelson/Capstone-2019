@@ -156,3 +156,98 @@ AS
 		WHERE		[ItemSupplier].[ItemID] = @ItemID AND [ItemSupplier].[SupplierID] = @SupplierID
 	END
 --GO */
+
+
+/* Start Eduardo */
+
+-- Created: 2019-01-23
+CREATE PROCEDURE [dbo].[sp_update_role_by_id]
+	(
+		@RoleID			  [nvarchar](50), 
+		@OldDescription   [nvarchar](1000),
+		@NewDescription	  [nvarchar](1000)		
+	)
+AS
+	BEGIN
+	
+		BEGIN
+			UPDATE [Role]
+				SET [Description] = @NewDescription
+				
+				WHERE [RoleID] = @RoleID
+				AND	  [Description] = @OldDescription
+					
+			RETURN @@ROWCOUNT
+		END
+	END
+GO
+-- Created: 2019-01-23
+CREATE PROCEDURE sp_retrieve_roles_by_term_in_description
+	(
+		@SearchTerm		[nvarchar](250)
+	)
+AS
+	BEGIN
+		SELECT [RoleID],  [Description],  [Active]
+		FROM 	[Role]
+		WHERE 	[Description] LIKE '%' + @SearchTerm + '%'
+		AND		[Active] = 1
+	END
+GO
+
+/* Start Austin */
+
+-- Event table needs corrected
+
+ALTER PROCEDURE [dbo].[sp_insert_roles]
+	(
+		@RoleID				[nvarchar](50),
+		@Description		[nvarchar](250)	
+	)
+AS
+	BEGIN
+		INSERT INTO [Role]
+			([RoleID], [Description])
+		VALUES
+			(@RoleID, @Description)
+			
+		RETURN @@ROWCOUNT
+	END
+
+GO
+EXEC sys.sp_addextendedproperty
+	@name = N'Update 2019-02-28 Author'
+	,@value = N'Austin Delaney'
+	,@level0type = N'Schema', @level0name = 'dbo'
+	,@level1type = N'Procedure', @level1name = 'sp_insert_roles'
+GO
+EXEC sys.sp_addextendedproperty
+	@name = N'Update 2019-02-28 Desc'
+	,@value = N'Removed scope identity return'
+	,@level0type = N'Schema', @level0name = 'dbo'
+	,@level1type = N'Procedure', @level1name = 'sp_insert_roles'
+GO
+
+ALTER TABLE [dbo].[EmployeeRole]  WITH NOCHECK MODIFY CONSTRAINT [fk_EmployeeID] FOREIGN KEY([EmployeeID])
+REFERENCES [dbo].[Employee] ([EmployeeID])
+ON UPDATE CASCADE ON DELETE CASCADE
+GO
+ALTER TABLE [dbo].[EmployeeRole] CHECK CONSTRAINT [fk_EmployeeID]
+GO
+ALTER TABLE [dbo].[EmployeeRole]  WITH NOCHECK MODIFY CONSTRAINT [fk_RoleID] FOREIGN KEY([RoleID])
+REFERENCES [dbo].[Role] ([RoleID])
+ON UPDATE CASCADE ON DELETE CASCADE
+GO
+
+EXEC sys.sp_addextendedproperty
+	@name = N'Update 2019-01-28 Author'
+	,@value = N'Austin Delaney'
+	,@level0type = N'Schema', @level0name = 'dbo'
+	,@level1type = N'TABLE', @level1name = 'EmployeeRole'
+GO
+EXEC sys.sp_addextendedproperty
+	@name = N'Update 2019-01-28 Desc'
+	,@value = N'Removed scope identity return'
+	,@level0type = N'Schema', @level0name = 'dbo'
+	,@level1type = N'TABLE', @level1name = 'EmployeeRole'
+GO
