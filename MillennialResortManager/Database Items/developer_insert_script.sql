@@ -6,7 +6,9 @@ GO
 
 /* Start {Your name} */
 
--- Created: {Date you wrote the script 
+-- Created: {Date you wrote the script}
+-- Update {date of update} Author: {who did the update}
+-- Update {date of update} Desc: {what is the update}
 /* The first line of your code here */
 
 
@@ -15,10 +17,9 @@ GO
 /* vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv */
 /*********************************************************************/
 
-/* Start Phil, submitted 2019-02-18 */
+/* Start Phil */
 
-/* CREATE PROCEDURE sp_retrieve_all_events
---DQ'd for error 'SponsorName is not valid field'
+CREATE PROCEDURE sp_retrieve_all_events
 AS
 	BEGIN
 		SELECT
@@ -41,7 +42,20 @@ AS
 				INNER JOIN [dbo].[Sponsor]
 			ON		[Event].[SponsorID] = [Sponsor].[SponsorID]
 	END
---GO*/
+GO
+
+EXEC sys.sp_addextendedproperty
+	@name = N'Author'
+	,@value = N'Phillip Hansen'
+	,@level0type = N'Schema', @level0name = 'dbo'
+	,@level1type = N'Procedure', @level1name = 'sp_retrieve_all_events'
+GO
+EXEC sys.sp_addextendedproperty
+	@name = N'Created Date'
+	,@value = N'2019-02-18'
+	,@level0type = N'Schema', @level0name = 'dbo'
+	,@level1type = N'Procedure', @level1name = 'sp_retrieve_all_events'
+GO
 
 /* Start Eric Bostwick */
 
@@ -183,50 +197,16 @@ AS
 	END
 --GO */
 
-/* Start Carlos */
-
-/*CREATE PROCEDURE [sp_read_all_internal_orders]
--- Pending add per Austin D.
--- Does this do something different than sp_retrieve_all_supplier_order?
--- Also does not follow naming conventions
-AS
-	BEGIN
-		SELECT *
-		FROM SupplierOrder
-	END
---GO */
-
 /* Start Dani */
 
--- TABLE NOTATION TO BE ADDED BY AUSTIN D.
--- Created: 2019-01-22
--- Update 2019-02-18 Author: Dani
--- Update 2019-02-18 Desc: Changed length for Description, added nulls to BuildingName, Address, & Description added BuildingSatusID field
--- Update 2019-02-20 Author: Dani
--- Update 2019-02-20 Desc: Removed Active field, added ResortPropertyID field
-
--- Created: 2019-02-20
-/* CREATE PROCEDURE [dbo].[sp_insert_resortproperty]
--- Pending add per Austin D.
--- Could be used as a shortcut from inside other SP's, but should not be called from the app.
-	(
-		@ResortPropertyTypeID	[nvarchar](25)
-	)
-AS
-	BEGIN
-		INSERT INTO [ResortProperty]
-			([ResortPropertyTypeID])
-		VALUES
-			(@ResortPropertyTypeID)
-
-		SELECT SCOPE_IDENTITY()
-	END
-GO */
-
---print '' print '*** TO DO: Create Inspection Table ***'
---print '' print '*** TO DO: Create sp to find all maintance tickets for buildings ResortPropertyID ***'
---print '' print '*** TO DO: Create sp to find all maintance tickets for each building by rooms ResortPropertyID ***'
---print '' print '*** TO DO: Create sp to find all inspection records for buildings ResortPropertyID ***'
+EXEC sys.sp_addextendedproperty @name=N'Update 2019-02-20 Author', @value=N'Danielle Russo' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'Building'
+GO
+EXEC sys.sp_addextendedproperty @name=N'Update 2019-02-20 Desc', @value=N'Removed Active field, added ResortPropertyID field' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'Building'
+GO
+EXEC sys.sp_addextendedproperty @name=N'Update 2019-02-18 Author', @value=N'Danielle Russo' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'Building'
+GO
+EXEC sys.sp_addextendedproperty @name=N'Update 2019-02-18 Desc', @value=N'Changed length for Description, added nulls to BuildingName, Address, & Description added BuildingSatusID field' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'Building'
+GO
 
 
 /* Start Matt */
@@ -241,4 +221,16 @@ AS
 		FROM [Employee]
 		WHERE [Email] = @Email
 	END
+GO
+EXEC sys.sp_addextendedproperty
+	@name = N'Author'
+	,@value = N'Matt Lamarche'
+	,@level0type = N'Schema', @level0name = 'dbo'
+	,@level1type = N'Procedure', @level1name = 'sp_retrieve_employee_by_email'
+GO
+EXEC sys.sp_addextendedproperty
+	@name = N'Created Date'
+	,@value = N'2019-02-27'
+	,@level0type = N'Schema', @level0name = 'dbo'
+	,@level1type = N'Procedure', @level1name = 'sp_retrieve_employee_by_email'
 GO
