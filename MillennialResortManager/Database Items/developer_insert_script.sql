@@ -17,46 +17,6 @@ GO
 /* vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv */
 /*********************************************************************/
 
-/* Start Phil */
-
-CREATE PROCEDURE sp_retrieve_all_events
-AS
-	BEGIN
-		SELECT
-		[EventID],
-		[EventTitle],
-		[Event].[EmployeeID],
-		[Employee].[FirstName],
-		[EventTypeID] AS [EventType],
-		[Description],[EventStartDate],
-		[EventEndDate],
-		[KidsAllowed],
-		[NumGuests],
-		[Location],
-		[Sponsored],
-		[Event].[SponsorID],
-		[Sponsor].[SponsorName],
-		[Approved]
-		FROM	[dbo].[Employee] INNER JOIN [dbo].[Event]
-			ON		[Employee].[EmployeeID] = [Event].[EmployeeID]
-				INNER JOIN [dbo].[Sponsor]
-			ON		[Event].[SponsorID] = [Sponsor].[SponsorID]
-	END
-GO
-
-EXEC sys.sp_addextendedproperty
-	@name = N'Author'
-	,@value = N'Phillip Hansen'
-	,@level0type = N'Schema', @level0name = 'dbo'
-	,@level1type = N'Procedure', @level1name = 'sp_retrieve_all_events'
-GO
-EXEC sys.sp_addextendedproperty
-	@name = N'Created Date'
-	,@value = N'2019-02-18'
-	,@level0type = N'Schema', @level0name = 'dbo'
-	,@level1type = N'Procedure', @level1name = 'sp_retrieve_all_events'
-GO
-
 /* Start Eric Bostwick */
 
 -- Created: 2019-02-04
@@ -196,41 +156,3 @@ AS
 		WHERE		[ItemSupplier].[ItemID] = @ItemID AND [ItemSupplier].[SupplierID] = @SupplierID
 	END
 --GO */
-
-/* Start Dani */
-
-EXEC sys.sp_addextendedproperty @name=N'Update 2019-02-20 Author', @value=N'Danielle Russo' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'Building'
-GO
-EXEC sys.sp_addextendedproperty @name=N'Update 2019-02-20 Desc', @value=N'Removed Active field, added ResortPropertyID field' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'Building'
-GO
-EXEC sys.sp_addextendedproperty @name=N'Update 2019-02-18 Author', @value=N'Danielle Russo' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'Building'
-GO
-EXEC sys.sp_addextendedproperty @name=N'Update 2019-02-18 Desc', @value=N'Changed length for Description, added nulls to BuildingName, Address, & Description added BuildingSatusID field' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'Building'
-GO
-
-
-/* Start Matt */
--- Retrieves an employee based on email
-CREATE PROCEDURE [sp_retrieve_employee_by_email]
-(
-	@Email 		[nvarchar](250)
-)
-AS
-	BEGIN
-		SELECT [EmployeeID], [FirstName], [LastName], [Email], [PhoneNumber], [DepartmentID], [Active]
-		FROM [Employee]
-		WHERE [Email] = @Email
-	END
-GO
-EXEC sys.sp_addextendedproperty
-	@name = N'Author'
-	,@value = N'Matt Lamarche'
-	,@level0type = N'Schema', @level0name = 'dbo'
-	,@level1type = N'Procedure', @level1name = 'sp_retrieve_employee_by_email'
-GO
-EXEC sys.sp_addextendedproperty
-	@name = N'Created Date'
-	,@value = N'2019-02-27'
-	,@level0type = N'Schema', @level0name = 'dbo'
-	,@level1type = N'Procedure', @level1name = 'sp_retrieve_employee_by_email'
-GO
