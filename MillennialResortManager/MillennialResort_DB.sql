@@ -1279,6 +1279,10 @@ AS
 GO
 
 /* Created by Richard Carroll*/
+/*
+ * Author: Richard Carroll
+ * Created: 2019/01/29
+ */
 print '' print'*** Creating InternalOrder Table'
 GO
 CREATE Table [dbo].[InternalOrder](
@@ -1293,6 +1297,10 @@ CREATE Table [dbo].[InternalOrder](
 )
 GO
 
+/*
+ * Author: Richard Carroll
+ * Created: 2019/01/29
+ */
 print '' print'*** Creating InternalOrderLine Table'
 GO
 CREATE Table [dbo].[InternalOrderLine](
@@ -1304,6 +1312,10 @@ CREATE Table [dbo].[InternalOrderLine](
     CONSTRAINT [pk_ItemID_InternalOrderID] Primary Key([ItemID] ASC, [InternalOrderID] ASC)
 )
 
+/*
+ * Author: Richard Carroll
+ * Created: 2019/01/29
+ */
 print '' print'*** Inserting InternalOrder Record'
 GO
 Insert INTO [InternalOrder]
@@ -1312,6 +1324,10 @@ Insert INTO [InternalOrder]
     VALUES ('100001', 'Events', 'An order for Fruit', 0, GetDate())
 GO
 
+/*
+ * Author: Richard Carroll
+ * Created: 2019/01/29
+ */
 print '' print'*** Inserting InternalOrderLine Records'
 GO
 INSERT INTO [InternalOrderLine]
@@ -1320,6 +1336,10 @@ INSERT INTO [InternalOrderLine]
 GO
 
 
+/*
+ * Author: Richard Carroll
+ * Created: 2019/01/29
+ */
 print '' print '*** Adding Foreign Key for InternalOrder.DepartmentID'
 GO
 Alter Table [dbo].[InternalOrder] With Nocheck
@@ -1328,6 +1348,10 @@ Alter Table [dbo].[InternalOrder] With Nocheck
 GO
 
 
+/*
+ * Author: Richard Carroll
+ * Created: 2019/01/29
+ */
 print '' print '*** Adding Foreign Key for InternalOrderLine.ItemID'
 GO
 Alter Table [dbo].[InternalOrderLine] With Nocheck
@@ -1335,6 +1359,10 @@ Alter Table [dbo].[InternalOrderLine] With Nocheck
     On Update Cascade
 GO
 
+/*
+ * Author: Richard Carroll
+ * Created: 2019/01/29
+ */
 print '' print '*** Adding Foreign Key for InternalOrder.EmployeeID'
 GO
 Alter Table [dbo].[InternalOrder] With Nocheck 
@@ -1342,6 +1370,10 @@ Alter Table [dbo].[InternalOrder] With Nocheck
 	REFERENCES [dbo].[Employee]([EmployeeID])
 GO
 
+/*
+ * Author: Richard Carroll
+ * Created: 2019/01/29
+ */
 print '' print '*** Adding Foreign Key for InternalOrderLine.InternalOrderID'
 GO
 Alter Table [dbo].[InternalOrderLine] With Nocheck 
@@ -1350,6 +1382,10 @@ Alter Table [dbo].[InternalOrderLine] With Nocheck
     On Update Cascade
 GO
 
+/*
+ * Author: Richard Carroll
+ * Created: 2019/01/29
+ */
 print '' print '*** Creating sp_retrieve_user_by_email'
 GO
 CREATE PROCEDURE [dbo].[sp_retrieve_user_by_email]
@@ -1365,6 +1401,10 @@ AS
 GO
 
 
+/*
+ * Author: Richard Carroll
+ * Created: 2019/01/29
+ */
 print '' print '*** Creating sp_insert_internal_order'
 GO
 CREATE PROCEDURE [dbo].[sp_insert_internal_order]
@@ -1385,6 +1425,10 @@ AS
     END
 GO
 
+/*
+ * Author: Richard Carroll
+ * Created: 2019/01/29
+ */
 print '' print '*** Creating sp_insert_internal_order_line'
 GO
 CREATE Procedure [dbo].[sp_insert_internal_order_line]
@@ -1404,6 +1448,10 @@ AS
 GO
 
 
+/*
+ * Author: Richard Carroll
+ * Created: 2019/01/29
+ */
 print '' print '*** Creating sp_select_all_item_names_and_ids'
 GO
 Create Procedure [dbo].[sp_select_all_item_names_and_ids]
@@ -1415,6 +1463,10 @@ AS
 Go
 
 
+/*
+ * Author: Richard Carroll
+ * Created: 2019/01/29
+ */
 print '' print '*** Creating sp_select_all_internal_orders'
 GO
 Create Procedure [dbo].[sp_select_all_internal_orders]
@@ -1427,6 +1479,10 @@ As
     END
 GO
 
+/*
+ * Author: Richard Carroll
+ * Created: 2019/01/29
+ */
 print '' print '*** Creating sp_select_order_lines_by_id'
 GO
 Create Procedure [dbo].[sp_select_order_lines_by_id]
@@ -1442,6 +1498,10 @@ AS
     End
 GO
 
+/*
+ * Author: Richard Carroll
+ * Created: 2019/01/29
+ */
 print '' print'*** Creating sp_update_order_status_to_complete'
 GO
 CREATE Procedure [dbo].[sp_update_order_status_to_complete]
@@ -1457,6 +1517,8 @@ AS
         AND OrderComplete = @OrderComplete
     END
 GO
+
+
 
 
 /*
