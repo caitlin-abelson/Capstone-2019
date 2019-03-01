@@ -125,6 +125,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="frmAddEditSupplierOrder.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="frmAddEditViewRoom.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -184,6 +188,7 @@
       <DependentUpon>EmployeeDetail.xaml</DependentUpon>
     </Compile>
     <Compile Include="frmAddEditEvent.xaml.cs" />
+    <Compile Include="frmAddEditSupplierOrder.xaml.cs" />
     <Compile Include="frmAddEditViewRoom.xaml.cs">
       <DependentUpon>frmAddEditViewRoom.xaml</DependentUpon>
     </Compile>
