@@ -46,11 +46,15 @@
     <Compile Include="DepartmentAccessor.cs" />
     <Compile Include="EmployeeAccessor.cs" />
     <Compile Include="EmployeeAccessorMock.cs" />
+    <Compile Include="EmpRolesAccessor.cs" />
     <Compile Include="EventAccessor.cs" />
     <Compile Include="EventTypeAccessor.cs" />
+    <Compile Include="GuestTypeAccessor.cs" />
     <Compile Include="IDepartmentAccessor.cs" />
     <Compile Include="IEmployeeAccessor.cs" />
+    <Compile Include="IEmpRolesAccessor.cs" />
     <Compile Include="IEventAccessor.cs" />
+    <Compile Include="IGuestTypeAccessor.cs" />
     <Compile Include="IInternalOrderAccessor.cs" />
     <Compile Include="IItemAccessor.cs" />
     <Compile Include="IItemTypeAccessor.cs" />
@@ -63,6 +67,7 @@
     <Compile Include="IReservationAccessor.cs" />
     <Compile Include="IRoleAccessor.cs" />
     <Compile Include="IRoomAccessor.cs" />
+    <Compile Include="IRoomTypeAccessor.cs" />
     <Compile Include="ISupplierOrderAccessor.cs" />
     <Compile Include="ItemAccessor.cs" />
     <Compile Include="ItemSupplierAccessor.cs" />
@@ -70,8 +75,12 @@
     <Compile Include="ISupplierAccessor.cs" />
     <Compile Include="ItemTypeAccessorMSSQL.cs" />
     <Compile Include="MemberAccessorMSSQL.cs" />
+    <Compile Include="MockDepartmentAccessor.cs" />
+    <Compile Include="MockEmpRolesAccessor.cs" />
     <Compile Include="MockEventAccessor.cs" />
+    <Compile Include="MockGuestTypeAccessor.cs" />
     <Compile Include="MockRoomAccessor.cs" />
+    <Compile Include="MockRoomTypeAccessor.cs" />
     <Compile Include="PerformanceAccessor.cs" />
     <Compile Include="PerformanceAccessorMock.cs" />
     <Compile Include="ProductAccessorMock.cs" />
@@ -82,6 +91,7 @@
     <Compile Include="RoleAccessor.cs" />
     <Compile Include="RoleAccessorMock.cs" />
     <Compile Include="RoomAccessor.cs" />
+    <Compile Include="RoomTypeAccessor.cs" />
     <Compile Include="SupplierAccessor.cs" />
     <Compile Include="SupplierAccessorMock.cs" />
     <Compile Include="SupplierOrderAccessor.cs" />

@@ -13,22 +13,23 @@ namespace DataAccessLayer
 	/// Austin Berquam
 	/// Created: 2019/01/26
 	/// 
-	/// DepartmentAccessor class is used to access the Department table
+	/// RoomTypeAccessor class is used to access the Room Type table
 	/// and the stored procedures as well
 	/// </summary>
-    public class DepartmentAccessor : IDepartmentAccessor
+    public class RoomTypeAccessor : IRoomTypeAccessor
     {
+        
         /// <summary>
-        /// Method that retrieves the department types table and stores it as a list
+        /// Method that retrieves the room types table and stores it as a list
         /// </summary>
-        /// <returns>List of Department Types </returns>	
-        public List<Department> SelectDepartmentTypes(string status)
+        /// <returns>List of Room Types </returns>	
+        public List<RoomType> SelectRoomTypes(string status)
         {
-            List<Department> departmentTypes = new List<Department>();
+            List<RoomType> roomTypes = new List<RoomType>();
 
             var conn = DBConnection.GetDbConnection();
 
-            var cmdText = @"sp_retrieve_departments";
+            var cmdText = @"sp_retrieve_room_types";
 
             var cmd = new SqlCommand(cmdText, conn);
 
@@ -43,9 +44,9 @@ namespace DataAccessLayer
                 {
                     while (reader.Read())
                     {
-                        departmentTypes.Add(new Department()
+                        roomTypes.Add(new RoomType()
                         {
-                            DepartmentID = reader.GetString(0),
+                            RoomTypeID = reader.GetString(0),
                             Description = reader.GetString(1)
 
                         });
@@ -61,25 +62,25 @@ namespace DataAccessLayer
                 conn.Close();
             }
 
-            return departmentTypes;
+            return roomTypes;
         }
 
         /// <summary>
-        /// Method that creates a new department type and stores it in the table
+        /// Method that creates a new room type and stores it in the table
         /// </summary>
-        /// <param name="department">Object holding the data to add to the table</param>
+        /// <param name="roomType">Object holding the data to add to the table</param>
         /// <returns> Row Count </returns>	
-        public int InsertDepartment(Department department)
+        public int InsertRoomType(RoomType roomType)
         {
             int rows = 0;
 
             var conn = DBConnection.GetDbConnection();
-            var cmdText = @"sp_insert_department";
+            var cmdText = @"sp_insert_room_type";
             var cmd = new SqlCommand(cmdText, conn);
             cmd.CommandType = CommandType.StoredProcedure;
 
-            cmd.Parameters.AddWithValue("@DepartmentID", department.DepartmentID);
-            cmd.Parameters.AddWithValue("@Description", department.Description);
+            cmd.Parameters.AddWithValue("@RoomTypeID", roomType.RoomTypeID);
+            cmd.Parameters.AddWithValue("@Description", roomType.Description);
 
             try
             {
@@ -99,20 +100,20 @@ namespace DataAccessLayer
         }
 
         /// <summary>
-        /// Method that deletes a department type and removes it from the table
+        /// Method that deletes a room type and removes it from the table
         /// </summary>
-        /// <param name="departmentID">The ID of the department type being deleted</param>
-        /// <returns> Row Count </returns>
-        public int DeleteDepartmentType(string departmentID)
+        /// <param name="roomTypeID">The ID of the room type being deleted</param>
+        /// <returns> Row Count </returns>	
+        public int DeleteRoomType(string roomTypeID)
         {
             int rows = 0;
 
             var conn = DBConnection.GetDbConnection();
-            var cmdText = @"sp_delete_department";
+            var cmdText = @"sp_delete_room_type";
             var cmd = new SqlCommand(cmdText, conn);
             cmd.CommandType = CommandType.StoredProcedure;
 
-            cmd.Parameters.AddWithValue("@DepartmentID", departmentID);
+            cmd.Parameters.AddWithValue("@RoomTypeID", roomTypeID);
 
             try
             {
@@ -131,15 +132,15 @@ namespace DataAccessLayer
         }
 
         /// <summary>
-        /// Method that retrieves the department type IDs to store into a combo box
+        /// Method that retrieves the room type IDs to store into a combo box
         /// </summary>
-        /// <returns>List of Department Types </returns>	
+        /// <returns>List of Room Types </returns>	
         public List<string> SelectAllTypes()
         {
             var types = new List<string>();
 
             var conn = DBConnection.GetDbConnection();
-            var cmd = new SqlCommand("sp_retrieve_departmentTypes", conn);
+            var cmd = new SqlCommand("sp_retrieve_roomTypes", conn);
             cmd.CommandType = CommandType.StoredProcedure;
 
             try

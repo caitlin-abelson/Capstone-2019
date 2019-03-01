@@ -42,12 +42,18 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DepartmentManager.cs" />
+    <Compile Include="DepartmentTypeManager.cs" />
     <Compile Include="EmployeeManager.cs" />
+    <Compile Include="EmpRolesManager.cs" />
     <Compile Include="EventManager.cs" />
     <Compile Include="EventTypeManager.cs" />
+    <Compile Include="GuestTypeManager.cs" />
     <Compile Include="IDepartmentManager.cs" />
+    <Compile Include="IDepartmentTypeManager.cs" />
     <Compile Include="IEmployeeManager.cs" />
+    <Compile Include="IEmpRolesManager.cs" />
     <Compile Include="IEventManager.cs" />
+    <Compile Include="IGuestTypeManager.cs" />
     <Compile Include="IInternalOrderManager.cs" />
     <Compile Include="IItemManager.cs" />
     <Compile Include="IItemTypeManager.cs" />
@@ -59,6 +65,7 @@
     <Compile Include="IReservationManager.cs" />
     <Compile Include="IRoleManager.cs" />
     <Compile Include="IRoomManager.cs" />
+    <Compile Include="IRoomType.cs" />
     <Compile Include="ISupplierManager.cs" />
     <Compile Include="ISupplierOrderManager.cs" />
     <Compile Include="ItemManager.cs" />
@@ -71,11 +78,13 @@
     <Compile Include="ReservationManagerMSSQL.cs" />
     <Compile Include="RoleManager.cs" />
     <Compile Include="RoomManager.cs" />
+    <Compile Include="RoomTypeManager.cs" />
     <Compile Include="RoomVerifier.cs" />
     <Compile Include="SupplierManager.cs" />
     <Compile Include="SupplierOrderManager.cs" />
     <Compile Include="SupplierValidator.cs" />
     <Compile Include="UserManager.cs" />
+    <Compile Include="ValidationExtensionMethods.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DataAccessLayer\DataAccessLayer.csproj">

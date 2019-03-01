@@ -13,22 +13,22 @@ namespace DataAccessLayer
 	/// Austin Berquam
 	/// Created: 2019/01/26
 	/// 
-	/// DepartmentAccessor class is used to access the Department table
+	/// EmpRolesAccessor class is used to access the Roles table
 	/// and the stored procedures as well
 	/// </summary>
-    public class DepartmentAccessor : IDepartmentAccessor
+    public class EmpRolesAccessor : IEmpRolesAccessor
     {
         /// <summary>
-        /// Method that retrieves the department types table and stores it as a list
+        /// Method that retrieves the Roles table and stores it as a list
         /// </summary>
-        /// <returns>List of Department Types </returns>	
-        public List<Department> SelectDepartmentTypes(string status)
+        /// <returns>List of Roles </returns>	
+        public List<EmpRoles> SelectEmpRoles(string status)
         {
-            List<Department> departmentTypes = new List<Department>();
+            List<EmpRoles> roles = new List<EmpRoles>();
 
             var conn = DBConnection.GetDbConnection();
 
-            var cmdText = @"sp_retrieve_departments";
+            var cmdText = @"sp_retrieve_roles";
 
             var cmd = new SqlCommand(cmdText, conn);
 
@@ -43,9 +43,9 @@ namespace DataAccessLayer
                 {
                     while (reader.Read())
                     {
-                        departmentTypes.Add(new Department()
+                        roles.Add(new EmpRoles()
                         {
-                            DepartmentID = reader.GetString(0),
+                            RoleID = reader.GetString(0),
                             Description = reader.GetString(1)
 
                         });
@@ -61,85 +61,19 @@ namespace DataAccessLayer
                 conn.Close();
             }
 
-            return departmentTypes;
+            return roles;
         }
 
         /// <summary>
-        /// Method that creates a new department type and stores it in the table
+        /// Method that retrieves the Role IDs to store into a combo box
         /// </summary>
-        /// <param name="department">Object holding the data to add to the table</param>
-        /// <returns> Row Count </returns>	
-        public int InsertDepartment(Department department)
+        /// <returns>List of Role Types </returns>	
+        public List<string> SelectAllRoleID()
         {
-            int rows = 0;
+            var roles = new List<string>();
 
             var conn = DBConnection.GetDbConnection();
-            var cmdText = @"sp_insert_department";
-            var cmd = new SqlCommand(cmdText, conn);
-            cmd.CommandType = CommandType.StoredProcedure;
-
-            cmd.Parameters.AddWithValue("@DepartmentID", department.DepartmentID);
-            cmd.Parameters.AddWithValue("@Description", department.Description);
-
-            try
-            {
-                conn.Open();
-                rows = cmd.ExecuteNonQuery();
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-            finally
-            {
-                conn.Close();
-            }
-            return rows;
-
-        }
-
-        /// <summary>
-        /// Method that deletes a department type and removes it from the table
-        /// </summary>
-        /// <param name="departmentID">The ID of the department type being deleted</param>
-        /// <returns> Row Count </returns>
-        public int DeleteDepartmentType(string departmentID)
-        {
-            int rows = 0;
-
-            var conn = DBConnection.GetDbConnection();
-            var cmdText = @"sp_delete_department";
-            var cmd = new SqlCommand(cmdText, conn);
-            cmd.CommandType = CommandType.StoredProcedure;
-
-            cmd.Parameters.AddWithValue("@DepartmentID", departmentID);
-
-            try
-            {
-                conn.Open();
-                rows = cmd.ExecuteNonQuery();
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-            finally
-            {
-                conn.Close();
-            }
-            return rows;
-        }
-
-        /// <summary>
-        /// Method that retrieves the department type IDs to store into a combo box
-        /// </summary>
-        /// <returns>List of Department Types </returns>	
-        public List<string> SelectAllTypes()
-        {
-            var types = new List<string>();
-
-            var conn = DBConnection.GetDbConnection();
-            var cmd = new SqlCommand("sp_retrieve_departmentTypes", conn);
+            var cmd = new SqlCommand("sp_retrieve_roleID", conn);
             cmd.CommandType = CommandType.StoredProcedure;
 
             try
@@ -150,7 +84,7 @@ namespace DataAccessLayer
                 {
                     while (r.Read())
                     {
-                        types.Add(r.GetString(0));
+                        roles.Add(r.GetString(0));
                     }
                 }
                 r.Close();
@@ -163,7 +97,73 @@ namespace DataAccessLayer
             {
                 conn.Close();
             }
-            return types;
+            return roles;
+        }
+
+        /// <summary>
+        /// Method that creates a new Employee and stores it in the table
+        /// </summary>
+        /// <param name="empRoles">Object holding the data to add to the table</param>
+        /// <returns> Row Count </returns>	
+        public int InsertEmpRole(EmpRoles empRoles)
+        {
+            int rows = 0;
+
+            var conn = DBConnection.GetDbConnection();
+            var cmdText = @"sp_insert_roles";
+            var cmd = new SqlCommand(cmdText, conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.AddWithValue("@RoleID", empRoles.RoleID);
+            cmd.Parameters.AddWithValue("@Description", empRoles.Description);
+
+            try
+            {
+                conn.Open();
+                rows = cmd.ExecuteNonQuery();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return rows;
+
+        }
+
+        /// <summary>
+        /// Method that deletes a Employee Role and removes it from the table
+        /// </summary>
+        /// <param name="roleID">The ID of the Employee Roles being deleted</param>
+        /// <returns> Row Count </returns>
+        public int DeleteEmpRole(string roleID)
+        {
+            int rows = 0;
+
+            var conn = DBConnection.GetDbConnection();
+            var cmdText = @"sp_delete_roles";
+            var cmd = new SqlCommand(cmdText, conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.AddWithValue("@RoleID", roleID);
+
+            try
+            {
+                conn.Open();
+                rows = cmd.ExecuteNonQuery();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return rows;
         }
     }
 }

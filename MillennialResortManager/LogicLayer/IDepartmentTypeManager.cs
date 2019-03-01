@@ -2,24 +2,24 @@
 /// Created: 2019/02/12
 /// 
 /// Interface that implements Create and Delete functions for Department Types
-/// accessor classes.
+/// manager classes.
 /// </summary>
 using System.Collections.Generic;
 using DataObjects;
 
-namespace DataAccessLayer
+namespace LogicLayer
 {
-    public interface IDepartmentAccessor
+    public interface IDepartmentTypeManager
     {
+
         /// <summary>
         /// Austin Berquam
         /// Created: 2019/02/06
         /// 
         /// Creates a new Department type
         /// </summary>
-        List<Department> SelectDepartmentTypes(string status);
-        int InsertDepartment(Department department);
-
+        bool CreateDepartment(Department department);
+        List<Department> RetrieveAllDepartments(string status);
 
         /// <summary>
         /// Austin Berquam
@@ -27,8 +27,7 @@ namespace DataAccessLayer
         /// 
         /// Deletes a department type
         /// </summary>
-        int DeleteDepartmentType(string departmentID);
-        List<string> SelectAllTypes();
-
+        List<string> RetrieveAllDepartmentTypes();
+        bool DeleteDepartment(string departmentID);
     }
 }

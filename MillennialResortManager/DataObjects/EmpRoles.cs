@@ -7,14 +7,14 @@ using System.Threading.Tasks;
 namespace DataObjects
 {
     /// <summary>
-    /// Austin Berquam
-    /// Created: 2019/02/06
-    /// 
-    /// RoomType class is used to store the RoomType table
-    /// </summary>
-    public class RoomType
+	/// Austin Berquam
+	/// Created: 2019/01/26
+	/// 
+	/// EmpRoles class is used to store the Roles table
+	/// </summary>
+    public class EmpRoles
     {
-        public string RoomTypeID { get; set; }
+        public string RoleID { get; set; }
         public string Description { get; set; }
     }
 }
