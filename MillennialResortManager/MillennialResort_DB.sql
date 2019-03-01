@@ -2580,3 +2580,141 @@ AS
 		WHERE [RoleID] = @RoleID
 	END
 GO
+
+print '' print '*** Creating SupplierOrder Table'
+--Eric Bostwick 
+--Created 2/26/19
+--Updated
+GO
+CREATE TABLE [dbo].[SupplierOrder] (
+	[SupplierOrderID]	[int] IDENTITY(100000, 1)     NOT NULL,
+	[SupplierID]		[int]					  	  NOT NULL,
+	[EmployeeID]		[int]						  NOT NULL,	
+	[Description]       [nvarchar](1000)			  NULL,
+	[DateOrdered]   	[DateTime]					  NOT NULL DEFAULT GetDate(),
+	[OrderComplete]		[bit]						  NOT NULL DEFAULT 0
+	
+	CONSTRAINT [pk_SupplierOrderID_SupplierOrderID] PRIMARY KEY([SupplierOrderID] ASC)
+)
+
+GO
+
+print '' print '*** Creating SupplierOrderLine Table'
+--Eric Bostwick 
+--Created 2/26/19
+--Updated
+GO
+CREATE TABLE [dbo].[SupplierOrderLine] (
+	[SupplierOrderID]	[int]                         NOT NULL,
+	[ItemID]			[int]						  NOT NULL,	
+	[Description]       [nvarchar](1000)			  NULL,
+	[OrderQty]      	[int]	    				  NOT NULL,
+	[UnitPrice]			[money]	  				      NOT NULL,
+	[QtyReceived]		[int]						  NOT NULL DEFAULT 0
+	
+	CONSTRAINT [pk_SupplierOrderLine_SupplierOrderLineID] PRIMARY KEY([SupplierOrderID] ASC, [ItemID] ASC)
+)
+
+GO
+
+print '' print '*** Adding Foreign Key for SupplierOrder'
+--Eric Bostwick 
+--Created 2/26/19
+--Foreign Keys For SupplierOrder
+
+ALTER TABLE [dbo].[SupplierOrder] WITH NOCHECK
+	ADD CONSTRAINT [fk_SupplierOrder_SupplierID] FOREIGN KEY ([SupplierID])
+	REFERENCES [dbo].[Supplier]([SupplierID])
+	ON UPDATE CASCADE
+GO
+
+ALTER TABLE [dbo].[SupplierOrder] WITH NOCHECK
+	ADD CONSTRAINT [fk_SupplierOrder_EmployeeID] FOREIGN KEY ([EmployeeID])
+	REFERENCES [dbo].[Employee]([EmployeeID])
+	ON UPDATE CASCADE
+GO
+
+
+print '' print '*** Adding Foreign Keys for SupplierOrderLine'
+
+ALTER TABLE [dbo].[SupplierOrderLine] WITH NOCHECK
+	ADD CONSTRAINT [fk_SupplierOrderLine_ItemID] FOREIGN KEY ([ItemID])
+	REFERENCES [dbo].[Product]([ItemID])
+	ON UPDATE CASCADE
+GO
+
+ALTER TABLE [dbo].[SupplierOrderLine] WITH NOCHECK
+	ADD CONSTRAINT [fk_SupplierOrderID] FOREIGN KEY ([SupplierOrderID])
+	REFERENCES [dbo].[SupplierOrder]([SupplierOrderID])
+	ON UPDATE CASCADE
+GO
+
+/*
+ * Eric Bostwick
+ * Created: 2/26/2019
+ * Creates Supplier Order Returns the Supplier Order ID 
+ */
+print '' print '*** Creating sp_insert_supplier_order ***'
+GO
+CREATE PROCEDURE [dbo].[sp_insert_supplier_order]
+	(
+		@SupplierOrderID	[int] OUTPUT,
+		@SupplierID			[int],
+		@EmployeeID			[int],
+		@Description		[nvarchar](1000)		
+	)
+AS
+BEGIN
+		INSERT INTO [dbo].[SupplierOrder] ([SupplierID], [EmployeeID], [Description]) 
+			 VALUES (@SupplierID,@EmployeeID, @Description)
+
+		SET @SupplierOrderID = SCOPE_IDENTITY()
+	
+END
+GO
+/*
+ * Eric Bostwick
+ * Created: 2/26/2019
+ * Creates Supplier Order Line  
+ */
+print '' print '*** Creating sp_insert_supplier_order_line ***'
+GO
+CREATE PROCEDURE [dbo].[sp_insert_supplier_order_line]
+	(
+		@SupplierOrderID	[int],
+		@ItemID				[int],
+		@Description		[nvarchar](1000),
+		@OrderQty			[int],
+	@UnitPrice			[money]
+		
+	)
+AS
+BEGIN
+		INSERT INTO [dbo].[SupplierOrderLine] ([SupplierOrderID], [ItemID], [Description], [OrderQty], [UnitPrice]) 
+			 VALUES (@SupplierOrderID, @ItemID, @Description, @OrderQty, @UnitPrice)
+	
+END
+GO
+
+/*
+ * Eric Bostwick
+ * Created: 2/26/2019
+ * Retrieves All Active Items For a Supplier in the ItemSupplier Table
+ */
+print '' print '*** Creating sp_select_itemsuppliers_by_supplierID ***'
+GO
+CREATE PROCEDURE [dbo].[sp_select_itemsuppliers_by_supplierid]
+	(
+		@SupplierID	[int]		
+	)
+AS
+BEGIN
+		SELECT [isup].[ItemID], [isup].[SupplierID], [isup].[PrimarySupplier], 
+		[isup].[LeadTimeDays], [isup].[UnitPrice],
+		[p].[ItemTypeID], [p].[Description], [p].[OnHandQuantity], [p].[Name], [p].[ReOrderQuantity],
+		[p].[DateActive], [p].[Active], [p].[CustomerPurchasable], [p].[RecipeID], [p].[OfferingID]
+		FROM   [dbo].[ItemSupplier] [isup] JOIN Product [p] on [p].[ItemID] = [isup].[ItemID]
+		WHERE  [isup].[SupplierID] = @SupplierID AND [isup].[Active] = 1
+	
+END
+GO
