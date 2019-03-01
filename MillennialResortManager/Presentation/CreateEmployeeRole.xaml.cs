@@ -98,14 +98,14 @@ namespace Presentation
                 txtDescription.SelectAll();
                 return;
             }
-           
+
             Role newRole = new Role()
             {
                 RoleID = txtRoleID.Text,
                 Description = txtDescription.Text
 
             };
-        
+
             if (_isUpdate)
             {
                 try
@@ -122,7 +122,7 @@ namespace Presentation
             }
             else
             {
-            
+
                 try
                 {
 
@@ -133,7 +133,7 @@ namespace Presentation
                         this.DialogResult = true;
                     }
 
-                    
+
 
                 }
                 catch (ArgumentException ex)
@@ -145,13 +145,13 @@ namespace Presentation
                 {
                     MessageBox.Show(ex.Message);
                 }
-                
+
             }
 
-           this.Close();
+            this.Close();
         }
 
-     
+
 
         /// <summary>
         /// Eduardo Colon

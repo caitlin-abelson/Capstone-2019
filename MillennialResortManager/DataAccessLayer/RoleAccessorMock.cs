@@ -27,18 +27,18 @@ namespace DataAccessLayer
         public RoleAccessorMock()
         {
             _role = new List<Role>();
-            _role.Add(new Role() { RoleID = "Checks in", Description = "Checks in", Active = true });
-            _role.Add(new Role() { RoleID = "Checks out", Description = "Checks out", Active = true });
-            _role.Add(new Role() { RoleID = "Procures", Description = "Procdures in", Active = true });
-            _role.Add(new Role() { RoleID = "Admin", Description = "Admins roles ", Active = true });
+            _role.Add(new Role() { RoleID = "Checks in", Description = "Checks in" });
+            _role.Add(new Role() { RoleID = "Checks out", Description = "Checks out" });
+            _role.Add(new Role() { RoleID = "Procures", Description = "Procdures in" });
+            _role.Add(new Role() { RoleID = "Admin", Description = "Admins roles " });
 
             _allRoles = new List<string>();
-            foreach(var item in _role)
+            foreach (var item in _role)
             {
                 _allRoles.Add(item.RoleID);
             }
         }
-        
+
 
         public void DeleteRole(string roleID)
         {
@@ -89,10 +89,10 @@ namespace DataAccessLayer
             {
                 if (item.RoleID == oldRole.RoleID)
                 {
-                
+
                     item.Description = newRole.Description;
-                    
-                    item.Active = newRole.Active;
+
+
                 }
             }
         }
@@ -106,7 +106,7 @@ namespace DataAccessLayer
             {
                 if (item.RoleID == roleID)
                 {
-                    item.Active = false;
+
 
 
                     searchedRole = true;

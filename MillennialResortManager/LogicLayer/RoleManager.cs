@@ -26,7 +26,7 @@ namespace LogicLayer
             _roleAccessor = new RoleAccessor();
         }
 
-        
+
         public RoleManager(RoleAccessorMock roleAccessorMock)
         {
             _roleAccessor = roleAccessorMock;
@@ -72,7 +72,7 @@ namespace LogicLayer
                 {
                     throw new ArgumentException("The data for this role is invalid");
                 }
-             
+
                 role = _roleAccessor.InsertRole(newRole);
             }
             catch
@@ -83,7 +83,7 @@ namespace LogicLayer
             return role;
         }
 
-       
+
         /// <summary>
         /// Eduardo Colon
         /// Created: 2019/02/24
@@ -94,7 +94,7 @@ namespace LogicLayer
 
         public Role RetrieveRoleByRoleId(string roleID)
         {
-           Role role;
+            Role role;
             try
             {
                 role = _roleAccessor.RetrieveRoleByRoleId(roleID);
@@ -105,7 +105,7 @@ namespace LogicLayer
             }
             return role;
         }
-       
+
         /// <summary>
         /// Eduardo Colon
         /// Created: 2019/02/24
@@ -113,7 +113,7 @@ namespace LogicLayer
         /// method to update role 
         /// </summary>
 
-       
+
         public void UpdateRole(Role oldRole, Role newRole)
         {
             try
@@ -121,20 +121,20 @@ namespace LogicLayer
                 if (!validateDescription(newRole.Description))
                 {
                     throw new ArgumentException("The description for this role is invalid");
-                    
+
                 }
                 _roleAccessor.UpdateRole(oldRole, newRole);
             }
-            catch (Exception )
+            catch (Exception)
             {
 
                 throw;
             }
         }
 
-       
-       
-       
+
+
+
 
         /// <summary>
         /// Eduardo Colon
@@ -143,46 +143,67 @@ namespace LogicLayer
         /// method to delete a role when it is not active; otherwise just deactivate it
         /// </summary>
 
-        public void DeleteRole(string roleID, bool isActive)
-        {
-            // check to see if the role is active.
-            if (isActive == true)
-            {
-                try
-                {
 
-                        _roleAccessor.DeactivateRole(roleID);
-                   
-                    
-                }
-                catch (Exception)
-                {
-                    throw;
-                }
-            }
-            // If the status of the role is inactive, this will be deleted,.
-            else
+        /*
+    public void DeleteRole(string roleID, bool isActive)
+    {
+        // check to see if the role is active.
+        if (isActive == true)
+        {
+            try
             {
-                try
-                {
-                    _roleAccessor.DeleteEmployeeRole(roleID);
-                    _roleAccessor.DeleteRole(roleID);
-                }
-                catch (Exception)
-                {
-                    throw;
-                }
+
+                    _roleAccessor.DeactivateRole(roleID);
+
+
+            }
+            catch (Exception)
+            {
+                throw;
             }
         }
+        // If the status of the role is inactive, this will be deleted,.
+        else
+        {
+            try
+            {
+                _roleAccessor.DeleteEmployeeRole(roleID);
+                _roleAccessor.DeleteRole(roleID);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+    }
+    */
+        public bool DeleteRole(string roleId)
+        {
 
+            // you can check for other things like length
 
+            bool result = false;
+
+            try
+            {
+                _roleAccessor.DeleteEmployeeRole(roleId);
+                _roleAccessor.DeleteRole(roleId);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+            return result;
+        }
         /// <summary>
         /// Eduardo Colon
         /// Created: 2019/02/24
         /// 
         /// Retrieves  all  active roles
         /// </summary>
-       
+
         public List<Role> RetrieveAllActiveRoles()
         {
             List<Role> roles = new List<Role>();
@@ -241,7 +262,7 @@ namespace LogicLayer
         /// </summary>
         public bool validateDescription(string description)
         {
-            if(description.Length < 1 || description.Length > 1000)
+            if (description.Length < 1 || description.Length > 1000)
             {
                 return false;
 
@@ -257,13 +278,13 @@ namespace LogicLayer
         /// </summary>
         public bool isValid(Role role)
         {
-            if(validateRoleID(role.RoleID) && validateDescription(role.Description))
+            if (validateRoleID(role.RoleID) && validateDescription(role.Description))
             {
                 return true;
             }
             return false;
         }
 
-     
+
     }
 }

@@ -9,8 +9,8 @@ using System.Data.SqlClient;
 
 namespace DataAccessLayer
 {
-  public class RoleAccessor : IRoleAccessor
-    { 
+    public class RoleAccessor : IRoleAccessor
+    {
 
         /// <summary>
         /// Eduardo Colon
@@ -20,51 +20,51 @@ namespace DataAccessLayer
         /// </summary>
 
         public List<Role> RetrieveAllRoles()
-    {
-            //return new List<Role>();  // will fail test
-        List<Role> roles = new List<Role>();
-        var conn = DBConnection.GetDbConnection();
-
-        var cmdText = @"sp_retrieve_all_roles";
-
-        var cmd = new SqlCommand(cmdText, conn);
-
-        cmd.CommandType = CommandType.StoredProcedure;
-
-      
-
-        try
         {
-            conn.Open();
-            var reader = cmd.ExecuteReader();
+            //return new List<Role>();  // will fail test
+            List<Role> roles = new List<Role>();
+            var conn = DBConnection.GetDbConnection();
 
-            if (reader.HasRows)
+            var cmdText = @"sp_retrieve_all_roles";
+
+            var cmd = new SqlCommand(cmdText, conn);
+
+            cmd.CommandType = CommandType.StoredProcedure;
+
+
+
+            try
             {
-                while (reader.Read())
-                { 
+                conn.Open();
+                var reader = cmd.ExecuteReader();
 
-                    roles.Add(new Role()
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
                     {
-                        RoleID = reader.GetString(0),
-                        Description = reader.GetString(1),
-                        Active = reader.GetBoolean(2)
-                    });
+
+                        roles.Add(new Role()
+                        {
+                            RoleID = reader.GetString(0),
+                            Description = reader.GetString(1),
+                            //  Active = reader.GetBoolean(2)
+                        });
+                    }
                 }
             }
-        }
-        catch (Exception)
-        {
-            throw;
-        }
-        finally
-        {
-            conn.Close();
-        }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                conn.Close();
+            }
 
 
-        return roles;
+            return roles;
 
-    }
+        }
 
         /// <summary>
         /// Eduardo Colon
@@ -72,7 +72,7 @@ namespace DataAccessLayer
         /// 
         /// method to insert role
         /// </summary>
-        
+
         public int InsertRole(Role newRole)
         {
             int result = 0;
@@ -102,14 +102,14 @@ namespace DataAccessLayer
             return result;
         }
 
-        
+
         /// <summary>
         /// Eduardo Colon
         /// Created: 2019/02/24
         /// 
         /// method to select role by role id
         /// </summary>
-       
+
         public Role RetrieveRoleByRoleId(string roleID)
         {
             Role role = new Role();
@@ -131,12 +131,12 @@ namespace DataAccessLayer
 
                     role.Description = reader.GetString(1);
 
-                    role.Active = reader.GetBoolean(2);
+                    //  role.Active = reader.GetBoolean(2);
                 }
             }
-            catch (Exception )
+            catch (Exception)
             {
-                throw ;
+                throw;
             }
             finally
             {
@@ -145,17 +145,17 @@ namespace DataAccessLayer
             return role;
         }
 
-       
+
         /// <summary>
         /// Eduardo Colon
         /// Created: 2019/01/30
         /// 
         /// method to update role 
         /// </summary>
-       
+
         public void UpdateRole(Role oldRole, Role newRole)
         {
-          //  int result = 0;
+            //  int result = 0;
 
             // get a connection
             var conn = DBConnection.GetDbConnection();
@@ -175,16 +175,14 @@ namespace DataAccessLayer
             cmd.Parameters.AddWithValue("@OldDescription", oldRole.Description);
 
             cmd.Parameters.AddWithValue("@NewDescription", newRole.Description);
-
-
             // execute command
             try
             {
                 // open the connection
                 conn.Open();
 
-               
-               cmd.ExecuteNonQuery();
+
+                cmd.ExecuteNonQuery();
             }
             catch (Exception)
             {
@@ -197,16 +195,8 @@ namespace DataAccessLayer
             }
 
 
-        
+
         }
-
-
-
-
-
-
-        
-
 
         /// <summary>
         /// Eduardo Colon
@@ -329,10 +319,10 @@ namespace DataAccessLayer
                 {
                     while (reader.Read())
                     {
-                        Role role = new Role(); 
+                        Role role = new Role();
                         role.RoleID = reader.GetString(0);
                         role.Description = reader.GetString(1);
-                        role.Active = reader.GetBoolean(2);
+                        //   role.Active = reader.GetBoolean(2);
                         roles.Add(role);
                     }
                 }
@@ -376,7 +366,7 @@ namespace DataAccessLayer
                         Role role = new Role();
                         role.RoleID = reader.GetString(0);
                         role.Description = reader.GetString(1);
-                        role.Active = reader.GetBoolean(2);
+
                         roles.Add(role);
                     }
                 }
@@ -392,6 +382,6 @@ namespace DataAccessLayer
 
             return roles;
         }
-       
+
     }
 }

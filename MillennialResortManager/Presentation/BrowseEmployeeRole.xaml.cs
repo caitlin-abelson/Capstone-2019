@@ -51,7 +51,7 @@ namespace Presentation
         /// </summary>
         public BrowseEmployeeRole(IRoleManager roleManager = null)
         {
-            if(roleManager == null)
+            if (roleManager == null)
             {
                 _roleManager = new RoleManager();
             }
@@ -59,20 +59,20 @@ namespace Presentation
             _roleManager = roleManager;
             InitializeComponent();
         }
-       
+
         private void TabRole_GotFocus(object sender, RoutedEventArgs e)
         {
 
             //dgRole.Items.Refresh();
-          
+
 
         }
 
         private void DgRole_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-        {  
-           //   var role = (Role)dgRole.SelectedItem;
+        {
+            //   var role = (Role)dgRole.SelectedItem;
             //  var detailForm = new UpdateEmployeeRole(role); 
-   
+
         }
 
 
@@ -85,20 +85,20 @@ namespace Presentation
         private void BtnAdd_Click(object sender, RoutedEventArgs e)
         {
 
-            
+
             var detailForm = new CreateEmployeeRole();
-         
+
             var result = detailForm.ShowDialog();// need to be added
 
 
 
             if (result == true)
             {
-               
+
                 MessageBox.Show(result.ToString());
             }
             refreshRoles();
-           
+
         }
 
 
@@ -126,7 +126,7 @@ namespace Presentation
             }
         }
 
-       
+
         /// <summary>
         /// Eduardo Colon
         /// Created: 2019/01/27
@@ -148,23 +148,23 @@ namespace Presentation
         /// </summary>
         private void filterRoles()
         {
-           
+
             IEnumerable<Role> currentRoles = _roles;
             try
             {
                 List<Role> _currentRoles = new List<Role>();
-                
+
                 if (txtSearch.Text.ToString() != "")
                 {
-                   
+
                     if (txtSearch.Text != "" && txtSearch.Text != null)
                     {
                         currentRoles = currentRoles.Where(b => b.Description.ToLower().Contains(txtSearch.Text.ToLower()));
 
-                        
+
                     }
                 }
-
+                /*
                 if (cbActive.IsChecked == true && cbDeactive.IsChecked == false)
                 {
                     currentRoles = currentRoles.Where(b => b.Active == true);
@@ -177,8 +177,8 @@ namespace Presentation
                 {
                     currentRoles = currentRoles.Where(b => b.Active == false && b.Active == true);
                 }
-
-                dgRole.ItemsSource =  null;
+                */
+                dgRole.ItemsSource = null;
 
                 dgRole.ItemsSource = currentRoles;
             }
@@ -186,9 +186,9 @@ namespace Presentation
             {
                 MessageBox.Show(ex.Message);
 
- 
+
             }
-       
+
         }
 
         /// <summary>
@@ -199,17 +199,17 @@ namespace Presentation
         /// </summary>
         private void BtnClearRoles_Click(object sender, RoutedEventArgs e)
         {
-            
+
             txtSearch.Text = "";
-           _currentRoles = _roles;
-            cbDeactive.IsChecked = true;
-            cbActive.IsChecked = true;
-          
+            _currentRoles = _roles;
+            //    cbDeactive.IsChecked = true;
+            //     cbActive.IsChecked = true;
+
             dgRole.ItemsSource = _currentRoles;
         }
 
-       
-       
+
+
 
 
         /// <summary>
@@ -223,7 +223,7 @@ namespace Presentation
 
             if (dgRole.SelectedItem != null)
             {
-                 _selectedRole = (Role)dgRole.SelectedItem;
+                _selectedRole = (Role)dgRole.SelectedItem;
 
 
                 var assign = new CreateEmployeeRole(_selectedRole);
@@ -247,7 +247,7 @@ namespace Presentation
         private void BtnCancel_Click(object sender, RoutedEventArgs e)
         {
             var result = MessageBox.Show("Are you sure you want to quit?", "Closing Application", MessageBoxButton.OKCancel, MessageBoxImage.Question);
-            if(result == MessageBoxResult.OK)
+            if (result == MessageBoxResult.OK)
             {
                 this.Close();
             }
@@ -267,22 +267,18 @@ namespace Presentation
 
                 try
                 {
-                    if (current.Active == true)
+
+
+
+                    var result = MessageBox.Show("Are you sure that you want to delete this role?", "Delete Role", MessageBoxButton.YesNo);
+                    if (result == MessageBoxResult.Yes)
                     {
-                        var result = MessageBox.Show("Are you sure that you want to deactivate this role?", "Deactivate Role", MessageBoxButton.YesNo);
-                        if (result == MessageBoxResult.Yes)
-                        {
-                            _roleManager.DeleteRole(current.RoleID, current.Active);
-                        }
+                        //  _roleManager.DeleteRole(current.RoleID, current.Active);
+
+                        _roleManager.DeleteRole(current.RoleID);
+
                     }
-                    else
-                    {
-                        var result = MessageBox.Show("Are you sure that you want to delete this role?", "Delete Role", MessageBoxButton.YesNo);
-                        if (result == MessageBoxResult.Yes)
-                        {
-                            _roleManager.DeleteRole(current.RoleID, current.Active);
-                        }
-                    }
+
                 }
                 catch (Exception ex)
                 {
@@ -291,13 +287,13 @@ namespace Presentation
                 }
 
 
-           
+
             }
             else
             {
 
                 MessageBox.Show("You must select an item first");
-              
+
             }
             refreshRoles();
         }

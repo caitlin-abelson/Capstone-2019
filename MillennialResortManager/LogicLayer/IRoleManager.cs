@@ -18,13 +18,16 @@ namespace LogicLayer
 
         List<Role> RetrieveAllRoles();
 
-        
+
         int CreateRole(Role newRole);
-     
+
         Role RetrieveRoleByRoleId(string roleID);
         void UpdateRole(Role oldRole, Role newRole);
-        void DeleteRole(string roleID, bool isActive);
+
         List<Role> RetrieveAllActiveRoles();
+        bool DeleteRole(string roleId);
+
+
         List<Role> RetrieveAllInActiveRoles();
 
 

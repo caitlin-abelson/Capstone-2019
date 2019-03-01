@@ -13,12 +13,12 @@
             <RowDefinition Height="80" ></RowDefinition>
             <RowDefinition Height="50"></RowDefinition>
             <RowDefinition Height="50"></RowDefinition>
-            <RowDefinition  > </RowDefinition>
+            <RowDefinition  ></RowDefinition>
             <RowDefinition Height="40" ></RowDefinition>
         </Grid.RowDefinitions>
         <Grid Grid.Row="0" Background="LightGoldenrodYellow">
             <Grid.ColumnDefinitions>
-            <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
             <Label Padding="5" Margin="10" HorizontalAlignment="Center" VerticalContentAlignment="Center" Grid.Column="0" FontSize="15px" VerticalAlignment="top" Content="View Employee Roles" />
         </Grid>
@@ -33,9 +33,9 @@
             </Grid.ColumnDefinitions>
             <Label Grid.Column="0" Content="Search Term:"  Padding="5" HorizontalAlignment="Right" VerticalContentAlignment="Center" />
             <TextBox x:Name="txtSearch" Grid.Column="1" Margin="5" Height="25" HorizontalContentAlignment="Left" Text=""    />
-            
+
             <Button x:Name="btnFilter"  Grid.Column="3" Margin="5" Height="25" Content="Filter" Click="BtnFilter_Click" />
-           
+
         </Grid>
         <Grid Grid.Row="2" Background="LightGoldenrodYellow">
             <Grid.ColumnDefinitions>
@@ -47,12 +47,12 @@
                 <ColumnDefinition Width="100"></ColumnDefinition>
                 <ColumnDefinition Width="150"></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <CheckBox x:Name="cbActive" HorizontalAlignment="Left"  VerticalAlignment="Center" Grid.Column="2" IsChecked="True" Click="CbActive_Click" />
+            <!--    <CheckBox x:Name="cbActive" HorizontalAlignment="Left"  VerticalAlignment="Center" Grid.Column="2" IsChecked="True" Click="CbActive_Click" /> -->
             <!--Click="cbActive_Click"-->
-            <Label x:Name="lblActive" HorizontalAlignment="Right" VerticalAlignment="Center" Content="Active" Grid.Column="1"/>
-            <CheckBox x:Name="cbDeactive" IsChecked="True" HorizontalAlignment="Left"  VerticalAlignment="Center" Grid.Column="4" Click="CbDeactive_Click" />
+            <!--   <Label x:Name="lblActive" HorizontalAlignment="Right" VerticalAlignment="Center" Content="Active" Grid.Column="1"/> -->
+            <!--   <CheckBox x:Name="cbDeactive" IsChecked="True" HorizontalAlignment="Left"  VerticalAlignment="Center" Grid.Column="4" Click="CbDeactive_Click" /> -->
             <!-- Checked="cbDeactive_Checked"-->
-            <Label x:Name="lblDeactive"  HorizontalAlignment="Left" VerticalAlignment="Center" Content="Inactive" Grid.Column="3"/>
+            <!--    <Label x:Name="lblDeactive"  HorizontalAlignment="Left" VerticalAlignment="Center" Content="Inactive" Grid.Column="3"/>-->
             <Button x:Name="btnClearRoles" VerticalAlignment="Center" Grid.Column="5" Content="Clear Filter" Margin="5" Height="25" Click="BtnClearRoles_Click" />
 
 
@@ -68,12 +68,12 @@
             <TabControl Grid.Row="0" x:Name="tabsetMain">
                 <TabItem Name="tabRole" Header="Employee Role" GotFocus="TabRole_GotFocus">
 
-            
 
 
 
 
-            <DataGrid Grid.Row="1" x:Name="dgRole" VerticalGridLinesBrush="{x:Null}" 
+
+                    <DataGrid Grid.Row="1" x:Name="dgRole" VerticalGridLinesBrush="{x:Null}" 
                               SelectionMode="Single" AlternatingRowBackground="#FFDFF7F1" 
                               RowBackground="#FFF4F7DF"  IsReadOnly="True"
                            Grid.ColumnSpan="4"
@@ -86,7 +86,7 @@
                 </TabItem>
             </TabControl>
 
-         
+
 
         </Grid>
 

@@ -17,9 +17,9 @@ namespace DataAccessLayer
     {
         List<Role> RetrieveAllRoles();
 
-        
+
         int InsertRole(Role newRole);
-     
+
         Role RetrieveRoleByRoleId(string roleID);
         void UpdateRole(Role oldRole, Role newRole);
         void DeactivateRole(string roleID);

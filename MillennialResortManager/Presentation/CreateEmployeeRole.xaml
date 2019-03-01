@@ -51,7 +51,7 @@
                     </Grid.RowDefinitions>
 
 
-                    <TextBox x:Name="txtRoleID" Grid.Column="2" Width="260" HorizontalContentAlignment="Left" Margin="3 3 -33 3" VerticalAlignment="Center"  Height="25"   /> 
+                    <TextBox x:Name="txtRoleID" Grid.Column="2" Width="260" HorizontalContentAlignment="Left" Margin="3 3 -33 3" VerticalAlignment="Center"  Height="25"   />
                     <Label Grid.Column="1" Grid.Row="0" Width="100" Grid.ColumnSpan="1" Content="Role Name"  FontSize="16px"  Margin="3  3 -290 3"  HorizontalContentAlignment="Left" VerticalContentAlignment="Center"/>
 
 
@@ -83,7 +83,7 @@
 
             <Button x:Name="btnCancel" Grid.Column="2" Margin="5" Height="25" Content="Cancel" Click="BtnCancel_Click" />
             <Button x:Name="btnSave"  Grid.Column="4" Content="Save" Margin="5" Height="25" Click="BtnSave_Click"/>
-            
+
         </Grid>
     </Grid>
 </Window>

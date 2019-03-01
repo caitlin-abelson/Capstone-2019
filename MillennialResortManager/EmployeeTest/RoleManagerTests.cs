@@ -47,7 +47,7 @@ namespace UnitTests
         {
             newRole.RoleID = oldRole.RoleID;
             newRole.Description = oldRole.Description;
-             
+
         }
         /// <summary>
         /// Eduardo Colon
@@ -65,7 +65,7 @@ namespace UnitTests
             CollectionAssert.Equals(_roles, roles);
         }
 
-      
+
 
         /// <summary>
         /// Eduardo Colon
@@ -77,15 +77,15 @@ namespace UnitTests
         {
 
             //arrange
-            Role newRole = new Role() { RoleID = "Registration", Description = "Registers rooms ", Active = true };
+            Role newRole = new Role() { RoleID = "Registration", Description = "Registers rooms " };
             //Act
             _roleManager.CreateRole(newRole);
             //Assert
             _roles = _roleManager.RetrieveAllRoles();
 
             Assert.IsNotNull(_roles.Find(r => r.RoleID == newRole.RoleID &&
-                r.Description == newRole.Description &&
-                r.Active == newRole.Active
+                r.Description == newRole.Description
+
             ));
         }
 
@@ -104,7 +104,7 @@ namespace UnitTests
             {
                 RoleID = createStringLength(51),
                 Description = "Administers to roles",
-                Active = true
+
             };
             //Act
             _roleManager.CreateRole(role);
@@ -124,8 +124,8 @@ namespace UnitTests
             Role role = new Role()
             {
                 RoleID = createStringLength(0),
-                Description = "Administers to roles",
-                Active = true
+                Description = "Administers to roles"
+
             };
             //Act
             _roleManager.CreateRole(role);
@@ -138,7 +138,7 @@ namespace UnitTests
         /// Testing invalid input for Description too long
         /// </summary>
         [TestMethod]
-       [ExpectedException(typeof(ArgumentException))]
+        [ExpectedException(typeof(ArgumentException))]
         public void TestCreateRoleInValidInputDescriptionTooLong()
         {
             //Arrange
@@ -146,7 +146,7 @@ namespace UnitTests
             {
                 RoleID = "Administers",
                 Description = createStringLength(1001),
-                Active = true
+
             };
             //Act
             _roleManager.CreateRole(role);
@@ -167,7 +167,7 @@ namespace UnitTests
             {
                 RoleID = "Administers",
                 Description = createStringLength(0),
-                Active = true
+
             };
             //Act
             _roleManager.CreateRole(role);
@@ -188,8 +188,8 @@ namespace UnitTests
             Role role = new Role()
             {
                 RoleID = "Checks in",
-                Description = "",
-                Active = true
+                Description = ""
+
             };
             //Act
             _roleManager.CreateRole(role);
@@ -208,8 +208,8 @@ namespace UnitTests
             Role role = new Role()
             {
                 RoleID = "",
-                Description = "Admins roles ",
-                Active = true
+                Description = "Admins roles "
+
             };
             //Act
             _roleManager.CreateRole(role);
@@ -217,7 +217,7 @@ namespace UnitTests
 
 
 
-   
+
 
         /// <summary>
         /// Eduardo Colon
@@ -225,7 +225,7 @@ namespace UnitTests
         /// 
         /// Testing valid  retrieving all roles
         /// </summary>
-         [TestMethod]
+        [TestMethod]
         public void TestRetrieveAllRolesWithValidInput()
         {
             //Arrange
@@ -240,7 +240,7 @@ namespace UnitTests
 
 
 
-        
+
 
 
 
@@ -262,10 +262,10 @@ namespace UnitTests
             //Act
             _roleManager.UpdateRole(oldRole, newRole);
 
-           
+
         }
-      
-       
+
+
 
         /// <summary>
         /// Eduardo Colon
@@ -284,11 +284,11 @@ namespace UnitTests
             _roleManager.UpdateRole(oldRole, newRole);
 
 
-           
+
 
         }
-        
-       
+
+
 
         /// <summary>
         /// Eduardo Colon
@@ -297,7 +297,7 @@ namespace UnitTests
         /// Testing invalid input for Description when updating the role
         /// </summary>
         [TestMethod]
-       [ExpectedException(typeof(ArgumentException))]
+        [ExpectedException(typeof(ArgumentException))]
         public void TestUpdateRoleWithNewRoleDescriptionMoreThan250()
         {
             // Arrange
@@ -306,28 +306,9 @@ namespace UnitTests
 
             _roleManager.UpdateRole(oldRole, newRole);
         }
-       
-        
 
-        /// <summary>
-        /// Eduardo Colon
-        /// Created: 2019/02/09
-        /// 
-        /// 
-        /// Testing valid input when deactivating an employee role
-        /// Expected : does not throw exception
-        /// </summary>
-        [TestMethod]
-        public void TestDeactivateRoleWithValidRoleID()
-        {
-            //Arrange
-             string roleID = "Checks in";
-            bool roleActive = true;
-            //Act
-            _roleManager.DeleteRole(roleID,roleActive);
-          
-            
-        }
+
+
 
         /// <summary>
         /// Eduardo Colon
@@ -343,9 +324,9 @@ namespace UnitTests
         {
             //Arrange
             string roleID = "null";
-        
+
             //Act
-            _roleManager.DeleteRole(roleID, false);
+            _roleManager.DeleteRole(roleID);
 
 
         }
@@ -364,11 +345,11 @@ namespace UnitTests
         {
 
 
-          
+
             string roleID = "Checks in";
-          
+
             //Act
-            _roleManager.DeleteRole(roleID, false);
+            _roleManager.DeleteRole(roleID);
 
             //Assert
             _roleManager.RetrieveRoleByRoleId(roleID);
@@ -405,7 +386,7 @@ namespace UnitTests
         /// </summary>
 
         [TestMethod]
-      
+
         public void TestRetrieveAllRoles_RetrieveZeroObject()
         {
             var roles = _roleManager.RetrieveAllRoles();
