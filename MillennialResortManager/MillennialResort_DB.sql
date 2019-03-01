@@ -123,77 +123,6 @@ INSERT INTO [dbo].[Employee]
 GO
 
 
-
-
-
-print '' print '*** Creating Role Table'
-GO
-
-CREATE TABLE [dbo].[Role] (
-	[RoleID]		[nvarchar](50)						NOT NULL,
-	[Description]	[nvarchar](250)						,
-	
-	CONSTRAINT [pk_RoleID]	PRIMARY KEY([RoleID] ASC)
-)
-GO
-
-print '' print '*** Inserting Role Records'
-GO
-
-INSERT INTO [dbo].[Role]
-		([RoleID], [Description])
-	VALUES
-		('Rental', 'Rents Boats'),
-		('Checkout', 'Checks Boats out'),
-		('Inspection', 'Checks Boats In and Inspects Them'),
-		('Maintenance', 'Repairs and Maintains Boats'),
-		('Prep', 'Prepares Boats for Rental'),
-		('Manager', 'Manages Boat Inventory'),
-		('Admin', 'Administers Employee Roles')
-GO
-
-print '' print '*** Creating EmployeeRole Table'
-GO
-
-CREATE TABLE [dbo].[EmployeeRole](
-	[EmployeeID]		[int]							NOT NULL,
-	[RoleID]			[nvarchar](50)					NOT NULL
-	
-	CONSTRAINT [pk_EmployeeID_RoleID] PRIMARY KEY([EmployeeID] ASC, [RoleID] ASC)
-)
-GO
-
-print '' print '*** Inserting EmployeeRole Records'
-GO
-
-INSERT INTO [dbo].[EmployeeRole]
-		([EmployeeID], [RoleID])
-	VALUES
-		(100000, 'Rental'),
-		(100001, 'Checkout'),
-		(100001, 'Inspection'),
-		(100001, 'Prep'),
-		(100002, 'Maintenance'),
-		(100002, 'Manager'),
-		(100002, 'Admin')
-GO
-
-print '' print '*** Adding Foreign Key for EmployeeRole'
-
-ALTER TABLE [dbo].[EmployeeRole] WITH NOCHECK
-	ADD CONSTRAINT [fk_EmployeeID] FOREIGN KEY ([EmployeeID])
-	REFERENCES [dbo].[Employee]([EmployeeID])
-	ON UPDATE CASCADE
-GO
-
-print '' print '*** Adding Foreign Key RoleID for EmployeeRole'
-
-ALTER TABLE [dbo].[EmployeeRole] WITH NOCHECK
-	ADD CONSTRAINT [fk_RoleID] FOREIGN KEY ([RoleID])
-	REFERENCES [dbo].[Role]([RoleID])
-	ON UPDATE CASCADE
-GO
-
 print '' print '*** Creating sp_update_employee_email'
 GO
 CREATE PROCEDURE [dbo].[sp_update_employee_email]
@@ -2372,5 +2301,282 @@ AS
 		SELECT [EmployeeID], [FirstName], [LastName], [Email], [PhoneNumber], [DepartmentID], [Active]
 		FROM [Employee]
 		WHERE [Email] = @Email
+	END
+GO
+
+
+
+/*
+  NAME:  Eduardo Colon
+  Date:   2019-01-23
+*/
+print '' print '*** Creating Role Table'
+
+GO
+
+CREATE TABLE [dbo].[Role] (
+	[RoleID]		[nvarchar](50)						NOT NULL,
+	[Description]	[nvarchar](1000)	,
+	[Active] 		[bit]						  NOT NULL DEFAULT 1,
+	CONSTRAINT [pk_RoleID]	PRIMARY KEY([RoleID] ASC)
+)
+GO
+
+/*
+  NAME:  Eduardo Colon
+  Date:   2019-01-23
+*/
+print '' print '*** Inserting Role Records'
+GO
+
+INSERT INTO [dbo].[Role]
+		([RoleID], [Description])
+	VALUES
+		('Reservation', 'Reserves Rooms'),
+		('RoomCheckout', 'Checks Rooms out'),
+		('EventRequest', 'Requests an event '),
+		('Offering', 'Offers items to be purchased from us'),
+		('Maintenance', 'Repairs and Maintains Rooms'),
+		('Procurement', ' Manages items ordered for inventory'),
+		('VehicleCheckout', 'Check Vehicle out'),
+		('test', 'test1'),
+		('Admin', 'Administers Employee Roles')
+GO
+
+
+/*
+  NAME:  Eduardo Colon
+  Date:   2019-01-23
+*/
+print '' print '*** Creating EmployeeRole Table'
+GO
+
+CREATE TABLE [dbo].[EmployeeRole](
+	[EmployeeID]		[int]							NOT NULL,
+	[RoleID]			[nvarchar](50)					NOT NULL
+	
+	CONSTRAINT [pk_EmployeeID_RoleID] PRIMARY KEY([EmployeeID] ASC, [RoleID] ASC)
+)
+GO
+/*
+ NAME:  Eduardo Colon
+ Date:   2019-01-23
+*/
+print '' print '*** Inserting EmployeeRole Records'
+GO
+
+INSERT INTO [dbo].[EmployeeRole]
+		([EmployeeID], [RoleID])
+	VALUES
+		(100000, 'Reservation'),
+		(100001, 'RoomCheckout'),
+		(100001, 'VehicleCheckout'),
+		(100001, 'EventRequest'),
+		(100002, 'Offering'),
+		(100002, 'Maintenance'),
+		(100002, 'Procurement'),
+		(100003, 'Manager'),
+		(100003, 'Admin')
+GO
+
+/*
+  NAME:  Eduardo Colon
+  Date:   2019-01-23
+*/
+print '' print '*** Creating sp_retrieve_all_roles to retrieve all roles'
+GO
+CREATE PROCEDURE sp_retrieve_all_roles
+AS
+	BEGIN
+		SELECT [RoleID], [Description],[Active]
+			   
+		FROM [Role]
+		ORDER BY [RoleID]
+	END
+GO
+
+/*
+  NAME:  Eduardo Colon
+  Date:   2019-01-23
+*/
+print '' print '*** Creating sp_insert_role to insert roles'
+GO
+CREATE PROCEDURE sp_insert_role
+	(
+		@RoleID				[nvarchar](50), 
+		@Description		[nvarchar](1000)
+		
+	)
+AS
+	BEGIN
+		INSERT INTO [Role]
+			([RoleID],[Description])
+		VALUES
+			(@RoleID, @Description)
+		RETURN @@ROWCOUNT
+	END
+GO
+
+/*
+  NAME:  Eduardo Colon'
+  Date:   2019-01-23'
+*/
+print '' print '*** Creating sp_update_role_by_id to update roles '
+
+GO
+CREATE PROCEDURE [dbo].[sp_update_role_by_id]
+	(
+		@RoleID			  [nvarchar](50), 
+		@OldDescription   [nvarchar](1000),
+		@NewDescription	  [nvarchar](1000)
+	
+	
+		
+	)
+AS
+	BEGIN
+	
+		BEGIN
+			UPDATE [Role]
+				SET [Description] = @NewDescription
+				
+				WHERE [RoleID] = @RoleID
+				AND	  [Description] = @OldDescription
+					
+			RETURN @@ROWCOUNT
+		END
+	END
+GO
+
+
+/*
+  NAME:  Eduardo Colon'
+  Date:   2019-01-23'
+*/
+print '' print '*** Creating sp_delete_roleID_role  to delete roleId'
+
+GO
+CREATE PROCEDURE [dbo].[sp_delete_roleID_role]
+	(
+		@RoleID		[nvarchar](50)
+	)
+	
+AS
+	BEGIN
+		DELETE
+		FROM [EmployeeRole]
+		WHERE [RoleID] = @RoleID
+		RETURN @@ROWCOUNT
+	END
+GO
+
+
+/*
+  NAME:  Eduardo Colon'
+  Date:   2019-01-23'
+*/
+print '' print '*** Creating sp_delete_role to delete role'
+
+GO
+CREATE PROCEDURE [dbo].[sp_delete_role]
+	(
+		@RoleID		[nvarchar](50)
+	)
+	
+AS
+	BEGIN
+		DELETE
+		FROM [Role]
+		WHERE [RoleID] = @RoleID
+		RETURN @@ROWCOUNT
+	END
+GO
+		
+/*
+  NAME:  Eduardo Colon'
+  Date:   2019-01-23'
+*/
+print '' print '*** Creating sp_retrieve_role_active'
+GO
+CREATE PROCEDURE [dbo].[sp_retrieve_role_active]
+AS
+	BEGIN
+		SELECT [RoleID], [Description], [Active]
+		FROM [Role]
+		WHERE [Active] = 1
+	END
+GO
+
+
+/*
+  NAME:  Eduardo Colon'
+  Date:   2019-01-23'
+*/
+print '' print '*** Creating sp_retrieve_role_active retrieve inactive roles'
+GO
+CREATE PROCEDURE [dbo].[sp_retrieve_role_inactive]
+AS
+	BEGIN
+		SELECT [RoleID], [Description], [Active]
+		FROM [Role]
+		WHERE [Active] = 1
+	END
+GO
+
+/*
+  NAME:  Eduardo Colon'
+  Date:   2019-01-23'
+*/
+print '' print '*** Creating sp_retrieve_roles_by_term_in_description to retrieve role by term description'
+GO
+CREATE PROCEDURE sp_retrieve_roles_by_term_in_description
+	(
+		@SearchTerm		[nvarchar](250)
+	)
+AS
+	BEGIN
+		SELECT [RoleID],  [Description],  [Active]
+		FROM 	[Role]
+		WHERE 	[Description] LIKE '%' + @SearchTerm + '%'
+		AND		[Active] = 1
+	END
+GO
+
+/*
+  NAME:  Eduardo Colon'
+  Date:   2019-01-23'
+*/
+print '' print '*** Creating sp_deactivate_employee_role__by_id to deactivate role by  role id'
+GO
+CREATE PROCEDURE sp_deactivate_employee_role_by_id
+	(
+		@RoleID			[nvarchar](50)
+	)
+AS
+	BEGIN
+		UPDATE [Role]
+		SET 	[Active] = 0
+		WHERE 	[RoleID] = @RoleID
+	  
+		RETURN @@ROWCOUNT
+	END
+GO
+
+
+/*
+  NAME:  Eduardo Colon'
+  Date:   2019-01-23'
+*/
+print '' print '*** Creating sp_retrieve_role_by_id to retrieve role by id'
+GO
+CREATE PROCEDURE [dbo].[sp_retrieve_role_by_id]
+	(
+		@RoleID				[nvarchar](50)
+	)
+AS
+	BEGIN
+		SELECT [RoleID], [Description], [Active]
+		FROM [Role]
+		WHERE [RoleID] = @RoleID
 	END
 GO

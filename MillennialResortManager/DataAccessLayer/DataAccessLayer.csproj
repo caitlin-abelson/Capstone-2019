@@ -60,6 +60,7 @@
     <Compile Include="InternalOrderAccessorMock.cs" />
     <Compile Include="IProductAccessor.cs" />
     <Compile Include="IReservationAccessor.cs" />
+    <Compile Include="IRoleAccessor.cs" />
     <Compile Include="IRoomAccessor.cs" />
     <Compile Include="ItemAccessor.cs" />
     <Compile Include="ItemSupplierAccessor.cs" />
@@ -74,6 +75,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReservationAccessorMock.cs" />
     <Compile Include="ReservationAccessorMSSQL.cs" />
+    <Compile Include="RoleAccessor.cs" />
+    <Compile Include="RoleAccessorMock.cs" />
     <Compile Include="RoomAccessor.cs" />
     <Compile Include="SupplierAccessor.cs" />
     <Compile Include="SupplierAccessorMock.cs" />
