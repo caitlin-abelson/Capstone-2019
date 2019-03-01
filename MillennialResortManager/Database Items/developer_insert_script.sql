@@ -157,7 +157,6 @@ AS
 	END
 --GO */
 
-
 /* Start Eduardo */
 
 -- Created: 2019-01-23
@@ -181,17 +180,19 @@ AS
 		END
 	END
 GO
+
 -- Created: 2019-01-23
+-- Update 2019-02-28 Author: Austin Delaney
+-- Update 2019-02-28 Desc: Removed active search.
 CREATE PROCEDURE sp_retrieve_roles_by_term_in_description
 	(
 		@SearchTerm		[nvarchar](250)
 	)
 AS
 	BEGIN
-		SELECT [RoleID],  [Description],  [Active]
+		SELECT [RoleID],  [Description]
 		FROM 	[Role]
 		WHERE 	[Description] LIKE '%' + @SearchTerm + '%'
-		AND		[Active] = 1
 	END
 GO
 
@@ -228,26 +229,50 @@ EXEC sys.sp_addextendedproperty
 	,@level1type = N'Procedure', @level1name = 'sp_insert_roles'
 GO
 
-ALTER TABLE [dbo].[EmployeeRole]  WITH NOCHECK MODIFY CONSTRAINT [fk_EmployeeID] FOREIGN KEY([EmployeeID])
+ALTER TABLE [dbo].[EmployeeRole]  DROP CONSTRAINT [fk_EmployeeID]
+GO
+ALTER TABLE [dbo].[EmployeeRole]  WITH NOCHECK ADD CONSTRAINT [fk_EmployeeID] FOREIGN KEY([EmployeeID])
 REFERENCES [dbo].[Employee] ([EmployeeID])
 ON UPDATE CASCADE ON DELETE CASCADE
 GO
 ALTER TABLE [dbo].[EmployeeRole] CHECK CONSTRAINT [fk_EmployeeID]
 GO
-ALTER TABLE [dbo].[EmployeeRole]  WITH NOCHECK MODIFY CONSTRAINT [fk_RoleID] FOREIGN KEY([RoleID])
+ALTER TABLE [dbo].[EmployeeRole]  DROP CONSTRAINT [fk_RoleID]
+GO
+ALTER TABLE [dbo].[EmployeeRole]  WITH NOCHECK ADD CONSTRAINT [fk_RoleID] FOREIGN KEY([RoleID])
 REFERENCES [dbo].[Role] ([RoleID])
 ON UPDATE CASCADE ON DELETE CASCADE
 GO
-
+ALTER TABLE [dbo].[EmployeeRole] CHECK CONSTRAINT [fk_RoleID]
+GO
 EXEC sys.sp_addextendedproperty
-	@name = N'Update 2019-01-28 Author'
+	@name = N'Update 2019-02-28 Author'
 	,@value = N'Austin Delaney'
 	,@level0type = N'Schema', @level0name = 'dbo'
 	,@level1type = N'TABLE', @level1name = 'EmployeeRole'
 GO
 EXEC sys.sp_addextendedproperty
-	@name = N'Update 2019-01-28 Desc'
+	@name = N'Update 2019-02-28 Desc'
 	,@value = N'Removed scope identity return'
 	,@level0type = N'Schema', @level0name = 'dbo'
 	,@level1type = N'TABLE', @level1name = 'EmployeeRole'
+GO
+
+ALTER TABLE [dbo].[MaintenanceWorkOrder] ALTER COLUMN [WorkingEmployeeID] [int] NULL;
+GO
+
+ALTER TABLE [dbo].[Guest] ADD [CheckedIn] [bit] NOT NULL DEFAULT 1;
+GO
+EXEC sys.sp_addextendedproperty @name = N'Update 2019-03-01 Author' ,@value = N'Austin Delaney' ,@level0type = N'Schema', @level0name = 'dbo' ,@level1type = N'TABLE', @level1name = 'Guest'
+GO
+EXEC sys.sp_addextendedproperty @name = N'Update 2019-03-01 Desc' ,@value = N'Added CheckedIn bit field' ,@level0type = N'Schema', @level0name = 'dbo' ,@level1type = N'TABLE', @level1name = 'Guest'
+GO
+EXEC sys.sp_addextendedproperty @name = N'Description' ,@value = N'If a guest is currently check into the resort grounds' ,@level0type = N'Schema', @level0name = 'dbo' ,@level1type = N'TABLE', @level1name = 'Guest' ,@level2type=N'COLUMN',@level2name=N'CheckedIn'
+GO
+
+
+ALTER TABLE [dbo].[Guest] ADD DEFAULT ((0)) FOR [Minor]
+GO
+
+ALTER TABLE [dbo].[ItemSupplier] ALTER COLUMN [PrimarySupplier] [bit] NOT NULL;
 GO
