@@ -50,11 +50,8 @@
     <Compile Include="EmpRolesAccessor.cs" />
     <Compile Include="EventAccessor.cs" />
     <Compile Include="EventTypeAccessor.cs" />
-<<<<<<< HEAD
     <Compile Include="IBuildingAccessor.cs" />
-=======
     <Compile Include="GuestTypeAccessor.cs" />
->>>>>>> origin/master
     <Compile Include="IDepartmentAccessor.cs" />
     <Compile Include="IEmployeeAccessor.cs" />
     <Compile Include="IEmpRolesAccessor.cs" />
@@ -72,24 +69,18 @@
     <Compile Include="IReservationAccessor.cs" />
     <Compile Include="IRoleAccessor.cs" />
     <Compile Include="IRoomAccessor.cs" />
-<<<<<<< HEAD
     <Compile Include="IShopAccessor.cs" />
-=======
     <Compile Include="IRoomTypeAccessor.cs" />
     <Compile Include="ISupplierOrderAccessor.cs" />
->>>>>>> origin/master
     <Compile Include="ItemAccessor.cs" />
     <Compile Include="ItemSupplierAccessor.cs" />
     <Compile Include="ItemSupplierAccessorMock.cs" />
     <Compile Include="ISupplierAccessor.cs" />
     <Compile Include="ItemTypeAccessorMSSQL.cs" />
     <Compile Include="MemberAccessorMSSQL.cs" />
-<<<<<<< HEAD
     <Compile Include="MockBuildingAccessor.cs" />
-=======
     <Compile Include="MockDepartmentAccessor.cs" />
     <Compile Include="MockEmpRolesAccessor.cs" />
->>>>>>> origin/master
     <Compile Include="MockEventAccessor.cs" />
     <Compile Include="MockGuestTypeAccessor.cs" />
     <Compile Include="MockRoomAccessor.cs" />
@@ -104,12 +95,9 @@
     <Compile Include="RoleAccessor.cs" />
     <Compile Include="RoleAccessorMock.cs" />
     <Compile Include="RoomAccessor.cs" />
-<<<<<<< HEAD
     <Compile Include="ShopAccessorMock.cs" />
     <Compile Include="ShopAccessorMSSQL.cs" />
-=======
     <Compile Include="RoomTypeAccessor.cs" />
->>>>>>> origin/master
     <Compile Include="SupplierAccessor.cs" />
     <Compile Include="SupplierAccessorMock.cs" />
     <Compile Include="SupplierOrderAccessor.cs" />

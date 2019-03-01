@@ -48,11 +48,8 @@
     <Compile Include="EmpRolesManager.cs" />
     <Compile Include="EventManager.cs" />
     <Compile Include="EventTypeManager.cs" />
-<<<<<<< HEAD
     <Compile Include="IBuildingManager.cs" />
-=======
     <Compile Include="GuestTypeManager.cs" />
->>>>>>> origin/master
     <Compile Include="IDepartmentManager.cs" />
     <Compile Include="IDepartmentTypeManager.cs" />
     <Compile Include="IEmployeeManager.cs" />
@@ -70,11 +67,8 @@
     <Compile Include="IReservationManager.cs" />
     <Compile Include="IRoleManager.cs" />
     <Compile Include="IRoomManager.cs" />
-<<<<<<< HEAD
     <Compile Include="IShopManager.cs" />
-=======
     <Compile Include="IRoomType.cs" />
->>>>>>> origin/master
     <Compile Include="ISupplierManager.cs" />
     <Compile Include="ISupplierOrderManager.cs" />
     <Compile Include="ItemManager.cs" />

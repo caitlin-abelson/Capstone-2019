@@ -63,11 +63,8 @@
     <Compile Include="ReservationManagerTests.cs" />
     <Compile Include="RoleManagerTests.cs" />
     <Compile Include="RoomManagerTest.cs" />
-<<<<<<< HEAD
     <Compile Include="ShopManagerTest.cs" />
-=======
     <Compile Include="RoomTypeUnitTests.cs" />
->>>>>>> origin/master
     <Compile Include="SupplierManagerTests.cs" />
     <Compile Include="SupplierOrderTests.cs" />
     <Compile Include="UnitTest1.cs" />
