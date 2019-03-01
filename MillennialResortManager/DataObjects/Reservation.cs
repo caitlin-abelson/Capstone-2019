@@ -29,7 +29,7 @@ namespace DataObjects
                 return false;
             }
             //Departure Date must be after today ?????
-            if (ArrivalDate.Date.Day < DepartureDate.Date.Day)
+            if (ArrivalDate.Date < DepartureDate.Date)
             {
                 return true;
             }

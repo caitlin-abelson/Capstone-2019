@@ -27,6 +27,7 @@ namespace UnitTests
         /// Unit tests to validate Logging an employee in
         /// </summary>
         [TestMethod]
+        [ExpectedException(typeof(ApplicationException))]
         public void TestAuthenticateEmployeeValid()
         {
             //Arange
