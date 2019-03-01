@@ -58,6 +58,7 @@
     <Compile Include="Reservation.cs" />
     <Compile Include="Room.cs" />
     <Compile Include="RoomType.cs" />
+    <Compile Include="Shop.cs" />
     <Compile Include="Supplier.cs" />
     <Compile Include="Suppliers.cs" />
     <Compile Include="User.cs" />

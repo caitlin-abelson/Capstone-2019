@@ -100,6 +100,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="CreateShop.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="DeactivateReservation.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -166,6 +170,7 @@
     </Compile>
     <Compile Include="CreateProduct.xaml.cs" />
     <Compile Include="CreateReservation.xaml.cs" />
+    <Compile Include="CreateShop.xaml.cs" />
     <Compile Include="DeactivateReservation.xaml.cs" />
     <Compile Include="DevLauncher.xaml.cs">
       <DependentUpon>DevLauncher.xaml</DependentUpon>
