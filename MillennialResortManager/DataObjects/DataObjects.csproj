@@ -53,6 +53,7 @@
     <Compile Include="ItemSupplier.cs" />
     <Compile Include="ItemType.cs" />
     <Compile Include="Member.cs" />
+    <Compile Include="Performance.cs" />
     <Compile Include="Product.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Reservation.cs" />

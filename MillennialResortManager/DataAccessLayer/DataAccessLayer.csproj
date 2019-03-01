@@ -58,6 +58,7 @@
     <Compile Include="IMemberAccessor.cs" />
     <Compile Include="InternalOrderAccessor.cs" />
     <Compile Include="InternalOrderAccessorMock.cs" />
+    <Compile Include="IPerformanceAccessor.cs" />
     <Compile Include="IProductAccessor.cs" />
     <Compile Include="IReservationAccessor.cs" />
     <Compile Include="IRoleAccessor.cs" />
@@ -71,6 +72,8 @@
     <Compile Include="MemberAccessorMSSQL.cs" />
     <Compile Include="MockEventAccessor.cs" />
     <Compile Include="MockRoomAccessor.cs" />
+    <Compile Include="PerformanceAccessor.cs" />
+    <Compile Include="PerformanceAccessorMock.cs" />
     <Compile Include="ProductAccessorMock.cs" />
     <Compile Include="ProductAccessorMSSQL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
