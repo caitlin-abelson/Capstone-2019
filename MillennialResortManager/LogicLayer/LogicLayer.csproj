@@ -41,10 +41,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BuildingManager.cs" />
     <Compile Include="DepartmentManager.cs" />
     <Compile Include="EmployeeManager.cs" />
     <Compile Include="EventManager.cs" />
     <Compile Include="EventTypeManager.cs" />
+    <Compile Include="IBuildingManager.cs" />
     <Compile Include="IDepartmentManager.cs" />
     <Compile Include="IEmployeeManager.cs" />
     <Compile Include="IEventManager.cs" />
@@ -64,6 +66,7 @@
     <Compile Include="ItemManager.cs" />
     <Compile Include="ItemSupplierManager.cs" />
     <Compile Include="ItemTypeManagerMSSQL.cs" />
+    <Compile Include="LogicValidationExtensionMethods.cs" />
     <Compile Include="MemberManagerMSSQL.cs" />
     <Compile Include="PerformanceManager.cs" />
     <Compile Include="ProductManagerMSSQL.cs" />

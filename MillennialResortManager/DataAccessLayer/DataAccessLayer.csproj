@@ -42,12 +42,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BuildingAccessor.cs" />
     <Compile Include="DBConnection.cs" />
     <Compile Include="DepartmentAccessor.cs" />
     <Compile Include="EmployeeAccessor.cs" />
     <Compile Include="EmployeeAccessorMock.cs" />
     <Compile Include="EventAccessor.cs" />
     <Compile Include="EventTypeAccessor.cs" />
+    <Compile Include="IBuildingAccessor.cs" />
     <Compile Include="IDepartmentAccessor.cs" />
     <Compile Include="IEmployeeAccessor.cs" />
     <Compile Include="IEventAccessor.cs" />
@@ -70,6 +72,7 @@
     <Compile Include="ISupplierAccessor.cs" />
     <Compile Include="ItemTypeAccessorMSSQL.cs" />
     <Compile Include="MemberAccessorMSSQL.cs" />
+    <Compile Include="MockBuildingAccessor.cs" />
     <Compile Include="MockEventAccessor.cs" />
     <Compile Include="MockRoomAccessor.cs" />
     <Compile Include="PerformanceAccessor.cs" />

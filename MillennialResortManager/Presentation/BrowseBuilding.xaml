@@ -1,0 +1,44 @@
+﻿<Window x:Class="Presentation.BrowseBuilding"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Presentation"
+        mc:Ignorable="d"
+        Title="BrowseBuilding" Height="450" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="45"/>
+            <RowDefinition />
+            <RowDefinition Height="45"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <!--<CheckBox x:Name="chkActive" Grid.Column="0" Content="Show only active buildings" IsChecked="True" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="10"/>-->
+            <Label Grid.Column="1" Content="Building Name: " VerticalContentAlignment="Center" HorizontalAlignment="Right"/>
+            <TextBox Grid.Column="2" x:Name="txtSearch" Margin="5" VerticalAlignment="Center" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" MinWidth="100"/>
+            <Button Grid.Column="3" Content="Filter" x:Name="btnFilter" Margin="5" Click="btnFilter_Click" />
+            <Button Grid.Column="4" Content="Clear" x:Name="btnClearFilters" Margin="5" Click="btnClearFilters_Click" />
+        </Grid>
+        <DataGrid Grid.Row="1" x:Name="dgBuildings" VerticalGridLinesBrush="{x:Null}" SelectionMode="Single" AlternatingRowBackground="#FF3DD8CA" RowBackground="LightGoldenrodYellow" IsReadOnly="True" MouseDoubleClick="dgBuildings_MouseDoubleClick" />
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="0" Content="Add Building" x:Name="btnAdd" Margin="5" Click="btnAdd_Click"/>
+            <Button Grid.Column="1" Content="Select" x:Name="btnSelect" Margin="5" Click="btnSelect_Click"/>
+            <Button Grid.Column="5" Content="Cancel" x:Name="btnCancel" Margin="5"/>
+        </Grid>
+    </Grid>
+</Window>

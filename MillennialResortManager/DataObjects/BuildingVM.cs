@@ -1,8 +1,8 @@
 ﻿/// <summary>
 /// Danielle Russo
-/// Created: 2019/01/20
+/// Created: 2019/02/20
 /// 
-/// Building object that reflects the database's Building table
+/// Building object for browse views
 /// </summary>
 /// 
 using System;
@@ -13,13 +13,12 @@ using System.Threading.Tasks;
 
 namespace DataObjects
 {
-    public class Building
+    class BuildingVM
     {
         public string BuildingID { get; set; }
         public string Name { get; set; }
         public string Address { get; set; }
         public string Description { get; set; }
         public string StatusID { get; set; }
-        public int ResortPropertyID { get; set; }
     }
 }

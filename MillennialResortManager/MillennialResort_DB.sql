@@ -1017,6 +1017,7 @@ AS
 GO
 
 /* Wes' Script starts here */
+/* Commented out by Dani, no Active field and missing multilple fields
 print '' print '*** Creating Building Table'
 GO
 CREATE TABLE [dbo].[Building](
@@ -1027,7 +1028,8 @@ CREATE TABLE [dbo].[Building](
 
 )
 GO
-
+*/
+/*
 print '' print '*** Inserting Data into Building Table'
 GO
 INSERT INTO [dbo].[Building]
@@ -1038,6 +1040,7 @@ INSERT INTO [dbo].[Building]
 		('Building 3', 'Building 3'),
 		('Building 4', 'Building 4')
 GO
+*/
 
 print '' print '*** Creating Room Type Table'
 GO
@@ -1094,6 +1097,8 @@ INSERT INTO [dbo].[Room]
 		('103', 'Building 4', 'RoomType 3', 'Room 103 in Building 4', 5, 1)
 GO
 
+/*
+Dani Comment out
 print '' print '*** Adding Foreign Key for BuildingID in Room Table'
 
 ALTER TABLE [dbo].[Room] WITH NOCHECK
@@ -1101,6 +1106,7 @@ ALTER TABLE [dbo].[Room] WITH NOCHECK
 	REFERENCES [dbo].[Building]([BuildingID])
 	ON UPDATE CASCADE
 GO
+*/
 
 print '' print '*** Adding Foreign Key for RoomTypeID in Room Table'
 
@@ -1110,6 +1116,9 @@ ALTER TABLE [dbo].[Room] WITH NOCHECK
 	ON UPDATE CASCADE
 GO
 
+/*
+Dani Comment out - does not meet criteria for fields I need, also does not
+reflect class diagram
 print '' print '*** Creating sp_retrieve_buildings'
 GO
 
@@ -1120,6 +1129,7 @@ AS
 		FROM Building
 	END
 GO
+*/
 
 print '' print '*** Creating sp_select_room_types'
 GO
@@ -2825,4 +2835,459 @@ BEGIN
 		WHERE  [isup].[SupplierID] = @SupplierID AND [isup].[Active] = 1
 	
 END
+GO
+
+/* 	Author:  Danielle Russo 
+	Created: 02/20/2019
+	Updated: 
+*/  
+print '' print '*** Create ResortPropertyType Table ***'
+GO
+CREATE TABLE [dbo].[ResortPropertyType](
+	[ResortPropertyTypeID]	[nvarchar](20) NOT NULL,
+	
+	CONSTRAINT[pk_ResortPropertyTypeID] PRIMARY KEY([ResortPropertyTypeID] ASC)
+)
+GO 
+
+/* 	Author:  Danielle Russo 
+	Created: 02/20/2019
+	Updated: 
+*/ 
+print '' print '*** Insert ResortPropertyType Records ***'
+GO
+INSERT INTO [dbo].[ResortPropertyType]
+		([ResortPropertyTypeID])
+	VALUES
+		('Building'),
+		('Room'),
+		('Resort Vehicle')
+GO
+
+/* 	Author:  Danielle Russo 
+	Created: 02/20/2019
+	Updated: 
+*/  
+print '' print '*** Create ResortProperty Table ***'
+GO
+CREATE TABLE [dbo].[ResortProperty](
+	[ResortPropertyID]		[int] IDENTITY(100000, 1) 	NOT NULL,
+	[ResortPropertyTypeID]	[nvarchar](20) 				NOT NULL,
+	
+	CONSTRAINT[pk_ResortPropertyID] PRIMARY KEY ([ResortPropertyID] ASC),
+	CONSTRAINT[fk_ResortPropertyTypeID] FOREIGN KEY ([ResortPropertyTypeID])
+		REFERENCES [dbo].[ResortPropertyType]([ResortPropertyTypeID])
+		ON UPDATE CASCADE
+)
+GO 	
+
+/* 	Author:  Danielle Russo 
+	Created: 02/20/2019
+	Updated: 
+*/ 
+print '' print '*** Insert ResortProperty Records ***'
+GO
+INSERT INTO [dbo].[ResortProperty]
+		([ResortPropertyTypeID])
+	VALUES
+		('Building'),
+		('Building'),
+		('Building'),
+		('Building'),
+		('Building'),
+		('Building')
+GO	
+
+
+
+
+
+/* 	Author:  Danielle Russo 
+	Created: 02/18/2019
+	Updated: 
+*/   
+print '' print '*** Create BuildingStatus Table ***'
+GO
+CREATE TABLE [dbo].[BuildingStatus](
+	[BuildingStatusID]	[nvarchar](25)		NOT NULL,
+	[Description]		[nvarchar](1000)	NOT NULL,
+	
+	CONSTRAINT[pk_BuildingStatusID] PRIMARY KEY([BuildingStatusID] ASC)
+)
+GO
+
+/* 	Author:  Danielle Russo 
+	Created: 02/18/2019
+	Updated: 
+*/ 
+print '' print '*** Insert BuildingStatus Records ***'
+GO
+INSERT INTO [dbo].[BuildingStatus]
+		([BuildingStatusID], [Description])
+	VALUES
+		('Available', 'Building is good to go!'),
+		('No Vacancy', 'All rooms are filled'),
+		('Undergoing Maintanance', 'Some rooms available')
+GO	
+
+/* 	Author:  Danielle Russo 
+	Created: 01/22/2019
+	Updated: 02/18/2019
+			Changed length for Description, 
+			Added nulls to BuildingName, Address, & Description
+			Added BuildingSatusID field
+	Updated: 02/20/2019
+			Removed Active field
+			Added ResortPropertyID field
+*/   
+print '' print '*** Creating Building Table ***'
+GO
+CREATE TABLE [dbo].[Building](
+	[BuildingID]		[nvarchar](50)		NOT NULL,
+	[BuildingName]		[nvarchar](150) 	NULL,
+	[Address]			[nvarchar](150)		NULL,
+	[Description]		[nvarchar](1000)	NULL,
+	[BuildingStatusID]	[nvarchar](25)		NOT NULL,
+	[ResortPropertyID]	[int]				NOT NULL,
+	
+	CONSTRAINT[pk_BuildingID] PRIMARY KEY([BuildingID] ASC),
+	CONSTRAINT[fk_BuildingStatusID_Building] FOREIGN KEY ([BuildingStatusID])
+		REFERENCES [dbo].[BuildingStatus]([BuildingStatusID])
+		ON UPDATE CASCADE
+)
+GO
+
+/* 	Author:  Danielle Russo 
+	Created: 01/22/2019
+	Updated: 02/18/2019
+			Added BuildingSatusID field
+	Updated: 02/20/2019
+			Removed Active field 
+			Added ResortPropertyID field
+*/ 
+print '' print '*** Inserting Building Records ***'
+GO
+INSERT INTO [dbo].[Building]
+		([BuildingID], [BuildingName], [Address], [Description], [BuildingStatusID], [ResortPropertyID])
+	VALUES
+		('Hotel 101', 'The Mud Burrow', '1202 Turtle Pond Parkway', 'Guest Hotel Rooms', 'Available', 100000),
+		('Hotel 102', 'Shell Shack', '1302 Turtle Pond Parkway', 'Guest Hotel Rooms', 'No Vacancy', 100001),
+		('Guest Bld 101', 'Chlorine Dreams', '666 Angler Circle ', 'Water Park', 'Available', 100002),
+		('Shopping Center 101', 'The Coral Reef', '1202 Try n Save Drive', 'Shopping Center', 'Available', 100003),
+		('Food Center 101', 'Trout Hatch', '808 Turtle Pond Parkway', 'Food Court', 'Undergoing Maintanance', 100004),
+		('Welcome Center', 'Canopy Center', '1986 Tsunami Trail', 'Main Guest Center', 'Available', 100005),
+		('GenBld01', 'Sea Cow Storage', '812 South Padre', 'Storage', 'Available', 100006)
+GO
+
+/* 	Author:  Danielle Russo 
+	Created: 02/20/2019
+	Updated: 
+*/   
+print '' print '*** Adding Foreign Key for Building'
+ALTER TABLE [dbo].[Building] WITH NOCHECK
+	ADD CONSTRAINT [fk_ResortPropertyID_Building] FOREIGN KEY ([ResortPropertyID])
+	REFERENCES [dbo].[ResortProperty]([ResortPropertyID])
+	ON UPDATE CASCADE
+GO
+
+/* 	Author:  Danielle Russo 
+	Created: 02/27/2019
+	Updated: 
+*/
+print '' print '*** Create Inspection Table ***'
+GO
+CREATE TABLE [dbo].[Inspection](
+	[InspectionID]					[int]IDENTITY(100000, 1) 	NOT NULL,
+	[ResortPropertyID]				[int]						NOT NULL,
+	[Name]							[nvarchar](50)				NOT NULL,
+	[DateInspected]					[date]						NOT NULL,
+	[Rating]						[nvarchar](50)				NOT NULL,
+	[ResortInspectionAffiliation]	[nvarchar](25)						,
+	[InspectionProblemNotes]		[nvarchar](1000)					,
+	[InspectionFixNotes]			[nvarchar](1000)					,
+	
+	CONSTRAINT[pk_InspectionID] PRIMARY KEY ([InspectionID] ASC),
+	CONSTRAINT[fk_ResortPropertyID_Inspection] FOREIGN KEY ([ResortPropertyID])
+		REFERENCES [dbo].[ResortProperty]([ResortPropertyID])
+		ON UPDATE CASCADE
+)
+GO
+
+/* 	Author:  Danielle Russo 
+	Created: 02/27/2019
+	Updated: 
+*/ 
+print '' print '*** Insert Inspection Records ***'
+GO
+INSERT INTO [dbo].[Inspection]
+		([ResortPropertyID], [Name], [DateInspected], [Rating])
+	VALUES
+		(100000, 'Sprinker Systems' ,'2018-01-01', 'Pass'),
+		(100000, 'Elevator' ,'2018-08-12', 'Pass')
+GO
+
+/* 	Author:  Danielle Russo 
+	Created: 02/27/2019
+	Updated: 
+*/ 
+print '' print '*** Creating sp_insert_inspection ***'
+GO
+CREATE PROCEDURE [dbo].[sp_insert_inspection]
+	(
+		@ResortPropertyID				[int],
+		@Name							[nvarchar](50),
+		@DateInspected					[date],
+		@Rating							[nvarchar](50),
+		@ResortInspectionAffiliation	[nvarchar](25),
+		@InspectionProblemNotes			[nvarchar](1000),
+		@InspectionFixNotes				[nvarchar](1000)	
+	)
+AS
+	BEGIN
+		
+		INSERT INTO [Inspection]
+			(	
+				[ResortPropertyID], 
+				[Name], 
+				[DateInspected], 
+				[Rating], 
+				[ResortInspectionAffiliation], 
+				[InspectionProblemNotes], 
+				[InspectionFixNotes]
+			)
+		VALUES
+			(
+				@ResortPropertyID,
+				@Name,
+				@DateInspected,
+				@Rating,
+				@ResortInspectionAffiliation,
+				@InspectionProblemNotes,
+				@InspectionFixNotes
+			)
+			
+		SELECT [InspectionID] = @@IDENTITY
+	END
+GO
+
+/* 	Author:  Danielle Russo 
+	Created: 02/27/2019
+	Updated: 
+*/ 
+print '' print '*** Creating sp_select_inspection_by_resortpropertyid ***'
+GO
+CREATE PROCEDURE [dbo].[sp_select_inspection_by_resortpropertyid]
+	(
+		@ResortPropertyID	[int]
+	)
+AS
+	BEGIN
+		SELECT	[InspectionID],[Name],[DateInspected],[Rating],
+				[ResortInspectionAffiliation],[InspectionProblemNotes],
+				[InspectionFixNotes]
+		FROM 	[Inspection]
+		WHERE	[ResortPropertyID] = @ResortPropertyID
+	END
+GO
+
+/* 	Author:  Danielle Russo 
+	Created: 02/27/2019
+	Updated: 
+*/ 
+print '' print '*** Creating sp_select_all_inspections ***'
+GO
+CREATE PROCEDURE [dbo].[sp_select_all_inspections]
+AS
+	BEGIN
+		SELECT	[InspectionID],[ResortPropertyID],[Name],[DateInspected],
+				[Rating],[ResortInspectionAffiliation],[InspectionProblemNotes],
+				[InspectionFixNotes]
+		FROM 	[Inspection]
+	END
+GO
+
+/* 	Author:  Danielle Russo 
+	Created: 01/22/2019
+	Updated: 02/18/2019
+			Changed length for Description
+			Added BuildingStatusID parameter and field
+	Updated: 02/20/2019
+			Added ResortPropertyID parameter and field
+	Updated: Jim Glasgow, Jared Greenfield, Danielle Russo
+			02/22/2019
+*/ 
+print '' print '*** Creating sp_insert_building ***'
+GO
+CREATE PROCEDURE [dbo].[sp_insert_building]
+	(
+		@BuildingID			[nvarchar](50),
+		@BuildingName		[nvarchar](150),
+		@Address			[nvarchar](150),
+		@Description		[nvarchar](1000),
+		@BuildingStatusID	[nvarchar](25)
+	)
+AS
+	BEGIN
+	
+		INSERT INTO [ResortProperty]
+			([ResortPropertyTypeID])
+		VALUES
+			('Building')
+		
+		SELECT @@IDENTITY AS [@@IDENTITY]
+	
+		INSERT INTO [Building]
+			([BuildingID],[BuildingName], [Address], [Description], [BuildingStatusID], [ResortPropertyID])
+		VALUES
+			(@BuildingID, @BuildingName, @Address, @Description, @BuildingStatusID, @@IDENTITY)
+		
+		RETURN @@ROWCOUNT
+	END
+GO
+
+/* 	Author:  Danielle Russo 
+	Created: 01/30/2019
+	Updated: 02/18/2019
+			Added BuildingStatusID field 
+	Updated: 02/20/2019
+			Removed Active field
+	Updated: 03/01/2019
+			Added ResortPropertyID
+			
+*/ 
+print '' print '*** Creating sp_select_building_by_id ***'
+GO
+CREATE PROCEDURE sp_select_building_by_id
+	(
+		@BuildingID		[nvarchar](50)
+	)
+AS
+	BEGIN
+		SELECT	[BuildingID], [BuildingName], [Address], [Description], [BuildingStatusID], [ResortPropertyID]
+		FROM	[Building]
+		WHERE	[BuildingID] = @BuildingID
+	END
+GO
+
+/* 	Author:  Danielle Russo 
+	Created: 02/02/2019
+	Updated: 02/18/2019
+			Added BuildingSatusID field
+	Updated: 02/20/2019
+			Removed Active field
+			Removed "Order by Active"
+	Updated: 03/01/2019
+			Added ResortPropertyID	
+*/ 
+print '' print '*** Creating sp_select_building_by_keyword_in_building_name ***'
+GO
+CREATE PROCEDURE sp_select_building_by_keyword_in_building_name
+	(
+		@Keyword		[nvarchar](150)
+	)
+AS
+	BEGIN
+		SELECT		[BuildingID], [BuildingName], [Address], [Description], [BuildingStatusID], [ResortPropertyID]
+		FROM		[Building]
+		WHERE		[BuildingName] LIKE '%' + @Keyword + '%'
+		ORDER BY	[BuildingID]
+	END
+GO
+
+/* 	Author:  Danielle Russo 
+	Created: 02/19/2019
+	Updated: 02/20/2019
+			Removed Active field
+			Removed "Order by Active"
+	Updated: 03/01/2019
+			Added ResortPropertyID
+*/ 
+print '' print '*** Creating sp_select_building_by_buildingstatusid ***'
+GO
+CREATE PROCEDURE sp_select_building_by_buildingstatusid
+	(
+		@BuildingStatusID		[nvarchar](25)
+	)
+AS
+	BEGIN
+		SELECT		[BuildingID], [BuildingName], [Address], [Description], [BuildingStatusID], [ResortPropertyID]
+		FROM		[Building]
+		WHERE		[BuildingStatusID] = @BuildingStatusID
+		ORDER BY	[BuildingID]
+	END
+GO
+
+/* 	Author:  Danielle Russo 
+	Created: 01/30/2019
+	Updated: 02/18/2019
+			Added BuildingStatusID field
+	Updated: 02/20/2019
+			Removed Active field
+			Removed "Order by Active"
+	Updated: 03/01/2019
+			Added ResortPropertyID
+*/ 
+print '' print '*** Creating sp_select_buildings ***'
+GO
+CREATE PROCEDURE sp_select_buildings
+AS
+	BEGIN	
+		SELECT 		[BuildingID], [BuildingName], [Address], [Description], [BuildingStatusID], [ResortPropertyID]
+		FROM		[Building]
+		ORDER BY	[BuildingID] 
+	END
+GO
+
+/* 	Author:  Danielle Russo 
+	Created: 02/20/2019
+	Updated: 
+*/  
+print '' print '*** Creating sp_select_all_statusids ***'
+GO
+CREATE PROCEDURE sp_select_all_statusids
+AS
+	BEGIN	
+		SELECT 		[BuildingStatusID] 
+		FROM		[BuildingStatus]
+		ORDER BY	[BuildingStatusID] 
+	END
+GO
+
+/* 	Author:  Danielle Russo 
+	Created: 01/30/2019
+	Updated: 02/18/2019
+			Changed length of Description parameters 
+			Added BuildingStatusID field and parameters 
+*/ 
+print '' print '*** Creating sp_update_building ***'
+GO
+CREATE PROCEDURE sp_update_building
+	(
+		@BuildingID				[nvarchar](50),
+		
+		@NewBuildingName 		[nvarchar](150),
+		@NewAddress				[nvarchar](150),	
+		@NewDescription			[nvarchar](1000),
+		@NewBuildingStatusID	[nvarchar](25),
+		
+		@OldBuildingName		[nvarchar](150),
+		@OldAddress				[nvarchar](150),
+		@OldDescription			[nvarchar](250),
+		@OldBuildingStatusID	[nvarchar](25)
+	)
+AS
+	BEGIN
+		UPDATE	[Building]
+			SET	[BuildingName] 		= @NewBuildingName,
+				[Address]			= @NewAddress,
+				[Description]		= @NewDescription,
+				[BuildingStatusID]	= @NewBuildingStatusID
+		WHERE	[BuildingID] 		= @BuildingID
+			AND [BuildingName] 		= @OldBuildingName
+			AND [Address]			= @OldAddress
+			AND	[Description]		= @OldDescription
+			AND	[BuildingStatusID]	= @OldBuildingStatusID
+		
+		Return @@ROWCOUNT
+	END
 GO

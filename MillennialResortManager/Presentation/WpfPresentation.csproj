@@ -71,6 +71,9 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="AddPerformance.xaml.cs" />
+    <Compile Include="BrowseBuilding.xaml.cs">
+      <DependentUpon>BrowseBuilding.xaml</DependentUpon>
+    </Compile>
     <Compile Include="BrowseEmployee.xaml.cs">
       <DependentUpon>BrowseEmployee.xaml</DependentUpon>
     </Compile>
@@ -82,8 +85,15 @@
     <Compile Include="BrowseSupplier.xaml.cs">
       <DependentUpon>BrowseSupplier.xaml</DependentUpon>
     </Compile>
+    <Compile Include="BuildingDetail.xaml.cs">
+      <DependentUpon>BuildingDetail.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewPerformance.xaml.cs" />
     <Page Include="AddPerformance.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="BrowseBuilding.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -100,6 +110,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="BrowseReservation.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="BuildingDetail.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
