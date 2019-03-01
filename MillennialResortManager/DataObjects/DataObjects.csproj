@@ -60,11 +60,14 @@
     <Compile Include="Room.cs" />
     <Compile Include="RoomType.cs" />
     <Compile Include="Supplier.cs" />
+    <Compile Include="SupplierOrder.cs" />
+    <Compile Include="SupplierOrderLine.cs" />
     <Compile Include="Suppliers.cs" />
     <Compile Include="User.cs" />
     <Compile Include="VMBrowseReservation.cs" />
     <Compile Include="VMInternalOrder.cs" />
     <Compile Include="VMInternalOrderLine.cs" />
+    <Compile Include="VMItemSupplierItem.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

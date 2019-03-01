@@ -62,6 +62,7 @@
     <Compile Include="IReservationAccessor.cs" />
     <Compile Include="IRoleAccessor.cs" />
     <Compile Include="IRoomAccessor.cs" />
+    <Compile Include="ISupplierOrderAccessor.cs" />
     <Compile Include="ItemAccessor.cs" />
     <Compile Include="ItemSupplierAccessor.cs" />
     <Compile Include="ItemSupplierAccessorMock.cs" />
@@ -80,6 +81,8 @@
     <Compile Include="RoomAccessor.cs" />
     <Compile Include="SupplierAccessor.cs" />
     <Compile Include="SupplierAccessorMock.cs" />
+    <Compile Include="SupplierOrderAccessor.cs" />
+    <Compile Include="SupplierOrderAccessorMock.cs" />
     <Compile Include="UserAccessor.cs" />
   </ItemGroup>
   <ItemGroup>

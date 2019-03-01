@@ -59,6 +59,7 @@
     <Compile Include="IRoleManager.cs" />
     <Compile Include="IRoomManager.cs" />
     <Compile Include="ISupplierManager.cs" />
+    <Compile Include="ISupplierOrderManager.cs" />
     <Compile Include="ItemManager.cs" />
     <Compile Include="ItemSupplierManager.cs" />
     <Compile Include="ItemTypeManagerMSSQL.cs" />
@@ -70,6 +71,7 @@
     <Compile Include="RoomManager.cs" />
     <Compile Include="RoomVerifier.cs" />
     <Compile Include="SupplierManager.cs" />
+    <Compile Include="SupplierOrderManager.cs" />
     <Compile Include="SupplierValidator.cs" />
     <Compile Include="UserManager.cs" />
   </ItemGroup>
