@@ -100,6 +100,10 @@
       <Project>{8cdc4843-eeba-4e27-bb76-c179fb0cae70}</Project>
       <Name>DataObjects</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ExceptionLoggerLogic\ExceptionLoggerLogic.csproj">
+      <Project>{9b36dc60-da48-44a9-9bc6-1f4d6daa2816}</Project>
+      <Name>ExceptionLoggerLogic</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
