@@ -123,77 +123,6 @@ INSERT INTO [dbo].[Employee]
 GO
 
 
-
-
-
-print '' print '*** Creating Role Table'
-GO
-
-CREATE TABLE [dbo].[Role] (
-	[RoleID]		[nvarchar](50)						NOT NULL,
-	[Description]	[nvarchar](250)						,
-	
-	CONSTRAINT [pk_RoleID]	PRIMARY KEY([RoleID] ASC)
-)
-GO
-
-print '' print '*** Inserting Role Records'
-GO
-
-INSERT INTO [dbo].[Role]
-		([RoleID], [Description])
-	VALUES
-		('Rental', 'Rents Boats'),
-		('Checkout', 'Checks Boats out'),
-		('Inspection', 'Checks Boats In and Inspects Them'),
-		('Maintenance', 'Repairs and Maintains Boats'),
-		('Prep', 'Prepares Boats for Rental'),
-		('Manager', 'Manages Boat Inventory'),
-		('Admin', 'Administers Employee Roles')
-GO
-
-print '' print '*** Creating EmployeeRole Table'
-GO
-
-CREATE TABLE [dbo].[EmployeeRole](
-	[EmployeeID]		[int]							NOT NULL,
-	[RoleID]			[nvarchar](50)					NOT NULL
-	
-	CONSTRAINT [pk_EmployeeID_RoleID] PRIMARY KEY([EmployeeID] ASC, [RoleID] ASC)
-)
-GO
-
-print '' print '*** Inserting EmployeeRole Records'
-GO
-
-INSERT INTO [dbo].[EmployeeRole]
-		([EmployeeID], [RoleID])
-	VALUES
-		(100000, 'Rental'),
-		(100001, 'Checkout'),
-		(100001, 'Inspection'),
-		(100001, 'Prep'),
-		(100002, 'Maintenance'),
-		(100002, 'Manager'),
-		(100002, 'Admin')
-GO
-
-print '' print '*** Adding Foreign Key for EmployeeRole'
-
-ALTER TABLE [dbo].[EmployeeRole] WITH NOCHECK
-	ADD CONSTRAINT [fk_EmployeeID] FOREIGN KEY ([EmployeeID])
-	REFERENCES [dbo].[Employee]([EmployeeID])
-	ON UPDATE CASCADE
-GO
-
-print '' print '*** Adding Foreign Key RoleID for EmployeeRole'
-
-ALTER TABLE [dbo].[EmployeeRole] WITH NOCHECK
-	ADD CONSTRAINT [fk_RoleID] FOREIGN KEY ([RoleID])
-	REFERENCES [dbo].[Role]([RoleID])
-	ON UPDATE CASCADE
-GO
-
 print '' print '*** Creating sp_update_employee_email'
 GO
 CREATE PROCEDURE [dbo].[sp_update_employee_email]
@@ -2432,4 +2361,527 @@ AS
 		FROM [Employee]
 		WHERE [Email] = @Email
 	END
+GO
+
+
+
+/*
+  NAME:  Eduardo Colon
+  Date:   2019-01-23
+*/
+print '' print '*** Creating Role Table'
+
+GO
+
+CREATE TABLE [dbo].[Role] (
+	[RoleID]		[nvarchar](50)						NOT NULL,
+	[Description]	[nvarchar](1000)	,
+	[Active] 		[bit]						  NOT NULL DEFAULT 1,
+	CONSTRAINT [pk_RoleID]	PRIMARY KEY([RoleID] ASC)
+)
+GO
+
+/*
+  NAME:  Eduardo Colon
+  Date:   2019-01-23
+*/
+print '' print '*** Inserting Role Records'
+GO
+
+INSERT INTO [dbo].[Role]
+		([RoleID], [Description])
+	VALUES
+		('Reservation', 'Reserves Rooms'),
+		('RoomCheckout', 'Checks Rooms out'),
+		('EventRequest', 'Requests an event '),
+		('Offering', 'Offers items to be purchased from us'),
+		('Maintenance', 'Repairs and Maintains Rooms'),
+		('Procurement', ' Manages items ordered for inventory'),
+		('VehicleCheckout', 'Check Vehicle out'),
+		('test', 'test1'),
+		('Admin', 'Administers Employee Roles')
+GO
+
+
+/*
+  NAME:  Eduardo Colon
+  Date:   2019-01-23
+*/
+print '' print '*** Creating EmployeeRole Table'
+GO
+
+CREATE TABLE [dbo].[EmployeeRole](
+	[EmployeeID]		[int]							NOT NULL,
+	[RoleID]			[nvarchar](50)					NOT NULL
+	
+	CONSTRAINT [pk_EmployeeID_RoleID] PRIMARY KEY([EmployeeID] ASC, [RoleID] ASC)
+)
+GO
+/*
+ NAME:  Eduardo Colon
+ Date:   2019-01-23
+*/
+print '' print '*** Inserting EmployeeRole Records'
+GO
+
+INSERT INTO [dbo].[EmployeeRole]
+		([EmployeeID], [RoleID])
+	VALUES
+		(100000, 'Reservation'),
+		(100001, 'RoomCheckout'),
+		(100001, 'VehicleCheckout'),
+		(100001, 'EventRequest'),
+		(100002, 'Offering'),
+		(100002, 'Maintenance'),
+		(100002, 'Procurement'),
+		(100003, 'Manager'),
+		(100003, 'Admin')
+GO
+
+/*
+  NAME:  Eduardo Colon
+  Date:   2019-01-23
+*/
+print '' print '*** Creating sp_retrieve_all_roles to retrieve all roles'
+GO
+CREATE PROCEDURE sp_retrieve_all_roles
+AS
+	BEGIN
+		SELECT [RoleID], [Description],[Active]
+			   
+		FROM [Role]
+		ORDER BY [RoleID]
+	END
+GO
+
+/*
+  NAME:  Eduardo Colon
+  Date:   2019-01-23
+*/
+print '' print '*** Creating sp_insert_role to insert roles'
+GO
+CREATE PROCEDURE sp_insert_role
+	(
+		@RoleID				[nvarchar](50), 
+		@Description		[nvarchar](1000)
+		
+	)
+AS
+	BEGIN
+		INSERT INTO [Role]
+			([RoleID],[Description])
+		VALUES
+			(@RoleID, @Description)
+		RETURN @@ROWCOUNT
+	END
+GO
+
+/*
+  NAME:  Eduardo Colon'
+  Date:   2019-01-23'
+*/
+print '' print '*** Creating sp_update_role_by_id to update roles '
+
+GO
+CREATE PROCEDURE [dbo].[sp_update_role_by_id]
+	(
+		@RoleID			  [nvarchar](50), 
+		@OldDescription   [nvarchar](1000),
+		@NewDescription	  [nvarchar](1000)
+	
+	
+		
+	)
+AS
+	BEGIN
+	
+		BEGIN
+			UPDATE [Role]
+				SET [Description] = @NewDescription
+				
+				WHERE [RoleID] = @RoleID
+				AND	  [Description] = @OldDescription
+					
+			RETURN @@ROWCOUNT
+		END
+	END
+GO
+
+
+/*
+  NAME:  Eduardo Colon'
+  Date:   2019-01-23'
+*/
+print '' print '*** Creating sp_delete_roleID_role  to delete roleId'
+
+GO
+CREATE PROCEDURE [dbo].[sp_delete_roleID_role]
+	(
+		@RoleID		[nvarchar](50)
+	)
+	
+AS
+	BEGIN
+		DELETE
+		FROM [EmployeeRole]
+		WHERE [RoleID] = @RoleID
+		RETURN @@ROWCOUNT
+	END
+GO
+
+
+/*
+  NAME:  Eduardo Colon'
+  Date:   2019-01-23'
+*/
+print '' print '*** Creating sp_delete_role to delete role'
+
+GO
+CREATE PROCEDURE [dbo].[sp_delete_role]
+	(
+		@RoleID		[nvarchar](50)
+	)
+	
+AS
+	BEGIN
+		DELETE
+		FROM [Role]
+		WHERE [RoleID] = @RoleID
+		RETURN @@ROWCOUNT
+	END
+GO
+		
+/*
+  NAME:  Eduardo Colon'
+  Date:   2019-01-23'
+*/
+print '' print '*** Creating sp_retrieve_role_active'
+GO
+CREATE PROCEDURE [dbo].[sp_retrieve_role_active]
+AS
+	BEGIN
+		SELECT [RoleID], [Description], [Active]
+		FROM [Role]
+		WHERE [Active] = 1
+	END
+GO
+
+
+/*
+  NAME:  Eduardo Colon'
+  Date:   2019-01-23'
+*/
+print '' print '*** Creating sp_retrieve_role_active retrieve inactive roles'
+GO
+CREATE PROCEDURE [dbo].[sp_retrieve_role_inactive]
+AS
+	BEGIN
+		SELECT [RoleID], [Description], [Active]
+		FROM [Role]
+		WHERE [Active] = 1
+	END
+GO
+
+/*
+  NAME:  Eduardo Colon'
+  Date:   2019-01-23'
+*/
+print '' print '*** Creating sp_retrieve_roles_by_term_in_description to retrieve role by term description'
+GO
+CREATE PROCEDURE sp_retrieve_roles_by_term_in_description
+	(
+		@SearchTerm		[nvarchar](250)
+	)
+AS
+	BEGIN
+		SELECT [RoleID],  [Description],  [Active]
+		FROM 	[Role]
+		WHERE 	[Description] LIKE '%' + @SearchTerm + '%'
+		AND		[Active] = 1
+	END
+GO
+
+/*
+  NAME:  Eduardo Colon'
+  Date:   2019-01-23'
+*/
+print '' print '*** Creating sp_deactivate_employee_role__by_id to deactivate role by  role id'
+GO
+CREATE PROCEDURE sp_deactivate_employee_role_by_id
+	(
+		@RoleID			[nvarchar](50)
+	)
+AS
+	BEGIN
+		UPDATE [Role]
+		SET 	[Active] = 0
+		WHERE 	[RoleID] = @RoleID
+	  
+		RETURN @@ROWCOUNT
+	END
+GO
+
+
+/*
+  NAME:  Eduardo Colon'
+  Date:   2019-01-23'
+*/
+print '' print '*** Creating sp_retrieve_role_by_id to retrieve role by id'
+GO
+CREATE PROCEDURE [dbo].[sp_retrieve_role_by_id]
+	(
+		@RoleID				[nvarchar](50)
+	)
+AS
+	BEGIN
+		SELECT [RoleID], [Description], [Active]
+		FROM [Role]
+		WHERE [RoleID] = @RoleID
+	END
+GO
+
+print '' print '*** Creating Performance Table'
+GO
+CREATE TABLE [dbo].[Performance](
+	[PerformanceID]		[int]IDENTITY(100000, 1)	NOT NULL,
+	[PerformanceName]	[nvarchar](100)				NOT NULL,
+	[PerformanceDate]	[date]						NOT NULL,
+	[Description]		[nvarchar](1000),
+	CONSTRAINT [pk_PerformanceID] PRIMARY KEY([PerformanceID])
+)
+GO
+
+print '' print '*** Inserting Performance Test Records'
+GO
+INSERT INTO [dbo].[Performance]
+	([PerformanceName], [PerformanceDate], [Description])
+	VALUES
+		('Juggler', '2018-6-27', 'It is a juggler, not much else to say'),
+		('Firebreather', '2018-5-15', 'This one is for Matt LaMarche')
+GO
+
+print '' print '*** Creating sp_select_performance_by_id'
+GO
+CREATE PROCEDURE [dbo].[sp_select_performance_by_id]
+	(
+		@PerformanceID	[int]
+	)
+AS
+	BEGIN
+		SELECT 	[PerformanceID], [PerformanceName], [PerformanceDate], [Description]
+		FROM [Performance]
+		WHERE [PerformanceID] = @PerformanceID
+		RETURN @@ROWCOUNT
+	END
+GO
+
+print '' print '*** Creating sp_select_all_performance'
+GO
+CREATE PROCEDURE [dbo].[sp_select_all_performance]
+AS
+	BEGIN
+		SELECT [PerformanceID], [PerformanceName], [PerformanceDate], [Description]
+		FROM [Performance]
+	END
+GO
+
+print '' print '*** Creating sp_search_performances'
+GO
+CREATE PROCEDURE [dbo].[sp_search_performances]
+	(
+		@SearchTerm		[nvarchar](100)
+	)
+AS
+	BEGIN
+		SELECT [PerformanceID], [PerformanceName], [PerformanceDate], [Description]
+		FROM [Performance]
+		WHERE [PerformanceName] LIKE '%' + @SearchTerm + '%'
+	END
+GO
+
+print '' print '*** Creating sp_insert_performance'
+GO
+CREATE PROCEDURE [dbo].[sp_insert_performance]
+	(
+		@PerformanceName	[nvarchar](100),
+		@PerformanceDate	[date],
+		@Description		[nvarchar](1000)
+	)
+AS
+	BEGIN
+		INSERT INTO [dbo].[Performance]
+			([PerformanceName], [PerformanceDate], [Description])
+		VALUES
+			(@PerformanceName, @PerformanceDate, @Description)
+	END
+GO
+
+print '' print '*** Creating sp_update_performance'
+GO
+CREATE PROCEDURE [dbo].[sp_update_performance]
+	(
+		@PerformanceID		[int],
+		@PerformanceName	[nvarchar](100),
+		@PerformanceDate	[date],
+		@Description		[nvarchar](1000)
+	)
+AS
+	BEGIN
+		UPDATE [Performance]
+			SET [PerformanceName] = @PerformanceName, [PerformanceDate] = @PerformanceDate, [Description] = @Description
+			WHERE [PerformanceID] = @PerformanceID
+		RETURN @@ROWCOUNT
+	END
+GO
+
+print '' print '*** Creating sp_delete_performance'
+GO
+CREATE PROCEDURE [dbo].[sp_delete_performance]
+	(
+		@PerformanceID	[int]
+	)
+AS
+	BEGIN
+		DELETE
+		FROM [Performance]
+		WHERE [PerformanceID] = @PerformanceID
+		RETURN @@ROWCOUNT
+	END
+
+print '' print '*** Creating SupplierOrder Table'
+--Eric Bostwick 
+--Created 2/26/19
+--Updated
+GO
+CREATE TABLE [dbo].[SupplierOrder] (
+	[SupplierOrderID]	[int] IDENTITY(100000, 1)     NOT NULL,
+	[SupplierID]		[int]					  	  NOT NULL,
+	[EmployeeID]		[int]						  NOT NULL,	
+	[Description]       [nvarchar](1000)			  NULL,
+	[DateOrdered]   	[DateTime]					  NOT NULL DEFAULT GetDate(),
+	[OrderComplete]		[bit]						  NOT NULL DEFAULT 0
+	
+	CONSTRAINT [pk_SupplierOrderID_SupplierOrderID] PRIMARY KEY([SupplierOrderID] ASC)
+)
+
+GO
+
+print '' print '*** Creating SupplierOrderLine Table'
+--Eric Bostwick 
+--Created 2/26/19
+--Updated
+GO
+CREATE TABLE [dbo].[SupplierOrderLine] (
+	[SupplierOrderID]	[int]                         NOT NULL,
+	[ItemID]			[int]						  NOT NULL,	
+	[Description]       [nvarchar](1000)			  NULL,
+	[OrderQty]      	[int]	    				  NOT NULL,
+	[UnitPrice]			[money]	  				      NOT NULL,
+	[QtyReceived]		[int]						  NOT NULL DEFAULT 0
+	
+	CONSTRAINT [pk_SupplierOrderLine_SupplierOrderLineID] PRIMARY KEY([SupplierOrderID] ASC, [ItemID] ASC)
+)
+
+GO
+
+print '' print '*** Adding Foreign Key for SupplierOrder'
+--Eric Bostwick 
+--Created 2/26/19
+--Foreign Keys For SupplierOrder
+
+ALTER TABLE [dbo].[SupplierOrder] WITH NOCHECK
+	ADD CONSTRAINT [fk_SupplierOrder_SupplierID] FOREIGN KEY ([SupplierID])
+	REFERENCES [dbo].[Supplier]([SupplierID])
+	ON UPDATE CASCADE
+GO
+
+ALTER TABLE [dbo].[SupplierOrder] WITH NOCHECK
+	ADD CONSTRAINT [fk_SupplierOrder_EmployeeID] FOREIGN KEY ([EmployeeID])
+	REFERENCES [dbo].[Employee]([EmployeeID])
+	ON UPDATE CASCADE
+GO
+
+
+print '' print '*** Adding Foreign Keys for SupplierOrderLine'
+
+ALTER TABLE [dbo].[SupplierOrderLine] WITH NOCHECK
+	ADD CONSTRAINT [fk_SupplierOrderLine_ItemID] FOREIGN KEY ([ItemID])
+	REFERENCES [dbo].[Product]([ItemID])
+	ON UPDATE CASCADE
+GO
+
+ALTER TABLE [dbo].[SupplierOrderLine] WITH NOCHECK
+	ADD CONSTRAINT [fk_SupplierOrderID] FOREIGN KEY ([SupplierOrderID])
+	REFERENCES [dbo].[SupplierOrder]([SupplierOrderID])
+	ON UPDATE CASCADE
+GO
+
+/*
+ * Eric Bostwick
+ * Created: 2/26/2019
+ * Creates Supplier Order Returns the Supplier Order ID 
+ */
+print '' print '*** Creating sp_insert_supplier_order ***'
+GO
+CREATE PROCEDURE [dbo].[sp_insert_supplier_order]
+	(
+		@SupplierOrderID	[int] OUTPUT,
+		@SupplierID			[int],
+		@EmployeeID			[int],
+		@Description		[nvarchar](1000)		
+	)
+AS
+BEGIN
+		INSERT INTO [dbo].[SupplierOrder] ([SupplierID], [EmployeeID], [Description]) 
+			 VALUES (@SupplierID,@EmployeeID, @Description)
+
+		SET @SupplierOrderID = SCOPE_IDENTITY()
+	
+END
+GO
+/*
+ * Eric Bostwick
+ * Created: 2/26/2019
+ * Creates Supplier Order Line  
+ */
+print '' print '*** Creating sp_insert_supplier_order_line ***'
+GO
+CREATE PROCEDURE [dbo].[sp_insert_supplier_order_line]
+	(
+		@SupplierOrderID	[int],
+		@ItemID				[int],
+		@Description		[nvarchar](1000),
+		@OrderQty			[int],
+	@UnitPrice			[money]
+		
+	)
+AS
+BEGIN
+		INSERT INTO [dbo].[SupplierOrderLine] ([SupplierOrderID], [ItemID], [Description], [OrderQty], [UnitPrice]) 
+			 VALUES (@SupplierOrderID, @ItemID, @Description, @OrderQty, @UnitPrice)
+	
+END
+GO
+
+/*
+ * Eric Bostwick
+ * Created: 2/26/2019
+ * Retrieves All Active Items For a Supplier in the ItemSupplier Table
+ */
+print '' print '*** Creating sp_select_itemsuppliers_by_supplierID ***'
+GO
+CREATE PROCEDURE [dbo].[sp_select_itemsuppliers_by_supplierid]
+	(
+		@SupplierID	[int]		
+	)
+AS
+BEGIN
+		SELECT [isup].[ItemID], [isup].[SupplierID], [isup].[PrimarySupplier], 
+		[isup].[LeadTimeDays], [isup].[UnitPrice],
+		[p].[ItemTypeID], [p].[Description], [p].[OnHandQuantity], [p].[Name], [p].[ReOrderQuantity],
+		[p].[DateActive], [p].[Active], [p].[CustomerPurchasable], [p].[RecipeID], [p].[OfferingID]
+		FROM   [dbo].[ItemSupplier] [isup] JOIN Product [p] on [p].[ItemID] = [isup].[ItemID]
+		WHERE  [isup].[SupplierID] = @SupplierID AND [isup].[Active] = 1
+	
+END
 GO

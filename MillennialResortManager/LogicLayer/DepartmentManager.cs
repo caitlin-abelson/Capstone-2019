@@ -44,7 +44,7 @@ namespace LogicLayer
 
             try
             {
-                departments = _departmentAccessor.RetrieveAllDepartments();
+                departments = _departmentAccessor.SelectDepartmentTypes("all");
             }
             catch (Exception)
             {

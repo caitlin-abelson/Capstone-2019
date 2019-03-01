@@ -70,9 +70,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="AddDepartment.xaml.cs" />
+    <Compile Include="AddGuestType.xaml.cs" />
+    <Compile Include="AddPerformance.xaml.cs" />
+    <Compile Include="AddRoles.xaml.cs" />
+    <Compile Include="AddRoom.xaml.cs" />
     <Compile Include="BrowseEmployee.xaml.cs">
       <DependentUpon>BrowseEmployee.xaml</DependentUpon>
     </Compile>
+    <Compile Include="BrowseEmployeeRole.xaml.cs" />
     <Compile Include="BrowseOrders.xaml.cs">
       <DependentUpon>BrowseOrders.xaml</DependentUpon>
     </Compile>
@@ -80,15 +86,52 @@
     <Compile Include="BrowseSupplier.xaml.cs">
       <DependentUpon>BrowseSupplier.xaml</DependentUpon>
     </Compile>
+    <Compile Include="DeleteDepartment.xaml.cs" />
+    <Compile Include="DeleteGuestType.xaml.cs" />
+    <Compile Include="DeleteRole.xaml.cs" />
+    <Compile Include="DeleteRoom.xaml.cs" />
+    <Compile Include="Departments.xaml.cs" />
+    <Compile Include="EmployeeRoles.xaml.cs" />
+    <Compile Include="GuestTypes.xaml.cs" />
+    <Compile Include="RoomTypes.xaml.cs" />
+    <Compile Include="ViewPerformance.xaml.cs" />
+    <Page Include="AddDepartment.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="AddGuestType.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="AddPerformance.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="AddRoles.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="AddRoom.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="BrowseEmployee.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="BrowseEmployeeRole.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="BrowseOrders.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
     <Page Include="BrowseReservation.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="CreateEmployeeRole.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -108,6 +151,26 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="DeleteDepartment.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="DeleteGuestType.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="DeleteRole.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="DeleteRoom.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Departments.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="DevLauncher.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -116,7 +179,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="EmployeeRoles.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="frmAddEditEvent.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="frmAddEditSupplierOrder.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -152,6 +223,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="GuestTypes.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="InternalOrderDetail.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -168,6 +243,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="CreateEmployeeRole.xaml.cs" />
     <Compile Include="CreateProduct.xaml.cs" />
     <Compile Include="CreateReservation.xaml.cs" />
     <Compile Include="CreateShop.xaml.cs" />
@@ -179,6 +255,7 @@
       <DependentUpon>EmployeeDetail.xaml</DependentUpon>
     </Compile>
     <Compile Include="frmAddEditEvent.xaml.cs" />
+    <Compile Include="frmAddEditSupplierOrder.xaml.cs" />
     <Compile Include="frmAddEditViewRoom.xaml.cs">
       <DependentUpon>frmAddEditViewRoom.xaml</DependentUpon>
     </Compile>
@@ -211,9 +288,22 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="PerformanceViewer.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="RoomTypes.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ViewPerformance.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BrowseProduct.cs" />
+    <Compile Include="PerformanceViewer.xaml.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>

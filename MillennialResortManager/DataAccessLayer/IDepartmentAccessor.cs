@@ -1,25 +1,34 @@
-﻿using System;
+﻿/// Austin Berquam
+/// Created: 2019/02/12
+/// 
+/// Interface that implements Create and Delete functions for Department Types
+/// accessor classes.
+/// </summary>
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using DataObjects;
 
 namespace DataAccessLayer
 {
-    /// <summary>
-    /// Author: Caitlin Abelson
-    /// Created Date: 1/30/19
-    /// 
-    /// The IDepartmentAccessor interface that has all CRUD methods for Department
-    /// </summary>
-    interface IDepartmentAccessor
+    public interface IDepartmentAccessor
     {
-        List<Department> RetrieveAllDepartments();
-        int CreateDepartment(Department newDepartment);
-        void UpdateDepartment(Department newDepartment, Department oldDepartment);
-        Department RetrieveDepartment();
-        void PurgeDepartment();
-        void DeactiveDepartment();
+        /// <summary>
+        /// Austin Berquam
+        /// Created: 2019/02/06
+        /// 
+        /// Creates a new Department type
+        /// </summary>
+        List<Department> SelectDepartmentTypes(string status);
+        int InsertDepartment(Department department);
+
+
+        /// <summary>
+        /// Austin Berquam
+        /// Created: 2019/02/06
+        /// 
+        /// Deletes a department type
+        /// </summary>
+        int DeleteDepartmentType(string departmentID);
+        List<string> SelectAllTypes();
+
     }
 }
