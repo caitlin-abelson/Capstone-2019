@@ -2300,6 +2300,65 @@ GO
 /*CREATE EVENT CODE ENDS HERE*/
 /* **************************************************** */
 
+
+
+/*
+*Created by Kevin Broskow
+*Created 2/27/2019
+*/
+print '' print'*** Creating Table Shop'
+GO
+CREATE TABLE [dbo].[Shop](
+	[ShopID] 		[int] IDENTITY(10000, 1)		NOT NULL,
+	[RoomID]		[int]							NOT NULL,
+	[Name]			[nvarchar](50)					NOT NULL,
+	[Description]	[nvarchar](1000)				NOT NULL,
+	[Active]		[bit]							NOT NULL DEFAULT 1,
+	
+	CONSTRAINT [pk_ShopID] PRIMARY KEY([ShopID] ASC)
+)
+GO
+
+/*
+*Created by Kevin Broskow
+*Created 2/27/2019
+* Help provided by Dani Russo
+*/
+print '' print '*** Adding Foreign Key for Shop [RoomID]'
+GO
+
+ALTER TABLE [dbo].[Shop] WITH NOCHECK
+	ADD CONSTRAINT [fk_RoomID] FOREIGN KEY ([RoomID])
+	REFERENCES [dbo].[Room]([RoomID])
+	ON UPDATE CASCADE
+GO
+	
+/*
+*Created by Kevin Broskow
+*Created 2/27/2019
+*/
+print '' print ' ***Creating sp_insert_shop'
+
+GO
+CREATE PROCEDURE sp_insert_shop
+	(
+		@RoomID		[int],
+		@Name			[nvarchar](50),
+		@Description	[nvarchar](1000)
+	
+		
+	)
+AS
+	BEGIN
+		INSERT INTO [dbo].[Shop]
+			([RoomID], [Name], [Description])
+			VALUES
+			(@RoomID, @Name, @Description)
+			
+			SELECT SCOPE_IDENTITY()
+	END
+GO
+
 print '' print '*** Creating sp_retrieve_employee_by_email'
 GO
 CREATE PROCEDURE [sp_retrieve_employee_by_email]

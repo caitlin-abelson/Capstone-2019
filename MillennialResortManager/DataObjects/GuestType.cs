@@ -10,11 +10,11 @@ namespace DataObjects
     /// Austin Berquam
     /// Created: 2019/02/06
     /// 
-    /// RoomType class is used to store the RoomType table
+    /// GuestType class is used to store the GuestType table
     /// </summary>
-    public class RoomType
+    public class GuestType
     {
-        public string RoomTypeID { get; set; }
+        public string GuestTypeID { get; set; }
         public string Description { get; set; }
     }
 }

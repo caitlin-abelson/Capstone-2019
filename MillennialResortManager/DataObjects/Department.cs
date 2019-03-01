@@ -7,20 +7,14 @@ using System.Threading.Tasks;
 namespace DataObjects
 {
     /// <summary>
-    /// Author: Caitlin Abelson
-    /// Created Date: 1/30/19
+    /// Austin Berquam
+    /// Created: 2019/02/06
     /// 
-    /// The Department class holds all the objects pertaining to the departments that employees can 
-    /// work in at the resort.
+    /// Department class is used to store the Department table
     /// </summary>
     public class Department
     {
-        public string DepartmentID{ get; set; }
+        public string DepartmentID { get; set; }
         public string Description { get; set; }
-
-        public override string ToString()
-        {
-            return DepartmentID;
-        }
     }
 }

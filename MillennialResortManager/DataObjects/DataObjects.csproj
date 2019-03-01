@@ -45,9 +45,11 @@
     <Compile Include="BuildingVM.cs" />
     <Compile Include="Department.cs" />
     <Compile Include="Employee.cs" />
+    <Compile Include="EmpRoles.cs" />
     <Compile Include="Enumerations.cs" />
     <Compile Include="Event.cs" />
     <Compile Include="EventType.cs" />
+    <Compile Include="GuestType.cs" />
     <Compile Include="InternalOrder.cs" />
     <Compile Include="InternalOrderLine.cs" />
     <Compile Include="Item.cs" />
@@ -61,6 +63,7 @@
     <Compile Include="Role.cs" />
     <Compile Include="Room.cs" />
     <Compile Include="RoomType.cs" />
+    <Compile Include="Shop.cs" />
     <Compile Include="Supplier.cs" />
     <Compile Include="SupplierOrder.cs" />
     <Compile Include="SupplierOrderLine.cs" />
