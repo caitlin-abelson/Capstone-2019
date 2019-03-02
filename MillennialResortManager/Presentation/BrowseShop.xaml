@@ -1,0 +1,102 @@
+﻿<Window x:Class="Presentation.BrowseShop"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="BrowseSupplier" Height="700" Width="1020">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="55"></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition Height="55"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="40" />
+                    <RowDefinition />
+                    <RowDefinition Height="40" />
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="100"/>
+                        <ColumnDefinition Width="100"/>
+
+                        <ColumnDefinition Width="100"/>
+
+                        <ColumnDefinition Width="200"/>
+                        <ColumnDefinition Width="100"/>
+                        <ColumnDefinition Width="200"/>
+                        <ColumnDefinition Width="100"/>
+                        <ColumnDefinition Width="100"/>
+
+                    </Grid.ColumnDefinitions>
+
+                    <Grid Grid.Column="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Column="0" Content="Inactive" HorizontalContentAlignment="Left" VerticalContentAlignment="Center"/>
+                        <RadioButton x:Name="rbtnInactive" Grid.Column="1" GroupName="ActiveStatus" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5" Checked="RbtnInactive_Checked"/>
+                    </Grid>
+
+                    <Grid Grid.Column="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Column="0" Content="Active" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" />
+                        <RadioButton x:Name="rbtnActive" Grid.Column="1" GroupName="ActiveStatus" IsChecked="True" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5" Checked="RbtnActive_Checked"/>
+                    </Grid>
+                    
+
+                    <Label Grid.Column="2" Content="Shop Name" VerticalContentAlignment="Center" HorizontalContentAlignment="Right" Padding="5"/>
+                    <TextBox x:Name="txtSearchName" Grid.Column="3" Margin="5" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Text=""/>
+
+                    <Label Grid.Column="4" Content="Building" Padding="5" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" />
+                    <TextBox x:Name="txtSearchBuilding" Grid.Column="5" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Text="" Margin="5"/>
+
+                    <Button x:Name="btnFilter" Grid.Column="6" Margin="5" Content="Filter" IsDefault="True" Click="BtnFilter_Click" />
+                    <Button x:Name="btnClearFilters"  Grid.Column="7" Content="Clear" Margin="5" Click="BtnClearFilters_Click"  />
+                </Grid>
+            </Grid>
+        </Grid> <!-- Grid Row 0 -->
+        <DataGrid Grid.Row="1" x:Name="dgShops" VerticalGridLinesBrush="{x:Null}" SelectionMode="Single" IsReadOnly="True" AutoGenerateColumns="False" ItemsSource="{Binding}" MouseDoubleClick="DgShops_MouseDoubleClick">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Shop" Binding="{Binding Name}"/>
+                <DataGridTextColumn Header="Building" Binding="{Binding BuildingID}"/>
+                <DataGridTextColumn Header="Room" Binding="{Binding RoomNumber}"/>
+                <DataGridTextColumn Header="Description" Binding="{Binding Description}"/>
+                <DataGridTextColumn Header="Act" Binding="{Binding Active}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <Grid Grid.Row="2">
+
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="40" />
+                    <RowDefinition />
+                    <RowDefinition Height="40" />
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="100"/>
+                        <ColumnDefinition />
+
+                        <ColumnDefinition Width="100"/>
+                        <ColumnDefinition Width="100"/>
+                        <ColumnDefinition Width="100"/>
+
+                    </Grid.ColumnDefinitions>
+                    <Button x:Name="btnCancel" Grid.Column="0" Margin="5" Content="Cancel" Click="BtnCancel_Click"/>
+                    <Button x:Name="btnAdd" Grid.Column="2" Content="Add Shop" Margin="5" Click="BtnAdd_Click" ></Button>
+                    <Button x:Name="btnView" Grid.Column="3" Margin="5" Content="View" Click="BtnView_Click" />
+                    <Button x:Name="btnDeactivate" Grid.Column="4" Content="Deactivate" Margin="5" Click="BtnDeactivate_Click" />
+                    <Button x:Name="btnDelete" IsEnabled="False" Visibility="Hidden" Grid.Column="4" Content="Delete" Margin="5" />
+                </Grid>
+
+
+            </Grid>
+
+        </Grid>
+    </Grid>
+</Window>

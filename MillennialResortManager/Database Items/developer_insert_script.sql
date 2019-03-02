@@ -414,3 +414,130 @@ BEGIN
 	
 END
 GO
+
+/* Start James Heim */
+-- Created: 2019-02-27
+
+/*
+ * Author: James Heim
+ * Created 2019-02-27
+ *
+ * Create the Shop Table.
+ */
+print '' print '*** Creating Shop Table'
+GO
+CREATE TABLE [dbo].[Shop] (
+	[ShopID]		[int] IDENTITY(100000, 1)	NOT NULL,
+	[RoomID]		[int]						NOT NULL,
+	[Name]			[nvarchar](50)				NOT NULL,
+	[Description]	[nvarchar](100)				NOT NULL,
+	[Active]		[bit]						NOT NULL DEFAULT 1
+	
+	CONSTRAINT [pk_ShopID] PRIMARY KEY([ShopID] ASC),
+	CONSTRAINT [ak_RoomID] UNIQUE([RoomID] ASC)
+)
+
+/*
+ * Author: James Heim
+ * Created 2019-02-27
+ *
+ * Add RoomID as a foreign key to Shop table.
+ */
+print '' print '*** Adding Foreign Key constraint for Shop'
+GO
+ALTER TABLE [dbo].[Shop] WITH NOCHECK
+	ADD CONSTRAINT [fk_RoomID] FOREIGN KEY ([RoomID])
+	REFERENCES [dbo].[Room]([RoomID])
+	ON UPDATE CASCADE
+GO
+
+		
+/*
+ * Author: James Heim
+ * Created 2019-03-01
+ *
+ * Insert Shop.
+ */	
+print '' print'*** Creating sp_insert_shop'
+GO
+CREATE PROCEDURE [dbo].[sp_insert_shop]
+	(
+		@ShopID 			[int] 				OUTPUT,
+		@RoomID				[int],
+		@Name				[nvarchar](50),
+		@Description		[nvarchar](100)
+	)
+AS
+	BEGIN
+		INSERT INTO [dbo].[Shop]
+			([RoomID], [Name], [Description])
+		VALUES
+			(@RoomID, @Name, @Description)
+			
+		SET @ShopID = SCOPE_IDENTITY()
+		
+		RETURN SCOPE_IDENTITY()
+	END
+GO
+
+/*
+ * Author: James Heim
+ * Created 2019-03-01
+ *
+ * Select shop by ID.
+ */
+print '' print'*** Creating sp_select_shop_by_id'
+GO
+CREATE PROCEDURE [dbo].[sp_select_shop_by_id]
+	(
+		@ShopID 			[int]
+	)
+AS
+	BEGIN
+		SELECT [RoomID], [Name], [Description], [Active]
+		FROM [Shop]
+		WHERE [ShopID] = @ShopID
+	END
+GO
+		
+/*
+ * Author: James Heim
+ * Created 2019-02-27
+ *
+ * Select all shops in the table.
+ */
+print '' print '*** Creating sp_select_shops'
+GO
+CREATE PROCEDURE [dbo].[sp_select_shops]
+AS
+	BEGIN
+		SELECT [ShopID], [RoomID], [Name], [Description], [Active]
+		FROM [Shop]
+		ORDER BY [ShopID], [RoomID]
+	END
+GO
+
+/*
+ * Author: James Heim
+ * Created 2019-02-28
+ * 
+ * Select all shops for the View Model.
+ */
+print '' print '*** Creating sp_select_view_model_shops'
+GO
+
+CREATE PROCEDURE [dbo].[sp_select_view_model_shops]
+AS
+	BEGIN
+		SELECT  [Shop].[ShopID],
+				[Shop].[RoomID],
+				[Shop].[Name],
+				[Shop].[Description],
+				[Shop].[Active],
+				[Room].[RoomNumber],
+				[Room].[BuildingID]
+		FROM [Shop] INNER JOIN [Room] ON [Shop].[RoomID] = [Room].[RoomID]
+
+	END
+GO
+

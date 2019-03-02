@@ -86,6 +86,9 @@
       <DependentUpon>BrowseOrders.xaml</DependentUpon>
     </Compile>
     <Compile Include="BrowseReservation.xaml.cs" />
+    <Compile Include="BrowseShop.xaml.cs">
+      <DependentUpon>BrowseShop.xaml</DependentUpon>
+    </Compile>
     <Compile Include="BrowseSupplier.xaml.cs">
       <DependentUpon>BrowseSupplier.xaml</DependentUpon>
     </Compile>
@@ -136,6 +139,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="BrowseReservation.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="BrowseShop.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

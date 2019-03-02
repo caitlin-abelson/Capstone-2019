@@ -53,5 +53,75 @@ namespace LogicLayer
 
             return result;
         }
+
+        public bool DeactivateShop(Shop shop)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool DeleteShop(Shop shop)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// Author James Heim
+        /// Created 2019-02-28
+        /// 
+        /// Retrieve an IEnumerable of Shop objects from
+        /// the database.
+        /// </summary>
+        /// <returns>IEnumerable of Shops</returns>
+        public IEnumerable<Shop> RetrieveAllShops()
+        {
+            List<Shop> shops = null;
+
+            try
+            {
+                shops = (List<Shop>)_shopAccessor.SelectShops();
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+            return shops;
+        }
+
+        /// <summary>
+        /// Author James Heim
+        /// Created 2019-02-28
+        /// 
+        /// Retrieve the View Model Shop Objects via 
+        /// the ShopAccessorMSSQL.
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<VMBrowseShop> RetrieveAllVMShops()
+        {
+            List<VMBrowseShop> shops = null;
+
+            try
+            {
+                shops = (List<VMBrowseShop>)_shopAccessor.SelectVMShops();
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+            return shops;
+        }
+
+        public Shop RetrieveShopByID(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool UpdateShop(Shop newShop, Shop oldShop)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

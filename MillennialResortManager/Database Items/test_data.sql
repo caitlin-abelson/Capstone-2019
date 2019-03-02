@@ -88,3 +88,23 @@ INSERT INTO [dbo].[Member]
 		('Spongebob','Squarepants','1112223333','bobswag@kk.com'),
 		('Patrick','Star','2223334444','starboi@kk.com')
 GO
+
+
+
+/*
+ * Author: James Heim
+ * Created 2019-02-27
+ *
+ * Insert Shop test records.
+ */
+ print '' print '*** Inserting test records for Shop'
+ GO
+ INSERT INTO [dbo].[Shop]
+		([RoomID], [Name], [Description], [Active])
+	VALUES
+		( 100000, "Brawlmart", "Discounts you'll fight over", 1),
+		( 100003, "Chungus Club", "r/FellowKids material", 1),
+		( 100004, "Solar City", "Overpriced sun tan lotion", 1),
+		( 100006, "Wavy Daisy", "Surf and Sun shop", 1),
+		( 100007, "Millenial Resort Gift Shop", "I ran out of ideas", 1),
+		( 100008, "Brokesville", "This shop is inactive", 0)
