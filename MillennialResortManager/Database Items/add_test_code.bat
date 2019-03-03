@@ -3,7 +3,7 @@ echo off
 rem Runs a developer written test script.
 rem 2019-02-08
 
-sqlcmd -S localhost -E -i test_data.sql
+rem sqlcmd -S localhost -E -i test_data.sql
 rem sqlcmd -S localhost\sqlexpress -E -i test_data.sql
 
 sqlcmd -S localhost -E -i developer_insert_script.sql
