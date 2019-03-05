@@ -21,8 +21,6 @@ namespace LogicLayer
         private static List<string> buildingsList;
         private static List<string> roomTypesList;
         private static List<string> statusIDList;
-        private static List<int> offeringIDList;
-        private static List<int> propertyIDList;
         private static Room roomToCheck;
         public static bool VerifyRoom(Room room, IRoomAccessor roomAccessor)
         {
@@ -33,8 +31,6 @@ namespace LogicLayer
                 buildingsList = _roomAccessor.SelectBuildings();
                 roomTypesList = _roomAccessor.SelectRoomTypes();
                 statusIDList = _roomAccessor.SelectRoomStatusList();
-                offeringIDList = _roomAccessor.SelectOfferingIDList();
-                propertyIDList = _roomAccessor.SelectResortProperyIDList();
 
             }
             catch (Exception)
@@ -49,15 +45,13 @@ namespace LogicLayer
             CheckDescription();
             CheckCapacity();
             CheckPrice();
-            CheckOfferingID();
             CheckRoomStatusID();
-            CheckResortPropertyID();
             return roomIsGood;
         }
         // string 15 char
         public static void CheckRoomNumber()
         {
-            if(roomToCheck.RoomNumber.Length <= 15 && roomToCheck.RoomNumber != "")
+            if (roomToCheck.RoomNumber.Length <= 15 && roomToCheck.RoomNumber != "")
             {
                 roomIsGood = true;
             }
@@ -72,7 +66,7 @@ namespace LogicLayer
         {
             foreach (var building in buildingsList)
             {
-                if(building == roomToCheck.Building)
+                if (building == roomToCheck.Building)
                 {
                     roomIsGood = true;
                     break;
@@ -82,7 +76,7 @@ namespace LogicLayer
                     roomIsGood = false;
                 }
             }
-            if(roomIsGood == false)
+            if (roomIsGood == false)
             {
                 throw new ApplicationException("The building you have enter is not valid");
             }
@@ -92,7 +86,7 @@ namespace LogicLayer
         {
             foreach (var roomType in roomTypesList)
             {
-                if(roomType == roomToCheck.RoomType)
+                if (roomType == roomToCheck.RoomType)
                 {
                     roomIsGood = true;
                     break;
@@ -102,7 +96,7 @@ namespace LogicLayer
                     roomIsGood = false;
                 }
             }
-            if(roomIsGood == false)
+            if (roomIsGood == false)
             {
                 throw new ApplicationException("The room type you have entered is not valid");
             }
@@ -123,7 +117,7 @@ namespace LogicLayer
         // minuim of 1
         public static void CheckCapacity()
         {
-            if(roomToCheck.Capacity < 1)
+            if (roomToCheck.Capacity < 1)
             {
                 throw new ApplicationException("A room should hold at least one person");
             }
@@ -131,29 +125,9 @@ namespace LogicLayer
         // above 0
         public static void CheckPrice()
         {
-            if(roomToCheck.Price <= 0.0M)
+            if (roomToCheck.Price <= 0.0M)
             {
                 throw new ApplicationException("Room price cannot be zero or less");
-            }
-        }
-        // matches OfferingID in the list
-        public static void CheckOfferingID()
-        {
-            foreach (var offeringID in offeringIDList)
-            {
-                if(roomToCheck.OfferingID == offeringID)
-                {
-                    roomIsGood = true;
-                    break;
-                }
-                else
-                {
-                    roomIsGood = false;
-                }
-            }
-            if(roomIsGood == false)
-            {
-                throw new ApplicationException("Offering ID is not valid");
             }
         }
         // matches a status in the list
@@ -161,7 +135,7 @@ namespace LogicLayer
         {
             foreach (var statusID in statusIDList)
             {
-                if(roomToCheck.RoomStatus == statusID)
+                if (roomToCheck.RoomStatus == statusID)
                 {
                     roomIsGood = true;
                     break;
@@ -171,29 +145,9 @@ namespace LogicLayer
                     roomIsGood = false;
                 }
             }
-            if(roomIsGood == false)
+            if (roomIsGood == false)
             {
                 throw new ApplicationException("Room status is not valid");
-            }
-        }
-        // matches a ProperyID in the list
-        public static void CheckResortPropertyID()
-        {
-            foreach (var propertyID in propertyIDList)
-            {
-                if(roomToCheck.ResortPropertyID == propertyID)
-                {
-                    roomIsGood = true;
-                    break;
-                }
-                else
-                {
-                    roomIsGood = false;
-                }
-            }
-            if(roomIsGood == false)
-            {
-                throw new ApplicationException("The resort property you have entered is not valid");
             }
         }
     }

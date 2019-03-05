@@ -28,10 +28,9 @@
         <Label Name="lblRoomType" Grid.Row="2" Grid.Column="0" FontSize="8" HorizontalAlignment="Right" VerticalAlignment="Center">Room Type</Label>
         <Label Name="lblCapacity" Grid.Row="3" Grid.Column="0" FontSize="8" HorizontalAlignment="Right" VerticalAlignment="Center">Capacity</Label>
         <Label Name="lblAvailable" Grid.Row="4" Grid.Column="0" FontSize="8" HorizontalAlignment="Right" VerticalAlignment="Center">Available</Label>
+        <Label Name="lblActive" Grid.Row="4" Grid.Column="2" FontSize="8" HorizontalAlignment="Right" VerticalAlignment="Center">Active</Label>
         <Label Name="lblPrice" Grid.Row="5" Grid.Column="0" FontSize="8" HorizontalAlignment="Right" VerticalAlignment="Center">Price</Label>
         <Label Name="lblRoomStatus" Grid.Row="6" Grid.Column="0" FontSize="8" HorizontalAlignment="Right" VerticalAlignment="Center">Room Status</Label>
-        <Label Name="lblOfferingID" Grid.Row="4" Grid.Column="2" FontSize="8" HorizontalAlignment="Right" VerticalAlignment="Center">Offering Type</Label>
-        <Label Name="lblPropertyID" Grid.Row="5" Grid.Column="2" FontSize="8" HorizontalAlignment="Right" VerticalAlignment="Center">Property ID</Label>
         <Label Name="lblDescription" Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="2" FontSize="8" HorizontalAlignment="Center" VerticalAlignment="Bottom">Description</Label>
         <TextBox Name="txtDescription" Grid.Row="1" Grid.Column="2" Grid.RowSpan="3" Grid.ColumnSpan="2" Margin="10"></TextBox>
         <TextBox Name="txtRoomNumber" Grid.Row="0" Grid.Column="1" Margin="10"></TextBox>
@@ -39,11 +38,10 @@
         <ComboBox Name="cboRoomType" Grid.Row="2" Grid.Column="1" Margin="10"></ComboBox>
         <xctk:IntegerUpDown Name="iudCapacity" Grid.Row="3" Grid.Column="1" Value="1" Minimum="1" Margin="10" IsReadOnly="False"></xctk:IntegerUpDown>
         <CheckBox Name="cbxAvailable" Grid.Row="4" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center"></CheckBox>
-        <xctk:IntegerUpDown Name="iudPrice" Grid.Row="5" Grid.Column="1" Value="100" Minimum="1" Increment="10" Margin="10" IsReadOnly="False"></xctk:IntegerUpDown>
+        <CheckBox Name="cbxActive" Grid.Row="4" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center"></CheckBox>
+        <xctk:DecimalUpDown Name="dudPrice" Grid.Row="5" Grid.Column="1" Value="100" Minimum="1" Increment="10" Margin="10" IsReadOnly="False"></xctk:DecimalUpDown>
         <ComboBox Name="cboRoomStatus" Grid.Row="6" Grid.Column="1" Margin="10"></ComboBox>
-        <ComboBox Name="cboOfferingID" Grid.Row="4" Grid.Column="3" Margin="10"></ComboBox>
-        <ComboBox Name="cboPropertyID" Grid.Row="5" Grid.Column="3" Margin="10"></ComboBox>
         <Button Name="btnCancel" Content="Cancel" Grid.Row="6" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" Click="btnCancel_Click" />
-        <Button Name="btnAddEdit" Content="Add Room" Grid.Row="6" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center" />
+        <Button Name="btnAddEdit" Content="Add Room" Grid.Row="6" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center" Click="BtnAddEdit_Click" />
     </Grid>
 </Window>

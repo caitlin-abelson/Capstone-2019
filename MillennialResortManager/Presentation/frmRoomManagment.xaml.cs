@@ -89,7 +89,7 @@ namespace Presentation
                     cboRoomBuilding.SelectedItem = "Show All";
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
 
                 //MessageBox.Show(ex.Message);

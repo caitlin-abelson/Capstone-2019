@@ -10,18 +10,17 @@ namespace UnitTests
     [TestClass]
     public class RoomManagerTest
     {
-		private static IRoomAccessor _roomAccessor = new MockRoomAccessor();
+        private static IRoomAccessor _roomAccessor = new MockRoomAccessor();
         private static IRoomManager _roomManager = new RoomManager(_roomAccessor);
-        // rewrite for changes
         [TestMethod]
         public void TestCreateRoomAllValid()
         {
             // arrange
-            Room room1 = CreateNewRoom();
-            Room room2 = CreateNewRoom();
+            Room room1 = BuildNewRoom();
+            Room room2 = BuildNewRoom();
 
             // act
-            _roomManager.CreateRoom(room1);
+            _roomManager.CreateRoom(room1, 100000);
             Room room3 = _roomManager.RetreieveRoomByID(room1.RoomID);
             room2.RoomID = room3.RoomID;
 
@@ -34,9 +33,7 @@ namespace UnitTests
             Assert.AreEqual(room2.Available, room3.Available);
             Assert.AreEqual(room2.Active, room3.Active);
             Assert.AreEqual(room2.Price, room3.Price);
-            Assert.AreEqual(room2.ResortPropertyID, room3.ResortPropertyID);
             Assert.AreEqual(room2.RoomStatus, room3.RoomStatus);
-            Assert.AreEqual(room2.OfferingID, room3.OfferingID);
         }
 
         [TestMethod]
@@ -44,21 +41,21 @@ namespace UnitTests
         {
             // arrange
             int roomNameLength = 16;
-            Room room = CreateNewRoom();
+            Room room = BuildNewRoom();
             string newRoomNumber = CreateStringOfGivenLength(roomNameLength);
             room.RoomNumber = newRoomNumber;
 
             // assert
             try
             {
-                _roomManager.CreateRoom(room);
+                _roomManager.CreateRoom(room, 100000);
                 Assert.Fail();
             }
             catch (ApplicationException)
             {
                 Assert.IsTrue(true);
             }
-            catch(Exception)
+            catch (Exception)
             {
                 Assert.Fail();
             }
@@ -68,13 +65,13 @@ namespace UnitTests
         public void TestCreateRoomRoomNumberIsEmpty()
         {
             // arrange
-            Room room = CreateNewRoom();
+            Room room = BuildNewRoom();
             room.RoomNumber = "";
 
             // assert
             try
             {
-                _roomManager.CreateRoom(room);
+                _roomManager.CreateRoom(room, 100000);
                 Assert.Fail();
             }
             catch (ApplicationException)
@@ -91,12 +88,12 @@ namespace UnitTests
         public void TestCreateRoomBuildingNotOnList()
         {
             // arrange
-            Room room = CreateNewRoom();
+            Room room = BuildNewRoom();
             room.Building = "Not A building";
             // assert
             try
             {
-                _roomManager.CreateRoom(room);
+                _roomManager.CreateRoom(room, 100000);
                 Assert.Fail();
             }
             catch (ApplicationException)
@@ -113,12 +110,12 @@ namespace UnitTests
         public void TestCreateRoomRoomRoomTypeNotOnList()
         {
             // arrange
-            Room room = CreateNewRoom();
+            Room room = BuildNewRoom();
             room.RoomType = "Not A Room Type";
             // assert
             try
             {
-                _roomManager.CreateRoom(room);
+                _roomManager.CreateRoom(room, 100000);
                 Assert.Fail();
             }
             catch (ApplicationException)
@@ -136,14 +133,14 @@ namespace UnitTests
         {
             // arrange
             int roomDescriptionLength = 1001;
-            Room room = CreateNewRoom();
+            Room room = BuildNewRoom();
             string newRoomDescription = CreateStringOfGivenLength(roomDescriptionLength);
             room.Description = newRoomDescription;
 
             // assert
             try
             {
-                _roomManager.CreateRoom(room);
+                _roomManager.CreateRoom(room, 100000);
                 Assert.Fail();
             }
             catch (ApplicationException)
@@ -160,13 +157,13 @@ namespace UnitTests
         public void TestCreateRoomDescriptionEmpty()
         {
             // arrange
-            Room room = CreateNewRoom();
+            Room room = BuildNewRoom();
             room.Description = "";
 
             // assert
             try
             {
-                _roomManager.CreateRoom(room);
+                _roomManager.CreateRoom(room, 100000);
                 Assert.Fail();
             }
             catch (ApplicationException)
@@ -184,13 +181,13 @@ namespace UnitTests
         {
             // arrange
             decimal newPrice = -1.01M;
-            Room room = CreateNewRoom();
+            Room room = BuildNewRoom();
             room.Price = newPrice;
 
             // assert
             try
             {
-                _roomManager.CreateRoom(room);
+                _roomManager.CreateRoom(room, 100000);
                 Assert.Fail();
             }
             catch (ApplicationException)
@@ -208,35 +205,13 @@ namespace UnitTests
         {
             // arrange
             decimal newPrice = 0.0M;
-            Room room = CreateNewRoom();
+            Room room = BuildNewRoom();
             room.Price = newPrice;
 
             // assert
             try
             {
-                _roomManager.CreateRoom(room);
-                Assert.Fail();
-            }
-            catch (ApplicationException)
-            {
-                Assert.IsTrue(true);
-            }
-            catch (Exception)
-            {
-                Assert.Fail();
-            }
-        }
-
-        [TestMethod]
-        public void TestCreateRoomOfferingIDNotOnList()
-        {
-            // arrange
-            Room room = CreateNewRoom();
-            room.OfferingID = 1;
-            // assert
-            try
-            {
-                _roomManager.CreateRoom(room);
+                _roomManager.CreateRoom(room, 100000);
                 Assert.Fail();
             }
             catch (ApplicationException)
@@ -253,34 +228,12 @@ namespace UnitTests
         public void TestCreateRoomStatusIDNotOnList()
         {
             // arrange
-            Room room = CreateNewRoom();
+            Room room = BuildNewRoom();
             room.RoomStatus = "Not a status";
             // assert
             try
             {
-                _roomManager.CreateRoom(room);
-                Assert.Fail();
-            }
-            catch (ApplicationException)
-            {
-                Assert.IsTrue(true);
-            }
-            catch (Exception)
-            {
-                Assert.Fail();
-            }
-        }
-
-        [TestMethod]
-        public void TestCreateRoomResortPropertyIDNotOnList()
-        {
-            // arrange
-            Room room = CreateNewRoom();
-            room.ResortPropertyID = 1;
-            // assert
-            try
-            {
-                _roomManager.CreateRoom(room);
+                _roomManager.CreateRoom(room, 100000);
                 Assert.Fail();
             }
             catch (ApplicationException)
@@ -310,62 +263,28 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void TestRetrieveRoomResortPropertyIDList()
-        {
-            // arrange
-            var ResortPropertyIDList1 = CreateResortPropertyIDList();
-
-            // act
-            var ResortPropertyIDList2 = _roomManager.RetrieveResortPropertyIDList();
-
-            // assert
-            for (int i = 0; i < ResortPropertyIDList1.Count; i++)
-            {
-                Assert.AreEqual(ResortPropertyIDList1[i], ResortPropertyIDList2[i]);
-            }
-        }
-
-        [TestMethod]
-        public void TestRetrieveRoomOfferingIDList()
-        {
-            // arrange
-            var offeringIDList1 = CreateOfferingIDList();
-
-            // act
-            var offeringIDList2 = _roomManager.RetrieveOfferingIDList();
-
-            // assert
-            for (int i = 0; i < offeringIDList1.Count; i++)
-            {
-                Assert.AreEqual(offeringIDList1[i], offeringIDList2[i]);
-            }
-
-        }
-
-        // rewrite for changes
-        [TestMethod]
         public void TestRetrieveRoomByID()
         {
             // arrange
-            Room room1 = CreateNewRoom();
-            Room room2 = CreateNewRoom();
+            Room room1 = BuildNewRoom();
+            Room room2 = BuildNewRoom();
 
             // act
-            _roomManager.CreateRoom(room1);
+            _roomManager.CreateRoom(room1, 100000);
             Room room3 = _roomManager.RetreieveRoomByID(room1.RoomID);
 
             // assert
-            Assert.AreEqual(room2.RoomNumber, room3.RoomNumber);
-            Assert.AreEqual(room2.Building, room3.Building);
-            Assert.AreEqual(room2.RoomType, room3.RoomType);
-            Assert.AreEqual(room2.Description, room3.Description);
-            Assert.AreEqual(room2.Capacity, room3.Capacity);
-            Assert.AreEqual(room2.Available, room3.Available);
-            Assert.AreEqual(room2.Active, room3.Active);
-            Assert.AreEqual(room2.Price, room3.Price);
-            Assert.AreEqual(room2.ResortPropertyID, room3.ResortPropertyID);
-            Assert.AreEqual(room2.RoomStatus, room3.RoomStatus);
-            Assert.AreEqual(room2.OfferingID, room3.OfferingID);
+            Assert.AreEqual(room1.RoomNumber, room3.RoomNumber);
+            Assert.AreEqual(room1.Building, room3.Building);
+            Assert.AreEqual(room1.RoomType, room3.RoomType);
+            Assert.AreEqual(room1.Description, room3.Description);
+            Assert.AreEqual(room1.Capacity, room3.Capacity);
+            Assert.AreEqual(room1.Available, room3.Available);
+            Assert.AreEqual(room1.Active, room3.Active);
+            Assert.AreEqual(room1.Price, room3.Price);
+            Assert.AreEqual(room1.ResortPropertyID, room3.ResortPropertyID);
+            Assert.AreEqual(room1.RoomStatus, room3.RoomStatus);
+            Assert.AreEqual(room1.OfferingID, room3.OfferingID);
         }
 
         [TestMethod]
@@ -423,7 +342,7 @@ namespace UnitTests
                 Assert.AreEqual(roomTypeIDList1[i], roomTypeIDList2[i]);
             }
         }
-        // rewrite for changes
+
         [TestMethod]
         public void TestUpdateRoomAllValid()
         {
@@ -473,8 +392,8 @@ namespace UnitTests
         {
             // arrange
             int roomNameLength = 16;
-            Room room = CreateNewRoom();
-            _roomManager.CreateRoom(room);
+            Room room = BuildNewRoom();
+            _roomManager.CreateRoom(room, 100000);
             string newRoomNumber = CreateStringOfGivenLength(roomNameLength);
             room.RoomNumber = newRoomNumber;
 
@@ -498,8 +417,8 @@ namespace UnitTests
         public void TestUpdateRoomRoomNumberIsEmpty()
         {
             // arrange
-            Room room = CreateNewRoom();
-            _roomManager.CreateRoom(room);
+            Room room = BuildNewRoom();
+            _roomManager.CreateRoom(room, 100000);
             room.RoomNumber = "";
 
             // assert
@@ -522,8 +441,8 @@ namespace UnitTests
         public void TestUpdateRoomBuildingNotOnList()
         {
             // arrange
-            Room room = CreateNewRoom();
-            _roomManager.CreateRoom(room);
+            Room room = BuildNewRoom();
+            _roomManager.CreateRoom(room, 100000);
             room.Building = "Not a Buidling";
 
             // assert
@@ -546,8 +465,8 @@ namespace UnitTests
         public void TestUpdateRoomRoomRoomTypeNotOnList()
         {
             // arrange
-            Room room = CreateNewRoom();
-            _roomManager.CreateRoom(room);
+            Room room = BuildNewRoom();
+            _roomManager.CreateRoom(room, 100000);
             room.RoomType = "Not a room type";
 
             // assert
@@ -571,8 +490,8 @@ namespace UnitTests
         {
             // arrange
             int roomDescriptionLength = 1001;
-            Room room = CreateNewRoom();
-            _roomManager.CreateRoom(room);
+            Room room = BuildNewRoom();
+            _roomManager.CreateRoom(room, 100000);
             string newRoomDescription = CreateStringOfGivenLength(roomDescriptionLength);
             room.Description = newRoomDescription;
 
@@ -596,8 +515,8 @@ namespace UnitTests
         public void TestUpdateRoomDescriptionEmpty()
         {
             // arrange
-            Room room = CreateNewRoom();
-            _roomManager.CreateRoom(room);
+            Room room = BuildNewRoom();
+            _roomManager.CreateRoom(room, 100000);
             room.Description = "";
 
             // assert
@@ -620,8 +539,8 @@ namespace UnitTests
         public void TestUpdateRoomPriceLessThenZero()
         {
             // arrange
-            Room room = CreateNewRoom();
-            _roomManager.CreateRoom(room);
+            Room room = BuildNewRoom();
+            _roomManager.CreateRoom(room, 100000);
             room.Price = -1.0M;
 
             // assert
@@ -644,33 +563,9 @@ namespace UnitTests
         public void TestUpdateRoomPriceIsZero()
         {
             // arrange
-            Room room = CreateNewRoom();
-            _roomManager.CreateRoom(room);
+            Room room = BuildNewRoom();
+            _roomManager.CreateRoom(room, 100000);
             room.Price = 0.0M;
-
-            // assert
-            try
-            {
-                _roomManager.UpdateRoom(room);
-                Assert.Fail();
-            }
-            catch (ApplicationException)
-            {
-                Assert.IsTrue(true);
-            }
-            catch (Exception)
-            {
-                Assert.Fail();
-            }
-        }
-
-        [TestMethod]
-        public void TestUpdateRoomOfferingIDNotOnList()
-        {
-            // arrange
-            Room room = CreateNewRoom();
-            _roomManager.CreateRoom(room);
-            room.OfferingID = 1;
 
             // assert
             try
@@ -692,33 +587,9 @@ namespace UnitTests
         public void TestUpdateRoomStatusIDNotOnList()
         {
             // arrange
-            Room room = CreateNewRoom();
-            _roomManager.CreateRoom(room);
+            Room room = BuildNewRoom();
+            _roomManager.CreateRoom(room, 100000);
             room.RoomStatus = "Not a Status";
-
-            // assert
-            try
-            {
-                _roomManager.UpdateRoom(room);
-                Assert.Fail();
-            }
-            catch (ApplicationException)
-            {
-                Assert.IsTrue(true);
-            }
-            catch (Exception)
-            {
-                Assert.Fail();
-            }
-        }
-
-        [TestMethod]
-        public void TestUpdateRoomResortPropertyIDNotOnList()
-        {
-            // arrange
-            Room room = CreateNewRoom();
-            _roomManager.CreateRoom(room);
-            room.ResortPropertyID = 1;
 
             // assert
             try
@@ -771,7 +642,7 @@ namespace UnitTests
             Assert.IsTrue(results && room2 == null);
 
         }
-        private Room CreateNewRoom()
+        private Room BuildNewRoom()
         {
             Room room = new Room()
             {
@@ -800,7 +671,7 @@ namespace UnitTests
         }
         private List<string> CreateRoomTypeIDList()
         {
-            
+
             var roomTypeList = new List<string>();
             for (int i = 1; i < 5; i++)
             {
@@ -839,7 +710,7 @@ namespace UnitTests
                 Capacity = 2,
                 Available = true,
                 Price = 200.00M,
-                Active = true,
+                Active = false,
                 OfferingID = 100002,
                 RoomStatus = "Ready",
                 ResortPropertyID = 100003
@@ -970,26 +841,6 @@ namespace UnitTests
             roomStatusList.Add("Jim Quote Needed");
 
             return roomStatusList;
-        }
-        private List<int> CreateResortPropertyIDList()
-        {
-            List<int> resortPropertyIDList = new List<int>();
-            for (int nextID = 100000; nextID < 100009; nextID++)
-            {
-                resortPropertyIDList.Add(nextID);
-            }
-
-            return resortPropertyIDList;
-        }
-        private List<int> CreateOfferingIDList()
-        {
-            List<int> offeringIDList = new List<int>();
-            for (int nextID = 100000; nextID < 100009; nextID++)
-            {
-                offeringIDList.Add(nextID);
-            }
-
-            return offeringIDList;
         }
     }
 }

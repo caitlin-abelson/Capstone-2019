@@ -5,7 +5,7 @@ namespace LogicLayer
 {
     public interface IRoomManager
     {
-        bool CreateRoom(Room room);
+        bool CreateRoom(Room room, int employeeID);
         Room RetreieveRoomByID(int roomID);
         List<string> RetrieveBuildingList();
         List<Room> RetrieveRoomList();
@@ -14,7 +14,5 @@ namespace LogicLayer
         bool DeleteRoom(Room room);
         bool DeleteRoomByID(int roomID);
         List<string> RetrieveRoomStatusList();
-        List<int> RetrieveOfferingIDList();
-        List<int> RetrieveResortPropertyIDList();
     }
 }

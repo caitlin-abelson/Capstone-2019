@@ -27,10 +27,10 @@ namespace LogicLayer
         }
 
 
-		public RoomManager(IRoomAccessor rA)
-		{
-			_roomAccessor = rA;
-		}
+        public RoomManager(IRoomAccessor rA)
+        {
+            _roomAccessor = rA;
+        }
 
         /// <summary>
         /// Wes Richardson
@@ -86,7 +86,7 @@ namespace LogicLayer
         /// <param name="room">A room object</param>
         /// <returns>A bool if the room was created</returns>
         /// </summary>
-        public bool CreateRoom(Room room)
+        public bool CreateRoom(Room room, int employeeID)
         {
             int rows = 0;
             bool roomCreated = false;
@@ -94,17 +94,17 @@ namespace LogicLayer
             try
             {
                 RoomVerifier.VerifyRoom(room, _roomAccessor);
-                rows = _roomAccessor.InsertNewRoom(room);
+                rows = _roomAccessor.InsertNewRoom(room, employeeID);
             }
             catch (Exception ex)
             {
-                if(ex.Message.Contains("UNIQUE"))
+                if (ex.Message.Contains("UNIQUE"))
                 {
                     throw new ApplicationException("Room already exists.", ex);
                 }
                 throw;
             }
-            if(rows > 0)
+            if (rows > 0)
             {
                 roomCreated = true;
             }
@@ -160,7 +160,7 @@ namespace LogicLayer
                 throw;
             }
 
-            if(rows > 0)
+            if (rows > 0)
             {
                 results = true;
             }
@@ -223,23 +223,23 @@ namespace LogicLayer
         /// <returns>The number of rows affected</returns>
         public bool DeleteRoomByID(int roomID)
         {
-			// Needs to Be writen
-			bool results = false;
-			int rows = 0;
-			try
-			{
-				rows = _roomAccessor.DeleteRoomByID(roomID);
-				if(rows > 0)
-				{
-					results = true;
-				}
-			}
-			catch (Exception)
-			{
+            // Needs to Be writen
+            bool results = false;
+            int rows = 0;
+            try
+            {
+                rows = _roomAccessor.DeleteRoomByID(roomID);
+                if (rows > 0)
+                {
+                    results = true;
+                }
+            }
+            catch (Exception)
+            {
 
-				throw;
-			}
-			return results;
+                throw;
+            }
+            return results;
         }
 
         /// <summary>
@@ -264,53 +264,6 @@ namespace LogicLayer
             }
 
             return statusList;
-        }
-
-        /// <summary>
-        /// Wes Richardson
-        /// Created: 2019/02/20
-        /// 
-        /// Retrieves a list of OfferingIDs
-        /// 
-        /// <returns>List of OfferingIDs</returns>
-        /// </summary>
-        public List<int> RetrieveOfferingIDList()
-        {
-            List<int> offeringIDList = null;
-            try
-            {
-                offeringIDList = _roomAccessor.SelectOfferingIDList();
-            }
-            catch (Exception)
-            {
-
-                throw;
-            }
-            return offeringIDList;
-        }
-
-        /// <summary>
-        /// Wes Richardson
-        /// Created: 2019/02/20
-        /// 
-        /// Retrieves a list of Resort Property IDs
-        /// 
-        /// <returns>List of Resort Property IDs</returns>
-        /// </summary>
-        public List<int> RetrieveResortPropertyIDList()
-        {
-            List<int> propertyIDList = null;
-            try
-            {
-                propertyIDList = _roomAccessor.SelectResortProperyIDList();
-            }
-            catch (Exception)
-            {
-
-                throw;
-            }
-
-            return propertyIDList;
         }
     }
 }

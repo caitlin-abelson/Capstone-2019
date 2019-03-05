@@ -31,6 +31,7 @@ namespace Presentation
         Building bd;
         RoomType rt;
         int roomID;
+        int employeeID;
 
         /// <summary>
         /// Wes Richardson
@@ -38,15 +39,16 @@ namespace Presentation
         /// 
         /// Constructor for the Window when adding a room
         /// </summary>
-        public frmAddEditViewRoom()
+        public frmAddEditViewRoom(int employeeID = 100000)
         {
             _roomMgr = new RoomManager();
             rm = new Room();
             bd = new Building();
             rt = new RoomType();
             EditMode _mode = EditMode.Add;
+            this.employeeID = employeeID;
             InitializeComponent();
-            
+
         }
 
         /// <summary>
@@ -110,8 +112,6 @@ namespace Presentation
             this.cboBuilding.ItemsSource = _roomMgr.RetrieveBuildingList();
             this.cboRoomType.ItemsSource = _roomMgr.RetrieveRoomTypeList();
             this.cboRoomStatus.ItemsSource = _roomMgr.RetrieveRoomStatusList();
-            this.cboOfferingID.ItemsSource = _roomMgr.RetrieveOfferingIDList();
-            this.cboPropertyID.ItemsSource = _roomMgr.RetrieveResortPropertyIDList();
         }
 
         /// <summary>
@@ -122,15 +122,15 @@ namespace Presentation
         /// </summary>
         private void BtnAddEdit_Click(object sender, RoutedEventArgs e)
         {
-            if(_mode == EditMode.View)
+            if (_mode == EditMode.View)
             {
                 _mode = EditMode.Edit;
                 setupEditMode();
             }
-            else if(_mode == EditMode.Edit)
+            else if (_mode == EditMode.Edit)
             {
                 CheckInputs();
-                if(inputsGood)
+                if (inputsGood)
                 {
                     try
                     {
@@ -138,6 +138,7 @@ namespace Presentation
                         if (updated == true)
                         {
                             MessageBox.Show("Room Updated");
+                            this.Close();
                         }
                         else
                         {
@@ -152,17 +153,18 @@ namespace Presentation
                     }
                 }
             }
-            else // must be in add mode
+            else if (_mode == EditMode.Add)
             {
                 CheckInputs();
                 if (inputsGood)
                 {
                     try
                     {
-                        bool created = _roomMgr.CreateRoom(rm);
+                        bool created = _roomMgr.CreateRoom(rm, employeeID);
                         if (created == true)
                         {
                             MessageBox.Show("Room Added");
+                            this.Close();
                         }
                         else
                         {
@@ -217,24 +219,14 @@ namespace Presentation
                 MessageBox.Show("Room Capacity must be at least 1");
                 inputsGood = false;
             }
-            else if(iudPrice.Value == null || iudPrice.Value.Value < 1)
+            else if (dudPrice.Value == null || dudPrice.Value.Value < 1)
             {
                 MessageBox.Show("Room price must be at least $1");
                 inputsGood = false;
             }
-            else if(cboRoomStatus.SelectedItem == null)
+            else if (cboRoomStatus.SelectedItem == null)
             {
                 MessageBox.Show("Please select a Room Status");
-                inputsGood = false;
-            }
-            else if (cboOfferingID.SelectedItem == null)
-            {
-                MessageBox.Show("Please select a Offering ID");
-                inputsGood = false;
-            }
-            else if (cboPropertyID.SelectedItem == null)
-            {
-                MessageBox.Show("Please select a Resort Property ID");
                 inputsGood = false;
             }
             else
@@ -244,11 +236,10 @@ namespace Presentation
                 rm.RoomType = this.cboRoomType.SelectedItem.ToString();
                 rm.Description = txtDescription.Text;
                 rm.Capacity = iudCapacity.Value.Value;
-                rm.Price = iudPrice.Value.Value;
+                rm.Price = dudPrice.Value.Value;
                 rm.Available = (bool)cbxAvailable.IsChecked;
+                rm.Active = (bool)cbxActive.IsChecked;
                 rm.RoomStatus = this.cboRoomStatus.SelectedItem.ToString();
-                rm.OfferingID = int.Parse(this.cboOfferingID.SelectedItem.ToString());
-                rm.ResortPropertyID = int.Parse(this.cboPropertyID.SelectedItem.ToString());
                 inputsGood = true;
             }
         }
@@ -275,7 +266,7 @@ namespace Presentation
         private void setupEditMode()
         {
             lockInputs(false);
-            btnAddEdit.Content = "Edit Room";
+            btnAddEdit.Content = "Save Room";
             this.Title = "Edit Room";
 
         }
@@ -307,10 +298,9 @@ namespace Presentation
             iudCapacity.Value = rm.Capacity;
             cbxAvailable.IsChecked = rm.Available;
             txtDescription.Text = rm.Description;
-            iudPrice.Value = (int)rm.Price;
+            dudPrice.Value = rm.Price;
             cboRoomStatus.SelectedItem = rm.RoomStatus;
-            cboOfferingID.SelectedItem = rm.OfferingID;
-            cboPropertyID.SelectedItem = rm.ResortPropertyID;
+            cbxActive.IsChecked = rm.Active;
         }
 
         /// <summary>
@@ -326,16 +316,15 @@ namespace Presentation
             this.cboRoomType.IsEnabled = !readOnly;
             this.iudCapacity.IsEnabled = !readOnly;
             this.cbxAvailable.IsEnabled = !readOnly;
+            this.cbxActive.IsEnabled = !readOnly;
             this.txtDescription.IsReadOnly = readOnly;
-            this.iudPrice.IsEnabled = !readOnly;
+            this.dudPrice.IsEnabled = !readOnly;
             this.cboRoomStatus.IsEnabled = !readOnly;
-            this.cboOfferingID.IsEnabled = !readOnly;
-            this.cboPropertyID.IsEnabled = !readOnly;
         }
 
         private void btnCancel_Click(object sender, RoutedEventArgs e)
         {
-
+            this.Close();
         }
     }
 }

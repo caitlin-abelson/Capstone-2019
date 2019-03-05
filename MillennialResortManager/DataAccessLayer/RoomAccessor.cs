@@ -39,9 +39,9 @@ namespace DataAccessLayer
                 conn.Open();
 
                 var reader = cmd.ExecuteReader();
-                if(reader.HasRows)
+                if (reader.HasRows)
                 {
-                    while(reader.Read())
+                    while (reader.Read())
                     {
                         buildingList.Add(reader.GetString(0));
                     }
@@ -119,7 +119,7 @@ namespace DataAccessLayer
         /// </summary>
         /// <param name="room"></param>
         /// <returns>Rows affted</returns>
-        public int InsertNewRoom(Room room)
+        public int InsertNewRoom(Room room, int employeeID)
         {
             int rows = 0;
             var conn = DBConnection.GetDbConnection();
@@ -127,7 +127,7 @@ namespace DataAccessLayer
             var cmdText = @"sp_insert_room";
 
             var cmd = new SqlCommand(cmdText, conn);
-
+            // room needs to create a offering to get a offeringID
             cmd.CommandType = System.Data.CommandType.StoredProcedure;
             cmd.Parameters.AddWithValue("@RoomNumber", room.RoomNumber);
             cmd.Parameters.AddWithValue("@BuildingID", room.Building);
@@ -135,6 +135,9 @@ namespace DataAccessLayer
             cmd.Parameters.AddWithValue("@Description", room.Description);
             cmd.Parameters.AddWithValue("@Capacity", room.Capacity);
             cmd.Parameters.AddWithValue("@Available", room.Available);
+            cmd.Parameters.AddWithValue("@EmployeeID", employeeID);
+            cmd.Parameters.AddWithValue("@Price", room.Price);
+            cmd.Parameters.AddWithValue("@RoomStatusID", room.RoomStatus);
 
             try
             {
@@ -182,7 +185,7 @@ namespace DataAccessLayer
                 conn.Open();
                 var reader = cmd.ExecuteReader();
 
-                if(reader.HasRows)
+                if (reader.HasRows)
                 {
                     reader.Read();
                     room = new Room
@@ -192,7 +195,10 @@ namespace DataAccessLayer
                         RoomType = reader.GetString(2),
                         Description = reader.GetString(3),
                         Capacity = reader.GetInt32(4),
-                        Available = reader.GetBoolean(5)                                               
+                        Price = reader.GetDecimal(5),
+                        Available = reader.GetBoolean(6),
+                        Active = reader.GetBoolean(7),
+                        OfferingID = reader.GetInt32(8)
                     };
                     room.RoomID = roomID;
                 }
@@ -234,8 +240,10 @@ namespace DataAccessLayer
             cmd.Parameters.AddWithValue("@BuildingID", room.Building);
             cmd.Parameters.AddWithValue("@RoomTypeID", room.RoomType);
             cmd.Parameters.AddWithValue("@Description", room.Description);
+            cmd.Parameters.AddWithValue("@Price", room.Price);
             cmd.Parameters.AddWithValue("@Capacity", room.Capacity);
             cmd.Parameters.AddWithValue("@Available", room.Available);
+            cmd.Parameters.AddWithValue("@Active", room.Active);
 
             try
             {
@@ -275,14 +283,10 @@ namespace DataAccessLayer
 
                 var reader = cmd.ExecuteReader();
 
-                if(reader.HasRows)
+                if (reader.HasRows)
                 {
-                    while(reader.Read())
+                    while (reader.Read())
                     {
-                        var bd = new Building();
-                        bd.BuildingID = reader.GetString(2);
-                        var rt = new RoomType();
-                        rt.RoomTypeID = reader.GetString(3);
                         var rm = new Room()
                         {
                             RoomID = reader.GetInt32(0),
@@ -291,8 +295,10 @@ namespace DataAccessLayer
                             RoomType = reader.GetString(3),
                             Description = reader.GetString(4),
                             Capacity = reader.GetInt32(5),
-                            Available = reader.GetBoolean(6),
-                            Active = reader.GetBoolean(7)
+                            Price = reader.GetDecimal(6),
+                            Available = reader.GetBoolean(7),
+                            Active = reader.GetBoolean(8),
+                            OfferingID = reader.GetInt32(9)
                         };
                         roomList.Add(rm);
                     }
@@ -306,6 +312,10 @@ namespace DataAccessLayer
             {
 
                 throw new ApplicationException("Database access error", ex);
+            }
+            finally
+            {
+                conn.Close();
             }
 
 
@@ -322,7 +332,8 @@ namespace DataAccessLayer
         /// <returns></returns>
         public int DeleteRoom(Room room)
         {
-            return DeleteRoomByID(room.RoomID);
+            throw new NotImplementedException();
+            // return DeleteRoomByID(room.RoomID);
         }
 
         /// <summary>
@@ -335,7 +346,7 @@ namespace DataAccessLayer
         /// <returns></returns>
         public int DeleteRoomByID(int roomID)
         {
-            throw new NotImplementedException("Write the Method Dummy");
+            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -345,28 +356,6 @@ namespace DataAccessLayer
         /// </summary>
         /// <returns>A list of Room Status</returns>
         public List<string> SelectRoomStatusList()
-        {
-            throw new NotImplementedException();
-        }
-
-        /// <summary>
-        /// Wes Richardson
-        /// Created: 2019/02/20
-        /// 
-        /// </summary>
-        /// <returns>A list of Offering IDs</returns>
-        public List<int> SelectOfferingIDList()
-        {
-            throw new NotImplementedException();
-        }
-
-        /// <summary>
-        /// Wes Richardson
-        /// Created: 2019/02/20
-        /// 
-        /// </summary>
-        /// <returns>A list of Properting IDs</returns>
-        public List<int> SelectResortProperyIDList()
         {
             throw new NotImplementedException();
         }
