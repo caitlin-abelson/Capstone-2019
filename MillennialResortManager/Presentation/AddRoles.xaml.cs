@@ -51,7 +51,7 @@ namespace Presentation
 			{
 				try
 				{
-					var result = _empManager.CreateRole(_empRole);
+					result = _empManager.CreateRole(_empRole);
 					if (result == true)
 					{
 						this.DialogResult = true;

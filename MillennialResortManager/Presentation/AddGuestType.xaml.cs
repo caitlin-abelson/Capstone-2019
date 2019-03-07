@@ -47,7 +47,7 @@ namespace Presentation
             {
                 try
                 {
-                    var result = guestManager.CreateGuestType(_guestType);
+                    result = guestManager.CreateGuestType(_guestType);
                     if (result == true)
                     {
                         this.DialogResult = true;

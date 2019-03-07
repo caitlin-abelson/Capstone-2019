@@ -79,7 +79,7 @@ namespace Presentation
             {
                 try
                 {
-                    var result = departmentManager.DeleteDepartment(cboDepartment.SelectedItem.ToString());
+                    result = departmentManager.DeleteDepartment(cboDepartment.SelectedItem.ToString());
                     if (result == true)
                     {
                         this.DialogResult = true;

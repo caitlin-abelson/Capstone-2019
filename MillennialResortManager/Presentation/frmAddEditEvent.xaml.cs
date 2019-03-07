@@ -285,6 +285,7 @@ namespace WpfPresentation
         /// </summary>
         private void captureEvent()
         {
+            int aNumber;
             try
             {
                 // Method will error check first
@@ -293,7 +294,7 @@ namespace WpfPresentation
                     MessageBox.Show("Event Title must be between 1 and 50 characters!");
                     return;
                 }
-                else if (!int.TryParse(txtReqNumGuest.Text, out int aNumber) || (!int.TryParse(txtEventSponsorID.Text, out aNumber)))
+                else if (!int.TryParse(txtReqNumGuest.Text, out aNumber) || (!int.TryParse(txtEventSponsorID.Text, out aNumber)))
                 {
                     MessageBox.Show("Numbers only!");
                     return;

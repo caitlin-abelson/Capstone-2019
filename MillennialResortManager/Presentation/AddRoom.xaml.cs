@@ -47,7 +47,7 @@ namespace Presentation
             {
                 try
                 {
-                    var result = roomManager.CreateRoomType(_RoomType);
+                    result = roomManager.CreateRoomType(_RoomType);
                     if (result == true)
                     {
                         this.DialogResult = true;

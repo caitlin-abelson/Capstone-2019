@@ -81,7 +81,7 @@ namespace Presentation
 			{
 				try
 				{
-					var result = empRolesManager.DeleteRole(cboRole.SelectedItem.ToString());
+					result = empRolesManager.DeleteRole(cboRole.SelectedItem.ToString());
 					if (result == true)
 					{
 						this.DialogResult = true;

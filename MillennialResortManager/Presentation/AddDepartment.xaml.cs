@@ -47,7 +47,7 @@ namespace Presentation
             {
                 try
                 {
-                    var result = departmentManager.CreateDepartment(_department);
+                    result = departmentManager.CreateDepartment(_department);
                     if (result == true)
                     {
                         this.DialogResult = true;

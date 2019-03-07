@@ -79,7 +79,7 @@ namespace Presentation
             {
                 try
                 {
-                    var result = guestTypeManager.DeleteGuestType(cboGuest.SelectedItem.ToString());
+                    result = guestTypeManager.DeleteGuestType(cboGuest.SelectedItem.ToString());
                     if (result == true)
                     {
                         this.DialogResult = true;

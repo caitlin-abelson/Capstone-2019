@@ -79,7 +79,7 @@ namespace Presentation
             {
                 try
                 {
-                    var result = roomManager.DeleteRoomType(cboRoom.SelectedItem.ToString());
+                    result = roomManager.DeleteRoomType(cboRoom.SelectedItem.ToString());
                     if (result == true)
                     {
                         this.DialogResult = true;
