@@ -93,6 +93,9 @@
     </Compile>
     <Compile Include="BrowsePetType.xaml.cs" />
     <Compile Include="BrowseReservation.xaml.cs" />
+    <Compile Include="BrowseSetupList.xaml.cs">
+      <DependentUpon>BrowseSetupList.xaml</DependentUpon>
+    </Compile>
     <Compile Include="BrowseShop.xaml.cs">
       <DependentUpon>BrowseShop.xaml</DependentUpon>
     </Compile>
@@ -187,6 +190,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="BrowseReservation.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="BrowseSetupList.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

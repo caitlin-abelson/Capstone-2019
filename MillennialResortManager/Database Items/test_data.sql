@@ -206,5 +206,18 @@ INSERT INTO [dbo].[Appointment]
 GO
 
 		
-		
+/*  Name: Eduardo Colon
+Date: 2019-03-05 */
+print '' print '*** Inserting SetupList Test Records'
+GO
+
+INSERT INTO [dbo].[SetupList]
+		([SetupID], [Completed], [Description], [Comments])
+	VALUES
+		(100000, 0, ' Prior to Guest Arrival: Registration Desk,signs,banners', 'Banners are not ready yet'),
+		(100001, 0, ' Display Equipment: Prepares for display boards,tables,chairs,, printed material and names badges','Badges are not ready yet'),
+		(100002, 1, ' Check Av Equipment: Laptop,projectors :Ensure all cables,leads,laptop,mic and mouse are presented and working', 'Av Equipment is ready'),
+		(100003, 1, ' Confirm that all decor and linen is in place ', 'Decor and linen are  ready'),
+		(100004, 1, ' Walk through to make sure bathrooms are clean and stocked ', 'Bathrooms are  ready')
+GO
 		

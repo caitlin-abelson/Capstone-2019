@@ -71,6 +71,7 @@
     <Compile Include="Role.cs" />
     <Compile Include="Room.cs" />
     <Compile Include="RoomType.cs" />
+    <Compile Include="SetupList.cs" />
     <Compile Include="Shop.cs" />
     <Compile Include="Supplier.cs" />
     <Compile Include="SupplierOrder.cs" />

@@ -974,3 +974,65 @@ AS
 	END
 GO
 /* End Wes Richardson */
+
+
+/* Start Eduardo */
+
+
+
+/*  Name: Eduardo Colon
+    Date: 2019-03-05 */
+
+print '' print '*** Creating SetupList Table'
+GO
+CREATE TABLE [dbo].[SetupList] (
+	[SetupListID]		[int] IDENTITY(100000, 1) 			  NOT NULL,
+	[SetupID]			[int]			  	        		  NOT NULL,
+	[Completed] 		[bit]					 DEFAULT 0	  NOT NULL,
+	[Description]		[nvarchar](1000)					  NOT NULL,
+	[Comments]			[nvarchar](1000)				      NULL,
+	
+	
+	CONSTRAINT [pk_SetupListID] PRIMARY KEY([SetupListID] ASC),
+
+)
+GO
+
+
+
+
+
+
+/*  Name: Eduardo Colon
+    Date: 2019-03-05 */
+print '' print '*** Creating sp_select_setuplists'
+GO
+CREATE PROCEDURE [dbo].[sp_retrieve_all_setuplists]
+
+AS
+	BEGIN
+		SELECT 	    [SetupListID], [SetupID], [Completed], [Description],	[Comments]
+		FROM		[SetupList]
+	END
+GO
+
+/*
+  NAME:  Eduardo Colon'
+  Date:   2019-03-05'
+*/
+print '' print '*** Creating sp_retrieve_setuplist_by_id '
+GO
+CREATE PROCEDURE [dbo].[sp_retrieve_setuplist_by_id]
+	(
+		@SetupListID				[int]
+	)
+AS
+	BEGIN
+		SELECT [SetupListID], [SetupID],[Completed],[Description], [Comments]
+		FROM [SetupList]
+		WHERE [SetupListID] = @SetupListID
+	END
+GO
+
+
+/* End Eduardo */
