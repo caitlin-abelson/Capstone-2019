@@ -163,16 +163,7 @@ AS
 --GO
 
 /* Start James Heim */
--- Created: 2019-02-27
 
-/*
- * Author: James Heim
- * Created 2019-02-27
- *
- * Create the Shop Table.
- */
-print '' print '*** Creating Shop Table'
-GO
 CREATE TABLE [dbo].[Shop] (
 	[ShopID]		[int] IDENTITY(100000, 1)	NOT NULL,
 	[RoomID]		[int]						NOT NULL,
@@ -183,30 +174,50 @@ CREATE TABLE [dbo].[Shop] (
 	CONSTRAINT [pk_ShopID] PRIMARY KEY([ShopID] ASC),
 	CONSTRAINT [ak_RoomID] UNIQUE([RoomID] ASC)
 )
-
-/*
- * Author: James Heim
- * Created 2019-02-27
- *
- * Add RoomID as a foreign key to Shop table.
- */
-print '' print '*** Adding Foreign Key constraint for Shop'
-GO
 ALTER TABLE [dbo].[Shop] WITH NOCHECK
 	ADD CONSTRAINT [fk_RoomID] FOREIGN KEY ([RoomID])
 	REFERENCES [dbo].[Room]([RoomID])
-	ON UPDATE CASCADE
+GO
+EXEC sys.sp_addextendedproperty
+	@name = N'Author'
+	,@value = N'James Heim'
+	,@level0type = N'Schema', @level0name = 'dbo'
+	,@level1type = N'Table', @level1name = 'Shop'
+GO
+EXEC sys.sp_addextendedproperty
+	@name = N'Created Date'
+	,@value = N'2019-02-27'
+	,@level0type = N'Schema', @level0name = 'dbo'
+	,@level1type = N'Table', @level1name = 'Shop'
+GO
+EXEC sys.sp_addextendedproperty
+	@name = N'Description'
+	,@value = N'This table keeps records of all the stores(coffee shops, restaurants, gift shops...) that exist in the resort. Each store exists in a single building.'
+	,@level0type = N'Schema', @level0name = 'dbo'
+	,@level1type = N'Table', @level1name = 'Shop'
+GO
+EXEC sys.sp_addextendedproperty
+	@name = N'Description'
+	,@value = N'Auto generated field unique to each shop'
+	,@level0type = N'Schema', @level0name = 'dbo'
+	,@level1type = N'Table', @level1name = 'Shop'
+	,@level2type = N'Column', @level2name = 'ShopID'
+GO
+EXEC sys.sp_addextendedproperty
+	@name = N'Description'
+	,@value = N'The ID field of the room that the shop is in, inside of the building it is in'
+	,@level0type = N'Schema', @level0name = 'dbo'
+	,@level1type = N'Table', @level1name = 'Shop'
+	,@level2type = N'Column', @level2name = 'RoomID'
+GO
+EXEC sys.sp_addextendedproperty
+	@name = N'Description'
+	,@value = N'The name of the shop'
+	,@level0type = N'Schema', @level0name = 'dbo'
+	,@level1type = N'Table', @level1name = 'Shop'
+	,@level2type = N'Column', @level2name = 'Name'
 GO
 
-		
-/*
- * Author: James Heim
- * Created 2019-03-01
- *
- * Insert Shop.
- */	
-print '' print'*** Creating sp_insert_shop'
-GO
 CREATE PROCEDURE [dbo].[sp_insert_shop]
 	(
 		@ShopID 			[int] 				OUTPUT,
@@ -226,15 +237,19 @@ AS
 		RETURN SCOPE_IDENTITY()
 	END
 GO
-
-/*
- * Author: James Heim
- * Created 2019-03-01
- *
- * Select shop by ID.
- */
-print '' print'*** Creating sp_select_shop_by_id'
+EXEC sys.sp_addextendedproperty
+	@name = N'Author'
+	,@value = N'James Heim'
+	,@level0type = N'Schema', @level0name = 'dbo'
+	,@level1type = N'Procedure', @level1name = 'sp_insert_shop'
 GO
+EXEC sys.sp_addextendedproperty
+	@name = N'Created Date'
+	,@value = N'2019-02-27'
+	,@level0type = N'Schema', @level0name = 'dbo'
+	,@level1type = N'Procedure', @level1name = 'sp_insert_shop'
+GO
+
 CREATE PROCEDURE [dbo].[sp_select_shop_by_id]
 	(
 		@ShopID 			[int]
@@ -246,15 +261,19 @@ AS
 		WHERE [ShopID] = @ShopID
 	END
 GO
-		
-/*
- * Author: James Heim
- * Created 2019-02-27
- *
- * Select all shops in the table.
- */
-print '' print '*** Creating sp_select_shops'
+EXEC sys.sp_addextendedproperty
+	@name = N'Author'
+	,@value = N'James Heim'
+	,@level0type = N'Schema', @level0name = 'dbo'
+	,@level1type = N'Procedure', @level1name = 'sp_select_shop_by_id'
 GO
+EXEC sys.sp_addextendedproperty
+	@name = N'Created Date'
+	,@value = N'2019-03-01'
+	,@level0type = N'Schema', @level0name = 'dbo'
+	,@level1type = N'Procedure', @level1name = 'sp_select_shop_by_id'
+GO
+
 CREATE PROCEDURE [dbo].[sp_select_shops]
 AS
 	BEGIN
@@ -263,14 +282,17 @@ AS
 		ORDER BY [ShopID], [RoomID]
 	END
 GO
-
-/*
- * Author: James Heim
- * Created 2019-02-28
- * 
- * Select all shops for the View Model.
- */
-print '' print '*** Creating sp_select_view_model_shops'
+EXEC sys.sp_addextendedproperty
+	@name = N'Author'
+	,@value = N'James Heim'
+	,@level0type = N'Schema', @level0name = 'dbo'
+	,@level1type = N'Procedure', @level1name = 'sp_select_shops'
+GO
+EXEC sys.sp_addextendedproperty
+	@name = N'Created Date'
+	,@value = N'2019-02-27'
+	,@level0type = N'Schema', @level0name = 'dbo'
+	,@level1type = N'Procedure', @level1name = 'sp_select_shops'
 GO
 
 CREATE PROCEDURE [dbo].[sp_select_view_model_shops]
@@ -287,4 +309,33 @@ AS
 
 	END
 GO
+EXEC sys.sp_addextendedproperty
+	@name = N'Author'
+	,@value = N'James Heim'
+	,@level0type = N'Schema', @level0name = 'dbo'
+	,@level1type = N'Procedure', @level1name = 'sp_select_view_model_shops'
+GO
+EXEC sys.sp_addextendedproperty
+	@name = N'Created Date'
+	,@value = N'2019-02-28'
+	,@level0type = N'Schema', @level0name = 'dbo'
+	,@level1type = N'Procedure', @level1name = 'sp_select_view_model_shops'
+GO
 
+/* Start Austin D. */
+
+-- Review sp_count_supplier_order
+-- sp_create_supplierOrder
+-- sp_deactivate_employee
+-- sp_deactivate_SupplierOrder needs looked at
+-- Think we are dropping sp_delete_employeeID_role
+-- Does maintenance type really need an active field? no
+-- Does room type really need an active field? no
+-- Where is appointmenttype?
+-- Keeping event request?
+-- Need checked in update for guest?
+-- sp_insert_item review
+-- Kill sp_insert_product
+-- change insert_drink to insert recipe with date?
+-- Who is doing room status?
+-- Who did sp_insert_supplier?
