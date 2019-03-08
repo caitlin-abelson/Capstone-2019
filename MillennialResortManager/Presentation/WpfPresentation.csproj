@@ -122,6 +122,9 @@
     <Compile Include="frmAddEditViewAppointment.xaml.cs">
       <DependentUpon>frmAddEditViewAppointment.xaml</DependentUpon>
     </Compile>
+    <Compile Include="frmManageSupplierOrders.xaml.cs">
+      <DependentUpon>frmManageSupplierOrders.xaml</DependentUpon>
+    </Compile>
     <Compile Include="frmPetMain.xaml.cs" />
     <Compile Include="frmSelectGuestForAppointment.xaml.cs">
       <DependentUpon>frmSelectGuestForAppointment.xaml</DependentUpon>
@@ -313,6 +316,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="frmManageItemSuppliers.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="frmManageSupplierOrders.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

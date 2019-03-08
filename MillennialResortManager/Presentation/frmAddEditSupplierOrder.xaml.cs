@@ -31,7 +31,7 @@ namespace Presentation
         private ProductManagerMSSQL _itemManager = new ProductManagerMSSQL();
         private ItemSupplierManager _itemSupplierManager = new ItemSupplierManager();
         //private Product _item;
-        
+
         private Supplier _supplier;
         private List<VMItemSupplierItem> _itemSuppliers;
         private List<Supplier> _suppliers;
@@ -57,11 +57,25 @@ namespace Presentation
             LoadSupplierCombo();
         }
 
+        public frmAddEditSupplierOrder(SupplierOrder supplierOrder, EditMode editMode)
+        {
+            InitializeComponent();
+            _editMode = EditMode.Edit;
+            _supplierOrder = supplierOrder;
+
+
+            LoadSupplierCombo();
+            _supplier = _suppliers.Find(s => s.SupplierID == supplierOrder.SupplierID);
+            txtDescription.Text = _supplierOrder.Description;
+
+            LoadControls();
+        }
+
         private void MenuItem_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
         }
-      
+
         /// <summary>
         /// Eric Bostwick
         /// 2/27/2019
@@ -73,12 +87,21 @@ namespace Presentation
         {
             //Make sure its not null and load the local _supplier object with
             //the selected supplier
-            if (!this.cboSupplier.SelectedItem.Equals(null))
+
+
+            if (cboSupplier.SelectedItem != null)
             {
-                SetSelectedSupplier(cboSupplier.SelectedItem.ToString());
+                if (cboSupplier.SelectedItem != null)
+                {
+
+                    SetSelectedSupplier(cboSupplier.SelectedItem.ToString());
+                }
+
                 if (_editMode == EditMode.Add)
                 {
                     LoadSupplierControls();
+                    ResetFormForNextLine();
+                    dgOrderLines.Visibility = Visibility.Hidden;
                     LoadSupplierItemCombo(_supplier.SupplierID);
                 }
             }
@@ -96,10 +119,11 @@ namespace Presentation
         private void LoadSupplierItemCombo(int supplierID)
         {
             try
-            {                
+            {
                 _itemSuppliers = _supplierOrderManager.RetrieveAllItemSuppliersBySupplierID(supplierID);
+                cboSupplierItems.Items.Clear();
                 foreach (VMItemSupplierItem itemSupplier in _itemSuppliers)
-                {                    
+                {
                     cboSupplierItems.Items.Add(itemSupplier.ItemID + " " + itemSupplier.Description);
                 }
             }
@@ -151,11 +175,11 @@ namespace Presentation
         /// </summary>
         private void LoadSupplierControls()
         {
-           
+
             this.txtContact.Text = _supplier.ContactFirstName + " " + _supplier.ContactLastName + "\n" +
                                    _supplier.Email + "\n" + _supplier.PhoneNumber;
             this.txtAddress.Text = _supplier.Address + "\n" + _supplier.City + ", " + _supplier.State + "\n" + _supplier.PostalCode;
-           
+
 
             lblAddress.Visibility = Visibility.Visible;
             txtAddress.Visibility = Visibility.Visible;
@@ -163,7 +187,7 @@ namespace Presentation
             txtContact.Visibility = Visibility.Visible;
             cboSupplierItems.Visibility = Visibility.Visible;
             lblPickItem.Visibility = Visibility.Visible;
-           
+
         }
 
         /// <summary>
@@ -192,18 +216,39 @@ namespace Presentation
                 this.lblExtendedPrice.Visibility = Visibility.Hidden;
                 this.btnAddLine.Visibility = Visibility.Hidden;
                 this.dgOrderLines.Visibility = Visibility.Hidden;
-                
+                this.cboSupplier.IsEnabled = true;
+                btnAddOrder.Content = "Submit Order";
+
             }
             if (_editMode == EditMode.Edit || _editMode == EditMode.View)
+
             {
-                LoadSupplierCombo();
-               
+                txtTitle.Text = "Edit Order " + _supplierOrder.SupplierOrderID;
+                lblEmployeeID.Content = _supplierOrder.EmployeeID;
+                lblOrderDate.Content = _supplierOrder.DateOrdered;
+                LoadSupplierItemCombo(_supplierOrder.SupplierID);
+                lblOrderQty.Visibility = Visibility.Hidden;
+                txtOrderQuantity.Visibility = Visibility.Hidden;
+                lblUnitPrice.Visibility = Visibility.Hidden;
+                txtUnitPrice.Visibility = Visibility.Hidden;
+                lblExtendedPrice.Visibility = Visibility.Hidden;
+                txtExtendedPrice.Visibility = Visibility.Hidden;
+                lblItemDescription.Visibility = Visibility.Hidden;
+                btnAddLine.Visibility = Visibility.Hidden;
+                LoadOrderLineGrid(_supplierOrder.SupplierOrderID);
+                lblSupplier.Visibility = Visibility.Hidden;
+                cboSupplier.Visibility = Visibility.Visible;
+                cboSupplier.IsEnabled = false;
+                btnAddOrder.Content = "Update Order";
+
+                cboSupplier.Text = _supplier.Name + " " + _supplier.SupplierID;
+
                 this.txtContact.Text = _supplier.ContactFirstName + " " + _supplier.ContactLastName + "\n" +
                                        _supplier.Email + "\n" + _supplier.PhoneNumber;
-                this.txtAddress.Text = _supplier.Address + "\n" + _supplier.City + ", " + _supplier.State + "\n" + _supplier.PostalCode;                
+                this.txtAddress.Text = _supplier.Address + "\n" + _supplier.City + ", " + _supplier.State + "\n" + _supplier.PostalCode;
 
                 lblContact.Visibility = Visibility.Visible;
-                txtContact.Visibility = Visibility.Visible;    
+                txtContact.Visibility = Visibility.Visible;
             }
         }
 
@@ -216,20 +261,32 @@ namespace Presentation
         private void CboSupplierItems_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             //Make sure its not null and load the local _supplier object with
-            //the selected supplier
-            if (!this.cboSupplier.SelectedItem.Equals(null))
+            //the selected supplierif(_editMode == EditMode.Add)
+            if (cboSupplierItems.SelectedItem != null)
             {
                 SetSelectedItemSupplier(cboSupplierItems.SelectedItem.ToString());
-                if (_editMode == EditMode.Add)
-                {
-                    LoadNewOrderControls();
-                }
             }
-            else
+            if (_editMode == EditMode.Add)
             {
-                return;
+                if (this.cboSupplierItems.SelectedItem != null)
+                {
+                    //SetSelectedItemSupplier(cboSupplierItems.SelectedItem.ToString());
+                    LoadNewOrderControls();
+
+                }
+                else
+                {
+                    return;
+                }
+
             }
-            
+            if (_editMode == EditMode.Edit)
+            {
+                //ResetFormForNextLine();
+                LoadEditOrderControls();
+            }
+
+
         }
 
         /// <summary>
@@ -241,7 +298,7 @@ namespace Presentation
         private void SetSelectedItemSupplier(string itemSelected)
         {
             int itemID = int.Parse(itemSelected.Substring(0, 6));
-            _itemSupplier = _itemSuppliers.Find(i => i.ItemID == itemID);            
+            _itemSupplier = _itemSuppliers.Find(i => i.ItemID == itemID);
         }
 
         public void LoadNewOrderControls()
@@ -271,7 +328,30 @@ namespace Presentation
             this.txtExtendedPrice.Visibility = Visibility.Visible;
             this.lblExtendedPrice.Visibility = Visibility.Visible;
             this.dgOrderLines.Visibility = Visibility.Visible;
-           
+            btnAddOrder.Content = "Submit Order";
+
+        }
+        public void LoadEditOrderControls()
+        {
+            _supplierOrderLine = new SupplierOrderLine();
+            this.txtItemDescription.Text = _itemSupplier.Name;
+            this.txtUnitPrice.Text = _itemSupplier.UnitPrice.ToString("c");
+
+            _supplierOrderLine.ItemID = _itemSupplier.ItemID;
+            _supplierOrderLine.UnitPrice = _itemSupplier.UnitPrice;
+            _supplierOrderLine.Description = _itemSupplier.Description;
+
+            this.lblItemDescription.Visibility = Visibility.Visible;
+            this.txtItemDescription.Visibility = Visibility.Visible;
+            this.lblOrderQty.Visibility = Visibility.Visible;
+            this.txtOrderQuantity.Visibility = Visibility.Visible;
+            this.lblUnitPrice.Visibility = Visibility.Visible;
+            this.txtUnitPrice.Visibility = Visibility.Visible;
+            this.txtUnitPrice.IsReadOnly = true;
+            this.txtExtendedPrice.Visibility = Visibility.Visible;
+            this.lblExtendedPrice.Visibility = Visibility.Visible;
+            this.dgOrderLines.Visibility = Visibility.Visible;
+            btnAddOrder.Content = "Update Order";
         }
 
         /// <summary>
@@ -298,7 +378,7 @@ namespace Presentation
                 txtOrderQuantity.Select(0, txtOrderQuantity.Text.Length);
                 txtOrderQuantity.Focus();
                 return false;
-            }          
+            }
             return true;
         }
 
@@ -310,9 +390,9 @@ namespace Presentation
         /// </summary>
         private void TxtOrderQuantity_TextChanged(object sender, TextChangedEventArgs e)
         {
-            int orderQty;           
+            int orderQty;
             decimal orderTotal;
-            if(txtOrderQuantity.Text.Length == 0)
+            if (txtOrderQuantity.Text.Length == 0)
             {
                 txtExtendedPrice.Clear();
                 btnAddLine.Visibility = Visibility.Hidden;
@@ -320,12 +400,25 @@ namespace Presentation
             }
             if (ValidateInput())
             {
+                if (txtOrderQuantity.Text == "0")
+                {
+                    return;
+                }
                 //Calculate Extended Price
-                int.TryParse(txtOrderQuantity.Text, out orderQty);                
-                orderTotal = orderQty * _itemSupplier.UnitPrice;
-                txtExtendedPrice.Text = orderTotal.ToString("c");
-                _supplierOrderLine.OrderQty = orderQty;  
-                btnAddLine.Visibility = Visibility.Visible;
+                try
+                {
+
+                    int.TryParse(txtOrderQuantity.Text, out orderQty);
+                    orderTotal = orderQty * _itemSupplier.UnitPrice;
+                    txtExtendedPrice.Text = orderTotal.ToString("c");
+                    _supplierOrderLine.OrderQty = orderQty;
+                    btnAddLine.Visibility = Visibility.Visible;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+
             }
         }
 
@@ -341,11 +434,14 @@ namespace Presentation
 
             _supplierOrderLine = (SupplierOrderLine)dgOrderLines.SelectedItem;
             _supplierOrderLines.Remove(_supplierOrderLine);
+
             dgOrderLines.Items.Refresh();
+            _itemSuppliers = _supplierOrderManager.RetrieveAllItemSuppliersBySupplierID(_supplier.SupplierID);
+            _itemSupplier = _itemSuppliers.Find(s => s.ItemID == _supplierOrderLine.ItemID);
 
             txtUnitPrice.Text = _supplierOrderLine.UnitPrice.ToString();
 
-            this.txtOrderQuantity.Text = _supplierOrderLine.OrderQty.ToString();           
+            this.txtOrderQuantity.Text = _supplierOrderLine.OrderQty.ToString();
             this.lblItemDescription.Visibility = Visibility.Visible;
             this.txtItemDescription.Visibility = Visibility.Visible;
             this.lblOrderQty.Visibility = Visibility.Visible;
@@ -356,9 +452,6 @@ namespace Presentation
             this.txtExtendedPrice.Visibility = Visibility.Visible;
             this.lblExtendedPrice.Visibility = Visibility.Visible;
             this.dgOrderLines.Visibility = Visibility.Visible;
-
-            
-
         }
         /// <summary>
         /// Eric Bostwick
@@ -367,19 +460,20 @@ namespace Presentation
         /// </summary>
         private void BtnAddLine_Click(object sender, RoutedEventArgs e)
         {
-            foreach(SupplierOrderLine line in _supplierOrderLines)
+            foreach (SupplierOrderLine line in _supplierOrderLines)
             {
-                if(line.ItemID == _supplierOrderLine.ItemID)
+                if (line.ItemID == _supplierOrderLine.ItemID)
                 {
                     MessageBox.Show("You Can't Enter the Same Item Twice to an Order");
                     ResetFormForNextLine();
                     return;
                 }
             }
-             
+
             _supplierOrderLines.Add(_supplierOrderLine);
             dgOrderLines.ItemsSource = _supplierOrderLines;
             dgOrderLines.Items.Refresh();
+            cboSupplier.IsEnabled = false;
             ResetFormForNextLine();
         }
 
@@ -401,8 +495,8 @@ namespace Presentation
             this.txtExtendedPrice.Visibility = Visibility.Hidden;
             this.txtExtendedPrice.Clear();
             this.txtItemDescription.Visibility = Visibility.Hidden;
-            this.lblItemDescription.Visibility = Visibility.Hidden;            
-            this.btnAddLine.Visibility = Visibility.Hidden;            
+            this.lblItemDescription.Visibility = Visibility.Hidden;
+            this.btnAddLine.Visibility = Visibility.Hidden;
         }
 
         /// <summary>
@@ -412,7 +506,22 @@ namespace Presentation
         /// </summary>
         private void BtnCancel_Click(object sender, RoutedEventArgs e)
         {
-            this.Close();
+            if (dgOrderLines.HasItems)
+            {
+                MessageBoxResult mbresult;
+
+                mbresult = MessageBox.Show("You have items set up to be ordered, do you really want to cancel?", "Add/Edit Orders", MessageBoxButton.YesNo);
+
+                if (mbresult == MessageBoxResult.No)
+                {
+                    return;
+                }
+                else
+                {
+                    Close();
+                }
+            }
+
         }
 
         /// <summary>
@@ -423,14 +532,80 @@ namespace Presentation
         /// </summary>
         private void BtnAddOrder_Click(object sender, RoutedEventArgs e)
         {
-            _supplierOrder.Description = this.txtDescription.Text;
+            string message = "";
 
+            if (_editMode == EditMode.Add)
+            {
+                message = "Do You Really Want to Submit this Order?";
+            }
+            if (_editMode == EditMode.Edit)
+            {
+                message = "This Will Update the Order, Is This what you want to do?";
+            }
+
+            MessageBoxResult mbresult;
+
+            mbresult = MessageBox.Show(message, "Add/Edit Orders", MessageBoxButton.YesNo);
+
+            if (mbresult == MessageBoxResult.No)
+            {
+                return;
+            }
+
+            int result;
+
+            if (_editMode == EditMode.Add)
+            {
+                _supplierOrder.Description = this.txtDescription.Text;
+
+                try
+                {
+                    result = _supplierOrderManager.CreateSupplierOrder(_supplierOrder, _supplierOrderLines);
+                    if (1 <= result)
+                    {
+                        MessageBox.Show("Order Added");
+                        DialogResult = true;
+                        Close();
+                    }
+
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+            }
+            if (_editMode == EditMode.Edit)
+            {
+                _supplierOrder.Description = this.txtDescription.Text;
+
+                try
+                {
+                    result = _supplierOrderManager.UpdateSupplierOrder(_supplierOrder, _supplierOrderLines);
+                    if (1 <= result)
+                    {
+                        MessageBox.Show("Order Updated");
+                        DialogResult = true;
+                        Close();
+                    }
+
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+            }
+        }
+
+
+        private void LoadOrderLineGrid(int supplierID)
+        {
             try
             {
-                _supplierOrderManager.CreateSupplierOrder(_supplierOrder, _supplierOrderLines);
+                _supplierOrderLines = _supplierOrderManager.RetrieveAllSupplierOrderLinesBySupplierOrderID(supplierID);
+                dgOrderLines.ItemsSource = _supplierOrderLines;
 
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }

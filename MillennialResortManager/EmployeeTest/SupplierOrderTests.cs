@@ -32,6 +32,7 @@ namespace UnitTests
             _supplierOrderLines = new List<SupplierOrderLine>();
             //there two items that will be returned here for later testing
             _itemSuppliers = _supplierOrderAccessorMock.SelectItemSuppliersBySupplierID(100000);
+            _supplierOrders = _supplierOrderAccessorMock.SelectAllSupplierOrders();
         }
 
         private string createString(int length)
@@ -271,6 +272,95 @@ namespace UnitTests
             _supplierOrderManager.CreateSupplierOrder(newSupplierOrder, supplierOrderLines);
 
         }
+
+        [TestMethod]
+        public void TestRetrieveAllSupplierOrders()
+        {
+            //Arrange
+            List<SupplierOrder> supplierOrders = null;
+            //Act
+            supplierOrders = _supplierOrderManager.RetrieveAllSupplierOrders();
+            //Assert
+            CollectionAssert.Equals(_supplierOrders, supplierOrders);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(NullReferenceException))]
+        public void TestDeleteSupplierOrder()
+        {
+
+            //Arrange This is a known item supplier 
+            int supplierOrderID = 100000;
+
+            SupplierOrder supplierOrder = new SupplierOrder();
+            List<SupplierOrder> supplierOrders;
+            //Act
+            _supplierOrderManager.DeleteSupplierOrder(supplierOrderID);
+            supplierOrders = _supplierOrderManager.RetrieveAllSupplierOrders();
+            supplierOrder = supplierOrders.Find(s => s.SupplierOrderID == supplierOrderID);
+            //Assert
+            Assert.AreEqual(supplierOrder.SupplierOrderID, null);
+        }
+
+        [TestMethod]
+        public void TestUpdateSupplierOrder()
+        {
+            SupplierOrder newSupplierOrder = new SupplierOrder()
+            {
+                SupplierID = 100005,
+                SupplierOrderID = 100010,
+                DateOrdered = DateTime.Today,
+                Description = "test order",
+                EmployeeID = 100000,
+                OrderComplete = false
+            };
+
+            SupplierOrderLine supplierOrderLine1 = new SupplierOrderLine()
+            {
+                SupplierOrderID = 100010,
+                Description = "test item 1",
+                ItemID = 100015,
+                OrderQty = 100,
+                QtyReceived = 0,
+                UnitPrice = 1.00M
+            };
+
+            SupplierOrderLine supplierOrderLine2 = new SupplierOrderLine()
+            {
+                SupplierOrderID = 100010,
+                Description = "testString",
+                ItemID = 100015,
+                OrderQty = 500,
+                QtyReceived = 0,
+                UnitPrice = 1.00M
+            };
+
+            List<SupplierOrder> supplierOrders;
+            List<SupplierOrderLine> lines;
+            SupplierOrder supplierOrder;
+
+            _supplierOrderLines.Add(supplierOrderLine1);
+            _supplierOrderLines.Add(supplierOrderLine2);
+
+            //Act
+            _supplierOrderManager.CreateSupplierOrder(newSupplierOrder, _supplierOrderLines);
+            newSupplierOrder.Description = "updated description";
+
+            _supplierOrderLines[0].OrderQty = 10000;
+            _supplierOrderLines[1].OrderQty = 10001;
+            _supplierOrderManager.UpdateSupplierOrder(newSupplierOrder, _supplierOrderLines);
+
+            supplierOrders = _supplierOrderManager.RetrieveAllSupplierOrders();
+            supplierOrder = supplierOrders.Find(s => s.SupplierOrderID == 100010);
+
+            lines = _supplierOrderManager.RetrieveAllSupplierOrderLinesBySupplierOrderID(100010);
+
+            Assert.AreEqual(supplierOrder.Description, "updated description");
+
+            Assert.AreEqual(lines[0].OrderQty, 10000);
+            Assert.AreEqual(lines[1].OrderQty, 10001);
+        }
+
 
 
 

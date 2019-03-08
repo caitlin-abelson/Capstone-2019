@@ -26,7 +26,7 @@ namespace DataAccessLayer
                 SupplierID = 100000,
                 DateOrdered = DateTime.Now,
                 Description = "Order 1",
-                OrderComplete = false                
+                OrderComplete = false
             });
             _orders.Add(new SupplierOrder()
             {
@@ -120,7 +120,7 @@ namespace DataAccessLayer
                 ProductID = 0,
                 RecipeID = 0,
                 UnitPrice = 0.10M,
-                ReorderQty = 2  
+                ReorderQty = 2
             });
 
             _suppliers.Add(new VMItemSupplierItem()
@@ -227,9 +227,10 @@ namespace DataAccessLayer
                 UnitPrice = 5.00M,
                 ReorderQty = 100
             });
-
-
         }
+
+
+
         public int InsertSupplierOrder(SupplierOrder supplierOrder, List<SupplierOrderLine> supplierOrderLines)
         {
             int count = 0;
@@ -241,12 +242,12 @@ namespace DataAccessLayer
                 SupplierID = supplierOrder.SupplierID,
                 Description = supplierOrder.Description,
                 OrderComplete = supplierOrder.OrderComplete,
-                DateOrdered = supplierOrder.DateOrdered               
+                DateOrdered = supplierOrder.DateOrdered
             });
             foreach (var line in supplierOrderLines)
             {
                 count++;
-                line.SupplierOrderID= supplierOrder.SupplierOrderID;
+                line.SupplierOrderID = supplierOrder.SupplierOrderID;
                 _lines.Add(line);
             }
             return count;
@@ -267,6 +268,34 @@ namespace DataAccessLayer
             return _lines.FindAll(l => l.SupplierOrderID == supplierOrderID);
         }
 
-        
+        public int UpdateSupplierOrder(SupplierOrder supplierOrder, List<SupplierOrderLine> supplierOrderLines)
+        {
+            int result = 0;
+            SupplierOrder _oldOrder;
+
+            _oldOrder = _orders.Find(s => s.SupplierOrderID == supplierOrder.SupplierOrderID);
+
+            foreach (var order in _orders)
+            {
+                if (supplierOrder.SupplierOrderID == _oldOrder.SupplierOrderID)
+                {
+                    _oldOrder.Description = supplierOrder.Description;
+                    result = 1;
+                }
+            }
+
+            return result;
+        }
+        public int DeleteSupplierOrder(int supplierOrderID)
+        {
+            if (_orders.Remove(_orders.Find(x => x.SupplierOrderID == supplierOrderID)))
+            {
+                return 1;
+            }
+            else
+            {
+                return 0;
+            }
+        }
     }
 }
