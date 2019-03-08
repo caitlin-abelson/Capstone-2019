@@ -72,6 +72,7 @@
     </ApplicationDefinition>
     <Compile Include="AddDepartment.xaml.cs" />
     <Compile Include="AddGuestType.xaml.cs" />
+    <Compile Include="AddMaintenanceType.xaml.cs" />
     <Compile Include="AddPerformance.xaml.cs" />
     <Compile Include="BrowseBuilding.xaml.cs">
       <DependentUpon>BrowseBuilding.xaml</DependentUpon>
@@ -97,11 +98,13 @@
     </Compile>
     <Compile Include="DeleteDepartment.xaml.cs" />
     <Compile Include="DeleteGuestType.xaml.cs" />
+    <Compile Include="DeleteMaintenanceType.xaml.cs" />
     <Compile Include="DeleteRole.xaml.cs" />
     <Compile Include="DeleteRoom.xaml.cs" />
     <Compile Include="Departments.xaml.cs" />
     <Compile Include="EmployeeRoles.xaml.cs" />
     <Compile Include="GuestTypes.xaml.cs" />
+    <Compile Include="MaintenanceType.xaml.cs" />
     <Compile Include="RoomTypes.xaml.cs" />
     <Compile Include="ViewPerformance.xaml.cs" />
     <Page Include="AddDepartment.xaml">
@@ -109,6 +112,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="AddGuestType.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="AddMaintenanceType.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -175,6 +182,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="DeleteGuestType.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="DeleteMaintenanceType.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -251,6 +262,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="LoginPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="MaintenanceType.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
