@@ -73,6 +73,7 @@
     <Compile Include="AddDepartment.xaml.cs" />
     <Compile Include="AddGuestType.xaml.cs" />
     <Compile Include="AddPerformance.xaml.cs" />
+    <Compile Include="BrowseAppointmentType.xaml.cs" />
     <Compile Include="BrowseBuilding.xaml.cs">
       <DependentUpon>BrowseBuilding.xaml</DependentUpon>
     </Compile>
@@ -82,9 +83,11 @@
       <DependentUpon>BrowseEmployee.xaml</DependentUpon>
     </Compile>
     <Compile Include="BrowseEmployeeRole.xaml.cs" />
+    <Compile Include="BrowseEventType.xaml.cs" />
     <Compile Include="BrowseOrders.xaml.cs">
       <DependentUpon>BrowseOrders.xaml</DependentUpon>
     </Compile>
+    <Compile Include="BrowsePetType.xaml.cs" />
     <Compile Include="BrowseReservation.xaml.cs" />
     <Compile Include="BrowseShop.xaml.cs">
       <DependentUpon>BrowseShop.xaml</DependentUpon>
@@ -95,12 +98,20 @@
     <Compile Include="BuildingDetail.xaml.cs">
       <DependentUpon>BuildingDetail.xaml</DependentUpon>
     </Compile>
+    <Compile Include="CreateAppointmentType.xaml.cs" />
+    <Compile Include="CreateEventType.xaml.cs" />
+    <Compile Include="CreatePetType.xaml.cs" />
+    <Compile Include="DeleteAppointmentType.xaml.cs" />
     <Compile Include="DeleteDepartment.xaml.cs" />
+    <Compile Include="DeleteEventType.xaml.cs" />
     <Compile Include="DeleteGuestType.xaml.cs" />
+    <Compile Include="DeletePetType.xaml.cs" />
     <Compile Include="DeleteRole.xaml.cs" />
     <Compile Include="DeleteRoom.xaml.cs" />
     <Compile Include="Departments.xaml.cs" />
     <Compile Include="EmployeeRoles.xaml.cs" />
+    <Compile Include="frmAddEditPet.xaml.cs" />
+    <Compile Include="frmPetMain.xaml.cs" />
     <Compile Include="GuestTypes.xaml.cs" />
     <Compile Include="RoomTypes.xaml.cs" />
     <Compile Include="ViewPerformance.xaml.cs" />
@@ -113,6 +124,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="AddPerformance.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="BrowseAppointmentType.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -134,7 +149,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="BrowseEventType.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="BrowseOrders.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="BrowsePetType.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -150,7 +173,19 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="CreateAppointmentType.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="CreateEmployeeRole.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="CreateEventType.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="CreatePetType.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -170,11 +205,23 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="DeleteAppointmentType.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="DeleteDepartment.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="DeleteEventType.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="DeleteGuestType.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="DeletePetType.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -206,6 +253,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="frmAddEditPet.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="frmAddEditSupplierOrder.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -227,6 +278,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="frmManageItemSuppliers.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="frmPetMain.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
