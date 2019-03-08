@@ -393,5 +393,123 @@ namespace DataAccessLayer
 
             return employees;
         }
+
+        /// <summary>
+        /// Author: Matt LaMarche
+        /// Created Date: 3/7/19
+        /// Returns an int containing the number of Employees who have a matching email and password
+        /// </summary>
+        /// <param name="userName"></param>
+        /// <param name="password"></param>
+        /// <returns></returns>
+        public int VerifyUsernameAndPassword(string userName, string password)
+        {
+            int result = 0;     // this will be the number of users found
+
+            // we begin with a connection
+            var conn = DBConnection.GetDbConnection();
+
+            // next, we need command text
+            string cmdText = @"sp_authenticate_user";
+
+            // then we create a command object from command text and a connection
+            var cmd = new SqlCommand(cmdText, conn);
+
+            // now we need to set the command type
+            cmd.CommandType = CommandType.StoredProcedure;      //CommandType defined in System.Data
+
+            // next, set up the stored procedure's parameters
+            cmd.Parameters.Add("@Email", SqlDbType.NVarChar, 250);
+            cmd.Parameters.Add("@PasswordHash", SqlDbType.NVarChar, 100);
+
+            // pass values to the parameters
+            cmd.Parameters["@Email"].Value = userName;
+            cmd.Parameters["@PasswordHash"].Value = password;
+
+            // now we need to use these connected types in an open connection
+            // and this means unsafe code, so a try-catch
+            try
+            {
+                // open the connections
+                conn.Open();
+
+                // execute the command
+                result = (int)cmd.ExecuteScalar();   // need to cast in order to use it
+            }
+            catch (Exception up)
+            {
+                throw up;
+            }
+            return result;
+        }
+
+        /// <summary>
+        /// Author: Matt LaMarche
+        /// Created Date: 3/7/19
+        /// Gets an Employee from our database by their email address
+        /// </summary>
+        /// <param name="email"></param>
+        /// <returns></returns>
+        public Employee RetrieveEmployeeByEmail(string email)
+        {
+            Employee user = new Employee();
+
+            // get a connection
+            var conn = DBConnection.GetDbConnection();
+
+            // command text
+            string cmdText1 = @"sp_retrieve_employee_by_email";
+            //string cmdText2 = @"sp_retrieve_employee_roles";
+
+            // command objects
+            var cmd1 = new SqlCommand(cmdText1, conn);
+            //var cmd2 = new SqlCommand(cmdText2, conn);
+
+            // set the command type
+            cmd1.CommandType = CommandType.StoredProcedure;
+            //cmd2.CommandType = CommandType.StoredProcedure;
+
+            // parameters
+            cmd1.Parameters.Add("@Email", SqlDbType.NVarChar, 250);
+            //cmd2.Parameters.Add("@Email", SqlDbType.NVarChar, 250);
+
+
+            // values
+            cmd1.Parameters["@Email"].Value = email;
+            //cmd2.Parameters["@Email"].Value = email;
+
+            try
+            {
+                // open the connection
+                conn.Open();
+                SqlDataReader reader1 = cmd1.ExecuteReader();
+                if (reader1.HasRows)
+                {
+                    reader1.Read();     // reads the first line
+                    user.EmployeeID = reader1.GetInt32(0);
+                    user.FirstName = reader1.GetString(1);
+                    user.LastName = reader1.GetString(2);
+                    user.Email = reader1.GetString(3);
+                    user.PhoneNumber = reader1.GetString(4);
+                    user.DepartmentID = reader1.GetString(5);
+                    user.Active = reader1.GetBoolean(6);
+                }
+                else
+                {
+                    throw new ApplicationException("User not found.");      // only be possible if user was deleted while this is executed
+                }
+
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            return user;
+        }
     }
 }

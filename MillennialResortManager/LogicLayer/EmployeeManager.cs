@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using DataObjects;
 using DataAccessLayer;
+using System.Security.Cryptography;
 
 namespace LogicLayer
 {
@@ -51,7 +52,7 @@ namespace LogicLayer
         /// <returns></returns>
         public bool isValid(Employee employee)
         {
-            if(validateFirstName(employee.FirstName) && validateLastName(employee.LastName) &&
+            if (validateFirstName(employee.FirstName) && validateLastName(employee.LastName) &&
                 validatePhoneNumber(employee.PhoneNumber) && validateEmail(employee.Email) &&
                 validateDepartmentID(employee.DepartmentID))
             {
@@ -60,6 +61,8 @@ namespace LogicLayer
 
             return false;
         }
+
+
 
         /// <summary>
         /// Author: Caitlin Abelson
@@ -71,8 +74,8 @@ namespace LogicLayer
         /// <returns></returns>
         public bool validateFirstName(string firstName)
         {
-            
-            if(firstName.Length < 1 || firstName.Length > 50)
+
+            if (firstName.Length < 1 || firstName.Length > 50)
             {
                 return false;
             }
@@ -89,7 +92,7 @@ namespace LogicLayer
         /// <returns></returns>
         public bool validateLastName(string lastName)
         {
-            if (lastName.Length < 1|| lastName.Length > 100)
+            if (lastName.Length < 1 || lastName.Length > 100)
             {
                 return false;
             }
@@ -318,5 +321,89 @@ namespace LogicLayer
             }
             return employees;
         }
+
+        /// <summary>
+        /// Author: Matt LaMarche
+        /// Created Date: 3/7/19
+        /// Taken straight from Jims code and modified to return an Employee instead of a User
+        /// </summary>
+        /// <param name="username"></param>
+        /// <param name="password"></param>
+        /// <returns>Employee Object</returns>
+        public Employee AuthenticateEmployee(string username, string password)
+        {
+            if (username == null || password == null)
+            {
+                throw new ApplicationException("Username or password was null. ");
+            }
+            Employee employee = null;
+
+            // hast the password
+            password = hashSHA256(password);
+
+            // this is unsafe code...
+            try
+            {
+                if (1 == _employeeAccessor.VerifyUsernameAndPassword(username, password))     // if the user is verified I want to create a user object
+                {
+                    // the user is validated, so instantiate a user
+                    employee = _employeeAccessor.RetrieveEmployeeByEmail(username);
+
+                    if (password == hashSHA256("newuser"))
+                    {
+                        //user.Roles.Clear();
+                        //user.Roles.Add("New User");
+                    }
+                }
+                else
+                {
+                    throw new ApplicationException("User not found. ");
+                }
+
+            }
+            catch (Exception ex)       // this is were we would communicate with the log
+            {
+                throw new ApplicationException(ex.Message, ex);  // ex as the inner exception, we we are preserving the inner exception
+            }
+
+            return employee;
+        }
+
+        /// <summary>
+        /// Author: Matt LaMarche
+        /// Created Date: 3/7/19
+        /// Taken straight from Jims code. Converts a string to its SHA256 equivalent
+        /// </summary>
+        /// <param name="source"></param>
+        /// <returns></returns>
+        private string hashSHA256(string source)        // source is the password passed in 
+        {
+            string result = "";
+
+            // we need a byte array, hash algorthms do not work on strings or characters
+            byte[] data;
+
+            // use a .NET hash provider
+            using (SHA256 sha256hash = SHA256.Create())      //using is a complier directive, do not confuse with using statements above which is a C# keyword 
+            {
+                // hash the input
+                data = sha256hash.ComputeHash(Encoding.UTF8.GetBytes(source));
+            }
+
+            // now, we just need to build the result string with a String Builder
+            var s = new StringBuilder();
+
+            // loop through the bytes creating hex digits
+            for (int i = 0; i < data.Length; i++)
+            {
+                s.Append(data[i].ToString("x2"));       //x2 - formating string will take byte char and give the hexidecimal string 
+            }
+
+            // conver String Builder to a string
+            result = s.ToString();
+
+            return result;
+        }
+
     }
 }
