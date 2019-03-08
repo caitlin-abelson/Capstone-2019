@@ -374,6 +374,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="frmSelectRecipeItem.xaml">
+	<Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+	</Page>
     <Page Include="frmSelectGuestForAppointment.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
