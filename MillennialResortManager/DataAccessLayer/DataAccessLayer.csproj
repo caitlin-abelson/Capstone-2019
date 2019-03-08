@@ -79,6 +79,7 @@
     <Compile Include="ISupplierAccessor.cs" />
     <Compile Include="ItemTypeAccessorMSSQL.cs" />
     <Compile Include="MaintenanceTypeAccessor.cs" />
+    <Compile Include="MemberAccessorMock.cs" />
     <Compile Include="MemberAccessorMSSQL.cs" />
     <Compile Include="MockBuildingAccessor.cs" />
     <Compile Include="MockDepartmentAccessor.cs" />

@@ -20,27 +20,119 @@ namespace DataAccessLayer
         {
 
         }
-        public void CreateMember(Member newMember)
+        /// <summary>
+        /// Author: Ramesh Adhikari
+        /// Created On: 01/30/2019
+        /// </summary>
+        public void InsertMember(Member newMember)
         {
-            throw new NotImplementedException();
-        }
+            // int rowsAffected = -1;
 
-        public void DeactivateMember(Member deactivatingMember)
-        {
-            throw new NotImplementedException();
-        }
+            var conn = DBConnection.GetDbConnection();
+            var procedure = @"sp_insert_member";
+            var cmd = new SqlCommand(procedure, conn);
+            cmd.CommandType = CommandType.StoredProcedure;
 
-        public void PurgeMember(Member purgedMember)
+            cmd.Parameters.AddWithValue("@FirstName", newMember.FirstName);
+            cmd.Parameters.AddWithValue("@LastName", newMember.LastName);
+            cmd.Parameters.AddWithValue("@PhoneNumber", newMember.PhoneNumber);
+            cmd.Parameters.AddWithValue("@Email", newMember.Email);
+            cmd.Parameters.AddWithValue("@Password", newMember.Password);
+
+            try
+            {
+                conn.Open();
+                Convert.ToInt32(cmd.ExecuteScalar());
+
+                //  rowsAffected = Convert.ToInt32(cmd.ExecuteNonQuery());
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            return;
+        }
+        /// <summary>
+        /// Author: Ramesh Adhikari
+        /// Created On: 02/02/2019
+        /// </summary>
+        public void DeactivateMember(Member member)
         {
-            throw new NotImplementedException();
+            if (member.Active == false)
+            {
+                throw new Exception("Member is already deactivated");
+            }
+
+            var conn = DBConnection.GetDbConnection();
+            var procedure = @"sp_deactivate_member";
+            var cmd = new SqlCommand(procedure, conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.AddWithValue("@MemberID", member.MemberID);
+
+            try
+            {
+                conn.Open();
+
+                cmd.ExecuteNonQuery();
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            finally
+            {
+                conn.Close();
+            }
+        }
+        /// <summary>
+        /// Author: Ramesh Adhikari
+        /// Created On: 02/02/2019
+        /// </summary>
+        public void DeleteMember(Member member)
+        {
+            if (member.Active == true)
+            {
+                throw new Exception("Cannot delete an active");
+            }
+            var conn = DBConnection.GetDbConnection();
+            var procedure = @"sp_delete_member";
+            var cmd = new SqlCommand(procedure, conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.AddWithValue("@MemberID", member.MemberID);
+
+            try
+            {
+                conn.Open();
+
+                cmd.ExecuteNonQuery();
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            finally
+            {
+                conn.Close();
+            }
         }
         /// <summary>
         /// Author: Matt LaMarche
         /// Created : 1/24/2019
-        /// RetrieveAllMembers will select all of the Members from our Database who have an Active Status of 1 and return them
+        /// SelectAllMembers will select all of the Members from our Database who have an Active Status of 1 and return them
         /// </summary>
         /// <returns>Returns a List of all Members</returns>
-        public List<Member> RetrieveAllMembers()
+        public List<Member> SelectAllMembers()
         {
             List<Member> members = new List<Member>();
 
@@ -84,14 +176,97 @@ namespace DataAccessLayer
             return members;
         }
 
-        public Member RetrieveMember()
+        /// <summary>
+        /// Author: Ramesh Adhikari
+        /// Created On: 01/30/2019
+        /// 
+        /// Retrieve member by their id
+        /// </summary>
+        public Member SelectMember(int id)
         {
-            throw new NotImplementedException();
+            Member member = null;
+
+            var conn = DBConnection.GetDbConnection();
+            var cmdText = @"sp_retrieve_member_by_id";
+            var cmd = new SqlCommand(cmdText, conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.AddWithValue("MemberID", id);
+
+            try
+            {
+                conn.Open();
+
+                var reader = cmd.ExecuteReader();
+
+                if (reader.HasRows)
+                {
+                    reader.Read();
+
+                    member = new Member()
+                    {
+                        MemberID = reader.GetInt32(0),
+                        FirstName = reader.GetString(1),
+                        LastName = reader.GetString(2),
+                        PhoneNumber = reader.GetString(3),
+                        Email = reader.GetString(4),
+                        Password = reader.GetString(5),
+                        Active = reader.GetBoolean(6)
+
+
+                    };
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return member;
         }
 
-        public void UpdateMember(Member oldMember, Member newMember)
+        public void UpdateMember(Member newMember, Member oldMember)
         {
-            throw new NotImplementedException();
+            var conn = DBConnection.GetDbConnection();
+            var procedure = @"sp_update_member";
+            var cmd = new SqlCommand(procedure, conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.AddWithValue("@MemberID", oldMember.MemberID);
+            cmd.Parameters.AddWithValue("@OldFirstName", oldMember.FirstName);
+            cmd.Parameters.AddWithValue("@OldLastName", oldMember.LastName);
+            cmd.Parameters.AddWithValue("@OldPhoneNumber", oldMember.PhoneNumber);
+            cmd.Parameters.AddWithValue("@OldEmail", oldMember.Email);
+            cmd.Parameters.AddWithValue("@OldPassword", oldMember.Password);
+            cmd.Parameters.AddWithValue("@OldActive", oldMember.Active);
+
+            cmd.Parameters.AddWithValue("@NewFirstName", newMember.FirstName);
+            cmd.Parameters.AddWithValue("@NewLastName", newMember.LastName);
+            cmd.Parameters.AddWithValue("@NewPhoneNumber", newMember.PhoneNumber);
+            cmd.Parameters.AddWithValue("@NewEmail", newMember.Email);
+            cmd.Parameters.AddWithValue("@NewPassword", newMember.Password);
+            cmd.Parameters.AddWithValue("@NewActive", newMember.Active);
+
+            try
+            {
+                conn.Open();
+                cmd.ExecuteNonQuery();
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            finally
+            {
+                conn.Close();
+            }
         }
+
+       
     }
 }

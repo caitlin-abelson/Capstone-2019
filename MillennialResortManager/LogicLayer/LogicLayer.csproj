@@ -78,6 +78,7 @@
     <Compile Include="LogicValidationExtensionMethods.cs" />
     <Compile Include="MaintenanceTypeManager.cs" />
     <Compile Include="MemberManagerMSSQL.cs" />
+    <Compile Include="MemberValidator.cs" />
     <Compile Include="PerformanceManager.cs" />
     <Compile Include="ProductManagerMSSQL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

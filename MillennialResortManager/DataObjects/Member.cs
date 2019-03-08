@@ -10,6 +10,12 @@ namespace DataObjects
     /// Author: Matt LaMarche
     /// Created : 1/24/2019
     /// The Member Object is designed to directly carry information about a Member based on the information about Members in our Data Dictionary
+    /// 
+    /// <remarks>
+    /// Name: Ramesh Adhikari
+    /// Update Date: 03/08/2019
+    /// Description: Added the password property
+    /// </remarks>
     /// </summary>
     public class Member
     {
@@ -18,6 +24,7 @@ namespace DataObjects
         public string LastName { get; set; }
         public string PhoneNumber { get; set; }
         public string Email { get; set; }
+        public string Password { get; set; }
         public bool Active { get; set; }
 
         public override string ToString()

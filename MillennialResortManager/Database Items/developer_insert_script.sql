@@ -378,3 +378,25 @@ AS
 		WHERE	[EventID] = @EventID
 	END
 GO
+
+
+
+
+
+
+DROP TABLE [dbo].[Member]
+go
+CREATE TABLE [dbo].[Member](
+	[MemberID]			[int] IDENTITY(100000, 1) 	  NOT NULL,
+	[FirstName]			[nvarchar](50)				NOT NULL,
+	[LastName]			[nvarchar](100)				NOT NULL,
+	[PhoneNumber]		[nvarchar](11)				NOT NULL,
+	[Email]				[nvarchar](250)				NOT NULL,
+	[Password]			[nvarchar](100)				NOT NULL DEFAULT
+		'9c9064c59f1ffa2e174ee754d2979be80dd30db552ec03e7e327e9b1a4bd594e',
+	[Active]			[bit]						NOT NULL DEFAULT 1
+	
+	CONSTRAINT [pk_MemberID] PRIMARY KEY([MemberID] ASC),
+	CONSTRAINT [Email] UNIQUE([Email] ASC)
+)
+GO

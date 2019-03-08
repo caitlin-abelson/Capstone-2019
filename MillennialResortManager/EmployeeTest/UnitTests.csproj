@@ -59,6 +59,7 @@
     <Compile Include="ItemSupplierTests.cs" />
     <Compile Include="LoginUnitTest.cs" />
     <Compile Include="MaintenanceTypeUnitTests.cs" />
+    <Compile Include="MemberManagerTests.cs" />
     <Compile Include="PerformanceManagerTests.cs" />
     <Compile Include="ProductManagerTests.cs" />
     <Compile Include="ReservationManagerTests.cs" />
