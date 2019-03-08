@@ -24,7 +24,7 @@
             <ColumnDefinition/>
             <ColumnDefinition/>
             <ColumnDefinition/>
-            
+
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="25"  />
@@ -68,8 +68,8 @@
             <Label  x:Name="lblDesriptionTag" Content="Description" HorizontalContentAlignment="Right" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="1"></Label>
             <TextBox x:Name="txtDescription" Text="" MaxWidth="195" MinWidth="195" Height="30" TextWrapping="Wrap"  MinLines="2"  VerticalAlignment="Center" HorizontalAlignment="Right" Margin="1,5,10,5" Width="193"/>
         </StackPanel>
-        
-       
+
+
         <StackPanel Grid.Row="4" Grid.ColumnSpan="2" x:Name="stpSupplierAddress" Orientation="Horizontal" HorizontalAlignment="Right">
             <Label x:Name="lblAddress" Content="Address" HorizontalContentAlignment="Right" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="2"></Label>
             <TextBlock  x:Name="txtAddress" Text="txtAddress" FontSize="10" TextWrapping="Wrap" Height="50" MinWidth="200" MaxWidth="200" VerticalAlignment="Center" HorizontalAlignment="left" Margin="2"/>
@@ -84,32 +84,32 @@
         </StackPanel>
         <StackPanel Grid.Row="5" Grid.Column="2" Grid.ColumnSpan="2" x:Name="stpItemSupplierDescription" Orientation="Horizontal" HorizontalAlignment="Right">
             <Label x:Name="lblItemDescription" Content="Description" HorizontalContentAlignment="Right" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="1"></Label>
-            <TextBlock x:Name="txtItemDescription" Text="" MaxWidth="195" MinWidth="195" Height="20" TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="1,5,5,5" Width="198" />            
+            <TextBlock x:Name="txtItemDescription" Text="" MaxWidth="195" MinWidth="195" Height="20" TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="1,5,5,5" Width="198" />
         </StackPanel>
-        
+
         <StackPanel Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="3" x:Name="stpItemOrderUnitPrice" Orientation="Horizontal" HorizontalAlignment="Left">
             <Label x:Name="lblOrderQty" Content="Order Qty" HorizontalContentAlignment="Right" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="10,1,1,1"></Label>
             <TextBox x:Name="txtOrderQuantity" MaxLength="5" Text="" Height="20" Width="50" TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="1,5,5,5" TextChanged="TxtOrderQuantity_TextChanged" />
             <Label x:Name="lblUnitPrice" Content="Unit Price" HorizontalContentAlignment="Right" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="1"></Label>
             <TextBox x:Name="txtUnitPrice" Text="" Height="20" Width="50" TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="1,5,5,5"  />
             <Label x:Name="lblExtendedPrice" Content="Extended Price" HorizontalContentAlignment="Right" VerticalAlignment="Center" HorizontalAlignment="Left" ></Label>
-            <TextBox x:Name="txtExtendedPrice" Text="" Height="20" Width="100" TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Left"  IsReadOnly="True"  />          
+            <TextBox x:Name="txtExtendedPrice" Text="" Height="20" Width="100" TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Left"  IsReadOnly="True"  />
         </StackPanel>
-        
+
         <Button Grid.Row="6" Grid.Column="4" HorizontalAlignment="Right" x:Name="btnAddLine" Content="Add Line"  Width="100" Margin="8,5,25,5" Click="BtnAddLine_Click"/>
 
         <DataGrid Grid.Row="8" Grid.Column="0" Grid.ColumnSpan="3" x:Name="dgOrderLines"  AutoGenerateColumns="False" VerticalGridLinesBrush="{x:Null}" SelectionMode="Single"   
                                   IsReadOnly="True" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="#fff" FontWeight="Bold" Foreground="#525252" 
-                                  ScrollViewer.CanContentScroll="True" AlternatingRowBackground="#FF3DD8CA" RowBackground="LightGoldenrodYellow" 
-                                  BorderBrush="#000" BorderThickness="1" ScrollViewer.HorizontalScrollBarVisibility="Visible" ScrollViewer.VerticalScrollBarVisibility="Auto" 
+                                  ScrollViewer.CanContentScroll="True" 
+                                  ScrollViewer.HorizontalScrollBarVisibility="Visible" ScrollViewer.VerticalScrollBarVisibility="Auto" 
                                   Margin="5" MouseDoubleClick="DgOrderLines_MouseDoubleClick" >
-            <DataGrid.Columns>               
+            <DataGrid.Columns>
                 <DataGridTextColumn Header="Item #" Binding="{Binding Path='ItemID'}" IsReadOnly="True"/>
                 <DataGridTextColumn  Header="Description" Width="100" Binding="{Binding Path='Description'}" IsReadOnly="True"/>
                 <DataGridTextColumn Header="Order Qty" Width="75" Binding="{Binding Path='OrderQty'}" IsReadOnly="True"/>
                 <DataGridTextColumn Header="Unit Price" Width="100" Binding="{Binding Path='UnitPrice', StringFormat=C}" IsReadOnly="True"/>
                 <DataGridTextColumn Header="Qty Received" Width="90" Binding="{Binding Path='QtyReceived'}" IsReadOnly="True"/>
-            </DataGrid.Columns>            
+            </DataGrid.Columns>
         </DataGrid>
 
         <Button Grid.Row="9" Grid.Column="0" x:Name="btnCancel" Content="Cancel" Margin="8" Click="BtnCancel_Click"/>

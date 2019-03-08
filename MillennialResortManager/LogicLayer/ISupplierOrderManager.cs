@@ -18,5 +18,10 @@ namespace LogicLayer
         List<SupplierOrder> RetrieveAllSupplierOrders();
 
         List<SupplierOrderLine> RetrieveAllSupplierOrderLinesBySupplierOrderID(int supplierOrderID);
+
+        int UpdateSupplierOrder(SupplierOrder supplierOrder, List<SupplierOrderLine> supplierOrderLines);
+
+        int DeleteSupplierOrder(int supplierOrderID);
+
     }
 }

@@ -49,7 +49,7 @@ namespace LogicLayer
                     throw new ArgumentException("Data for this supplier order record is invalid");
                 }
                 //check each of the supplier order lines for valid inputs
-                foreach(var line in supplierOrderLines)
+                foreach (var line in supplierOrderLines)
                 {
                     if (!line.IsValid())
                     {
@@ -64,6 +64,9 @@ namespace LogicLayer
             }
             return result;
         }
+
+
+
         /// <summary>
         /// Eric Bostwick
         /// 2/27/19
@@ -80,7 +83,7 @@ namespace LogicLayer
             try
             {
                 _itemSuppliers = _supplierOrderManager.SelectItemSuppliersBySupplierID(supplierID);
-                
+
             }
             catch (Exception ex)
             {
@@ -117,7 +120,48 @@ namespace LogicLayer
                 throw ex;
             }
             return _supplierOrders;
-            
+
+        }
+
+        public int UpdateSupplierOrder(SupplierOrder supplierOrder, List<SupplierOrderLine> supplierOrderLines)
+        {
+            int result;
+            try
+            {
+                if (!supplierOrder.IsValid())
+                {
+                    throw new ArgumentException("Data for this supplier order record is invalid");
+                }
+
+                foreach (var line in supplierOrderLines)
+                {
+                    if (!line.IsValid())
+                    {
+                        throw new ArgumentException("Data for this supplier line item record is invalid");
+                    }
+                }
+                result = _supplierOrderManager.UpdateSupplierOrder(supplierOrder, supplierOrderLines);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            return result;
+        }
+
+        public int DeleteSupplierOrder(int supplierOrderID)
+        {
+            int result;
+            try
+            {
+                result = _supplierOrderManager.DeleteSupplierOrder(supplierOrderID);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return result;
         }
     }
 }

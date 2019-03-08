@@ -8,10 +8,14 @@ namespace DataObjects
 {
     public class SupplierOrder
     {
-        public int SupplierOrderID { get; set;}
+        public int SupplierOrderID { get; set; }
 
         public int SupplierID { get; set; }
+
+        public String SupplierName { get; set; }
         public int EmployeeID { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
 
         public string Description { get; set; }
 

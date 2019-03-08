@@ -39,7 +39,7 @@ namespace DataAccessLayer
                         cmd1.CommandType = CommandType.StoredProcedure;
                         cmd1.Parameters.Add("@SupplierOrderID", SqlDbType.Int);
                         cmd1.Parameters["@SupplierOrderID"].Direction = ParameterDirection.Output;
-                        cmd1.Parameters.AddWithValue("@SupplierID", supplierOrder.SupplierID);                        
+                        cmd1.Parameters.AddWithValue("@SupplierID", supplierOrder.SupplierID);
                         cmd1.Parameters.AddWithValue("@EmployeeID", supplierOrder.EmployeeID);
                         cmd1.Parameters.AddWithValue("@Description", supplierOrder.Description);
                         cmd1.ExecuteNonQuery();
@@ -77,11 +77,61 @@ namespace DataAccessLayer
 
         public List<SupplierOrder> SelectAllSupplierOrders()
         {
-            throw new NotImplementedException();
+            /// <summary>
+            /// Eric Bostwick
+            /// Created 3/7/2019
+            /// Gets list of All SupplierOrders from SupplierOrder table
+            /// </summary>
+            /// <returns>
+            /// List of SupplierOrder Objects
+            /// </returns>            
+
+            List<SupplierOrder> supplierOrders = new List<SupplierOrder>();
+            var conn = DBConnection.GetDbConnection();
+            var cmdText = @"sp_select_all_supplier_orders";  //sp_retrieve_itemsuppliers_by_itemid
+            var cmd = new SqlCommand(cmdText, conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            try
+            {
+                conn.Open();
+                var reader = cmd.ExecuteReader();
+
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        SupplierOrder supplierOrder = new SupplierOrder();
+
+                        supplierOrder.SupplierOrderID = reader.GetInt32(reader.GetOrdinal("SupplierOrderID"));
+                        supplierOrder.DateOrdered = reader.GetDateTime(reader.GetOrdinal("DateOrdered"));
+                        supplierOrder.Description = reader["Description"].ToString();
+                        supplierOrder.EmployeeID = reader.GetInt32(reader.GetOrdinal("EmployeeID"));
+                        supplierOrder.FirstName = reader["FirstName"].ToString();
+                        supplierOrder.LastName = reader["LastName"].ToString();
+                        supplierOrder.OrderComplete = reader.GetBoolean(reader.GetOrdinal("OrderComplete"));
+                        supplierOrder.SupplierID = reader.GetInt32(reader.GetOrdinal("SupplierID"));
+                        supplierOrder.SupplierName = reader["SupplierName"].ToString();
+                        supplierOrders.Add(supplierOrder);
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+
+            return supplierOrders;
         }
 
         public List<VMItemSupplierItem> SelectItemSuppliersBySupplierID(int supplierID)
         {
+
             /// <summary>
             /// Eric Bostwick
             /// Created 2/26/2019
@@ -90,59 +140,201 @@ namespace DataAccessLayer
             /// </summary>
             /// <returns>
             /// List of ItemSupplier Objects
-            /// </returns>            
+            /// </returns> 
+
+            List<VMItemSupplierItem> itemSuppliers = new List<VMItemSupplierItem>();
+            var conn = DBConnection.GetDbConnection();
+            var cmdText = @"sp_select_itemsuppliers_by_supplierid";  //sp_retrieve_itemsuppliers_by_itemid
+            var cmd = new SqlCommand(cmdText, conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.AddWithValue("@SupplierID", supplierID);
+
+            try
             {
-                List<VMItemSupplierItem> itemSuppliers = new List<VMItemSupplierItem>();
-                var conn = DBConnection.GetDbConnection();
-                var cmdText = @"sp_select_itemsuppliers_by_supplierid";  //sp_retrieve_itemsuppliers_by_itemid
-                var cmd = new SqlCommand(cmdText, conn);
-                cmd.CommandType = CommandType.StoredProcedure;
+                conn.Open();
+                var reader = cmd.ExecuteReader();
 
-                cmd.Parameters.AddWithValue("@SupplierID", supplierID);
-
-                try
+                if (reader.HasRows)
                 {
-                    conn.Open();
-                    var reader = cmd.ExecuteReader();
-
-                    if (reader.HasRows)
+                    while (reader.Read())
                     {
-                        while (reader.Read())
-                        {
-                            VMItemSupplierItem itemSupplier = new VMItemSupplierItem();
+                        VMItemSupplierItem itemSupplier = new VMItemSupplierItem();
 
-                            itemSupplier.ItemID = reader.GetInt32(reader.GetOrdinal("ItemID"));
-                            itemSupplier.SupplierID = reader.GetInt32(reader.GetOrdinal("SupplierID"));
-                            itemSupplier.PrimarySupplier = reader.GetBoolean(reader.GetOrdinal("PrimarySupplier"));
-                            itemSupplier.LeadTimeDays = reader.GetInt32(reader.GetOrdinal("LeadTimeDays"));
-                            itemSupplier.UnitPrice = (decimal)reader.GetSqlMoney(reader.GetOrdinal("UnitPrice"));
-                            itemSupplier.Name = reader["Name"].ToString();
-                            itemSupplier.Description = reader["Description"].ToString();
-                            itemSupplier.ItemSupplierActive = reader.GetBoolean(reader.GetOrdinal("Active"));
-                            itemSupplier.ItemType = reader["ItemTypeID"].ToString();
-                            itemSupplier.OnHandQty = reader.GetInt32(reader.GetOrdinal("OnHandQuantity"));
-                            itemSupplier.ReorderQty = reader.GetInt32(reader.GetOrdinal("ReOrderQuantity"));
-                            itemSuppliers.Add(itemSupplier);
+                        itemSupplier.ItemID = reader.GetInt32(reader.GetOrdinal("ItemID"));
+                        itemSupplier.SupplierID = reader.GetInt32(reader.GetOrdinal("SupplierID"));
+                        itemSupplier.PrimarySupplier = reader.GetBoolean(reader.GetOrdinal("PrimarySupplier"));
+                        itemSupplier.LeadTimeDays = reader.GetInt32(reader.GetOrdinal("LeadTimeDays"));
+                        itemSupplier.UnitPrice = (decimal)reader.GetSqlMoney(reader.GetOrdinal("UnitPrice"));
+                        itemSupplier.Name = reader["Name"].ToString();
+                        itemSupplier.Description = reader["Description"].ToString();
+                        itemSupplier.ItemSupplierActive = reader.GetBoolean(reader.GetOrdinal("Active"));
+                        itemSupplier.ItemType = reader["ItemTypeID"].ToString();
+                        itemSupplier.OnHandQty = reader.GetInt32(reader.GetOrdinal("OnHandQuantity"));
+                        itemSupplier.ReorderQty = reader.GetInt32(reader.GetOrdinal("ReOrderQuantity"));
+                        itemSuppliers.Add(itemSupplier);
 
-                        }
                     }
                 }
-                catch (Exception)
-                {
-                    throw;
-                }
-                finally
-                {
-                    conn.Close();
-                }
-
-                return itemSuppliers;
             }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            return itemSuppliers;
         }
+
 
         public List<SupplierOrderLine> SelectSupplierOrderLinesBySupplierOrderID(int supplierOrderID)
         {
-            throw new NotImplementedException();
+            /// <summary>
+            /// Eric Bostwick
+            /// Created 3/7/2019
+            /// Gets list of All SupplierOrderLines from SupplierOrderLine table
+            /// </summary>
+            /// <returns>
+            /// List of SupplierOrderLine Objects
+            /// </returns>  
+
+            List<SupplierOrderLine> supplierOrderLines = new List<SupplierOrderLine>();
+            var conn = DBConnection.GetDbConnection();
+            var cmdText = @"sp_select_all_supplier_order_lines";  //sp_retrieve_itemsuppliers_by_itemid
+            var cmd = new SqlCommand(cmdText, conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.AddWithValue("@SupplierOrderID", supplierOrderID);
+
+            try
+            {
+                conn.Open();
+                var reader = cmd.ExecuteReader();
+
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        SupplierOrderLine supplierOrderLine = new SupplierOrderLine();
+
+                        supplierOrderLine.ItemID = reader.GetInt32(reader.GetOrdinal("ItemID"));
+                        supplierOrderLine.Description = reader["Description"].ToString();
+                        supplierOrderLine.OrderQty = reader.GetInt32(reader.GetOrdinal("OrderQty"));
+                        supplierOrderLine.QtyReceived = reader.GetInt32(reader.GetOrdinal("QtyReceived"));
+                        supplierOrderLine.SupplierOrderID = reader.GetInt32(reader.GetOrdinal("SupplierOrderID"));
+                        supplierOrderLine.UnitPrice = (decimal)reader.GetSqlMoney(reader.GetOrdinal("UnitPrice"));
+
+                        supplierOrderLines.Add(supplierOrderLine);
+
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            return supplierOrderLines;
+        }
+
+        public int UpdateSupplierOrder(SupplierOrder supplierOrder, List<SupplierOrderLine> supplierOrderLines)
+        {
+            int rowsAffected = 0;
+
+            var cmdText1 = "sp_delete_supplier_order_lines";
+            var cmdText2 = "sp_update_supplier_order";
+            var cmdText3 = "sp_insert_supplier_order_line";
+
+            try
+            {
+                using (TransactionScope scope = new TransactionScope())
+                {
+                    using (var conn = DBConnection.GetDbConnection())
+                    {
+                        conn.Open();
+
+                        var cmd1 = new SqlCommand(cmdText1, conn);
+                        cmd1.CommandType = CommandType.StoredProcedure;
+                        cmd1.Parameters.AddWithValue("@SupplierOrderID", supplierOrder.SupplierOrderID);
+                        cmd1.ExecuteNonQuery();
+
+                        var cmd2 = new SqlCommand(cmdText2, conn);
+                        cmd2.CommandType = CommandType.StoredProcedure;
+                        cmd2.Parameters.AddWithValue("@SupplierOrderID", supplierOrder.SupplierOrderID);
+                        cmd2.Parameters.AddWithValue("@Description", supplierOrder.Description);
+                        cmd2.ExecuteNonQuery();
+
+
+                        foreach (var line in supplierOrderLines)
+                        {
+                            var cmd3 = new SqlCommand(cmdText3, conn);
+                            cmd3.CommandType = CommandType.StoredProcedure;
+                            line.SupplierOrderID = supplierOrder.SupplierOrderID;
+                            cmd3.Parameters.AddWithValue("@SupplierOrderID", line.SupplierOrderID);
+                            cmd3.Parameters.AddWithValue("@ItemID", line.ItemID);
+                            cmd3.Parameters.AddWithValue("@Description", line.Description);
+                            cmd3.Parameters.AddWithValue("@OrderQty", line.OrderQty);
+                            cmd3.Parameters.AddWithValue("@UnitPrice", line.UnitPrice);
+                            rowsAffected += cmd3.ExecuteNonQuery();
+                        }
+
+                    }
+                    scope.Complete();
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+            return rowsAffected;
+        }
+
+
+        public int DeleteSupplierOrder(int supplierOrderID)
+        {
+            int rowsAffected = 0;
+
+            var cmdText1 = "sp_delete_supplier_order_lines";
+            var cmdText2 = "sp_delete_supplier_order";
+
+            try
+            {
+                using (TransactionScope scope = new TransactionScope())
+                {
+                    using (var conn = DBConnection.GetDbConnection())
+                    {
+                        conn.Open();
+
+                        var cmd1 = new SqlCommand(cmdText1, conn);
+                        cmd1.CommandType = CommandType.StoredProcedure;
+                        cmd1.Parameters.AddWithValue("@SupplierOrderID", supplierOrderID);
+                        cmd1.ExecuteNonQuery();
+
+                        var cmd2 = new SqlCommand(cmdText2, conn);
+                        cmd2.CommandType = CommandType.StoredProcedure;
+                        cmd2.Parameters.AddWithValue("@SupplierOrderID", supplierOrderID);
+                        rowsAffected += cmd2.ExecuteNonQuery();
+                    }
+
+                    scope.Complete();
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+            return rowsAffected;
         }
     }
 

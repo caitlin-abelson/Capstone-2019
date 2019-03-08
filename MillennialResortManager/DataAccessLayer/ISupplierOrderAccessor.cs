@@ -21,5 +21,9 @@ namespace DataAccessLayer
         List<SupplierOrder> SelectAllSupplierOrders();
 
         List<SupplierOrderLine> SelectSupplierOrderLinesBySupplierOrderID(int supplierOrderID);
+
+        int UpdateSupplierOrder(SupplierOrder supplierOrder, List<SupplierOrderLine> supplierOrderLines);
+
+        int DeleteSupplierOrder(int supplierOrderID);
     }
 }
