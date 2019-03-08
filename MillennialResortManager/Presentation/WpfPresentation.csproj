@@ -106,11 +106,8 @@
     <Compile Include="DeleteDepartment.xaml.cs" />
     <Compile Include="DeleteEventType.xaml.cs" />
     <Compile Include="DeleteGuestType.xaml.cs" />
-<<<<<<< HEAD
     <Compile Include="DeletePetType.xaml.cs" />
-=======
     <Compile Include="DeleteMaintenanceType.xaml.cs" />
->>>>>>> origin/master
     <Compile Include="DeleteRole.xaml.cs" />
     <Compile Include="DeleteRoom.xaml.cs" />
     <Compile Include="Departments.xaml.cs" />
@@ -231,11 +228,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-<<<<<<< HEAD
     <Page Include="DeletePetType.xaml">
-=======
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+	</Page>
     <Page Include="DeleteMaintenanceType.xaml">
->>>>>>> origin/master
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
