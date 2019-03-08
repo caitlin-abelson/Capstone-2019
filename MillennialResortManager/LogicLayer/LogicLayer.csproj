@@ -48,6 +48,7 @@
     <Compile Include="EmpRolesManager.cs" />
     <Compile Include="EventManager.cs" />
     <Compile Include="EventTypeManager.cs" />
+    <Compile Include="GuestManager.cs" />
     <Compile Include="IBuildingManager.cs" />
     <Compile Include="GuestTypeManager.cs" />
     <Compile Include="IDepartmentManager.cs" />
@@ -55,6 +56,7 @@
     <Compile Include="IEmployeeManager.cs" />
     <Compile Include="IEmpRolesManager.cs" />
     <Compile Include="IEventManager.cs" />
+    <Compile Include="IGuestManager.cs" />
     <Compile Include="IGuestTypeManager.cs" />
     <Compile Include="IInternalOrderManager.cs" />
     <Compile Include="IItemManager.cs" />

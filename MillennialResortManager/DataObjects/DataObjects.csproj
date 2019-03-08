@@ -50,6 +50,7 @@
     <Compile Include="Enumerations.cs" />
     <Compile Include="Event.cs" />
     <Compile Include="EventType.cs" />
+    <Compile Include="Guest.cs" />
     <Compile Include="GuestType.cs" />
     <Compile Include="InternalOrder.cs" />
     <Compile Include="InternalOrderLine.cs" />

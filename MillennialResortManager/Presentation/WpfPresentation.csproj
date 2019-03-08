@@ -83,6 +83,9 @@
       <DependentUpon>BrowseEmployee.xaml</DependentUpon>
     </Compile>
     <Compile Include="BrowseEmployeeRole.xaml.cs" />
+    <Compile Include="BrowseGuests.xaml.cs">
+      <DependentUpon>BrowseGuests.xaml</DependentUpon>
+    </Compile>
     <Compile Include="BrowseOrders.xaml.cs">
       <DependentUpon>BrowseOrders.xaml</DependentUpon>
     </Compile>
@@ -103,6 +106,9 @@
     <Compile Include="DeleteRoom.xaml.cs" />
     <Compile Include="Departments.xaml.cs" />
     <Compile Include="EmployeeRoles.xaml.cs" />
+    <Compile Include="frmAddEditGuest.xaml.cs">
+      <DependentUpon>frmAddEditGuest.xaml</DependentUpon>
+    </Compile>
     <Compile Include="GuestTypes.xaml.cs" />
     <Compile Include="MaintenanceType.xaml.cs" />
     <Compile Include="RoomTypes.xaml.cs" />
@@ -138,6 +144,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="BrowseEmployeeRole.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="BrowseGuests.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -214,6 +224,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="frmAddEditEvent.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="frmAddEditGuest.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
