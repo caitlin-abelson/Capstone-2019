@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using LogicLayer;
+using DataObjects;
 
 namespace Presentation
 {
@@ -39,26 +40,10 @@ namespace Presentation
             Close();
         }
 
-        private void dgPerformaces_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            try
-            {
-                DataGrid dataGrid = sender as DataGrid;
-                DataGridRow row = (DataGridRow)dataGrid.ItemContainerGenerator.ContainerFromIndex(dataGrid.SelectedIndex);
-                DataGridCell RowColumn = dataGrid.Columns[0].GetCellContent(row).Parent as DataGridCell;
-                openView(int.Parse(((TextBlock)RowColumn.Content).Text));
-            }
-            catch (Exception)
-            {
-                
-            }
-            dgPerformaces.SelectedItem = null;
-        }
-
         private void openView(int performanceID)
         {
             var frmView = new ViewPerformance(performanceID, performanceManager);
-            if(frmView.ShowDialog() == true)
+            if (frmView.ShowDialog() == true)
             {
                 MessageBox.Show("Performance Updated.");
                 setupWindow();
@@ -85,6 +70,15 @@ namespace Presentation
         private void txtSearch_TextChanged(object sender, TextChangedEventArgs e)
         {
             dgPerformaces.ItemsSource = performanceManager.SearchPerformances(txtSearch.Text);
+        }
+
+        private void dgPerformaces_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            var performance = (Performance)dgPerformaces.SelectedItem;
+            if (performance != null)
+            {
+                openView(performance.ID);
+            }
         }
     }
 }

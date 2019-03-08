@@ -24,7 +24,7 @@ namespace DataAccessLayer
         /// </summary>
         /// <param name="perf">The Performance to be added</param>
         /// <returns>Rows affected... should just be one</returns>
-        public int CreatePerformance(Performance perf)
+        public int InsertPerformance(Performance perf)
         {
             int rows = 0;
             var conn = DBConnection.GetDbConnection();
@@ -60,7 +60,7 @@ namespace DataAccessLayer
         /// </summary>
         /// <param name="id">The ID of the targe peroformance</param>
         /// <returns>The performance with the matching ID</returns>
-        public Performance RetrievePerformanceByID(int id)
+        public Performance SelectPerformanceByID(int id)
         {
             Performance performance = null;
             var conn = DBConnection.GetDbConnection();
@@ -138,7 +138,7 @@ namespace DataAccessLayer
         /// Created: 2019/1/22
         /// </summary>
         /// <returns>All Performances in the DB</returns>
-        public List<Performance> RetrieveAllPerformance()
+        public List<Performance> SelectAllPerformance()
         {
             List<Performance> performances = new List<Performance>();
             var conn = DBConnection.GetDbConnection();
@@ -235,7 +235,6 @@ namespace DataAccessLayer
             }
             catch (Exception)
             {
-
                 throw;
             }
             finally

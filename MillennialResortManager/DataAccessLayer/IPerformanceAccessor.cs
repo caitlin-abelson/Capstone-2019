@@ -10,9 +10,9 @@ namespace DataAccessLayer
 {
     public interface IPerformanceAccessor
     {
-        int CreatePerformance(Performance perf);
-        List<DataObjects.Performance> RetrieveAllPerformance();
-        Performance RetrievePerformanceByID(int id);
+        int InsertPerformance(Performance perf);
+        List<DataObjects.Performance> SelectAllPerformance();
+        Performance SelectPerformanceByID(int id);
         List<DataObjects.Performance> SearchPerformances(string term);
         int UpdatePerformance(Performance perf);
         void DeletePerformance(Performance perf);
