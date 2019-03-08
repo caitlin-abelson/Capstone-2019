@@ -19,6 +19,7 @@ namespace LogicLayer
         IEnumerable<Shop> RetrieveAllShops();
 
         IEnumerable<VMBrowseShop> RetrieveAllVMShops();
+        bool ActivateShop(Shop shop);
 
         bool UpdateShop(Shop newShop, Shop oldShop);
 

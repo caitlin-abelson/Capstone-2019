@@ -167,9 +167,9 @@ namespace Presentation
         {
             if (_context.Equals(Context.Create)) {
                 // Add Button
-                CreateSupplier();
                 try
                 {
+                    CreateSupplier();
                     _supplierManager.CreateSupplier(_newSupplier);
                     this.DialogResult = true;
                 }
