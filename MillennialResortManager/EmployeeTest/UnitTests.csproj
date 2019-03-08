@@ -72,8 +72,10 @@
     <Compile Include="ReservationManagerTests.cs" />
     <Compile Include="RoleManagerTests.cs" />
     <Compile Include="RoomManagerTest.cs" />
+    <Compile Include="SetupListManagerTests.cs" />
     <Compile Include="ShopManagerTest.cs" />
     <Compile Include="RoomTypeUnitTests.cs" />
+    <Compile Include="SponsorManagerTest.cs" />
     <Compile Include="SupplierManagerTests.cs" />
     <Compile Include="SupplierOrderTests.cs" />
     <Compile Include="UnitTest1.cs" />

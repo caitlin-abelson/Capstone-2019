@@ -86,8 +86,10 @@
     <Compile Include="IReservationAccessor.cs" />
     <Compile Include="IRoleAccessor.cs" />
     <Compile Include="IRoomAccessor.cs" />
+    <Compile Include="ISetupListAccessor.cs" />
     <Compile Include="IShopAccessor.cs" />
     <Compile Include="IRoomTypeAccessor.cs" />
+    <Compile Include="ISponsorAccessor.cs" />
     <Compile Include="ISupplierOrderAccessor.cs" />
     <Compile Include="ItemAccessor.cs" />
     <Compile Include="ItemSupplierAccessor.cs" />
@@ -119,9 +121,13 @@
     <Compile Include="RoleAccessor.cs" />
     <Compile Include="RoleAccessorMock.cs" />
     <Compile Include="RoomAccessor.cs" />
+    <Compile Include="SetupListAccessor.cs" />
+    <Compile Include="SetupListAccessorMock.cs" />
     <Compile Include="ShopAccessorMock.cs" />
     <Compile Include="ShopAccessorMSSQL.cs" />
     <Compile Include="RoomTypeAccessor.cs" />
+    <Compile Include="SponsorAccessor.cs" />
+    <Compile Include="SponsorAccessorMock.cs" />
     <Compile Include="SupplierAccessor.cs" />
     <Compile Include="SupplierAccessorMock.cs" />
     <Compile Include="SupplierOrderAccessor.cs" />
