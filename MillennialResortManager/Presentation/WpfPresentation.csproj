@@ -72,6 +72,7 @@
     </ApplicationDefinition>
     <Compile Include="AddDepartment.xaml.cs" />
     <Compile Include="AddGuestType.xaml.cs" />
+    <Compile Include="AddMaintenanceType.xaml.cs" />
     <Compile Include="AddPerformance.xaml.cs" />
     <Compile Include="BrowseAppointmentType.xaml.cs" />
     <Compile Include="BrowseBuilding.xaml.cs">
@@ -105,7 +106,11 @@
     <Compile Include="DeleteDepartment.xaml.cs" />
     <Compile Include="DeleteEventType.xaml.cs" />
     <Compile Include="DeleteGuestType.xaml.cs" />
+<<<<<<< HEAD
     <Compile Include="DeletePetType.xaml.cs" />
+=======
+    <Compile Include="DeleteMaintenanceType.xaml.cs" />
+>>>>>>> origin/master
     <Compile Include="DeleteRole.xaml.cs" />
     <Compile Include="DeleteRoom.xaml.cs" />
     <Compile Include="Departments.xaml.cs" />
@@ -113,6 +118,7 @@
     <Compile Include="frmAddEditPet.xaml.cs" />
     <Compile Include="frmPetMain.xaml.cs" />
     <Compile Include="GuestTypes.xaml.cs" />
+    <Compile Include="MaintenanceType.xaml.cs" />
     <Compile Include="RoomTypes.xaml.cs" />
     <Compile Include="ViewPerformance.xaml.cs" />
     <Page Include="AddDepartment.xaml">
@@ -120,6 +126,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="AddGuestType.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="AddMaintenanceType.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -221,7 +231,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+<<<<<<< HEAD
     <Page Include="DeletePetType.xaml">
+=======
+    <Page Include="DeleteMaintenanceType.xaml">
+>>>>>>> origin/master
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -306,6 +320,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="LoginPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="MaintenanceType.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
