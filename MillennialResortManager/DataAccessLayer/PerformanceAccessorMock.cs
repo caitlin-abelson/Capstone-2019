@@ -27,18 +27,18 @@ namespace DataAccessLayer
             _performances.Add(new Performance(100002, "Test Name 3", new DateTime(2018, 3, 23), "Test Description 3"));
             _performances.Add(new Performance(100003, "Test Name 4", new DateTime(2018, 3, 24), "Test Description 4"));
         }
-        public int CreatePerformance(Performance perf)
+        public int InsertPerformance(Performance perf)
         {
             _performances.Add(perf);
             return 0;
         }
 
-        public List<Performance> RetrieveAllPerformance()
+        public List<Performance> SelectAllPerformance()
         {
             return _performances;
         }
 
-        public Performance RetrievePerformanceByID(int id)
+        public Performance SelectPerformanceByID(int id)
         {
             Performance p = null;
             p = _performances.Find(x => x.ID == id);

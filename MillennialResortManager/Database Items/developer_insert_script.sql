@@ -16,6 +16,116 @@ GO
 /* Developers place their test code here to be submitted to database */
 /* vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv */
 /*********************************************************************/
+/* Start Jacob Miller */
+-- Created: 2019-3-06
+print '' print '*** Creating Performance Table'
+GO
+CREATE TABLE [dbo].[Performance](
+	[PerformanceID]		[int]IDENTITY(100000, 1)	NOT NULL,
+	[PerformanceName]	[nvarchar](100)				NOT NULL,
+	[PerformanceDate]	[date]						NOT NULL,
+	[Description]		[nvarchar](1000),
+	CONSTRAINT [pk_PerformanceID] PRIMARY KEY([PerformanceID])
+)
+GO
+-- Created: 2019-3-06
+print '' print '*** Inserting Performance Test Records'
+GO
+INSERT INTO [dbo].[Performance]
+	([PerformanceName], [PerformanceDate], [Description])
+	VALUES
+		('Juggler', '2018-6-27', 'It is a juggler, not much else to say'),
+		('Firebreather', '2018-5-15', 'This one is for Matt LaMarche')
+GO
+-- Created: 2019-3-06
+print '' print '*** Creating sp_select_performance_by_id'
+GO
+CREATE PROCEDURE [dbo].[sp_select_performance_by_id]
+	(
+		@PerformanceID	[int]
+	)
+AS
+	BEGIN
+		SELECT 	[PerformanceID], [PerformanceName], [PerformanceDate], [Description]
+		FROM [Performance]
+		WHERE [PerformanceID] = @PerformanceID
+		RETURN @@ROWCOUNT
+	END
+GO
+-- Created: 2019-3-06
+print '' print '*** Creating sp_select_all_performance'
+GO
+CREATE PROCEDURE [dbo].[sp_select_all_performance]
+AS
+	BEGIN
+		SELECT [PerformanceID], [PerformanceName], [PerformanceDate], [Description]
+		FROM [Performance]
+	END
+GO
+-- Created: 2019-3-06
+print '' print '*** Creating sp_search_performances'
+GO
+CREATE PROCEDURE [dbo].[sp_search_performances]
+	(
+		@SearchTerm		[nvarchar](100)
+	)
+AS
+	BEGIN
+		SELECT [PerformanceID], [PerformanceName], [PerformanceDate], [Description]
+		FROM [Performance]
+		WHERE [PerformanceName] LIKE '%' + @SearchTerm + '%'
+	END
+GO
+-- Created: 2019-3-06
+print '' print '*** Creating sp_insert_performance'
+GO
+CREATE PROCEDURE [dbo].[sp_insert_performance]
+	(
+		@PerformanceName	[nvarchar](100),
+		@PerformanceDate	[date],
+		@Description		[nvarchar](1000)
+	)
+AS
+	BEGIN
+		INSERT INTO [dbo].[Performance]
+			([PerformanceName], [PerformanceDate], [Description])
+		VALUES
+			(@PerformanceName, @PerformanceDate, @Description)
+	END
+GO
+-- Created: 2019-3-06
+print '' print '*** Creating sp_update_performance'
+GO
+CREATE PROCEDURE [dbo].[sp_update_performance]
+	(
+		@PerformanceID		[int],
+		@PerformanceName	[nvarchar](100),
+		@PerformanceDate	[date],
+		@Description		[nvarchar](1000)
+	)
+AS
+	BEGIN
+		UPDATE [Performance]
+			SET [PerformanceName] = @PerformanceName, [PerformanceDate] = @PerformanceDate, [Description] = @Description
+			WHERE [PerformanceID] = @PerformanceID
+		RETURN @@ROWCOUNT
+	END
+GO
+-- Created: 2019-3-06
+print '' print '*** Creating sp_delete_performance'
+GO
+CREATE PROCEDURE [dbo].[sp_delete_performance]
+	(
+		@PerformanceID	[int]
+	)
+AS
+	BEGIN
+		DELETE
+		FROM [Performance]
+		WHERE [PerformanceID] = @PerformanceID
+		RETURN @@ROWCOUNT
+	END
+
 
 /* Start Eric Bostwick */
 
@@ -379,7 +489,7 @@ AS
 	END
 GO
 
-
+
 
 DROP TABLE [dbo].[Member]
 go
