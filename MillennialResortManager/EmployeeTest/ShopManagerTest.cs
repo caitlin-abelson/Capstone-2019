@@ -194,5 +194,224 @@ namespace UnitTests
             }
 
         }
+
+
+        /// <summary>
+        /// James Heim
+        /// Created 2019/03/08
+        /// 
+        /// Test that the deactivate method
+        /// successfully deactivates a shop.
+        /// </summary>
+        [TestMethod]
+        public void TestDeactivateShop()
+        {
+            // Arrange.
+            int shopID = 100100;
+            Shop shop = new Shop()
+            {
+                ShopID = shopID,
+                RoomID = 100300,
+                Name = "Test Shop",
+                Description = "TESTING",
+                Active = true
+            };
+
+            _shopMock.CreateShop(shop);
+
+            // Act.
+            _shopManager.DeactivateShop(shop);
+
+            // Assert.
+            Assert.IsFalse(_shopManager.RetrieveShopByID(shopID).Active);
+
+        }
+
+
+        /// <summary>
+        /// James Heim
+        /// Created 2019/03/08
+        /// 
+        /// Test that the activate shop method
+        /// successfully activates a shop.
+        /// </summary>
+        [TestMethod]
+        public void TestActivateShop()
+        {
+            // Arrange.
+            int shopID = 100100;
+            Shop shop = new Shop()
+            {
+                ShopID = shopID,
+                RoomID = 100300,
+                Name = "Test Shop",
+                Description = "TESTING",
+                Active = true
+            };
+
+            _shopMock.CreateShop(shop);
+            _shopMock.DeactivateShop(shop);
+
+            // Act.
+            _shopManager.ActivateShop(shop);
+
+            // Assert.
+            Assert.IsTrue(_shopManager.RetrieveShopByID(shopID).Active);
+
+        }
+
+
+        /// <summary>
+        /// James Heim
+        /// Created 2019/03/08
+        /// 
+        /// Test that the delete method
+        /// successfully deletes a disabled shop.
+        /// </summary>
+        [TestMethod]
+        [ExpectedException(typeof(NullReferenceException))]
+        public void TestDeleteShop()
+        {
+            // Arrange.
+            int shopID = 100100;
+            Shop shop = new Shop()
+            {
+                ShopID = shopID,
+                RoomID = 100300,
+                Name = "Test Shop",
+                Description = "TESTING",
+                Active = true
+            };
+
+            _shopMock.CreateShop(shop);
+            _shopManager.DeactivateShop(shop);
+
+            // Act.
+            _shopManager.DeleteShop(shop);
+
+            // Assert.
+            _shopManager.RetrieveShopByID(shopID);
+
+        }
+
+
+        /// <summary>
+        /// James Heim
+        /// Created 2019/03/08
+        /// 
+        /// Test that the delete method
+        /// throws NullReferenceException on
+        /// non-existent shops.
+        /// </summary>
+        [TestMethod]
+        [ExpectedException(typeof(NullReferenceException))]
+        public void TestDeleteShopFailNull()
+        {
+            // Arrange.
+            int shopID = 100100;
+            Shop shop = new Shop()
+            {
+                ShopID = shopID,
+                RoomID = 100300,
+                Name = "Test Shop",
+                Description = "TESTING",
+                Active = true
+            };
+
+
+
+            // Act.
+            _shopManager.DeleteShop(shop);
+
+            // Assert.
+            _shopManager.RetrieveShopByID(shopID);
+        }
+
+        /// <summary>
+        /// James Heim
+        /// Created 2019/03/08
+        /// 
+        /// Test that the delete method
+        /// does not delete active records.
+        /// </summary>
+        [TestMethod]
+        [ExpectedException(typeof(InvalidOperationException))]
+        public void TestDeleteShopFailActiveShop()
+        {
+            // Arrange.
+            int shopID = 100100;
+            Shop shop = new Shop()
+            {
+                ShopID = shopID,
+                RoomID = 100300,
+                Name = "Test Shop",
+                Description = "TESTING",
+                Active = true
+            };
+
+            _shopManager.InsertShop(shop);
+
+            // Act.
+            _shopManager.DeleteShop(shop);
+        }
+
+        /// <summary>
+        /// James Heim
+        /// Created 2019/03/08
+        /// 
+        /// Test that the activate method
+        /// does not activate active records.
+        /// </summary>
+        [TestMethod]
+        [ExpectedException(typeof(InvalidOperationException))]
+        public void TestActivateFailActiveAlready()
+        {
+            // Arrange.
+            int shopID = 100100;
+            Shop shop = new Shop()
+            {
+                ShopID = shopID,
+                RoomID = 100300,
+                Name = "Test Shop",
+                Description = "TESTING",
+                Active = true
+            };
+
+            _shopManager.InsertShop(shop);
+
+            // Act.
+            _shopManager.ActivateShop(shop);
+        }
+
+
+        /// <summary>
+        /// James Heim
+        /// Created 2019/03/08
+        /// 
+        /// Test that the deactivate method
+        /// does not deactivate inactive records.
+        /// </summary>
+        [TestMethod]
+        [ExpectedException(typeof(InvalidOperationException))]
+        public void TestDeactivateFailInactiveAlready()
+        {
+            // Arrange.
+            int shopID = 100100;
+            Shop shop = new Shop()
+            {
+                ShopID = shopID,
+                RoomID = 100300,
+                Name = "Test Shop",
+                Description = "TESTING",
+                Active = true
+            };
+
+            _shopManager.InsertShop(shop);
+            _shopManager.DeactivateShop(shop);
+
+            // Act.
+            _shopManager.DeactivateShop(shop);
+        }
+
     }
 }

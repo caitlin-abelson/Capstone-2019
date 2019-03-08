@@ -6,11 +6,12 @@ namespace DataAccessLayer
 {
     public interface ISupplierAccessor
     {
+        int ActivateSupplier(Supplier supplier);
         void InsertSupplier(Supplier newSupplier);
         Supplier SelectSupplier(int id);
         List<Supplier> SelectAllSuppliers();
         void UpdateSupplier(Supplier newSupplier, Supplier oldSuppliers);
-        void DeleteSupplier(Supplier supplier);
-        void DeactivateSupplier(Supplier supplier);
+        int DeleteSupplier(Supplier supplier);
+        int DeactivateSupplier(Supplier supplier);
     }
 }

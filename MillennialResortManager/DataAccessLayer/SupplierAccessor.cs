@@ -19,6 +19,38 @@ namespace DataAccessLayer
     public class SupplierAccessor : ISupplierAccessor
     {
 
+
+        public int ActivateSupplier(Supplier supplier)
+        {
+            int result = 0;
+
+            var conn = DBConnection.GetDbConnection();
+            String cmdText = @"sp_activate_supplier";
+            var cmd = new SqlCommand(cmdText, conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@SupplierID", supplier.SupplierID);
+
+            try
+            {
+                conn.Open();
+
+                result = cmd.ExecuteNonQuery();
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            return result;
+        }
+
+
+
         /// <summary>
         /// James Heim
         /// Created: 2019/01/24
@@ -275,8 +307,10 @@ namespace DataAccessLayer
         /// Delete the specified Supplier if the record is already deactivated.
         /// </summary>
         /// <param name="supplier"></param>
-        public void DeleteSupplier(Supplier supplier)
+        /// <returns>Rows affected</returns>
+        public int DeleteSupplier(Supplier supplier)
         {
+            int rows = 0;
 
             var conn = DBConnection.GetDbConnection();
             var cmdText = @"sp_delete_supplier";
@@ -289,7 +323,7 @@ namespace DataAccessLayer
             {
                 conn.Open();
 
-                cmd.ExecuteNonQuery();
+                rows = cmd.ExecuteNonQuery();
             }
             catch (Exception)
             {
@@ -300,6 +334,8 @@ namespace DataAccessLayer
             {
                 conn.Close();
             }
+
+            return rows;
         }
 
         /// <summary>
@@ -310,8 +346,10 @@ namespace DataAccessLayer
         /// Throw an exception if the supplier is already inactive.
         /// </summary>
         /// <param name="supplier"></param>
-        public void DeactivateSupplier(Supplier supplier)
+        public int DeactivateSupplier(Supplier supplier)
         {
+            int rows = 0;
+
             if (supplier.Active == false)
             {
                 throw new Exception("Supplier is already deactivated.");
@@ -328,7 +366,7 @@ namespace DataAccessLayer
             {
                 conn.Open();
 
-                cmd.ExecuteNonQuery();
+                rows = cmd.ExecuteNonQuery();
             }
             catch (Exception)
             {
@@ -340,6 +378,7 @@ namespace DataAccessLayer
                 conn.Close();
             }
 
+            return rows;
         }
     }
 }

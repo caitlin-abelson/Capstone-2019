@@ -59,19 +59,167 @@ namespace DataAccessLayer
 
         }
 
+        /// <summary>
+        /// Author: James Heim
+        /// Created 2019-03-07
+        /// 
+        /// Activate the shop that was passed in.
+        /// </summary>
+        /// <param name="shop"></param>
+        /// <returns>Rows affected</returns>
+        public int ActivateShop(Shop shop)
+        {
+            int result = 0;
+
+            var conn = DBConnection.GetDbConnection();
+            String cmdText = @"sp_activate_shop";
+            var cmd = new SqlCommand(cmdText, conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@ShopID", shop.ShopID);
+
+            try
+            {
+                conn.Open();
+
+                result = cmd.ExecuteNonQuery();
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        /// Author James Heim
+        /// Created 2019-03-07
+        /// 
+        /// Deactivates the shop that was passed in.
+        /// </summary>
+        /// <param name="shop"></param>
+        /// <returns>Rows affected</returns>
         public int DeactivateShop(Shop shop)
         {
-            throw new NotImplementedException();
+            int result = 0;
+
+            var conn = DBConnection.GetDbConnection();
+            String cmdText = @"sp_deactivate_shop";
+            var cmd = new SqlCommand(cmdText, conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@ShopID", shop.ShopID);
+
+            try
+            {
+                conn.Open();
+
+                result = cmd.ExecuteNonQuery();
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            return result;
         }
 
+        /// <summary>
+        /// Delete the shop that was passed in.
+        /// </summary>
+        /// <param name="shop"></param>
+        /// <returns>Rows affected</returns>
         public int DeleteShop(Shop shop)
         {
-            throw new NotImplementedException();
+            int result = 0;
+
+            var conn = DBConnection.GetDbConnection();
+            String cmdText = @"sp_delete_shop";
+            var cmd = new SqlCommand(cmdText, conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@ShopID", shop.ShopID);
+
+            try
+            {
+                conn.Open();
+
+                result = cmd.ExecuteNonQuery();
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            return result;
         }
 
+
+        /// <summary>
+        /// Author: James Heim
+        /// Created: 2019-03-07
+        /// 
+        /// Retrieve the shop with the provided ID.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public Shop SelectShopByID(int id)
         {
-            throw new NotImplementedException();
+            Shop shop = null;
+
+
+            var conn = DBConnection.GetDbConnection();
+            String cmdText = @"sp_select_shop_by_id";
+            var cmd = new SqlCommand(cmdText, conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@ShopID", id);
+
+            try
+            {
+                conn.Open();
+
+                var reader = cmd.ExecuteReader();
+
+                if (reader.HasRows)
+                {
+                    reader.Read();
+
+                    shop = new Shop()
+                    {
+                        ShopID = id,
+                        RoomID = reader.GetInt32(0),
+                        Name = reader.GetString(1),
+                        Description = reader.GetString(2),
+                        Active = reader.GetBoolean(3)
+                    };
+                }
+
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            return shop;
         }
 
 

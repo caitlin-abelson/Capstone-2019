@@ -1,7 +1,7 @@
 ﻿<Window x:Class="Presentation.BrowseSupplier"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="BrowseSupplier" Height="700" Width="1020">
+        Title="Browse Suppliers" Height="700" Width="1020">
     <Grid>
         <Grid.RowDefinitions>
 
