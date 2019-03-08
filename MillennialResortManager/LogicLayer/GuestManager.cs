@@ -367,5 +367,30 @@ namespace LogicLayer
                 throw;
             }
         }
+
+
+        /// <summary>
+        /// Richard Carroll
+        /// Created: 2/28/19
+        /// 
+        /// Requests a List of Guest names and Ids from the 
+        /// Data Access Layer and Returns the Result.
+        /// </summary>
+        public List<Guest> RetrieveGuestNamesAndIds()
+        {
+            List<Guest> guests = new List<Guest>();
+
+            try
+            {
+                guests = _guestAccessor.SelectGuestNamesAndIds();
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+            return guests;
+        }
     }
 }

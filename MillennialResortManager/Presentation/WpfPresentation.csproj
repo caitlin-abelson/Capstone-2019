@@ -88,6 +88,9 @@
       <DependentUpon>BrowseGuests.xaml</DependentUpon>
     </Compile>
     <Compile Include="BrowseEventType.xaml.cs" />
+    <Compile Include="BrowseGuestVehicles.xaml.cs">
+      <DependentUpon>BrowseGuestVehicles.xaml</DependentUpon>
+    </Compile>
     <Compile Include="BrowseOrders.xaml.cs">
       <DependentUpon>BrowseOrders.xaml</DependentUpon>
     </Compile>
@@ -128,6 +131,9 @@
       <DependentUpon>frmSelectGuestForAppointment.xaml</DependentUpon>
     </Compile>
     <Compile Include="GuestTypes.xaml.cs" />
+    <Compile Include="GuestVehicleDetail.xaml.cs">
+      <DependentUpon>GuestVehicleDetail.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MaintenanceType.xaml.cs" />
     <Compile Include="RoomTypes.xaml.cs" />
     <Compile Include="viewAccount.xaml.cs" />
@@ -175,6 +181,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="BrowseEventType.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="BrowseGuestVehicles.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -343,6 +353,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="GuestTypes.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="GuestVehicleDetail.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

@@ -344,5 +344,8 @@ namespace DataAccessLayer
                 return true;
             }
         }
+
+
+        public List<Guest> SelectGuestNamesAndIds() { return null;  }
     }
 }
