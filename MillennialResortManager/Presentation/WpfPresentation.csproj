@@ -96,6 +96,7 @@
     <Compile Include="BrowseShop.xaml.cs">
       <DependentUpon>BrowseShop.xaml</DependentUpon>
     </Compile>
+    <Compile Include="BrowseSponsor.xaml.cs" />
     <Compile Include="BrowseSupplier.xaml.cs">
       <DependentUpon>BrowseSupplier.xaml</DependentUpon>
     </Compile>
@@ -115,6 +116,7 @@
     <Compile Include="DeleteRoom.xaml.cs" />
     <Compile Include="Departments.xaml.cs" />
     <Compile Include="EmployeeRoles.xaml.cs" />
+    <Compile Include="frmAddEditSponsor.xaml.cs" />
     <Compile Include="frmMember.xaml.cs" />
     <Compile Include="frmAddEditGuest.xaml.cs">
       <DependentUpon>frmAddEditGuest.xaml</DependentUpon>
@@ -191,6 +193,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="BrowseShop.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="BrowseSponsor.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -287,6 +293,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="frmAddEditPet.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="frmAddEditSponsor.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

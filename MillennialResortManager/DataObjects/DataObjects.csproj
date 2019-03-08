@@ -72,6 +72,8 @@
     <Compile Include="Room.cs" />
     <Compile Include="RoomType.cs" />
     <Compile Include="Shop.cs" />
+    <Compile Include="Sponsor.cs" />
+    <Compile Include="SponsorMainWindow.cs" />
     <Compile Include="Supplier.cs" />
     <Compile Include="SupplierOrder.cs" />
     <Compile Include="SupplierOrderLine.cs" />
