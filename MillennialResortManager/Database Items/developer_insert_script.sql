@@ -1438,6 +1438,99 @@ AS
 	END
 GO
 
+/*
+Eric Bostwick 3/8
+*/
+/*
+ * Eric Bostwick
+ * Created: 3/7/2019
+ * Retrieves All SupplierOrders in the supplier order table
+*/
+print '' print '*** Creating sp_select_all_supplier_orders ***'
+GO
+CREATE Procedure [dbo].[sp_select_all_supplier_orders]
+As
+    BEGIN
+        SELECT [so].[SupplierOrderID], [so].[SupplierID], [s].[Name] AS SupplierName, [so].[EmployeeID], [e].[FirstName], [e].[LastName], [so].[Description],
+        [so].[DateOrdered], [so].[OrderComplete]
+        FROM [SupplierOrder] so INNER JOIN [Employee] e ON [so].[EmployeeID] = [e].[EmployeeID]
+		INNER JOIN [Supplier] s ON [s].[SupplierID] = [so].[SupplierID]
+    END
+GO
+
+/*
+ * Eric Bostwick
+ * Created: 3/7/2019
+ * Retrieves All SupplierOrderLines for a supplier order 
+*/
+print '' print '*** Creating sp_select_all_supplier_order_lines ***'
+GO
+CREATE Procedure [dbo].[sp_select_all_supplier_order_lines]
+	@SupplierOrderID [int]
+As
+    BEGIN
+        SELECT [SupplierOrderID], [ItemID], [Description], [OrderQty], [UnitPrice], [QtyReceived]
+        FROM [SupplierOrderLine]
+		WHERE [SupplierOrderID] = @SupplierOrderID
+    END
+GO
+
+/*
+ * Eric Bostwick
+ * Created: 3/7/2019
+ * Deletes All SupplierOrderLines for a supplier order 
+*/
+print '' print '*** Creating sp_delete_supplier_order_lines ***'
+GO
+CREATE Procedure [dbo].[sp_delete_supplier_order_lines]
+
+	@SupplierOrderID [int]
+	
+As
+    BEGIN
+        DELETE FROM [SupplierOrderLine]
+		WHERE [SupplierOrderID] = @SupplierOrderID
+    END
+GO
+
+/*
+ * Eric Bostwick
+ * Created: 3/7/2019
+ * Updates Supplier Order For the SupplierOrderID
+ */
+print '' print '*** Creating sp_update_supplier_order ***'
+GO
+CREATE PROCEDURE [dbo].[sp_update_supplier_order]
+	(
+		@SupplierOrderID	[int],
+		@Description		[nvarchar](1000)		
+	)
+AS
+BEGIN
+		UPDATE [dbo].[SupplierOrder] SET [Description] = @Description
+		WHERE [SupplierOrderID] = @SupplierOrderID
+	
+END
+GO
+
+/*
+ * Eric Bostwick
+ * Created: 3/7/2019
+ * Deletes A SupplierOrder
+*/
+print '' print '*** Creating sp_delete_supplier_order ***'
+GO
+CREATE Procedure [dbo].[sp_delete_supplier_order]
+
+	@SupplierOrderID [int]
+	
+As
+    BEGIN
+        DELETE FROM [SupplierOrder]
+		WHERE [SupplierOrderID] = @SupplierOrderID
+    END
+GO
+
 
 
 
