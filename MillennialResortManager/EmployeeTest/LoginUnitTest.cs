@@ -24,10 +24,13 @@ namespace UnitTests
         /// <summary>
         /// Author: Matt LaMarche
         /// Created : 2/15/2019
+        /// 
+        /// Updated by Phillip Hansen on 3/7/2019
+        /// Deleted a '[ExpectedException...]' line to correct test
+        /// 
         /// Unit tests to validate Logging an employee in
         /// </summary>
         [TestMethod]
-        [ExpectedException(typeof(ApplicationException))]
         public void TestAuthenticateEmployeeValid()
         {
             //Arange

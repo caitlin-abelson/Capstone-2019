@@ -49,6 +49,10 @@ namespace WpfPresentation
             hideAllUserTabs();
             // end Dani's code
 
+            //For Event Request testing by Phil
+            btnEventReq.IsEnabled = false;
+            //End Phil's code
+
         }
 
         private void setUpWindow()
@@ -79,9 +83,14 @@ namespace WpfPresentation
 
             Alert.Content = "You are logged in as: " + roles;
             showUserTabs();
+
+            //For Event Request testing by Phil
+            btnEventReq.IsEnabled = true;
+            //End Phil's code
+
         }
 
-        
+
 
         public MainWindow()
         {
@@ -203,7 +212,19 @@ namespace WpfPresentation
             viewOrders.ShowDialog();
         }
 
-
+        /// <summary>
+        /// @Author Phillip Hansen
+        ///
+        /// Adds a button to access the main Event form window, passes a user to the new window
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void BtnEventReq_Click(object sender, RoutedEventArgs e)
+        {
+            //The Form requires the User's ID for a field in the record
+            var Events = new frmEventMain(_user);
+            var result = Events.ShowDialog();
+        }
 
     }
 }

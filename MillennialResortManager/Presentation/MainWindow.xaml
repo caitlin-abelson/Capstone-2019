@@ -25,6 +25,9 @@
                 <ColumnDefinition Width="200"></ColumnDefinition>
                 <ColumnDefinition Width="100"></ColumnDefinition>
             </Grid.ColumnDefinitions>
+            <!--@PhilHansen; Added a button for accessing events -->
+            <Button x:Name="btnEventReq" Grid.Column="0" Width="120" Height="25" Content="Event Requests" Click="BtnEventReq_Click" IsEnabled="False" />
+            <!--End @PhilHansen's code-->
             <Button x:Name="btnLogin" Height="25" Grid.Column="3" Margin="10" Content="Login" TabIndex="2" IsDefault="True" Click="btnLogin_Click"/>
             <TextBox x:Name="txtUsername" Grid.Column="1" Margin="10" Height="25" Text="Email Address" 
                      VerticalContentAlignment="Center" TextAlignment="Center" MaxLines="1" TabIndex="0" GotFocus="txtUsername_GotFocus"/>
