@@ -59,10 +59,12 @@
     <Compile Include="GuestManagerTests.cs" />
     <Compile Include="EventTypeManagerTests.cs" />
     <Compile Include="GuestTypeUnitTests.cs" />
+    <Compile Include="GuestVehicleManagerTests.cs" />
     <Compile Include="InternalOrderManagerTests.cs" />
     <Compile Include="ItemSupplierTests.cs" />
     <Compile Include="LoginUnitTest.cs" />
     <Compile Include="MaintenanceTypeUnitTests.cs" />
+    <Compile Include="MemberManagerTests.cs" />
     <Compile Include="PerformanceManagerTests.cs" />
     <Compile Include="PetManagerTests.cs" />
     <Compile Include="PetTypeManagerTests.cs" />
@@ -70,8 +72,10 @@
     <Compile Include="ReservationManagerTests.cs" />
     <Compile Include="RoleManagerTests.cs" />
     <Compile Include="RoomManagerTest.cs" />
+    <Compile Include="SetupListManagerTests.cs" />
     <Compile Include="ShopManagerTest.cs" />
     <Compile Include="RoomTypeUnitTests.cs" />
+    <Compile Include="SponsorManagerTest.cs" />
     <Compile Include="SupplierManagerTests.cs" />
     <Compile Include="SupplierOrderTests.cs" />
     <Compile Include="UnitTest1.cs" />

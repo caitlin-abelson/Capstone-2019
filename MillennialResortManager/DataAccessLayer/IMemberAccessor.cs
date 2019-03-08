@@ -12,13 +12,13 @@ namespace DataAccessLayer
     /// Created : 1/24/2019
     /// The IMemberAccessor is an interface meant to be the standard for interacting with Data in a storage medium regarding Members
     /// </summary>
-    interface IMemberAccessor
+   public interface IMemberAccessor
     {
-        void CreateMember(Member newMember);
-        Member RetrieveMember();
-        List<Member> RetrieveAllMembers();
-        void UpdateMember(Member oldMember, Member newMember);
-        void DeactivateMember(Member deactivatingMember);
-        void PurgeMember(Member purgedMember);
+        void InsertMember(Member newMember);
+        Member SelectMember(int id);
+        List<Member> SelectAllMembers();
+        void UpdateMember(Member newMember, Member oldMember);
+        void DeactivateMember(Member member);
+        void DeleteMember(Member member);
     }
 }

@@ -50,7 +50,7 @@ namespace LogicLayer
                 {
                     throw new ApplicationException("The performance is not valid");
                 }
-                rows = performanceAccessor.CreatePerformance(perf);
+                rows = performanceAccessor.InsertPerformance(perf);
             }
             catch (Exception)
             {
@@ -66,7 +66,7 @@ namespace LogicLayer
         /// <returns>The Performance with the matching ID</returns>
         public Performance RetrievePerformanceByID(int id)
         {
-            return performanceAccessor.RetrievePerformanceByID(id);
+            return performanceAccessor.SelectPerformanceByID(id);
         }
         /// <summary>
         /// Author: Jacob Miller
@@ -98,7 +98,7 @@ namespace LogicLayer
         /// <returns>All performances in the DB</returns>
         public List<Performance> RetrieveAllPerformance()
         {
-            return performanceAccessor.RetrieveAllPerformance();
+            return performanceAccessor.SelectAllPerformance();
         }
         /// <summary>
         /// Author: Jacob Miller

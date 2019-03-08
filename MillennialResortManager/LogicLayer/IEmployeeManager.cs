@@ -12,6 +12,11 @@ namespace LogicLayer
     /// Created Date: 1/30/19
     /// 
     /// The IEmployeeManager is the interface for Employees and hold all the CRUD methods for the logic layer.
+    /// 
+    /// Author: Matt LaMarche
+    /// Updated Date: 3/7/19
+    /// 
+    /// Added in AuthenticateEmployee for login features
     /// </summary>
     public interface IEmployeeManager
     {
@@ -22,5 +27,6 @@ namespace LogicLayer
         List<Employee> SelectAllActiveEmployees();
         List<Employee> SelectAllInActiveEmployees();
         void DeleteEmployee(int employeeID, bool isActive);
+        Employee AuthenticateEmployee(string username, string password);
     }
 }

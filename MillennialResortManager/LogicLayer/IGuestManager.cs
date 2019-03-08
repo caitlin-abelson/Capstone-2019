@@ -22,5 +22,6 @@ namespace LogicLayer
         void CheckOutGuest(int guestID);
         void CheckInGuest(int guestID);
         void DeleteGuest(int guestID);
+        List<Guest> RetrieveGuestNamesAndIds();
     }
 }

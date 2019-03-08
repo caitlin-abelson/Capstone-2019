@@ -39,6 +39,11 @@ namespace Presentation
         {
             _employee = employee;
             InitializeComponent();
+            DoOnStart();
+        }
+
+        private void DoOnStart()
+        {
             _reservationManager = new ReservationManagerMSSQL();
             refreshAllReservations();
             //Add Business rules based on Employee Roles and whatnot
@@ -65,7 +70,7 @@ namespace Presentation
             {
                 MessageBox.Show(e.Message);
             }
-            
+
         }
 
         /// <summary>
@@ -131,7 +136,7 @@ namespace Presentation
             }
 
             string headerName = e.Column.Header.ToString();
-            
+
             if (headerName == "ReservationID")
             {
                 e.Cancel = true;
@@ -218,11 +223,11 @@ namespace Presentation
                 //Not null and strings length is freater than 0
                 filterLastName(txtLastName.Text);
             }
-            
+
             //Check if a date is populated
             if (!(dtpDateSearch.Text == null || dtpDateSearch.Text.Length < 1))
             {
-                
+
                 //date is not null and there is at least one character in the box
                 DateTime tempDate = dtpDateSearch.SelectedDate.Value.Date;
                 if (tempDate != null)
@@ -243,7 +248,7 @@ namespace Presentation
         /// </summary>
         private void filterActiveOnly()
         {
-            _currentReservations = _currentReservations.FindAll(x=>x.Active);
+            _currentReservations = _currentReservations.FindAll(x => x.Active);
         }
 
         /// <summary>
@@ -275,7 +280,7 @@ namespace Presentation
         /// <param name="lastName">The last name string which we want to search out Reservations for</param>
         private void filterLastName(string lastName)
         {
-            _currentReservations = _currentReservations.FindAll(x=>x.LastName.Contains(lastName));
+            _currentReservations = _currentReservations.FindAll(x => x.LastName.Contains(lastName));
         }
 
         /// <summary>
@@ -286,7 +291,7 @@ namespace Presentation
         /// <param name="date">The date which we want to compare our arrival dates against</param>
         private void filterByArrivalDate(DateTime date)
         {
-            _currentReservations = _currentReservations.FindAll(x=>x.ArrivalDate.CompareTo(date) >= 0);
+            _currentReservations = _currentReservations.FindAll(x => x.ArrivalDate.CompareTo(date) >= 0);
         }
 
         /// <summary>
@@ -297,7 +302,7 @@ namespace Presentation
         /// <param name="date">The date which we want to compare our arrival dates against</param>
         private void filterByDepartureDate(DateTime date)
         {
-            _currentReservations = _currentReservations.FindAll(x=>x.DepartureDate.CompareTo(date) <=0);
+            _currentReservations = _currentReservations.FindAll(x => x.DepartureDate.CompareTo(date) <= 0);
         }
 
         /// <summary>
@@ -308,7 +313,7 @@ namespace Presentation
         /// <param name="date"></param>
         private void filterBySpecificDate(DateTime date)
         {
-            _currentReservations = _currentReservations.FindAll(x=>x.ArrivalDate.Date.CompareTo(date) <=0 && x.DepartureDate.Date.CompareTo(date) >= 0);
+            _currentReservations = _currentReservations.FindAll(x => x.ArrivalDate.Date.CompareTo(date) <= 0 && x.DepartureDate.Date.CompareTo(date) >= 0);
         }
 
 
@@ -334,7 +339,7 @@ namespace Presentation
             //If we were given bad data we need full compares--
             // check if ((ArrivalDate.CompareTo(start) < 0 && DepartureDate.CompareTo(start) < 0) || (ArrivalDate.CompareTo(end) > 0 && DepartureDate.CompareTo(end) > 0))
             //That gives us all the bad data so add !
-            _currentReservations = _currentReservations.FindAll(x=>!((x.ArrivalDate.CompareTo(startDate) < 0 && x.DepartureDate.CompareTo(startDate) < 0) || (x.ArrivalDate.CompareTo(endDate) > 0 && x.DepartureDate.CompareTo(endDate) > 0)));
+            _currentReservations = _currentReservations.FindAll(x => !((x.ArrivalDate.CompareTo(startDate) < 0 && x.DepartureDate.CompareTo(startDate) < 0) || (x.ArrivalDate.CompareTo(endDate) > 0 && x.DepartureDate.CompareTo(endDate) > 0)));
         }
 
         /// <summary>
@@ -359,7 +364,7 @@ namespace Presentation
                 {
                     MessageBox.Show("Unable to find that Reservation\n" + ex.Message);
                 }
-                
+
             }
         }
 

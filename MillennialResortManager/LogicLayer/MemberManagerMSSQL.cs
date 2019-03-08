@@ -15,8 +15,9 @@ namespace LogicLayer
     /// </summary>
     public class MemberManagerMSSQL : IMemberManager
     {
-        
-        private MemberAccessorMSSQL _memberAccessor;
+        private IMemberAccessor _memberAccessor;
+
+        //private MemberAccessorMSSQL _memberAccessor;
         /// <summary>
         /// Author: Matt LaMarche
         /// Created : 1/24/2019
@@ -27,24 +28,74 @@ namespace LogicLayer
             _memberAccessor = new MemberAccessorMSSQL();
         }
 
-        public void AddMember(Member newMember)
+        public MemberManagerMSSQL(MemberAccessorMock mockMemberAccessor)
         {
-            throw new NotImplementedException();
+            _memberAccessor = mockMemberAccessor;
         }
-
-        public void DeleteMember()
+        /// <summary>
+        /// Author: Ramesh Adhikari
+        /// Created On: 01/30/2019
+        /// </summary>
+        public void CreateMember(Member member)
         {
-            throw new NotImplementedException();
+            member.Validate();
+            try
+            {
+                _memberAccessor.InsertMember(member);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
-
-        public void EditMember(Member oldMember, Member newMember)
+        /// <summary>
+        /// Author: Ramesh Adhikari
+        /// Created On: 01/30/2019
+        /// </summary>
+        public void DeleteMember(Member member)
         {
-            throw new NotImplementedException();
+            try
+            {
+                if (member.Active)
+                {
+                    _memberAccessor.DeactivateMember(member);
+                }
+                else
+                {
+                    _memberAccessor.DeleteMember(member);
+                }
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+        /// <summary>
+        /// Author: Ramesh Adhikari
+        /// Created On: 01/30/2019
+        /// </summary>
+        public void UpdateMember(Member oldMember, Member newMember)
+        {
+            newMember.Validate();
+            oldMember.Validate();
+
+            try
+            {
+                _memberAccessor.UpdateMember(newMember, oldMember);
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
         }
         /// <summary>
         /// Author: Matt LaMarche
         /// Created : 1/24/2019
-        /// RetrieveAllMembers asks our MemberAccessorMSSQL for a List<Member> containing all of the Active Members in our system
+        /// SelectAllMembers asks our MemberAccessorMSSQL for a List<Member> containing all of the Active Members in our system
         /// </summary>
         /// <returns>A list of Members retrieved from the Member Accessor</returns>
         public List<Member> RetrieveAllMembers()
@@ -52,7 +103,7 @@ namespace LogicLayer
             List<Member> members;
             try
             {
-                members = _memberAccessor.RetrieveAllMembers();
+                members = _memberAccessor.SelectAllMembers();
             }
             catch (Exception)
             {
@@ -60,10 +111,46 @@ namespace LogicLayer
             }
             return members;
         }
-
-        public Member RetrieveMember()
+        /// <summary>
+        /// Author: Ramesh Adhikari
+        /// Created On: 01/30/2019
+        /// </summary>
+        public Member RetrieveMember(int id)
         {
-            throw new NotImplementedException();
+            Member member = null;
+            try
+            {
+                member = _memberAccessor.SelectMember(id);
+                if (member == null)
+                {
+                    throw new NullReferenceException("Member not found");
+                }
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            return member;
+        }
+
+        /// <summary>
+        /// Author: Ramesh Adhikari
+        /// Created On: 02/22/2019
+        /// Deactivate the member from the member records
+        /// </summary>
+        public void DeactivateMember(Member selectedMember)
+        {
+            try
+            {
+                _memberAccessor.DeactivateMember(selectedMember);
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
     }
 }

@@ -1,0 +1,204 @@
+﻿<Window x:Class="Presentation.FrmSponsor"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="CreateSponsor" Height="550" Width="800" MinWidth="600" Loaded="Window_Loaded">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="7*"/>
+            <ColumnDefinition Width="7*"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+            </Grid.RowDefinitions>
+            
+            <Grid x:Name="grdHeader" Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="3*"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Label x:Name="lblTitle" Content="Add A Sponsor" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Bottom" FontSize="24" FontWeight="Bold"/>
+            </Grid>
+
+            <Grid x:Name="grdMember" Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="2*" MinWidth="150"/>
+                    <ColumnDefinition Width="2*" MinWidth="120"/>
+                    <ColumnDefinition MinWidth="120"/>
+                </Grid.ColumnDefinitions>
+                <Label x:Name="lblError" Grid.ColumnSpan="4" HorizontalAlignment="Center" VerticalAlignment="Top" Foreground="Red" />
+                <Label Grid.Column="1" Content="Sponsor ID: " HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="16" FontWeight="Bold" Margin="0,0,15,0" />
+                <TextBox x:Name="txtSponsorID" Grid.Column="2"  VerticalAlignment="Center" FontSize="16" FontWeight="Bold" Margin="0,0,15,0"/>
+            </Grid>
+
+            <Grid x:Name="grdGuests" Grid.Row="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="2*" MinWidth="150"/>
+                    <ColumnDefinition Width="2*" MinWidth="120"/>
+                    <ColumnDefinition MinWidth="120"/>
+                </Grid.ColumnDefinitions>
+                <Label Grid.Column="1" Content="Name: " HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="16" FontWeight="Bold" Margin="0,0,15,0" />
+                <TextBox x:Name="txtName" Grid.Column="2"  VerticalAlignment="Center" FontSize="16" FontWeight="Bold" Margin="0,0,15,0" MinWidth="120"/>
+            </Grid>
+
+
+            <Grid x:Name="grdAddress" Grid.Row="3">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="2*" MinWidth="150"/>
+                    <ColumnDefinition Width="2*" MinWidth="120"/>
+                    <ColumnDefinition MinWidth="120"/>
+                </Grid.ColumnDefinitions>
+                <Label Grid.Column="1" Content="Address: " HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="16" FontWeight="Bold" Margin="0,0,15,0" />
+                <TextBox x:Name="txtAddress" Grid.Column="2"  VerticalAlignment="Center" FontSize="16" FontWeight="Bold" Margin="0,0,15,0" MinWidth="120"/>
+            </Grid>
+
+
+            <Grid x:Name="grdCity" Grid.Row="4">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="2*" MinWidth="150"/>
+                    <ColumnDefinition Width="2*" MinWidth="120"/>
+                    <ColumnDefinition MinWidth="120"/>
+                </Grid.ColumnDefinitions>
+                <Label Grid.Column="1" Content="City:" HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="16" FontWeight="Bold" Margin="0,0,15,0" />
+                <TextBox x:Name="txtCity" Grid.Column="2"  VerticalAlignment="Center" FontSize="16" FontWeight="Bold" Margin="0,0,15,0" MinWidth="120"/>
+            </Grid>
+
+
+
+            <Grid x:Name="grdDateAdded" Grid.Row="5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="2*" MinWidth="150"/>
+                    <ColumnDefinition Width="3*" MinWidth="120"/>
+                    <ColumnDefinition MinWidth="120"/>
+                </Grid.ColumnDefinitions>
+                <Label Grid.Column="1" Content="Date Added: " HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="16" FontWeight="Bold" Margin="0,0,15,0"/>
+                <DatePicker x:Name="dtpDateAdded" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="16" FontWeight="Bold" MinWidth="120"/>
+            </Grid>
+
+            <Grid x:Name="grdStatusID" Grid.Row="6">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="2*" MinWidth="150"/>
+                    <ColumnDefinition Width="3*" MinWidth="120"/>
+                    <ColumnDefinition MinWidth="120"/>
+                </Grid.ColumnDefinitions>
+                <ComboBox x:Name="cboStatusID" Grid.Column="2"  VerticalAlignment="Center" FontSize="16" FontWeight="Bold" Margin="0,0,15,0" MinWidth="120"/>
+                <Label Grid.Column="1" Content="Status ID:" HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="16" FontWeight="Bold" Margin="0,0,15,0" />
+            </Grid>
+
+            
+        </Grid>
+
+        <Grid Grid.Column="2">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+            </Grid.RowDefinitions>
+
+            <Grid x:Name="grdPhoneNumber" Grid.Row="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="2*" MinWidth="150"/>
+                    <ColumnDefinition Width="2*" MinWidth="120"/>
+                    <ColumnDefinition MinWidth="120"/>
+                </Grid.ColumnDefinitions>
+                <Label Grid.Column="1" Content="Phone #: " HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="16" FontWeight="Bold" Margin="0,0,15,0" />
+                <TextBox x:Name="txtPhoneNumber" Grid.Column="2"  VerticalAlignment="Center" FontSize="16" FontWeight="Bold" Margin="0,0,15,0" MinWidth="120"/>
+            </Grid>
+
+
+
+            <Grid x:Name="grdState" Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="2*" MinWidth="150"/>
+                    <ColumnDefinition Width="3*" MinWidth="120"/>
+                    <ColumnDefinition MinWidth="120"/>
+                </Grid.ColumnDefinitions>
+                <Label Grid.Column="1" Content="State " HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="16" FontWeight="Bold" Margin="0,0,15,0" />
+                <ComboBox x:Name="cboState" Grid.Column="2"  VerticalAlignment="Center" FontSize="16" FontWeight="Bold" Margin="0,0,15,0" MinWidth="120"/>
+            </Grid>
+
+            <Grid x:Name="grdEmail" Grid.Row="3">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="2*" MinWidth="150"/>
+                    <ColumnDefinition Width="2*" MinWidth="120"/>
+                    <ColumnDefinition MinWidth="120"/>
+                </Grid.ColumnDefinitions>
+                <Label Grid.Column="1" Content="Email: " HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="16" FontWeight="Bold" Margin="0,0,15,0" />
+                <TextBox x:Name="txtEmail" Grid.Column="2"  VerticalAlignment="Center" FontSize="16" FontWeight="Bold" Margin="0,0,15,0" MinWidth="120"/>
+            </Grid>
+
+            <Grid x:Name="grdContactFirstName" Grid.Row="4">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="2*" MinWidth="150"/>
+                    <ColumnDefinition Width="2*" MinWidth="120"/>
+                    <ColumnDefinition MinWidth="120"/>
+                </Grid.ColumnDefinitions>
+                <Label Grid.Column="1" Content="First Name " HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="16" FontWeight="Bold" Margin="0,0,15,0" />
+                <TextBox x:Name="txtContactFirstName" Grid.Column="2"  VerticalAlignment="Center" FontSize="16" FontWeight="Bold" Margin="0,0,15,0" MinWidth="120"/>
+            </Grid>
+
+            <Grid x:Name="grdContactLastName" Grid.Row="5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="2*" MinWidth="150"/>
+                    <ColumnDefinition Width="2*" MinWidth="120"/>
+                    <ColumnDefinition MinWidth="120"/>
+                </Grid.ColumnDefinitions>
+                <Label Grid.Column="1" Content="Last Name " HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="16" FontWeight="Bold" Margin="0,0,15,0" />
+                <TextBox x:Name="txtContactLastName" Grid.Column="2"  VerticalAlignment="Center" FontSize="16" FontWeight="Bold" Margin="0,0,15,0" MinWidth="120"/>
+            </Grid>
+
+            <Grid x:Name="grdActive" Grid.Row="6">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="2*" MinWidth="150"/>
+                    <ColumnDefinition Width="2*" MinWidth="120"/>
+                    <ColumnDefinition MinWidth="120"/>
+                </Grid.ColumnDefinitions>
+                <Label Grid.Column="1" Content="Active: " HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="16" FontWeight="Bold" Margin="0,0,15,0"/>
+                <CheckBox x:Name="chkActive" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="16" FontWeight="Bold" />
+            </Grid>
+
+
+
+            <Grid Grid.Row="7">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Button Grid.Column="1" x:Name="btnSave" Margin="10 10 10 10" Content="Save" FontSize="16" FontWeight="Bold" Click="btnSave_Click" MaxWidth="150"/>
+                <Button Grid.Column="2" x:Name="btnCancel" Margin="10 10 10 10" Content="Cancel" Background="LightGray" FontSize="16" FontWeight="Bold" Click="btnCancel_Click" MaxWidth="150"/>
+            </Grid>
+
+
+        </Grid>
+    </Grid>
+    
+</Window>
