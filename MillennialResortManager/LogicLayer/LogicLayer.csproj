@@ -80,6 +80,7 @@
     <Compile Include="ISetupListManager.cs" />
     <Compile Include="IShopManager.cs" />
     <Compile Include="IRoomType.cs" />
+    <Compile Include="ISponsorManager.cs" />
     <Compile Include="ISupplierManager.cs" />
     <Compile Include="ISupplierOrderManager.cs" />
     <Compile Include="ItemManager.cs" />
@@ -101,6 +102,7 @@
     <Compile Include="RoomVerifier.cs" />
     <Compile Include="SetupListManager.cs" />
     <Compile Include="ShopManagerMSSQL.cs" />
+    <Compile Include="SponsorManager.cs" />
     <Compile Include="SupplierManager.cs" />
     <Compile Include="SupplierOrderManager.cs" />
     <Compile Include="SupplierValidator.cs" />
