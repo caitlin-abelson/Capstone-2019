@@ -378,3 +378,326 @@ AS
 		WHERE	[EventID] = @EventID
 	END
 GO
+
+
+
+
+print '' print '*** Inserting Event Type Records'
+GO
+
+--  Author: <<Craig Barkley>>,Created:<<2/17/2019>>, Updated<<2/17/2019>>, What/Why<<Adding comments, Appointment Type Table.>>
+
+print '' print '*** Creating Appointment Type Table'
+GO
+CREATE TABLE [dbo].[AppointmentType] 
+(
+	[AppointmentTypeID]	[nvarchar](15)						NOT NULL,
+	[Description]		[nvarchar](250)						NOT NULL
+	
+	CONSTRAINT [pk_AppointmentTypeID]	PRIMARY KEY([AppointmentTypeID] ASC)
+)
+GO
+print '' print '*** Inserting Appointment Type Records'
+GO
+
+--  Author: <<Craig Barkley>>,Created:<<2/17/2019>>, Updated<<2/17/2019>>, What/Why<<Adding comments, creating Pet Table.>>
+
+-------
+-- this table was updated with the gender field.
+----------look at this------------------------------------
+
+print '' print '*** Creating Pet Table'
+GO
+CREATE TABLE [dbo].[Pet] (
+	[PetID]	            [int] IDENTITY(100000, 1) 	  NOT NULL,
+	[PetName]		    [nvarchar](50)			  	  NOT NULL,
+	[Gender] 	    	[nvarchar](50)				  NOT NULL,
+	[Species]		    [nvarchar](50)				  NOT NULL,
+	[PetTypeID]			[nvarchar](50)			      NOT NULL,
+	[GuestID]		    [int]				          NOT NULL
+
+	CONSTRAINT [pk_PetID] PRIMARY KEY([PetID] ASC),
+	/*INSERT GUEST ID FOREIGN KEY HERE*/
+)
+GO
+print '' print '*** Inserting Pet Test Records'
+GO
+
+
+
+
+--  Author: <<Craig Barkley>>,Created:<<2/17/2019>>, Updated<<2/17/2019>>, What/Why<<Adding comments, Pet types Table.>>
+
+--this foreign key contraint keeps active types that are being used from being deleted until there are no types. this could be added to all type look up tables.
+
+-- ALTER TABLE [dbo].[Pet] WITH NOCHECK
+-- 	ADD CONSTRAINT [fk_Pet_PetTypeID] FOREIGN KEY ([PetTypeID])
+-- 	REFERENCES [dbo].[PetType]([PetTypeID])
+-- 	ON UPDATE CASCADE
+-- GO
+
+--Stored Procedures.
+--  Author: <<Craig Barkley>>,Created:<<2/17/2019>>, Updated<<2/17/2019>>, What/Why<<Adding comments, stored procedure Insert Pet.>>
+
+print '' print '*** Creating sp_insert_pet'
+GO
+CREATE PROCEDURE sp_insert_pet
+	(
+		@PetName				    [nvarchar](50),
+		@Gender      				[nvarchar](50),
+		@Species     				[nvarchar](50),
+		@PetTypeID				    [nvarchar](25),
+		@GuestID				    [int]		
+	)
+AS
+	BEGIN
+		INSERT INTO [dbo].[Pet]
+			([PetName],[Gender], [Species], [PetTypeID],[GuestID])
+			VALUES
+			(@PetName, @Gender, @Species, @PetTypeID, @GuestID)
+			
+			RETURN @@ROWCOUNT
+	END
+GO
+-- sp_retrieve_all_pets()
+--  Author: <<Craig Barkley>>,Created:<<2/17/2019>>, Updated<<2/17/2019>>, What/Why<<Adding comments, Creating sp_retrieve_all_pets.>>
+
+print '' print '*** Creating sp_retrieve_all_pets'
+GO
+CREATE PROCEDURE sp_retrieve_all_pets
+AS
+    BEGIN
+        SELECT [PetID],[PetName], [Gender], [Species], [PetTypeID], [GuestID]
+        FROM   [Pet]
+        ORDER BY [PetID]
+    END
+GO
+-- sp_select_pet_by_id(id)
+--  Author: <<Craig Barkley>>,Created:<<2/10/19>>, Updated<<2/17/2019>>, What/Why<<Adding comments, Creating sp_select_pet_by_id.>>
+
+print '' print '*** Creating sp_select_pet_by_id'
+GO
+CREATE PROCEDURE sp_select_pet_by_id
+AS
+    BEGIN        
+		SELECT 		[PetID]
+		FROM		[Pet]
+		ORDER BY 	[PetID]
+	END
+GO
+--sp_update_pet
+--  Author: <<Craig Barkley>>,Created:<<2/10/19>>, Updated<<2/17/2019>>, What/Why<<Adding comments, Creating sp_update_pet.>>
+
+print '' print '*** Creating sp_update_pet'
+GO
+CREATE PROCEDURE [dbo].[sp_update_pet]
+	(
+		@PetID			 		    [int],				
+
+		@oldPetName				    [nvarchar](50),
+		@oldGender      			[nvarchar](50),
+		@oldSpecies      			[nvarchar](50),
+		@oldPetTypeID				[nvarchar](25),
+		@oldGuestID				    [int],
+
+		@newPetName				    [nvarchar](50),
+		@newGender      			[nvarchar](50),
+		@newSpecies      			[nvarchar](50),
+		@newPetTypeID				[nvarchar](25),
+		@newGuestID				    [int]
+	)
+AS
+	BEGIN
+		UPDATE [Pet]
+			SET [PetName] = @newPetName,
+				[Gender] = @newGender,
+				[Species] = @newSpecies,
+				[PetTypeID] = @newPetTypeID,
+				[GuestID] = @newGuestID				
+			WHERE 	
+				[PetID] = @PetID
+			AND[PetName] = @oldPetName
+			AND	[Gender] = @oldGender
+			AND [Species] = @oldSpecies
+			AND	[PetTypeID] = @oldPetTypeID
+			AND	[GuestID] = @oldGuestID			
+		RETURN @@ROWCOUNT
+	END
+GO
+
+--sp_delete_pet(int)
+--  Author: <<Craig Barkley>>,Created:<<2/17/2019>>, Updated<<2/17/2019>>, What/Why<<Adding comments after having built the script.>>
+
+print '' print '*** Creating sp_delete_pet'
+GO						
+CREATE PROCEDURE [dbo].[sp_delete_pet]
+    (
+        @PetID    [int]
+    )
+AS
+    BEGIN
+        DELETE
+        FROM     [Pet]
+        WHERE     [PetID] = @PetID
+
+        RETURN @@ROWCOUNT
+    END
+GO
+
+--  sp_create_pet_type
+--  Author: <<Craig Barkley>>,Created:<<2/17/2019>>, Updated<<2/17/2019>>, What/Why<<Adding comments after having built the script.>>
+
+print '' print ' Creating sp_create_pet_type'
+GO
+CREATE PROCEDURE sp_create_pet_type
+    (
+        @PetTypeID          [nvarchar](25),
+        @Description        [nvarchar](1000)		
+    )
+AS
+    BEGIN
+        INSERT INTO [dbo].[PetType]
+            ([PetTypeID], [Description])
+        VALUES
+            (@PetTypeID, @Description)
+
+        RETURN @@ROWCOUNT
+        SELECT SCOPE_IDENTITY()
+    END
+GO
+
+
+-- sp_select_pet_type_by_id(id)
+--  Author: <<Craig Barkley>>,Created:<<2/17/2019>>, Updated<<2/17/2019>>, What/Why<<Adding comments after having built the script.>>
+
+print '' print ' Creating sp_select_pet_type_by_id'
+GO
+CREATE PROCEDURE sp_select_pet_type_by_id
+AS
+    BEGIN        
+		SELECT 		[PetTypeID]
+		FROM		[PetType]
+		ORDER BY 	[PetTypeID]
+	END
+GO
+
+--sp_delete_pet_type
+--  Author: <<Craig Barkley>>,Created:<<2/17/2019>>, Updated<<2/17/2019>>, What/Why<<Adding comments, sp_delete_pet_type.>>
+
+print '' print '*** Creating sp_delete_pet_type'
+GO						
+CREATE PROCEDURE [dbo].[sp_delete_pet_type_by_id]
+    (
+        @PetTypeID    [nvarchar](25)
+    )
+AS
+    BEGIN
+        DELETE
+        FROM     [PetType]
+        WHERE     [PetTypeID] = @PetTypeID
+
+        RETURN @@ROWCOUNT
+    END
+GO
+--  sp_create_event_type
+--  Author: <<Craig Barkley>>,Created:<<2/17/2019>>, Updated<<2/17/2019>>, What/Why<<Adding comments, sp_create_event_type.>>
+
+print '' print ' Creating sp_create_event_type'
+GO
+CREATE PROCEDURE sp_create_event_type
+    (
+        @EventTypeID        [nvarchar](15),
+        @Description        [nvarchar](250) 
+    )
+AS
+    BEGIN
+        INSERT INTO [dbo].[EventType]
+            ([EventTypeID], [Description])
+        VALUES
+            (@EventTypeID, @Description)
+
+        RETURN @@ROWCOUNT
+        SELECT SCOPE_IDENTITY()
+    END
+GO
+
+-- sp_retrieve_all_event_type()
+--  Author: <<Craig Barkley>>,Created:<<2/17/2019>>, Updated<<2/17/2019>>, What/Why<<Adding comments, sp_retrieve_all_event_type.>>
+
+print '' print ' Creating sp_retrieve_all_event_type'
+GO
+CREATE PROCEDURE sp_retrieve_all_event_type
+AS
+    BEGIN
+        SELECT [EventTypeID], [Description]
+        FROM   [EventType]
+        ORDER BY [EventTypeID]
+    END
+GO
+-- sp_delete_event_type(id)
+--  Author: <<Craig Barkley>>,Created:<<2/17/2019>>, Updated<<2/17/2019>>, What/Why<<Adding comments, sp_delete_event_type_by_id.>>
+
+print '' print '*** Creating sp_delete_event_type_by_id'
+GO				
+CREATE PROCEDURE sp_delete_event_type_by_id
+    (
+        @EventTypeID        [nvarchar](17)
+    )
+AS
+    BEGIN
+        DELETE
+        FROM    [EventType]
+        WHERE    [EventTypeID] = @EventTypeID
+
+
+        RETURN @@ROWCOUNT
+    END
+GO
+
+-- sp_select_event_type_by_id(id)
+--  Author: <<Craig Barkley>>,Created:<<2/17/2019>>, Updated<<2/17/2019>>, What/Why<<Adding comments, sp_select_event_type_by_id.>>
+
+print '' print ' Creating sp_select_event_type_by_id'
+GO
+CREATE PROCEDURE sp_select_event_type_by_id
+AS
+    BEGIN        
+		SELECT 		[EventTypeID]
+		FROM		[EventType]
+		ORDER BY 	[EventTypeID]
+	END
+GO
+
+
+
+--  sp_delete_appointment_type_id
+--  Author: <<Craig Barkley>>,Created:<<2/17/2019>>, Updated<<2/17/2019>>, What/Why<<Adding comments, sp_delete_appointment_type_id.>>
+
+print '' print '*** Creating sp_delete_appointment_type_id'
+GO						
+CREATE PROCEDURE [dbo].[sp_delete_appointment_type_by_id]
+    (
+        @AppointmentTypeID    [nvarchar](15)
+    )
+AS
+    BEGIN
+        DELETE
+        FROM     [AppointmentType]
+        WHERE     [AppointmentTypeID] = @AppointmentTypeID
+
+        RETURN @@ROWCOUNT
+    END
+GO
+-- sp_select_event_type_by_id(id)
+--  Author: <<Craig Barkley>>,Created:<<2/17/2019>>, Updated<<2/17/2019>>, What/Why<<Adding comments, sp_appointment_type_by_id.>>
+
+print '' print ' Creating sp_appointment_type_by_id'
+GO
+CREATE PROCEDURE sp_appointment_type_by_id
+AS
+    BEGIN        
+		SELECT 		[AppointmentTypeID]
+		FROM		[AppointmentType]
+		ORDER BY 	[AppointmentTypeID]
+	END
+GO
