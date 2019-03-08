@@ -27,5 +27,6 @@ namespace DataAccessLayer
         void CheckInGuest(int guestID);
         void CheckOutGuest(int guestID);
         bool isValid(Guest guest);
+        List<Guest> SelectGuestNamesAndIds();
     }
 }

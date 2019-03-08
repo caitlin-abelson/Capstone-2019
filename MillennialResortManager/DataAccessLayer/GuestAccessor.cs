@@ -615,6 +615,50 @@ namespace DataAccessLayer
             }
         }
 
+
+        /// <summary>
+        /// Richard Carroll
+        /// Created: 2/28/19
+        /// 
+        /// Requests a List of Guest names and Ids from the 
+        /// Database and Returns the Result.
+        /// </summary>
+        public List<Guest> SelectGuestNamesAndIds()
+        {
+            List<Guest> guests = new List<Guest>();
+
+            var conn = DBConnection.GetDbConnection();
+            var cmdText = "sp_retrieve_guest_names_and_ids";
+            var cmd = new SqlCommand(cmdText, conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            try
+            {
+                conn.Open();
+                var reader = cmd.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        Guest guest = new Guest
+                        {
+                            FirstName = reader.GetString(0),
+                            LastName = reader.GetString(1),
+                            GuestID = reader.GetInt32(2)
+                        };
+                        guests.Add(guest);
+                    }
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+            return guests;
+        }
+
         /// <summary>
         /// Alisa Roehr
         /// Created: 2019/02/15

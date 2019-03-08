@@ -141,6 +141,83 @@ INSERT INTO [dbo].[EventType]
 		('Wedding', 'Romantic Florals typically make up a romantic wedding also those who never been one to take the normal route?')
 GO
 
+/*Start Wes Richardson 2019-03-01*/
+
+/*
+ * Author: Wes Richardson
+ * Created 2019-03-07
+ *
+ * Insert GuestType Test Records
+ */
+print '' print '*** GuestType Test Data' 
+GO
+INSERT INTO [dbo].[GuestType]
+		([GuestTypeID], [Description])
+	VALUES
+		('Basic guest', 'Basic guest')
+GO
+
+/*
+ * Author: Wes Richardson
+ * Created 2019-03-07
+ *
+ * Insert Guest Test Records
+ */
+print '' print '*** Guest Test Data' 
+GO
+INSERT INTO [dbo].[Guest]
+		([MemberID], [GuestTypeID], [FirstName], [LastName], [PhoneNumber], [Email], [ReceiveTexts], [EmergencyFirstName], [EmergencyLastName], [EmergencyPhoneNumber], [EmergencyRelation])
+	VALUES
+		(100001, 'Basic guest', 'John', 'Doe', '3195555555', 'John@Company.com', 1, 'Jane', 'Doe', '3195555556', 'Wife'),
+		(100001, 'Basic guest', 'Jane', 'Doe', '3195555556', 'Jane@Company.com', 1, 'John', 'Doe', '3195555555', 'Husband')
+GO
+
+/*
+ * Author: Wes Richardson
+ * Created 2019-03-07
+ *
+ * Insert Appointment Type Test Records
+ */
+ print '' print '*** AppointmentType Test Data' 
+GO
+INSERT INTO [dbo].[AppointmentType]
+		([AppointmentTypeID], [Description])
+	VALUES
+		('Spa', 'Spa'),
+		('Pet Grooming', 'Pet Grooming'),
+		('Turtle Petting', 'Turtle Petting'),
+		('Whale Watching', 'Whale Watching'),
+		('Sand Castle', 'Sand Castle Building')
+GO
+
+/*
+ * Author: Wes Richardson
+ * Created 2019-03-07
+ *
+ * Insert Appointment Test Records
+ */
+ print '' print '*** Appointment Test Data' 
+GO
+INSERT INTO [dbo].[Appointment]
+		([AppointmentTypeID], [GuestID], [StartDate], [EndDate], [Description])
+	VALUES
+		('Spa', 100001, '20200320 13:00', '20200320 14:00', 'Spa'),
+		('Sand Castle', 100000, '20200320 13:00', '20200320 14:00', 'Sand Castle Building')
+GO
+
 		
-		
+/*  Name: Eduardo Colon
+Date: 2019-03-05 */
+print '' print '*** Inserting SetupList Test Records'
+GO
+
+INSERT INTO [dbo].[SetupList]
+		([SetupID], [Completed], [Description], [Comments])
+	VALUES
+		(100000, 0, ' Prior to Guest Arrival: Registration Desk,signs,banners', 'Banners are not ready yet'),
+		(100001, 0, ' Display Equipment: Prepares for display boards,tables,chairs,, printed material and names badges','Badges are not ready yet'),
+		(100002, 1, ' Check Av Equipment: Laptop,projectors :Ensure all cables,leads,laptop,mic and mouse are presented and working', 'Av Equipment is ready'),
+		(100003, 1, ' Confirm that all decor and linen is in place ', 'Decor and linen are  ready'),
+		(100004, 1, ' Walk through to make sure bathrooms are clean and stocked ', 'Bathrooms are  ready')
+GO
 		

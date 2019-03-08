@@ -5,33 +5,848 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Presentation"
         mc:Ignorable="d"
-        Title="DevLauncher" Height="450" Width="800">
-    <Grid>
+        Title="DevLauncher" Height="600" Width="1000">
+
+    <Grid x:Name="MainWindow">
         <Grid.RowDefinitions>
-            <RowDefinition Height="50"/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="40"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-        </Grid.ColumnDefinitions>
-        <Label x:Name="txtGreeting" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3"/>
-        <Button x:Name="btnLogout" Grid.Column="3" Content="Logout" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="10" Click="btnLogout_Click"/>
-        <Button Grid.Row="1" Grid.Column="0" x:Name="btnReservationLauncher" Content="Reservation" Margin="5" Click="btnReservationLauncher_Click"/>
-        <Button Grid.Row="1" Grid.Column="1" x:Name="btnEmployeeLauncher" Content="Employee" Margin="5" Click="btnEmployeeLauncher_Click"/>
-        <Button Grid.Row="1" Grid.Column="2" x:Name="btnSupplierLauncher" Content="Supplier" Margin="5" Click="btnSupplierLauncher_Click"/>
-        <Button Grid.Row="1" Grid.Column="3" x:Name="btnEventLauncher" Content="Event" Margin="5" Click="btnEventLauncher_Click"/>
+        <!-- Banner -->
+        <Grid Grid.Row="0" x:Name="Banner">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="5" Content="Logout" x:Name="btnLogout" Margin="5" Click="btnLogout_Click"/>
+            <Label x:Name="lblTitle" Grid.Column="2" Grid.ColumnSpan="2" Content="Last Resort" FontSize="22" FontFamily="Rockwell Extra Bold" HorizontalAlignment="Center" />
+            <Button Grid.Column="0" Content="Menu" x:Name="btnMenu" Margin="5" Click="btnMenu_Click"/>
+        </Grid>
+        <!-- Nav Bar -->
 
-        <Button Grid.Row="2" Grid.Column="0" x:Name="btnProductLauncher" Content="Product" Margin="5" Click="btnProductLauncher_Click"/>
-        <Button Grid.Row="2" Grid.Column="1" x:Name="btnLauncher" Content="New" Margin="5"/>
-        <Button Grid.Row="2" Grid.Column="2" x:Name="btnLauncher1" Content="New" Margin="5"/>
-        <Button Grid.Row="2" Grid.Column="3" x:Name="btnLauncher2" Content="New" Margin="5"/>
+        <Grid Grid.Row="1" x:Name="NavBar">
+            <DockPanel>
+                <Menu Background="#FFA9D1F4" VerticalAlignment="Center">
+                    <MenuItem Header="_Reservation" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" >
+                        <MenuItem Header="Reservation"  x:Name="NavBarSubHeaderReservation" Click="NavBarSubHeaderReservation_Click"  />
+                        <MenuItem Header="Shops"  x:Name="NavBarSubHeaderShops" Click="NavBarSubHeaderShops_Click"/>
+                        <MenuItem Header="Employee"  x:Name="NavBarSubHeaderEmployee" Click="NavBarSubHeaderEmployee_Click"/>
+                        <MenuItem Header="Suppliers"  x:Name="NavBarSubHeaderSuppliers" Click="NavBarSubHeaderSuppliers_Click"/>
+                        <MenuItem Header="Products"  x:Name="NavBarSubHeaderProducts" Click="NavBarSubHeaderProducts_Click"/>
+                        <MenuItem Header="Buildings"  x:Name="NavBarSubHeaderBuildings" Click="NavBarSubHeaderBuildings_Click"/>
+                        <MenuItem Header="Orders" x:Name="NavBarSubHeaderOrders" Click="NavBarSubHeaderOrders_Click" />
+                        <MenuItem Header="Employee Roles"  x:Name="NavBarSubHeaderEmployeeRoles" Click="NavBarSubHeaderEmployeeRoles_Click"/>
+                        <MenuItem Header="Guest Types"  x:Name="NavBarSubHeaderGuestTypes" Click="NavBarSubHeaderGuestTypes_Click"/>
+                        <MenuItem Header="Room Types"  x:Name="NavBarSubHeaderRoomTypes" Click="NavBarSubHeaderRoomTypes_Click"/>
+                        <MenuItem Header="Performances" x:Name="NavBarSubHeaderPerformances" Click="NavBarSubHeaderPerformances_Click" />
 
+                    </MenuItem>
+                    <MenuItem Header="_Guest Services" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <MenuItem Header="Add a Pet"  />
+                        <MenuItem Header="Add a Guest"  />
+                    </MenuItem>
+                    <MenuItem Header="_Food Services" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <MenuItem Header="Recipes"  />
+                        <MenuItem Header="Inventory"  />
+                    </MenuItem>
+                </Menu>
+            </DockPanel>
+
+        </Grid>
+
+        <!-- SideBar -->
+        <Grid Grid.Row="1" Grid.RowSpan="2" Panel.ZIndex="5" x:Name="SideBar"  Width="200" HorizontalAlignment="Left" Visibility="Hidden">
+            <ScrollViewer VerticalScrollBarVisibility="Hidden">
+                <Grid x:Name="SideBarButtons" Grid.Column="0" Background="Aqua">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="30"/>
+                    </Grid.RowDefinitions>
+                    <!-- Reservation -->
+                    <!-- Header-->
+                    <Button x:Name="btnSidebarHeaderReservation" Content="Reservation" Background="LightBlue" Click="btnSidebarHeaderReservation_Click"/>
+                    <!-- SubHeaders -->
+                    <Button x:Name="btnSidebarReservationSubHeaderReserveARoom" Content="Reserve a Room" Background="LightCyan" Click="btnSidebarReservationSubHeaderReserveARoom_Click" />
+                    <Button x:Name="btnSidebarReservationSubHeaderBrowseShops" Content="Shops" Background="LightCyan" Click="btnSidebarReservationSubHeaderBrowseShops_Click"/>
+                    <Button x:Name="btnSidebarReservationSubHeaderBrowseEmployees" Content="Employees" Background="LightCyan" Click="btnSidebarReservationSubHeaderBrowseEmployees_Click"/>
+                    <Button x:Name="btnSidebarReservationSubHeaderBrowseSuppliers" Content="Suppliers" Background="LightCyan" Click="btnSidebarReservationSubHeaderBrowseSuppliers_Click"/>
+                    <Button x:Name="btnSidebarReservationSubHeaderBrowseProducts" Content="Products" Background="LightCyan" Click="btnSidebarReservationSubHeaderBrowseProducts_Click"/>
+                    <Button x:Name="btnSidebarReservationSubHeaderBrowseBuilding" Content="Buildings" Background="LightCyan" Click="btnSidebarReservationSubHeaderBrowseBuilding_Click"/>
+                    <Button x:Name="btnSidebarReservationSubHeaderBrowseOrders" Content="Orders" Background="LightCyan" Click="btnSidebarReservationSubHeaderBrowseOrders_Click"/>
+                    <Button x:Name="btnSidebarReservationSubHeaderBrowseEmployeeRoles" Content="Employee Roles" Background="LightCyan" Click="btnSidebarReservationSubHeaderBrowseEmployeeRoles_Click"/>
+                    <Button x:Name="btnSidebarReservationSubHeaderBrowseGuestType" Content="Guest Types" Background="LightCyan" Click="btnSidebarReservationSubHeaderBrowseGuestType_Click"/>
+                    <Button x:Name="btnSidebarReservationSubHeaderBrowseRoomType" Content="Room Types" Background="LightCyan" Click="btnSidebarReservationSubHeaderBrowseRoomType_Click"/>
+                    <Button x:Name="btnSidebarReservationSubHeaderBrowsePerformance" Content="Performances" Background="LightCyan" Click="btnSidebarReservationSubHeaderBrowsePerformance_Click"/>
+
+                    <!-- Guest Services -->
+                    <!-- Header -->
+                    <Button x:Name="btnSidebarHeaderGuestServices" Content="Guest Services" Background="LightBlue" Click="btnSidebarHeaderGuestServices_Click"/>
+                    <!-- SubHeaders -->
+                    <Button x:Name="btnSidebarGuestSubHeaderAddAPet" Content="Add a Pet" Background="LightCyan"/>
+                    <Button x:Name="btnSidebarGuestSubHeaderAddAGuest" Content="Add a Guest" Background="LightCyan"/>
+
+                    <!-- Food Services -->
+                    <!-- Header -->
+                    <Button x:Name="btnSidebarHeaderFoodServices" Content="Food Services" Background="LightBlue" Click="btnSidebarHeaderFoodServices_Click"/>
+                    <!-- SubHeaders -->
+                    <Button x:Name="btnSidebarFoodSubHeaderRecipes" Content="Recipes" Background="LightCyan"/>
+                    <Button x:Name="btnSidebarFoodSubHeaderFoodInventory" Content="Inventory" Background="LightCyan"/>
+
+                </Grid>
+            </ScrollViewer>
+
+        </Grid>
+        <!-- Content -->
+        <Grid Grid.Row="2" Panel.ZIndex="1" x:Name="Content">
+            <!-- Landing Page-->
+            <Grid x:Name="LandingPage" Visibility="Visible">
+                <Label Content="Content Goes Here" Grid.Column="0" Grid.ColumnSpan="2" FontSize="72" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            </Grid>
+            <!-- Browse Reservation Page-->
+            <Grid x:Name="BrowseReservationPage" Visibility="Hidden">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition Height="8*"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width=".7*"/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width=".5*"/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <CheckBox Grid.Column="0" Content="Active" IsChecked="True" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <Grid Grid.Column="1" Grid.ColumnSpan="3">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Grid Grid.Column="0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition Width="2*"/>
+                            </Grid.ColumnDefinitions>
+                            <Label x:Name="lblLastName" Content="Last Name: " HorizontalAlignment="Center" VerticalAlignment="Center" />
+                            <TextBox Grid.Column="1" x:Name="txtLastName" Margin="5" VerticalAlignment="Center" MinWidth="100"/>
+                        </Grid>
+                        <Grid Grid.Column="1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition Width="2*"/>
+                            </Grid.ColumnDefinitions>
+                            <Label x:Name="lblEmailReservation" Content="Email: " HorizontalAlignment="Center" VerticalAlignment="Center" />
+                            <TextBox Grid.Column="1" x:Name="txtEmailReservation" Margin="5" VerticalAlignment="Center" MinWidth="100"/>
+                        </Grid>
+
+
+                    </Grid>
+                    <Grid Grid.Column="4" Grid.ColumnSpan="2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="2*"/>
+                        </Grid.ColumnDefinitions>
+                        <Label Content="Date" Grid.Column="0" VerticalAlignment="Center"/>
+                        <DatePicker x:Name="dtpDateSearch" Grid.Column="1" VerticalAlignment="Center"/>
+                    </Grid>
+                    <Button Grid.Column="6" Content="Filter" x:Name="btnFilterReservation" Margin="5" Click="btnFilterReservation_Click"/>
+                    <Button Grid.Column="7" Content="Clear" x:Name="btnClearFiltersReservation" Margin="5" Click="btnClearFiltersReservation_Click"/>
+                </Grid>
+                <DataGrid Grid.Row="1" x:Name="dgReservations" VerticalGridLinesBrush="{x:Null}" SelectionMode="Single" AlternatingRowBackground="#FF3DD8CA" RowBackground="LightGoldenrodYellow" IsReadOnly="True" AutoGeneratingColumn="dgReservations_AutoGeneratingColumn" MouseDoubleClick="dgReservations_MouseDoubleClick" />
+                <Grid Grid.Row="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Button Grid.Column="3" Content="Add Reservation" x:Name="btnAddReservation" Margin="5" Click="btnAddReservation_Click" />
+                    <Button Grid.Column="4" Content="View Reservation" x:Name="btnViewReservation" Margin="5" Click="btnViewReservation_Click"/>
+                    <Button Grid.Column="5" Content="Delete" x:Name="btnDeleteReservation" Margin="5" Click="btnDeleteReservation_Click"/>
+
+                </Grid>
+            </Grid>
+            <!-- Browse Shops Page-->
+            <Grid x:Name="BrowseShopsPage" Visibility="Hidden">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="55"></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition Height="55"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="40" />
+                            <RowDefinition />
+                            <RowDefinition Height="40" />
+                        </Grid.RowDefinitions>
+                        <Grid Grid.Row="0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="100"/>
+                                <ColumnDefinition Width="100"/>
+
+                                <ColumnDefinition Width="100"/>
+
+                                <ColumnDefinition Width="200"/>
+                                <ColumnDefinition Width="100"/>
+                                <ColumnDefinition Width="200"/>
+                                <ColumnDefinition Width="100"/>
+                                <ColumnDefinition Width="100"/>
+
+                            </Grid.ColumnDefinitions>
+
+                            <Grid Grid.Column="0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <Label Grid.Column="0" Content="Inactive" HorizontalContentAlignment="Left" VerticalContentAlignment="Center"/>
+                                <RadioButton x:Name="rbtnInactive" Grid.Column="1" GroupName="ActiveStatus" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5" Checked="RbtnInactive_Checked"/>
+                            </Grid>
+
+                            <Grid Grid.Column="1">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <Label Grid.Column="0" Content="Active" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" />
+                                <RadioButton x:Name="rbtnActive" Grid.Column="1" GroupName="ActiveStatus" IsChecked="True" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5" Checked="RbtnActive_Checked"/>
+                            </Grid>
+
+
+                            <Label Grid.Column="2" Content="Shop Name" VerticalContentAlignment="Center" HorizontalContentAlignment="Right" Padding="5"/>
+                            <TextBox x:Name="txtSearchName" Grid.Column="3" Margin="5" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Text=""/>
+
+                            <Label Grid.Column="4" Content="Building" Padding="5" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" />
+                            <TextBox x:Name="txtSearchBuilding" Grid.Column="5" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Text="" Margin="5"/>
+
+                            <Button x:Name="btnFilterShops" Grid.Column="6" Margin="5" Content="Filter" IsDefault="True" Click="BtnFilterShops_Click" />
+                            <Button x:Name="btnClearFiltersShops"  Grid.Column="7" Content="Clear" Margin="5" Click="BtnClearFiltersShops_Click"  />
+
+                        </Grid>
+                    </Grid>
+                </Grid>
+                <!-- Grid Row 0 -->
+                <DataGrid Grid.Row="1" x:Name="dgShops" VerticalGridLinesBrush="{x:Null}" SelectionMode="Single" IsReadOnly="True" AutoGenerateColumns="False" ItemsSource="{Binding}" MouseDoubleClick="DgShops_MouseDoubleClick">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Shop" Binding="{Binding Name}"/>
+                        <DataGridTextColumn Header="Building" Binding="{Binding BuildingID}"/>
+                        <DataGridTextColumn Header="Room" Binding="{Binding RoomNumber}"/>
+                        <DataGridTextColumn Header="Description" Binding="{Binding Description}"/>
+                        <DataGridTextColumn Header="Act" Binding="{Binding Active}"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+                <Grid Grid.Row="2">
+
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="40" />
+                            <RowDefinition />
+                            <RowDefinition Height="40" />
+                        </Grid.RowDefinitions>
+                        <Grid Grid.Row="0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="100"/>
+                                <ColumnDefinition />
+
+                                <ColumnDefinition Width="100"/>
+                                <ColumnDefinition Width="100"/>
+                                <ColumnDefinition Width="100"/>
+
+                            </Grid.ColumnDefinitions>
+                            <Button x:Name="btnAdd" Grid.Column="2" Content="Add Shop" Margin="5" Click="BtnAddEmployeeRole_Click" ></Button>
+                            <Button x:Name="btnView" Grid.Column="3" Margin="5" Content="View" Click="BtnView_Click" />
+                            <Button x:Name="btnDeactivate" Grid.Column="4" Content="Deactivate" Margin="5" Click="BtnDeactivate_Click" />
+                            <Button x:Name="btnDelete" IsEnabled="False" Visibility="Hidden" Grid.Column="4" Content="Delete" Margin="5" />
+
+                        </Grid>
+
+
+                    </Grid>
+
+                </Grid>
+            </Grid>
+            <!-- Browse Employees Page-->
+            <Grid x:Name="BrowseEmployeesPage" Visibility="Hidden">
+                <Grid.RowDefinitions>
+
+                    <RowDefinition Height="80"></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition Height="55"></RowDefinition>
+
+                </Grid.RowDefinitions>
+
+
+                <Grid Grid.Row="0">
+
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="70" />
+                            <RowDefinition />
+                            <RowDefinition Height="40" />
+                        </Grid.RowDefinitions>
+                        <Grid Grid.Row="0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="100"/>
+                                <ColumnDefinition Width="100"/>
+
+                                <ColumnDefinition Width="100"/>
+
+                                <ColumnDefinition Width="200"/>
+                                <ColumnDefinition Width="100"/>
+                                <ColumnDefinition Width="200"/>
+                                <ColumnDefinition Width="100"/>
+                                <ColumnDefinition Width="100"/>
+
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+
+                            <Label Grid.Column="0" Content="Inactive" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                            <RadioButton x:Name="rbtnInactiveEmployee" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="5"/>
+                            <Label Grid.Column="1" Content="Active" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" />
+                            <RadioButton x:Name="rbtnActiveEmployee" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="5" IsChecked="True"/>
+
+                            <Label Grid.Column="2" Content="First Name" VerticalContentAlignment="Center" HorizontalContentAlignment="Right" Padding="5"/>
+                            <TextBox x:Name="txtSearchFirstName" Grid.Column="3" Margin="5" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Text=""/>
+
+                            <Label Grid.Column="4" Content="Last Name: " Padding="5" HorizontalAlignment="Right" VerticalContentAlignment="Center" />
+                            <TextBox x:Name="txtSearchLastName" Grid.Column="5" HorizontalContentAlignment="Center" Text="" Margin="5"/>
+
+                            <Button x:Name="btnFilterEmployees" Grid.Column="7" Margin="5" Content="Filter" Click="BtnFilterEmployees_Click"  />
+
+
+                            <Label Grid.Column="2" Grid.Row="1" Content="Role: " VerticalContentAlignment="Center" HorizontalContentAlignment="Right" Padding="5"/>
+                            <TextBox x:Name="txtSearchRole" Grid.Column="3" Grid.Row="1" Margin="5" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Text=""/>
+
+                            <Label Grid.Column="4" Grid.Row="1" Content="Department: " Padding="5" HorizontalAlignment="Right" VerticalContentAlignment="Center" />
+                            <TextBox x:Name="txtSearchDepartment" Grid.Column="5" Grid.Row="1" HorizontalContentAlignment="Center" Text="" Margin="5"/>
+
+                            <!-- James Heim 2019/02/03
+                                    Clear button is required by the functionality but it wasn't drawn up in the design phase.
+                    -->
+                            <Button x:Name="btnClearFilters" Grid.Row="1" Grid.Column="7" Content="Clear" Margin="5" Click="BtnClearFilters_Click" />
+                        </Grid>
+                    </Grid>
+                </Grid>
+
+                <DataGrid Grid.Row="1" x:Name="dgEmployees" VerticalGridLinesBrush="{x:Null}" SelectionMode="Single" IsReadOnly="True" AutoGenerateColumns="False" ItemsSource="{Binding}" MouseDoubleClick="DgEmployees_MouseDoubleClick" >
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="First Name" Binding="{Binding FirstName}"/>
+                        <DataGridTextColumn Header="Last Name" Binding="{Binding LastName}"/>
+                        <DataGridTextColumn Header="Role" Binding="{Binding Role}"/>
+                        <DataGridTextColumn Header="Department" Binding="{Binding DepartmentID}"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+                <Grid Grid.Row="2">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="40" />
+                            <RowDefinition />
+                            <RowDefinition Height="40" />
+                        </Grid.RowDefinitions>
+                        <Grid Grid.Row="0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="100"/>
+                                <ColumnDefinition />
+
+                                <ColumnDefinition Width="100"/>
+                                <ColumnDefinition Width="100"/>
+                                <ColumnDefinition Width="100"/>
+
+                            </Grid.ColumnDefinitions>
+                            <Button x:Name="btnAddEmployee" Grid.Column="2" Content="Add Employee" Margin="5" Click="BtnAddEmployee_Click"></Button>
+                            <Button x:Name="btnReadEmployee" Grid.Column="3" Margin="5" Content="View" Click="BtnReadEmployee_Click"/>
+                            <Button x:Name="btnDeleteEmployee"  Grid.Column="4" Content="Delete" Margin="5" Click="BtnDeleteEmployee_Click"/>
+
+                        </Grid>
+
+
+                    </Grid>
+
+                </Grid>
+            </Grid>
+            <!-- Browse Suppliers Page-->
+            <Grid x:Name="BrowseSuppliersPage" Visibility="Hidden">
+                <Grid.RowDefinitions>
+
+                    <RowDefinition Height="55"></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition Height="55"></RowDefinition>
+
+                </Grid.RowDefinitions>
+
+
+                <Grid Grid.Row="0">
+
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="40" />
+                            <RowDefinition />
+                            <RowDefinition Height="40" />
+                        </Grid.RowDefinitions>
+                        <Grid Grid.Row="0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="100"/>
+                                <ColumnDefinition Width="100"/>
+
+                                <ColumnDefinition Width="100"/>
+
+                                <ColumnDefinition Width="200"/>
+                                <ColumnDefinition Width="100"/>
+                                <ColumnDefinition Width="200"/>
+                                <ColumnDefinition Width="100"/>
+                                <ColumnDefinition Width="100"/>
+
+                            </Grid.ColumnDefinitions>
+
+                            <Label Grid.Column="0" Content="Inactive" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                            <RadioButton x:Name="rbtnInactiveSupplier" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="5" Checked="RbtnInactiveSupplier_Checked"/>
+                            <Label Grid.Column="1" Content="Active" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" />
+                            <RadioButton x:Name="rbtnActiveSupplier" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="5" IsChecked="True"/>
+
+                            <Label Grid.Column="2" Content="Supplier City: " VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Padding="5"/>
+                            <TextBox x:Name="txtSearchSupplierCity" Grid.Column="3" Margin="5" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Text=""/>
+
+                            <Label Grid.Column="4" Content="Supplier Name: " Padding="5" HorizontalAlignment="Right" VerticalContentAlignment="Center" />
+                            <TextBox x:Name="txtSearchSupplierName" Grid.Column="5" HorizontalContentAlignment="Center" Text="" Margin="5"/>
+                            <Button x:Name="btnFilterSuppliers" Grid.Column="6" Margin="5" Content="Filter" Click="BtnFilterSuppliers_Click" />
+
+                            <!-- Caitlin Abelson 1/23/19
+                            The Clear button was not in the user interface that was drawn up in the design phase. There needs
+                            needs to be a clear button in order to reset the data grid back to it's original state from the 
+                            filtering that a user does.-->
+                            <Button x:Name="btnClearSuppliers"  Grid.Column="7" Content="Clear" Margin="5" Click="BtnClearSuppliers_Click" />
+
+                        </Grid>
+
+
+                    </Grid>
+
+                </Grid>
+                <!-- Modified 2019/01/31 by James Heim
+        Disable AutoGenerating Columns to remove the SupplierID from the list. -->
+                <DataGrid Grid.Row="1" x:Name="dgSuppliers" VerticalGridLinesBrush="{x:Null}" SelectionMode="Single" IsReadOnly="True" AutoGenerateColumns="False" ItemsSource="{Binding}" MouseDoubleClick="DgSuppliers_MouseDoubleClick">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Supplier Name" Binding="{Binding Name}"/>
+                        <DataGridTextColumn Header="City" Binding="{Binding City}"/>
+                        <DataGridTextColumn Header="Country" Binding="{Binding Country}"/>
+                        <DataGridTextColumn Header="Description" Binding="{Binding Description}"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+                <Grid Grid.Row="2">
+
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="40" />
+                            <RowDefinition />
+                            <RowDefinition Height="40" />
+                        </Grid.RowDefinitions>
+                        <Grid Grid.Row="0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="100"/>
+                                <ColumnDefinition />
+
+                                <ColumnDefinition Width="100"/>
+                                <ColumnDefinition Width="100"/>
+                                <ColumnDefinition Width="100"/>
+
+                            </Grid.ColumnDefinitions>
+                            <Button x:Name="btnAddSuppliers" Grid.Column="2" Content="Add Supplier" Margin="5" Click="BtnAddSuppliers_Click"></Button>
+                            <Button x:Name="btnReadSuppliers" Grid.Column="3" Margin="5" Content="View" Click="BtnReadSuppliers_Click"/>
+                            <Button x:Name="btnDeactivateSuppliers" Grid.Column="4" Content="Deactivate" Margin="5" Click="BtnDeactivateSuppliers_Click" />
+                            <Button x:Name="btnDeleteSuppliers" IsEnabled="False" Visibility="Hidden" Grid.Column="4" Content="Delete" Margin="5" Click="BtnDeleteSuppliers_Click" />
+                        </Grid>
+
+
+                    </Grid>
+
+                </Grid>
+            </Grid>
+            <!-- Browse Product Page-->
+            <Grid x:Name="BrowseProductsPage" Visibility="Hidden">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30"></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition Height="40"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0">
+                    <Label Content="Browse Products" VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="Bold" FontSize="16" />
+                </Grid>
+                <Grid Grid.Row="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="30"></RowDefinition>
+                        <RowDefinition Height="30"></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="0">
+                        <Label x:Name="lblListOfProducts" Content="List Of Products" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Grid>
+                    <Grid Grid.Row="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="20"></ColumnDefinition>
+                            <ColumnDefinition Width="50"></ColumnDefinition>
+                            <ColumnDefinition Width="20"></ColumnDefinition>
+                            <ColumnDefinition Width="60"></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition Width="75"></ColumnDefinition>
+                            <ColumnDefinition Width="75"></ColumnDefinition>
+                            <ColumnDefinition Width="125"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <CheckBox x:Name="cbActive" HorizontalAlignment="Left"  VerticalAlignment="Center" Grid.Column="0" Click="cbActive_Click"/>
+                        <Label x:Name="lblActive" HorizontalAlignment="Left" VerticalAlignment="Center" Content="Active" Grid.Column="1"/>
+                        <CheckBox x:Name="cbDeactive" HorizontalAlignment="Left"  VerticalAlignment="Center" Grid.Column="2" Checked="cbDeactive_Checked"/>
+                        <Label x:Name="lblDeactive"  HorizontalAlignment="Left" VerticalAlignment="Center" Content="Deactive" Grid.Column="3"/>
+                        <Button x:Name="btnSearch" Content="Search" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="6" Width="60" Height="25" Click="btnSearch_Click"/>
+                        <Button x:Name="btnClear" Content="Clear" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="5" Width="60" Height="25" Click="btnClear_Click"/>
+                        <TextBox x:Name="txtSearchBox" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="7" Width="120" Text="Search" GotFocus="txtSearchBox_GotFocus"/>
+
+                    </Grid>
+                    <TabControl Grid.Row="2" x:Name="tabsetMain">
+                        <TabItem Name="tabProducts" Header="Products">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="40" />
+                                    <RowDefinition />
+                                    <RowDefinition Height="40" />
+                                </Grid.RowDefinitions>
+                                <Grid Grid.Row="0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="100"/>
+                                        <ColumnDefinition />
+                                        <ColumnDefinition Width="120"/>
+                                        <ColumnDefinition Width="100"/>
+                                        <ColumnDefinition Width="200"/>
+                                        <ColumnDefinition Width="100"/>
+                                        <ColumnDefinition Width="100"/>
+                                    </Grid.ColumnDefinitions>
+                                </Grid>
+                                <Grid Grid.Row="1">
+                                    <DataGrid x:Name="dgProducts" VerticalGridLinesBrush="{x:Null}" SelectionMode="Single" AlternatingRowBackground="#FF3DD8CA" RowBackground="LightGoldenrodYellow"  IsReadOnly="True" MouseDoubleClick="dgProducts_MouseDoubleClick" AutoGeneratingColumn="dgProducts_AutoGeneratingColumn" />
+                                </Grid>
+                            </Grid>
+                        </TabItem>
+                    </TabControl>
+                </Grid>
+                <Grid Grid.Row="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="100"></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition Width="50"></ColumnDefinition>
+                        <ColumnDefinition Width="100"></ColumnDefinition>
+                        <ColumnDefinition Width="70"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Button x:Name="btnAddProduct" Content="Add" Width="30" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="2" Click="btnAddProduct_Click"/>
+                    <Button x:Name="btnReadProduct" Content="Read/Update" Width="80" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="3" Click="btnReadProduct_Click"/>
+                    <Button x:Name="btnDeleteProduct" Content="Delete" Width="50" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="4" Click="btnDeleteProduct_Click"/>
+                </Grid>
+            </Grid>
+            <!-- Browse Building Page-->
+            <Grid x:Name="BrowseBuildingPage" Visibility="Hidden">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="45"/>
+                    <RowDefinition />
+                    <RowDefinition Height="45"/>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <!--<CheckBox x:Name="chkActive" Grid.Column="0" Content="Show only active buildings" IsChecked="True" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="10"/>-->
+                    <Label Grid.Column="1" Content="Building Name: " VerticalContentAlignment="Center" HorizontalAlignment="Right"/>
+                    <TextBox Grid.Column="2" x:Name="txtSearch" Margin="5" VerticalAlignment="Center" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" MinWidth="100"/>
+                    <Button Grid.Column="3" Content="Filter" x:Name="btnFilter" Margin="5" Click="btnFilter_Click" />
+                    <Button Grid.Column="4" Content="Clear" x:Name="btnClearFiltersBuilding" Margin="5" Click="btnClearFiltersBuilding_Click" />
+                </Grid>
+                <DataGrid Grid.Row="1" x:Name="dgBuildings" VerticalGridLinesBrush="{x:Null}" SelectionMode="Single" AlternatingRowBackground="#FF3DD8CA" RowBackground="LightGoldenrodYellow" IsReadOnly="True" MouseDoubleClick="dgBuildings_MouseDoubleClick" />
+                <Grid Grid.Row="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Button Grid.Column="0" Content="Add Building" x:Name="btnAddBuilding" Margin="5" Click="btnAddBuilding_Click"/>
+                    <Button Grid.Column="1" Content="Select" x:Name="btnSelect" Margin="5" Click="btnSelect_Click"/>
+                </Grid>
+            </Grid>
+            <!-- Browse Order Page-->
+            <Grid x:Name="BrowseOrdersPage" Visibility="Hidden">
+                <Grid.RowDefinitions>
+
+                    <RowDefinition Height="55"></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition Height="55"></RowDefinition>
+
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="100"/>
+                        <ColumnDefinition Width="300"/>
+                        <ColumnDefinition Width="150"/>
+                        <ColumnDefinition />
+                        <ColumnDefinition Width="150"/>
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Column="0" x:Name="lblOrderCompleted" VerticalAlignment="Center" HorizontalAlignment="Left" Content="Order Filled" FontSize="14" ></Label>
+                    <CheckBox Grid.Column="0" x:Name="chkbxOrderCompleted" VerticalAlignment="Center" HorizontalAlignment="Right" Click="ChkbxOrderCompleted_Click"></CheckBox>
+                    <Label Grid.Column="1" Content="Please Select a category to search" FontSize="14" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
+                    <ComboBox Grid.Column="2" x:Name="cboSearchCategory" Margin="5" Width="120" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" ></ComboBox>
+                    <TextBox Grid.Column="3" x:Name="txtSearchTerm" Margin="5" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" TextChanged="TxtSearchTerm_TextChanged" ></TextBox>
+                    <Button Grid.Column="4" Width="120" Margin="5"  x:Name="btnClearFiltersOrders" Content="Clear Filters" FontSize="14" Click="BtnClearFiltersOrders_Click"></Button>
+                </Grid>
+                <Grid Grid.Row="1">
+                    <DataGrid x:Name="dgInternalOrders" IsReadOnly="True" VerticalGridLinesBrush="{x:Null}" SelectionMode="Single" AlternatingRowBackground="#FF3DD8CA" RowBackground="LightGoldenrodYellow" MouseDoubleClick="DgInternalOrders_MouseDoubleClick"></DataGrid>
+                </Grid>
+                <Grid Grid.Row="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                        <ColumnDefinition/>
+
+                    </Grid.ColumnDefinitions>
+                    <Button Width="120" x:Name="btnViewDetail" Grid.Column="0" Margin="5" Content="View Details" Click="BtnViewDetail_Click" FontSize="14"/>
+                    <Button Width="120" x:Name="btnAddNewOrder" Grid.Column="2" Margin="5" Content="Add New Order" FontSize="14" Click="BtnAddNewOrder_Click"/>
+                    <Button Width="120" x:Name="btnFillOrder"  Grid.Column="4" Content="Fill Order" Margin="5" Click="BtnFillOrder_Click" FontSize="14" />
+
+                </Grid>
+
+            </Grid>
+            <!-- Browse Employee Roles Page-->
+            <Grid x:Name="BrowseEmployeeRolesPage" Visibility="Hidden">
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="80" ></RowDefinition>
+                    <RowDefinition Height="50"></RowDefinition>
+                    <RowDefinition Height="50"></RowDefinition>
+                    <RowDefinition  ></RowDefinition>
+                    <RowDefinition Height="40" ></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Label Padding="5" Margin="10" HorizontalAlignment="Center" VerticalContentAlignment="Center" Grid.Column="0" FontSize="15px" VerticalAlignment="top" Content="View Employee Roles" />
+                </Grid>
+                <Grid Grid.Row="1" >
+                    <Grid.ColumnDefinitions>
+
+                        <ColumnDefinition Width="200"></ColumnDefinition>
+                        <ColumnDefinition Width="300"  ></ColumnDefinition>
+                        <ColumnDefinition Width="0"></ColumnDefinition>
+                        <ColumnDefinition Width="150"></ColumnDefinition>
+                        <ColumnDefinition Width="150"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Column="0" Content="Search Term:"  Padding="5" HorizontalAlignment="Right" VerticalContentAlignment="Center" />
+                    <TextBox x:Name="txtSearchEmployeeRole" Grid.Column="1" Margin="5" Height="25" HorizontalContentAlignment="Left" Text=""    />
+
+                    <Button x:Name="btnFilterEmployeeRole"  Grid.Column="3" Margin="5" Height="25" Content="Filter" Click="BtnFilterEmployeeRole_Click" />
+
+                </Grid>
+                <Grid Grid.Row="2">
+                    <Grid.ColumnDefinitions>
+
+                        <ColumnDefinition Width="250"></ColumnDefinition>
+                        <ColumnDefinition Width="50"  ></ColumnDefinition>
+                        <ColumnDefinition Width="50"></ColumnDefinition>
+                        <ColumnDefinition Width="50"></ColumnDefinition>
+                        <ColumnDefinition Width="100"></ColumnDefinition>
+                        <ColumnDefinition Width="150"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <!--    <CheckBox x:Name="cbActive" HorizontalAlignment="Left"  VerticalAlignment="Center" Grid.Column="2" IsChecked="True" Click="CbActive_Click" /> -->
+                    <!--Click="cbActive_Click"-->
+                    <!--   <Label x:Name="lblActive" HorizontalAlignment="Right" VerticalAlignment="Center" Content="Active" Grid.Column="1"/> -->
+                    <!--   <CheckBox x:Name="cbDeactive" IsChecked="True" HorizontalAlignment="Left"  VerticalAlignment="Center" Grid.Column="4" Click="CbDeactive_Click" /> -->
+                    <!-- Checked="cbDeactive_Checked"-->
+                    <!--    <Label x:Name="lblDeactive"  HorizontalAlignment="Left" VerticalAlignment="Center" Content="Inactive" Grid.Column="3"/>-->
+                    <Button x:Name="btnClearRoles" VerticalAlignment="Center" Grid.Column="5" Content="Clear Filter" Margin="5" Height="25" Click="BtnClearRoles_Click" />
+                </Grid>
+                <Grid Grid.Row="3" >
+                    <Grid.RowDefinitions>
+
+                        <!--      <RowDefinition Height="50"></RowDefinition> -->
+                        <RowDefinition></RowDefinition>
+
+                        <!--  <RowDefinition Height="30"></RowDefinition> -->
+                    </Grid.RowDefinitions>
+                    <TabControl Grid.Row="0" x:Name="tabsetMainEmployeeRole">
+                        <TabItem Name="tabRole" Header="Employee Role" GotFocus="TabRole_GotFocus">
+                            <DataGrid Grid.Row="1" x:Name="dgRole" VerticalGridLinesBrush="{x:Null}" 
+                              SelectionMode="Single" AlternatingRowBackground="#FFDFF7F1" 
+                              RowBackground="#FFF4F7DF"  IsReadOnly="True"
+                           Grid.ColumnSpan="4"
+                              MouseDoubleClick="DgRole_MouseDoubleClick" />
+                        </TabItem>
+                    </TabControl>
+                </Grid>
+
+                <Grid Grid.Row="4">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="100"/>
+                        <ColumnDefinition />
+                        <ColumnDefinition Width="120"/>
+                        <ColumnDefinition Width="100"/>
+                        <ColumnDefinition Width="120"/>
+                        <ColumnDefinition Width="100"/>
+                        <ColumnDefinition Width="150"/>
+                    </Grid.ColumnDefinitions>
+                    <Button x:Name="btnCancel" Grid.Column="0" Margin="5" Height="25" Content="Cancel" Click="BtnCancel_Click" />
+                    <Button x:Name="btnDeactivateEmployeeRole"  Grid.Column="6" Content="Deactivate/Delete" Margin="5" Height="25" Click="BtnDeactivateEmployeeRole_Click"/>
+                    <Button x:Name="btnUpdateEmployeeRole" Grid.Column="5" Margin="5" Content="Read/Update" Height="25" Click="BtnUpdateEmployeeRole_Click" />
+                    <Button x:Name="btnAddEmployeeRole"  Grid.Column="4" Content="Add" Margin="5" Height="25" Click="BtnAddEmployeeRole_Click"/>
+                </Grid>
+            </Grid>
+            <!-- Browse Guest Types Page -->
+            <Grid x:Name="BrowseGuestTypesPage" Visibility="Hidden">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="50"></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition Height="100"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0" Background="LightGray">
+                    <Label Content="Guest Types" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="26" FontWeight="Bold"></Label>
+                </Grid>
+                <Grid Grid.Row="1" Background="LightGray">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="50"></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition Width="50"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Column="1">
+                        <DataGrid x:Name="dgGuests"></DataGrid>
+                    </Grid>
+                </Grid>
+                <Grid Grid.Row="2" Background="LightGray">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Column="0">
+                        <Button x:Name="btnAddRoomGuestType" Margin="50 30" Content="Add" Click="btnAddGuestType_Click"></Button>
+                    </Grid>
+                    <Grid Grid.Column="1">
+                        <Button x:Name="btnDeleteGuestType" Margin="50 30" Content="Delete" Click="btnDeleteGuestType_Click"></Button>
+                    </Grid>
+                </Grid>
+            </Grid>
+            <!-- Browse Room Types Page-->
+            <Grid x:Name="BrowseRoomTypesPage" Visibility="Hidden">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="50"></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition Height="100"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0" Background="LightGray">
+                    <Label Content="Room Types" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="26" FontWeight="Bold"></Label>
+                </Grid>
+                <Grid Grid.Row="1" Background="LightGray">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="50"></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition Width="50"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Column="1">
+                        <DataGrid x:Name="dgRooms"></DataGrid>
+                    </Grid>
+                </Grid>
+                <Grid Grid.Row="2" Background="LightGray">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Column="0">
+                        <Button x:Name="btnAddRoomTypes" Margin="50 30" Content="Add" Click="btnAddRoomType_Click"></Button>
+                    </Grid>
+                    <Grid Grid.Column="1">
+                        <Button x:Name="btnDeleteRoomTypes" Margin="50 30" Content="Delete" Click="btnDeleteRoomType_Click"></Button>
+                    </Grid>
+                </Grid>
+            </Grid>
+            <!-- Browse Performance Page-->
+            <Grid x:Name="BrowsePerformancePage" Visibility="Hidden">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="120"/>
+                    <RowDefinition/>
+                    <RowDefinition Height="50"/>
+                </Grid.RowDefinitions>
+                <Label Grid.Row="0" Content="Performances" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+                <Grid Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="30"/>
+                        <ColumnDefinition Width="65"/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="80"/>
+                        <ColumnDefinition Width="200"/>
+                        <ColumnDefinition Width="30"/>
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Column="1" Content="Filters:" VerticalContentAlignment="Center" HorizontalContentAlignment="Right"/>
+                    <Grid Grid.Column="2">
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="35"/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <CheckBox Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        <CheckBox Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        <CheckBox Grid.Row="2" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        <Label Grid.Row="0" Grid.Column="1" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Content="Default Label 1"/>
+                        <Label Grid.Row="1" Grid.Column="1" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Content="Default Label 2"/>
+                        <Label Grid.Row="2" Grid.Column="1" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Content="Default Label 3"/>
+                    </Grid>
+                    <Label Grid.Column="3" Content="Search:" VerticalContentAlignment="Center" HorizontalContentAlignment="Right"/>
+                    <TextBox x:Name="txtSearchPerformance" Grid.Column="4" Height="30" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" TextChanged="txtSearchPerformance_TextChanged" />
+                </Grid>
+                <DataGrid Grid.Row="2" x:Name="dgPerformaces" SelectionChanged="dgPerformaces_SelectionChanged"/>
+                <Grid Grid.Row="3">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="100"/>
+                        <ColumnDefinition Width="100"/>
+                    </Grid.ColumnDefinitions>
+                    <Button x:Name="btnAddPerformance" Grid.Column="1" Content="Add" Margin="15 10" Click="btnAddPerformance_Click"/>
+                </Grid>
+            </Grid>
+            <!-- Browse Item Suppliers-->
+
+        </Grid>
     </Grid>
 </Window>

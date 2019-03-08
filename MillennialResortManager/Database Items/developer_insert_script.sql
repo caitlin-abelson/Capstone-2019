@@ -16,6 +16,116 @@ GO
 /* Developers place their test code here to be submitted to database */
 /* vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv */
 /*********************************************************************/
+/* Start Jacob Miller */
+-- Created: 2019-3-06
+print '' print '*** Creating Performance Table'
+GO
+CREATE TABLE [dbo].[Performance](
+	[PerformanceID]		[int]IDENTITY(100000, 1)	NOT NULL,
+	[PerformanceName]	[nvarchar](100)				NOT NULL,
+	[PerformanceDate]	[date]						NOT NULL,
+	[Description]		[nvarchar](1000),
+	CONSTRAINT [pk_PerformanceID] PRIMARY KEY([PerformanceID])
+)
+GO
+-- Created: 2019-3-06
+print '' print '*** Inserting Performance Test Records'
+GO
+INSERT INTO [dbo].[Performance]
+	([PerformanceName], [PerformanceDate], [Description])
+	VALUES
+		('Juggler', '2018-6-27', 'It is a juggler, not much else to say'),
+		('Firebreather', '2018-5-15', 'This one is for Matt LaMarche')
+GO
+-- Created: 2019-3-06
+print '' print '*** Creating sp_select_performance_by_id'
+GO
+CREATE PROCEDURE [dbo].[sp_select_performance_by_id]
+	(
+		@PerformanceID	[int]
+	)
+AS
+	BEGIN
+		SELECT 	[PerformanceID], [PerformanceName], [PerformanceDate], [Description]
+		FROM [Performance]
+		WHERE [PerformanceID] = @PerformanceID
+		RETURN @@ROWCOUNT
+	END
+GO
+-- Created: 2019-3-06
+print '' print '*** Creating sp_select_all_performance'
+GO
+CREATE PROCEDURE [dbo].[sp_select_all_performance]
+AS
+	BEGIN
+		SELECT [PerformanceID], [PerformanceName], [PerformanceDate], [Description]
+		FROM [Performance]
+	END
+GO
+-- Created: 2019-3-06
+print '' print '*** Creating sp_search_performances'
+GO
+CREATE PROCEDURE [dbo].[sp_search_performances]
+	(
+		@SearchTerm		[nvarchar](100)
+	)
+AS
+	BEGIN
+		SELECT [PerformanceID], [PerformanceName], [PerformanceDate], [Description]
+		FROM [Performance]
+		WHERE [PerformanceName] LIKE '%' + @SearchTerm + '%'
+	END
+GO
+-- Created: 2019-3-06
+print '' print '*** Creating sp_insert_performance'
+GO
+CREATE PROCEDURE [dbo].[sp_insert_performance]
+	(
+		@PerformanceName	[nvarchar](100),
+		@PerformanceDate	[date],
+		@Description		[nvarchar](1000)
+	)
+AS
+	BEGIN
+		INSERT INTO [dbo].[Performance]
+			([PerformanceName], [PerformanceDate], [Description])
+		VALUES
+			(@PerformanceName, @PerformanceDate, @Description)
+	END
+GO
+-- Created: 2019-3-06
+print '' print '*** Creating sp_update_performance'
+GO
+CREATE PROCEDURE [dbo].[sp_update_performance]
+	(
+		@PerformanceID		[int],
+		@PerformanceName	[nvarchar](100),
+		@PerformanceDate	[date],
+		@Description		[nvarchar](1000)
+	)
+AS
+	BEGIN
+		UPDATE [Performance]
+			SET [PerformanceName] = @PerformanceName, [PerformanceDate] = @PerformanceDate, [Description] = @Description
+			WHERE [PerformanceID] = @PerformanceID
+		RETURN @@ROWCOUNT
+	END
+GO
+-- Created: 2019-3-06
+print '' print '*** Creating sp_delete_performance'
+GO
+CREATE PROCEDURE [dbo].[sp_delete_performance]
+	(
+		@PerformanceID	[int]
+	)
+AS
+	BEGIN
+		DELETE
+		FROM [Performance]
+		WHERE [PerformanceID] = @PerformanceID
+		RETURN @@ROWCOUNT
+	END
+
 
 /* Start Eric Bostwick */
 
@@ -379,9 +489,24 @@ AS
 	END
 GO
 
+
 
-
-
+DROP TABLE [dbo].[Member]
+go
+CREATE TABLE [dbo].[Member](
+	[MemberID]			[int] IDENTITY(100000, 1) 	  NOT NULL,
+	[FirstName]			[nvarchar](50)				NOT NULL,
+	[LastName]			[nvarchar](100)				NOT NULL,
+	[PhoneNumber]		[nvarchar](11)				NOT NULL,
+	[Email]				[nvarchar](250)				NOT NULL,
+	[Password]			[nvarchar](100)				NOT NULL DEFAULT
+		'9c9064c59f1ffa2e174ee754d2979be80dd30db552ec03e7e327e9b1a4bd594e',
+	[Active]			[bit]						NOT NULL DEFAULT 1
+	
+	CONSTRAINT [pk_MemberID] PRIMARY KEY([MemberID] ASC),
+	CONSTRAINT [Email] UNIQUE([Email] ASC)
+)
+GO
 print '' print '*** Inserting Event Type Records'
 GO
 
@@ -701,325 +826,617 @@ AS
 		ORDER BY 	[AppointmentTypeID]
 	END
 GO
+/*Start Wes Richardson 2019-03-01*/
 
--- Jared Greenfield start
-
-print '' print '*** Creating OfferingType Table'
+/* Wes Richardson
+ * Created: 2019-03-01
+ *
+ * Add Appointment Table
+ */
+print '' print '*** Creating Appointment Type Table' 
 GO
-
-CREATE TABLE [dbo].[OfferingType](
-	[OfferingTypeID]		[nvarchar](15)				NOT NULL,
-	[Description]			[nvarchar](1000)			NOT NULL,
+CREATE TABLE [dbo].[AppointmentType] (
+	[AppointmentTypeID]	[nvarchar](15)		NOT NULL,
+	[Description]		[nvarchar](1000)	NULL
 	
-	CONSTRAINT [pk_OfferingTypeID] PRIMARY KEY([OfferingTypeID] ASC)
+	CONSTRAINT [pk_AppointmentTypeID] PRIMARY KEY([AppointmentTypeID] ASC),
+)
+
+/* Wes Richardson
+ * Created: 2019-03-01
+ *
+ * Add Appointment Table
+ */
+print '' print '*** Creating Appointment Table' 
+GO
+CREATE TABLE [dbo].[Appointment] (
+	[AppointmentID]		[int] IDENTITY(100000, 1)	NOT NULL,
+	[AppointmentTypeID]	[nvarchar](15)				NOT NULL,
+	[GuestID]			[int]						NOT NULL,
+	[StartDate]			[DateTime]					NOT NULL,
+	[EndDate]			[DateTime]					NOT NULL,
+	[Description]		[nvarchar](1000)			NULL
+	
+	CONSTRAINT [pk_AppointmentID] PRIMARY KEY([AppointmentID] ASC),
 )
 GO
-
--- Author: Jared Greenfield
--- Date Created: 2019-01-22
--- Date Updated: 
-print '' print '*** Creating Offering Table'
+ALTER TABLE [dbo].[Appointment]  WITH NOCHECK ADD  CONSTRAINT [fk_AppointmentTypeID] FOREIGN KEY([AppointmentTypeID])
+REFERENCES [dbo].[AppointmentType] ([AppointmentTypeID])
+ON UPDATE CASCADE
 GO
-
-CREATE TABLE [dbo].[Offering](
-	[OfferingID]		[int]	IDENTITY(100000,1)  NOT NULL,
-	[OfferingTypeID]	[nvarchar](15)				NOT NULL,
-	[EmployeeID]		[int]						NOT NULL,
-	[Description]		[nvarchar](1000)			NOT NULL,
-	[Price]				[Money]						NOT NULL,
-	[Active]			[bit]	DEFAULT 1			NOT NULL,
-	
-	CONSTRAINT [pk_OfferingID] PRIMARY KEY([OfferingID] ASC)
-)
+ALTER TABLE [dbo].[Appointment]  WITH NOCHECK ADD  CONSTRAINT [fk_GuestID] FOREIGN KEY([GuestID])
+REFERENCES [dbo].[Guest] ([GuestID])
+ON UPDATE CASCADE
 GO
-
--- Author: Jared Greenfield
--- Date Created: 2019-01-22
--- Date Updated: 
-print '' print '*** Adding Foreign Key for OfferingTypeID on Offering'
+/* Wes Richardson
+ * Created: 2019-03-01
+ *
+ * Insert new appointment
+ */
+print '' print '*** Creating sp_insert_appointment'
 GO
-
-ALTER TABLE [dbo].[Offering] WITH NOCHECK
-	ADD CONSTRAINT [fk_OfferingTypeID_Offering] FOREIGN KEY ([OfferingTypeID])
-	REFERENCES [dbo].[OfferingType]([OfferingTypeID])
-	ON UPDATE CASCADE
-GO
-
-print '' print '*** Adding Foreign Key for EmployeeID on Offering'
-
-ALTER TABLE [dbo].[Offering] WITH NOCHECK
-	ADD CONSTRAINT [fk_EmployeeID_Offering] FOREIGN KEY ([EmployeeID])
-	REFERENCES [dbo].[Employee]([EmployeeID])
-	ON UPDATE CASCADE
-GO
-
--- Author: Jared Greenfield
--- Date Created: 2019-01-22
--- Date Updated: 
-print '' print '*** Creating ItemType Table'
-GO
-
-CREATE TABLE [dbo].[ItemType](
-	[ItemTypeID]		[nvarchar](15)				NOT NULL,
-	[Description]		[nvarchar](1000)			NOT NULL,
-	
-	CONSTRAINT [pk_ItemTypeID] PRIMARY KEY([ItemTypeID] ASC)
-)
-GO
-
--- Author: Jared Greenfield
--- Date Created: 2019-01-22
--- Date Updated: 
-print '' print '*** Inserting ItemType Records'
-GO
-
-
--- Author: Jared Greenfield
--- Date Created: 2019-01-22
--- Date Updated: 
-print '' print '*** Creating Recipe Table'
-GO
-CREATE TABLE [dbo].[Recipe](
-	[RecipeID]			[int] IDENTITY(100000, 1)						NOT NULL,
-	[Name]				[nvarchar](50)									NOT NULL,
-	[Description]		[nvarchar](1000)										,
-	[DateAdded]			[DateTime] DEFAULT CURRENT_TIMESTAMP			NOT NULL,
-	[Active]			[bit]			DEFAULT 1   					NOT NULL,
-	
-	
-	CONSTRAINT [pk_RecipeID] PRIMARY KEY([RecipeID] ASC)
-)
-GO
-
--- Author: Jared Greenfield
--- Date Created: 2019-02-14
--- Date Updated: 
-print '' print '*** Creating Trigger tr_recipe_item_name'
-GO
-CREATE Trigger tr_recipe_item_name
-ON [Recipe]
-FOR UPDATE AS
-SET NOCOUNT ON;
-UPDATE [Item]
-SET [Item].[Name] = inserted.[Name]
-FROM inserted
-WHERE [Item].[RecipeID] = inserted.[RecipeID];
-SET NOCOUNT OFF;
-GO
-
-
--- Author: Jared Greenfield
--- Date Created: 2019-01-22
--- Date Updated: 
-print '' print '*** Creating Item Table'
-GO
-DROP TABLE[dbo].[Item]
-GO
-CREATE TABLE [dbo].[Item](
-	[ItemID]			[int] IDENTITY(100000, 1)	    	    NOT NULL,
-	[OfferingID]		[int] 											,
-	[CustomerPurchasable][bit]		  DEFAULT 0					NOT NULL,
-	[RecipeID]			[int]		  DEFAULT NULL				 		,
-	[ItemTypeID]		[nvarchar](15)							NOT NULL,
-	[Name]				[nvarchar](50)		  			        NOT NULL,
-	[Description]		[nvarchar](1000)						        ,
-	[DateActive]		[DateTime]	  DEFAULT CURRENT_TIMESTAMP NOT NULL,
-	[Active]			[bit]		  DEFAULT 1					NOT NULL,
-	[OnHandQty]			[int]									NOT NULL,
-	[ReorderQty]		[int]									NOT NULL,
-	
-	CONSTRAINT [pk_ItemID] PRIMARY KEY([ItemID] ASC)
-)
-GO
-
--- Author: Jared Greenfield
--- Date Created: 2019-01-22
--- Date Updated: 
-print '' print '*** Adding Foreign Key for ItemType on Item'
-
-ALTER TABLE [dbo].[Item] WITH NOCHECK
-	ADD CONSTRAINT [fk_ItemTypeID_Item] FOREIGN KEY ([ItemTypeID])
-	REFERENCES [dbo].[ItemType]([ItemTypeID])
-	ON UPDATE CASCADE
-GO
-
--- Author: Jared Greenfield
--- Date Created: 2019-02-06
--- Date Updated: 
-print '' print '*** Adding Foreign Key for OfferingID on Item'
-
-ALTER TABLE [dbo].[Item] WITH NOCHECK
-	ADD CONSTRAINT [fk_OfferingID_Item] FOREIGN KEY ([OfferingID])
-	REFERENCES [dbo].[Offering]([OfferingID])
-	ON UPDATE CASCADE
-GO
-
--- Author: Jared Greenfield
--- Date Created: 2019-02-06
--- Date Updated: 
-print '' print '*** Adding Foreign Key for RecipeID on Item'
-
-ALTER TABLE [dbo].[Item] WITH NOCHECK
-	ADD CONSTRAINT [fk_RecipeID_Item] FOREIGN KEY ([RecipeID])
-	REFERENCES [dbo].[Recipe]([RecipeID])
-	ON UPDATE CASCADE
-GO
-
--- Author: Jared Greenfield
--- Date Created: 2019-01-22
--- Date Updated: 
-print '' print '*** Creating RecipeItemLine Table'
-GO
-
-CREATE TABLE [dbo].[RecipeItemLine](
-	[RecipeID]			[int] 						NOT NULL,
-	[ItemID]			[int] 						NOT NULL,
-	[Quantity] 			[decimal](10,4)				NOT NULL,
-	[UnitOfMeasure]		[nvarchar](25)				NOT NULL,
-	
-	CONSTRAINT [pk_RecipeID_ItemID] PRIMARY KEY([RecipeID] ASC, [ItemID] ASC)
-)
-GO
-
--- Author: Jared Greenfield
--- Date Created: 2019-01-22
--- Date Updated: 
-print '' print '*** Adding Foreign Key for RecipeID on RecipeItemLine'
-
-ALTER TABLE [dbo].[RecipeItemLine] WITH NOCHECK
-	ADD CONSTRAINT [fk_RecipeID_RecipeItemLine] FOREIGN KEY ([RecipeID])
-	REFERENCES [dbo].[Recipe]([RecipeID])
-	ON UPDATE NO ACTION
-GO
-
--- Author: Jared Greenfield
--- Date Created: 2019-01-22
--- Date Updated: 
-print '' print '*** Adding Foreign Key for ItemID on RecipeItemLine'
-
-ALTER TABLE [dbo].[RecipeItemLine] WITH NOCHECK
-	ADD CONSTRAINT [fk_ItemID] FOREIGN KEY ([ItemID])
-	REFERENCES [dbo].[Item]([ItemID])
-	ON UPDATE NO ACTION
-GO
-
--- Author: Jared Greenfield
--- Date Created: 2019-01-22
--- Date Updated: 
-print '' print '*** Creating sp_select_all_items'
-GO
-CREATE PROCEDURE [dbo].[sp_select_all_items]
-AS
-	BEGIN
-		SELECT
-		[ItemID],
-		[ItemTypeID],
-		[Description],
-		[OnHandQty],
-		[Name],
-		[ReorderQty],
-		[DateActive], 
-		[Active],
-		[OfferingID],
-		[CustomerPurchasable],
-		[RecipeID]
-		FROM [Item]
-	END
-GO
-
--- Author: Jared Greenfield
--- Date Created: 2019-02-06
--- Date Updated: 
-print '' print '*** Creating sp_insert_item'
-GO
-CREATE PROCEDURE [dbo].[sp_insert_item]
+CREATE PROCEDURE [dbo].[sp_insert_appointment]
 	(
-		@OfferingID				[int],
-		@ItemTypeID				[nvarchar](15),
-		@RecipeID				[int],
-		@CustomerPurchasable 	[bit],
-		@Description 			[nvarchar](1000),
-		@OnHandQty				[int],
-		@Name					[nvarchar](50),
-		@ReorderQty				[int]
+	@AppointmentTypeID	[nvarchar](15),
+	@GuestID			[int],
+	@StartDate			[DateTime],
+	@EndDate			[DateTime],
+	@Description		[nvarchar](1000)
 	)
 AS
 	BEGIN
-		INSERT INTO [Item] 
-		([OfferingID],[ItemTypeID],[RecipeID],[CustomerPurchasable], [Description], [OnHandQty], [Name], [ReorderQty])
-		VALUES 
-		(@OfferingID,
-		@ItemTypeID,
-		@RecipeID,
-		@CustomerPurchasable ,
-		@Description,
-		@OnHandQty,
-		@Name,
-		@ReorderQty)
-		SELECT SCOPE_IDENTITY();
+		INSERT INTO [dbo].[Appointment]
+			([AppointmentTypeID], [GuestID], [StartDate], [EndDate], [Description])
+		VALUES
+			(@AppointmentTypeID, @GuestID, @StartDate, @EndDate, @Description)
+		SELECT SCOPE_IDENTITY()
 	END
-	
-	-- Author: Jared Greenfield
--- Date Created: 2019-02-07
--- Date Updated: 2019-02-07
-print '' print '*** Creating sp_update_item'
 GO
-CREATE PROCEDURE [dbo].[sp_update_item]
+
+/* Wes Richardson
+ * Created: 2019-03-01
+ *
+ * Update an appointment
+ */
+print '' print '*** Creating sp_update_appointment'
+GO
+CREATE PROCEDURE [dbo].[sp_update_appointment]
 	(
-		@ItemID						[int],
-		
-		@OldOfferingID				[int],
-		@OldItemTypeID				[nvarchar](15),
-		@OldRecipeID				[int],
-		@OldCustomerPurchasable 	[bit],
-		@OldDescription 			[nvarchar](1000),
-		@OldOnHandQty				[int],
-		@OldName					[nvarchar](50),
-		@OldReorderQty				[int],
-		@OldDateActive				[DateTime],
-		@OldActive					[bit],
-		
-		@NewOfferingID				[int],
-		@NewItemTypeID				[nvarchar](15),
-		@NewRecipeID				[int],
-		@NewCustomerPurchasable 	[bit],
-		@NewDescription 			[nvarchar](1000),
-		@NewOnHandQty				[int],
-		@NewName					[nvarchar](50),
-		@NewReorderQty				[int],
-		@NewDateActive				[DateTime],
-		@NewActive					[bit]
+	@AppointmentID		[int],
+	@AppointmentTypeID	[nvarchar](15),
+	@GuestID			[int],
+	@StartDate			[DateTime],
+	@EndDate			[DateTime],
+	@Description		[nvarchar](1000)
 	)
 AS
 	BEGIN
-		UPDATE [Item] 
-		SET 
-		[OfferingID] = @NewOfferingID,
-		[ItemTypeID] = @NewItemTypeID,
-		[RecipeID] = @NewRecipeID,
-		[CustomerPurchasable] = @NewCustomerPurchasable,
-		[Description] = @NewDescription,
-		[OnHandQty] = @NewOnHandQty,
-		[Name] = @NewName,
-		[ReorderQty] = @NewReorderQty,
-		[DateActive] = @NewDateActive,
-		[Active] = @NewActive
-		WHERE
-		[ItemID] = @ItemID AND
-		[ItemTypeID] = @OldItemTypeID AND
-		[RecipeID] = @OldRecipeID AND
-		[CustomerPurchasable] = @OldCustomerPurchasable AND
-		[Description] = @OldDescription AND
-		[OnHandQty] = @OldOnHandQty AND
-		[Name] = @OldName AND
-		[ReorderQty] = @OldReorderQty AND
-		[DateActive] = @OldDateActive AND
-		[Active] = @OldActive
-		
+		UPDATE	[Appointment]
+			SET	[AppointmentTypeID] = @AppointmentTypeID, 
+					[GuestID] = @GuestID, 
+					[StartDate] = @StartDate, 
+					[EndDate] = @EndDate, 
+					[Description] = @Description
+			WHERE	[AppointmentID] = @AppointmentID
 		RETURN @@ROWCOUNT
 	END
 GO
 
+/* Wes Richardson
+ * Created: 2019-03-01
+ *
+ * Select an appointment by appointment id
+ */
+ 
+print '' print '*** Creating sp_select_appointment_by_id'
+GO
+CREATE PROCEDURE [dbo].[sp_select_appointment_by_id]
+	(
+		@AppointmentID		[int]
+	)
+AS
+	BEGIN
+		SELECT	[AppointmentTypeID], [GuestID], [StartDate], [EndDate], [Description]
+		FROM	[Appointment]
+		WHERE 	[AppointmentID] = @AppointmentID
+	END
+GO
+
+/* Wes Richardson
+ * Created: 2019-03-01
+ *
+ * Select appointment type list
+ */
+ 
+print '' print '*** Creating sp_select_appointment_types'
+GO
+CREATE PROCEDURE [dbo].[sp_select_appointment_types]
+AS
+	BEGIN
+		SELECT [AppointmentTypeID], [Description]
+		FROM AppointmentType
+	END
+GO
+
+/* Wes Richardson
+ * Created: 2019-03-01
+ *
+ * Select a list of guests for a appointment guest view model
+ */
+ 
+print '' print '*** Creating sp_select_appointment_guest_view_list'
+GO
+CREATE PROCEDURE [dbo].[sp_select_appointment_guest_view_list]
+AS
+	BEGIN
+		SELECT [GuestID], [FirstName], [LastName], [Email]
+		FROM [Guest]
+	END
+GO
+/* End Wes Richardson */
+
+
+/* 
+Start Gunardi Code
+*/
+
+
+
+
+print '' print '*** Creating Sponsor Table'
+GO
+CREATE TABLE [dbo].[Sponsor](
+	[SponsorID]			[int]IDENTITY(100000, 1)	NOT NULL,
+	[Name]				[nvarchar](50)				NOT NULL,
+	[Address]			[nvarchar](25)				NOT NULL,
+	[City]				[nvarchar](50)				NOT NULL,
+	[State]				[nvarchar](2)				NOT NULL,
+	[PhoneNumber]		[nvarchar](11)				NOT NULL,
+	[Email]				[nvarchar](50)				NOT NULL,
+	[ContactFirstName]	[nvarchar](50)				NOT NULL,
+	[ContactLastName]	[nvarchar](100)				NOT NULL,
+	[StatusID]			[nvarchar](50)				NOT NULL,
+	[DateAdded]			[datetime]			NOT NULL,
+	[Active]			[bit]						NOT NULL 	DEFAULT 1,
+
+CONSTRAINT [pk_SponsorID] PRIMARY KEY([SponsorID] ASC),
+)
+GO
+
+
+print '' print'*** Inserting Sponsor test records'
+GO
+INSERT INTO [dbo].[Sponsor]
+		([Name],[Address],[City]	,[State]		,[PhoneNumber],   [Email],[ContactFirstName], [ContactLastName],[StatusID],[DateAdded])
+	VALUES
+		('ABC', '123 ABC','Cedar','IA', '13195551234','joanne@abc.com', 'Joanne',  'Smith','Sponsoring Event','2019-02-01'),
+			('DEF', '123 DEF','Cedar','CA', '13195551234','adam@def.com		', 'Adam',  'Junior','New','2019-02-01')
+GO
+
+print '' print '*** Creating status Table'
+Create TABLE [dbo].[Status]
+(
+	[statusID] [nvarchar] (50) NOT NULL,
+	constraint [pk_statusid] primary key ([statusID] asc)
+)
+
+
+
+print '' print '*** Inserting status Table'
+GO
+Insert Into [dbo].[status]([statusID])
+values
+	('Sponsoring Event'),
+	('In Review'),('New')
+	GO
+	
+print '' print '*** Creating sp_retrieve_all_statusid'
+GO
+	Create procedure [dbo].[sp_retrieve_all_statusid] 
+As
+Begin
+	Select [statusId]
+	from [status]
+	order by [statusId] 
+End
+GO
+
+
+print '' print '*** Creating State Table'
+GO
+CREATE TABLE [dbo].[State](
+[StateCode] [nvarchar](2)   NOT NULL,
+[StateName] [nvarchar](128) NOT NULL,
+
+CONSTRAINT [PK_StateCode] PRIMARY KEY ([StateCode] ASC), 
+)
+GO
+
+
+print '' print '*** Inserting State Table'
+GO
+INSERT INTO [dbo].[State]
+([StateCode],[StateName])
+
+VALUES
+('AL', 'Alabama'),
+('AK', 'Alaska'),
+('AZ', 'Arizona'),
+('AR', 'Arkansas'),
+('CA', 'California'),
+('CO', 'Colorado'),
+('CT', 'Connecticut'),
+('DE', 'Delaware'),
+('DC', 'District of Columbia'),
+('FL', 'Florida'),
+('GA', 'Georgia'),
+('HI', 'Hawaii'),
+('ID', 'Idaho'),
+('IL', 'Illinois'),
+('IN', 'Indiana'),
+('IA', 'Iowa'),
+('KS', 'Kansas'),
+('KY', 'Kentucky'),
+('LA', 'Louisiana'),
+('ME', 'Maine'),
+('MD', 'Maryland'),
+('MA', 'Massachusetts'),
+('MI', 'Michigan'),
+('MN', 'Minnesota'),
+('MS', 'Mississippi'),
+('MO', 'Missouri'),
+('MT', 'Montana'),
+('NE', 'Nebraska'),
+('NV', 'Nevada'),
+('NH', 'New Hampshire'),
+('NJ', 'New Jersey'),
+('NM', 'New Mexico'),
+('NY', 'New York'),
+('NC', 'North Carolina'),
+('ND', 'North Dakota'),
+('OH', 'Ohio'),
+('OK', 'Oklahoma'),
+('OR', 'Oregon'),
+('PA', 'Pennsylvania'),
+('PR', 'Puerto Rico'),
+('RI', 'Rhode Island'),
+('SC', 'South Carolina'),
+('SD', 'South Dakota'),
+('TN', 'Tennessee'),
+('TX', 'Texas'),
+('UT', 'Utah'),
+('VT', 'Vermont'),
+('VA', 'Virginia'),
+('WA', 'Washington'),
+('WV', 'West Virginia'),
+('WI', 'Wisconsin'),
+('WY', 'Wyoming')
+GO
+
+print '' print '*** Creating sp_retrieve_all_states'
+GO
+CREATE PROCEDURE sp_retrieve_all_states
+AS
+	BEGIN
+		SELECT [StateCode]	
+
+		FROM   [State]
+		ORDER BY [StateCode]
+	END
+GO
+
+
+
+
+
+print '' print '*** Creating sp_retrieve_sponsor_by_status_id'
+GO
+CREATE PROCEDURE [dbo].[sp_retrieve_sponsor_by_status_id]
+	(
+		@StatusID	[nvarchar]
+	)
+AS
+	BEGIN
+		SELECT 	[SponsorID], [Name],[Address],[City],[State],[PhoneNumber],[Email],[ContactFirstName],
+		[ContactLastName],[StatusID],[DateAdded],[Active]
+		FROM [Sponsor]
+		WHERE [StatusID] = @StatusID
+		RETURN @@ROWCOUNT
+	END
+GO
+
+
+
+/*
+ * Author: Gunardi Saputra
+ * Created: 2019/01/23
+ */
+print '' print '*** Creating sp_select_all_sponsors'
+GO
+CREATE PROCEDURE [dbo].[sp_select_all_sponsors]
+AS
+	BEGIN
+		SELECT 	[SponsorID], [Name],[Address],[City],[State],[PhoneNumber],[Email],[ContactFirstName],
+		[ContactLastName],[StatusID],[DateAdded],[Active]
+		FROM [Sponsor]
+		
+	END
+GO
+
+
+/*
+ * Author: Gunardi Saputra
+ * Created: 2019/01/23
+ * Run
+ */
+print '' print '*** Creating sp_insert_sponsor'
+GO
+CREATE PROCEDURE sp_insert_sponsor
+	(
+		@Name				[nvarchar](50),
+		@Address			[nvarchar](25),
+		@City				[nvarchar](50),
+		@State				[nvarchar](2)	,
+		@PhoneNumber		[nvarchar](11),
+		@Email				[nvarchar](50),
+		@ContactFirstName	[nvarchar](50),
+		@ContactLastName	[nvarchar](100),
+		@StatusID			[nvarchar](50)
+	)
+AS
+	BEGIN
+		INSERT INTO [dbo].[Sponsor]
+			( [Name],[Address],[City],[State],[PhoneNumber],[Email],[ContactFirstName],
+			[ContactLastName],[StatusID],[DateAdded])
+		VALUES
+			(@Name, @Address, @City, @State,
+			@PhoneNumber, @Email, @ContactFirstName, @ContactLastName, @StatusID,Convert(Varchar(10), GetDate(), 101))
+			
+		RETURN @@ROWCOUNT
+	END		
+GO
+
+/*
+Author: Gunardi Saputra
+Created Date: 2019/02/20
+
+This stored procedure updates a sponsor record in the sponsor table by its id.
+*/
+print '' print '*** Creating sp_update_sponsor'
+
+GO
+CREATE PROCEDURE sp_update_sponsor
+	(
+		@SponsorID			[int],
+		
+		@OldName			[nvarchar](50),
+		@OldAddress			[nvarchar](25),
+		@OldCity			[nvarchar](50),
+		@OldState			[nvarchar](2),
+		@OldPhoneNumber		[nvarchar](11),
+		@OldEmail			[nvarchar](50),
+		@OldContactFirstName	[nvarchar](50),
+		@OldContactLastName	[nvarchar](100),
+		@OldStatusID		[nvarchar](50),
+		@OldDateAdded		[datetime],
+		@OldActive			[bit],
+		
+		
+		@Name				[nvarchar](50),
+		@Address			[nvarchar](25),
+		@City			[nvarchar](50),
+		@State			[nvarchar](2),
+		@PhoneNumber		[nvarchar](11),
+		@Email			[nvarchar](50),
+		@ContactFirstName [nvarchar](50),
+		@ContactLastName [nvarchar](100),
+		@StatusID		[nvarchar](50),
+		@DateAdded		[datetime],
+		@Active			[bit]
+		
+	)
+
+AS
+	BEGIN
+		UPDATE	[Sponsor]
+		SET 	
+				[Name]				= @Name,
+				[Address]				= @Address,
+				[City]				= @City,
+				[State]				= @State,
+				[PhoneNumber]		= @PhoneNumber,
+				[Email]				= @Email,
+				[ContactFirstName]				= @ContactFirstName,
+				[ContactLastName]				= @ContactLastName,
+				[StatusID]				= @StatusID,
+				[DateAdded]				= @DateAdded,
+		
+		[Active]				= @Active
+				
+			
+
+		WHERE	[SponsorID] 	= @SponsorID
+		AND [Name]				= @OldName
+		AND [Address]		 =  @OldAddress
+		AND [City]		 =  @OldCity
+		AND [State]		 =  @OldState
+		AND [PhoneNumber]		 =  @OldPhoneNumber
+		AND [Email]		 =  @OldEmail
+		AND [ContactFirstName]		 =  @OldContactFirstName
+		AND [ContactLastName]		 =  @OldContactLastName
+		AND [StatusID]		 =  @OldStatusID
+		AND [DateAdded]		 =  @OldDateAdded
+		AND [Active]		 =  @OldActive
+			
+		RETURN @@ROWCOUNT
+	END
+GO
+
+
+
+print '' print '*** Creating sp_activate_sponsor_by_id'
+GO
+CREATE PROCEDURE sp_activate_sponsor_by_id
+	(
+		@SponsorID		[int]
+	)
+AS
+	BEGIN
+		UPDATE 	[Sponsor]
+		SET 	[Active] = 1
+		WHERE	[SponsorID] = @SponsorID
+		  
+		RETURN @@ROWCOUNT		
+	END
+GO
+
+
+print '' print '*** Creating sp_deactivate_sponsor'
+GO
+CREATE PROCEDURE sp_deactivate_sponsor
+	(
+		@SponsorID		[int]
+	)
+AS
+	BEGIN
+		UPDATE 	[Sponsor]
+		SET 	[Active] = 0
+		WHERE	[SponsorID] = @SponsorID
+		  
+		RETURN @@ROWCOUNT		
+	END
+GO
+
+
+
+print '' print '*** Creating sp_delete_sponsor'
+GO
+
+CREATE PROCEDURE [dbo].[sp_delete_sponsor]
+	(
+		@SponsorID 				[int]
+	)
+AS
+	BEGIN
+		DELETE 
+		FROM [Sponsor]
+		WHERE  [SponsorID] = @SponsorID
+		RETURN @@ROWCOUNT
+	END
+GO
+
+
+print '' print '*** Creating sp_select_sponsor'
+GO
+
+CREATE PROCEDURE [dbo].[sp_select_sponsor]
+(
+	@SponsorID 				[int]
+)
+AS
+	BEGIN
+		SELECT [SponsorID], [Name],[Address],[City],[State],[PhoneNumber],[Email],[ContactFirstName],
+			[ContactLastName],[StatusID],[DateAdded],[Active]		
+			FROM [Sponsor]
+		WHERE [SponsorID] = @SponsorID
+	END
+GO
+
+
+print '' print '*** Creating sp_retrieve_all_view_model_sponsors'
+GO
+
+CREATE PROCEDURE [dbo].[sp_retrieve_all_view_model_sponsors]
+AS
+	BEGIN
+		SELECT [Sponsor].[SponsorID],
+		[Sponsor].[SponsorID],
+		[Sponsor].[Name],
+		[Sponsor].[Address],
+		[Sponsor].[City],
+		[Sponsor].[State],
+		[Sponsor].[PhoneNumber],
+		[Sponsor].[Email],
+		[Sponsor].[ContactFirstName],
+		[Sponsor].[ContactLastName],
+		[Sponsor].[StatusID],
+		[Sponsor].[DateAdded],
+		[Sponsor].[Active]
+		FROM Sponsor 
+	END
+GO
+
+
+
+
+
+
+/*  Name: Eduardo Colon
+    Date: 2019-03-05 */
+
+print '' print '*** Creating SetupList Table'
+GO
+CREATE TABLE [dbo].[SetupList] (
+	[SetupListID]		[int] IDENTITY(100000, 1) 			  NOT NULL,
+	[SetupID]			[int]			  	        		  NOT NULL,
+	[Completed] 		[bit]					 DEFAULT 0	  NOT NULL,
+	[Description]		[nvarchar](1000)					  NOT NULL,
+	[Comments]			[nvarchar](1000)				      NULL,
+	
+	
+	CONSTRAINT [pk_SetupListID] PRIMARY KEY([SetupListID] ASC),
+
+)
+GO
+
+
+
+/*  Name: Eduardo Colon
+    Date: 2019-03-05 */
+print '' print '*** Inserting SetupList Test Records'
+GO
+
+INSERT INTO [dbo].[SetupList]
+		([SetupID], [Completed], [Description], [Comments])
+	VALUES
+		(100000, 0, ' Prior to Guest Arrival: Registration Desk,signs,banners', 'Banners are not ready yet'),
+		(100001, 0, ' Display Equipment: Prepares for display boards,tables,chairs,, printed material and names badges','Badges are not ready yet'),
+		(100002, 1, ' Check Av Equipment: Laptop,projectors :Ensure all cables,leads,laptop,mic and mouse are presented and working', 'Av Equipment is ready'),
+		(100003, 1, ' Confirm that all decor and linen is in place ', 'Decor and linen are  ready'),
+		(100004, 1, ' Walk through to make sure bathrooms are clean and stocked ', 'Bathrooms are  ready')
+GO
+
+
+/*  Name: Eduardo Colon
+    Date: 2019-03-05 */
+print '' print '*** Creating sp_select_setuplists'
+GO
+CREATE PROCEDURE [dbo].[sp_retrieve_all_setuplists]
+
+AS
+	BEGIN
+		SELECT 	    [SetupListID], [SetupID], [Completed], [Description],	[Comments]
+		FROM		[SetupList]
+	END
+GO
+
+/*
+  NAME:  Eduardo Colon'
+  Date:   2019-03-05'
+*/
+print '' print '*** Creating sp_retrieve_setuplist_by_id '
+GO
+CREATE PROCEDURE [dbo].[sp_retrieve_setuplist_by_id]
+	(
+		@SetupListID				[int]
+	)
+AS
+	BEGIN
+		SELECT [SetupListID], [SetupID],[Completed],[Description], [Comments]
+		FROM [SetupList]
+		WHERE [SetupListID] = @SetupListID
+	END
+GO
 -- Author: Jared Greenfield
 -- Date Created: 2019-01-27
 -- Date Updated: 
@@ -1327,7 +1744,6 @@ AS
 			[Price]	= @OldPrice AND
 			[Active] = @OldActive 
 			RETURN @@ROWCOUNT
-	END
 GO
 
 
@@ -1348,4 +1764,4 @@ GO
 
 
 
-	
+

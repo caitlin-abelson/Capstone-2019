@@ -42,6 +42,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AppointmentAccessor.cs" />
+    <Compile Include="AppointmentAccessorMock.cs" />
     <Compile Include="AppointmentTypeAccessor.cs" />
     <Compile Include="AppointmentTypeAccessorMock.cs" />
     <Compile Include="BuildingAccessor.cs" />
@@ -55,6 +57,9 @@
     <Compile Include="GuestAccessor.cs" />
     <Compile Include="GuestAccessorMock.cs" />
     <Compile Include="EventTypeAccessorMock.cs" />
+    <Compile Include="GuestVehicleAccessor.cs" />
+    <Compile Include="GuestVehicleAccessorMock.cs" />
+    <Compile Include="IAppointmentAccessor.cs" />
     <Compile Include="IAppointmentTypeAccessor.cs" />
     <Compile Include="IBuildingAccessor.cs" />
     <Compile Include="GuestTypeAccessor.cs" />
@@ -65,6 +70,7 @@
     <Compile Include="IGuestAccessor.cs" />
     <Compile Include="IEventTypeAccessor.cs" />
     <Compile Include="IGuestTypeAccessor.cs" />
+    <Compile Include="IGuestVehicleAccessor.cs" />
     <Compile Include="IInternalOrderAccessor.cs" />
     <Compile Include="IItemAccessor.cs" />
     <Compile Include="IItemTypeAccessor.cs" />
@@ -82,8 +88,10 @@
     <Compile Include="IReservationAccessor.cs" />
     <Compile Include="IRoleAccessor.cs" />
     <Compile Include="IRoomAccessor.cs" />
+    <Compile Include="ISetupListAccessor.cs" />
     <Compile Include="IShopAccessor.cs" />
     <Compile Include="IRoomTypeAccessor.cs" />
+    <Compile Include="ISponsorAccessor.cs" />
     <Compile Include="ISupplierOrderAccessor.cs" />
     <Compile Include="ItemAccessor.cs" />
     <Compile Include="ItemAccessorMock.cs" />
@@ -93,6 +101,7 @@
     <Compile Include="ItemTypeAccessorMock.cs" />
     <Compile Include="ItemTypeAccessorMSSQL.cs" />
     <Compile Include="MaintenanceTypeAccessor.cs" />
+    <Compile Include="MemberAccessorMock.cs" />
     <Compile Include="MemberAccessorMSSQL.cs" />
     <Compile Include="MockBuildingAccessor.cs" />
     <Compile Include="MockDepartmentAccessor.cs" />
@@ -120,9 +129,13 @@
     <Compile Include="RoleAccessor.cs" />
     <Compile Include="RoleAccessorMock.cs" />
     <Compile Include="RoomAccessor.cs" />
+    <Compile Include="SetupListAccessor.cs" />
+    <Compile Include="SetupListAccessorMock.cs" />
     <Compile Include="ShopAccessorMock.cs" />
     <Compile Include="ShopAccessorMSSQL.cs" />
     <Compile Include="RoomTypeAccessor.cs" />
+    <Compile Include="SponsorAccessor.cs" />
+    <Compile Include="SponsorAccessorMock.cs" />
     <Compile Include="SupplierAccessor.cs" />
     <Compile Include="SupplierAccessorMock.cs" />
     <Compile Include="SupplierOrderAccessor.cs" />

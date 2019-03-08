@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AppointmentManager.cs" />
     <Compile Include="AppointmentTypeManager.cs" />
     <Compile Include="BuildingManager.cs" />
     <Compile Include="DepartmentManager.cs" />
@@ -50,6 +51,8 @@
     <Compile Include="EventManager.cs" />
     <Compile Include="EventTypeManager.cs" />
     <Compile Include="GuestManager.cs" />
+    <Compile Include="GuestVehicleManager.cs" />
+    <Compile Include="IAppointmentManager.cs" />
     <Compile Include="IAppointmentTypeManager.cs" />
     <Compile Include="IBuildingManager.cs" />
     <Compile Include="GuestTypeManager.cs" />
@@ -61,6 +64,7 @@
     <Compile Include="IGuestManager.cs" />
     <Compile Include="IEventTypeManager.cs" />
     <Compile Include="IGuestTypeManager.cs" />
+    <Compile Include="IGuestVehicleManager.cs" />
     <Compile Include="IInternalOrderManager.cs" />
     <Compile Include="IItemManager.cs" />
     <Compile Include="IItemTypeManager.cs" />
@@ -77,8 +81,10 @@
     <Compile Include="IReservationManager.cs" />
     <Compile Include="IRoleManager.cs" />
     <Compile Include="IRoomManager.cs" />
+    <Compile Include="ISetupListManager.cs" />
     <Compile Include="IShopManager.cs" />
     <Compile Include="IRoomType.cs" />
+    <Compile Include="ISponsorManager.cs" />
     <Compile Include="ISupplierManager.cs" />
     <Compile Include="ISupplierOrderManager.cs" />
     <Compile Include="ItemManager.cs" />
@@ -88,6 +94,7 @@
     <Compile Include="MaintenanceTypeManager.cs" />
     <Compile Include="MemberManagerMSSQL.cs" />
     <Compile Include="OfferingManager.cs" />
+    <Compile Include="MemberValidator.cs" />
     <Compile Include="PerformanceManager.cs" />
     <Compile Include="PetManager.cs" />
     <Compile Include="PetTypeManager.cs" />
@@ -99,7 +106,9 @@
     <Compile Include="RoomManager.cs" />
     <Compile Include="RoomTypeManager.cs" />
     <Compile Include="RoomVerifier.cs" />
+    <Compile Include="SetupListManager.cs" />
     <Compile Include="ShopManagerMSSQL.cs" />
+    <Compile Include="SponsorManager.cs" />
     <Compile Include="SupplierManager.cs" />
     <Compile Include="SupplierOrderManager.cs" />
     <Compile Include="SupplierValidator.cs" />
