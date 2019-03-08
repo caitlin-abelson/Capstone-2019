@@ -46,6 +46,30 @@ namespace LogicLayer
         }
 
         /// <summary>
+        /// Author James Heim
+        /// Created 2019/03/08
+        /// 
+        /// Attempts to call ActivateSupplier from the accessor.
+        /// </summary>
+        /// <param name="supplier"></param>
+        public bool ActivateSupplier(Supplier supplier)
+        {
+            bool result = false;
+
+            try
+            {
+                result = (1 == _supplierAccessor.ActivateSupplier(supplier));
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+            return result;
+        }
+
+        /// <summary>
         /// James Heim
         /// Created 2019/01/24
         /// 
@@ -168,6 +192,7 @@ namespace LogicLayer
             }
         }
 
+
         /// <summary>
         /// James Heim
         /// Created 2019/02/21
@@ -175,17 +200,21 @@ namespace LogicLayer
         /// Disable a Supplier.
         /// </summary>
         /// <param name="supplier"></param>
-        public void DeactivateSupplier(Supplier supplier)
+        public bool DeactivateSupplier(Supplier supplier)
         {
+            bool result = false;
+
             try
             {
-                _supplierAccessor.DeactivateSupplier(supplier);
+                result = (1 == _supplierAccessor.DeactivateSupplier(supplier));
             }
             catch (Exception)
             {
 
                 throw;
             }
+
+            return result;
         }
 
         /// <summary>
@@ -196,24 +225,23 @@ namespace LogicLayer
         /// from the database.
         /// </summary>
         /// <param name="supplier"></param>
-        public void DeleteSupplier(Supplier supplier)
+        public bool DeleteSupplier(Supplier supplier)
         {
+            bool result = false;
+
             try
             {
-                if (supplier.Active)
-                {
-                    _supplierAccessor.DeactivateSupplier(supplier);
-                }
-                else
-                {
-                    _supplierAccessor.DeleteSupplier(supplier);
-                }
+
+                result = (1 == _supplierAccessor.DeleteSupplier(supplier));
+
             }
             catch (Exception)
             {
 
                 throw;
             }
+
+            return result;
         }
 
 

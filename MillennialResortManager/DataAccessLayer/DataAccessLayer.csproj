@@ -42,6 +42,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AppointmentAccessor.cs" />
+    <Compile Include="AppointmentAccessorMock.cs" />
+    <Compile Include="AppointmentTypeAccessor.cs" />
+    <Compile Include="AppointmentTypeAccessorMock.cs" />
     <Compile Include="BuildingAccessor.cs" />
     <Compile Include="DBConnection.cs" />
     <Compile Include="DepartmentAccessor.cs" />
@@ -50,12 +54,19 @@
     <Compile Include="EmpRolesAccessor.cs" />
     <Compile Include="EventAccessor.cs" />
     <Compile Include="EventTypeAccessor.cs" />
+    <Compile Include="GuestAccessor.cs" />
+    <Compile Include="GuestAccessorMock.cs" />
+    <Compile Include="EventTypeAccessorMock.cs" />
+    <Compile Include="IAppointmentAccessor.cs" />
+    <Compile Include="IAppointmentTypeAccessor.cs" />
     <Compile Include="IBuildingAccessor.cs" />
     <Compile Include="GuestTypeAccessor.cs" />
     <Compile Include="IDepartmentAccessor.cs" />
     <Compile Include="IEmployeeAccessor.cs" />
     <Compile Include="IEmpRolesAccessor.cs" />
     <Compile Include="IEventAccessor.cs" />
+    <Compile Include="IGuestAccessor.cs" />
+    <Compile Include="IEventTypeAccessor.cs" />
     <Compile Include="IGuestTypeAccessor.cs" />
     <Compile Include="IInternalOrderAccessor.cs" />
     <Compile Include="IItemAccessor.cs" />
@@ -66,6 +77,8 @@
     <Compile Include="InternalOrderAccessor.cs" />
     <Compile Include="InternalOrderAccessorMock.cs" />
     <Compile Include="IPerformanceAccessor.cs" />
+    <Compile Include="IPetAccessor.cs" />
+    <Compile Include="IPetTypeAccessor.cs" />
     <Compile Include="IProductAccessor.cs" />
     <Compile Include="IReservationAccessor.cs" />
     <Compile Include="IRoleAccessor.cs" />
@@ -91,6 +104,10 @@
     <Compile Include="MockRoomTypeAccessor.cs" />
     <Compile Include="PerformanceAccessor.cs" />
     <Compile Include="PerformanceAccessorMock.cs" />
+    <Compile Include="PetAccessor.cs" />
+    <Compile Include="PetAccessorMock.cs" />
+    <Compile Include="PetTypeAccessor.cs" />
+    <Compile Include="PetTypeAccessorMock.cs" />
     <Compile Include="ProductAccessorMock.cs" />
     <Compile Include="ProductAccessorMSSQL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

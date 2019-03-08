@@ -27,18 +27,58 @@ namespace DataAccessLayer
         {
             _shops.Add(shop);
 
-            return shop.RoomID;
+            return shop.ShopID;
         }
 
+        /// <summary>
+        /// Author: James Heim
+        /// Created 2019-03-07
+        /// 
+        /// Activate the shop that was passed in.
+        /// </summary>
+        /// <param name="shop"></param>
+        /// <returns>Rows affected</returns>
+        public int ActivateShop(Shop shop)
+        {
+            var selectedShop = _shops.Find(x => x.ShopID == shop.ShopID);
+            selectedShop.Active = true;
+
+            return 1;
+        }
+
+
+        /// <summary>
+        /// Author: James Heim
+        /// Created 2019-03-07
+        /// 
+        /// Deactivate the shop that was passed in.
+        /// </summary>
+        /// <param name="shop"></param>
+        /// <returns>Rows affected</returns>
         public int DeactivateShop(Shop shop)
         {
-            throw new NotImplementedException();
+            var selectedShop = _shops.Find(x => x.ShopID == shop.ShopID);
+            selectedShop.Active = false;
+
+            return 1;
         }
 
+        /// <summary>
+        /// Author James Heim
+        /// Created 2019-03-07
+        /// 
+        /// Delete the shop that was passed in.
+        /// </summary>
+        /// <param name="shop"></param>
+        /// <returns>Rows affected</returns>
         public int DeleteShop(Shop shop)
         {
-            throw new NotImplementedException();
+            var selectedShop = _shops.Find(x => x.ShopID == shop.ShopID);
+            _shops.Remove(selectedShop);
+
+            return 1;
         }
+
 
         public Shop SelectShopByID(int id)
         {

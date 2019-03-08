@@ -74,6 +74,7 @@
     <Compile Include="AddGuestType.xaml.cs" />
     <Compile Include="AddMaintenanceType.xaml.cs" />
     <Compile Include="AddPerformance.xaml.cs" />
+    <Compile Include="BrowseAppointmentType.xaml.cs" />
     <Compile Include="BrowseBuilding.xaml.cs">
       <DependentUpon>BrowseBuilding.xaml</DependentUpon>
     </Compile>
@@ -83,9 +84,14 @@
       <DependentUpon>BrowseEmployee.xaml</DependentUpon>
     </Compile>
     <Compile Include="BrowseEmployeeRole.xaml.cs" />
+    <Compile Include="BrowseGuests.xaml.cs">
+      <DependentUpon>BrowseGuests.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="BrowseEventType.xaml.cs" />
     <Compile Include="BrowseOrders.xaml.cs">
       <DependentUpon>BrowseOrders.xaml</DependentUpon>
     </Compile>
+    <Compile Include="BrowsePetType.xaml.cs" />
     <Compile Include="BrowseReservation.xaml.cs" />
     <Compile Include="BrowseShop.xaml.cs">
       <DependentUpon>BrowseShop.xaml</DependentUpon>
@@ -96,14 +102,31 @@
     <Compile Include="BuildingDetail.xaml.cs">
       <DependentUpon>BuildingDetail.xaml</DependentUpon>
     </Compile>
+    <Compile Include="CreateAppointmentType.xaml.cs" />
+    <Compile Include="CreateEventType.xaml.cs" />
+    <Compile Include="CreatePetType.xaml.cs" />
+    <Compile Include="DeleteAppointmentType.xaml.cs" />
     <Compile Include="DeleteDepartment.xaml.cs" />
+    <Compile Include="DeleteEventType.xaml.cs" />
     <Compile Include="DeleteGuestType.xaml.cs" />
+    <Compile Include="DeletePetType.xaml.cs" />
     <Compile Include="DeleteMaintenanceType.xaml.cs" />
     <Compile Include="DeleteRole.xaml.cs" />
     <Compile Include="DeleteRoom.xaml.cs" />
     <Compile Include="Departments.xaml.cs" />
     <Compile Include="EmployeeRoles.xaml.cs" />
     <Compile Include="frmMember.xaml.cs" />
+    <Compile Include="frmAddEditGuest.xaml.cs">
+      <DependentUpon>frmAddEditGuest.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="frmAddEditPet.xaml.cs" />
+    <Compile Include="frmAddEditViewAppointment.xaml.cs">
+      <DependentUpon>frmAddEditViewAppointment.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="frmPetMain.xaml.cs" />
+    <Compile Include="frmSelectGuestForAppointment.xaml.cs">
+      <DependentUpon>frmSelectGuestForAppointment.xaml</DependentUpon>
+    </Compile>
     <Compile Include="GuestTypes.xaml.cs" />
     <Compile Include="MaintenanceType.xaml.cs" />
     <Compile Include="RoomTypes.xaml.cs" />
@@ -125,6 +148,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="BrowseAppointmentType.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="BrowseBuilding.xaml">
     </Page>
     <Page Include="AddRoles.xaml">
@@ -143,7 +170,19 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="BrowseGuests.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="BrowseEventType.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="BrowseOrders.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="BrowsePetType.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -159,7 +198,19 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="CreateAppointmentType.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="CreateEmployeeRole.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="CreateEventType.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="CreatePetType.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -179,11 +230,23 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="DeleteAppointmentType.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="DeleteDepartment.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="DeleteEventType.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="DeleteGuestType.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="DeletePetType.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -219,7 +282,19 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="frmAddEditGuest.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="frmAddEditPet.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="frmAddEditSupplierOrder.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="frmAddEditViewAppointment.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -247,7 +322,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="frmPetMain.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="frmRoomManagment.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="frmSelectGuestForAppointment.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

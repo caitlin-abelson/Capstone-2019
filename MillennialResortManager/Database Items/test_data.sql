@@ -108,3 +108,103 @@ GO
 		( 100006, "Wavy Daisy", "Surf and Sun shop", 1),
 		( 100007, "Millenial Resort Gift Shop", "I ran out of ideas", 1),
 		( 100008, "Brokesville", "This shop is inactive", 0)
+GO
+
+INSERT INTO [dbo].[PetType]
+		([PetTypeID], [Description])
+	VALUES
+		('Dog', 'Best Dog in the World'),
+		('Cat', 'Best Cat in the World'),
+		('CatDog', 'Best MonkeyCat in the World')
+GO
+
+INSERT INTO [dbo].[Pet]
+		([PetName], [Gender], [Species], [PetTypeID], [GuestID])
+	VALUES
+		('Bandit', 'Male', 'Labrador', 'Dog', '777777'),
+		('ShitRock', 'Female', 'Tabby', 'Cat', '888888'),
+		('Whiskers', 'Neutral', 'MonkeyCat', 'CatDog', '999999')
+GO
+
+INSERT INTO [dbo].[AppointmentType]
+		([AppointmentTypeID], [Description])
+	VALUES
+		('C# and Yoga', 'Modern Yoga infused with loose couplings and dependancy construction.'),
+		('sql and Yoga', 'Modern Yoga infused with data redundancy.')
+GO
+
+INSERT INTO [dbo].[EventType]
+		([EventTypeID], [Description])
+	VALUES
+		('Concert Event', 'A concert is a live music performance in front of an audience.'),
+		('Beach Party', 'There are plenty of opportunities to have a great time at the beach.'),
+		('Wedding', 'Romantic Florals typically make up a romantic wedding also those who never been one to take the normal route?')
+GO
+
+/*Start Wes Richardson 2019-03-01*/
+
+/*
+ * Author: Wes Richardson
+ * Created 2019-03-07
+ *
+ * Insert GuestType Test Records
+ */
+print '' print '*** GuestType Test Data' 
+GO
+INSERT INTO [dbo].[GuestType]
+		([GuestTypeID], [Description])
+	VALUES
+		('Basic guest', 'Basic guest')
+GO
+
+/*
+ * Author: Wes Richardson
+ * Created 2019-03-07
+ *
+ * Insert Guest Test Records
+ */
+print '' print '*** Guest Test Data' 
+GO
+INSERT INTO [dbo].[Guest]
+		([MemberID], [GuestTypeID], [FirstName], [LastName], [PhoneNumber], [Email], [ReceiveTexts], [EmergencyFirstName], [EmergencyLastName], [EmergencyPhoneNumber], [EmergencyRelation])
+	VALUES
+		(100001, 'Basic guest', 'John', 'Doe', '3195555555', 'John@Company.com', 1, 'Jane', 'Doe', '3195555556', 'Wife'),
+		(100001, 'Basic guest', 'Jane', 'Doe', '3195555556', 'Jane@Company.com', 1, 'John', 'Doe', '3195555555', 'Husband')
+GO
+
+/*
+ * Author: Wes Richardson
+ * Created 2019-03-07
+ *
+ * Insert Appointment Type Test Records
+ */
+ print '' print '*** AppointmentType Test Data' 
+GO
+INSERT INTO [dbo].[AppointmentType]
+		([AppointmentTypeID], [Description])
+	VALUES
+		('Spa', 'Spa'),
+		('Pet Grooming', 'Pet Grooming'),
+		('Turtle Petting', 'Turtle Petting'),
+		('Whale Watching', 'Whale Watching'),
+		('Sand Castle', 'Sand Castle Building')
+GO
+
+/*
+ * Author: Wes Richardson
+ * Created 2019-03-07
+ *
+ * Insert Appointment Test Records
+ */
+ print '' print '*** Appointment Test Data' 
+GO
+INSERT INTO [dbo].[Appointment]
+		([AppointmentTypeID], [GuestID], [StartDate], [EndDate], [Description])
+	VALUES
+		('Spa', 100001, '20200320 13:00', '20200320 14:00', 'Spa'),
+		('Sand Castle', 100000, '20200320 13:00', '20200320 14:00', 'Sand Castle Building')
+GO
+
+		
+		
+		

@@ -32,16 +32,43 @@ namespace DataAccessLayer
 
         }
 
+        /// <summary>
+        /// Author James Heim
+        /// Created 2019-03-08
+        /// 
+        /// Activate the supplier.
+        /// </summary>
+        /// <param name="supplier"></param>
+        public int ActivateSupplier(Supplier supplier)
+        {
+            var selectedSupplier = _suppliers.Find(x => x.SupplierID == supplier.SupplierID);
+            selectedSupplier.Active = true;
+
+            return 1;
+        }
+
         public void InsertSupplier(Supplier newSupplier)
         {
             _suppliers.Add(newSupplier);
         }
 
+        /// <summary>
+        /// Author James Heim
+        /// Created 2019-02-23
+        /// 
+        /// Select the Supplier by its ID.
+        /// </summary>
         public Supplier SelectSupplier(int id)
         {
             return _suppliers.Find(x => x.SupplierID == id);
         }
 
+        /// <summary>
+        /// Author James Heim
+        /// Created 2019-02-23
+        /// 
+        /// Select all Suppliers.
+        /// </summary>
         public List<Supplier> SelectAllSuppliers()
         {
             return _suppliers;
@@ -55,18 +82,36 @@ namespace DataAccessLayer
 
         }
 
-        public void DeactivateSupplier(Supplier supplier)
+
+        /// <summary>
+        /// Author James Heim
+        /// Created 2019-02-23
+        /// 
+        /// Deactivate the Supplier.
+        /// </summary>
+        public int DeactivateSupplier(Supplier supplier)
         {
             supplier.Active = false;
 
             var index = _suppliers.FindIndex(x => x.SupplierID == supplier.SupplierID);
             _suppliers[index] = supplier;
+
+            return 1;
         }
 
-        public void DeleteSupplier(Supplier supplier)
+        /// <summary>
+        /// Author James Heim
+        /// Created 2019-02-23
+        /// 
+        /// Delete the Supplier.
+        /// </summary>
+        /// <param name="supplier"></param>
+        public int DeleteSupplier(Supplier supplier)
         {
             var index = _suppliers.FindIndex(x => x.SupplierID == supplier.SupplierID);
             _suppliers.RemoveAt(index);
+
+            return 1;
         }
     }
 }

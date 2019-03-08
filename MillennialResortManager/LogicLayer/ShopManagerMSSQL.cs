@@ -34,6 +34,42 @@ namespace LogicLayer
         }
 
         /// <summary>
+        /// James Heim
+        /// Created 2019-03-08
+        /// 
+        /// Activate the shop passed in by calling the shop accessor method.
+        /// </summary>
+        /// <param name="shop"></param>
+        /// <returns></returns>
+        public bool ActivateShop(Shop shop)
+        {
+            bool result = false;
+
+            try
+            {
+                if (shop == null)
+                {
+                    throw new NullReferenceException(shop.NullShopError);
+                }
+                else if (shop.Active == true)
+                {
+                    throw new InvalidOperationException(shop.ActivateActiveShopError);
+                }
+                else
+                {
+                    result = (1 == _shopAccessor.ActivateShop(shop));
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+            return result;
+        }
+
+        /// <summary>
         /// Author: Kevin Broskow
         /// Created Date: 2/27/2019
         /// Method used for inserting a shop into the database.
@@ -54,14 +90,79 @@ namespace LogicLayer
             return result;
         }
 
+        /// <summary>
+        /// James Heim
+        /// Created 2019-03-08
+        /// 
+        /// Deactivate the shop passed in by calling the shop accessor method.
+        /// </summary>
+        /// <param name="shop"></param>
+        /// <returns></returns>
         public bool DeactivateShop(Shop shop)
         {
-            throw new NotImplementedException();
+            bool result = false;
+
+            try
+            {
+                if (shop == null)
+                {
+                    throw new NullReferenceException(shop.NullShopError);
+                }
+                else if (shop.Active == false)
+                {
+                    throw new InvalidOperationException(shop.DeactivateInactiveShopError);
+                }
+                else
+                {
+                    result = (1 == _shopAccessor.DeactivateShop(shop));
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+            return result;
         }
 
+        /// <summary>
+        /// James Heim 
+        /// Created 2019-03-07
+        /// 
+        /// Delete the shop via the accessor.
+        /// </summary>
+        /// <param name="shop"></param>
+        /// <returns></returns>
         public bool DeleteShop(Shop shop)
         {
-            throw new NotImplementedException();
+            bool result = false;
+
+            if (RetrieveShopByID(shop.ShopID) == null)
+            {
+                // Shop Doesn't exist!
+                throw new NullReferenceException(shop.NullShopError);
+
+            }
+            else if (shop.Active == true)
+            {
+                throw new InvalidOperationException(shop.DeleteActiveShopError);
+            }
+            else
+            {
+
+                try
+                {
+                    result = (1 == _shopAccessor.DeleteShop(shop));
+                }
+                catch (Exception)
+                {
+
+                    throw;
+                }
+            }
+
+            return result;
         }
 
         /// <summary>
@@ -114,11 +215,35 @@ namespace LogicLayer
             return shops;
         }
 
+        /// <summary>
+        /// Author: James Heim
+        /// Created 2019-03-07
+        /// 
+        /// Retrieve the shop via the accessor method.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public Shop RetrieveShopByID(int id)
         {
-            throw new NotImplementedException();
-        }
+            Shop shop;
 
+            try
+            {
+                shop = _shopAccessor.SelectShopByID(id);
+
+                if (shop == null)
+                {
+                    throw new NullReferenceException(shop.NullShopError);
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+            return shop;
+        }
         public bool UpdateShop(Shop newShop, Shop oldShop)
         {
             throw new NotImplementedException();
