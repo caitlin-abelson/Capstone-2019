@@ -201,3 +201,180 @@ AS
 --ALTER TABLE [dbo].[Room] ADD  DEFAULT ((?)) FOR [RoomStatusID]
 --GO
 
+-- Event [Sponsored] trigger
+
+ALTER PROCEDURE [dbo].[sp_insert_event]
+	(
+		@EventTitle [nvarchar](50),
+		@OfferingID	[int],
+		@EmployeeID	[int],
+		@EventTypeID [nvarchar](15),
+		@Description [nvarchar](1000),
+		@EventStartDate [date],
+		@EventEndDate [date],
+		@KidsAllowed [bit],
+		@SeatsRemaining [int],
+		@NumGuests [int],
+		@Location [nvarchar](50),
+		@PublicEvent [bit],
+		@Approved [bit]	
+		
+	)
+AS
+	BEGIN
+		INSERT INTO [dbo].[Event]
+			([EventTitle]
+			,[OfferingID]
+			,[EmployeeID]
+			,[EventTypeID]
+			,[Description]
+			,[EventStartDate]
+			,[EventEndDate]
+			,[KidsAllowed]
+			,[SeatsRemaining]
+			,[NumGuests]
+			,[Location]
+			,[PublicEvent]
+			,[Approved])
+			VALUES
+			(@EventTitle
+			,@OfferingID
+			,@EmployeeID
+			,@EventTypeID
+			,@Description
+			,@EventStartDate
+			,@EventEndDate
+			,@KidsAllowed
+			,@SeatsRemaining
+			,@NumGuests
+			,@Location
+			,@PublicEvent
+			,@Approved)
+			
+			RETURN @@ROWCOUNT
+	END
+GO
+	
+ALTER PROCEDURE [dbo].[sp_update_event]
+	(
+		@EventID				[int],
+		@OfferingID				[int],
+		@EventTitle				[nvarchar](50),
+		@EmployeeID			 	[int],
+		@EventTypeID			[nvarchar](15),
+		@Description			[nvarchar](1000),
+		@EventStartDate			[date],
+		@EventEndDate			[date],
+		@KidsAllowed			[bit],
+		@NumGuests				[int],
+		@SeatsRemaining			[int],
+		@Location				[nvarchar](50),
+		@Sponsored				[bit],
+		@Approved				[bit],
+		@PublicEvent			[bit],
+
+		@OldEventTitle			[nvarchar](50),
+		@OldOfferingID			[int],
+		@OldEmployeeID			[int],
+		@OldEventTypeID			[nvarchar](15),
+		@OldDescription			[nvarchar](1000),
+		@OldEventStartDate		[date],
+		@OldEventEndDate		[date],
+		@OldKidsAllowed			[bit],
+		@OldNumGuests			[int],
+		@OldSeatsRemaining		[int],
+		@OldLocation			[nvarchar](50),
+		@OldSponsored			[bit],
+		@OldApproved			[bit],
+		@OldPublicEvent			[bit]
+
+	)
+AS
+	BEGIN
+		UPDATE [Event]
+		SET		[EventTitle] = @EventTitle,
+				[EmployeeID] = @EmployeeID,
+				[EventTypeID] = @EventTypeID,
+				[Description] = @Description,
+				[EventStartDate] = @EventStartDate,
+				[EventEndDate] = @EventEndDate,
+				[KidsAllowed] = @KidsAllowed,
+				[NumGuests] = @NumGuests,
+				[Location] = @Location,
+				[Sponsored] = @Sponsored,
+				[Approved] = @Approved,
+				[SeatsRemaining] = @SeatsRemaining,
+				[OfferingID] = @OfferingID,
+				[PublicEvent] = @PublicEvent
+		FROM 	[dbo].[Event]
+		WHERE	[EventID] = @EventID
+		AND 	[EventTitle] = @OldEventTitle
+		AND		[EmployeeID] = @OldEmployeeID
+		AND		[EventTypeID] = @OldEventTypeID
+		AND		[Description] = @OldDescription
+		AND		[EventStartDate] = @OldEventStartDate
+		AND		[EventEndDate] = @OldEventEndDate
+		AND		[KidsAllowed] = @OldKidsAllowed
+		AND		[SeatsRemaining] = @OldSeatsRemaining
+		AND		[NumGuests] = @OldNumGuests
+		AND		[Location] = @OldLocation
+		AND 	[Sponsored] = @OldSponsored
+		AND		[Approved] = @OldApproved
+		AND		[PublicEvent] = @OldPublicEvent
+
+			RETURN @@ROWCOUNT
+	END
+GO
+	
+ALTER PROCEDURE [dbo].[sp_retrieve_all_events]
+AS
+	BEGIN
+		SELECT
+		[EventID],
+		[OfferingID],
+		[EventTitle],
+		[Event].[EmployeeID],
+		[Employee].[FirstName],
+		[EventTypeID] AS [EventType],
+		[Description],
+		[EventStartDate],
+		[EventEndDate],
+		[KidsAllowed],
+		[NumGuests],
+		[SeatsRemaining],
+		[Location],
+		[Sponsored],
+		[Approved],
+		[PublicEvent]
+		FROM	[dbo].[Event] INNER JOIN [dbo].[Employee]
+			ON		[Employee].[EmployeeID] = [Event].[EmployeeID]
+	END
+GO
+
+ALTER PROCEDURE [dbo].[sp_retrieve_event]
+	(
+		@EventID [int]
+	)
+AS
+	BEGIN
+		SELECT  [EventID],
+				[OfferingID]
+				[EventTitle],
+				[Event].[EmployeeID],
+				[Employee].[FirstName],
+				[EventTypeID],
+				[Description],
+				[EventStartDate],
+				[EventEndDate],
+				[KidsAllowed],
+				[NumGuests],
+				[SeatsRemaining],
+				[Location],
+				[Sponsored],
+				[Approved],
+				[PublicEvent]
+		FROM	[dbo].[Employee] INNER JOIN [dbo].[Event]
+			ON		[Employee].[EmployeeID] = [Event].[EmployeeID]
+		WHERE	[EventID] = @EventID
+	END
+GO
