@@ -119,7 +119,13 @@
       <DependentUpon>frmAddEditGuest.xaml</DependentUpon>
     </Compile>
     <Compile Include="frmAddEditPet.xaml.cs" />
+    <Compile Include="frmAddEditViewAppointment.xaml.cs">
+      <DependentUpon>frmAddEditViewAppointment.xaml</DependentUpon>
+    </Compile>
     <Compile Include="frmPetMain.xaml.cs" />
+    <Compile Include="frmSelectGuestForAppointment.xaml.cs">
+      <DependentUpon>frmSelectGuestForAppointment.xaml</DependentUpon>
+    </Compile>
     <Compile Include="GuestTypes.xaml.cs" />
     <Compile Include="MaintenanceType.xaml.cs" />
     <Compile Include="RoomTypes.xaml.cs" />
@@ -241,7 +247,7 @@
     <Page Include="DeletePetType.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-	</Page>
+    </Page>
     <Page Include="DeleteMaintenanceType.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -286,6 +292,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="frmAddEditViewAppointment.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="frmAddEditViewRoom.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -311,6 +321,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="frmRoomManagment.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="frmSelectGuestForAppointment.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

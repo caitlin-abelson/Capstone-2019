@@ -42,6 +42,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AppointmentAccessor.cs" />
+    <Compile Include="AppointmentAccessorMock.cs" />
     <Compile Include="AppointmentTypeAccessor.cs" />
     <Compile Include="AppointmentTypeAccessorMock.cs" />
     <Compile Include="BuildingAccessor.cs" />
@@ -55,6 +57,7 @@
     <Compile Include="GuestAccessor.cs" />
     <Compile Include="GuestAccessorMock.cs" />
     <Compile Include="EventTypeAccessorMock.cs" />
+    <Compile Include="IAppointmentAccessor.cs" />
     <Compile Include="IAppointmentTypeAccessor.cs" />
     <Compile Include="IBuildingAccessor.cs" />
     <Compile Include="GuestTypeAccessor.cs" />
