@@ -18,5 +18,7 @@ namespace DataAccessLayer
         void DeleteEmployee(int employeeID);
         void DeleteEmployeeRole(int employeeID);
         void DeactiveEmployee(int employeeID);
+        int VerifyUsernameAndPassword(string username, string password);
+        Employee RetrieveEmployeeByEmail(string username);
     }
 }
