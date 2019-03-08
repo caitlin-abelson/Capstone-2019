@@ -162,168 +162,6 @@ AS
 --ALTER TABLE [dbo].[ItemSupplier] ALTER COLUMN [PrimarySupplier] [bit] NOT NULL;
 --GO
 
-/* Start James Heim */
-
-CREATE TABLE [dbo].[Shop] (
-	[ShopID]		[int] IDENTITY(100000, 1)	NOT NULL,
-	[RoomID]		[int]						NOT NULL,
-	[Name]			[nvarchar](50)				NOT NULL,
-	[Description]	[nvarchar](100)				NOT NULL,
-	[Active]		[bit]						NOT NULL DEFAULT 1
-	
-	CONSTRAINT [pk_ShopID] PRIMARY KEY([ShopID] ASC),
-	CONSTRAINT [ak_RoomID] UNIQUE([RoomID] ASC)
-)
-ALTER TABLE [dbo].[Shop] WITH NOCHECK
-	ADD CONSTRAINT [fk_RoomID] FOREIGN KEY ([RoomID])
-	REFERENCES [dbo].[Room]([RoomID])
-GO
-EXEC sys.sp_addextendedproperty
-	@name = N'Author'
-	,@value = N'James Heim'
-	,@level0type = N'Schema', @level0name = 'dbo'
-	,@level1type = N'Table', @level1name = 'Shop'
-GO
-EXEC sys.sp_addextendedproperty
-	@name = N'Created Date'
-	,@value = N'2019-02-27'
-	,@level0type = N'Schema', @level0name = 'dbo'
-	,@level1type = N'Table', @level1name = 'Shop'
-GO
-EXEC sys.sp_addextendedproperty
-	@name = N'Description'
-	,@value = N'This table keeps records of all the stores(coffee shops, restaurants, gift shops...) that exist in the resort. Each store exists in a single building.'
-	,@level0type = N'Schema', @level0name = 'dbo'
-	,@level1type = N'Table', @level1name = 'Shop'
-GO
-EXEC sys.sp_addextendedproperty
-	@name = N'Description'
-	,@value = N'Auto generated field unique to each shop'
-	,@level0type = N'Schema', @level0name = 'dbo'
-	,@level1type = N'Table', @level1name = 'Shop'
-	,@level2type = N'Column', @level2name = 'ShopID'
-GO
-EXEC sys.sp_addextendedproperty
-	@name = N'Description'
-	,@value = N'The ID field of the room that the shop is in, inside of the building it is in'
-	,@level0type = N'Schema', @level0name = 'dbo'
-	,@level1type = N'Table', @level1name = 'Shop'
-	,@level2type = N'Column', @level2name = 'RoomID'
-GO
-EXEC sys.sp_addextendedproperty
-	@name = N'Description'
-	,@value = N'The name of the shop'
-	,@level0type = N'Schema', @level0name = 'dbo'
-	,@level1type = N'Table', @level1name = 'Shop'
-	,@level2type = N'Column', @level2name = 'Name'
-GO
-
-CREATE PROCEDURE [dbo].[sp_insert_shop]
-	(
-		@ShopID 			[int] 				OUTPUT,
-		@RoomID				[int],
-		@Name				[nvarchar](50),
-		@Description		[nvarchar](100)
-	)
-AS
-	BEGIN
-		INSERT INTO [dbo].[Shop]
-			([RoomID], [Name], [Description])
-		VALUES
-			(@RoomID, @Name, @Description)
-			
-		SET @ShopID = SCOPE_IDENTITY()
-		
-		RETURN SCOPE_IDENTITY()
-	END
-GO
-EXEC sys.sp_addextendedproperty
-	@name = N'Author'
-	,@value = N'James Heim'
-	,@level0type = N'Schema', @level0name = 'dbo'
-	,@level1type = N'Procedure', @level1name = 'sp_insert_shop'
-GO
-EXEC sys.sp_addextendedproperty
-	@name = N'Created Date'
-	,@value = N'2019-02-27'
-	,@level0type = N'Schema', @level0name = 'dbo'
-	,@level1type = N'Procedure', @level1name = 'sp_insert_shop'
-GO
-
-CREATE PROCEDURE [dbo].[sp_select_shop_by_id]
-	(
-		@ShopID 			[int]
-	)
-AS
-	BEGIN
-		SELECT [RoomID], [Name], [Description], [Active]
-		FROM [Shop]
-		WHERE [ShopID] = @ShopID
-	END
-GO
-EXEC sys.sp_addextendedproperty
-	@name = N'Author'
-	,@value = N'James Heim'
-	,@level0type = N'Schema', @level0name = 'dbo'
-	,@level1type = N'Procedure', @level1name = 'sp_select_shop_by_id'
-GO
-EXEC sys.sp_addextendedproperty
-	@name = N'Created Date'
-	,@value = N'2019-03-01'
-	,@level0type = N'Schema', @level0name = 'dbo'
-	,@level1type = N'Procedure', @level1name = 'sp_select_shop_by_id'
-GO
-
-CREATE PROCEDURE [dbo].[sp_select_shops]
-AS
-	BEGIN
-		SELECT [ShopID], [RoomID], [Name], [Description], [Active]
-		FROM [Shop]
-		ORDER BY [ShopID], [RoomID]
-	END
-GO
-EXEC sys.sp_addextendedproperty
-	@name = N'Author'
-	,@value = N'James Heim'
-	,@level0type = N'Schema', @level0name = 'dbo'
-	,@level1type = N'Procedure', @level1name = 'sp_select_shops'
-GO
-EXEC sys.sp_addextendedproperty
-	@name = N'Created Date'
-	,@value = N'2019-02-27'
-	,@level0type = N'Schema', @level0name = 'dbo'
-	,@level1type = N'Procedure', @level1name = 'sp_select_shops'
-GO
-
-CREATE PROCEDURE [dbo].[sp_select_view_model_shops]
-AS
-	BEGIN
-		SELECT  [Shop].[ShopID],
-				[Shop].[RoomID],
-				[Shop].[Name],
-				[Shop].[Description],
-				[Shop].[Active],
-				[Room].[RoomNumber],
-				[Room].[BuildingID]
-		FROM [Shop] INNER JOIN [Room] ON [Shop].[RoomID] = [Room].[RoomID]
-
-	END
-GO
-EXEC sys.sp_addextendedproperty
-	@name = N'Author'
-	,@value = N'James Heim'
-	,@level0type = N'Schema', @level0name = 'dbo'
-	,@level1type = N'Procedure', @level1name = 'sp_select_view_model_shops'
-GO
-EXEC sys.sp_addextendedproperty
-	@name = N'Created Date'
-	,@value = N'2019-02-28'
-	,@level0type = N'Schema', @level0name = 'dbo'
-	,@level1type = N'Procedure', @level1name = 'sp_select_view_model_shops'
-GO
-
-/* Start Austin D. */
-
 -- Review sp_count_supplier_order
 -- sp_create_supplierOrder
 -- sp_deactivate_employee
@@ -339,3 +177,27 @@ GO
 -- change insert_drink to insert recipe with date?
 -- Who is doing room status?
 -- Who did sp_insert_supplier?
+
+--Ensure the following are backed up by default_data before adding statements
+
+--ALTER TABLE [dbo].[Building] ADD  DEFAULT ((?)) FOR [BuildingStatusID]
+--GO
+--ALTER TABLE [dbo].[Event] ADD  DEFAULT ((?)) FOR [EventTypeID]
+--GO
+--ALTER TABLE [dbo].[Item] ADD  DEFAULT ((?)) FOR [ItemTypeID]
+--GO
+--ALTER TABLE [dbo].[MaintenanceWorkOrder] ADD  DEFAULT ((?)) FOR [MaintenanceTypeID]
+--GO
+--ALTER TABLE [dbo].[MaintenanceWorkOrder] ADD  DEFAULT ((?)) FOR [MaintenanceStatusID]
+--GO
+--ALTER TABLE [dbo].[Offering] ADD  DEFAULT ((?)) FOR [OfferingTypeID]
+--GO
+--ALTER TABLE [dbo].[Pet] ADD  DEFAULT ((?)) FOR [PetTypeID]
+--GO
+--ALTER TABLE [dbo].[ResortVehicle] ADD  DEFAULT ((?)) FOR [ResortVehicleStatusID]
+--GO
+--ALTER TABLE [dbo].[Room] ADD  DEFAULT ((?)) FOR [RoomTypeID]
+--GO
+--ALTER TABLE [dbo].[Room] ADD  DEFAULT ((?)) FOR [RoomStatusID]
+--GO
+

@@ -11,3 +11,8 @@ INSERT INTO [dbo].[GuestType]
      VALUES
            ('Basic guest','')
 GO
+INSERT INTO [dbo].[PetType]
+           ([PetTypeID],[Description],[Species])
+     VALUES
+           ('UNASSIGNED','Pets that have not been assigned a type','UNASSIGNED')
+GO
