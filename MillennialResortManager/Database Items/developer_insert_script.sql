@@ -701,3 +701,651 @@ AS
 		ORDER BY 	[AppointmentTypeID]
 	END
 GO
+
+-- Jared Greenfield start
+
+print '' print '*** Creating OfferingType Table'
+GO
+
+CREATE TABLE [dbo].[OfferingType](
+	[OfferingTypeID]		[nvarchar](15)				NOT NULL,
+	[Description]			[nvarchar](1000)			NOT NULL,
+	
+	CONSTRAINT [pk_OfferingTypeID] PRIMARY KEY([OfferingTypeID] ASC)
+)
+GO
+
+-- Author: Jared Greenfield
+-- Date Created: 2019-01-22
+-- Date Updated: 
+print '' print '*** Creating Offering Table'
+GO
+
+CREATE TABLE [dbo].[Offering](
+	[OfferingID]		[int]	IDENTITY(100000,1)  NOT NULL,
+	[OfferingTypeID]	[nvarchar](15)				NOT NULL,
+	[EmployeeID]		[int]						NOT NULL,
+	[Description]		[nvarchar](1000)			NOT NULL,
+	[Price]				[Money]						NOT NULL,
+	[Active]			[bit]	DEFAULT 1			NOT NULL,
+	
+	CONSTRAINT [pk_OfferingID] PRIMARY KEY([OfferingID] ASC)
+)
+GO
+
+-- Author: Jared Greenfield
+-- Date Created: 2019-01-22
+-- Date Updated: 
+print '' print '*** Adding Foreign Key for OfferingTypeID on Offering'
+GO
+
+ALTER TABLE [dbo].[Offering] WITH NOCHECK
+	ADD CONSTRAINT [fk_OfferingTypeID_Offering] FOREIGN KEY ([OfferingTypeID])
+	REFERENCES [dbo].[OfferingType]([OfferingTypeID])
+	ON UPDATE CASCADE
+GO
+
+print '' print '*** Adding Foreign Key for EmployeeID on Offering'
+
+ALTER TABLE [dbo].[Offering] WITH NOCHECK
+	ADD CONSTRAINT [fk_EmployeeID_Offering] FOREIGN KEY ([EmployeeID])
+	REFERENCES [dbo].[Employee]([EmployeeID])
+	ON UPDATE CASCADE
+GO
+
+-- Author: Jared Greenfield
+-- Date Created: 2019-01-22
+-- Date Updated: 
+print '' print '*** Creating ItemType Table'
+GO
+
+CREATE TABLE [dbo].[ItemType](
+	[ItemTypeID]		[nvarchar](15)				NOT NULL,
+	[Description]		[nvarchar](1000)			NOT NULL,
+	
+	CONSTRAINT [pk_ItemTypeID] PRIMARY KEY([ItemTypeID] ASC)
+)
+GO
+
+-- Author: Jared Greenfield
+-- Date Created: 2019-01-22
+-- Date Updated: 
+print '' print '*** Inserting ItemType Records'
+GO
+
+
+-- Author: Jared Greenfield
+-- Date Created: 2019-01-22
+-- Date Updated: 
+print '' print '*** Creating Recipe Table'
+GO
+CREATE TABLE [dbo].[Recipe](
+	[RecipeID]			[int] IDENTITY(100000, 1)						NOT NULL,
+	[Name]				[nvarchar](50)									NOT NULL,
+	[Description]		[nvarchar](1000)										,
+	[DateAdded]			[DateTime] DEFAULT CURRENT_TIMESTAMP			NOT NULL,
+	[Active]			[bit]			DEFAULT 1   					NOT NULL,
+	
+	
+	CONSTRAINT [pk_RecipeID] PRIMARY KEY([RecipeID] ASC)
+)
+GO
+
+-- Author: Jared Greenfield
+-- Date Created: 2019-02-14
+-- Date Updated: 
+print '' print '*** Creating Trigger tr_recipe_item_name'
+GO
+CREATE Trigger tr_recipe_item_name
+ON [Recipe]
+FOR UPDATE AS
+SET NOCOUNT ON;
+UPDATE [Item]
+SET [Item].[Name] = inserted.[Name]
+FROM inserted
+WHERE [Item].[RecipeID] = inserted.[RecipeID];
+SET NOCOUNT OFF;
+GO
+
+
+-- Author: Jared Greenfield
+-- Date Created: 2019-01-22
+-- Date Updated: 
+print '' print '*** Creating Item Table'
+GO
+DROP TABLE[dbo].[Item]
+GO
+CREATE TABLE [dbo].[Item](
+	[ItemID]			[int] IDENTITY(100000, 1)	    	    NOT NULL,
+	[OfferingID]		[int] 											,
+	[CustomerPurchasable][bit]		  DEFAULT 0					NOT NULL,
+	[RecipeID]			[int]		  DEFAULT NULL				 		,
+	[ItemTypeID]		[nvarchar](15)							NOT NULL,
+	[Name]				[nvarchar](50)		  			        NOT NULL,
+	[Description]		[nvarchar](1000)						        ,
+	[DateActive]		[DateTime]	  DEFAULT CURRENT_TIMESTAMP NOT NULL,
+	[Active]			[bit]		  DEFAULT 1					NOT NULL,
+	[OnHandQty]			[int]									NOT NULL,
+	[ReorderQty]		[int]									NOT NULL,
+	
+	CONSTRAINT [pk_ItemID] PRIMARY KEY([ItemID] ASC)
+)
+GO
+
+-- Author: Jared Greenfield
+-- Date Created: 2019-01-22
+-- Date Updated: 
+print '' print '*** Adding Foreign Key for ItemType on Item'
+
+ALTER TABLE [dbo].[Item] WITH NOCHECK
+	ADD CONSTRAINT [fk_ItemTypeID_Item] FOREIGN KEY ([ItemTypeID])
+	REFERENCES [dbo].[ItemType]([ItemTypeID])
+	ON UPDATE CASCADE
+GO
+
+-- Author: Jared Greenfield
+-- Date Created: 2019-02-06
+-- Date Updated: 
+print '' print '*** Adding Foreign Key for OfferingID on Item'
+
+ALTER TABLE [dbo].[Item] WITH NOCHECK
+	ADD CONSTRAINT [fk_OfferingID_Item] FOREIGN KEY ([OfferingID])
+	REFERENCES [dbo].[Offering]([OfferingID])
+	ON UPDATE CASCADE
+GO
+
+-- Author: Jared Greenfield
+-- Date Created: 2019-02-06
+-- Date Updated: 
+print '' print '*** Adding Foreign Key for RecipeID on Item'
+
+ALTER TABLE [dbo].[Item] WITH NOCHECK
+	ADD CONSTRAINT [fk_RecipeID_Item] FOREIGN KEY ([RecipeID])
+	REFERENCES [dbo].[Recipe]([RecipeID])
+	ON UPDATE CASCADE
+GO
+
+-- Author: Jared Greenfield
+-- Date Created: 2019-01-22
+-- Date Updated: 
+print '' print '*** Creating RecipeItemLine Table'
+GO
+
+CREATE TABLE [dbo].[RecipeItemLine](
+	[RecipeID]			[int] 						NOT NULL,
+	[ItemID]			[int] 						NOT NULL,
+	[Quantity] 			[decimal](10,4)				NOT NULL,
+	[UnitOfMeasure]		[nvarchar](25)				NOT NULL,
+	
+	CONSTRAINT [pk_RecipeID_ItemID] PRIMARY KEY([RecipeID] ASC, [ItemID] ASC)
+)
+GO
+
+-- Author: Jared Greenfield
+-- Date Created: 2019-01-22
+-- Date Updated: 
+print '' print '*** Adding Foreign Key for RecipeID on RecipeItemLine'
+
+ALTER TABLE [dbo].[RecipeItemLine] WITH NOCHECK
+	ADD CONSTRAINT [fk_RecipeID_RecipeItemLine] FOREIGN KEY ([RecipeID])
+	REFERENCES [dbo].[Recipe]([RecipeID])
+	ON UPDATE NO ACTION
+GO
+
+-- Author: Jared Greenfield
+-- Date Created: 2019-01-22
+-- Date Updated: 
+print '' print '*** Adding Foreign Key for ItemID on RecipeItemLine'
+
+ALTER TABLE [dbo].[RecipeItemLine] WITH NOCHECK
+	ADD CONSTRAINT [fk_ItemID] FOREIGN KEY ([ItemID])
+	REFERENCES [dbo].[Item]([ItemID])
+	ON UPDATE NO ACTION
+GO
+
+-- Author: Jared Greenfield
+-- Date Created: 2019-01-22
+-- Date Updated: 
+print '' print '*** Creating sp_select_all_items'
+GO
+CREATE PROCEDURE [dbo].[sp_select_all_items]
+AS
+	BEGIN
+		SELECT
+		[ItemID],
+		[ItemTypeID],
+		[Description],
+		[OnHandQty],
+		[Name],
+		[ReorderQty],
+		[DateActive], 
+		[Active],
+		[OfferingID],
+		[CustomerPurchasable],
+		[RecipeID]
+		FROM [Item]
+	END
+GO
+
+-- Author: Jared Greenfield
+-- Date Created: 2019-02-06
+-- Date Updated: 
+print '' print '*** Creating sp_insert_item'
+GO
+CREATE PROCEDURE [dbo].[sp_insert_item]
+	(
+		@OfferingID				[int],
+		@ItemTypeID				[nvarchar](15),
+		@RecipeID				[int],
+		@CustomerPurchasable 	[bit],
+		@Description 			[nvarchar](1000),
+		@OnHandQty				[int],
+		@Name					[nvarchar](50),
+		@ReorderQty				[int]
+	)
+AS
+	BEGIN
+		INSERT INTO [Item] 
+		([OfferingID],[ItemTypeID],[RecipeID],[CustomerPurchasable], [Description], [OnHandQty], [Name], [ReorderQty])
+		VALUES 
+		(@OfferingID,
+		@ItemTypeID,
+		@RecipeID,
+		@CustomerPurchasable ,
+		@Description,
+		@OnHandQty,
+		@Name,
+		@ReorderQty)
+		SELECT SCOPE_IDENTITY();
+	END
+	
+	-- Author: Jared Greenfield
+-- Date Created: 2019-02-07
+-- Date Updated: 2019-02-07
+print '' print '*** Creating sp_update_item'
+GO
+CREATE PROCEDURE [dbo].[sp_update_item]
+	(
+		@ItemID						[int],
+		
+		@OldOfferingID				[int],
+		@OldItemTypeID				[nvarchar](15),
+		@OldRecipeID				[int],
+		@OldCustomerPurchasable 	[bit],
+		@OldDescription 			[nvarchar](1000),
+		@OldOnHandQty				[int],
+		@OldName					[nvarchar](50),
+		@OldReorderQty				[int],
+		@OldDateActive				[DateTime],
+		@OldActive					[bit],
+		
+		@NewOfferingID				[int],
+		@NewItemTypeID				[nvarchar](15),
+		@NewRecipeID				[int],
+		@NewCustomerPurchasable 	[bit],
+		@NewDescription 			[nvarchar](1000),
+		@NewOnHandQty				[int],
+		@NewName					[nvarchar](50),
+		@NewReorderQty				[int],
+		@NewDateActive				[DateTime],
+		@NewActive					[bit]
+	)
+AS
+	BEGIN
+		UPDATE [Item] 
+		SET 
+		[OfferingID] = @NewOfferingID,
+		[ItemTypeID] = @NewItemTypeID,
+		[RecipeID] = @NewRecipeID,
+		[CustomerPurchasable] = @NewCustomerPurchasable,
+		[Description] = @NewDescription,
+		[OnHandQty] = @NewOnHandQty,
+		[Name] = @NewName,
+		[ReorderQty] = @NewReorderQty,
+		[DateActive] = @NewDateActive,
+		[Active] = @NewActive
+		WHERE
+		[ItemID] = @ItemID AND
+		[ItemTypeID] = @OldItemTypeID AND
+		[RecipeID] = @OldRecipeID AND
+		[CustomerPurchasable] = @OldCustomerPurchasable AND
+		[Description] = @OldDescription AND
+		[OnHandQty] = @OldOnHandQty AND
+		[Name] = @OldName AND
+		[ReorderQty] = @OldReorderQty AND
+		[DateActive] = @OldDateActive AND
+		[Active] = @OldActive
+		
+		RETURN @@ROWCOUNT
+	END
+GO
+
+-- Author: Jared Greenfield
+-- Date Created: 2019-01-27
+-- Date Updated: 
+print '' print '*** Creating sp_select_line_items_by_recipeid'
+GO
+CREATE PROCEDURE [dbo].[sp_select_line_items_by_recipeid]
+(
+	@RecipeID [int]
+)
+AS
+	BEGIN
+		SELECT
+		[Item].[ItemID],
+		[Item].[ItemTypeID], 
+		[Item].[Description], 
+		[Item].[OnHandQty],
+		[Item].[Name], 
+		[Item].[ReorderQty], 
+		[Item].[DateActive], 
+		[Item].[Active],
+		[Item].[OfferingID],
+		[Item].[CustomerPurchasable],
+		[Item].[RecipeID]
+		FROM [Item]
+		INNER JOIN [RecipeItemLine] ON [RecipeItemLine].[ItemID] = [Item].[ItemID]
+		WHERE [RecipeItemLine].[RecipeID] = @RecipeID
+	END
+GO
+
+-- Author: Jared Greenfield
+-- Date Created: 2019-02-07
+-- Date Updated: 
+print '' print '*** Creating sp_select_item_by_recipeid'
+GO
+CREATE PROCEDURE [dbo].[sp_select_item_by_recipeid]
+(
+	@RecipeID [int]
+)
+AS
+	BEGIN
+		SELECT
+		[ItemID],
+		[ItemTypeID], 
+		[Description], 
+		[OnHandQty],
+		[Name], 
+		[ReorderQty], 
+		[DateActive], 
+		[Active],
+		[OfferingID],
+		[CustomerPurchasable],
+		[RecipeID]
+		FROM [Item]
+		WHERE [RecipeID] = @RecipeID
+	END
+GO
+
+-- Author: Jared Greenfield
+-- Date Created: 2019-01-27
+-- Date Updated: 
+print '' print '*** Creating sp_select_recipe'
+GO
+CREATE PROCEDURE [dbo].[sp_select_recipe]
+(
+	@RecipeID [int]
+)
+AS
+	BEGIN
+		SELECT [RecipeID], [Name], [Description] , [DateAdded] , [Active]	
+		FROM [Recipe]
+		WHERE [RecipeID] = @RecipeID
+	END
+GO
+
+-- Author: Jared Greenfield
+-- Date Created: 2019-01-27
+-- Date Updated: 2019-02-07
+print '' print '*** Creating sp_select_all_recipes'
+GO
+CREATE PROCEDURE [dbo].[sp_select_all_recipes]
+AS
+	BEGIN
+		SELECT [RecipeID], [Name], [Description] , [DateAdded] , [Active]	
+		FROM [Recipe]
+	END
+GO
+
+-- Author: Jared Greenfield
+-- Date Created: 2019-01-27
+-- Date Updated: 2019-02-07
+print '' print '*** Creating sp_update_recipe'
+GO
+
+CREATE PROCEDURE [dbo].[sp_update_recipe]
+(
+	@RecipeID [int],
+	
+	@OldName [nvarchar](50)	,
+	@OldDescription [nvarchar](1000)	,
+	@OldDateAdded [DateTime],
+	@OldActive [bit],
+	
+	@NewName [nvarchar](50)	,
+	@NewDescription [nvarchar](1000)	,
+	@NewDateAdded [DateTime],
+	@NewActive [bit]
+)
+AS
+	BEGIN
+		UPDATE [Recipe]
+		SET
+			[Name] = @NewName,
+			[Description] = @NewDescription,
+			[DateAdded] = @NewDateAdded,
+			[Active] = @NewActive
+		WHERE
+		
+			[RecipeID] = @RecipeID AND
+			[Name] = @OldName AND
+			[Description] = @OldDescription AND
+			[DateAdded] = @OldDateAdded AND
+			[Active] = @OldActive
+			RETURN @@ROWCOUNT
+	END
+GO	
+
+-- Author: Jared Greenfield
+-- Date Created: 2019-01-22
+-- Date Updated: 
+print '' print '*** Creating sp_insert_recipe'
+GO
+CREATE PROCEDURE [dbo].[sp_insert_recipe]
+	(
+		@Name 			[nvarchar](50),
+		@Description 	[nvarchar](1000)
+	)
+AS
+	BEGIN
+		INSERT INTO [Recipe] 
+		([Name], [Description])
+		VALUES 
+		(@Name, @Description)
+		SELECT SCOPE_IDENTITY();
+	END
+GO
+
+-- Author: Jared Greenfield
+-- Date Created: 2019-02-14
+-- Date Updated: 
+print '' print '*** Creating sp_deactivate_recipe'
+GO
+CREATE PROCEDURE [dbo].[sp_deactivate_recipe]
+(
+	@RecipeID [int]
+)
+AS
+	BEGIN
+		UPDATE [Recipe]
+		SET
+			[Active] = 0
+		WHERE
+		
+			[RecipeID] = @RecipeID
+			RETURN @@ROWCOUNT
+	END
+GO
+
+-- Author: Jared Greenfield
+-- Date Created: 2019-02-14
+-- Date Updated: 
+print '' print '*** Creating sp_reactivate_recipe'
+GO
+CREATE PROCEDURE [dbo].[sp_reactivate_recipe]
+(
+	@RecipeID [int]
+)
+AS
+	BEGIN
+		UPDATE [Recipe]
+		SET
+			[Active] = 1
+		WHERE
+		
+			[RecipeID] = @RecipeID
+			RETURN @@ROWCOUNT
+	END
+GO
+-- Author: Jared Greenfield
+-- Date Created: 2019-02-14
+-- Date Updated: 
+print '' print '*** Creating sp_delete_recipe'
+GO
+CREATE PROCEDURE [dbo].[sp_delete_recipe]
+(
+	@RecipeID [int]
+)
+AS
+	BEGIN
+		DELETE FROM [Recipe]
+		WHERE [RecipeID] = @RecipeID
+		RETURN @@ROWCOUNT
+	END
+GO
+
+-- Author: Jared Greenfield
+-- Date Created: 2019-01-28
+-- Date Updated: 
+print '' print '*** Creating sp_select_recipe_item_lines'
+GO
+CREATE PROCEDURE [dbo].[sp_select_recipe_item_lines]
+(
+	@RecipeID [int]
+)
+AS
+	BEGIN
+		SELECT [RecipeID], [ItemID], [Quantity], [UnitOfMeasure]	
+		FROM [RecipeItemLine]
+		WHERE [RecipeID] = @RecipeID
+	END
+GO
+-- Author: Jared Greenfield
+-- Date Created: 2019-01-29
+-- Date Updated: 
+print '' print '*** Creating sp_delete_recipe_item_lines'
+GO
+CREATE PROCEDURE [dbo].[sp_delete_recipe_item_lines]
+(
+	@RecipeID [int]
+)
+AS
+	BEGIN
+		DELETE FROM [RecipeItemLine]
+		WHERE [RecipeID] = @RecipeID
+		RETURN @@ROWCOUNT
+	END
+GO
+-- Author: Jared Greenfield
+-- Date Created: 2019-01-22
+-- Date Updated: 
+print '' print '*** Creating sp_select_offering'
+GO
+CREATE PROCEDURE [dbo].[sp_select_offering]
+(
+	@OfferingID [int]
+)
+AS
+	BEGIN
+		SELECT [OfferingID], [OfferingTypeID], [EmployeeID], [Description], [Price], [Active]	
+		FROM [Offering]
+		WHERE [OfferingID] = @OfferingID
+	END
+GO
+-- Author: Jared Greenfield
+-- Date Created: 2019-01-22
+-- Date Updated: 
+print '' print '*** Creating sp_insert_offering'
+GO
+CREATE PROCEDURE [dbo].[sp_insert_offering]
+	(
+		@OfferingTypeID [nvarchar](15),
+		@EmployeeID 	[int],
+		@Description 	[nvarchar](1000),
+		@Price			[Money]
+	)
+AS
+	BEGIN
+		INSERT INTO [Offering] 
+		([OfferingTypeID],[EmployeeID],[Description],[Price])
+		VALUES 
+		(@OfferingTypeID, @EmployeeID, @Description, @Price)
+		SELECT SCOPE_IDENTITY();
+	END
+GO
+print '' print '*** Creating sp_update_offering'
+GO
+CREATE PROCEDURE [dbo].[sp_update_offering]
+(
+	@OfferingID [int],
+	
+	@OldOfferingTypeID [nvarchar](15),
+	@OldEmployeeID [int],
+	@OldDescription [nvarchar](1000),
+	@OldPrice	[Money],
+	@OldActive	[bit],
+	
+	@NewOfferingTypeID [nvarchar](15),
+	@NewEmployeeID [int],
+	@NewDescription [nvarchar](1000),
+	@NewPrice	[Money],
+	@NewActive	[bit]
+)
+AS
+	BEGIN
+		UPDATE [Offering]
+		SET
+			[OfferingTypeID] = @NewOfferingTypeID,
+			[EmployeeID] = @NewEmployeeID,
+			[Description] = @NewDescription,
+			[Price]	= @NewPrice,
+			[Active] = @NewActive
+		WHERE
+			[OfferingTypeID] = @OldOfferingTypeID AND
+			[EmployeeID] = @OldEmployeeID AND
+			[Description] = @OldDescription AND
+			[Price]	= @OldPrice AND
+			[Active] = @OldActive 
+			RETURN @@ROWCOUNT
+	END
+GO
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	

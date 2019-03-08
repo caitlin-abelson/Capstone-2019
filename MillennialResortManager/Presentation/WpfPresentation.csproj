@@ -119,7 +119,11 @@
       <DependentUpon>frmAddEditGuest.xaml</DependentUpon>
     </Compile>
     <Compile Include="frmAddEditPet.xaml.cs" />
+    <Compile Include="frmBrowseRecipes.xaml.cs" />
+    <Compile Include="frmConfirmAction.xaml.cs" />
+    <Compile Include="frmCreateRecipe.xaml.cs" />
     <Compile Include="frmPetMain.xaml.cs" />
+    <Compile Include="frmSelectRecipeItem.xaml.cs" />
     <Compile Include="GuestTypes.xaml.cs" />
     <Compile Include="MaintenanceType.xaml.cs" />
     <Compile Include="RoomTypes.xaml.cs" />
@@ -241,7 +245,7 @@
     <Page Include="DeletePetType.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-	</Page>
+    </Page>
     <Page Include="DeleteMaintenanceType.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -294,6 +298,18 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="frmBrowseRecipes.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="frmConfirmAction.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="frmCreateRecipe.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="frmEventDeleteConfirmation.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -311,6 +327,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="frmRoomManagment.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="frmSelectRecipeItem.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

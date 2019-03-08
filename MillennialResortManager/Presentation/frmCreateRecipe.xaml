@@ -1,0 +1,106 @@
+﻿<Window x:Class="Presentation.frmCreateRecipe"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Create a Recipe" Height="600" Width="775">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40"></RowDefinition>
+            <RowDefinition Height="40"></RowDefinition>
+            <RowDefinition Height="40"></RowDefinition>
+            <RowDefinition Height="40"></RowDefinition>
+            <RowDefinition Height="120"></RowDefinition>
+            <RowDefinition Height="160"></RowDefinition>
+            <RowDefinition Height="60"></RowDefinition>
+            <RowDefinition Height="60"></RowDefinition>
+            <RowDefinition ></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <Label x:Name="lblTitle" Content="Create a Recipe" FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Bottom"></Label>
+        </Grid>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="140"></ColumnDefinition>
+                <ColumnDefinition Width="150"></ColumnDefinition>
+                <ColumnDefinition Width="140"></ColumnDefinition>
+                <ColumnDefinition Width="150"></ColumnDefinition>
+                <ColumnDefinition ></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Label x:Name="lblDateAdded" Grid.Column="0" Content="Date Added:" FontSize="14" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="10 0"></Label>
+            <TextBox x:Name="txtDateAdded" Grid.Column="1" FontSize="14" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="10 0" Width="125" MaxLength="50"></TextBox>
+            <Label x:Name="lblActive" Grid.Column="2" Content="Active:" FontSize="14" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="10 0"></Label>
+            <CheckBox x:Name="chkActive" Grid.Column="3" FontSize="14" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10 0"></CheckBox>
+            
+        </Grid>
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="140"></ColumnDefinition>
+                <ColumnDefinition Width="150"></ColumnDefinition>
+                <ColumnDefinition Width="140"></ColumnDefinition>
+                <ColumnDefinition Width="150"></ColumnDefinition>
+                <ColumnDefinition ></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Column="0" Content="Recipe Name:" FontSize="14" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="10 0"></Label>
+            <TextBox x:Name="txtRecipeName" Grid.Column="1" FontSize="14" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="10 0" Width="125" MaxLength="50" SelectionChanged="txtRecipeName_SelectionChanged"></TextBox>
+            <Label Grid.Column="2" Content="Item Type:" FontSize="14" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="10 0"></Label>
+            <ComboBox x:Name="cboType" Grid.Column="3" FontSize="14" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="10 0" Width="125" SelectionChanged="cboType_SelectionChanged"></ComboBox>
+        </Grid>
+        <Grid Grid.Row="3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="140"></ColumnDefinition>
+                <ColumnDefinition Width="150"></ColumnDefinition>
+                <ColumnDefinition Width="140"></ColumnDefinition>
+                <ColumnDefinition Width="150"></ColumnDefinition>
+                <ColumnDefinition ></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Label x:Name="lblPurchasable" Grid.Column="0" Content="For Sale Now:" FontSize="14" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="10 0"></Label>
+            <CheckBox x:Name="chkPurchasable" Grid.Column="1" FontSize="14" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10 0" Click="chkPurchasable_Click"></CheckBox>
+            <Label x:Name="lblPrice" Grid.Column="2" Content="Price:" FontSize="14" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="10 0"></Label>
+            <TextBox x:Name="txtPrice" Grid.Column="3" FontSize="14" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="10 0" Width="125" MaxLength="10" TextChanged="txtPrice_TextChanged"></TextBox>
+        </Grid>
+        <Grid Grid.Row="4">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="40"></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+                <Label x:Name="lblRecipeDescription" Grid.Row="0" Content="Recipe Description:" FontSize="14" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="10 0"></Label>
+                <TextBox x:Name="txtRecipeDescription" Grid.Row="1" FontSize="14" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10 0" Width="700" Height="60" MaxLength="250" TextChanged="txtRecipeDescription_TextChanged"></TextBox>
+            </Grid>
+        </Grid>
+        <Grid Grid.Row="5">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="40"></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+                <Label Grid.Row="0" Content="Ingredient List:" FontSize="14" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="10 0"></Label>
+                <DataGrid x:Name="dgIngredientList" Grid.Row="1" FontSize="14" HorizontalAlignment="Left" VerticalAlignment="Center" SelectionMode="Extended" IsReadOnly="True" Margin="10 0" Width="700" Height="100" AutoGeneratingColumn="DgIngredientList_AutoGeneratingColumn" SelectionChanged="DgIngredientList_SelectionChanged"></DataGrid>
+            </Grid>
+        </Grid>
+        <Grid Grid.Row="6">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            
+        </Grid>
+        <Grid Grid.Row="7">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Button x:Name="btnExit" Grid.Column="0" Content="Cancel" Margin="10 10 10 0" Click="BtnExit_Click"></Button>
+            <Button x:Name="btnDeactivate" Grid.Column="1" Content="Deactivate" Margin="10 10 10 0" Click="BtnDeactivate_Click"></Button>
+            <Button x:Name="btnDelete" Grid.Column="2" Content="Delete" Margin="10 10 10 0"></Button>
+            <Button x:Name="btnDeleteIngredient" Grid.Column="3" Content="Remove Ingredient" Margin="10 10 10 0" Click="BtnDeleteIngredient_Click"></Button>
+            <Button x:Name="btnAddIngredient" Grid.Column="4" Content="Add Ingredient" Margin="10 10 10 0" Click="BtnAddIngredient_Click"></Button>
+            <Button x:Name="btnSubmit" Grid.Column="5" Content="Submit New Recipe" Margin="10 10 10 0" Click="BtnSubmit_Click"></Button>
+        </Grid>
+    </Grid>
+</Window>

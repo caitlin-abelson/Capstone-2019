@@ -13,14 +13,14 @@ namespace DataAccessLayer
 	/// 
 	/// Interface for accessing ItemType Data
 	/// </summary>
-    interface IItemTypeAccessor
+    public interface IItemTypeAccessor
     {
         void CreateItemType(ItemType newItemType);
         ItemType RetrieveItemType();
-        List<String> RetrieveAllItemTypes();
+        List<String> RetrieveAllItemTypesString();
+        List<ItemType> RetrieveAllItemTypes();
         void UpdateItemType(ItemType newItemType, ItemType oldItemType);
         void DeactivateItemType(ItemType deactivatingItemType);
         void PurgeItemType(ItemType purgingItemType);
-
     }
 }

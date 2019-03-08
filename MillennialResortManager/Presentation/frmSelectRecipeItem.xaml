@@ -1,0 +1,62 @@
+﻿<Window x:Class="Presentation.frmSelectItem"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Presentation"
+        mc:Ignorable="d"
+        Title="Choose an Item" Height="425" Width="550">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition ></RowDefinition>
+            <RowDefinition Height="40"></RowDefinition>
+            <RowDefinition Height="230"></RowDefinition>
+            <RowDefinition Height="40"></RowDefinition>
+            <RowDefinition Height="40"></RowDefinition>
+            <RowDefinition Height="10"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <Label Content="Choose an Item" FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Bottom"></Label>
+        </Grid>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="120"></ColumnDefinition>
+                <ColumnDefinition Width="120"></ColumnDefinition>
+                <ColumnDefinition Width="120"></ColumnDefinition>
+                <ColumnDefinition Width="120"></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Column="0" Content="Name Filter:" FontSize="14" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="10 0"></Label>
+            <TextBox x:Name="txtItemNameSearch" Grid.Column="1" FontSize="14" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="10 0" Width="100" MaxLength="50" KeyUp="TxtItemNameSearch_KeyUp"></TextBox>
+            <Label Grid.Column="2" Content="Type Filter:" FontSize="14" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="10 0"></Label>
+            <ComboBox x:Name="cboItemType" Grid.Column="3" FontSize="14" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="10 0" Width="100" SelectionChanged="CboItemType_SelectionChanged"></ComboBox>
+        </Grid>
+        <Grid Grid.Row="2">
+            <Grid>
+                <DataGrid x:Name="dgItemList" FontSize="14" IsReadOnly="True" SelectionMode="Extended" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10 0" Width="460" Height="Auto" AutoGeneratingColumn="DgItemList_AutoGeneratingColumn" SelectionChanged="DgItemList_SelectionChanged"></DataGrid>
+            </Grid>
+        </Grid>
+        <Grid Grid.Row="3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="145"></ColumnDefinition>
+                <ColumnDefinition Width="100"></ColumnDefinition>
+                <ColumnDefinition Width="200"></ColumnDefinition>
+                <ColumnDefinition Width="100"></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Column="0" Content="Quantity in Recipe:" FontSize="14" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="10 0"></Label>
+            <TextBox x:Name="txtQuantity" Grid.Column="1" FontSize="14" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="10 0" Width="80" TextChanged="txtQuantity_TextChanged" KeyDown="txtQuantity_KeyDown"/>
+            <Label Grid.Column="2" Content="Type The Unit of Measure:" FontSize="14" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="10 0"></Label>
+            <TextBox x:Name="txtUnitOfMeasure"  Grid.Column="3" FontSize="14" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="10 0" Width="80"></TextBox>
+        </Grid>
+        <Grid Grid.Row="4">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Button x:Name="btnExit" Grid.Column="0" Content="Cancel" Margin="10 10 10 0" Click="BtnExit_Click"></Button>
+            <Button x:Name="btnSubmit" Grid.Column="2" Content="Add Item" Margin="10 10 10 0" Click="BtnSubmit_Click"></Button>
+        </Grid>
+    </Grid>
+</Window>

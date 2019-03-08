@@ -305,7 +305,7 @@ namespace Presentation
             List<String> itemTypes = new List<String>();
             try
             {
-                itemTypes = _itemTypeManager.RetrieveAllItemTypes();
+                itemTypes = _itemTypeManager.RetrieveAllItemTypesString();
             }
             catch (Exception ex)
             {

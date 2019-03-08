@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data.SqlClient;
 using DataObjects;
+using System.Data;
 
 namespace DataAccessLayer
 {
@@ -76,6 +77,11 @@ namespace DataAccessLayer
             return itemTypes;
         }
 
+        public List<string> RetrieveAllItemTypesString()
+        {
+            throw new NotImplementedException();
+        }
+
         public ItemType RetrieveItemType()
         {
             throw new NotImplementedException();
@@ -84,6 +90,49 @@ namespace DataAccessLayer
         public void UpdateItemType(ItemType newItemType, ItemType oldItemType)
         {
             throw new NotImplementedException();
+        }
+
+        List<ItemType> IItemTypeAccessor.RetrieveAllItemTypes()
+        {
+            List<ItemType> itemTypes = new List<ItemType>();
+
+            var conn = DBConnection.GetDbConnection();
+            string cmdText = @"sp_select_all_item_types";
+            string itemTypeID = "";
+            string description = "";
+            try
+            {
+                conn.Open();
+                SqlCommand cmd1 = new SqlCommand(cmdText, conn);
+                cmd1.CommandType = CommandType.StoredProcedure;
+                var reader = cmd1.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+
+                        itemTypeID = reader.GetString(0);
+                        if (reader.IsDBNull(1))
+                        {
+                            description = "";
+                        }
+                        else
+                        {
+                            description = reader.GetString(1);
+                        }
+
+                        ItemType itemType = new ItemType(itemTypeID, description);
+                        itemTypes.Add(itemType);
+
+                    }
+                }
+                reader.Close();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            return itemTypes;
         }
     }
 }

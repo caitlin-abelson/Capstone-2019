@@ -16,7 +16,28 @@ namespace LogicLayer
 	/// </summary>
     public class ItemTypeManagerMSSQL : IItemTypeManager
     {
-        ItemTypeAccessorMSSQL _itemTypeAccessor = new ItemTypeAccessorMSSQL();
+        private IItemTypeAccessor _itemTypeAccessor;
+
+        /// <summary>
+        /// Author: Jared Greenfield
+        /// Created : 02/20/2019
+        /// ItemTypeManager Is an implementation of the IItemTypeManager Interface meant to interact with the ItemType Accessor
+        /// </summary>
+        public ItemTypeManagerMSSQL()
+        {
+            _itemTypeAccessor = new ItemTypeAccessorMSSQL();
+        }
+
+        /// <summary>
+        /// Author: Jared Greenfield
+        /// Created : 02/20/2019
+        /// ItemTypeManager Is an implementation of the IItemTypeManager Interface meant to interact with the mock accessor
+        /// </summary>
+        public ItemTypeManagerMSSQL(ItemTypeAccessorMock itemTypeAccessorMock)
+        {
+            _itemTypeAccessor = itemTypeAccessorMock;
+        }
+
         public void AddItemType(ItemType newItemType)
         {
             throw new NotImplementedException();
@@ -32,6 +53,31 @@ namespace LogicLayer
             throw new NotImplementedException();
         }
 
+
+        /// <summary>
+        /// Jared Greenfield
+        /// Created: 2018/01/24
+        ///
+        /// Retrieves all Item Types
+        /// </summary>
+        /// <exception cref="SQLException">Insert Fails (example of exception tag)</exception>
+        /// <returns>List of all Item Types</returns>
+        public List<ItemType> RetrieveAllItemTypes()
+        {
+            List<ItemType> itemTypes = new List<ItemType>();
+
+            try
+            {
+                itemTypes = _itemTypeAccessor.RetrieveAllItemTypes();
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            return itemTypes;
+        }
+
         /// <summary>
         /// Kevin Broskow
         /// Created: 2019/01/23
@@ -45,12 +91,12 @@ namespace LogicLayer
         /// example: Fixed a problem when user inputs bad data
         /// </remarks>
         /// <returns>List<String> That contains all of the itemTypeIDs</returns>	
-        public List<String> RetrieveAllItemTypes()
+        public List<String> RetrieveAllItemTypesString()
         {
             List<String> itemTypes = new List<String>();
             try
             {
-                itemTypes = _itemTypeAccessor.RetrieveAllItemTypes();
+                itemTypes = _itemTypeAccessor.RetrieveAllItemTypesString();
             }
             catch (Exception ex)
             {
@@ -60,11 +106,9 @@ namespace LogicLayer
             return itemTypes;
         }
 
-
         public ItemType RetrieveItemType()
         {
             throw new NotImplementedException();
         }
-        
     }
 }

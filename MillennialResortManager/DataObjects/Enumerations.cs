@@ -18,4 +18,13 @@ namespace DataObjects
         Edit,
         Add
     }
+    public enum CrudFunction
+    {
+        Create,
+        Retrieve,
+        Update,
+        Deactivate,
+        Reactivate,
+        Delete
+    }
 }

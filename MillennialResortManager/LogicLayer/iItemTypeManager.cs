@@ -13,12 +13,13 @@ namespace LogicLayer
 	/// 
 	/// Interface for the ItemType managers.
 	/// </summary>
-    interface IItemTypeManager
+    public interface IItemTypeManager
     {
         void AddItemType(ItemType newItemType);
         void EditItemType(ItemType newItemType, ItemType oldItemType);
         ItemType RetrieveItemType();
-        List<String> RetrieveAllItemTypes();
+        List<String> RetrieveAllItemTypesString();
+        List<ItemType> RetrieveAllItemTypes();
         void DeleteItemType();
     }
 }
