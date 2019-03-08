@@ -24,6 +24,8 @@ namespace DataAccessLayer
 
         int UpdateShop(Shop newShop, Shop oldShop);
 
+        int ActivateShop(Shop shop);
+
         int DeactivateShop(Shop shop);
 
         int DeleteShop(Shop shop);

@@ -16,13 +16,15 @@ namespace LogicLayer
 {
     public interface ISupplierManager
     {
+        bool ActivateSupplier(Supplier supplier);
+
         void CreateSupplier(Supplier newSupplier);
         Supplier RetrieveSupplier(int id);
         List<Supplier> RetrieveAllSuppliers();
         void UpdateSupplier(Supplier newSupplier, Supplier oldSupplier);
-        void DeleteSupplier(Supplier supplier);
+        bool DeleteSupplier(Supplier supplier);
 
-        void DeactivateSupplier(Supplier supplier);
+        bool DeactivateSupplier(Supplier supplier);
 
     }
 }

@@ -42,6 +42,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppData.cs" />
+    <Compile Include="Appointment.cs" />
+    <Compile Include="AppointmentGuestViewModel.cs" />
     <Compile Include="AppointmentType.cs" />
     <Compile Include="Building.cs" />
     <Compile Include="BuildingVM.cs" />
@@ -51,6 +53,7 @@
     <Compile Include="Enumerations.cs" />
     <Compile Include="Event.cs" />
     <Compile Include="EventType.cs" />
+    <Compile Include="Guest.cs" />
     <Compile Include="GuestType.cs" />
     <Compile Include="InternalOrder.cs" />
     <Compile Include="InternalOrderLine.cs" />

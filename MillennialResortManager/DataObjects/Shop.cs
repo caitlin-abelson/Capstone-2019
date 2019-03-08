@@ -19,7 +19,63 @@ namespace DataObjects
         public string Name { get; set; }
         public string Description { get; set; }
         public bool Active { get; set; }
-        
+
+
+        /// <summary>
+        /// Author: James Heim
+        /// Created 2019/03/08
+        /// 
+        /// Error to return when trying to reference a null Shop.
+        /// </summary>
+        public string NullShopError
+        {
+            get
+            {
+                return "There is not a Shop by that ID.";
+            }
+        }
+
+        /// <summary>
+        /// Author: James Heim
+        /// Created 2019/03/08
+        /// 
+        /// Error to return when trying to deactivate an inactive shop.
+        /// </summary>
+        public string DeactivateInactiveShopError
+        {
+            get
+            {
+                return "An inactive shop cannot be deactivated.";
+            }
+        }
+
+        /// <summary>
+        /// Author: James Heim
+        /// Created 2019/03/08
+        /// 
+        /// Error to return when trying to activate an active shop.
+        /// </summary>
+        public string ActivateActiveShopError
+        {
+            get
+            {
+                return "An active shop cannot be reactivated.";
+            }
+        }
+
+        /// <summary>
+        /// Author: James Heim
+        /// Created 2019/03/08
+        /// 
+        /// Error to return when trying to delete an active shop.
+        /// </summary>
+        public string DeleteActiveShopError
+        {
+            get
+            {
+                return "A shop must be deactivated before it can be deleted.";
+            }
+        }
 
         public bool IsValid()
         {

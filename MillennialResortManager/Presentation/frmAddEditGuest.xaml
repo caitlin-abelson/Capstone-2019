@@ -1,0 +1,119 @@
+﻿<Window x:Class="Presentation.frmAddEditGuest"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Presentation"
+        mc:Ignorable="d"
+        Title="frmAddEditGuest" Height="700" Width="700" Loaded="Window_Loaded">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="625"/>
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0" Margin="0 5 0 0" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="325"/>
+                <ColumnDefinition />
+                <ColumnDefinition Width="325"/>
+            </Grid.ColumnDefinitions>
+            <Grid Grid.Column="0" >
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="35"/>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="35"/>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="35"/>
+                    <RowDefinition Height="25"/>
+                    <RowDefinition Height="35"/>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="35"/>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="35"/>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="35"/>
+                </Grid.RowDefinitions>
+                <TextBox x:Name="txtMemberId" Grid.Row="2" Margin="15 3"/>
+                <Label Grid.Row="3" Content="ID of Member who is staying with guest" HorizontalContentAlignment="Center" VerticalAlignment="Top"/>
+                <TextBox x:Name="txtFirstName" Grid.Row="0" Margin="15 3"/>
+                <Label Grid.Row="1" Content="First Name" HorizontalContentAlignment="Center" VerticalAlignment="Top"/>
+                <TextBox x:Name="txtPhoneNumber" Grid.Row="4" Margin="15 3"/>
+                <Label Grid.Row="5" Content="Phone Number, aka 3192860018" HorizontalContentAlignment="Center" VerticalAlignment="Center"/>
+                <CheckBox x:Name="chkMinor" Grid.Row="6" HorizontalAlignment="Center" VerticalAlignment="Bottom"/>
+                <Label Grid.Row="7" Content="Is a minor?" HorizontalContentAlignment="Center" VerticalAlignment="Top"/>
+                <TextBox x:Name="txtEmerFirst" Grid.Row="8" Margin="15 3"/>
+                <Label Grid.Row="9" Content="Emergency Contact First Name" HorizontalContentAlignment="Center" VerticalAlignment="Center"/>
+                <TextBox x:Name="txtEmerPhone" Grid.Row="10" Margin="15 3"/>
+                <Label Grid.Row="11" Content="Emergency Contact Phone Number" HorizontalContentAlignment="Center" VerticalAlignment="Center"/>
+            </Grid>
+            <Grid Grid.Column="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Grid Grid.Column="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="60"/>
+                        <RowDefinition Height="10"/>
+                        <RowDefinition Height="60"/>
+                        <RowDefinition Height="10"/>
+                        <RowDefinition Height="60"/>
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    
+                </Grid>
+                <Grid Grid.Column="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="60"/>
+                        <RowDefinition Height="10"/>
+                        <RowDefinition Height="60"/>
+                        <RowDefinition Height="10"/>
+                        <RowDefinition Height="60"/>
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    
+                </Grid>
+            </Grid>
+            <Grid Grid.Column="2" >
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="35"/>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="35"/>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="35"/>
+                    <RowDefinition Height="25"/>
+                    <RowDefinition Height="35"/>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="35"/>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="35"/>
+                </Grid.RowDefinitions>
+                <ComboBox x:Name="cboGuestType" Grid.Row="2" Margin="15 3"/>
+                <Label Grid.Row="3" Content="Relationship to member" HorizontalContentAlignment="Center" VerticalAlignment="Top"/>
+                <TextBox x:Name="txtLastName" Grid.Row="0" Margin="15 3"/>
+                <Label Grid.Row="1" Content="Last Name" HorizontalContentAlignment="Center" VerticalAlignment="Top"/>
+                <TextBox x:Name="txtEmail" Grid.Row="4" Margin="15 3"/>
+                <Label Grid.Row="5" Content="Email" HorizontalContentAlignment="Center" VerticalAlignment="Center"/>
+                <CheckBox x:Name="chkTexting" Grid.Row="6" HorizontalAlignment="Center" VerticalAlignment="Bottom"/>
+                <Label Grid.Row="7" Content="Receive Texts?" HorizontalContentAlignment="Center" VerticalAlignment="Top"/>
+                <TextBox x:Name="txtEmerLast" Grid.Row="8" Margin="15 3"/>
+                <Label Grid.Row="9" Content="Emergency Contact Last Name" HorizontalContentAlignment="Center" VerticalAlignment="Center"/>
+                <TextBox x:Name="txtEmerRelat" Grid.Row="10" Margin="15 3"/>
+                <Label Grid.Row="11" Content="Emergency Contact Relationship to Guest" HorizontalContentAlignment="Center" VerticalAlignment="Center"/>
+            </Grid>
+        </Grid>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="50"/>
+                <ColumnDefinition Width="50"/>
+                <ColumnDefinition />
+                <ColumnDefinition Width="100"/>
+                <ColumnDefinition Width="100"/>
+            </Grid.ColumnDefinitions>
+            <Button x:Name="btnGuestAction" Grid.Column="3" Margin="5" Content="Add" Click="BtnGuestAction_Click"/>
+            <Button x:Name="btnGuestActionCancel" Grid.Column="4" Margin="5" Content="Cancel" Click="BtnGuestActionCancel_Click" />
+        </Grid>
+    </Grid>
+</Window>

@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AppointmentManager.cs" />
     <Compile Include="AppointmentTypeManager.cs" />
     <Compile Include="BuildingManager.cs" />
     <Compile Include="DepartmentManager.cs" />
@@ -49,6 +50,8 @@
     <Compile Include="EmpRolesManager.cs" />
     <Compile Include="EventManager.cs" />
     <Compile Include="EventTypeManager.cs" />
+    <Compile Include="GuestManager.cs" />
+    <Compile Include="IAppointmentManager.cs" />
     <Compile Include="IAppointmentTypeManager.cs" />
     <Compile Include="IBuildingManager.cs" />
     <Compile Include="GuestTypeManager.cs" />
@@ -57,6 +60,7 @@
     <Compile Include="IEmployeeManager.cs" />
     <Compile Include="IEmpRolesManager.cs" />
     <Compile Include="IEventManager.cs" />
+    <Compile Include="IGuestManager.cs" />
     <Compile Include="IEventTypeManager.cs" />
     <Compile Include="IGuestTypeManager.cs" />
     <Compile Include="IInternalOrderManager.cs" />
