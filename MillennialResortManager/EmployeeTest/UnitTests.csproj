@@ -79,6 +79,7 @@
     <Compile Include="SetupListManagerTests.cs" />
     <Compile Include="ShopManagerTest.cs" />
     <Compile Include="RoomTypeUnitTests.cs" />
+    <Compile Include="SpecialManagerTests.cs" />
     <Compile Include="SponsorManagerTest.cs" />
     <Compile Include="SupplierManagerTests.cs" />
     <Compile Include="SupplierOrderTests.cs" />

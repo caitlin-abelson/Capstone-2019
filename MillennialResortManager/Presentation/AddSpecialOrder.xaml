@@ -1,0 +1,48 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+        xmlns:local="clr-namespace:Presentation"
+        xmlns:LogicLayer="clr-namespace:LogicLayer;assembly=LogicLayer" x:Class="Presentation.AddSpecialOrder"
+        mc:Ignorable="d"
+        Title="Add Special Order" Height="600" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="25"></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition Height="50"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Button x:Name="btnAddOrder" Content="Add Order"  HorizontalAlignment="Left" Margin="576,16,0,14" Grid.Row="2" VerticalAlignment="Center" Width="75" Click="btnAddOrder_Click"/>
+        <Button x:Name="btnCancel" Content="Cancel"  HorizontalAlignment="Left" Margin="695,15,0,15" Grid.Row="2" VerticalAlignment="Center" Width="75" Click="btnCancel_Click"/>
+        <Grid Grid.Row="1" Margin="-4,1,4,49" Grid.RowSpan="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="28*"/>
+                <ColumnDefinition Width="21*"/>
+                <ColumnDefinition Width="9*"/>
+                <ColumnDefinition Width="734*"/>
+            </Grid.ColumnDefinitions>
+
+            <ComboBox x:Name="InputEmployeeID" HorizontalAlignment="Left" Margin="183.6,185,0,0" VerticalAlignment="Top" Width="120" Loaded="InputEmployeeID_Loaded" 
+                      SelectionChanged="InputEmployeeID_SelectionChanged" Grid.Column="3"/>
+            <ComboBox x:Name="InputSupplierID"  HorizontalAlignment="Left" Margin="506.6,181,0,0" VerticalAlignment="Top" Width="120" Loaded="InputSupplierID_Loaded"
+                     Text="Black" Grid.Column="3" />
+            <Label Content="Employee ID No." HorizontalAlignment="Left" Margin="25.6,182,0,0" VerticalAlignment="Top" HorizontalContentAlignment="Center" Grid.Column="3"/>
+            <TextBox x:Name="InputDescription"  HorizontalAlignment="Left" Height="73" Margin="182.6,256,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="299" Grid.Column="3"/>
+            <Label Content="Description" HorizontalAlignment="Left" Margin="36.6,278,0,0" VerticalAlignment="Top" HorizontalContentAlignment="Center" Grid.Column="3"/>
+            <Label Content="Date Order Created"  HorizontalAlignment="Left" Margin="16.6,384,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.263,0.962" HorizontalContentAlignment="Center" Grid.Column="3"/>
+            <CheckBox x:Name="OrderComplete" Content="Checked if Completed"  HorizontalAlignment="Left" Margin="510.6,390,0,0" VerticalAlignment="Top" Grid.Column="3"/>
+            <Label Content="Order Status"  HorizontalAlignment="Left" Margin="411.6,383,0,0" VerticalAlignment="Top" Grid.Column="3"/>
+            <Label Content="Supplier ID"  HorizontalAlignment="Left" Margin="404.6,181,0,0" VerticalAlignment="Top" Grid.Column="3"/>
+
+            <TextBox x:Name="SpecialOrderID" HorizontalAlignment="Left" Height="23" Margin="183.6,70,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="120" Grid.Column="3"/>
+            <Label Content="Special Order ID" HorizontalAlignment="Left" Margin="23.6,67,0,0" VerticalAlignment="Top" HorizontalContentAlignment="Center" Grid.Column="3"/>
+            <TextBox x:Name="InputDateOrdered" HorizontalAlignment="Left" Height="23" Margin="181.6,384,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="120" Grid.Column="3"/>
+            <Button x:Name= "Btn_AddItem" Content="Browse" Grid.Column="3" HorizontalAlignment="Left" Margin="542.6,72,0,0" VerticalAlignment="Top" Width="75" Click="Btn_AddItem_Click"/>
+            <Label x:Name= "lbl_AddItem" Content="View Items in Order" Grid.Column="3" HorizontalAlignment="Left" Margin="415.6,68,0,0" VerticalAlignment="Top"/>
+        </Grid>
+        <Button Content="Edit" HorizontalAlignment="Left" Margin="46,16,0,0" Grid.Row="2" VerticalAlignment="Top" Width="75" Click="ButtonEdit_Click" />
+
+    </Grid>
+</Window>

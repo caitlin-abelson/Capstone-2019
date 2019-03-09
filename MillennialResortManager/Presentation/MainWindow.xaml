@@ -25,9 +25,6 @@
                 <ColumnDefinition Width="200"></ColumnDefinition>
                 <ColumnDefinition Width="100"></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <!--@PhilHansen; Added a button for accessing events -->
-            <Button x:Name="btnEventReq" Grid.Column="0" Width="120" Height="25" Content="Event Requests" Click="BtnEventReq_Click" IsEnabled="False" />
-            <!--End @PhilHansen's code-->
             <Button x:Name="btnLogin" Height="25" Grid.Column="3" Margin="10" Content="Login" TabIndex="2" IsDefault="True" Click="btnLogin_Click"/>
             <TextBox x:Name="txtUsername" Grid.Column="1" Margin="10" Height="25" Text="Email Address" 
                      VerticalContentAlignment="Center" TextAlignment="Center" MaxLines="1" TabIndex="0" GotFocus="txtUsername_GotFocus"/>
@@ -42,15 +39,21 @@
             <TabControl Grid.Row="0" x:Name="tabsetMain">
                 <TabItem Name="tabEventManagement" Header="Event Management" >
                     <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="225*"/>
+                            <ColumnDefinition Width="18*"/>
+                            <ColumnDefinition Width="643*"/>
+                        </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="40" />
                             <RowDefinition />
                             <RowDefinition Height="40" />
                         </Grid.RowDefinitions>
-                        <Grid Grid.Row="0">
+                        <Grid Grid.Row="0" Grid.ColumnSpan="3">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="100"/>
-                                <ColumnDefinition />
+                                <ColumnDefinition Width="149*" />
+                                <ColumnDefinition Width="18*"/>
                                 <ColumnDefinition Width="120"/>
                                 <ColumnDefinition Width="100"/>
                                 <ColumnDefinition Width="200"/>
@@ -58,29 +61,54 @@
                                 <ColumnDefinition Width="100"/>
                             </Grid.ColumnDefinitions>
                             <Label Grid.Column="0" Content="Search Term:" Padding="5" HorizontalAlignment="Right" VerticalContentAlignment="Center" />
-                            <TextBox x:Name="txtSearch" Grid.Column="1" HorizontalContentAlignment="Center" Text="" Margin="5"/>
-                            <Label Padding="5" HorizontalAlignment="Right" VerticalContentAlignment="Center" Grid.Column="2" Content="Minimum Capacity" />
-                            <TextBox x:Name="txtCapacity" Text="1"  Margin="5" Grid.Column="3" HorizontalContentAlignment="Center" VerticalAlignment="Center"/>
-                            <ComboBox x:Name="cboBoatType" Grid.Column="4" Margin="5" VerticalContentAlignment="Center" />
-                            <Button x:Name="btnFilter" Grid.Column="5" Margin="5" Content="Filter" />
-                            <Button x:Name="btnClearBoatTypes"  Grid.Column="6" Content="Clear" Margin="5" />
+                            <TextBox x:Name="txtSearch" Grid.Column="1" HorizontalContentAlignment="Center" Text="" Margin="5,5,4.2,5" Grid.ColumnSpan="2"/>
+                            <Label Padding="5" HorizontalAlignment="Right" VerticalContentAlignment="Center" Grid.Column="3" Content="Minimum Capacity" Margin="0,0,0.2,0" />
+                            <TextBox x:Name="txtCapacity" Text="1"  Margin="4.8,11,5.2,11" Grid.Column="4" HorizontalContentAlignment="Center" VerticalAlignment="Center"/>
+                            <ComboBox x:Name="cboBoatType" Grid.Column="5" Margin="4.8,5,5.2,5" VerticalContentAlignment="Center" />
+                            <Button x:Name="btnFilter" Grid.Column="6" Margin="4.8,5,5.2,5" Content="Filter" />
+                            <Button x:Name="btnClearBoatTypes"  Grid.Column="7" Content="Clear" Margin="4.8,5,5.2,5" />
                         </Grid>
-                        <DataGrid Grid.Row="1" x:Name="dgRental" VerticalGridLinesBrush="{x:Null}" SelectionMode="Single" AlternatingRowBackground="#FF3DD8CA" RowBackground="LightGoldenrodYellow"  IsReadOnly="True" />
+                        <DataGrid Grid.Row="1" x:Name="dgRental" VerticalGridLinesBrush="{x:Null}" SelectionMode="Single" AlternatingRowBackground="#FF3DD8CA" RowBackground="LightGoldenrodYellow"  IsReadOnly="True" Grid.ColumnSpan="3" />
+                        <TabControl HorizontalAlignment="Left" Height="100" Margin="74,110,0,0" Grid.Row="1" VerticalAlignment="Top" Width="100">
+                            <TabItem Header="TabItem">
+                                <Grid Background="#FFE5E5E5">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="23*"/>
+                                        <ColumnDefinition Width="24*"/>
+                                    </Grid.ColumnDefinitions>
+                                </Grid>
+                            </TabItem>
+                            <TabItem Header="TabItem">
+                                <Grid Background="#FFE5E5E5"/>
+                            </TabItem>
+                        </TabControl>
                     </Grid>
                 </TabItem>
                 <TabItem Name="tabInventory" Header="Inventory">
                 </TabItem>
 
+                <TabItem Name="tabsupplierOrder" Header="Supplier Order" Margin="-2,0">
+                    <TabControl>
+                        <Grid Margin="-2,0,2,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="32*"/>
+                                <ColumnDefinition Width="108*"/>
+                                <ColumnDefinition Width="68*"/>
+                                <ColumnDefinition Width="33*"/>
+                                <ColumnDefinition Width="640*"/>
+                            </Grid.ColumnDefinitions>
+                            <DataGrid x:Name = "ListAllOrders" HorizontalAlignment="Left" Height="344" Margin="59,36,0,0" VerticalAlignment="Top" Width="700"  Grid.ColumnSpan="4" Grid.Column="1" Loaded="DatagridReadAll_loaded" MouseDoubleClick="ListAllOrders_MouseDoubleClick" IsReadOnly="True" />
+                            <Button x:Name = "AddOrder" Content="Add Order" HorizontalAlignment="right" VerticalAlignment="Bottom" Height="20" Width="75" Grid.Column="4" Click = "Button_Click_AddOrder" Margin="0,0,9.8,4.8"/>
+                        </Grid>
+
+
+                    </TabControl>
+                </TabItem>
+
+
             </TabControl>
+
             <Grid Grid.Row="1" Background="LightSeaGreen">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition></ColumnDefinition>
-                    <ColumnDefinition></ColumnDefinition>
-                    <ColumnDefinition></ColumnDefinition>
-                    <ColumnDefinition></ColumnDefinition>
-                    <ColumnDefinition></ColumnDefinition>
-                </Grid.ColumnDefinitions>
-                <Button x:Name="btnViewOrderList" Width="100" Grid.Column="2" Margin="5" Content="View Order List" Click="BtnViewOrderList_Click"/>
 
             </Grid>
         </Grid>
@@ -90,5 +118,6 @@
                 <StatusBarItem Background="White" Padding="40 0" x:Name="Alert" Content="You Must Log In to Continue" Margin="15,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="14"></StatusBarItem>
             </StatusBar>
         </Grid>
+
     </Grid>
 </Window>

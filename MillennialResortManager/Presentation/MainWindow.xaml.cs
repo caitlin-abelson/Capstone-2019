@@ -1,5 +1,4 @@
-﻿using LogicLayer;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,10 +11,12 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
-using System.Windows.Shapes;
 using DataObjects;
+using LogicLayer;
+using System.Data;
 using Presentation;
-
+using System.Configuration;
+    
 namespace WpfPresentation
 {
     /// <summary>
@@ -23,9 +24,10 @@ namespace WpfPresentation
     /// </summary>
     public partial class MainWindow : Window
     {
+        
         private UserManager _userManager = new UserManager();
+        private SpecialOrderManagerMSSQL _specialOrderLogic = new SpecialOrderManagerMSSQL();
         private User _user;
-        private User _fullUser = new User();
 
         // helper methods
         private void resetWindow()
@@ -34,7 +36,7 @@ namespace WpfPresentation
             // put the screen back it was in the first palce
             _user = null;
 
-            // Dani's code
+         
             btnLogin.Content = "Log In";
             txtUsername.Visibility = Visibility.Visible;
             pwdPassword.Visibility = Visibility.Visible;
@@ -47,11 +49,7 @@ namespace WpfPresentation
             txtUsername.Focus();
             txtUsername.SelectAll();
             hideAllUserTabs();
-            // end Dani's code
-
-            //For Event Request testing by Phil
-            btnEventReq.IsEnabled = false;
-            //End Phil's code
+       
 
         }
 
@@ -83,14 +81,9 @@ namespace WpfPresentation
 
             Alert.Content = "You are logged in as: " + roles;
             showUserTabs();
-
-            //For Event Request testing by Phil
-            btnEventReq.IsEnabled = true;
-            //End Phil's code
-
         }
 
-
+        
 
         public MainWindow()
         {
@@ -100,7 +93,7 @@ namespace WpfPresentation
         private void frmMain_Loaded(object sender, RoutedEventArgs e)
         {
             txtUsername.Focus();
-            hideAllUserTabs();
+           // hideAllUserTabs();
         }
 
         private void pwdPassword_GotFocus(object sender, RoutedEventArgs e)
@@ -186,7 +179,7 @@ namespace WpfPresentation
 
         private void showUserTabs()
         {
-            // loop througth the roles
+         // loop througth the roles
             foreach (var r in _user.Roles)
             {
                 switch (r)
@@ -199,32 +192,108 @@ namespace WpfPresentation
                         tabInventory.Visibility = Visibility.Visible;
                         tabInventory.IsSelected = true;
                         break;
-                    
+
+                    case "Supplier Order":
+                        tabInventory.Visibility = Visibility.Visible;
+                        tabInventory.IsSelected = true;
+                        break;
                     default:
                         break;
                 }
             }
         }
 
-        private void BtnViewOrderList_Click(object sender, RoutedEventArgs e)
+        /// <summary>
+        /// Carlos Arzu
+        /// Created: 2019/02/06
+        /// 
+        ///When add button is click, it opens the new form to create a new order.
+        /// </summary>
+        private void Button_Click_AddOrder(object sender, RoutedEventArgs e)
         {
-            var viewOrders = new BrowseOrders(_fullUser);
-            viewOrders.ShowDialog();
+
+            AddSpecialOrder order = new AddSpecialOrder();
+            order.Show();
+            updateList();
         }
 
         /// <summary>
-        /// @Author Phillip Hansen
+        /// Carlos Arzu
+        /// Created: 2019/02/06
+        /// 
+        ///Method that loads the list of all orders when the Tab Supply Order is selected.
         ///
-        /// Adds a button to access the main Event form window, passes a user to the new window
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void BtnEventReq_Click(object sender, RoutedEventArgs e)
+        private void DatagridReadAll_loaded(object sender, RoutedEventArgs e)
         {
-            //The Form requires the User's ID for a field in the record
-            var Events = new frmEventMain(_user);
-            var result = Events.ShowDialog();
+                        
+            try
+            {
+                updateList();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            
         }
 
+        /// <summary>
+        /// Carlos Arzu
+        /// Created: 2019/02/06
+        /// 
+        ///From the grid the user will select and click on the desired order
+        ///a read-only form will open with the selected information.
+        ///
+        /// </summary>
+        private void ListAllOrders_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            var selected = (CompleteSpecialOrder)ListAllOrders.SelectedItem;
+            var detailA = new AddSpecialOrder(selected); // pop up a detail window
+            detailA.ShowDialog();
+            updateList();
+           
+        }
+
+        /// <summary>
+        /// Eduardo Colon
+        /// Created: 2019/02/27
+        /// 
+        ///From the grid the user will select and click on the desired order
+        ///a read-only form will open with the selected information.
+        ///
+        /// </summary>
+        private void Deactivate_Click(object sender, RoutedEventArgs e)
+        {
+
+            if (ListAllOrders.SelectedIndex > -1)
+            {
+                var result = MessageBox.Show("Do you want to cancel the selected order?", "Cancel order", MessageBoxButton.YesNo);
+                if (result == MessageBoxResult.Yes)
+                {
+
+                    var order = (CompleteSpecialOrder)ListAllOrders.SelectedItem;
+                    try
+                    {
+                        _specialOrderLogic.DeactivateSpecialOrder(order.SpecialOrderID);
+                        ListAllOrders.ItemsSource = _specialOrderLogic.retrieveAllOrders();
+                    }
+                    catch (Exception ex)
+                    {
+
+                        MessageBox.Show(ex.Message + Environment.NewLine + ex.StackTrace);
+                    }
+                }
+            }
+            else
+            {
+                MessageBox.Show("Please select an order to cancel");
+            }
+        }
+
+        public void updateList()
+        {
+            ListAllOrders.ItemsSource = _specialOrderLogic.retrieveAllOrders();
+        }
     }
 }
