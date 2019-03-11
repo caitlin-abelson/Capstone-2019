@@ -1,6 +1,7 @@
 USE [MillennialResort_DB]
 GO
 
+print '' '*** Role records'
 INSERT INTO [dbo].[Role]
 		([RoleID], [Description])
 	VALUES
@@ -15,6 +16,7 @@ INSERT INTO [dbo].[Role]
 		('Admin', 'Administers Employee Roles')
 GO
 
+print '' print '*** Employee role records'
 INSERT INTO [dbo].[EmployeeRole]
 		([EmployeeID], [RoleID])
 	VALUES
@@ -29,6 +31,7 @@ INSERT INTO [dbo].[EmployeeRole]
 		(100003, 'Admin')
 GO
 
+print '' print '*** department records'
 INSERT INTO [dbo].[Department]
 		([DepartmentID], [Description])
 	VALUES
@@ -39,6 +42,7 @@ INSERT INTO [dbo].[Department]
 		('Talent','This employee provides entertainment at events that are hosted at our resort.')
 GO
 
+print '' print '*** Employee records'
 INSERT INTO [dbo].[Employee]
 		([FirstName], [LastName], [PhoneNumber], [Email], [DepartmentID], [Active])
 	VALUES
@@ -48,6 +52,7 @@ INSERT INTO [dbo].[Employee]
 		('Joe', 'Shmoe', '1319551112', 'joe@company.com', 'Grooming', 0)
 GO
 
+print '' print '*** Item type records'
 INSERT INTO [dbo].[ItemType]
 		([ItemTypeID])
 	VALUES
@@ -60,6 +65,7 @@ INSERT INTO [dbo].[ItemType]
 		('Beverage')
 GO
 
+print '' print '*** Product records'
 INSERT INTO [dbo].[Product]
 		([ItemTypeID], [Description],[OnHandQuantity], [Name], [ReOrderQuantity], [DateActive], [Active], [CustomerPurchasable], [RecipeID], [OfferingID])
 	VALUES
@@ -76,20 +82,20 @@ INSERT INTO [dbo].[Product]
 		
 GO
 
+print '' print '*** Reservation records'
 INSERT INTO [dbo].[Reservation]
 		([MemberID],[NumberOfGuests],[NumberOfPets],[ArrivalDate],[DepartureDate],[Notes])
 	VALUES
 		(100000,1,0,'2008-11-11','2008-11-12','test')
 GO
 
+print '' print '*** Member records'
 INSERT INTO [dbo].[Member]
 		([FirstName],[LastName],[PhoneNumber],[Email])
 	VALUES
 		('Spongebob','Squarepants','1112223333','bobswag@kk.com'),
 		('Patrick','Star','2223334444','starboi@kk.com')
 GO
-
-
 
 /*
  * Author: James Heim
@@ -110,6 +116,7 @@ GO
 		( 100008, "Brokesville", "This shop is inactive", 0)
 GO
 
+print '' print '*** Pet type records'
 INSERT INTO [dbo].[PetType]
 		([PetTypeID], [Description])
 	VALUES
@@ -118,6 +125,7 @@ INSERT INTO [dbo].[PetType]
 		('CatDog', 'Best MonkeyCat in the World')
 GO
 
+print '' print '*** Pet records'
 INSERT INTO [dbo].[Pet]
 		([PetName], [Gender], [Species], [PetTypeID], [GuestID])
 	VALUES
@@ -126,6 +134,7 @@ INSERT INTO [dbo].[Pet]
 		('Whiskers', 'Neutral', 'MonkeyCat', 'CatDog', '999999')
 GO
 
+print '' print '*** Appointment type records'
 INSERT INTO [dbo].[AppointmentType]
 		([AppointmentTypeID], [Description])
 	VALUES
@@ -133,6 +142,7 @@ INSERT INTO [dbo].[AppointmentType]
 		('sql and Yoga', 'Modern Yoga infused with data redundancy.')
 GO
 
+print '' print '*** Event type records'
 INSERT INTO [dbo].[EventType]
 		([EventTypeID], [Description])
 	VALUES
@@ -220,4 +230,28 @@ INSERT INTO [dbo].[SetupList]
 		(100003, 1, ' Confirm that all decor and linen is in place ', 'Decor and linen are  ready'),
 		(100004, 1, ' Walk through to make sure bathrooms are clean and stocked ', 'Bathrooms are  ready')
 GO
-		
+
+-- Created: 2019-3-06
+print '' print '*** Inserting Performance Test Records'
+GO
+INSERT INTO [dbo].[Performance]
+	([PerformanceName], [PerformanceDate], [Description])
+	VALUES
+		('Juggler', '2018-6-27', 'It is a juggler, not much else to say'),
+		('Firebreather', '2018-5-15', 'This one is for Matt LaMarche')
+GO
+
+
+-- Name: Eduardo Colon
+-- Date: 2019-03-05
+print '' print '*** Inserting SetupList Test Records'
+GO
+INSERT INTO [dbo].[SetupList]
+		([SetupID], [Completed], [Description], [Comments])
+	VALUES
+		(100000, 0, ' Prior to Guest Arrival: Registration Desk,signs,banners', 'Banners are not ready yet'),
+		(100001, 0, ' Display Equipment: Prepares for display boards,tables,chairs,, printed material and names badges','Badges are not ready yet'),
+		(100002, 1, ' Check Av Equipment: Laptop,projectors :Ensure all cables,leads,laptop,mic and mouse are presented and working', 'Av Equipment is ready'),
+		(100003, 1, ' Confirm that all decor and linen is in place ', 'Decor and linen are  ready'),
+		(100004, 1, ' Walk through to make sure bathrooms are clean and stocked ', 'Bathrooms are  ready')
+GO

@@ -6,9 +6,9 @@ GO
 
 /* Start {Your name} */
 
--- Created: {Date you wrote the script}
--- Update {date of update} Author: {who did the update}
--- Update {date of update} Desc: {what is the update}
+-- Created: {Date_you_wrote_the_script}
+-- Update {date of update} Author: {who_did_the_update}
+-- Update {date_of_update} Desc: {what_is_the_update}
 /* The first line of your code here */
 
 
@@ -16,258 +16,8 @@ GO
 /* Developers place their test code here to be submitted to database */
 /* vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv */
 /*********************************************************************/
-/* Start Jacob Miller */
--- Created: 2019-3-06
-print '' print '*** Creating Performance Table'
-GO
-CREATE TABLE [dbo].[Performance](
-	[PerformanceID]		[int]IDENTITY(100000, 1)	NOT NULL,
-	[PerformanceName]	[nvarchar](100)				NOT NULL,
-	[PerformanceDate]	[date]						NOT NULL,
-	[Description]		[nvarchar](1000),
-	CONSTRAINT [pk_PerformanceID] PRIMARY KEY([PerformanceID])
-)
-GO
--- Created: 2019-3-06
-print '' print '*** Inserting Performance Test Records'
-GO
-INSERT INTO [dbo].[Performance]
-	([PerformanceName], [PerformanceDate], [Description])
-	VALUES
-		('Juggler', '2018-6-27', 'It is a juggler, not much else to say'),
-		('Firebreather', '2018-5-15', 'This one is for Matt LaMarche')
-GO
--- Created: 2019-3-06
-print '' print '*** Creating sp_select_performance_by_id'
-GO
-CREATE PROCEDURE [dbo].[sp_select_performance_by_id]
-	(
-		@PerformanceID	[int]
-	)
-AS
-	BEGIN
-		SELECT 	[PerformanceID], [PerformanceName], [PerformanceDate], [Description]
-		FROM [Performance]
-		WHERE [PerformanceID] = @PerformanceID
-		RETURN @@ROWCOUNT
-	END
-GO
--- Created: 2019-3-06
-print '' print '*** Creating sp_select_all_performance'
-GO
-CREATE PROCEDURE [dbo].[sp_select_all_performance]
-AS
-	BEGIN
-		SELECT [PerformanceID], [PerformanceName], [PerformanceDate], [Description]
-		FROM [Performance]
-	END
-GO
--- Created: 2019-3-06
-print '' print '*** Creating sp_search_performances'
-GO
-CREATE PROCEDURE [dbo].[sp_search_performances]
-	(
-		@SearchTerm		[nvarchar](100)
-	)
-AS
-	BEGIN
-		SELECT [PerformanceID], [PerformanceName], [PerformanceDate], [Description]
-		FROM [Performance]
-		WHERE [PerformanceName] LIKE '%' + @SearchTerm + '%'
-	END
-GO
--- Created: 2019-3-06
-print '' print '*** Creating sp_insert_performance'
-GO
-CREATE PROCEDURE [dbo].[sp_insert_performance]
-	(
-		@PerformanceName	[nvarchar](100),
-		@PerformanceDate	[date],
-		@Description		[nvarchar](1000)
-	)
-AS
-	BEGIN
-		INSERT INTO [dbo].[Performance]
-			([PerformanceName], [PerformanceDate], [Description])
-		VALUES
-			(@PerformanceName, @PerformanceDate, @Description)
-	END
-GO
--- Created: 2019-3-06
-print '' print '*** Creating sp_update_performance'
-GO
-CREATE PROCEDURE [dbo].[sp_update_performance]
-	(
-		@PerformanceID		[int],
-		@PerformanceName	[nvarchar](100),
-		@PerformanceDate	[date],
-		@Description		[nvarchar](1000)
-	)
-AS
-	BEGIN
-		UPDATE [Performance]
-			SET [PerformanceName] = @PerformanceName, [PerformanceDate] = @PerformanceDate, [Description] = @Description
-			WHERE [PerformanceID] = @PerformanceID
-		RETURN @@ROWCOUNT
-	END
-GO
--- Created: 2019-3-06
-print '' print '*** Creating sp_delete_performance'
-GO
-CREATE PROCEDURE [dbo].[sp_delete_performance]
-	(
-		@PerformanceID	[int]
-	)
-AS
-	BEGIN
-		DELETE
-		FROM [Performance]
-		WHERE [PerformanceID] = @PerformanceID
-		RETURN @@ROWCOUNT
-	END
 
-
-/* Start Eric Bostwick */
-
--- Created: 2019-02-04
-/*CREATE PROCEDURE [dbo].[sp_create_itemsupplier]
---Pending add per Austin D.
---The idea makes sense, but I don't think this should be treated as a transaction.
---I would like to break this up into 2 seperate actions if possible, allowing the failure
---of one part but not the other.
-	(
-		@ItemID 			[int],
-		@SupplierID			[int],
-		@PrimarySupplier	[bit],
-		@LeadTimeDays		[int],
-		@UnitPrice			[money]
-	)
-AS
-BEGIN
-	BEGIN TRY
-		-- We can only have one primary supplier for each itemid
-		-- so if we are setting the primary supplier to this supplier
-		-- we need to set the primary supplier to false for each itemsupplier record for
-		-- this item before we set it to true for this one.
-		-- This seems like a good place for a transaction.
-
-		BEGIN TRANSACTION
-			    DECLARE @ItemSupplierCount int
-				SET @ItemSupplierCount = (SELECT COUNT(*) FROM ItemSupplier WHERE ItemID = @ItemID )
-				IF (@PrimarySupplier = 1  AND @ItemSupplierCount > 0)
-					BEGIN
-						UPDATE [dbo].[ItemSupplier]
-						SET [PrimarySupplier] = 0
-					END
-
-				IF (@ItemSupplierCount = 0)  --IF the record(s) was updated then insert the the itemsupplier OR the supplier count is 0 for this item
-				BEGIN
-					SET @PrimarySupplier = 1
-				END
-				BEGIN
-					INSERT INTO [dbo].[ItemSupplier]
-					([ItemID], [SupplierID], [PrimarySupplier], [LeadTimeDays], [UnitPrice])
-					VALUES
-					(@ItemID, @SupplierID, @PrimarySupplier, @LeadTimeDays, @UnitPrice)
-
-					COMMIT
-				END
-	END TRY
-	BEGIN CATCH
-			ROLLBACK  --If anything went wrong rollback the transaction
-	END CATCH
-
-END
---GO*/
-
--- Created: 2019-02-04
-/*CREATE PROCEDURE [dbo].[sp_select_itemsuppliers_by_itemid]
---Pending add per Austin D.
---Why is this such a big return? There is no need to talk to all these tables
---Description says only "Selects ItemSupplers by ItemID"
-(
-	@ItemID [int]
-)
-
-AS
-	BEGIN
-		SELECT
-		[ItemSupplier].[ItemID],
-		[ItemSupplier].[SupplierID],
-		[ItemSupplier].[PrimarySupplier],
-		[ItemSupplier].[LeadTimeDays],
-		[ItemSupplier].[UnitPrice],
-		[ItemSupplier].[Active] as [ItemSupplierActive],
-		[Supplier].[Name],
-		[Supplier].[ContactFirstName],
-		[Supplier].[ContactLastName],
-		[Supplier].[PhoneNumber],
-		[Supplier].[Email],
-		[Supplier].[DateAdded],
-		[Supplier].[Address],
-		[Supplier].[City],
-		[Supplier].[State],
-		[Supplier].[Country],
-		[Supplier].[PostalCode],
-		[Supplier].[Description],
-		[Supplier].[Active] AS [SupplierActive],
-		[Item].[ItemTypeID],
-		[Item].[Description] AS [ItemDescripton],
-		[Item].[OnHandQty],
-		[Item].[Name],
-		[Item].[DateActive],
-		[Item].[Active] AS [SupplierActive]
-		FROM		[ItemSupplier]
-					JOIN [Item] ON [Item].[ItemID] = [ItemSupplier].[ItemID]
-					JOIN [Supplier] ON [Supplier].[SupplierID] = [ItemSupplier].[SupplierID]
-		WHERE		[ItemSupplier].[itemID] = @ItemID
-	END
---GO */
-
--- Created: 2019-02-04
-/*CREATE PROCEDURE [dbo].[sp_select_itemsupplier_by_itemid_and_supplierid]
---Pending add per Austin D.
---Again, why is this so big?
-(
-	@ItemID [int],
-	@SupplierID [int]
-)
-AS
-	BEGIN
-		SELECT
-		[ItemSupplier].[ItemID],
-		[ItemSupplier].[SupplierID],
-		[ItemSupplier].PrimarySupplier,
-		[ItemSupplier].[LeadTimeDays],
-		[ItemSupplier].[UnitPrice],
-		[ItemSupplier].[Active] as [ItemSupplierActive],
-		[Supplier].[Name],
-		[Supplier].[ContactFirstName],
-		[Supplier].[ContactLastName],
-		[Supplier].[PhoneNumber],
-		[Supplier].[Email],
-		[Supplier].[DateAdded],
-		[Supplier].[Address],
-		[Supplier].[City],
-		[Supplier].[State],
-		[Supplier].[Country],
-		[Supplier].[PostalCode],
-		[Supplier].[Description],
-		[Supplier].[Active] AS SupplierActive,
-		[Item].[ItemTypeID],
-		[Item].[Description] AS [ItemDescripton],
-		[Item].[OnHandQty],
-		[Item].[Name],
-		[Item].[DateActive],
-		[Item].[Active] AS [ItemActive]
-		FROM		[ItemSupplier]
-					JOIN [Item] ON [Item].[ItemID] = [ItemSupplier].[ItemID]
-					JOIN [Supplier] ON [Supplier].[SupplierID] = [ItemSupplier].[SupplierID]
-		WHERE		[ItemSupplier].[ItemID] = @ItemID AND [ItemSupplier].[SupplierID] = @SupplierID
-	END
---GO */
-
-/* Start Austin */
+/* Start Austin Delaney */
 
 --ALTER TABLE [dbo].[ItemSupplier] ALTER COLUMN [PrimarySupplier] [bit] NOT NULL;
 --GO
@@ -287,22 +37,21 @@ AS
 -- change insert_drink to insert recipe with date?
 -- Who is doing room status?
 -- Who did sp_insert_supplier?
+-- Appointment to AppointmentType foreign key
 
 --Ensure the following are backed up by default_data before adding statements
 
---ALTER TABLE [dbo].[Building] ADD  DEFAULT ((?)) FOR [BuildingStatusID]
+--ALTER TABLE [dbo].[Building] ADD DEFAULT ((?)) FOR [BuildingStatusID]
 --GO
---ALTER TABLE [dbo].[Event] ADD  DEFAULT ((?)) FOR [EventTypeID]
+--ALTER TABLE [dbo].[Event] ADD DEFAULT ((?)) FOR [EventTypeID]
 --GO
---ALTER TABLE [dbo].[Item] ADD  DEFAULT ((?)) FOR [ItemTypeID]
+--ALTER TABLE [dbo].[Item] ADD DEFAULT ((?)) FOR [ItemTypeID]
 --GO
 --ALTER TABLE [dbo].[MaintenanceWorkOrder] ADD  DEFAULT ((?)) FOR [MaintenanceTypeID]
 --GO
 --ALTER TABLE [dbo].[MaintenanceWorkOrder] ADD  DEFAULT ((?)) FOR [MaintenanceStatusID]
 --GO
 --ALTER TABLE [dbo].[Offering] ADD  DEFAULT ((?)) FOR [OfferingTypeID]
---GO
---ALTER TABLE [dbo].[Pet] ADD  DEFAULT ((?)) FOR [PetTypeID]
 --GO
 --ALTER TABLE [dbo].[ResortVehicle] ADD  DEFAULT ((?)) FOR [ResortVehicleStatusID]
 --GO
@@ -327,8 +76,7 @@ ALTER PROCEDURE [dbo].[sp_insert_event]
 		@NumGuests [int],
 		@Location [nvarchar](50),
 		@PublicEvent [bit],
-		@Approved [bit]	
-		
+		@Approved [bit]
 	)
 AS
 	BEGIN
@@ -360,11 +108,11 @@ AS
 			,@Location
 			,@PublicEvent
 			,@Approved)
-			
+
 			RETURN @@ROWCOUNT
 	END
 GO
-	
+
 ALTER PROCEDURE [dbo].[sp_update_event]
 	(
 		@EventID				[int],
@@ -435,7 +183,7 @@ AS
 			RETURN @@ROWCOUNT
 	END
 GO
-	
+
 ALTER PROCEDURE [dbo].[sp_retrieve_all_events]
 AS
 	BEGIN
@@ -489,144 +237,92 @@ AS
 	END
 GO
 
-
+/* Start Craig */
 
-DROP TABLE [dbo].[Member]
-go
-CREATE TABLE [dbo].[Member](
-	[MemberID]			[int] IDENTITY(100000, 1) 	  NOT NULL,
-	[FirstName]			[nvarchar](50)				NOT NULL,
-	[LastName]			[nvarchar](100)				NOT NULL,
-	[PhoneNumber]		[nvarchar](11)				NOT NULL,
-	[Email]				[nvarchar](250)				NOT NULL,
-	[Password]			[nvarchar](100)				NOT NULL DEFAULT
-		'9c9064c59f1ffa2e174ee754d2979be80dd30db552ec03e7e327e9b1a4bd594e',
-	[Active]			[bit]						NOT NULL DEFAULT 1
-	
-	CONSTRAINT [pk_MemberID] PRIMARY KEY([MemberID] ASC),
-	CONSTRAINT [Email] UNIQUE([Email] ASC)
-)
-GO
-print '' print '*** Inserting Event Type Records'
-GO
-
---  Author: <<Craig Barkley>>,Created:<<2/17/2019>>, Updated<<2/17/2019>>, What/Why<<Adding comments, Appointment Type Table.>>
-
-print '' print '*** Creating Appointment Type Table'
-GO
-CREATE TABLE [dbo].[AppointmentType] 
-(
-	[AppointmentTypeID]	[nvarchar](15)						NOT NULL,
-	[Description]		[nvarchar](250)						NOT NULL
-	
-	CONSTRAINT [pk_AppointmentTypeID]	PRIMARY KEY([AppointmentTypeID] ASC)
-)
-GO
-print '' print '*** Inserting Appointment Type Records'
-GO
-
---  Author: <<Craig Barkley>>,Created:<<2/17/2019>>, Updated<<2/17/2019>>, What/Why<<Adding comments, creating Pet Table.>>
-
--------
--- this table was updated with the gender field.
-----------look at this------------------------------------
-
-print '' print '*** Creating Pet Table'
-GO
-CREATE TABLE [dbo].[Pet] (
-	[PetID]	            [int] IDENTITY(100000, 1) 	  NOT NULL,
-	[PetName]		    [nvarchar](50)			  	  NOT NULL,
-	[Gender] 	    	[nvarchar](50)				  NOT NULL,
-	[Species]		    [nvarchar](50)				  NOT NULL,
-	[PetTypeID]			[nvarchar](50)			      NOT NULL,
-	[GuestID]		    [int]				          NOT NULL
-
-	CONSTRAINT [pk_PetID] PRIMARY KEY([PetID] ASC),
-	/*INSERT GUEST ID FOREIGN KEY HERE*/
-)
-GO
-print '' print '*** Inserting Pet Test Records'
-GO
-
-
-
-
---  Author: <<Craig Barkley>>,Created:<<2/17/2019>>, Updated<<2/17/2019>>, What/Why<<Adding comments, Pet types Table.>>
-
---this foreign key contraint keeps active types that are being used from being deleted until there are no types. this could be added to all type look up tables.
-
--- ALTER TABLE [dbo].[Pet] WITH NOCHECK
--- 	ADD CONSTRAINT [fk_Pet_PetTypeID] FOREIGN KEY ([PetTypeID])
--- 	REFERENCES [dbo].[PetType]([PetTypeID])
--- 	ON UPDATE CASCADE
--- GO
-
---Stored Procedures.
---  Author: <<Craig Barkley>>,Created:<<2/17/2019>>, Updated<<2/17/2019>>, What/Why<<Adding comments, stored procedure Insert Pet.>>
-
-print '' print '*** Creating sp_insert_pet'
-GO
+-- Following block ready for submission after gender is re-added
 CREATE PROCEDURE sp_insert_pet
 	(
 		@PetName				    [nvarchar](50),
-		@Gender      				[nvarchar](50),
 		@Species     				[nvarchar](50),
 		@PetTypeID				    [nvarchar](25),
-		@GuestID				    [int]		
+		@GuestID				    [int]
 	)
 AS
 	BEGIN
 		INSERT INTO [dbo].[Pet]
-			([PetName],[Gender], [Species], [PetTypeID],[GuestID])
+			([PetName], [Species], [PetTypeID],[GuestID])
 			VALUES
-			(@PetName, @Gender, @Species, @PetTypeID, @GuestID)
-			
+			(@PetName,  @Species, @PetTypeID, @GuestID)
+
 			RETURN @@ROWCOUNT
 	END
 GO
--- sp_retrieve_all_pets()
---  Author: <<Craig Barkley>>,Created:<<2/17/2019>>, Updated<<2/17/2019>>, What/Why<<Adding comments, Creating sp_retrieve_all_pets.>>
-
-print '' print '*** Creating sp_retrieve_all_pets'
+EXEC sys.sp_addextendedproperty
+	@name = N'Author'
+	,@value = N'Craig Barkley'
+	,@level0type = N'Schema', @level0name = 'dbo'
+	,@level1type = N'Procedure', @level1name = 'sp_insert_pet'
+GO
+EXEC sys.sp_addextendedproperty
+	@name = N'Created Date'
+	,@value = N'2019-02-17'
+	,@level0type = N'Schema', @level0name = 'dbo'
+	,@level1type = N'Procedure', @level1name = 'sp_insert_pet'
+GO
+EXEC sys.sp_addextendedproperty
+	@name = N'Update 2019-03-09 Author'
+	,@value = N'Austin Delaney'
+	,@level0type = N'Schema', @level0name = 'dbo'
+	,@level1type = N'Procedure', @level1name = 'sp_insert_pet'
+GO
+EXEC sys.sp_addextendedproperty
+	@name = N'Update 2019-03-09 Desc'
+	,@value = N'Removed Gender support'
+	,@level0type = N'Schema', @level0name = 'dbo'
+	,@level1type = N'Procedure', @level1name = 'sp_insert_pet'
 GO
 CREATE PROCEDURE sp_retrieve_all_pets
 AS
     BEGIN
-        SELECT [PetID],[PetName], [Gender], [Species], [PetTypeID], [GuestID]
+        SELECT [PetID],[PetName], [Species], [PetTypeID], [GuestID]
         FROM   [Pet]
         ORDER BY [PetID]
     END
 GO
--- sp_select_pet_by_id(id)
---  Author: <<Craig Barkley>>,Created:<<2/10/19>>, Updated<<2/17/2019>>, What/Why<<Adding comments, Creating sp_select_pet_by_id.>>
-
-print '' print '*** Creating sp_select_pet_by_id'
+EXEC sys.sp_addextendedproperty
+	@name = N'Author'
+	,@value = N'Craig Barkley'
+	,@level0type = N'Schema', @level0name = 'dbo'
+	,@level1type = N'Procedure', @level1name = 'sp_retrieve_all_pets'
 GO
-CREATE PROCEDURE sp_select_pet_by_id
-AS
-    BEGIN        
-		SELECT 		[PetID]
-		FROM		[Pet]
-		ORDER BY 	[PetID]
-	END
+EXEC sys.sp_addextendedproperty
+	@name = N'Created Date'
+	,@value = N'2019-02-17'
+	,@level0type = N'Schema', @level0name = 'dbo'
+	,@level1type = N'Procedure', @level1name = 'sp_retrieve_all_pets'
 GO
---sp_update_pet
---  Author: <<Craig Barkley>>,Created:<<2/10/19>>, Updated<<2/17/2019>>, What/Why<<Adding comments, Creating sp_update_pet.>>
-
-print '' print '*** Creating sp_update_pet'
+EXEC sys.sp_addextendedproperty
+	@name = N'Update 2019-03-09 Author'
+	,@value = N'Austin Delaney'
+	,@level0type = N'Schema', @level0name = 'dbo'
+	,@level1type = N'Procedure', @level1name = 'sp_retrieve_all_pets'
+GO
+EXEC sys.sp_addextendedproperty
+	@name = N'Update 2019-03-09 Desc'
+	,@value = N'Removed gender support'
+	,@level0type = N'Schema', @level0name = 'dbo'
+	,@level1type = N'Procedure', @level1name = 'sp_retrieve_all_pets'
 GO
 CREATE PROCEDURE [dbo].[sp_update_pet]
 	(
-		@PetID			 		    [int],				
+		@PetID			 		    [int],
 
 		@oldPetName				    [nvarchar](50),
-		@oldGender      			[nvarchar](50),
 		@oldSpecies      			[nvarchar](50),
 		@oldPetTypeID				[nvarchar](25),
 		@oldGuestID				    [int],
 
 		@newPetName				    [nvarchar](50),
-		@newGender      			[nvarchar](50),
 		@newSpecies      			[nvarchar](50),
 		@newPetTypeID				[nvarchar](25),
 		@newGuestID				    [int]
@@ -635,171 +331,56 @@ AS
 	BEGIN
 		UPDATE [Pet]
 			SET [PetName] = @newPetName,
-				[Gender] = @newGender,
 				[Species] = @newSpecies,
 				[PetTypeID] = @newPetTypeID,
-				[GuestID] = @newGuestID				
-			WHERE 	
+				[GuestID] = @newGuestID
+			WHERE
 				[PetID] = @PetID
-			AND[PetName] = @oldPetName
-			AND	[Gender] = @oldGender
+			AND [PetName] = @oldPetName
 			AND [Species] = @oldSpecies
 			AND	[PetTypeID] = @oldPetTypeID
-			AND	[GuestID] = @oldGuestID			
+			AND	[GuestID] = @oldGuestID
 		RETURN @@ROWCOUNT
 	END
 GO
+EXEC sys.sp_addextendedproperty
+	@name = N'Author'
+	,@value = N'Craig Barkley'
+	,@level0type = N'Schema', @level0name = 'dbo'
+	,@level1type = N'Procedure', @level1name = 'sp_update_pet'
+GO
+EXEC sys.sp_addextendedproperty
+	@name = N'Created Date'
+	,@value = N'2019-02-17'
+	,@level0type = N'Schema', @level0name = 'dbo'
+	,@level1type = N'Procedure', @level1name = 'sp_update_pet'
+GO
+EXEC sys.sp_addextendedproperty
+	@name = N'Updated 2019-03-09 Author'
+	,@value = N'Austin Delaney'
+	,@level0type = N'Schema', @level0name = 'dbo'
+	,@level1type = N'Procedure', @level1name = 'sp_update_pet'
+GO
+EXEC sys.sp_addextendedproperty
+	@name = N'Updated 2019-03-09 Desc'
+	,@value = N'Removed gender support'
+	,@level0type = N'Schema', @level0name = 'dbo'
+	,@level1type = N'Procedure', @level1name = 'sp_update_pet'
+GO
 
---sp_delete_pet(int)
---  Author: <<Craig Barkley>>,Created:<<2/17/2019>>, Updated<<2/17/2019>>, What/Why<<Adding comments after having built the script.>>
-
-print '' print '*** Creating sp_delete_pet'
-GO						
-CREATE PROCEDURE [dbo].[sp_delete_pet]
-    (
-        @PetID    [int]
-    )
+-- Created: 2019-02-17
+CREATE PROCEDURE sp_select_pet_by_id
+-- Pending add per Austin D.
+-- What is this used for?
 AS
     BEGIN
-        DELETE
-        FROM     [Pet]
-        WHERE     [PetID] = @PetID
-
-        RETURN @@ROWCOUNT
-    END
-GO
-
---  sp_create_pet_type
---  Author: <<Craig Barkley>>,Created:<<2/17/2019>>, Updated<<2/17/2019>>, What/Why<<Adding comments after having built the script.>>
-
-print '' print ' Creating sp_create_pet_type'
-GO
-CREATE PROCEDURE sp_create_pet_type
-    (
-        @PetTypeID          [nvarchar](25),
-        @Description        [nvarchar](1000)		
-    )
-AS
-    BEGIN
-        INSERT INTO [dbo].[PetType]
-            ([PetTypeID], [Description])
-        VALUES
-            (@PetTypeID, @Description)
-
-        RETURN @@ROWCOUNT
-        SELECT SCOPE_IDENTITY()
-    END
-GO
-
-
--- sp_select_pet_type_by_id(id)
---  Author: <<Craig Barkley>>,Created:<<2/17/2019>>, Updated<<2/17/2019>>, What/Why<<Adding comments after having built the script.>>
-
-print '' print ' Creating sp_select_pet_type_by_id'
-GO
-CREATE PROCEDURE sp_select_pet_type_by_id
-AS
-    BEGIN        
-		SELECT 		[PetTypeID]
-		FROM		[PetType]
-		ORDER BY 	[PetTypeID]
+		SELECT 		[PetID]
+		FROM		[Pet]
+		ORDER BY 	[PetID]
 	END
 GO
 
---sp_delete_pet_type
---  Author: <<Craig Barkley>>,Created:<<2/17/2019>>, Updated<<2/17/2019>>, What/Why<<Adding comments, sp_delete_pet_type.>>
-
-print '' print '*** Creating sp_delete_pet_type'
-GO						
-CREATE PROCEDURE [dbo].[sp_delete_pet_type_by_id]
-    (
-        @PetTypeID    [nvarchar](25)
-    )
-AS
-    BEGIN
-        DELETE
-        FROM     [PetType]
-        WHERE     [PetTypeID] = @PetTypeID
-
-        RETURN @@ROWCOUNT
-    END
-GO
---  sp_create_event_type
---  Author: <<Craig Barkley>>,Created:<<2/17/2019>>, Updated<<2/17/2019>>, What/Why<<Adding comments, sp_create_event_type.>>
-
-print '' print ' Creating sp_create_event_type'
-GO
-CREATE PROCEDURE sp_create_event_type
-    (
-        @EventTypeID        [nvarchar](15),
-        @Description        [nvarchar](250) 
-    )
-AS
-    BEGIN
-        INSERT INTO [dbo].[EventType]
-            ([EventTypeID], [Description])
-        VALUES
-            (@EventTypeID, @Description)
-
-        RETURN @@ROWCOUNT
-        SELECT SCOPE_IDENTITY()
-    END
-GO
-
--- sp_retrieve_all_event_type()
---  Author: <<Craig Barkley>>,Created:<<2/17/2019>>, Updated<<2/17/2019>>, What/Why<<Adding comments, sp_retrieve_all_event_type.>>
-
-print '' print ' Creating sp_retrieve_all_event_type'
-GO
-CREATE PROCEDURE sp_retrieve_all_event_type
-AS
-    BEGIN
-        SELECT [EventTypeID], [Description]
-        FROM   [EventType]
-        ORDER BY [EventTypeID]
-    END
-GO
--- sp_delete_event_type(id)
---  Author: <<Craig Barkley>>,Created:<<2/17/2019>>, Updated<<2/17/2019>>, What/Why<<Adding comments, sp_delete_event_type_by_id.>>
-
-print '' print '*** Creating sp_delete_event_type_by_id'
-GO				
-CREATE PROCEDURE sp_delete_event_type_by_id
-    (
-        @EventTypeID        [nvarchar](17)
-    )
-AS
-    BEGIN
-        DELETE
-        FROM    [EventType]
-        WHERE    [EventTypeID] = @EventTypeID
-
-
-        RETURN @@ROWCOUNT
-    END
-GO
-
--- sp_select_event_type_by_id(id)
---  Author: <<Craig Barkley>>,Created:<<2/17/2019>>, Updated<<2/17/2019>>, What/Why<<Adding comments, sp_select_event_type_by_id.>>
-
-print '' print ' Creating sp_select_event_type_by_id'
-GO
-CREATE PROCEDURE sp_select_event_type_by_id
-AS
-    BEGIN        
-		SELECT 		[EventTypeID]
-		FROM		[EventType]
-		ORDER BY 	[EventTypeID]
-	END
-GO
-
-
-
---  sp_delete_appointment_type_id
---  Author: <<Craig Barkley>>,Created:<<2/17/2019>>, Updated<<2/17/2019>>, What/Why<<Adding comments, sp_delete_appointment_type_id.>>
-
-print '' print '*** Creating sp_delete_appointment_type_id'
-GO						
+-- Created: 2019-02-17
 CREATE PROCEDURE [dbo].[sp_delete_appointment_type_by_id]
     (
         @AppointmentTypeID    [nvarchar](15)
@@ -820,12 +401,13 @@ print '' print ' Creating sp_appointment_type_by_id'
 GO
 CREATE PROCEDURE sp_appointment_type_by_id
 AS
-    BEGIN        
+    BEGIN
 		SELECT 		[AppointmentTypeID]
 		FROM		[AppointmentType]
 		ORDER BY 	[AppointmentTypeID]
 	END
 GO
+
 /*Start Wes Richardson 2019-03-01*/
 
 /* Wes Richardson
@@ -833,13 +415,13 @@ GO
  *
  * Add Appointment Table
  */
-print '' print '*** Creating Appointment Type Table' 
+print '' print '*** Creating Appointment Type Table'
 GO
 CREATE TABLE [dbo].[AppointmentType] (
 	[AppointmentTypeID]	[nvarchar](15)		NOT NULL,
-	[Description]		[nvarchar](1000)	NULL
-	
-	CONSTRAINT [pk_AppointmentTypeID] PRIMARY KEY([AppointmentTypeID] ASC),
+	[Description]		[nvarchar](1000)	NULL,
+
+	CONSTRAINT [pk_AppointmentTypeID] PRIMARY KEY([AppointmentTypeID] ASC)
 )
 
 /* Wes Richardson
@@ -847,7 +429,7 @@ CREATE TABLE [dbo].[AppointmentType] (
  *
  * Add Appointment Table
  */
-print '' print '*** Creating Appointment Table' 
+print '' print '*** Creating Appointment Table'
 GO
 CREATE TABLE [dbo].[Appointment] (
 	[AppointmentID]		[int] IDENTITY(100000, 1)	NOT NULL,
@@ -856,7 +438,7 @@ CREATE TABLE [dbo].[Appointment] (
 	[StartDate]			[DateTime]					NOT NULL,
 	[EndDate]			[DateTime]					NOT NULL,
 	[Description]		[nvarchar](1000)			NULL
-	
+
 	CONSTRAINT [pk_AppointmentID] PRIMARY KEY([AppointmentID] ASC),
 )
 GO
@@ -912,10 +494,10 @@ CREATE PROCEDURE [dbo].[sp_update_appointment]
 AS
 	BEGIN
 		UPDATE	[Appointment]
-			SET	[AppointmentTypeID] = @AppointmentTypeID, 
-					[GuestID] = @GuestID, 
-					[StartDate] = @StartDate, 
-					[EndDate] = @EndDate, 
+			SET	[AppointmentTypeID] = @AppointmentTypeID,
+					[GuestID] = @GuestID,
+					[StartDate] = @StartDate,
+					[EndDate] = @EndDate,
 					[Description] = @Description
 			WHERE	[AppointmentID] = @AppointmentID
 		RETURN @@ROWCOUNT
@@ -927,7 +509,7 @@ GO
  *
  * Select an appointment by appointment id
  */
- 
+
 print '' print '*** Creating sp_select_appointment_by_id'
 GO
 CREATE PROCEDURE [dbo].[sp_select_appointment_by_id]
@@ -947,7 +529,7 @@ GO
  *
  * Select appointment type list
  */
- 
+
 print '' print '*** Creating sp_select_appointment_types'
 GO
 CREATE PROCEDURE [dbo].[sp_select_appointment_types]
@@ -963,7 +545,7 @@ GO
  *
  * Select a list of guests for a appointment guest view model
  */
- 
+
 print '' print '*** Creating sp_select_appointment_guest_view_list'
 GO
 CREATE PROCEDURE [dbo].[sp_select_appointment_guest_view_list]
@@ -973,15 +555,10 @@ AS
 		FROM [Guest]
 	END
 GO
+
 /* End Wes Richardson */
 
-
-/* 
-Start Gunardi Code
-*/
-
-
-
+/* Start Gunardi */
 
 print '' print '*** Creating Sponsor Table'
 GO
@@ -1020,27 +597,24 @@ Create TABLE [dbo].[Status]
 	constraint [pk_statusid] primary key ([statusID] asc)
 )
 
-
-
 print '' print '*** Inserting status Table'
 GO
 Insert Into [dbo].[status]([statusID])
 values
 	('Sponsoring Event'),
 	('In Review'),('New')
-	GO
-	
+GO
+
 print '' print '*** Creating sp_retrieve_all_statusid'
 GO
-	Create procedure [dbo].[sp_retrieve_all_statusid] 
+	Create procedure [dbo].[sp_retrieve_all_statusid]
 As
 Begin
 	Select [statusId]
 	from [status]
-	order by [statusId] 
+	order by [statusId]
 End
 GO
-
 
 print '' print '*** Creating State Table'
 GO
@@ -1048,16 +622,14 @@ CREATE TABLE [dbo].[State](
 [StateCode] [nvarchar](2)   NOT NULL,
 [StateName] [nvarchar](128) NOT NULL,
 
-CONSTRAINT [PK_StateCode] PRIMARY KEY ([StateCode] ASC), 
+CONSTRAINT [PK_StateCode] PRIMARY KEY ([StateCode] ASC),
 )
 GO
-
 
 print '' print '*** Inserting State Table'
 GO
 INSERT INTO [dbo].[State]
 ([StateCode],[StateName])
-
 VALUES
 ('AL', 'Alabama'),
 ('AK', 'Alaska'),
@@ -1118,16 +690,12 @@ GO
 CREATE PROCEDURE sp_retrieve_all_states
 AS
 	BEGIN
-		SELECT [StateCode]	
+		SELECT [StateCode]
 
 		FROM   [State]
 		ORDER BY [StateCode]
 	END
 GO
-
-
-
-
 
 print '' print '*** Creating sp_retrieve_sponsor_by_status_id'
 GO
@@ -1146,11 +714,8 @@ AS
 GO
 
 
-
-/*
- * Author: Gunardi Saputra
- * Created: 2019/01/23
- */
+-- Author: Gunardi Saputra
+-- Created: 2019/01/23
 print '' print '*** Creating sp_select_all_sponsors'
 GO
 CREATE PROCEDURE [dbo].[sp_select_all_sponsors]
@@ -1159,16 +724,13 @@ AS
 		SELECT 	[SponsorID], [Name],[Address],[City],[State],[PhoneNumber],[Email],[ContactFirstName],
 		[ContactLastName],[StatusID],[DateAdded],[Active]
 		FROM [Sponsor]
-		
+
 	END
 GO
 
 
-/*
- * Author: Gunardi Saputra
- * Created: 2019/01/23
- * Run
- */
+-- Author: Gunardi Saputra
+-- Created: 2019/01/23
 print '' print '*** Creating sp_insert_sponsor'
 GO
 CREATE PROCEDURE sp_insert_sponsor
@@ -1191,24 +753,20 @@ AS
 		VALUES
 			(@Name, @Address, @City, @State,
 			@PhoneNumber, @Email, @ContactFirstName, @ContactLastName, @StatusID,Convert(Varchar(10), GetDate(), 101))
-			
+
 		RETURN @@ROWCOUNT
-	END		
+	END
 GO
 
-/*
-Author: Gunardi Saputra
-Created Date: 2019/02/20
-
-This stored procedure updates a sponsor record in the sponsor table by its id.
-*/
+-- Author: Gunardi Saputra
+-- Created Date: 2019/02/20
+-- Description: This stored procedure updates a sponsor record in the sponsor table by its id.
 print '' print '*** Creating sp_update_sponsor'
-
 GO
 CREATE PROCEDURE sp_update_sponsor
 	(
 		@SponsorID			[int],
-		
+
 		@OldName			[nvarchar](50),
 		@OldAddress			[nvarchar](25),
 		@OldCity			[nvarchar](50),
@@ -1220,8 +778,8 @@ CREATE PROCEDURE sp_update_sponsor
 		@OldStatusID		[nvarchar](50),
 		@OldDateAdded		[datetime],
 		@OldActive			[bit],
-		
-		
+
+
 		@Name				[nvarchar](50),
 		@Address			[nvarchar](25),
 		@City			[nvarchar](50),
@@ -1233,46 +791,38 @@ CREATE PROCEDURE sp_update_sponsor
 		@StatusID		[nvarchar](50),
 		@DateAdded		[datetime],
 		@Active			[bit]
-		
 	)
-
 AS
 	BEGIN
 		UPDATE	[Sponsor]
-		SET 	
-				[Name]				= @Name,
-				[Address]				= @Address,
-				[City]				= @City,
-				[State]				= @State,
-				[PhoneNumber]		= @PhoneNumber,
-				[Email]				= @Email,
-				[ContactFirstName]				= @ContactFirstName,
-				[ContactLastName]				= @ContactLastName,
-				[StatusID]				= @StatusID,
-				[DateAdded]				= @DateAdded,
-		
-		[Active]				= @Active
-				
-			
-
+		SET
+			[Name]				= @Name,
+			[Address]			= @Address,
+			[City]				= @City,
+			[State]				= @State,
+			[PhoneNumber]		= @PhoneNumber,
+			[Email]				= @Email,
+			[ContactFirstName]	= @ContactFirstName,
+			[ContactLastName]	= @ContactLastName,
+			[StatusID]			= @StatusID,
+			[DateAdded]			= @DateAdded,
+			[Active]			= @Active
 		WHERE	[SponsorID] 	= @SponsorID
-		AND [Name]				= @OldName
-		AND [Address]		 =  @OldAddress
-		AND [City]		 =  @OldCity
-		AND [State]		 =  @OldState
-		AND [PhoneNumber]		 =  @OldPhoneNumber
-		AND [Email]		 =  @OldEmail
-		AND [ContactFirstName]		 =  @OldContactFirstName
-		AND [ContactLastName]		 =  @OldContactLastName
-		AND [StatusID]		 =  @OldStatusID
-		AND [DateAdded]		 =  @OldDateAdded
-		AND [Active]		 =  @OldActive
-			
+			AND [Name]			= @OldName
+			AND [Address]		=  @OldAddress
+			AND [City]		 	=  @OldCity
+			AND [State]			=  @OldState
+			AND [PhoneNumber]	=  @OldPhoneNumber
+			AND [Email]		 	=  @OldEmail
+			AND [ContactFirstName]		=  @OldContactFirstName
+			AND [ContactLastName]		=  @OldContactLastName
+			AND [StatusID]		=  @OldStatusID
+			AND [DateAdded]		=  @OldDateAdded
+			AND [Active]		=  @OldActive
+
 		RETURN @@ROWCOUNT
 	END
 GO
-
-
 
 print '' print '*** Creating sp_activate_sponsor_by_id'
 GO
@@ -1285,8 +835,8 @@ AS
 		UPDATE 	[Sponsor]
 		SET 	[Active] = 1
 		WHERE	[SponsorID] = @SponsorID
-		  
-		RETURN @@ROWCOUNT		
+
+		RETURN @@ROWCOUNT
 	END
 GO
 
@@ -1302,8 +852,8 @@ AS
 		UPDATE 	[Sponsor]
 		SET 	[Active] = 0
 		WHERE	[SponsorID] = @SponsorID
-		  
-		RETURN @@ROWCOUNT		
+
+		RETURN @@ROWCOUNT
 	END
 GO
 
@@ -1318,7 +868,7 @@ CREATE PROCEDURE [dbo].[sp_delete_sponsor]
 	)
 AS
 	BEGIN
-		DELETE 
+		DELETE
 		FROM [Sponsor]
 		WHERE  [SponsorID] = @SponsorID
 		RETURN @@ROWCOUNT
@@ -1336,7 +886,7 @@ CREATE PROCEDURE [dbo].[sp_select_sponsor]
 AS
 	BEGIN
 		SELECT [SponsorID], [Name],[Address],[City],[State],[PhoneNumber],[Email],[ContactFirstName],
-			[ContactLastName],[StatusID],[DateAdded],[Active]		
+			[ContactLastName],[StatusID],[DateAdded],[Active]
 			FROM [Sponsor]
 		WHERE [SponsorID] = @SponsorID
 	END
@@ -1362,18 +912,16 @@ AS
 		[Sponsor].[StatusID],
 		[Sponsor].[DateAdded],
 		[Sponsor].[Active]
-		FROM Sponsor 
+		FROM Sponsor
 	END
 GO
 
+/* End Gunardi */
 
+/* Start Eduardo */
 
-
-
-
-/*  Name: Eduardo Colon
-    Date: 2019-03-05 */
-
+-- Name: Eduardo Colon
+-- Date: 2019-03-05
 print '' print '*** Creating SetupList Table'
 GO
 CREATE TABLE [dbo].[SetupList] (
@@ -1382,37 +930,19 @@ CREATE TABLE [dbo].[SetupList] (
 	[Completed] 		[bit]					 DEFAULT 0	  NOT NULL,
 	[Description]		[nvarchar](1000)					  NOT NULL,
 	[Comments]			[nvarchar](1000)				      NULL,
-	
-	
-	CONSTRAINT [pk_SetupListID] PRIMARY KEY([SetupListID] ASC),
 
+	CONSTRAINT [pk_SetupListID] PRIMARY KEY([SetupListID] ASC),
 )
 GO
 
 
 
-/*  Name: Eduardo Colon
-    Date: 2019-03-05 */
-print '' print '*** Inserting SetupList Test Records'
-GO
 
-INSERT INTO [dbo].[SetupList]
-		([SetupID], [Completed], [Description], [Comments])
-	VALUES
-		(100000, 0, ' Prior to Guest Arrival: Registration Desk,signs,banners', 'Banners are not ready yet'),
-		(100001, 0, ' Display Equipment: Prepares for display boards,tables,chairs,, printed material and names badges','Badges are not ready yet'),
-		(100002, 1, ' Check Av Equipment: Laptop,projectors :Ensure all cables,leads,laptop,mic and mouse are presented and working', 'Av Equipment is ready'),
-		(100003, 1, ' Confirm that all decor and linen is in place ', 'Decor and linen are  ready'),
-		(100004, 1, ' Walk through to make sure bathrooms are clean and stocked ', 'Bathrooms are  ready')
-GO
-
-
-/*  Name: Eduardo Colon
-    Date: 2019-03-05 */
+-- Name: Eduardo Colon
+-- Date: 2019-03-05
 print '' print '*** Creating sp_select_setuplists'
 GO
 CREATE PROCEDURE [dbo].[sp_retrieve_all_setuplists]
-
 AS
 	BEGIN
 		SELECT 	    [SetupListID], [SetupID], [Completed], [Description],	[Comments]
@@ -1420,10 +950,8 @@ AS
 	END
 GO
 
-/*
-  NAME:  Eduardo Colon'
-  Date:   2019-03-05'
-*/
+-- NAME:  Eduardo Colon'
+-- Date:   2019-03-05'
 print '' print '*** Creating sp_retrieve_setuplist_by_id '
 GO
 CREATE PROCEDURE [dbo].[sp_retrieve_setuplist_by_id]
@@ -1438,14 +966,13 @@ AS
 	END
 GO
 
-/*
-Eric Bostwick 3/8
-*/
-/*
- * Eric Bostwick
- * Created: 3/7/2019
- * Retrieves All SupplierOrders in the supplier order table
-*/
+/* End Eduardo */
+
+/* Start Eric */
+
+-- Eric Bostwick
+-- Created: 3/7/2019
+-- Retrieves All SupplierOrders in the supplier order table
 print '' print '*** Creating sp_select_all_supplier_orders ***'
 GO
 CREATE Procedure [dbo].[sp_select_all_supplier_orders]
@@ -1458,11 +985,9 @@ As
     END
 GO
 
-/*
- * Eric Bostwick
- * Created: 3/7/2019
- * Retrieves All SupplierOrderLines for a supplier order 
-*/
+-- Eric Bostwick
+-- Created: 3/7/2019
+-- Retrieves All SupplierOrderLines for a supplier order --
 print '' print '*** Creating sp_select_all_supplier_order_lines ***'
 GO
 CREATE Procedure [dbo].[sp_select_all_supplier_order_lines]
@@ -1475,17 +1000,15 @@ As
     END
 GO
 
-/*
- * Eric Bostwick
- * Created: 3/7/2019
- * Deletes All SupplierOrderLines for a supplier order 
-*/
+-- Eric Bostwick
+-- Created: 3/7/2019
+-- Deletes All SupplierOrderLines for a supplier order
 print '' print '*** Creating sp_delete_supplier_order_lines ***'
 GO
 CREATE Procedure [dbo].[sp_delete_supplier_order_lines]
 
 	@SupplierOrderID [int]
-	
+
 As
     BEGIN
         DELETE FROM [SupplierOrderLine]
@@ -1493,37 +1016,33 @@ As
     END
 GO
 
-/*
- * Eric Bostwick
- * Created: 3/7/2019
- * Updates Supplier Order For the SupplierOrderID
- */
+-- Eric Bostwick
+-- Created: 3/7/2019
+-- Updates Supplier Order For the SupplierOrderID--
 print '' print '*** Creating sp_update_supplier_order ***'
 GO
 CREATE PROCEDURE [dbo].[sp_update_supplier_order]
 	(
 		@SupplierOrderID	[int],
-		@Description		[nvarchar](1000)		
+		@Description		[nvarchar](1000)
 	)
 AS
 BEGIN
 		UPDATE [dbo].[SupplierOrder] SET [Description] = @Description
 		WHERE [SupplierOrderID] = @SupplierOrderID
-	
+
 END
 GO
 
-/*
- * Eric Bostwick
- * Created: 3/7/2019
- * Deletes A SupplierOrder
-*/
+-- Eric Bostwick
+-- Created: 3/7/2019
+-- Deletes A SupplierOrder
 print '' print '*** Creating sp_delete_supplier_order ***'
 GO
 CREATE Procedure [dbo].[sp_delete_supplier_order]
 
 	@SupplierOrderID [int]
-	
+
 As
     BEGIN
         DELETE FROM [SupplierOrder]
@@ -1531,332 +1050,145 @@ As
     END
 GO
 
+/* End Eric */
 
--- Author: Jared Greenfield
--- Date Created: 2019-01-27
--- Date Updated: 
-print '' print '*** Creating sp_select_line_items_by_recipeid'
-GO
-CREATE PROCEDURE [dbo].[sp_select_line_items_by_recipeid]
-(
-	@RecipeID [int]
-)
-AS
-	BEGIN
-		SELECT
-		[Item].[ItemID],
-		[Item].[ItemTypeID], 
-		[Item].[Description], 
-		[Item].[OnHandQty],
-		[Item].[Name], 
-		[Item].[ReorderQty], 
-		[Item].[DateActive], 
-		[Item].[Active],
-		[Item].[OfferingID],
-		[Item].[CustomerPurchasable],
-		[Item].[RecipeID]
-		FROM [Item]
-		INNER JOIN [RecipeItemLine] ON [RecipeItemLine].[ItemID] = [Item].[ItemID]
-		WHERE [RecipeItemLine].[RecipeID] = @RecipeID
-	END
-GO
+/* Start Jacob */
 
--- Author: Jared Greenfield
--- Date Created: 2019-02-07
--- Date Updated: 
-print '' print '*** Creating sp_select_item_by_recipeid'
-GO
-CREATE PROCEDURE [dbo].[sp_select_item_by_recipeid]
-(
-	@RecipeID [int]
-)
-AS
-	BEGIN
-		SELECT
-		[ItemID],
-		[ItemTypeID], 
-		[Description], 
-		[OnHandQty],
-		[Name], 
-		[ReorderQty], 
-		[DateActive], 
-		[Active],
-		[OfferingID],
-		[CustomerPurchasable],
-		[RecipeID]
-		FROM [Item]
-		WHERE [RecipeID] = @RecipeID
-	END
-GO
-
--- Author: Jared Greenfield
--- Date Created: 2019-01-27
--- Date Updated: 
-print '' print '*** Creating sp_select_recipe'
-GO
-CREATE PROCEDURE [dbo].[sp_select_recipe]
-(
-	@RecipeID [int]
-)
-AS
-	BEGIN
-		SELECT [RecipeID], [Name], [Description] , [DateAdded] , [Active]	
-		FROM [Recipe]
-		WHERE [RecipeID] = @RecipeID
-	END
-GO
-
--- Author: Jared Greenfield
--- Date Created: 2019-01-27
--- Date Updated: 2019-02-07
-print '' print '*** Creating sp_select_all_recipes'
-GO
-CREATE PROCEDURE [dbo].[sp_select_all_recipes]
-AS
-	BEGIN
-		SELECT [RecipeID], [Name], [Description] , [DateAdded] , [Active]	
-		FROM [Recipe]
-	END
-GO
-
--- Author: Jared Greenfield
--- Date Created: 2019-01-27
--- Date Updated: 2019-02-07
-print '' print '*** Creating sp_update_recipe'
-GO
-
-CREATE PROCEDURE [dbo].[sp_update_recipe]
-(
-	@RecipeID [int],
-	
-	@OldName [nvarchar](50)	,
-	@OldDescription [nvarchar](1000)	,
-	@OldDateAdded [DateTime],
-	@OldActive [bit],
-	
-	@NewName [nvarchar](50)	,
-	@NewDescription [nvarchar](1000)	,
-	@NewDateAdded [DateTime],
-	@NewActive [bit]
-)
-AS
-	BEGIN
-		UPDATE [Recipe]
-		SET
-			[Name] = @NewName,
-			[Description] = @NewDescription,
-			[DateAdded] = @NewDateAdded,
-			[Active] = @NewActive
-		WHERE
-		
-			[RecipeID] = @RecipeID AND
-			[Name] = @OldName AND
-			[Description] = @OldDescription AND
-			[DateAdded] = @OldDateAdded AND
-			[Active] = @OldActive
-			RETURN @@ROWCOUNT
-	END
-GO	
-
--- Author: Jared Greenfield
--- Date Created: 2019-01-22
--- Date Updated: 
-print '' print '*** Creating sp_insert_recipe'
-GO
-CREATE PROCEDURE [dbo].[sp_insert_recipe]
+ALTER PROCEDURE [dbo].[sp_select_performance_by_id]
 	(
-		@Name 			[nvarchar](50),
-		@Description 	[nvarchar](1000)
+		@PerformanceID	[int]
 	)
 AS
 	BEGIN
-		INSERT INTO [Recipe] 
-		([Name], [Description])
-		VALUES 
-		(@Name, @Description)
-		SELECT SCOPE_IDENTITY();
-	END
-GO
-
--- Author: Jared Greenfield
--- Date Created: 2019-02-14
--- Date Updated: 
-print '' print '*** Creating sp_deactivate_recipe'
-GO
-CREATE PROCEDURE [dbo].[sp_deactivate_recipe]
-(
-	@RecipeID [int]
-)
-AS
-	BEGIN
-		UPDATE [Recipe]
-		SET
-			[Active] = 0
-		WHERE
-		
-			[RecipeID] = @RecipeID
-			RETURN @@ROWCOUNT
-	END
-GO
-
--- Author: Jared Greenfield
--- Date Created: 2019-02-14
--- Date Updated: 
-print '' print '*** Creating sp_reactivate_recipe'
-GO
-CREATE PROCEDURE [dbo].[sp_reactivate_recipe]
-(
-	@RecipeID [int]
-)
-AS
-	BEGIN
-		UPDATE [Recipe]
-		SET
-			[Active] = 1
-		WHERE
-		
-			[RecipeID] = @RecipeID
-			RETURN @@ROWCOUNT
-	END
-GO
--- Author: Jared Greenfield
--- Date Created: 2019-02-14
--- Date Updated: 
-print '' print '*** Creating sp_delete_recipe'
-GO
-CREATE PROCEDURE [dbo].[sp_delete_recipe]
-(
-	@RecipeID [int]
-)
-AS
-	BEGIN
-		DELETE FROM [Recipe]
-		WHERE [RecipeID] = @RecipeID
+		SELECT 	[PerformanceID], [PerformanceTitle], [PerformanceDate], [Description]
+		FROM [Performance]
+		WHERE [PerformanceID] = @PerformanceID
 		RETURN @@ROWCOUNT
 	END
 GO
+EXEC sys.sp_addextendedproperty
+	@name=N'Update 2019-03-06 Author',
+	@value=N'Jacob Miller',
+	@level0type=N'SCHEMA',@level0name=N'dbo',
+	@level1type=N'PROCEDURE',@level1name=N'sp_select_performance_by_id'
+GO
+EXEC sys.sp_addextendedproperty
+	@name=N'Update 2019-03-06 Desc',
+	@value=N'Added PerformanceTitle support',
+	@level0type=N'SCHEMA',@level0name=N'dbo',
+	@level1type=N'PROCEDURE',@level1name=N'sp_select_performance_by_id'
+GO
 
--- Author: Jared Greenfield
--- Date Created: 2019-01-28
--- Date Updated: 
-print '' print '*** Creating sp_select_recipe_item_lines'
-GO
-CREATE PROCEDURE [dbo].[sp_select_recipe_item_lines]
-(
-	@RecipeID [int]
-)
+ALTER PROCEDURE [dbo].[sp_select_all_performance]
 AS
 	BEGIN
-		SELECT [RecipeID], [ItemID], [Quantity], [UnitOfMeasure]	
-		FROM [RecipeItemLine]
-		WHERE [RecipeID] = @RecipeID
+		SELECT [PerformanceID], [PerformanceTitle], [PerformanceDate], [Description]
+		FROM [Performance]
 	END
 GO
--- Author: Jared Greenfield
--- Date Created: 2019-01-29
--- Date Updated: 
-print '' print '*** Creating sp_delete_recipe_item_lines'
+EXEC sys.sp_addextendedproperty
+	@name=N'Update 2019-03-06 Author',
+	@value=N'Jacob Miller',
+	@level0type=N'SCHEMA',@level0name=N'dbo',
+	@level1type=N'PROCEDURE',@level1name=N'sp_select_all_performance'
 GO
-CREATE PROCEDURE [dbo].[sp_delete_recipe_item_lines]
-(
-	@RecipeID [int]
-)
-AS
-	BEGIN
-		DELETE FROM [RecipeItemLine]
-		WHERE [RecipeID] = @RecipeID
-		RETURN @@ROWCOUNT
-	END
+EXEC sys.sp_addextendedproperty
+	@name=N'Update 2019-03-06 Desc',
+	@value=N'Added PerformanceTitle support',
+	@level0type=N'SCHEMA',@level0name=N'dbo',
+	@level1type=N'PROCEDURE',@level1name=N'sp_select_all_performance'
 GO
--- Author: Jared Greenfield
--- Date Created: 2019-01-22
--- Date Updated: 
-print '' print '*** Creating sp_select_offering'
-GO
-CREATE PROCEDURE [dbo].[sp_select_offering]
-(
-	@OfferingID [int]
-)
-AS
-	BEGIN
-		SELECT [OfferingID], [OfferingTypeID], [EmployeeID], [Description], [Price], [Active]	
-		FROM [Offering]
-		WHERE [OfferingID] = @OfferingID
-	END
-GO
--- Author: Jared Greenfield
--- Date Created: 2019-01-22
--- Date Updated: 
-print '' print '*** Creating sp_insert_offering'
-GO
-CREATE PROCEDURE [dbo].[sp_insert_offering]
+
+CREATE PROCEDURE [dbo].[sp_search_performances]
 	(
-		@OfferingTypeID [nvarchar](15),
-		@EmployeeID 	[int],
-		@Description 	[nvarchar](1000),
-		@Price			[Money]
+		@SearchTerm		[nvarchar](100)
 	)
 AS
 	BEGIN
-		INSERT INTO [Offering] 
-		([OfferingTypeID],[EmployeeID],[Description],[Price])
-		VALUES 
-		(@OfferingTypeID, @EmployeeID, @Description, @Price)
-		SELECT SCOPE_IDENTITY();
+		SELECT [PerformanceID], [PerformanceTitle], [PerformanceDate], [Description]
+		FROM [Performance]
+		WHERE [PerformanceTitle] LIKE '%' + @SearchTerm + '%'
+		OR [Description] LIKE '%' + @SearchTerm + '%'
 	END
 GO
-print '' print '*** Creating sp_update_offering'
+EXEC sys.sp_addextendedproperty
+	@name=N'Author',
+	@value=N'Jacob Miller',
+	@level0type=N'SCHEMA',@level0name=N'dbo',
+	@level1type=N'PROCEDURE',@level1name=N'sp_search_performances'
 GO
-CREATE PROCEDURE [dbo].[sp_update_offering]
-(
-	@OfferingID [int],
-	
-	@OldOfferingTypeID [nvarchar](15),
-	@OldEmployeeID [int],
-	@OldDescription [nvarchar](1000),
-	@OldPrice	[Money],
-	@OldActive	[bit],
-	
-	@NewOfferingTypeID [nvarchar](15),
-	@NewEmployeeID [int],
-	@NewDescription [nvarchar](1000),
-	@NewPrice	[Money],
-	@NewActive	[bit]
-)
+EXEC sys.sp_addextendedproperty
+	@name=N'Created Date',
+	@value=N'2019-03-06',
+	@level0type=N'SCHEMA',@level0name=N'dbo',
+	@level1type=N'PROCEDURE',@level1name=N'sp_search_performances'
+GO
+EXEC sys.sp_addextendedproperty
+	@name=N'Update 2019-03-09 Author',
+	@value=N'Austin Delaney',
+	@level0type=N'SCHEMA',@level0name=N'dbo',
+	@level1type=N'PROCEDURE',@level1name=N'sp_search_performances'
+GO
+EXEC sys.sp_addextendedproperty
+	@name=N'Update 2019-03-09 Desc',
+	@value=N'Added searching description support',
+	@level0type=N'SCHEMA',@level0name=N'dbo',
+	@level1type=N'PROCEDURE',@level1name=N'sp_search_performances'
+GO
+
+ALTER PROCEDURE [dbo].[sp_insert_performance]
+	(
+		@PerformanceName	[nvarchar](100),
+		@PerformanceDate	[date],
+		@Description		[nvarchar](1000)
+	)
 AS
 	BEGIN
-		UPDATE [Offering]
-		SET
-			[OfferingTypeID] = @NewOfferingTypeID,
-			[EmployeeID] = @NewEmployeeID,
-			[Description] = @NewDescription,
-			[Price]	= @NewPrice,
-			[Active] = @NewActive
-		WHERE
-			[OfferingTypeID] = @OldOfferingTypeID AND
-			[EmployeeID] = @OldEmployeeID AND
-			[Description] = @OldDescription AND
-			[Price]	= @OldPrice AND
-			[Active] = @OldActive 
-			RETURN @@ROWCOUNT
+		INSERT INTO [dbo].[Performance]
+			([PerformanceTitle], [PerformanceDate], [Description])
+		VALUES
+			(@PerformanceName, @PerformanceDate, @Description)
+	END
+GO
+EXEC sys.sp_addextendedproperty
+	@name=N'Update 2019-03-06 Author',
+	@value=N'Jacob Miller',
+	@level0type=N'SCHEMA',@level0name=N'dbo',
+	@level1type=N'PROCEDURE',@level1name=N'sp_insert_performance'
+GO
+EXEC sys.sp_addextendedproperty
+	@name=N'Update 2019-03-06 Desc',
+	@value=N'Added PerformanceTitle support',
+	@level0type=N'SCHEMA',@level0name=N'dbo',
+	@level1type=N'PROCEDURE',@level1name=N'sp_insert_performance'
 GO
 
+ALTER PROCEDURE [dbo].[sp_update_performance]
+	(
+		@PerformanceID		[int],
+		@PerformanceName	[nvarchar](100),
+		@PerformanceDate	[date],
+		@Description		[nvarchar](1000)
+	)
+AS
+	BEGIN
+		UPDATE [Performance]
+			SET [PerformanceTitle] = @PerformanceName, [PerformanceDate] = @PerformanceDate, [Description] = @Description
+			WHERE [PerformanceID] = @PerformanceID
+		RETURN @@ROWCOUNT
+	END
+GO
+EXEC sys.sp_addextendedproperty
+	@name=N'Update 2019-03-06 Author',
+	@value=N'Jacob Miller',
+	@level0type=N'SCHEMA',@level0name=N'dbo',
+	@level1type=N'PROCEDURE',@level1name=N'sp_update_performance'
+GO
+EXEC sys.sp_addextendedproperty
+	@name=N'Update 2019-03-06 Desc',
+	@value=N'Added PerformanceTitle support',
+	@level0type=N'SCHEMA',@level0name=N'dbo',
+	@level1type=N'PROCEDURE',@level1name=N'sp_update_performance'
+GO
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+/* End Jacob */

@@ -12,7 +12,7 @@ INSERT INTO [dbo].[GuestType]
            ('Basic guest','')
 GO
 INSERT INTO [dbo].[PetType]
-           ([PetTypeID],[Description],[Species])
+           ([PetTypeID],[Description])
      VALUES
-           ('UNASSIGNED','Pets that have not been assigned a type','UNASSIGNED')
+           ('UNASSIGNED','Pets that have not been assigned a type')
 GO
