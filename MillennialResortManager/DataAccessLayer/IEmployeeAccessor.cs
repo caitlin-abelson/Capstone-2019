@@ -20,5 +20,6 @@ namespace DataAccessLayer
         void DeactiveEmployee(int employeeID);
         int VerifyUsernameAndPassword(string username, string password);
         Employee RetrieveEmployeeByEmail(string username);
+        List<Role> RetrieveEmployeeRoles(int EmployeeID);
     }
 }

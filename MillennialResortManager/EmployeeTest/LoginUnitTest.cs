@@ -124,5 +124,18 @@ namespace UnitTests
             //Assert
             Assert.IsNull(temp);
         }
+
+        [TestMethod]
+        public void TestRetrieveEmployeeRoleByValidEmployee()
+        {
+            //Arange
+            string wantedRoleID = "Admin";
+            int currentEmployeeID = 100000;
+            Employee e;
+            //Act
+            e = _employeeManager.SelectEmployee(currentEmployeeID);
+            //Assert
+            Assert.AreEqual(e.EmployeeRoles[0].RoleID, wantedRoleID);
+        }
     }
 }

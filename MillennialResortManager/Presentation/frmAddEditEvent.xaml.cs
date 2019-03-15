@@ -28,11 +28,12 @@ namespace WpfPresentation
     public partial class frmAddEditEvent : Window
     {
         private User _user;
+        private Employee _employee;
         private LogicLayer.EventManager _eventManager = new LogicLayer.EventManager();
         private Event _oldEvent;
         private Event _newEvent;
         private EventTypeManager _eventTypeManager = new EventTypeManager();
-        
+
         /// <summary>
         /// @Author Phillip Hansen
         /// 
@@ -55,9 +56,34 @@ namespace WpfPresentation
             chkEventAppr.IsEnabled = false;
 
             this.txtEventSponsorID.Text = "0";
-            
+
         }
-        
+
+        /// <summary>
+        /// @Author Phillip Hansen
+        /// 
+        /// When adding a new Event Request
+        /// Pass the User ID to automatically add the ID in the field for 'creating' records
+        /// </summary>
+        /// <param name="user"></param>
+        public frmAddEditEvent(Employee user)
+        {
+            _employee = user;
+            InitializeComponent();
+            setEditable(user);
+
+            this.Title = "New Event Record";
+            this.btnEventAction1.Content = "Create";
+            this.btnEventAction2.Visibility = Visibility.Hidden;
+
+            //When creating a new Event, editable() method enables Approve check box,
+            //Should be disabled only when creating new Events
+            chkEventAppr.IsEnabled = false;
+
+            this.txtEventSponsorID.Text = "0";
+
+        }
+
         /// <summary>
         /// @Author Phillip Hansen
         /// 
@@ -81,6 +107,26 @@ namespace WpfPresentation
         /// <summary>
         /// @Author Phillip Hansen
         /// 
+        /// When editing an event record
+        /// </summary>
+        /// <param name="user"></param>
+        /// <param name="oldEvent"></param>
+        public frmAddEditEvent(Employee user, Event oldEvent)
+        {
+            InitializeComponent();
+
+            _employee = user;
+            _oldEvent = oldEvent;
+            setOldEvent();
+            //Overloads setEditable
+            this.Title = "Edit Event Record " + _oldEvent.EventTitle;
+
+            this.btnEventAction1.Content = "Save";
+        }
+
+        /// <summary>
+        /// @Author Phillip Hansen
+        /// 
         /// When the window loads
         /// </summary>
         /// <param name="sender"></param>
@@ -88,7 +134,7 @@ namespace WpfPresentation
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             //Code only if the window being loaded is 'not' for a new event
-            if(this.Title != "New Event Record")
+            if (this.Title != "New Event Record")
             {
 
                 this.btnDeleteEvent.Visibility = Visibility.Visible;
@@ -142,7 +188,7 @@ namespace WpfPresentation
                     MessageBox.Show("Event Types not found.");
                 }
             }
-            
+
         } //End of loaded method
 
         /// <summary>
@@ -174,12 +220,40 @@ namespace WpfPresentation
             txtReqNumGuest.IsEnabled = true;
             txtEventLocation.IsEnabled = true;
             txtDescription.IsEnabled = true;
-            
+
             cboEventType.IsReadOnly = false;   /*<-- Use if RetrieveEventTypes() works?*/
 
             dateEventStart.IsEnabled = true;
             dateEventEnd.IsEnabled = true;
-            
+
+            chkEventKids.IsEnabled = true;
+            chkEventSpons.IsEnabled = true;
+        }
+
+
+        /// <summary>
+        /// @Author Phillip Hansen
+        /// 
+        /// Sets the window controls to be editable by the user
+        /// </summary>
+        /// <param name="user"></param>
+        private void setEditable(Employee user)
+        {
+            //Event ID never changes
+            txtEventID.IsEnabled = false;
+
+            txtEventTitle.IsEnabled = true;
+            txtEventEmployee.Text = user.EmployeeID.ToString();
+
+            txtReqNumGuest.IsEnabled = true;
+            txtEventLocation.IsEnabled = true;
+            txtDescription.IsEnabled = true;
+
+            cboEventType.IsReadOnly = false;   /*<-- Use if RetrieveEventTypes() works?*/
+
+            dateEventStart.IsEnabled = true;
+            dateEventEnd.IsEnabled = true;
+
             chkEventKids.IsEnabled = true;
             chkEventSpons.IsEnabled = true;
         }
@@ -203,7 +277,7 @@ namespace WpfPresentation
             txtReqNumGuest.IsEnabled = true;
             txtEventLocation.IsEnabled = true;
             txtDescription.IsEnabled = true;
-            
+
             cboEventType.IsEnabled = true;   /*<-- Use if RetrieveEventTypes() works?*/
 
             dateEventStart.IsEnabled = true;
@@ -213,6 +287,8 @@ namespace WpfPresentation
             chkEventKids.IsEnabled = true;
             chkEventSpons.IsEnabled = true;
         }
+
+
 
         /// <summary>
         /// @Author Phillip Hansen
@@ -257,7 +333,7 @@ namespace WpfPresentation
             txtEventSponsorID.Text = _oldEvent.SponsorID.ToString();
             txtReqNumGuest.Text = _oldEvent.NumGuests.ToString();
 
-            if(_oldEvent.KidsAllowed == true)
+            if (_oldEvent.KidsAllowed == true)
             {
                 chkEventKids.IsChecked = true;
             }
@@ -274,7 +350,7 @@ namespace WpfPresentation
 
             dateEventStart.SelectedDate = _oldEvent.EventStartDate;
             dateEventEnd.SelectedDate = _oldEvent.EventEndDate;
-            
+
         }
 
         /// <summary>
@@ -314,7 +390,7 @@ namespace WpfPresentation
                 else
                 {
                     //If a new record is being created, the place holder for 'EventID' will be blank and would cause errors if captured in its state
-                    if(this.Title == "New Event Record")
+                    if (this.Title == "New Event Record")
                     {
                         _newEvent = new Event
                         {
@@ -352,14 +428,14 @@ namespace WpfPresentation
                             Approved = chkEventAppr.IsChecked.Value
                         };
                     }
-                    
+
                 }
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message + "\nCould not capture the event.");
             }
-            
+
         }
 
         /// <summary>
@@ -371,7 +447,7 @@ namespace WpfPresentation
         /// <param name="e"></param>
         private void BtnEventAction1_Click(object sender, RoutedEventArgs e)
         {
-            if(this.Title == "New Event Record")
+            if (this.Title == "New Event Record")
             {
                 //Captures the input within the fields
                 captureEvent();
@@ -395,7 +471,7 @@ namespace WpfPresentation
                     MessageBox.Show(ex.Message + "\nInsert for new event has failed.");
                 }
             }
-            if(this.btnEventAction1.Content.ToString() == "Save")
+            if (this.btnEventAction1.Content.ToString() == "Save")
             {
                 this.btnEventAction2.IsEnabled = true;
 
@@ -406,7 +482,7 @@ namespace WpfPresentation
 
                 try
                 {
-                    
+
                     _eventManager.UpdateEvent(_oldEvent, _newEvent);
                     this.DialogResult = true;
                 }
@@ -426,7 +502,7 @@ namespace WpfPresentation
         /// <param name="e"></param>
         private void ChkEventSpons_Click(object sender, RoutedEventArgs e)
         {
-            if(chkEventSpons.IsChecked == true)
+            if (chkEventSpons.IsChecked == true)
             {
                 txtEventSponsorID.Text = "Sponosr ID Only";
                 txtEventSponsorID.IsEnabled = true;
@@ -449,7 +525,7 @@ namespace WpfPresentation
         private void BtnDeleteEvent_Click(object sender, RoutedEventArgs e)
         {
             //Event must 'not' be approved to be deleted from data table
-            if(chkEventAppr.IsChecked == true)
+            if (chkEventAppr.IsChecked == true)
             {
                 MessageBox.Show("Event cannot be deleted if the event is approved!");
             }
@@ -462,7 +538,7 @@ namespace WpfPresentation
                 var deleteEvent = new frmEventDeleteConfirmation(_newEvent);
                 var result = deleteEvent.ShowDialog();
             }
-            
+
         }
 
         /// <summary>

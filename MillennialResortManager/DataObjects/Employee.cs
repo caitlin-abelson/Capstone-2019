@@ -11,6 +11,10 @@ namespace DataObjects
     /// Created Date: 1/27/19
     /// 
     /// The employee data objects class holds the objects for an employee that works at the resort.
+    /// 
+    /// Author: Matt LaMarche
+    /// Created Date: 3/11/19
+    /// Added in a List of Employee Roles
     /// </summary>
     public class Employee
     {
@@ -21,5 +25,12 @@ namespace DataObjects
         public string PhoneNumber { get; set; }
         public string DepartmentID { get; set; }
         public bool Active { get; set; }
+        public List<Role> EmployeeRoles { get; set; }
+        public Employee()
+        {
+            EmployeeRoles = new List<Role>();
+        }
     }
+
+
 }

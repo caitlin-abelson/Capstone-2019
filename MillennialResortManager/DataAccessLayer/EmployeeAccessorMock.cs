@@ -11,6 +11,7 @@ namespace DataAccessLayer
     {
         private List<Employee> _employee;
         private List<int> _allEmployees;
+        private List<Role> _roles;
         private string[,] _logins;
 
 
@@ -28,6 +29,21 @@ namespace DataAccessLayer
             _employee.Add(new Employee() { EmployeeID = 100002, FirstName = "Jane", LastName = "Doob", PhoneNumber = "13195554658", Email = "jane.doob@company.com", DepartmentID = "Catering", Active = true });
             _employee.Add(new Employee() { EmployeeID = 100003, FirstName = "Barb", LastName = "Marsh", PhoneNumber = "13195554637", Email = "barb.marsh@company.com", DepartmentID = "Grooming", Active = true });
             _employee.Add(new Employee() { EmployeeID = 100004, FirstName = "Toby", LastName = "Fish", PhoneNumber = "13195554677", Email = "toby.fish@company.com", DepartmentID = "Talent", Active = true });
+
+            _roles = new List<Role>();
+            _roles.Add(new Role() { RoleID = "Admin", Description = "Overworked and under paid" });//0
+            _roles.Add(new Role() { RoleID = "Department Head", Description = "Professional meeting organizer" });//1
+            _roles.Add(new Role() { RoleID = "Manager", Description = "Meeting organizer" });//2
+            //_roles.Add(new Role() { RoleID = "Server", Description = "Serves stuff and things" });//3
+            //_roles.Add(new Role() { RoleID = "Front Desk", Description = "Where smiling and being dead inside go together like white on rice" });//4
+            //_roles.Add(new Role() { RoleID = "Maintenance", Description = "Fixes everyone elses problems but can never fix their own" });//5
+            _roles.Add(new Role() { RoleID = "Worker", Description = "Minimum wage. Maximmum effort" });//6
+
+            _employee[0].EmployeeRoles.Add(_roles.Find(x => x.RoleID == "Admin"));
+            _employee[1].EmployeeRoles.Add(_roles.Find(x => x.RoleID == "Department Head"));
+            _employee[2].EmployeeRoles.Add(_roles.Find(x => x.RoleID == "Manager"));
+            _employee[3].EmployeeRoles.Add(_roles.Find(x => x.RoleID == "Worker"));
+            _employee[4].EmployeeRoles.Add(_roles.Find(x => x.RoleID == "Worker"));
 
             _logins = new string[,]{
                 {"harry.jingles@company.com","5E884898DA28047151D0E56F8DC6292773603D0D6AABBDD62A11EF721D1542D8" },//[0,0], [0,1]
@@ -225,6 +241,16 @@ namespace DataAccessLayer
                 }
             }
             throw new ApplicationException("User not found. ");
+        }
+
+        public List<Role> RetrieveEmployeeRoles(int EmployeeID)
+        {
+            List<Role> r = _employee.Find(x => x.EmployeeID == EmployeeID).EmployeeRoles;
+            if (null == r)
+            {
+                throw new ApplicationException("No Roles found for this user");
+            }
+            return r;
         }
     }
 }

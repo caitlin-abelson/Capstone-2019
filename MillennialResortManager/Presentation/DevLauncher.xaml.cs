@@ -13,6 +13,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using WpfPresentation;
+using EventManager = LogicLayer.EventManager;
 
 namespace Presentation
 {
@@ -38,43 +40,67 @@ namespace Presentation
     /// #BrowseRoomTypes
     /// 
     /// #BrowsePerformance
+    /// #BrowseEventTypes
+    /// #BrowseAppointment
+    /// #BrowseGuest
+    /// #BrowseGuestVehicle
+    /// #BrowseSetupList
+    /// #BrowseSponsor
+    /// #BrowseRecipe
+    /// #BrowseEvent
+    /// #BrowseSupplierOrders
+    /// #BrowsePets
+    /// #BrowseRoom
+    /// #BrowseMaintenanceType
+    /// #BrowseMember
     /// 
     /// </summary>
     public partial class DevLauncher : Window
     {
+        //This is the employee who is logged in to our system
         private Employee _employee;
+        //Reservation
         private List<VMBrowseReservation> _allReservations;
         private List<VMBrowseReservation> _currentReservations;
         private ReservationManagerMSSQL _reservationManager;
+        //Shops
         private List<VMBrowseShop> _allShops;
         private List<VMBrowseShop> _currentShops;
         private ShopManagerMSSQL _shopManager;
+        //Employee
         private EmployeeManager _employeeManager;
         private List<Employee> _employees;
         private List<Employee> _currentEmployees;
+        //Suppliers
         private List<Supplier> _suppliers;
         private List<Supplier> _currentSuppliers;
         private SupplierManager _supplierManager;
+        //Products
         private List<Product> _allProducts;
         private List<Product> _currentProducts;
         private ProductManagerMSSQL _productManager;
         private Product _selectedProduct;
+        //Buildings
         private List<Building> allBuildings;
         private List<Building> currentBuildings; // needed?
         private IBuildingManager buildingManager;
+        //Orders
         private List<string> _searchCategories;
         private UserManager _userManager;
         private InternalOrderManager _internalOrderManager;
         private User _fullUser;
         private List<VMInternalOrder> _orders;
         private List<VMInternalOrder> _currentOrders;
+        //Employee Roles
         private IRoleManager _roleManager;
         private List<Role> _roles;
         private List<Role> _currentRoles;
         private Role _selectedRole;
+        //Guest Types
         private List<GuestType> _guests;
         private List<GuestType> _currentGuests;
         private IGuestTypeManager guestManager;
+        //Room types
         private List<RoomType> _room;
         private List<RoomType> _currentRoom;
         private IRoomType roomManager;
@@ -85,6 +111,70 @@ namespace Presentation
         //private Product _item;
         //private List<ItemSupplier> _itemSuppliers;
         //private ItemSupplier _itemSupplier;
+        //EventType
+        private List<EventType> _eventType;
+        private List<EventType> _currentEventType;
+        private IEventTypeManager _eventTypeManager;
+        //Appointment Types
+        private List<AppointmentType> _appointmentType;
+        private List<AppointmentType> _currentAppointmentType;
+        private IAppointmentTypeManager _appointmentTypeManager;
+        //Guests
+        private List<Guest> _guestsBrowseGuests;
+        private List<Guest> _guestsSearched;
+        private GuestManager _guestManager;
+        //GuestVehicles
+        private List<VMGuestVehicle> _vehicles;
+        private GuestVehicleManager _guestVehicleManager;
+        private List<string> _searchOptions;
+        private List<VMGuestVehicle> _currentListGuestVehicle;
+        //Setup List
+        private ISetupListManager _setupListManager;
+        private List<SetupList> _setupLists;
+        private List<SetupList> _currentSetupLists;
+        private SetupList _selectedSetupList;
+        //Sponsor
+        private List<Sponsor> _allSponsors;
+        private List<Sponsor> _currentSponsors;
+        private SponsorManager _sponsorManager;
+        //Recipe
+        private List<string> roles;
+        private List<Recipe> _recipes;
+        private RecipeManager _recipeManager;
+        private bool _isFilterRestting;
+        //Event
+        private EventManager _eventManager;
+        //private EventTypeManager _eventTypeManager = new EventTypeManager();  Already in use 
+        private List<Event> _events;
+        //Pets
+        //private Pet _pet;
+        private PetManager _petManager;
+        private List<Pet> _pets;
+        private PetTypeManager petTypeManager;
+        //Rooms
+        private RoomManager _roomManager;
+        private List<string> _buidlingIDList;
+        private List<string> _roomTypesIDList;
+        private List<Room> _roomList;
+        private List<Room> _currentRooms;
+        //MaintenanceTypes
+        private List<MaintenanceType> type;
+        private List<MaintenanceType> currentType;
+        private IMaintenanceTypeManager maintenanceManager;
+        //Member
+        private List<Member> _members;
+        private List<Member> _currentMembers;
+        private MemberManagerMSSQL _memberManager;
+        private Member _selectedMember;
+        //Supplier Orders
+        private SupplierOrderManager _supplierOrderManager = new SupplierOrderManager();
+        //private SupplierManager _supplierManager = new SupplierManager(); Already in use
+        private SupplierOrder _supplierOrder;
+        //private List<Supplier> _suppliers; Already in use
+        private List<SupplierOrder> _supplierOrders;
+        private List<SupplierOrder> _currentSupplierOrders;
+
+
 
         /// <summary>
         /// Author: Matt LaMarche
@@ -98,6 +188,82 @@ namespace Presentation
             InitializeComponent();
             //For Sidebar
             HideSidebarSubItems();
+            //For Navbar
+            HideNavBarOptions();
+        }
+
+
+
+        /// <summary>
+        /// Author: Matt LaMarche
+        /// Created : 3/11/2019
+        /// Hides all the navbar options the viewer does not have permission to see
+        /// </summary>
+        private void HideNavBarOptions()
+        {
+            if (_employee.EmployeeRoles.Count(x => x.RoleID == "Admin") > 0)
+            {
+                return;
+            }
+            foreach (MenuItem mi in NavbarMenu.Items)
+            {
+                if (mi.Name.Contains('_'))
+                {
+                    int displayedSubItems = 0;
+                    foreach (MenuItem subMi in mi.Items)
+                    {
+                        bool canSee = false;
+                        foreach (var role in _employee.EmployeeRoles)
+                        {
+                            if (subMi.Name.Contains(role.RoleID))
+                            {
+                                canSee = true;
+                                displayedSubItems++;
+                                break;
+                            }
+                        }
+                        if (!canSee)
+                        {
+                            subMi.Visibility = Visibility.Hidden;
+                            subMi.Height = 0;
+                        }
+                    }
+                    if (displayedSubItems == 0)
+                    {
+                        mi.Visibility = Visibility.Hidden;
+                    }
+                }
+
+            }
+        }
+
+        /// <summary>
+        /// Author: Matt LaMarche
+        /// Created : 3/11/2019
+        /// Hides sidebar items based on role. Department will come soon as well
+        /// </summary>
+        /// <param name="uid"></param>
+        /// <returns></returns>
+        private bool CanSeeOption(string uid)
+        {
+            //Check for admin
+            if (_employee.EmployeeRoles.Count(x => x.RoleID.Equals("Admin")) > 0)
+            {
+                return true;
+            }
+
+            //For each department show buttons that department can see
+            //In development
+            //for each role check if there is a role that matches the uid
+            foreach (var role in _employee.EmployeeRoles)
+            {
+                if (uid.ToLower().Contains(role.RoleID.ToLower()))
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
 
         /// <summary>
@@ -232,25 +398,28 @@ namespace Presentation
                     {
                         if (!b.Name.Contains("SubHeader"))
                         {
-                            //Header
                             b.SetValue(Grid.RowProperty, HeaderCount);
                             HeaderCount++;
                         }
                         else if (b.Visibility == Visibility.Hidden)
                         {
                             b.SetValue(Grid.RowProperty, HeaderCount);
-                            ShowButton(b);
-                            HeaderCount++;
+                            if (CanSeeOption(b.Uid))
+                            {
+                                ShowButton(b);
+                                HeaderCount++;
+                            }
                         }
                         else
                         {
                             HideButton(b);
                         }
-
                     }
                 }
             }
         }
+
+
 
         /// <summary>
         /// Author: Matt LaMarche
@@ -311,7 +480,7 @@ namespace Presentation
         /// <param name="e"></param>
         private void btnSidebarHeaderGuestServices_Click(object sender, RoutedEventArgs e)
         {
-            DisplaySideBarSubButtonsByHeader("Guest");
+            DisplaySideBarSubButtonsByHeader("GuestServices");
         }
 
         /// <summary>
@@ -323,7 +492,7 @@ namespace Presentation
         /// <param name="e"></param>
         private void btnSidebarHeaderFoodServices_Click(object sender, RoutedEventArgs e)
         {
-            DisplaySideBarSubButtonsByHeader("Food");
+            DisplaySideBarSubButtonsByHeader("FoodServices");
         }
 
         /// <summary>
@@ -486,6 +655,190 @@ namespace Presentation
             //BrowsePerformanceDoOnStart();
         }
 
+        /// <summary>
+        /// Author: Matt LaMarche
+        /// Created : 3/13/2019
+        /// This is what happens when the subheader button for Event Types is clicked from the sidebar
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnSidebarReservationSubHeaderBrowseEventTypes_Click(object sender, RoutedEventArgs e)
+        {
+            HideSidebar();
+            DisplayPage("BrowseEventTypes");
+            //BrowseEventTypesDoOnStart();
+        }
+
+        /// <summary>
+        /// Author: Matt LaMarche
+        /// Created : 3/13/2019
+        /// This is what happens when the subheader button for Appointment Types is clicked from the sidebar
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnSidebarReservationSubHeaderBrowseAppointmentTypes_Click(object sender, RoutedEventArgs e)
+        {
+            HideSidebar();
+            DisplayPage("BrowseAppointmentType");
+            //BrowseAppointmentTypeDoOnStart();
+        }
+
+        /// <summary>
+        /// Author: Matt LaMarche
+        /// Created : 3/13/2019
+        /// This is what happens when the subheader button for Guests is clicked from the sidebar
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnSidebarGuestServicesSubHeaderBrowseGuests_Click(object sender, RoutedEventArgs e)
+        {
+            HideSidebar();
+            DisplayPage("BrowseGuests");
+            //BrowseGuestDoOnStart();
+        }
+
+        /// <summary>
+        /// Author: Matt LaMarche
+        /// Created : 3/13/2019
+        /// This is what happens when the subheader button for Guest Vehicles is clicked from the sidebar
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnSidebarGuestServicesSubHeaderBrowseGuestVehicles_Click(object sender, RoutedEventArgs e)
+        {
+            HideSidebar();
+            DisplayPage("BrowseGuestVehicle");
+            //BrowseGuestVehicleDoOnStart();
+        }
+
+        /// <summary>
+        /// Author: Matt LaMarche
+        /// Created : 3/13/2019
+        /// This is what happens when the subheader button for Setup Lists is clicked from the sidebar
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnSidebarGuestServicesSubHeaderBrowseSetupLists_Click(object sender, RoutedEventArgs e)
+        {
+            HideSidebar();
+            DisplayPage("BrowseSetupList");
+            //BrowseSetupListDoOnStart();
+        }
+
+        /// <summary>
+        /// Author: Matt LaMarche
+        /// Created : 3/13/2019
+        /// This is what happens when the subheader button for Sponsors is clicked from the sidebar
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnSidebarGuestServicesSubHeaderBrowseSponsors_Click(object sender, RoutedEventArgs e)
+        {
+            HideSidebar();
+            DisplayPage("BrowseSponsor");
+            //BrowseSponsorDoOnStart();
+        }
+
+        /// <summary>
+        /// Author: Matt LaMarche
+        /// Created : 3/13/2019
+        /// This is what happens when the subheader button for Recipes is clicked from the sidebar
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnSidebarGuestServicesSubHeaderBrowseRecipes_Click(object sender, RoutedEventArgs e)
+        {
+            HideSidebar();
+            DisplayPage("BrowseRecipe");
+            //BrowseRecipeDoOnStart();
+        }
+
+        /// <summary>
+        /// Author: Matt LaMarche
+        /// Created : 3/13/2019
+        /// This is what happens when the subheader button for Events is clicked from the sidebar
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnSidebarGuestServicesSubHeaderBrowseEvents_Click(object sender, RoutedEventArgs e)
+        {
+            HideSidebar();
+            DisplayPage("BrowseEvents");
+            //BrowseEventDoOnStart();
+        }
+
+        /// <summary>
+        /// Author: Matt LaMarche
+        /// Created : 3/13/2019
+        /// This is what happens when the subheader button for Supplier Orders is clicked from the sidebar
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnSidebarGuestServicesSubHeaderBrowseSupplierOrders_Click(object sender, RoutedEventArgs e)
+        {
+            HideSidebar();
+            DisplayPage("BrowseSupplierOrders");
+            //BrowseSupplierOrdersDoOnStart();
+        }
+
+        /// <summary>
+        /// Author: Matt LaMarche
+        /// Created : 3/13/2019
+        /// This is what happens when the subheader button for Pets is clicked from the sidebar
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnSidebarGuestServicesSubHeaderBrowsePets_Click(object sender, RoutedEventArgs e)
+        {
+            HideSidebar();
+            DisplayPage("BrowsePets");
+            //BrowsePetsDoOnStart();
+        }
+
+        /// <summary>
+        /// Author: Matt LaMarche
+        /// Created : 3/13/2019
+        /// This is what happens when the subheader button for Rooms is clicked from the sidebar
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnSidebarGuestServicesSubHeaderBrowseRooms_Click(object sender, RoutedEventArgs e)
+        {
+            HideSidebar();
+            DisplayPage("BrowseRoomss");
+            BrowseRoomsDoOnStart();
+        }
+
+        /// <summary>
+        /// Author: Matt LaMarche
+        /// Created : 3/13/2019
+        /// This is what happens when the subheader button for Maintenance Types is clicked from the sidebar
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnSidebarGuestServicesSubHeaderBrowseMaintenanceTypes_Click(object sender, RoutedEventArgs e)
+        {
+            HideSidebar();
+            DisplayPage("BrowseMaintenanceTypes");
+            //BrowseMaintenanceTypeDoOnStart();
+        }
+
+        /// <summary>
+        /// Author: Matt LaMarche
+        /// Created : 3/13/2019
+        /// This is what happens when the subheader button for Members is clicked from the sidebar
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnSidebarGuestServicesSubHeaderBrowseMembers_Click(object sender, RoutedEventArgs e)
+        {
+            HideSidebar();
+            DisplayPage("BrowseMembers");
+            //BrowseMemberDoOnStart();
+        }
+
+
+
         /*--------------------------- Ending SideBar Code --------------------------------*/
 
 
@@ -634,12 +987,185 @@ namespace Presentation
             //BrowsePerformanceDoOnStart();
         }
 
+        /// <summary>
+        /// Author: Matt LaMarche
+        /// Created : 3/13/2019
+        /// This is what happens when the subheader button for Event Types is clicked from the navbar
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void NavBarSubHeaderEventTypes_Click(object sender, RoutedEventArgs e)
+        {
+            DisplayPage("BrowseEventTypes");
+            //BrowseEventTypesDoOnStart();
+        }
+
+        /// <summary>
+        /// Author: Matt LaMarche
+        /// Created : 3/13/2019
+        /// This is what happens when the subheader button for Appointment Types is clicked from the navbar
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void NavBarSubHeaderAppointmentTypes_Click(object sender, RoutedEventArgs e)
+        {
+            DisplayPage("BrowseAppointmentType");
+            //BrowseAppointmentTypeDoOnStart();
+        }
+
+        /// <summary>
+        /// Author: Matt LaMarche
+        /// Created : 3/13/2019
+        /// This is what happens when the subheader button for Guests is clicked from the navbar
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void NavBarSubHeaderGuests_Click(object sender, RoutedEventArgs e)
+        {
+            DisplayPage("BrowseGuests");
+            //BrowseGuestDoOnStart();
+        }
+
+        /// <summary>
+        /// Author: Matt LaMarche
+        /// Created : 3/13/2019
+        /// This is what happens when the subheader button for Guest Vehicles is clicked from the navbar
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void NavBarSubHeaderGuestVehicles_Click(object sender, RoutedEventArgs e)
+        {
+            DisplayPage("BrowseGuestVehicle");
+            //BrowseGuestVehicleDoOnStart();
+        }
+
+        /// <summary>
+        /// Author: Matt LaMarche
+        /// Created : 3/13/2019
+        /// This is what happens when the subheader button for Setup Lists is clicked from the navbar
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void NavBarSubHeaderSetupLists_Click(object sender, RoutedEventArgs e)
+        {
+            DisplayPage("BrowseSetupList");
+            //BrowseSetupListDoOnStart();
+        }
+
+        /// <summary>
+        /// Author: Matt LaMarche
+        /// Created : 3/13/2019
+        /// This is what happens when the subheader button for Sponsors is clicked from the navbar
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void NavBarSubHeaderSponsors_Click(object sender, RoutedEventArgs e)
+        {
+            DisplayPage("BrowseSponsor");
+            //BrowseSponsorDoOnStart();
+        }
+
+        /// <summary>
+        /// Author: Matt LaMarche
+        /// Created : 3/13/2019
+        /// This is what happens when the subheader button for Recipes is clicked from the navbar
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void NavBarSubHeaderRecipes_Click(object sender, RoutedEventArgs e)
+        {
+            DisplayPage("BrowseRecipe");
+            //BrowseRecipeDoOnStart();
+        }
+
+        /// <summary>
+        /// Author: Matt LaMarche
+        /// Created : 3/13/2019
+        /// This is what happens when the subheader button for Events is clicked from the navbar
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void NavBarSubHeaderEvents_Click(object sender, RoutedEventArgs e)
+        {
+            DisplayPage("BrowseEvents");
+            //BrowseEventDoOnStart();
+        }
+
+        /// <summary>
+        /// Author: Matt LaMarche
+        /// Created : 3/13/2019
+        /// This is what happens when the subheader button for Supplier Orders is clicked from the navbar
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void NavBarSubHeaderSupplierOrders_Click(object sender, RoutedEventArgs e)
+        {
+            DisplayPage("BrowseSupplierOrders");
+            //BrowseSupplierOrdersDoOnStart();
+        }
+
+        /// <summary>
+        /// Author: Matt LaMarche
+        /// Created : 3/13/2019
+        /// This is what happens when the subheader button for Pets is clicked from the navbar
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void NavBarSubHeaderPets_Click(object sender, RoutedEventArgs e)
+        {
+            DisplayPage("BrowsePets");
+            //BrowsePetsDoOnStart();
+        }
+
+        /// <summary>
+        /// Author: Matt LaMarche
+        /// Created : 3/13/2019
+        /// This is what happens when the subheader button for Rooms is clicked from the navbar
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void NavBarSubHeaderRooms_Click(object sender, RoutedEventArgs e)
+        {
+            DisplayPage("BrowseRooms");
+            //BrowseRoomsDoOnStart();
+        }
+
+        /// <summary>
+        /// Author: Matt LaMarche
+        /// Created : 3/13/2019
+        /// This is what happens when the subheader button for Maintenance Types is clicked from the navbar
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void NavBarSubHeaderMaintenanceTypes_Click(object sender, RoutedEventArgs e)
+        {
+            DisplayPage("BrowseMaintenanceTypes");
+            //BrowseMaintenanceTypeDoOnStart();
+        }
+
+        /// <summary>
+        /// Author: Matt LaMarche
+        /// Created : 3/13/2019
+        /// This is what happens when the subheader button for Members is clicked from the navbar
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void NavBarSubHeaderMembers_Click(object sender, RoutedEventArgs e)
+        {
+            DisplayPage("BrowseMembers");
+            //BrowseMemberDoOnStart();
+        }
 
         /*--------------------------- Ending NavBar Code --------------------------------*/
 
 
         /*--------------------------- Starting BrowseReservation Code #BrowseReservation --------------------------------*/
-
+        /// <summary>
+        /// Author: Matt LaMarche
+        /// Created : 3/13/2019
+        /// 
+        /// This is where you stick all the code you want to run in your Constructor/Window_Loaded statement
+        /// </summary>
         private void BrowseReservationDoOnStart()
         {
             _reservationManager = new ReservationManagerMSSQL();
@@ -988,6 +1514,12 @@ namespace Presentation
         /*--------------------------- Ending BrowseReservation Code --------------------------------*/
 
         /*--------------------------- Starting BrowseShops Code #BrowseShops --------------------------------*/
+        /// <summary>
+        /// Author: Matt LaMarche
+        /// Created : 3/13/2019
+        /// 
+        /// This is where you stick all the code you want to run in your Constructor/Window_Loaded statement
+        /// </summary>
         private void BrowseShopsDoOnStart()
         {
             _shopManager = new ShopManagerMSSQL();
@@ -1173,6 +1705,12 @@ namespace Presentation
         /*--------------------------- Ending BrowseShops Code --------------------------------*/
 
         /*--------------------------- Starting BrowseEmployees Code #BrowseEmployees --------------------------------*/
+        /// <summary>
+        /// Author: Matt LaMarche
+        /// Created : 3/13/2019
+        /// 
+        /// This is where you stick all the code you want to run in your Constructor/Window_Loaded statement
+        /// </summary>
         private void BrowseEmployeesDoOnStart()
         {
             _employeeManager = new EmployeeManager();
@@ -1446,7 +1984,12 @@ namespace Presentation
         /*--------------------------- Ending BrowseEmployees Code --------------------------------*/
 
         /*--------------------------- Starting BrowseSuppliers Code #BrowseSuppliers --------------------------------*/
-
+        /// <summary>
+        /// Author: Matt LaMarche
+        /// Created : 3/13/2019
+        /// 
+        /// This is where you stick all the code you want to run in your Constructor/Window_Loaded statement
+        /// </summary>
         private void BrowseSuppliersDoOnStart()
         {
             _supplierManager = new SupplierManager();
@@ -1791,6 +2334,12 @@ namespace Presentation
 
 
         /*--------------------------- Starting BrowseProducts Code #BrowseProducts --------------------------------*/
+        /// <summary>
+        /// Author: Matt LaMarche
+        /// Created : 3/13/2019
+        /// 
+        /// This is where you stick all the code you want to run in your Constructor/Window_Loaded statement
+        /// </summary>
         private void BrowseProductsDoOnStart()
         {
             _productManager = new ProductManagerMSSQL();
@@ -2148,6 +2697,12 @@ namespace Presentation
 
 
         /*--------------------------- Starting BrowseBuilding Code #BrowseBuilding --------------------------------*/
+        /// <summary>
+        /// Author: Matt LaMarche
+        /// Created : 3/13/2019
+        /// 
+        /// This is where you stick all the code you want to run in your Constructor/Window_Loaded statement
+        /// </summary>
         private void BrowseBuildingDoOnStart()
         {
             buildingManager = new BuildingManager();
@@ -2193,7 +2748,7 @@ namespace Presentation
             selectBuilding();
         }
 
-        private void btnFilter_Click(object sender, RoutedEventArgs e)
+        private void btnFilterBuilding_Click(object sender, RoutedEventArgs e)
         {
             try
             {
@@ -2285,6 +2840,12 @@ namespace Presentation
 
 
         /*--------------------------- Starting BrowseOrder Code #BrowseOrder --------------------------------*/
+        /// <summary>
+        /// Author: Matt LaMarche
+        /// Created : 3/13/2019
+        /// 
+        /// This is where you stick all the code you want to run in your Constructor/Window_Loaded statement
+        /// </summary>
         private void BrowseOrderDoOnStart()
         {
             _searchCategories = new List<string>();
@@ -2502,11 +3063,17 @@ namespace Presentation
         /*--------------------------- Ending BrowseOrder Code --------------------------------*/
 
         /*--------------------------- Starting BrowseEmployeeRole Code #BrowseEmployeeRole --------------------------------*/
+        /// <summary>
+        /// Author: Matt LaMarche
+        /// Created : 3/13/2019
+        /// 
+        /// This is where you stick all the code you want to run in your Constructor/Window_Loaded statement
+        /// </summary>
         private void BrowseEmployeeRolesDoOnStart()
         {
             _selectedRole = new Role();
             _roleManager = new RoleManager();
-            refreshRoles();
+            refreshRolesEmployeeRole();
         }
 
 
@@ -2549,7 +3116,7 @@ namespace Presentation
 
                 MessageBox.Show(result.ToString());
             }
-            refreshRoles();
+            refreshRolesEmployeeRole();
 
         }
 
@@ -2560,7 +3127,7 @@ namespace Presentation
         /// 
         /// method to refresh employee roles list.
         /// </summary>
-        private void refreshRoles()
+        private void refreshRolesEmployeeRole()
         {
             try
             {
@@ -2569,7 +3136,7 @@ namespace Presentation
                 _currentRoles = _roles;
                 //txtSearch.Text = "";
                 dgRole.ItemsSource = _currentRoles;
-                filterRoles();
+                filterRolesEmployeeRole();
 
             }
             catch (Exception ex)
@@ -2588,7 +3155,7 @@ namespace Presentation
 
         private void BtnFilterEmployeeRole_Click(object sender, RoutedEventArgs e)
         {
-            filterRoles();
+            filterRolesEmployeeRole();
         }
 
 
@@ -2598,7 +3165,7 @@ namespace Presentation
         /// 
         /// //method to filter the  view employee roles
         /// </summary>
-        private void filterRoles()
+        private void filterRolesEmployeeRole()
         {
 
             IEnumerable<Role> currentRoles = _roles;
@@ -2680,7 +3247,7 @@ namespace Presentation
             {
                 MessageBox.Show("You must select an item first");
             }
-            refreshRoles();
+            refreshRolesEmployeeRole();
         }
 
         /// <summary>
@@ -2689,7 +3256,7 @@ namespace Presentation
         /// 
         /// //method to cancel and exit a window
         /// </summary>
-        private void BtnCancel_Click(object sender, RoutedEventArgs e)
+        private void BtnCancelEmployeeRole_Click(object sender, RoutedEventArgs e)
         {
             var result = MessageBox.Show("Are you sure you want to quit?", "Closing Application", MessageBoxButton.OKCancel, MessageBoxImage.Question);
             if (result == MessageBoxResult.OK)
@@ -2734,7 +3301,7 @@ namespace Presentation
                 MessageBox.Show("You must select an item first");
 
             }
-            refreshRoles();
+            refreshRolesEmployeeRole();
         }
 
         /// <summary>
@@ -2745,7 +3312,7 @@ namespace Presentation
         /// </summary>
         private void CbDeactive_Click(object sender, RoutedEventArgs e)
         {
-            filterRoles();
+            filterRolesEmployeeRole();
         }
 
         /// <summary>
@@ -2756,14 +3323,19 @@ namespace Presentation
         /// </summary>
         private void CbActive_Click(object sender, RoutedEventArgs e)
         {
-            filterRoles();
+            filterRolesEmployeeRole();
         }
 
         /*--------------------------- Ending BrowseEmployeeRole Code --------------------------------*/
 
 
         /*--------------------------- Starting BrowseGuestTypes Code #BrowseGuestTypes --------------------------------*/
-        //GuestTypes
+        /// <summary>
+        /// Author: Matt LaMarche
+        /// Created : 3/13/2019
+        /// 
+        /// This is where you stick all the code you want to run in your Constructor/Window_Loaded statement
+        /// </summary>
         private void BrowseGuestTypesDoOnStart()
         {
             guestManager = new GuestTypeManager();
@@ -2839,7 +3411,12 @@ namespace Presentation
 
 
         /*--------------------------- Starting BrowseRoomTypes Code #BrowseRoomTypes --------------------------------*/
-        //RoomTypes
+        /// <summary>
+        /// Author: Matt LaMarche
+        /// Created : 3/13/2019
+        /// 
+        /// This is where you stick all the code you want to run in your Constructor/Window_Loaded statement
+        /// </summary>
         private void BrowseRoomTypesDoOnStart()
         {
             roomManager = new RoomTypeManager();
@@ -2917,6 +3494,12 @@ namespace Presentation
 
 
         /*--------------------------- Starting BrowsePerformance Code #BrowsePerformance --------------------------------*/
+        /// <summary>
+        /// Author: Matt LaMarche
+        /// Created : 3/13/2019
+        /// 
+        /// This is where you stick all the code you want to run in your Constructor/Window_Loaded statement
+        /// </summary>
         private void BrowsePerformanceDoOnStart()
         {
             setupWindowPerformance();
@@ -2975,7 +3558,7 @@ namespace Presentation
 
 
         /*--------------------------- Starting BrowseItemSuppliers Code #BrowseItemSuppliers --------------------------------*/
-        //frmManageItemSuppliers
+        //frmManageItemSuppliers Has required parameters.
         private void BrowseItemSuppliersDoOnStart()
         {
             _itemSupplierManager = new ItemSupplierManager();
@@ -2989,9 +3572,2302 @@ namespace Presentation
         /*--------------------------- Ending BrowseItemSuppliers Code --------------------------------*/
 
 
-        /*--------------------------- Starting BrowseRoom Code #BrowseRoom --------------------------------*/
-        //frmRoomManagement
+        /*--------------------------- Starting BrowseEventTypes Code #BrowseEventTypes --------------------------------*/
+        /// <summary>
+        /// Author: Matt LaMarche
+        /// Created : 3/13/2019
+        /// 
+        /// This is where you stick all the code you want to run in your Constructor/Window_Loaded statement
+        /// </summary>
+        private void BrowseEventTypesDoOnStart()
+        {
+            _eventTypeManager = new EventTypeManager();
+            try
+            {
+                _eventType = _eventTypeManager.RetrieveAllEventTypes("All");
+                if (_currentEventType == null)
+                {
+                    _currentEventType = _eventType;
+                }
+                dgEventTypes.ItemsSource = _currentEventType;
+            }
+
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void BtnEventTypeAddAction_Click(object sender, RoutedEventArgs e)
+        {
+            //An empty constructor allows us to invoke the Event Type Add.
+            //form with out having starting data. So we can add it. 
+
+            var addEventType = new CreateEventType();
+            var result = addEventType.ShowDialog();
+            if (result == true)
+            {
+                try
+                {
+                    _currentEventType = null;
+                    _eventType = _eventTypeManager.RetrieveAllEventTypes("All");
+                    if (_currentEventType == null)
+                    {
+                        _currentEventType = _eventType;
+                    }
+                    dgEventTypes.ItemsSource = _currentEventType;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+            }
+        }
+
+        private void BtnEventTypeActionDelete_Click(object sender, RoutedEventArgs e)
+        {
+            var deleteEventType = new DeleteEventType();
+            var result = deleteEventType.ShowDialog();
+            if (result == true)
+            {
+                try
+                {
+                    _currentEventType = null;
+                    _eventType = _eventTypeManager.RetrieveAllEventTypes("All");
+                    if (_currentEventType == null)
+                    {
+                        _currentEventType = _eventType;
+                    }
+                    dgEventTypes.ItemsSource = _currentEventType;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+            }
+        }
+
+        /*--------------------------- Ending BrowseEventTypes Code --------------------------------*/
+
+
+        /*--------------------------- Starting BrowseAppointment Code #BrowseAppointment --------------------------------*/
+        /// <summary>
+        /// Author: Matt LaMarche
+        /// Created : 3/13/2019
+        /// 
+        /// This is where you stick all the code you want to run in your Constructor/Window_Loaded statement
+        /// </summary>
+        private void BrowseAppointmentTypeDoOnStart()
+        {
+            _appointmentTypeManager = new AppointmentTypeManager();
+            try
+            {
+
+                _appointmentType = _appointmentTypeManager.RetrieveAllAppointmentTypes("All");
+                if (_currentAppointmentType == null)
+                {
+                    _currentAppointmentType = _appointmentType;
+                }
+                dgAppointmentTypes.ItemsSource = _currentAppointmentType;
+            }
+
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message + Environment.NewLine + ex.StackTrace);
+            }
+        }
+
+        //  BtnAppointmentTypeAddAction_Click
+        /// <summary>
+        ///Button click event to Add an appointmentType.
+        /// </summary>
+        /// <param name="PetType newPetType">The BtnAppointmentTypeAddAction calls RetrieveAllAppointmentTypes.</param>
+        /// <returns></returns>
+        private void BtnAppointmentTypeAddAction_Click(object sender, RoutedEventArgs e)
+        {
+            var addAppointmentType = new CreateAppointmentType();
+            var result = addAppointmentType.ShowDialog();
+            if (result == true)
+            {
+                try
+                {
+                    _currentAppointmentType = null;
+                    _appointmentType = _appointmentTypeManager.RetrieveAllAppointmentTypes("All");
+                    if (_currentAppointmentType == null)
+                    {
+                        _currentAppointmentType = _appointmentType;
+                    }
+                    dgAppointmentTypes.ItemsSource = _currentAppointmentType;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+            }
+        }
+
+
+        //  BtnAppointmentTypeActionDelete_Click
+        /// <summary>
+        /// Button for deleting an appointment Type.
+        /// </summary>
+        /// <param name="">The BtnAppointmentTypeActionDelete calls the RetrieveAllAppointmentTypes("All").</param>
+        /// <returns></returns>
+
+        private void BtnAppointmentTypeActionDelete_Click(object sender, RoutedEventArgs e)
+        {
+            var deleteAppointmentType = new DeleteAppointmentType();
+            var result = deleteAppointmentType.ShowDialog();
+            if (result == true)
+            {
+                try
+                {
+                    _currentAppointmentType = null;
+                    _appointmentType = _appointmentTypeManager.RetrieveAllAppointmentTypes("All");
+                    if (_currentAppointmentType == null)
+                    {
+                        _currentAppointmentType = _appointmentType;
+                    }
+                    dgAppointmentTypes.ItemsSource = _currentAppointmentType;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message + Environment.NewLine + ex.StackTrace);
+                }
+            }
+        }
+
+
+
+
+
+        /*--------------------------- Ending BrowseAppointment Code --------------------------------*/
+
+
+        /*--------------------------- Starting BrowseGuest Code #BrowseGuest --------------------------------*/
+        /// <summary>
+        /// Author: Matt LaMarche
+        /// Created : 3/13/2019
+        /// 
+        /// This is where you stick all the code you want to run in your Constructor/Window_Loaded statement
+        /// </summary>
+        private void BrowseGuestDoOnStart()
+        {
+            _guestsBrowseGuests = new List<Guest>();
+            _guestsSearched = new List<Guest>();
+            _guestManager = new GuestManager();
+
+
+            try
+            {
+                _guestsBrowseGuests = _guestManager.ReadAllGuests();
+                if (dgGuestsList.ItemsSource == null)
+                {
+                    dgGuestsList.ItemsSource = _guests;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// Alisa Roehr
+        /// Created: 2019/02/01
+        /// 
+        /// for loading the guest details
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void dgGuestsList_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            try
+            {
+                if (dgGuestsList.SelectedItem != null && ((Guest)dgGuests.SelectedItem).Active != false)
+                {
+                    var selectedGuest = (Guest)dgGuestsList.SelectedItem;
+                    var detail = new frmAddEditGuest(selectedGuest);
+                    var result = detail.ShowDialog();
+                    _guestsBrowseGuests = _guestManager.ReadAllGuests();
+                    dgGuestsList.ItemsSource = _guests;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Viewing Guest Failed!");
+            }
+        }
+
+        /// <summary>
+        /// Alisa Roehr
+        /// Created: 2019/02/01
+        /// 
+        /// for creating a new guest. 
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnAddGuest_Click(object sender, RoutedEventArgs e)
+        {
+            var detail = new frmAddEditGuest();
+            detail.ShowDialog();
+            _guestsBrowseGuests = _guestManager.ReadAllGuests();
+            dgGuestsList.ItemsSource = _guestsBrowseGuests;
+        }
+
+        /// <summary>
+        /// Alisa Roehr
+        /// Created: 2019/02/05
+        /// 
+        /// for searching for guests.
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void BtnGuestSearch_Click(object sender, RoutedEventArgs e)
+        {
+            /* try
+             {
+                 string searchFirst = txtGuestFirst.Text.ToString();
+                 string searchLast = txtGuestLast.Text.ToString();
+                 searchFirst.Trim();
+                 searchLast.Trim();
+
+                 searchFirst.ToLower();
+                 searchLast.ToLower();
+
+                 _guestsSearched = _guestManager.RetrieveGuestsSearched(searchLast, searchFirst);
+                 dgGuests.ItemsSource = _guestsSearched;
+             }
+             catch (Exception ex)
+             {
+                 MessageBox.Show(ex.Message, "Searching Guests Failed!");
+             }*/
+            string searchFirst = txtGuestFirst.Text.ToString();
+            string searchLast = txtGuestLast.Text.ToString();
+            searchFirst.Trim();
+            searchLast.Trim();
+            _guestsSearched = _guestsBrowseGuests.FindAll(g => g.FirstName.ToLower().Contains(searchFirst)
+                && g.LastName.ToLower().Contains(searchLast));
+            dgGuestsList.ItemsSource = _guestsSearched;
+        }
+
+        /// <summary>
+        /// Alisa Roehr
+        /// Created: 2019/03/01
+        /// 
+        /// for activating and deactivating guests.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnActivateGuest_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                if (dgGuestsList.SelectedItem != null)
+                {
+                    Guest guest = _guestManager.ReadGuestByGuestID(((Guest)dgGuestsList.SelectedItem).GuestID);
+                    if (guest.Active == true)
+                    {
+                        _guestManager.DeactivateGuest(guest.GuestID);
+                    }
+                    else if (guest.Active == false)
+                    {
+                        _guestManager.ReactivateGuest(guest.GuestID);
+                    }
+                    _guestsBrowseGuests = _guestManager.ReadAllGuests();
+                    dgGuestsList.ItemsSource = _guestsBrowseGuests;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Activating or Deactivating Guest Failed!");
+            }
+        }
+
+        /// <summary>
+        /// Alisa Roehr
+        /// Created: 2019/03/01
+        /// 
+        /// for deleting guests.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnDeleteGuest_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                if (dgGuestsList.SelectedItem != null)
+                {
+                    Guest guest = _guestManager.ReadGuestByGuestID(((Guest)dgGuestsList.SelectedItem).GuestID);
+                    if (guest.Active == false)
+                    {
+                        var result = MessageBox.Show("Are you sure you want to delete this guest?", "This guest will no longer be in the system.", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+
+                        if (result == MessageBoxResult.Yes)
+                        {
+                            _guestManager.DeleteGuest(guest.GuestID);
+                            MessageBox.Show("The guest has been purged.");
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("Guest must be deactivated to be deleted.");
+                    }
+                    _guestsBrowseGuests = _guestManager.ReadAllGuests();
+                    dgGuestsList.ItemsSource = _guests;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Deleting Guest Failed!");
+            }
+
+        }
+
+        /// <summary>
+        /// Alisa Roehr
+        /// Created: 2019/03/01
+        /// 
+        /// for checking in and out guests.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnCheckGuest_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                if (dgGuestsList.SelectedItem != null)
+                {
+                    Guest guest = _guestManager.ReadGuestByGuestID(((Guest)dgGuestsList.SelectedItem).GuestID);
+                    if (guest.CheckedIn == false)
+                    {
+                        _guestManager.CheckInGuest(guest.GuestID);
+                    }
+                    else if (guest.CheckedIn == true)
+                    {
+                        _guestManager.CheckOutGuest(guest.GuestID);
+                    }
+                    _guestsBrowseGuests = _guestManager.ReadAllGuests();
+                    dgGuestsList.ItemsSource = _guestsBrowseGuests;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Checking In or Out Guest Failed!");
+            }
+
+        }
+
+        /// <summary>
+        /// Alisa Roehr
+        /// Created: 2019/02/01
+        /// 
+        /// for loading the guest details
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnViewGuest_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                if (dgGuestsList.SelectedItem != null && ((Guest)dgGuestsList.SelectedItem).Active != false)
+                {
+                    var selectedGuest = (Guest)dgGuestsList.SelectedItem;
+                    var detail = new frmAddEditGuest(selectedGuest);
+                    var result = detail.ShowDialog();
+                    _guestsBrowseGuests = _guestManager.ReadAllGuests();
+                    dgGuestsList.ItemsSource = _guestsBrowseGuests;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Viewing Guest Failed!");
+            }
+        }
+
+        /// <summary>
+        /// Alisa Roehr
+        /// Created: 2019/03/05
+        /// 
+        /// for picking what the selected item is and the buttons.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void dgGuestsList_GotFocus(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                if (dgGuestsList.SelectedItem != null)
+                {
+                    Guest _selectedGuest = new Guest();
+                    try
+                    {
+                        _selectedGuest = (Guest)dgGuestsList.SelectedItem;
+                    }
+                    catch (Exception)
+                    {
+
+                    }
+                    btnCheckGuest.IsEnabled = true;
+                    btnActivateGuest.IsEnabled = true;
+
+                    if (_selectedGuest.Active)
+                    {
+                        btnActivateGuest.Content = "Deactivate";
+                        btnDeleteGuest.IsEnabled = false;
+                    }
+                    else
+                    {
+                        btnActivateGuest.Content = "Activate";
+                        btnDeleteGuest.IsEnabled = true;
+                    }
+                    if (_selectedGuest.CheckedIn)
+                    {
+                        btnCheckGuest.Content = "Check Out";
+                    }
+                    else
+                    {
+                        btnCheckGuest.Content = "Check In";
+                    }
+                }
+                else
+                {
+                    btnDeleteGuest.IsEnabled = false;
+                    btnCheckGuest.IsEnabled = false;
+                    btnActivateGuest.IsEnabled = false;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Focusing for buttons failure");
+            }
+        }
+
+        /// <summary>
+        /// Alisa Roehr
+        /// Created: 2019/03/08
+        /// 
+        /// for clearing the filters.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnGuestClearFilter_Click(object sender, RoutedEventArgs e)
+        {
+            txtGuestFirst.Text = "";
+            txtGuestLast.Text = "";
+            _guestsBrowseGuests = _guestManager.ReadAllGuests();
+            dgGuestsList.ItemsSource = null;
+            dgGuestsList.ItemsSource = _guestsBrowseGuests;
+            _guestsSearched = _guestsBrowseGuests;
+        }
+
+        /*--------------------------- Ending BrowseGuest Code --------------------------------*/
+
+
+        /*--------------------------- Starting BrowseGuestVehicle Code #BrowseGuestVehicle --------------------------------*/
+        /// <summary>
+        /// Author: Matt LaMarche
+        /// Created : 3/13/2019
+        /// 
+        /// This is where you stick all the code you want to run in your Constructor/Window_Loaded statement
+        /// </summary>
+        private void BrowseGuestVehicleDoOnStart()
+        {
+            _vehicles = new List<VMGuestVehicle>();
+            _guestVehicleManager = new GuestVehicleManager();
+            _searchOptions = new List<string>();
+            refreshGridGuestVehicle();
+            fillOptions();
+        }
+
+
+        /// <summary>
+        /// Richard Carroll
+        /// Created: 3/8/19
+        /// 
+        /// Makes a Detail Form for adding a new GuestVehicle
+        /// </summary>
+        private void BtnAddNewGuestVehicle_Click(object sender, RoutedEventArgs e)
+        {
+            var guestVehicleDetail = new GuestVehicleDetail();
+            var result = guestVehicleDetail.ShowDialog();
+            if (result == true)
+            {
+                refreshGridGuestVehicle();
+            }
+        }
+
+        /// <summary>
+        /// Richard Carroll
+        /// Created: 3/8/19
+        /// 
+        /// Sets the combo box and Search bar to blank, and refreshes the Grid
+        /// </summary>
+        private void BtnClearFiltersGuestVehicle_Click(object sender, RoutedEventArgs e)
+        {
+            cboSearchCategory.SelectedIndex = -1;
+            txtSearchTerm.Text = "";
+            refreshGridGuestVehicle();
+        }
+
+        /// <summary>
+        /// Richard Carroll
+        /// Created: 3/8/19
+        /// 
+        /// Searches through the existing Grid for data matching what's in the search bar
+        /// with what's in the Grid
+        /// </summary>
+        private void TxtSearchTermGuestVehicle_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (cboSearchCategoryGuestVehicle.SelectedIndex != -1)
+            {
+                switch (cboSearchCategoryGuestVehicle.SelectedIndex)
+                {
+                    case 0:
+                        _currentListGuestVehicle = _vehicles.FindAll(v => v.FirstName.ToLower().Contains(txtSearchTerm.Text));
+                        applyFiltersGuestVehicle();
+                        break;
+                    case 1:
+                        _currentListGuestVehicle = _vehicles.FindAll(v => v.LastName.ToLower().Contains(txtSearchTerm.Text));
+                        applyFiltersGuestVehicle();
+                        break;
+                    case 2:
+                        _currentListGuestVehicle = _vehicles.FindAll(v => v.Make.ToLower().Contains(txtSearchTerm.Text));
+                        applyFiltersGuestVehicle();
+                        break;
+                    case 3:
+                        _currentListGuestVehicle = _vehicles.FindAll(v => v.Model.ToLower().Contains(txtSearchTerm.Text));
+                        applyFiltersGuestVehicle();
+                        break;
+                    case 4:
+                        _currentListGuestVehicle = _vehicles.FindAll(v => v.Color.ToLower().Contains(txtSearchTerm.Text));
+                        applyFiltersGuestVehicle();
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Richard Carroll
+        /// Created: 3/8/19
+        /// 
+        /// Opens a Detail Form for Viewing the Details of a GuestVehicle
+        /// </summary>
+        private void DgGuestVehicles_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            if (dgGuestVehicles.SelectedIndex != -1)
+            {
+                VMGuestVehicle vehicle = (VMGuestVehicle)dgGuestVehicles.SelectedItem;
+                var guestVehicleDetail = new GuestVehicleDetail(vehicle, false);
+                var result = guestVehicleDetail.ShowDialog();
+                if (result == true)
+                {
+                    refreshGridGuestVehicle();
+                }
+            }
+        }
+
+        /// <summary>
+        /// Richard Carroll
+        /// Created: 3/8/19
+        /// 
+        /// Opens a Detail Form for Viewing the Details of a GuestVehicle
+        /// </summary>
+        private void BtnViewDetailGuestVehicle_Click(object sender, RoutedEventArgs e)
+        {
+            if (dgGuestVehicles.SelectedIndex != -1)
+            {
+                VMGuestVehicle vehicle = (VMGuestVehicle)dgGuestVehicles.SelectedItem;
+                var guestVehicleDetail = new GuestVehicleDetail(vehicle, false);
+                guestVehicleDetail.ShowDialog();
+            }
+        }
+
+        /// <summary>
+        /// Richard Carroll
+        /// Created: 3/8/19
+        /// 
+        /// Opens a Detail Form for Updating a GuestVehicle
+        /// </summary>
+        private void BtnUpdateGuestVehicle_Click(object sender, RoutedEventArgs e)
+        {
+            if (dgGuestVehicles.SelectedIndex != -1)
+            {
+                VMGuestVehicle vehicle = (VMGuestVehicle)dgGuestVehicles.SelectedItem;
+                var guestVehicleDetail = new GuestVehicleDetail(vehicle, true);
+                var result = guestVehicleDetail.ShowDialog();
+                if (result == true)
+                {
+                    refreshGridGuestVehicle();
+                }
+            }
+
+        }
+
+        /// <summary>
+        /// Richard Carroll
+        /// Created: 3/8/19
+        /// 
+        /// Refreshes the Grid
+        /// </summary>
+        private void refreshGridGuestVehicle()
+        {
+            try
+            {
+                _vehicles = _guestVehicleManager.RetrieveAllGuestVehicles();
+                _currentListGuestVehicle = _vehicles;
+                dgGuestVehicles.ItemsSource = null;
+                dgGuestVehicles.ItemsSource = _vehicles;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Failed to Load Vehicle List: \n" + ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// Richard Carroll
+        /// Created: 3/8/19
+        /// 
+        /// Fills the Search options for the combo box
+        /// </summary>
+        private void fillOptions()
+        {
+            _searchOptions.Add("First Name");
+            _searchOptions.Add("Last Name");
+            _searchOptions.Add("Make");
+            _searchOptions.Add("Model");
+            _searchOptions.Add("Color");
+            cboSearchCategoryGuestVehicle.ItemsSource = _searchOptions;
+        }
+
+        private void applyFiltersGuestVehicle()
+        {
+            dgGuestVehicles.ItemsSource = _currentListGuestVehicle;
+        }
+
+        private void CboSearchCategoryGuestVehicle_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (cboSearchCategoryGuestVehicle.SelectedIndex != -1)
+            {
+                switch (cboSearchCategoryGuestVehicle.SelectedIndex)
+                {
+                    case 0:
+                        _currentListGuestVehicle = _vehicles.FindAll(v => v.FirstName.ToLower().Contains(txtSearchTerm.Text));
+                        applyFiltersGuestVehicle();
+                        break;
+                    case 1:
+                        _currentListGuestVehicle = _vehicles.FindAll(v => v.LastName.ToLower().Contains(txtSearchTerm.Text));
+                        applyFiltersGuestVehicle();
+                        break;
+                    case 2:
+                        _currentListGuestVehicle = _vehicles.FindAll(v => v.Make.ToLower().Contains(txtSearchTerm.Text));
+                        applyFiltersGuestVehicle();
+                        break;
+                    case 3:
+                        _currentListGuestVehicle = _vehicles.FindAll(v => v.Model.ToLower().Contains(txtSearchTerm.Text));
+                        applyFiltersGuestVehicle();
+                        break;
+                    case 4:
+                        _currentListGuestVehicle = _vehicles.FindAll(v => v.Color.ToLower().Contains(txtSearchTerm.Text));
+                        applyFiltersGuestVehicle();
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
         /*--------------------------- Ending BrowseRoom Code --------------------------------*/
+
+
+        /*--------------------------- Starting BrowseSetupList Code #BrowseSetupList --------------------------------*/
+        /// <summary>
+        /// Author: Matt LaMarche
+        /// Created : 3/13/2019
+        /// 
+        /// This is where you stick all the code you want to run in your Constructor/Window_Loaded statement
+        /// </summary>
+        private void BrowseSetupListDoOnStart()
+        {
+            _selectedSetupList = new SetupList();
+            _setupListManager = new SetupListManager();
+            refreshRoles();
+
+        }
+
+        /// <summary>
+        /// Eduardo Colon
+        /// Created: 2019/03/05
+        /// 
+        /// method to refresh browse setup list.
+        /// </summary>
+        private void refreshRoles()
+        {
+            try
+            {
+                _setupLists = _setupListManager.RetrieveAllSetupLists();
+
+                _currentSetupLists = _setupLists;
+
+                dgSetupList.ItemsSource = _currentSetupLists;
+                filterRoles();
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message + Environment.NewLine + ex.StackTrace);
+            }
+        }
+
+
+        /// <summary>
+        /// Eduardo Colon
+        /// Created: 2019/03/05
+        /// 
+        /// //method to call the filter method
+        /// </summary>
+
+        private void BtnFilterSetupList_Click(object sender, RoutedEventArgs e)
+        {
+            filterRoles();
+        }
+
+
+        /// <summary>
+        /// Eduardo Colon
+        /// Created: 2019/03/05
+        /// 
+        /// //method to filter the setup list
+        /// </summary>
+        private void filterRoles()
+        {
+
+            IEnumerable<SetupList> _currentSetupLists = _setupLists;
+            try
+            {
+
+
+                if (txtSearch.Text.ToString() != "")
+                {
+
+                    if (txtSearch.Text != "" && txtSearch.Text != null)
+                    {
+                        _currentSetupLists = _currentSetupLists.Where(b => b.Description.ToLower().Contains(txtSearch.Text.ToLower())).ToList();
+
+
+                    }
+                }
+
+                if (cbCompleted.IsChecked == true && cbUncompleted.IsChecked == false)
+                {
+                    _currentSetupLists = _currentSetupLists.Where(b => b.Completed == true);
+                }
+                else if (cbCompleted.IsChecked == false && cbUncompleted.IsChecked == true)
+                {
+                    _currentSetupLists = _currentSetupLists.Where(b => b.Completed == false);
+                }
+                else if (cbCompleted.IsChecked == false && cbUncompleted.IsChecked == false)
+                {
+                    _currentSetupLists = _currentSetupLists.Where(b => b.Completed == false && b.Completed == true);
+                }
+
+                dgSetupList.ItemsSource = null;
+
+                dgSetupList.ItemsSource = _currentSetupLists;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message + Environment.NewLine + ex.StackTrace);
+
+
+            }
+
+        }
+
+        /// <summary>
+        /// Eduardo Colon
+        /// Created: 2019/03/05
+        /// 
+        /// //method to clear the filters
+        /// </summary>
+        private void BtnClearSetupList_Click(object sender, RoutedEventArgs e)
+        {
+
+            txtSearch.Text = "";
+            _currentSetupLists = _setupLists;
+            cbUncompleted.IsChecked = true;
+            cbCompleted.IsChecked = true;
+
+            dgSetupList.ItemsSource = _currentSetupLists;
+
+        }
+
+
+
+
+        /// <summary>
+        /// Eduardo Colon
+        /// Created: 2019/03/05
+        /// 
+        /// //method to cancel and exit a window
+        /// </summary>
+        private void BtnCancelBrowseSetupList_Click(object sender, RoutedEventArgs e)
+        {
+            var result = MessageBox.Show("Are you sure you want to quit?", "Closing Application", MessageBoxButton.OKCancel, MessageBoxImage.Question);
+            if (result == MessageBoxResult.OK)
+            {
+                this.Close();
+            }
+        }
+
+
+        /// <summary>
+        /// Eduardo Colon
+        /// Created: 2019/02/25
+        /// 
+        /// method to filter uncompleted
+        /// </summary>
+        private void CbUncompleted_Click(object sender, RoutedEventArgs e)
+        {
+            filterRoles();
+        }
+
+        /// <summary>
+        /// Eduardo Colon
+        /// Created: 2019/03/05
+        /// 
+        /// method to filter completed
+        /// </summary>
+        private void CbCompleted_Click(object sender, RoutedEventArgs e)
+        {
+            filterRoles();
+        }
+
+
+
+        /*--------------------------- Ending BrowseSetupList Code --------------------------------*/
+
+
+        /*--------------------------- Starting BrowseSponsor Code #BrowseSponsor --------------------------------*/
+        /// <summary>
+        /// Author: Matt LaMarche
+        /// Created : 3/13/2019
+        /// 
+        /// This is where you stick all the code you want to run in your Constructor/Window_Loaded statement
+        /// </summary>
+        private void BrowseSponsorDoOnStart()
+        {
+            _sponsorManager = new SponsorManager();
+            refreshAllSponsors();
+            populateSponsors();
+        }
+
+
+        private void refreshAllSponsors()
+        {
+            try
+            {
+                _allSponsors = _sponsorManager.SelectAllSponsors();
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+
+            }
+            _currentSponsors = _allSponsors;
+        }
+
+        private void populateSponsors()
+        {
+            dgSponsors.ItemsSource = _currentSponsors;
+        }
+
+        private void btnCancelBrowseSponsor_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
+
+        private void btnAddSponsor_Click(object sender, RoutedEventArgs e)
+        {
+            var createSponsor = new FrmSponsor();
+            createSponsor.ShowDialog();
+            refreshAllSponsors();
+            populateSponsors();
+        }
+
+        private void btnDeleteBrowseSponsor_Click(object sender, RoutedEventArgs e)
+        {
+            if (dgSponsors.SelectedIndex != -1)
+            {
+                try
+                {
+                    _sponsorManager.DeleteSponsor(((Sponsor)dgSponsors.SelectedItem).SponsorID, ((Sponsor)dgSponsors.SelectedItem).Active);
+                    refreshAllSponsors();
+                    populateSponsors();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Unable to Delete that Sponsor\n" + ex.Message);
+                }
+
+            }
+        }
+
+        private void dgSponsors_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
+        {
+            if (e.PropertyType == typeof(DateTime))
+            {
+                (e.Column as DataGridTextColumn).Binding.StringFormat = "MM/dd/yy";
+            }
+
+        }
+
+        private void btnClearFiltersBrowseSponsor_Click(object sender, RoutedEventArgs e)
+        {
+            txtSearch.Text = "";
+            filterSponsors();
+        }
+
+        private void filterSponsors()
+        {
+            string searchTerm = null;
+
+            try
+            {
+                searchTerm = (txtSearch.Text).ToLower().ToString();
+                _currentSponsors = _allSponsors.FindAll(m => m.Name.ToLower().Contains(searchTerm));
+
+
+                if (txtSearch.Text.ToString() != "")
+                {
+                    _currentSponsors = _currentSponsors.FindAll(m => m.Name.ToLower().Contains(txtSearch.Text.ToString().ToLower()));
+                }
+
+                dgSponsors.ItemsSource = _currentSponsors;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void btnFilterBrowseSponsor_Click(object sender, RoutedEventArgs e)
+        {
+            filterSponsors();
+        }
+
+
+
+
+        private void dgSponsors_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            if (dgSponsors.SelectedIndex != -1)
+            {
+                Sponsor selectedSponsor = new Sponsor();
+                try
+                {
+                    selectedSponsor = _sponsorManager.SelectSponsor(((Sponsor)dgSponsors.SelectedItem).SponsorID);
+                    var readUpdateSponsor = new FrmSponsor(selectedSponsor);
+                    readUpdateSponsor.ShowDialog();
+                    refreshAllSponsors();
+                    populateSponsors();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Unable to find that Sponsor\n" + ex.Message);
+                }
+
+            }
+        }
+
+
+        /*--------------------------- Ending BrowseSponsor Code --------------------------------*/
+
+        /*--------------------------- Starting BrowseRecipe Code #BrowseRecipe --------------------------------*/
+        /// <summary>
+        /// Author: Matt LaMarche
+        /// Created : 3/13/2019
+        /// 
+        /// This is where you stick all the code you want to run in your Constructor/Window_Loaded statement
+        /// </summary>
+        private void BrowseRecipeDoOnStart()
+        {
+            roles = new List<string>();
+            _recipeManager = new RecipeManager();
+            _isFilterRestting = false;
+            setupBrowsePage();
+        }
+
+
+        /// <summary>
+        /// Jared Greenfield
+        /// Created: 2019/02/07
+        /// 
+        /// Sets up the content and controls of the browsing window.
+        /// </summary>
+        private void setupBrowsePage()
+        {
+            try
+            {
+                _recipes = _recipeManager.RetrieveAllRecipes();
+                dgRecipeList.ItemsSource = _recipes;
+                dtpDateEndBrowseRecipe.Focusable = false;
+                dtpDateStartBrowseRecipe.Focusable = false;
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Could not setup page.");
+            }
+        }
+
+        /// <summary>
+        /// Jared Greenfield
+        /// Created: 2019/02/07
+        /// 
+        /// Modifies the headers and sizes of the datagrid columns.
+        /// </summary>
+        private void DgRecipeList_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
+        {
+            if (e.PropertyType == typeof(DateTime))
+            {
+                (e.Column as DataGridTextColumn).Binding.StringFormat = "MM/dd/yyyy";
+            }
+            switch (e.Column.Header)
+            {
+                case "RecipeID":
+                    e.Column.Visibility = Visibility.Collapsed;
+                    break;
+                case "Name":
+                    break;
+                case "Description":
+                    e.Column.Width = new DataGridLength(1, DataGridLengthUnitType.Star);
+                    break;
+                case "DateAdded":
+                    e.Column.Header = "Date Added";
+                    break;
+                case "Active":
+                    break;
+                case "RecipeLines":
+                    e.Column.Visibility = Visibility.Collapsed;
+                    break;
+                default:
+                    break;
+            }
+
+        }
+
+        /// <summary>
+        /// Jared Greenfield
+        /// Created: 2019/02/07
+        /// 
+        /// Exits out of the Browsing screen.
+        /// </summary>
+        private void BtnExit_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
+
+        /// <summary>
+        /// Jared Greenfield
+        /// Created: 2019/02/07
+        /// 
+        /// Allows the user to view a Recipe.
+        /// </summary>
+        private void BtnViewRecipe_Click_1(object sender, RoutedEventArgs e)
+        {
+            if ((Recipe)dgRecipeList.SelectedItem != null)
+            {
+                var detailForm = new frmCreateRecipe((Recipe)dgRecipeList.SelectedItem, _employee);
+                var result = detailForm.ShowDialog();
+                _recipes = _recipeManager.RetrieveAllRecipes();
+                dgRecipeList.ItemsSource = _recipes;
+            }
+            else
+            {
+                MessageBox.Show("You must select a recipe first.");
+            }
+        }
+
+        /// <summary>
+        /// Jared Greenfield
+        /// Created: 2019/02/07
+        /// 
+        /// Allows the user to create a new Recipe.
+        /// </summary>
+        private void BtnCreateRecipe_Click(object sender, RoutedEventArgs e)
+        {
+            var createForm = new frmCreateRecipe(_employee);
+            var result = createForm.ShowDialog();
+            if (result == true)
+            {
+                MessageBox.Show("Recipe created.");
+            }
+            else
+            {
+                MessageBox.Show("Recipe creation cancelled or failed.");
+            }
+            try
+            {
+                setupBrowsePage();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("There was an error updating the page: " + ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// Jared Greenfield
+        /// Created: 2019/02/07
+        /// 
+        /// Filters the datagrid by the user's input.
+        /// </summary>
+        private void filterRecipeList()
+        {
+            setupBrowsePage();
+            IEnumerable<Recipe> currentRecipes = _recipes;
+            // Filter names
+            if (txtNameBrowseRecipe.Text != "" && txtNameBrowseRecipe.Text != null)
+            {
+                currentRecipes = currentRecipes.Where(r => r.Name.ToUpper().StartsWith(txtNameBrowseRecipe.Text.ToUpper()));
+            }
+            //Filter description
+            if (txtDescriptionBrowseRecipe.Text != "" && txtDescriptionBrowseRecipe.Text != null)
+            {
+                currentRecipes = currentRecipes.Where(r => r.Description.ToUpper().Contains(txtDescriptionBrowseRecipe.Text.ToUpper()));
+            }
+            //Filter Start and End Date
+            //Both have valid values
+            if (dtpDateStartBrowseRecipe.SelectedDate.HasValue && dtpDateEndBrowseRecipe.SelectedDate.HasValue)
+            {
+                // Make sure start is before end
+                if (dtpDateStartBrowseRecipe.SelectedDate.Value.CompareTo(dtpDateEndBrowseRecipe.SelectedDate.Value) < 0)
+                {
+                    // Filter start
+                    currentRecipes = currentRecipes.Where(r => r.DateAdded >= dtpDateStartBrowseRecipe.SelectedDate.Value);
+
+                    //Filter end
+                    currentRecipes = currentRecipes.Where(r => r.DateAdded <= dtpDateEndBrowseRecipe.SelectedDate.Value);
+                }
+            }
+            else if (dtpDateStartBrowseRecipe.SelectedDate.HasValue && !dtpDateEndBrowseRecipe.SelectedDate.HasValue)
+            {
+                // Filter start
+                currentRecipes = currentRecipes.Where(r => r.DateAdded >= dtpDateStartBrowseRecipe.SelectedDate.Value);
+            }
+            else if (!dtpDateStartBrowseRecipe.SelectedDate.HasValue && dtpDateEndBrowseRecipe.SelectedDate.HasValue)
+            {
+                //Filter end
+                currentRecipes = currentRecipes.Where(r => r.DateAdded <= dtpDateEndBrowseRecipe.SelectedDate.Value);
+            }
+            dgRecipeList.ItemsSource = null;
+            dgRecipeList.ItemsSource = currentRecipes;
+
+        }
+
+        /// <summary>
+        /// Jared Greenfield
+        /// Created: 2019/02/07
+        /// 
+        /// On click, filters the list according to search criteria.
+        /// </summary>
+        private void BtnFilterBrowseRecipe_Click(object sender, RoutedEventArgs e)
+        {
+            filterRecipeList();
+        }
+
+        /// <summary>
+        /// Jared Greenfield
+        /// Created: 2019/02/07
+        /// 
+        /// On click, clears the filters and resets the grid.
+        /// </summary>
+        private void BtnClearFilterBrowseRecipe_Click(object sender, RoutedEventArgs e)
+        {
+            _isFilterRestting = true;
+            txtNameBrowseRecipe.Text = "";
+            txtDescriptionBrowseRecipe.Text = "";
+            dtpDateStartBrowseRecipe.SelectedDate = null;
+            dtpDateEndBrowseRecipe.SelectedDate = null;
+            dtpDateStartBrowseRecipe.DisplayDateEnd = null;
+            dtpDateEndBrowseRecipe.DisplayDateStart = null;
+            dgRecipeList.ItemsSource = _recipes;
+            _isFilterRestting = false;
+        }
+
+        /// <summary>
+        /// Jared Greenfield
+        /// Created: 2019/02/07
+        /// 
+        /// When the start date changes, the end date picker updates so that that date must be after the start.
+        /// </summary>
+        private void DtpDateStartBrowseRecipe_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (!_isFilterRestting)
+            {
+                dtpDateEndBrowseRecipe.DisplayDateStart = dtpDateStartBrowseRecipe.SelectedDate.Value.AddDays(1);
+            }
+        }
+
+        /// <summary>
+        /// Jared Greenfield
+        /// Created: 2019/02/07
+        /// 
+        /// When the end date changes, the start date picker updates so that that date must be before the end.
+        /// </summary>
+        private void DtpDateEndBrowseRecipe_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (!_isFilterRestting)
+            {
+                dtpDateStartBrowseRecipe.DisplayDateEnd = dtpDateEndBrowseRecipe.SelectedDate.Value.AddDays(-1);
+            }
+        }
+
+        private void dgRecipeList_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            if ((Recipe)dgRecipeList.SelectedItem != null)
+            {
+                var detailForm = new frmCreateRecipe((Recipe)dgRecipeList.SelectedItem, _employee);
+                var result = detailForm.ShowDialog();
+                _recipes = _recipeManager.RetrieveAllRecipes();
+                dgRecipeList.ItemsSource = _recipes;
+            }
+            else
+            {
+                MessageBox.Show("You must select a recipe first.");
+            }
+        }
+
+
+        /*--------------------------- Ending BrowseRecipe Code --------------------------------*/
+
+        /*--------------------------- Starting BrowseEvent Code #BrowseEvent --------------------------------*/
+        /// <summary>
+        /// Author: Matt LaMarche
+        /// Created : 3/13/2019
+        /// 
+        /// This is where you stick all the code you want to run in your Constructor/Window_Loaded statement
+        /// </summary>
+        private void BrowseEventDoOnStart()
+        {
+            _eventManager = new EventManager();
+            populateEvents();
+            dgEvents.IsEnabled = true;
+        }
+
+        /// <summary>
+        /// @Author Phillip Hansen
+        /// 
+        /// When an event record is selected
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void dgEvents_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            if (dgEvents.SelectedIndex > -1)
+            {
+                var selectedEvent = (Event)dgEvents.SelectedItem;
+
+                if (selectedEvent == null)
+                {
+                    MessageBox.Show("No Event Selected!");
+                }
+                else
+                {
+                    var detailA = new frmAddEditEvent(_employee, selectedEvent);
+                    detailA.ShowDialog();
+                    if (detailA.DialogResult == true)
+                    {
+                        populateEvents();
+                    }
+                }
+            }
+            else
+            {
+                MessageBox.Show("No event selected!");
+            }
+
+        }
+
+        /// <summary>
+        /// @Author Phillip Hansen
+        /// 
+        /// Code for when the 'create' button is clicked
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void BtnCreateEvReq_Click(object sender, RoutedEventArgs e)
+        {
+            //The Form requires the User's ID for a field in the record
+            var addEventReq = new frmAddEditEvent(_employee);
+            var result = addEventReq.ShowDialog();
+            if (result == true)
+            {
+                populateEvents();
+            }
+        }
+
+        /// <summary>
+        /// @Author Phillip Hansen
+        /// 
+        /// Changes the titles for the columns in the event datagrid to be human-readable
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void DgEvents_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
+        {
+            string headerName = e.Column.Header.ToString();
+
+            if (headerName == "EventID")
+            {
+                e.Cancel = true;
+            }
+            if (headerName == "EmployeeID")
+            {
+                e.Cancel = true;
+            }
+            if (headerName == "SponsorID")
+            {
+                e.Cancel = true;
+            }
+            if (headerName == "EventTitle")
+            {
+                e.Column.Header = "Event Title";
+            }
+            if (headerName == "EmployeeName")
+            {
+                e.Column.Header = "Created by";
+            }
+            if (headerName == "EventTypeID")
+            {
+                e.Column.Header = "Event Type";
+            }
+            if (headerName == "EventStartDate")
+            {
+                e.Column.Header = "Start Date";
+            }
+            if (headerName == "EventEndDate")
+            {
+                e.Column.Header = "End Date";
+            }
+            if (headerName == "KidsAllowed")
+            {
+                e.Column.Header = "Kids Allowed?";
+            }
+            if (headerName == "NumGuests")
+            {
+                e.Column.Header = "Max Guests";
+            }
+            if (headerName == "Sponsored")
+            {
+                e.Column.Header = "Sponsored?";
+            }
+            if (headerName == "SponsorName")
+            {
+                e.Column.Header = "Sponsor Name";
+            }
+            if (headerName == "Approved")
+            {
+                e.Column.Header = "Approved?";
+            }
+        }
+
+        /// <summary>
+        /// @Author Phillip Hansen
+        /// 
+        /// Method for populating the events
+        /// </summary>
+        private void populateEvents()
+        {
+            try
+            {
+                _events = _eventManager.RetrieveAllEvents();
+                dgEvents.ItemsSource = _events;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message + "\nCould not retrieve the list of Event Requests.");
+            }
+        }
+
+        /// <summary>
+        /// @Author Phillip Hansen
+        /// 
+        /// Closes the window if the 'cancel' button is clicked
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void BtnCancelEventMain_Click(object sender, RoutedEventArgs e)
+        {
+            this.DialogResult = true;
+        }
+
+
+        /*--------------------------- Ending BrowseEvent Code --------------------------------*/
+
+
+        /*--------------------------- Starting BrowseSupplierOrders Code #BrowseSupplierOrders --------------------------------*/
+        /// <summary>
+        /// Author: Matt LaMarche
+        /// Created : 3/13/2019
+        /// 
+        /// This is where you stick all the code you want to run in your Constructor/Window_Loaded statement
+        /// </summary>
+        private void BrowseSupplierOrdersDoOnStart()
+        {
+            _supplierOrderManager = new SupplierOrderManager();
+            LoadSupplierCombo();
+            LoadSupplierOrderGrid();
+        }
+
+        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
+
+        private void CboSupplier_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
+        private void BtnCancelBrowseSupplierOrders_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBoxResult result;
+            result = MessageBox.Show("Do You Really Want to Cancel Managing Supplier Orders?", "Cancel Supplier Order Management", MessageBoxButton.YesNo);
+            if (result == MessageBoxResult.Yes)
+            {
+                Close();
+            }
+            else
+            {
+                return;
+            }
+        }
+
+
+        private void LoadSupplierCombo()
+        {
+            try
+            {
+                _suppliers = _supplierManager.RetrieveAllSuppliers();
+                cboSupplier.Items.Clear();
+                foreach (Supplier supplier in _suppliers)
+                {
+                    cboSupplier.Items.Add(supplier.Name + " " + supplier.SupplierID);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void LoadSupplierOrderGrid()
+        {
+            try
+            {
+                _supplierOrders = _supplierOrderManager.RetrieveAllSupplierOrders();
+                _currentSupplierOrders = _supplierOrders;
+
+                dgSupplierOrders.ItemsSource = _supplierOrders;
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void DgSupplierOrders_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            _supplierOrder = (SupplierOrder)dgSupplierOrders.SelectedItem;
+
+            var supplierOrderManager = new frmAddEditSupplierOrder(_supplierOrder, EditMode.Edit);
+            var result = supplierOrderManager.ShowDialog();
+            if (result == true)
+            {
+                LoadSupplierCombo();
+                LoadSupplierOrderGrid();
+            }
+            else
+            {
+                return;
+            }
+        }
+
+        private void BtnAddOrder_Click(object sender, RoutedEventArgs e)
+        {
+            var supplierOrderManager = new frmAddEditSupplierOrder();
+            var result = supplierOrderManager.ShowDialog();
+            if (result == true)
+            {
+                LoadSupplierCombo();
+                LoadSupplierOrderGrid();
+            }
+            else
+            {
+                return;
+            }
+        }
+
+        private void BtnClearBrowseSupplierOrders_Click(object sender, RoutedEventArgs e)
+        {
+            cboSupplier.Text = "";
+            dgSupplierOrders.ItemsSource = _supplierOrders;
+            dgSupplierOrders.Items.Refresh();
+        }
+
+        private void BtnFilterBrowseSupplierOrders_Click(object sender, RoutedEventArgs e)
+        {
+            if (cboSupplier.Text.Length > 6)
+            {
+                int iSupplierID = int.Parse(cboSupplier.Text.Substring(cboSupplier.Text.Length - 6, 6));
+                FilterOrders(iSupplierID);
+            }
+
+
+
+        }
+        public void FilterOrders(int iSupplierID)
+        {
+            try
+            {
+                _currentSupplierOrders = _supplierOrders.FindAll(s => s.SupplierID == iSupplierID);
+
+                dgSupplierOrders.ItemsSource = _currentSupplierOrders;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void BtnDeleteOrder_Click(object sender, RoutedEventArgs e)
+        {
+            if ((SupplierOrder)dgSupplierOrders.SelectedItem != null)
+            {
+                _supplierOrder = (SupplierOrder)dgSupplierOrders.SelectedItem;
+                MessageBoxResult mbresult;
+
+                mbresult = MessageBox.Show("Are you sure you want to delete order number " + _supplierOrder.SupplierOrderID + "?", "Delete Order", MessageBoxButton.YesNo);
+
+                if (mbresult == MessageBoxResult.No)
+                {
+                    return;
+                }
+                else
+                {
+                    if (1 == _supplierOrderManager.DeleteSupplierOrder(_supplierOrder.SupplierOrderID))
+                    {
+                        MessageBox.Show("Record Deleted");
+                        LoadSupplierOrderGrid();
+                    }
+
+                }
+
+            }
+
+        }
+
+
+        /*--------------------------- Ending BrowseSupplierOrders Code --------------------------------*/
+
+
+        /*--------------------------- Starting BrowsePets Code #BrowsePets --------------------------------*/
+        /// <summary>
+        /// Author: Matt LaMarche
+        /// Created : 3/13/2019
+        /// 
+        /// This is where you stick all the code you want to run in your Constructor/Window_Loaded statement
+        /// </summary>
+        private void BrowsePetsDoOnStart()
+        {
+            _petManager = new PetManager();
+            petTypeManager = new PetTypeManager();
+
+        }
+
+        private void BtnCreatePet_Click(object sender, RoutedEventArgs e)
+        {
+            var addPet = new frmAddEditPet();
+            var result = addPet.ShowDialog();
+            if (result == true)
+            {
+                populatePets();
+            }
+        }
+
+
+        private void DgPets_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
+        {
+            string headerName = e.Column.Header.ToString();
+            // if(headerName == "PetID") { e.Cancel = true; }
+            // if (headerName == "EmployeeID") { e.Cancel = true; 
+
+
+        }
+
+        private void populatePets()
+        {
+            try
+            {
+                _pets = _petManager.RetrieveAllPets();
+                dgPets.ItemsSource = _pets;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message + "\nCould not retrieve the list of Pets." + "\n" + ex.StackTrace);
+
+            }
+        }
+
+        private void BtnViewPet_Click(object sender, RoutedEventArgs e)
+        {
+            if (dgPets.SelectedIndex > -1)
+            {
+                var selectedPet = (Pet)dgPets.SelectedItem;
+
+                if (selectedPet == null)
+                {
+                    MessageBox.Show("No Selected Pets.");
+                }
+                else
+                {
+                    var petDetail = new frmAddEditPet(selectedPet);
+
+                    petDetail.ShowDialog();
+
+                    if (petDetail.DialogResult == true)
+                    {
+                        populatePets();
+                    }
+                }
+            }
+            else
+            {
+                MessageBox.Show("Please select a pet to view");
+            }
+        }
+
+        private void BtnDeletePet_Click(object sender, RoutedEventArgs e)
+        {
+            Pet currentPet = (Pet)dgPets.SelectedItem;
+
+            if (currentPet == null)
+            {
+                MessageBox.Show("Please select a pet to delete.");
+                return;
+            }
+
+            var result = MessageBox.Show("Are you sure you want to delete the pet?", "Delete Pet", MessageBoxButton.YesNo);
+            if (result == MessageBoxResult.Yes)
+            {
+                try
+                {
+                    if (_petManager.DeletePet(currentPet.PetID))
+                    {
+                        MessageBox.Show("Pet deleted");
+
+                    }
+                    else
+                    {
+                        MessageBox.Show("Pet was not deleted");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message + Environment.NewLine + ex.StackTrace);
+                }
+            }
+            populatePets();
+        }
+
+        private void BtnEditPet_Click(object sender, RoutedEventArgs e)
+        {
+            if (dgPets.SelectedIndex > -1)
+            {
+                var selectedPet = (Pet)dgPets.SelectedItem;
+
+                if (selectedPet == null)
+                {
+                    MessageBox.Show("No Selected Pets.");
+                }
+                else
+                {
+                    var petDetail = new frmAddEditPet(selectedPet, null, true);
+
+                    petDetail.ShowDialog();
+
+                    if (petDetail.DialogResult == true)
+                    {
+                        populatePets();
+                    }
+                }
+            }
+            else
+            {
+                MessageBox.Show("Please select a pet to edit");
+            }
+        }
+
+
+        /*--------------------------- Ending BrowsePets Code --------------------------------*/
+
+
+        /*--------------------------- Starting BrowseRoom Code #BrowseRoom --------------------------------*/
+        /// <summary>
+        /// Author: Matt LaMarche
+        /// Created : 3/13/2019
+        /// 
+        /// This is where you stick all the code you want to run in your Constructor/Window_Loaded statement
+        /// </summary>
+        private void BrowseRoomsDoOnStart()
+        {
+            _roomManager = new RoomManager();
+            refreshRoomData();
+            if (_currentRooms == null)
+            {
+                _currentRooms = _roomList;
+            }
+            dgRoom.ItemsSource = _currentRooms;
+        }
+
+        private void DgRoom_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            viewRoom();
+        }
+
+        private void viewRoom()
+        {
+            var room = (Room)dgRoom.SelectedItem;
+            if (room != null)
+            {
+                var roomForm = new frmAddEditViewRoom(EditMode.View, room.RoomID);
+                var results = roomForm.ShowDialog();
+            }
+            else
+            {
+                MessageBox.Show("You must select an item");
+            }
+
+        }
+
+        private void refreshRoomData()
+        {
+            try
+            {
+                _roomList = _roomManager.RetrieveRoomList();
+                _buidlingIDList = _roomManager.RetrieveBuildingList();
+                _roomTypesIDList = _roomManager.RetrieveRoomTypeList();
+
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.Message);
+            }
+            try
+            {
+                if (cboRoomBuilding.Items.Count == 0)
+                {
+                    this.dgRoom.ItemsSource = _roomList;
+                    this.cboRoomBuilding.Items.Add("Show All");
+                    foreach (var item in _buidlingIDList)
+                    {
+                        cboRoomBuilding.Items.Add(item);
+                    }
+                    cboRoomBuilding.SelectedItem = "Show All";
+                }
+            }
+            catch (Exception)
+            {
+
+                //MessageBox.Show(ex.Message);
+            }
+
+            if (cboRoomType.Items.Count == 0)
+            {
+                this.cboRoomType.Items.Add("Show All");
+                foreach (var item in _roomTypesIDList)
+                {
+                    cboRoomType.Items.Add(item);
+                }
+                cboRoomType.SelectedItem = "Show All";
+            }
+            cbxRoomActive.IsChecked = true;
+            cbxRoomInactive.IsChecked = true;
+            txtRoomCapacity.Text = "2";
+        }
+
+        private void BtnViewRoom_Click(object sender, RoutedEventArgs e)
+        {
+            viewRoom();
+        }
+
+        private void BtnAddRoom_Click(object sender, RoutedEventArgs e)
+        {
+            var roomForm = new frmAddEditViewRoom();
+            var results = roomForm.ShowDialog();
+        }
+
+        private void BtnDeleteRoom_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("Feature not yet enabled");
+        }
+
+        private void filterRooms()
+        {
+            int capacity = 1;
+            try
+            {
+                if (txtRoomCapacity.Text != "")
+                {
+                    capacity = int.Parse(txtRoomCapacity.Text);
+                }
+                if (capacity < 1)
+                {
+                    txtRoomCapacity.Text = "1";
+                    capacity = 1;
+                }
+            }
+            catch (Exception)
+            {
+
+                MessageBox.Show("You must enter a number for capacity");
+            }
+
+            try
+            {
+                _currentRooms = _roomList.FindAll(r => r.Capacity >= capacity);
+
+                if (cboRoomBuilding.SelectedItem.ToString() != "Show All")
+                {
+                    _currentRooms = _currentRooms.FindAll(r => r.Building == cboRoomBuilding.SelectedItem.ToString());
+                }
+
+                if (cboRoomType.SelectedItem.ToString() != "Show All")
+                {
+                    _currentRooms = _currentRooms.FindAll(r => r.RoomType == cboRoomType.SelectedItem.ToString());
+                }
+
+                _currentRooms = _currentRooms.FindAll(r => r.Active == cbxRoomActive.IsChecked || r.Active != cbxRoomInactive.IsChecked);
+
+
+                this.dgRoom.ItemsSource = _currentRooms;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        private void CboRoomBuilding_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            filterRooms();
+        }
+
+        private void CboRoomType_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            filterRooms();
+        }
+
+        private void CbxRoomActive_Click(object sender, RoutedEventArgs e)
+        {
+            filterRooms();
+        }
+
+        private void CbxRoomInactive_Click(object sender, RoutedEventArgs e)
+        {
+            filterRooms();
+        }
+
+        private void txtRoomCapacity_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            filterRooms();
+        }
+
+        /*--------------------------- Ending BrowseRoom Code --------------------------------*/
+
+
+        /*--------------------------- Starting BrowseMaintenanceType Code #BrowseMaintenanceType --------------------------------*/
+        /// <summary>
+        /// Author: Matt LaMarche
+        /// Created : 3/13/2019
+        /// 
+        /// This is where you stick all the code you want to run in your Constructor/Window_Loaded statement
+        /// </summary>
+        private void BrowseMaintenanceTypeDoOnStart()
+        {
+            maintenanceManager = new MaintenanceTypeManagerMSSQL();
+            try
+            {
+                //type = maintenanceManager.RetrieveMaintenanceTypes("status");
+                //type = maintenanceManager.RetrieveMaintenanceType("status");
+                if (currentType == null)
+                {
+                    currentType = type;
+                }
+                dgMaintenanceTypes.ItemsSource = currentType;
+            }
+
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// Opens up the add window and updates the datagrid if MaintenanceType was created successfully
+        /// </summary>
+        private void btnAddBrowseMaintenanceTypes_Click(object sender, RoutedEventArgs e)
+        {
+            //var addType = new AddMaintenanceType();
+            return;
+            //var addType = new AddMaintenanceType();
+            //var result = addType.ShowDialog();
+            //if (result == true)
+            //{
+            //    try
+            //    {
+            //        currentType = null;
+            //        type = maintenanceManager.RetrieveAllMaintenanceTypes();
+            //        if (currentType == null)
+            //        {
+            //            currentType = type;
+            //        }
+            //        dgMaintenanceTypes.ItemsSource = currentType;
+            //    }
+            //    catch (Exception ex)
+            //    {
+            //        MessageBox.Show(ex.Message);
+            //    }
+            //}
+        }
+
+        /// <summary>
+        /// Opens up the delete window and updates the datagrid if MaintenanceType was deleted successfully
+        /// </summary>
+        private void btnDeleteBrowseMaintenanceTypes_Click(object sender, RoutedEventArgs e)
+        {
+            return;
+            //var deleteMaintenanceType = new DeleteMaintenanceType();
+            //var result = deleteMaintenanceType.ShowDialog();
+            //if (result == true)
+            //{
+            //    try
+            //    {
+            //        currentType = null;
+            //        type = maintenanceManager.RetrieveMaintenanceTypes("All");
+            //        if (currentType == null)
+            //        {
+            //            currentType = type;
+            //        }
+            //        dgMaintenanceTypes.ItemsSource = currentType;
+            //    }
+            //    catch (Exception ex)
+            //    {
+            //        MessageBox.Show(ex.Message);
+            //    }
+            //}
+        }
+
+
+        /*--------------------------- Ending BrowseMaintenanceType Code --------------------------------*/
+
+
+        /*--------------------------- Starting BrowseMember Code #BrowseMember --------------------------------*/
+        /// <summary>
+        /// Author: Matt LaMarche
+        /// Created : 3/13/2019
+        /// 
+        /// This is where you stick all the code you want to run in your Constructor/Window_Loaded statement
+        /// </summary>
+        private void BrowseMemberDoOnStart()
+        {
+            _memberManager = new MemberManagerMSSQL();
+            _selectedMember = new Member();
+            populateMembers();
+        }
+
+        public void ViewSelectedRecordBrowseMembers()
+        {
+            var member = (Member)dgMember.SelectedItem;
+            var viewMemberForm = new frmAccount(member);
+            var result = viewMemberForm.ShowDialog();
+            if (result == true)
+            {
+
+                try
+                {
+                    _currentMembers = null;
+                    _members = _memberManager.RetrieveAllMembers();
+
+                    if (_currentMembers == null)
+                    {
+                        _currentMembers = _members;
+                    }
+                    dgMember.ItemsSource = _currentMembers;
+
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+
+            }
+        }
+
+        /// <summary>
+        /// Author: Ramesh Adhikari
+        /// Created On: 02/22/2019
+        /// Populate the members
+        /// </summary>
+        private void populateMembers()
+        {
+            try
+            {
+
+                _members = _memberManager.RetrieveAllMembers();
+
+                if (_currentMembers == null)
+                {
+                    _currentMembers = _members;
+                }
+                dgMember.ItemsSource = _currentMembers;
+
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// Author: Ramesh Adhikari
+        /// Created On: 02/22/2019
+        /// When user clicks cancel reload the grids
+        /// </summary>
+        private void btnFilterBrowseMembers_Click(object sender, RoutedEventArgs e)
+        {
+            FilterMembers();
+        }
+
+        /// <summary>
+        /// Author: Ramesh Adhikari
+        /// Created On: 02/22/2019
+        /// Filters search for the first name of the member and displays the result
+        /// </summary>
+        public void FilterMembers()
+        {
+            try
+            {
+                _currentMembers = _members;
+
+                if (txtSearch.Text.ToString() != "")
+                {
+                    _currentMembers = _currentMembers.FindAll(s => s.FirstName.ToLower().Contains(txtSearch.Text.ToString().ToLower()));
+
+                }
+
+
+                if (btnActive.IsChecked == true)
+                {
+                    _currentMembers = _currentMembers.FindAll(s => s.Active.Equals(btnInActive.IsChecked));
+
+                }
+                else if (btnInActive.IsChecked == true)
+                {
+                    _currentMembers = _currentMembers.FindAll(s => s.Active.Equals(btnActive.IsChecked));
+                }
+
+
+                //_currentMembers = _currentMembers.FindAll(s => s.Active.Equals(btnActive.IsChecked));
+
+
+
+
+
+                dgMember.ItemsSource = _currentMembers;
+
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// Author: Ramesh Adhikari
+        /// Created On: 02/22/2019
+        /// </summary>
+        /// 
+        private void btnClearBrowseMembers_Click(object sender, RoutedEventArgs e)
+        {
+            _currentMembers = _members;
+            dgMember.ItemsSource = _currentMembers;
+        }
+
+        /// <summary>
+        /// Author: Ramesh Adhikari
+        /// Created On: 02/22/2019
+        /// </summary>
+        private void dgMember_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
+        {
+
+
+            string headerName = e.Column.Header.ToString();
+
+            if (headerName == "FirstName")
+            {
+                e.Cancel = true;
+            }
+            if (headerName == "LastName")
+            {
+                e.Cancel = true;
+            }
+            if (headerName == "PhoneNumber")
+            {
+                e.Cancel = true;
+            }
+            if (headerName == "Email")
+            {
+                e.Cancel = true;
+            }
+            if (headerName == "Password")
+            {
+                e.Cancel = true;
+            }
+
+
+
+        }
+
+        /// <summary>
+        /// Author: Ramesh Adhikari
+        /// Created On: 02/22/2019
+        /// when click on add member a new empty form will displays
+        /// </summary>
+
+        private void btnAddMember_Click(object sender, RoutedEventArgs e)
+        {
+
+            var createMemberForm = new frmAccount();
+            var formResult = createMemberForm.ShowDialog();
+
+            if (formResult == true)
+            {
+
+                try
+                {
+                    _currentMembers = null;
+                    _members = _memberManager.RetrieveAllMembers();
+
+                    if (_currentMembers == null)
+                    {
+                        _currentMembers = _members;
+                    }
+                    dgMember.ItemsSource = _currentMembers;
+
+                }
+                catch (Exception ex)
+                {
+
+                    MessageBox.Show(ex.Message);
+                }
+            }
+
+        }
+        private void dgMember_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+
+            ViewSelectedRecordBrowseMembers();
+
+        }
+
+        private void btnCancelBrowseMembers_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
+
+        /// <summary>
+        /// Author: Ramesh Adhikari
+        /// Created On: 02/22/2019
+        /// </summary>
+
+        private void btnDeactivateBrowseMembers_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                if (((Member)dgMember.SelectedItem).Active)
+                {
+                    var result = MessageBox.Show("Are you sure you want to deactivate member", "Member deactivating.", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+
+                    if (result == MessageBoxResult.Yes)
+                    {
+                        MessageBox.Show("Member has been deactivated");
+                    }
+                    else if (result == MessageBoxResult.No)
+                    {
+
+                    }
+                }
+                else
+                {
+                    var result = MessageBox.Show("Are you sure you want to delete member", "Member Account Deleting.", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+
+                    if (result == MessageBoxResult.Yes)
+                    {
+                        MessageBox.Show("Member has been deleted");
+                    }
+
+                }
+                var Member = (Member)dgMember.SelectedItem;
+
+
+
+
+                // Set the record to inactive.
+                _memberManager.DeleteMember(Member);
+
+                // Refresh the Member List.
+                _currentMembers = null;
+                populateMembers();
+
+                // Remove the record from the list of Active Members.
+                _currentMembers.Remove(Member);
+                dgMember.Items.Refresh();
+            }
+            catch (NullReferenceException)
+            {
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message + "\n" + ex.InnerException);
+            }
+        }
+
+
+
+        /*--------------------------- Ending BrowseMember Code --------------------------------*/
+
 
 
     }

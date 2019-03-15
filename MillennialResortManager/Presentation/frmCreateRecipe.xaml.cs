@@ -43,6 +43,7 @@ namespace Presentation
         private User _user;
         private bool _isItemChanged = false;
         private bool _isOfferingChanged = false;
+        private Employee _employee;
 
         /// <summary>
         /// Jared Greenfield
@@ -89,6 +90,54 @@ namespace Presentation
             }
 
         }
+
+        /// <summary>
+        /// Jared Greenfield
+        /// Created: 2019/01/24
+        /// 
+        /// CREATE OPERATION
+        /// A blank form for creating recipes.
+        /// </summary>
+        public frmCreateRecipe(Employee user)
+        {
+            InitializeComponent();
+            _employee = user;
+            SetupCreatePage();
+        }
+
+        /// <summary>
+        /// Jared Greenfield
+        /// Created: 2019/01/24
+        /// 
+        /// Edit / View OPERATION
+        /// A form detailing a recipe record.
+        /// </summary>
+        /// <param name="recipe">Recipe object for filling out form.</param>
+        public frmCreateRecipe(Recipe recipe, Employee user)
+        {
+            InitializeComponent();
+            _employee = user;
+            _oldRecipe = recipe;
+            try
+            {
+                _item = _itemManager.RetrieveItemByRecipeID(recipe.RecipeID);
+                if (_item.OfferingID != null)
+                {
+                    _offering = _offeringManager.RetrieveOfferingByID((int)_item.OfferingID);
+                }
+                List<RecipeItemLineVM> recipeLines = _recipeManager.RetrieveRecipeLinesByID(_oldRecipe.RecipeID);
+                dgIngredientList.ItemsSource = recipeLines;
+                SetupViewPage();
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("There was an error showing this recipe. Please try agin later.");
+                this.Close();
+            }
+
+        }
+
+
 
         /// <summary>
         /// Jared Greenfield
@@ -170,7 +219,7 @@ namespace Presentation
             }
             btnDeactivate.Visibility = Visibility.Collapsed;
             btnDelete.Visibility = Visibility.Collapsed;
-                
+
 
             // Renaming
             btnSubmit.Content = "Edit Recipe";
@@ -197,7 +246,7 @@ namespace Presentation
         /// </summary>
         private void SetupEditPage()
         {
-            
+
             // Field Population
             txtRecipeName.Text = _oldRecipe.Name;
             txtRecipeDescription.Text = _oldRecipe.Description;
@@ -233,7 +282,7 @@ namespace Presentation
             txtPrice.IsReadOnly = false;
             chkPurchasable.IsEnabled = true;
             cboType.IsEnabled = true;
-            
+
 
             // Renaming
             btnSubmit.Content = "Save Changes";
@@ -403,7 +452,7 @@ namespace Presentation
                 case "RecipeID":
                     e.Column.Visibility = Visibility.Collapsed;
                     break;
-                
+
 
             }
         }
@@ -498,7 +547,7 @@ namespace Presentation
                             lines.Add((RecipeItemLineVM)item);
                         }
                         recipe.RecipeLines = lines;
-                        
+
                         // Add the recipe and the lines
                         recipeID = _recipeManager.CreateRecipe(recipe, newItem, offering);
                         this.DialogResult = true;
@@ -507,7 +556,7 @@ namespace Presentation
                     {
                         MessageBox.Show("There was an error adding the recipe. " + ex.Message);
                     }
-                    
+
                 }
 
             }
@@ -615,7 +664,7 @@ namespace Presentation
                                                          (bool)chkActive.IsChecked);
                                     _itemManager.UpdateItem(_item, newItem);
                                 }
-                            } 
+                            }
                         }
                         if (isRecipeUpdateSuccessful)
                         {
@@ -634,7 +683,7 @@ namespace Presentation
                         MessageBox.Show("There was an error updating the record: " + ex.Message);
                     }
                 }
-                
+
             }
         }
 
@@ -695,9 +744,9 @@ namespace Presentation
                     errorMessage += "\n\nThe price is invalid. It must be a positive decimal.";
                 }
                 MessageBox.Show(errorMessage);
-                
+
             }
-            
+
             return isValid;
         }
 

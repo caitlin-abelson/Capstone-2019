@@ -236,6 +236,7 @@ namespace DataAccessLayer
                         employee.Email = reader.GetString(4);
                         employee.DepartmentID = reader.GetString(5);
                         employee.Active = reader.GetBoolean(6);
+                        employee.EmployeeRoles = RetrieveEmployeeRoles(employee.EmployeeID);
                     }
                 }
             }
@@ -329,6 +330,7 @@ namespace DataAccessLayer
                         employee.Email = reader.GetString(4);
                         employee.DepartmentID = reader.GetString(5);
                         employee.Active = reader.GetBoolean(6);
+                        employee.EmployeeRoles = RetrieveEmployeeRoles(employee.EmployeeID);
                         employees.Add(employee);
                     }
                 }
@@ -378,6 +380,7 @@ namespace DataAccessLayer
                         employee.Email = reader.GetString(4);
                         employee.DepartmentID = reader.GetString(5);
                         employee.Active = reader.GetBoolean(6);
+                        employee.EmployeeRoles = RetrieveEmployeeRoles(employee.EmployeeID);
                         employees.Add(employee);
                     }
                 }
@@ -493,6 +496,7 @@ namespace DataAccessLayer
                     user.PhoneNumber = reader1.GetString(4);
                     user.DepartmentID = reader1.GetString(5);
                     user.Active = reader1.GetBoolean(6);
+                    user.EmployeeRoles = RetrieveEmployeeRoles(user.EmployeeID);
                 }
                 else
                 {
@@ -510,6 +514,66 @@ namespace DataAccessLayer
             }
 
             return user;
+        }
+
+        /// <summary>
+        /// Author: Matt LaMarche
+        /// Created Date: 3/11/2019
+        /// Returns a list of Employee Roles 
+        /// </summary>
+        /// <param name="EmployeeID"></param>
+        /// <returns></returns>
+        public List<Role> RetrieveEmployeeRoles(int EmployeeID)
+        {
+            List<Role> roles = new List<Role>();
+
+            // get a connection
+            var conn = DBConnection.GetDbConnection();
+
+            // command text
+            string cmdText1 = @"sp_retrieve_employee_roles_by_employeeid";
+            //string cmdText2 = @"sp_retrieve_employee_roles";
+
+            // command objects
+            var cmd1 = new SqlCommand(cmdText1, conn);
+            //var cmd2 = new SqlCommand(cmdText2, conn);
+
+            // set the command type
+            cmd1.CommandType = CommandType.StoredProcedure;
+
+            // parameters
+            cmd1.Parameters.AddWithValue("@EmployeeID", EmployeeID);
+
+            try
+            {
+                // open the connection
+                conn.Open();
+                SqlDataReader reader = cmd1.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        Role r = new Role();
+                        r.RoleID = reader.GetString(0);
+                        r.Description = reader.GetString(1);
+                        roles.Add(r);
+                    }
+                }
+                else
+                {
+                    throw new ApplicationException("No Roles found for this user.");      // only be possible if user was deleted while this is executed
+                }
+
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return roles;
         }
     }
 }
