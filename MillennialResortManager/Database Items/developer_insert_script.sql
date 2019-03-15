@@ -1347,3 +1347,34 @@ AS
 GO
 
 /* End Jacob */
+/*
+ * Author: Kevin Broskow
+ * Created 3-5-2019
+ * 
+ * Update a shop in the database
+ */
+print '' print '*** Creating sp_update_shop'
+GO
+CREATE PROCEDURE [dbo].[sp_update_shop]
+(
+	@ShopID 		[int],
+	@oldRoomID		[int],
+	@oldName		[nvarchar](50),
+	@oldDescription		[nvarchar](1000),
+	
+	@newRoomID		[int],
+	@newName		[nvarchar](50),
+	@newDescription		[nvarchar](1000)
+)
+AS
+BEGIN
+	UPDATE [dbo].[Shop]
+	SET [RoomID] = @newRoomID,
+		[Name] = @newName,
+		[Description] = @newDescription
+	WHERE [ShopID] = @ShopID
+	AND		[RoomID] = @oldRoomID
+	AND 	[Name] = @oldName
+	AND 	[Description] = @oldDescription
+END
+GO

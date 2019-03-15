@@ -413,5 +413,117 @@ namespace UnitTests
             _shopManager.DeactivateShop(shop);
         }
 
+        /// <summary>
+        /// Author: Kevin Broskow
+        /// Created : 3/4/2019
+        /// Here starts the Update Unit Tests
+        /// </summary>
+        [TestMethod]
+        public void TestUpdateShopValidInput()
+        {
+            List<Shop> shops = new List<Shop>();
+
+            shops.Add(new Shop() { ShopID = 100000, RoomID = 245213, Name = "Awesome Pawesome", Description = "Pet Store", Active = true });
+
+            bool addWorked = false;
+            //Arrange
+            Shop oldShop = shops[0];
+            Shop newShop = new Shop() { ShopID = 100000, RoomID = 245213, Name = "Jose's Taco Shop", Description = "For the best taco see Luis!" };
+            //Act
+            addWorked = _shopManager.UpdateShop(newShop, oldShop);
+            //Assert
+            Assert.AreEqual(oldShop.ShopID, newShop.ShopID);
+        }
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void TestUpdateShopInvalidNameNull()
+        {
+            List<Shop> shops = new List<Shop>();
+
+            shops.Add(new Shop() { ShopID = 100000, RoomID = 245213, Name = "Awesome Pawesome", Description = "Pet Store", Active = true });
+
+            bool addWorked = false;
+            //Arrange
+            Shop oldShop = shops[0];
+            Shop newShop = new Shop() { ShopID = 100000, RoomID = 245213, Name = null, Description = "For the best taco see Luis!" };
+            //Act
+            addWorked = _shopManager.UpdateShop(newShop, oldShop);
+        }
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void TestUpdateShopInvalidNameEmptyString()
+        {
+            List<Shop> shops = new List<Shop>();
+
+            shops.Add(new Shop() { ShopID = 100000, RoomID = 245213, Name = "Awesome Pawesome", Description = "Pet Store", Active = true });
+
+            bool addWorked = false;
+            //Arrange
+            Shop oldShop = shops[0];
+            Shop newShop = new Shop() { ShopID = 100000, RoomID = 245213, Name = "", Description = "For the best taco see Luis!" };
+            //Act
+            addWorked = _shopManager.UpdateShop(newShop, oldShop);
+        }
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void TestUpdateShopInvalidNameTooLong()
+        {
+            List<Shop> shops = new List<Shop>();
+
+            shops.Add(new Shop() { ShopID = 100000, RoomID = 245213, Name = "Awesome Pawesome", Description = "Pet Store", Active = true });
+
+            bool addWorked = false;
+            //Arrange
+            Shop oldShop = shops[0];
+            Shop newShop = new Shop() { ShopID = 100000, RoomID = 245213, Name = createString(51), Description = "For the best taco see Luis!" };
+            //Act
+            addWorked = _shopManager.UpdateShop(newShop, oldShop);
+        }
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void TestUpdateShopInvalidDescriptionNull()
+        {
+            List<Shop> shops = new List<Shop>();
+
+            shops.Add(new Shop() { ShopID = 100000, RoomID = 245213, Name = "Awesome Pawesome", Description = "Pet Store", Active = true });
+
+            bool addWorked = false;
+            //Arrange
+            Shop oldShop = shops[0];
+            Shop newShop = new Shop() { ShopID = 100000, RoomID = 245213, Name = "Jose's Taco Shop", Description = null };
+            //Act
+            addWorked = _shopManager.UpdateShop(newShop, oldShop);
+        }
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void TestUpdateShopInvalidDescriptionEmptyString()
+        {
+            List<Shop> shops = new List<Shop>();
+
+            shops.Add(new Shop() { ShopID = 100000, RoomID = 245213, Name = "Awesome Pawesome", Description = "Pet Store", Active = true });
+
+            bool addWorked = false;
+            //Arrange
+            Shop oldShop = shops[0];
+            Shop newShop = new Shop() { ShopID = 100000, RoomID = 245213, Name = "Jose's Taco Shop", Description = "" };
+            //Act
+            addWorked = _shopManager.UpdateShop(newShop, oldShop);
+        }
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void TestUpdateShopInvalidDescriptionTooLong()
+        {
+            List<Shop> shops = new List<Shop>();
+
+            shops.Add(new Shop() { ShopID = 100000, RoomID = 245213, Name = "Awesome Pawesome", Description = "Pet Store", Active = true });
+
+            bool addWorked = false;
+            //Arrange
+            Shop oldShop = shops[0];
+            Shop newShop = new Shop() { ShopID = 100000, RoomID = 245213, Name = "Jose's Taco Shop", Description = createString(1001) };
+            //Act
+            addWorked = _shopManager.UpdateShop(newShop, oldShop);
+        }
+
     }
 }

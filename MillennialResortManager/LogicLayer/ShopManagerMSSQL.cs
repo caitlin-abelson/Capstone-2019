@@ -246,7 +246,28 @@ namespace LogicLayer
         }
         public bool UpdateShop(Shop newShop, Shop oldShop)
         {
-            throw new NotImplementedException();
+            bool result = false;
+            try
+            {
+                if (newShop.IsValid())
+                {
+                    if(_shopAccessor.UpdateShop(newShop, oldShop) > 0)
+                    {
+                        result = true;
+                    }
+
+                }
+                else
+                {
+                    throw new ArgumentException();
+                }
+            }
+            catch (Exception)
+            {
+                throw new ArgumentException();
+            }
+
+            return result;
         }
     }
 }

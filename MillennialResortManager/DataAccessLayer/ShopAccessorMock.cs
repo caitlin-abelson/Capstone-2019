@@ -111,7 +111,18 @@ namespace DataAccessLayer
 
         public int UpdateShop(Shop newShop, Shop oldShop)
         {
-            throw new NotImplementedException();
+            int result = 0;
+            foreach (var shop in _shops)
+            {
+                if (shop.ShopID == oldShop.ShopID)
+                {
+                    shop.RoomID = newShop.RoomID;
+                    shop.Name = newShop.Name;
+                    shop.Description = newShop.Description;
+                    result = shop.ShopID;
+                }
+            }
+            return result;
         }
     }
 }

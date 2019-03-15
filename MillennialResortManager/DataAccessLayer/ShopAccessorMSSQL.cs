@@ -40,7 +40,8 @@ namespace DataAccessLayer
             cmd.Parameters.AddWithValue("@RoomID", shop.RoomID);
             cmd.Parameters.AddWithValue("@Name", shop.Name);
             cmd.Parameters.AddWithValue("@Description", shop.Description);
-
+            cmd.Parameters.Add("@ShopID", SqlDbType.Int );
+            cmd.Parameters["@ShopID"].Direction = ParameterDirection.Output;
             try
             {
                 conn.Open();
@@ -330,7 +331,38 @@ namespace DataAccessLayer
 
         public int UpdateShop(Shop newShop, Shop oldShop)
         {
-            throw new NotImplementedException();
+            int result = 0;
+
+            var cmdText = @"sp_update_shop";
+            var conn = DBConnection.GetDbConnection();
+
+            SqlCommand cmd = new SqlCommand(cmdText, conn);
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+
+            cmd.Parameters.AddWithValue("@ShopID", oldShop.ShopID);
+            cmd.Parameters.AddWithValue("@oldRoomID", oldShop.RoomID);
+            cmd.Parameters.AddWithValue("@oldName", oldShop.Name);
+            cmd.Parameters.AddWithValue("@oldDescription", oldShop.Description);
+            cmd.Parameters.AddWithValue("@newRoomID", newShop.RoomID);
+            cmd.Parameters.AddWithValue("@newName", newShop.Name);
+            cmd.Parameters.AddWithValue("@newDescription", newShop.Description);
+            try
+            {
+                conn.Open();
+
+                cmd.ExecuteNonQuery();
+                result = newShop.ShopID;
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return result;
         }
     }
 }
