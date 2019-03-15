@@ -104,6 +104,12 @@ namespace Presentation
                 emp.LastName = "Smith";
                 emp.Email = "joanne@company.com";
                 emp.PhoneNumber = "1234567890";
+                emp.DepartmentID = "Kitchen";
+                emp.EmployeeRoles.Add(new Role() { RoleID = "Admin", Description = "Overworked and under paid" });
+                //emp.EmployeeRoles.Add(new Role() { RoleID = "Reservation", Description = "Overworked and under paid" });
+                //emp.EmployeeRoles.Add(new Role() { RoleID = "Shops", Description = "Overworked and under paid" });
+                //emp.EmployeeRoles.Add(new Role() { RoleID = "GuestType", Description = "Overworked and under paid" });
+                //emp.EmployeeRoles.Add(new Role() { RoleID = "RoomType", Description = "Overworked and under paid" });
                 _employee = emp;
                 if (_employee != null)
                 {
@@ -125,3 +131,15 @@ namespace Presentation
         }
     }
 }
+
+/*
+ * _roles = new List<Role>();
+            _roles.Add(new Role() { RoleID = "Admin", Description = "Overworked and under paid" });//0
+            _roles.Add(new Role() { RoleID = "Department Head", Description = "Professional meeting organizer" });//1
+            _roles.Add(new Role() { RoleID = "Manager", Description = "Meeting organizer" });//2
+            //_roles.Add(new Role() { RoleID = "Server", Description = "Serves stuff and things" });//3
+            //_roles.Add(new Role() { RoleID = "Front Desk", Description = "Where smiling and being dead inside go together like white on rice" });//4
+            //_roles.Add(new Role() { RoleID = "Maintenance", Description = "Fixes everyone elses problems but can never fix their own" });//5
+            _roles.Add(new Role() { RoleID = "Worker", Description = "Minimum wage. Maximmum effort" });//6
+
+    */
