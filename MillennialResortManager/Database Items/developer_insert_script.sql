@@ -1191,4 +1191,159 @@ EXEC sys.sp_addextendedproperty
 	@level1type=N'PROCEDURE',@level1name=N'sp_update_performance'
 GO
 
+/*
+ * Author: Richard Carroll
+ * Created: 2019/3/1
+ */
+print '' print '*** Creating Guest Table'
+GO
+CREATE TABLE [dbo].[Guest](
+	[GuestID]              [int] IDENTITY(100000,1) NOT NULL,
+	[MemberID]             [int]                    NOT NULL,
+	[GuestTypeID]          [nvarchar](25)           NOT NULL,
+	[FirstName]            [nvarchar](50)           NOT NULL,
+	[LastName]             [nvarchar](100)          NOT NULL,
+	[PhoneNumber]          [nvarchar](11)           NOT NULL,
+	[Email]                [nvarchar](250)          NOT NULL,
+	[Minor]                [bit]                    NOT NULL Default 0,
+	[Active]               [bit]                    NOT NULL Default 1,
+	[ReceiveTexts]         [bit]                    NOT NULL Default 1,
+	[EmergencyFirstName]   [nvarchar](50)           NOT NULL,
+	[EmergencyLastName]    [nvarchar](100)          NOT NULL,
+	[EmergencyPhoneNumber] [nvarchar](11)           NOT NULL,
+	[EmergencyRelation]    [nvarchar](25)           NOT NULL Default 1,
+    
+    Constraint [pk_GuestID] Primary Key([GuestID] ASC)
+)
+GO
+
+
+/*
+ * Author: Richard Carroll
+ * Created: 2019/3/1
+ */
+print '' print '*** Creating GuestVehicle Table'
+GO
+Create Table [dbo].[GuestVehicle](
+    [GuestID]           [int]           Not Null,
+    [Make]              [nvarchar](30)  Not Null,
+    [Model]             [nvarchar](30)  Not Null,
+    [PlateNumber]       [nvarchar](10)  Not Null,
+    [Color]             [nvarchar](30),
+    [ParkingLocation]   [nvarchar](50),
+    
+    Constraint [pk_Make_Model_PlateNumber] Primary Key([Make] ASC, [Model] ASC, [PlateNumber] ASC)
+)
+
+/*
+ * Author: Richard Carroll
+ * Created: 2019/3/1
+ */
+print '' print '*** Inserting Guest Records'
+GO
+Insert INTO [dbo].[Guest]
+        ([MemberID], [GuestTypeID], [FirstName], [LastName], [PhoneNumber], [Email],
+         [EmergencyFirstName], [EmergencyLastName], 
+         [EmergencyPhoneNumber], [EmergencyRelation])
+     Values
+        (100000, 'Adult', 'Joanne', 'Smith', '1234567890', 'joanne@company.com',
+         'Leo', 'Williams', '0987654321', 'Friend' )
+ GO
+
+/*
+ * Author: Richard Carroll
+ * Created: 2019/3/1
+ */
+print '' print '*** Creating sp_retrieve_guest_names_and_ids'
+GO
+Create Procedure [dbo].[sp_retrieve_guest_names_and_ids]
+AS
+    BEGIN
+        Select [FirstName], [LastName], [GuestID]
+        From Guest
+        Where Active = 1
+    END
+GO
+
+/*
+ * Author: Richard Carroll
+ * Created: 2019/3/1
+ */
+print '' print '*** Creating sp_insert_guest_vehicle'
+GO
+Create Procedure [dbo].[sp_insert_guest_vehicle]
+(
+    @GuestID           [int],
+    @Make              [nvarchar](30),
+    @Model             [nvarchar](30),
+    @PlateNumber       [nvarchar](10),
+    @Color             [nvarchar](30),
+    @ParkingLocation   [nvarchar](50)
+)
+AS 
+    BEGIN
+        Insert into [GuestVehicle]
+        ([GuestID], [Make], [Model], [PlateNumber], [Color], [ParkingLocation])
+        Values (@GuestID, @Make, @Model, @PlateNumber, @Color, @ParkingLocation)
+        Return @@Rowcount
+    END
+GO
+
+
+/*
+ * Author: Richard Carroll
+ * Created: 2019/3/8
+ */
+print '' print '*** Creating sp_select_all_guest_vehicles'
+GO
+Create Procedure [dbo].[sp_select_all_guest_vehicles]
+AS
+    BEGIN
+        Select [FirstName], [LastName], [Guest].[GuestID], [Make], [Model],
+        [PlateNumber], [Color], [ParkingLocation]
+        From GuestVehicle Inner Join Guest on 
+        [Guest].[GuestID] = [GuestVehicle].[GuestID]
+    END
+GO
+
+/*
+ * Author: Richard Carroll
+ * Created: 2019/3/8
+ */
+print '' print '*** Creating sp_update_guest_vehicle'
+GO
+Create Procedure [dbo].[sp_update_guest_vehicle]
+(
+    @OldGuestID           [int],
+    @OldMake              [nvarchar](30),
+    @OldModel             [nvarchar](30),
+    @OldPlateNumber       [nvarchar](10),
+    @OldColor             [nvarchar](30),
+    @OldParkingLocation   [nvarchar](50),
+    @GuestID              [int],
+    @Make                 [nvarchar](30),
+    @Model                [nvarchar](30),
+    @PlateNumber          [nvarchar](10),
+    @Color                [nvarchar](30),
+    @ParkingLocation      [nvarchar](50)
+)
+AS 
+    BEGIN
+        Update GuestVehicle
+        Set [GuestID] = @GuestID,
+        [Make] = @Make,
+        [Model] = @Model,
+        [PlateNumber] = @PlateNumber,
+        [Color] = @Color,
+        [ParkingLocation] = @ParkingLocation
+        Where [GuestID] = @OldGuestID AND
+        [Make] = @OldMake AND
+        [Model] = @OldModel AND
+        [PlateNumber] = @OldPlateNumber AND
+        [Color] = @OldColor AND
+        [ParkingLocation] = @OldParkingLocation
+        Return @@Rowcount
+    END
+GO
+
 /* End Jacob */
