@@ -73,7 +73,6 @@
     <Compile Include="AddDepartment.xaml.cs" />
     <Compile Include="AddGuestType.xaml.cs" />
     <Compile Include="AddItem.xaml.cs" />
-    <Compile Include="AddMaintenanceType.xaml.cs" />
     <Compile Include="AddPerformance.xaml.cs" />
     <Compile Include="AddSpecialOrder.xaml.cs" />
     <Compile Include="BrowseAppointmentType.xaml.cs" />
@@ -93,6 +92,7 @@
     <Compile Include="BrowseGuestVehicles.xaml.cs">
       <DependentUpon>BrowseGuestVehicles.xaml</DependentUpon>
     </Compile>
+    <Compile Include="BrowseMaintenanceWorkOrders.xaml.cs" />
     <Compile Include="BrowseOrders.xaml.cs">
       <DependentUpon>BrowseOrders.xaml</DependentUpon>
     </Compile>
@@ -113,13 +113,14 @@
     </Compile>
     <Compile Include="CreateAppointmentType.xaml.cs" />
     <Compile Include="CreateEventType.xaml.cs" />
+    <Compile Include="CreateMaintenanceWorkOrder.xaml.cs" />
     <Compile Include="CreatePetType.xaml.cs" />
+    <Compile Include="DeactivateMaintenanceWorkOrder.xaml.cs" />
     <Compile Include="DeleteAppointmentType.xaml.cs" />
     <Compile Include="DeleteDepartment.xaml.cs" />
     <Compile Include="DeleteEventType.xaml.cs" />
     <Compile Include="DeleteGuestType.xaml.cs" />
     <Compile Include="DeletePetType.xaml.cs" />
-    <Compile Include="DeleteMaintenanceType.xaml.cs" />
     <Compile Include="DeleteRole.xaml.cs" />
     <Compile Include="DeleteRoom.xaml.cs" />
     <Compile Include="Departments.xaml.cs" />
@@ -148,7 +149,6 @@
     <Compile Include="GuestVehicleDetail.xaml.cs">
       <DependentUpon>GuestVehicleDetail.xaml</DependentUpon>
     </Compile>
-    <Compile Include="MaintenanceType.xaml.cs" />
     <Compile Include="Read_BrowseOrder.xaml.cs" />
     <Compile Include="RoomTypes.xaml.cs" />
     <Compile Include="viewAccount.xaml.cs" />
@@ -162,10 +162,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="AddItem.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="AddMaintenanceType.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -211,6 +207,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="BrowseMaintenanceWorkOrders.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="BrowseOrders.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -251,6 +251,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="CreateMaintenanceWorkOrder.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="CreatePetType.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -264,6 +268,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="CreateShop.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="DeactivateMaintenanceWorkOrder.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -288,10 +296,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="DeletePetType.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="DeleteMaintenanceType.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -420,10 +424,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="LoginPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="MaintenanceType.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

@@ -1,33 +1,21 @@
-﻿/// <summary>
-/// Austin Berquam
-/// Created: 2019/02/06
-/// 
-/// Interface that implements Create and Delete functions for Guest Types
-/// for manager classes.
-/// </summary>
-
+﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using DataObjects;
+
 namespace LogicLayer
 {
+    /// <summary>
+    /// Author: Dalton Cleveland
+    /// Created : 3/5/2019
+    /// </summary>
     public interface IMaintenanceTypeManager
     {
-        /// <summary>
-        /// Austin Berquam
-        /// Created: 2019/02/06
-        /// 
-        /// Creates a new MaintenanceType
-        /// </summary>
-        bool CreateMaintenanceType(MaintenanceTypes guestType);
-        List<string> RetrieveAllMaintenanceTypes();
-
-        /// <summary>
-        /// Austin Berquam
-        /// Created: 2019/02/06
-        /// 
-        /// Deletes a MaintenanceType
-        /// </summary>
-        bool DeleteMaintenanceType(string guestTypeID);
-        List<MaintenanceTypes> RetrieveMaintenanceTypes(string status);
+        void AddMaintenanceType(MaintenanceType newMaintenanceType);
+        MaintenanceType RetrieveMaintenanceType();
+        List<MaintenanceType> RetrieveAllMaintenanceTypes();
+        void DeleteMaintenanceType();
     }
 }

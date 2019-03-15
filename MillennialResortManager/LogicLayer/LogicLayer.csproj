@@ -69,7 +69,9 @@
     <Compile Include="IItemManager.cs" />
     <Compile Include="IItemTypeManager.cs" />
     <Compile Include="IItemSupplierManager.cs" />
+    <Compile Include="IMaintenanceStatusTypeManager.cs" />
     <Compile Include="IMaintenanceTypeManager.cs" />
+    <Compile Include="IMaintenanceWorkOrderManager.cs" />
     <Compile Include="IMemberManager.cs" />
     <Compile Include="InternalOrderManager.cs" />
     <Compile Include="IOfferingManager.cs" />
@@ -92,7 +94,9 @@
     <Compile Include="ItemSupplierManager.cs" />
     <Compile Include="ItemTypeManagerMSSQL.cs" />
     <Compile Include="LogicValidationExtensionMethods.cs" />
-    <Compile Include="MaintenanceTypeManager.cs" />
+    <Compile Include="MaintenanceStatusTypeManagerMSSQl.cs" />
+    <Compile Include="MaintenanceTypeManagerMSSQl.cs" />
+    <Compile Include="MaintenanceWorkOrderManagerMSSQL.cs" />
     <Compile Include="MemberManagerMSSQL.cs" />
     <Compile Include="OfferingManager.cs" />
     <Compile Include="MemberValidator.cs" />

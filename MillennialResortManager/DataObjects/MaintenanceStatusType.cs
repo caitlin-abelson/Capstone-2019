@@ -6,10 +6,9 @@ using System.Threading.Tasks;
 
 namespace DataObjects
 {
-    public class MaintenanceType
+    public class MaintenanceStatusType
     {
-        public string MaintenanceTypeID { get; set; }
+        public string MaintenanceStatusID { get; set; }
         public string Description { get; set; }
     }
-
 }

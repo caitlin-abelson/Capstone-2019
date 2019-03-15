@@ -1,0 +1,146 @@
+﻿<Window x:Class="Presentation.CreateMaintenanceWorkOrder"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="CreateMaintenanceWorkOrder" Height="700" Width="1000" MinWidth="700">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="5*"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="2*"/>
+            </Grid.RowDefinitions>
+            <Grid x:Name="grdHeader" Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Label x:Name="lblTitle" Content="New Work Order" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="24" FontWeight="Bold"/>
+                <CheckBox x:Name="chkComplete" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" Content="Completed" FontSize="16" FontWeight="Bold" />
+            </Grid>
+            <Grid x:Name="grdMaintenanceWorkOrderID" Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="2*" MinWidth="150"/>
+                    <ColumnDefinition Width="2*" MinWidth="120"/>
+                    <ColumnDefinition MinWidth="120"/>
+                </Grid.ColumnDefinitions>
+                <Label x:Name="lblError" Grid.ColumnSpan="4" HorizontalAlignment="Center" VerticalAlignment="Top" Foreground="Red" />
+            </Grid>
+            <Grid x:Name="grdMaintenanceTypeID" Grid.Row="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="2*" MinWidth="150"/>
+                    <ColumnDefinition Width="2*" MinWidth="120"/>
+                    <ColumnDefinition MinWidth="120"/>
+                </Grid.ColumnDefinitions>
+                <Label Grid.Column="1" Content="Maintenance Type ID: " HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="16" FontWeight="Bold" Margin="0,0,15,0" />
+                <ComboBox x:Name="cboMaintenanceTypeID" Grid.Column="2"  VerticalAlignment="Center" FontSize="16" FontWeight="Bold" Margin="0,0,15,0" MinWidth="120"/>
+            </Grid>
+            <Grid x:Name="grdDateRequested" Grid.Row="3">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="2*" MinWidth="150"/>
+                    <ColumnDefinition Width="2*" MinWidth="120"/>
+                    <ColumnDefinition MinWidth="120"/>
+                </Grid.ColumnDefinitions>
+                <Label Grid.Column="1" Content="Date Requested: " HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="16" FontWeight="Bold" Margin="0,0,15,0" />
+                <DatePicker x:Name="dpDateRequested" Grid.Column="2"  VerticalAlignment="Center" FontSize="16" FontWeight="Bold" Margin="0,0,15,0" MinWidth="120" />
+            </Grid>
+            <Grid x:Name="grdDateCompleted" Grid.Row="4">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="2*" MinWidth="150"/>
+                    <ColumnDefinition Width="2*" MinWidth="120"/>
+                    <ColumnDefinition MinWidth="120"/>
+                </Grid.ColumnDefinitions>
+                <Label Grid.Column="1" Content="Date Completed: " HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="16" FontWeight="Bold" Margin="0,0,15,0" />
+                <DatePicker x:Name="dpDateCompleted" Grid.Column="2"  VerticalAlignment="Center" FontSize="16" FontWeight="Bold" Margin="0,0,15,0" MinWidth="120"/>
+            </Grid>
+            <Grid x:Name="grdRequestingEmployeeID" Grid.Row="5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="2*" MinWidth="150"/>
+                    <ColumnDefinition Width="2*" MinWidth="120"/>
+                    <ColumnDefinition MinWidth="120"/>
+                </Grid.ColumnDefinitions>
+                <Label Grid.Column="1" Content="Requesting Employee ID: " HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="16" FontWeight="Bold" Margin="0,0,15,0" />
+                <TextBox x:Name="txtRequestingEmployeeID" Grid.Column="2"  VerticalAlignment="Center" FontSize="16" FontWeight="Bold" Margin="0,0,15,0" MinWidth="120"/>
+            </Grid>
+            <Grid x:Name="grdWorkingEmployeeID" Grid.Row="6">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="2*" MinWidth="150"/>
+                    <ColumnDefinition Width="2*" MinWidth="120"/>
+                    <ColumnDefinition MinWidth="120"/>
+                </Grid.ColumnDefinitions>
+                <Label Grid.Column="1" Content="Working Employee ID: " HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="16" FontWeight="Bold" Margin="0,0,15,0" />
+                <TextBox x:Name="txtWorkingEmployeeID" Grid.Column="2"  VerticalAlignment="Center" FontSize="16" FontWeight="Bold" Margin="0,0,15,0" MinWidth="120"/>
+            </Grid>
+            <Grid x:Name="grdResortPropertyID" Grid.Row="7">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="2*" MinWidth="150"/>
+                    <ColumnDefinition Width="2*" MinWidth="120"/>
+                    <ColumnDefinition MinWidth="120"/>
+                </Grid.ColumnDefinitions>
+                <Label Grid.Column="1" Content="Resort Property ID: " HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="16" FontWeight="Bold" Margin="0,0,15,0" />
+                <TextBox x:Name="txtResortPropertyID" Grid.Column="2"  VerticalAlignment="Center" FontSize="16" FontWeight="Bold" Margin="0,0,15,0" MinWidth="120"/>
+            </Grid>
+            <Grid x:Name="grdStatus" Grid.Row="8">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="2*" MinWidth="150"/>
+                    <ColumnDefinition Width="2*" MinWidth="120"/>
+                    <ColumnDefinition MinWidth="120"/>
+                </Grid.ColumnDefinitions>
+                <Label Grid.Column="1" Content="Status: " HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="16" FontWeight="Bold" Margin="0,0,15,0"/>
+                <ComboBox x:Name="cboStatus" Grid.Column="2"  VerticalAlignment="Center" FontSize="16" FontWeight="Bold" Margin="0,0,15,0" MinWidth="120"  />
+            </Grid>
+            <Grid x:Name="grdNotes" Grid.Row="9">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="2*" MinWidth="150"/>
+                    <ColumnDefinition Width="2*" MinWidth="120"/>
+                    <ColumnDefinition MinWidth="120"/>
+                </Grid.ColumnDefinitions>
+                <Label Grid.Column="1" Content="Comments: " HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="16" FontWeight="Bold" Margin="0,0,15,0" />
+                <TextBox x:Name="txtComments" Grid.Column="2"  VerticalAlignment="Center" FontSize="16" FontWeight="Bold" Margin="0,0,15,0" MinWidth="120" TextWrapping="Wrap" />
+            </Grid>
+            <Grid x:Name="grdDescription" Grid.Row="10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="2*" MinWidth="150"/>
+                    <ColumnDefinition Width="2*" MinWidth="120"/>
+                    <ColumnDefinition MinWidth="120"/>
+                </Grid.ColumnDefinitions>
+                <Label Grid.Column="1" Content="Description: " HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="16" FontWeight="Bold" Margin="0,0,15,0"/>
+                <TextBox x:Name="txtDescription" Grid.Column="2" FontSize="16" Margin="5,5,10,5" TextWrapping="Wrap" MaxLength="250"/>
+            </Grid>
+            <Grid Grid.Row="12">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Button Grid.Column="1" x:Name="btnSave" Margin="8" Content="Submit" Background="Aquamarine" FontSize="16" FontWeight="Bold" Click="btnSave_Click" MaxWidth="150"/>
+                <Button Grid.Column="2" x:Name="btnCancel" Margin="8" Content="Cancel" Background="LightGray" FontSize="16" FontWeight="Bold" Click="btnCancel_Click" MaxWidth="150"/>
+            </Grid>
+        </Grid>
+    </Grid>
+</Window>

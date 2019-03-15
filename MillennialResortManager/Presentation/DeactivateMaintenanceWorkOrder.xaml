@@ -1,0 +1,38 @@
+﻿<Window x:Class="Presentation.DeactivateMaintenanceWorkOrder"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Presentation"
+        mc:Ignorable="d"
+        Title="DeactivateMaintenanceWorkOrder" Height="450" Width="600">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="4*"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height=".5*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="3*"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Label x:Name="lblTitle" Grid.Row="1"  HorizontalAlignment="Center" VerticalAlignment="Center">
+                <TextBlock x:Name="txtTitleContent" TextWrapping="WrapWithOverflow" Text="Title"/>
+            </Label>
+            <Label x:Name="lblBody" Grid.Row="2" MaxWidth="350">
+                <TextBlock x:Name="txtBodyContent" TextWrapping="WrapWithOverflow" Text="Body"/>
+            </Label>
+            <Grid Grid.Row="3">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Button x:Name="btnDelete" Grid.Column="0" Margin="30 15" Content="Delete" Click="btnDelete_Click"/>
+                <Button x:Name="btnCancel" Grid.Column="1" Margin="30 15" Content="Cancel" Click="btnCancel_Click"/>
+            </Grid>
+        </Grid>
+    </Grid>
+</Window>
