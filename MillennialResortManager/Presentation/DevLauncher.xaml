@@ -45,6 +45,8 @@
                         <MenuItem Header="Performances" x:Name="NavBarSubHeaderPerformances" x:Uid="NBPerformances" Click="NavBarSubHeaderPerformances_Click" />
                         <MenuItem Header="Event Types" x:Name="NavBarSubHeaderEventTypes" x:Uid="NBEventTypes" Click="NavBarSubHeaderEventTypes_Click"/>
                         <MenuItem Header="Appointment Types" x:Name="NavBarSubHeaderAppointmentTypes" x:Uid="NBAppointmentTypes" Click="NavBarSubHeaderAppointmentTypes_Click"/>
+                        <MenuItem Header="Manage Shuttle Vehicles" x:Name="NavBarSubHeaderManageShuttleVehicles" x:Uid="NBManageShuttleVehicles" Click="NavBarSubHeaderManageShuttleVehicles_OnClick"/>
+
 
                     </MenuItem>
                     <MenuItem Header="_Guest Services" x:Name="_NavBarHeaderGuestServices" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center">
@@ -1519,6 +1521,11 @@
 
             </Grid>
 
+            <!--Manage Vehicles Page-->
+            <Grid x:Name="BrowseShuttleVehiclesPage" Visibility="Hidden">
+                <!--Add Browse Shuttel Vehicle Here-->
+            </Grid>
+            <!--End of Browse Vehicles-->
         </Grid>
     </Grid>
 </Window>

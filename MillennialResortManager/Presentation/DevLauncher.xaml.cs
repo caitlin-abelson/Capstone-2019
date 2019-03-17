@@ -5869,6 +5869,14 @@ namespace Presentation
         /*--------------------------- Ending BrowseMember Code --------------------------------*/
 
 
-
+        /**
+         * Created By Francis Mingomba
+         * Date: 3/16/2019
+         */
+        private void NavBarSubHeaderManageShuttleVehicles_OnClick(object sender, RoutedEventArgs e)
+        {
+            var frmBrowsShuttleVehicles = new FrmBrowseShuttleVehicles(_fullUser);
+            frmBrowsShuttleVehicles.ShowDialog();
+        }
     }
 }
