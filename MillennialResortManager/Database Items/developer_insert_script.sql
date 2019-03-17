@@ -1378,3 +1378,194 @@ BEGIN
 	AND 	[Description] = @oldDescription
 END
 GO
+
+
+/* Start Francis */
+
+-- Create TABLE
+/****** Object:  Table [dbo].[Vehicles]    Script Date: 3/3/2019 2:44:30 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Vehicle](
+	[VehicleID]			[int] IDENTITY(100000, 1) 	NOT NULL,
+	[Make]				[nvarchar](30)				NOT NULL,
+	[Model]				[nvarchar](30)				NOT NULL,
+	[YearOfManufacture]	[int]						NOT NULL,
+	[License]			[nvarchar](10)				NOT NULL,
+	[Mileage]			[int]						NOT NULL,
+	[Vin]				[nvarchar](17)				        ,
+	[Capacity]			[int]						NOT NULL,
+	[Color]				[nvarchar](30)				NOT NULL,
+	[PurchaseDate]		[Date]						NOT NULL,
+	[Description]		[nvarchar](1000)			NOT NULL,
+	[Active]			[bit]						NOT NULL,
+	[DeactivationDate]	[Date]								,
+	
+	CONSTRAINT [pk_VehicleID] PRIMARY KEY([VehicleID] ASC)
+)
+GO
+
+-- Stored Procedures
+/****** Object:  StoredProcedure [dbo].[sp_create_vehicle]    Script Date: 3/2/2019 2:51:32 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER OFF
+GO
+CREATE PROCEDURE [dbo].[sp_create_vehicle]
+	(
+		@Make				[nvarchar](30),			
+		@Model				[nvarchar](30),
+		@YearOfManufacture	[int],					
+		@License			[nvarchar](10),			
+		@Mileage			[int],					
+		@Vin				[nvarchar](17),			
+		@Capacity			[int],					
+		@Color				[nvarchar](30),			
+		@PurchaseDate		[Date],					
+		@Description		[nvarchar](1000),		
+		@Active				[bit],					
+		@DeactivationDate	[Date]
+	)
+AS
+	BEGIN
+		INSERT INTO [dbo].[Vehicle] ([Make], [Model], [YearOfManufacture], [License], [Mileage], [Vin], [Capacity], [Color], [PurchaseDate], [Description], [Active], [DeactivationDate]) 
+		VALUES(@Make, @Model, @YearOfManufacture, @License, @Mileage, @Vin, @Capacity, @Color, @PurchaseDate, @Description, @Active, @DeactivationDate)
+		SELECT SCOPE_IDENTITY() 
+	END
+GO
+
+/****** Object:  StoredProcedure [dbo].[sp_retrieve_vehicles]    Script Date: 3/2/2019 2:51:32 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER OFF
+GO
+CREATE PROCEDURE [dbo].[sp_retrieve_vehicles]
+AS
+	BEGIN
+		SELECT [VehicleID], [Make], [Model], [YearOfManufacture], [License], [Mileage], [Vin], [Capacity], [Color], [PurchaseDate], [Description], [Active], [DeactivationDate]
+		FROM [Vehicle]
+	END
+GO
+
+/****** Object:  StoredProcedure [dbo].[sp_retrieve_vehicle_by_id]    Script Date: 3/2/2019 2:51:32 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER OFF
+GO
+CREATE PROCEDURE [dbo].[sp_retrieve_vehicle_by_id]
+	(
+		@VehicleId [int]	
+	)
+AS
+	BEGIN
+		SELECT [VehicleID],[Make], [Model], [YearOfManufacture], [License], [Mileage], [Vin], [Capacity], [Color], [PurchaseDate], [Description], [Active], [DeactivationDate]
+		FROM [Vehicle]
+		WHERE [VehicleID] = @VehicleId
+	END
+GO
+
+/****** Object:  StoredProcedure [dbo].[sp_update_vehicle]    Script Date: 3/2/2019 2:51:32 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER OFF
+GO
+CREATE PROCEDURE [dbo].[sp_update_vehicle]
+	(
+		@VehicleId				[int],
+		@OldMake				[nvarchar](30),			
+		@OldModel				[nvarchar](30),			
+		@OldYearOfManufacture	[int],					
+		@OldLicense				[nvarchar](10),			
+		@OldMileage				[int],					
+		@OldVin					[nvarchar](17),			
+		@OldCapacity			[int],					
+		@OldColor				[nvarchar](30),			
+		@OldPurchaseDate		[Date],					
+		@OldDescription			[nvarchar](1000),		
+		@OldActive				[bit],					
+		@DeactivationDate		[Date],
+		@NewMake				[nvarchar](30),			
+		@NewModel				[nvarchar](30),			
+		@NewYearOfManufacture	[int],					
+		@NewLicense				[nvarchar](10),			
+		@NewMileage				[int],					
+		@NewVin					[nvarchar](17),			
+		@NewCapacity			[int],					
+		@NewColor				[nvarchar](30),			
+		@NewPurchaseDate		[Date],					
+		@NewDescription			[nvarchar](1000),		
+		@NewActive				[bit]
+	)
+AS
+	BEGIN
+		UPDATE [Vehicle]
+			SET [Make]				= 	@NewMake,
+				[Model]				= 	@NewModel,					
+				[YearOfManufacture]	= 	@NewYearOfManufacture,				
+				[License]			= 	@NewLicense,					
+				[Mileage]			= 	@NewMileage,					
+				[Vin]				= 	@NewVin,				
+				[Capacity]			= 	@NewCapacity,
+				[Color]				= 	@NewColor,				
+				[PurchaseDate]		= 	@NewPurchaseDate,
+				[Description]		= 	@NewDescription,				
+				[Active]			= 	@NewActive,			
+				[DeactivationDate]  = 	@DeactivationDate
+			WHERE 	[VehicleId] = @VehicleId
+					AND	[Make]				= @OldMake
+					AND [Model]				= @OldModel
+					AND [YearOfManufacture]	= @OldYearOfManufacture
+					AND [License]			= @OldLicense
+					AND [Mileage]			= @OldMileage
+					AND [Vin]				= @OldVin
+					AND [Capacity]			= @OldCapacity
+					AND [Color]				= @OldColor
+					AND [PurchaseDate]		= @OldPurchaseDate
+					AND [Description]		= @OldDescription
+					AND [Active]			= @OldActive		
+		RETURN @@ROWCOUNT
+	END
+GO
+
+/****** Object:  StoredProcedure [dbo].[sp_deactivate_vehicle_by_id]    Script Date: 3/2/2019 2:51:32 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER OFF
+GO
+CREATE PROCEDURE [dbo].[sp_deactivate_vehicle_by_id]
+	(
+		@VehicleId		[int]
+	)
+AS
+	BEGIN
+		UPDATE 	[Vehicle]
+		SET 	[Active] = 0
+		WHERE	[VehicleId] = @VehicleId
+
+		RETURN @@ROWCOUNT
+	END
+GO
+
+/****** Object:  StoredProcedure [dbo].[sp_delete_vehicle_by_id]    Script Date: 3/2/2019 2:51:32 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER OFF
+GO
+CREATE PROCEDURE [dbo].[sp_delete_vehicle_by_id]
+	(
+		@VehicleId		[int]
+	)
+AS
+	BEGIN
+		DELETE
+		FROM	[Vehicle]
+		WHERE	[VehicleId] = @VehicleId
+		  AND	[Active] = 0
+
+		RETURN @@ROWCOUNT
+	END
+GO
+
+/* End Francis */

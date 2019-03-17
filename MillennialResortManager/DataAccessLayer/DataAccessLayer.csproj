@@ -103,6 +103,7 @@
     <Compile Include="ISupplierAccessor.cs" />
     <Compile Include="ItemTypeAccessorMock.cs" />
     <Compile Include="ItemTypeAccessorMSSQL.cs" />
+    <Compile Include="IVehicleAccessor.cs" />
     <Compile Include="MaintenanceStatusTypeAccessorMSSQL.cs" />
     <Compile Include="MaintenanceTypeAccessorMSSQL.cs" />
     <Compile Include="MaintenanceWorkOrderAccessorMock.cs" />
@@ -116,6 +117,7 @@
     <Compile Include="MockGuestTypeAccessor.cs" />
     <Compile Include="MockRoomAccessor.cs" />
     <Compile Include="MockRoomTypeAccessor.cs" />
+    <Compile Include="MockVehicleAccessor.cs" />
     <Compile Include="OfferingAccessor.cs" />
     <Compile Include="OfferingAccessorMock.cs" />
     <Compile Include="PerformanceAccessor.cs" />
@@ -148,6 +150,7 @@
     <Compile Include="SupplierOrderAccessor.cs" />
     <Compile Include="SupplierOrderAccessorMock.cs" />
     <Compile Include="UserAccessor.cs" />
+    <Compile Include="VehicleAccessor.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DataObjects\DataObjects.csproj">

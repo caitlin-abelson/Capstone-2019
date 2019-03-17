@@ -126,6 +126,12 @@
     <Compile Include="Departments.xaml.cs" />
     <Compile Include="EmployeeRoles.xaml.cs" />
     <Compile Include="frmAddEditSponsor.xaml.cs" />
+    <Compile Include="FrmBrowseShuttleVehicles.xaml.cs">
+      <DependentUpon>FrmBrowseShuttleVehicles.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="FrmManageShuttleVehicle.xaml.cs">
+      <DependentUpon>FrmManageShuttleVehicle.xaml</DependentUpon>
+    </Compile>
     <Compile Include="frmMember.xaml.cs" />
     <Compile Include="frmAddEditGuest.xaml.cs">
       <DependentUpon>frmAddEditGuest.xaml</DependentUpon>
@@ -359,6 +365,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="FrmBrowseShuttleVehicles.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="frmConfirmAction.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -378,6 +388,10 @@
     <Page Include="frmManageItemSuppliers.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="FrmManageShuttleVehicle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="frmManageSupplierOrders.xaml">
       <Generator>MSBuild:Compile</Generator>

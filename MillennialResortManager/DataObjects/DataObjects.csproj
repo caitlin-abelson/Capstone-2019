@@ -54,6 +54,7 @@
     <Compile Include="Enumerations.cs" />
     <Compile Include="Event.cs" />
     <Compile Include="EventType.cs" />
+    <Compile Include="ExtensionMethods.cs" />
     <Compile Include="Guest.cs" />
     <Compile Include="GuestType.cs" />
     <Compile Include="GuestVehicle.cs" />
@@ -89,6 +90,7 @@
     <Compile Include="Suppliers.cs" />
     <Compile Include="User.cs" />
     <Compile Include="Validation.cs" />
+    <Compile Include="Vehicle.cs" />
     <Compile Include="VMBrowseReservation.cs" />
     <Compile Include="VMBrowseShop.cs" />
     <Compile Include="VMGuestVehicle.cs" />

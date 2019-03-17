@@ -255,3 +255,28 @@ INSERT INTO [dbo].[SetupList]
 		(100003, 1, ' Confirm that all decor and linen is in place ', 'Decor and linen are  ready'),
 		(100004, 1, ' Walk through to make sure bathrooms are clean and stocked ', 'Bathrooms are  ready')
 GO
+
+-- Author: Francis Mingomba
+-- Created 2019-03-19
+print '' print '*** Inserting sample vehicles'
+GO
+INSERT INTO [dbo].[Vehicle]
+		([Make]				
+		 , [Model]				
+		 , [YearOfManufacture]	
+		 , [License]			
+		 , [Mileage]			
+		 , [Vin]				
+		 , [Capacity]			
+		 , [Color]				
+		 , [PurchaseDate]		
+		 , [Description]		
+		 , [Active])
+	VALUES
+		('Dodge'  , 'Charger', 2015, 'IA 523', 50000, 'ABCDEFGHIJKLMNOPQ', 5, 'Gray', '2019-05-05', 'A car', 1)
+		, ('Audi'   , 'A4'     , 2017, 'IA 523', 50000, 'ABCDEFGHIJKLMNOPQ', 5, 'Gray', '2019-05-05', 'A car', 1)
+		, ('Toyota' , 'Camry'  , 2018, 'IA 523', 50000, 'ABCDEFGHIJKLMNOPQ', 5, 'Gray', '2019-05-05', 'A car', 1)
+		, ('Nissan' , 'Maxima' , 2019, 'IA 523', 50000, 'ABCDEFGHIJKLMNOPQ', 5, 'Gray', '2019-05-05', 'A car', 1)
+		, ('Hyundai', 'Excel'  , 2010, 'IA 523', 50000, 'ABCDEFGHIJKLMNOPQ', 5, 'Gray', '2019-05-05', 'A car', 1)
+		, ('Skoda'  , 'Octavia', 1920, 'IA 523', 50000, 'ABCDEFGHIJKLMNOPQ', 5, 'Gray', '2019-05-05', 'A car', 1)
+GO

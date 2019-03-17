@@ -93,6 +93,7 @@
     <Compile Include="ItemManager.cs" />
     <Compile Include="ItemSupplierManager.cs" />
     <Compile Include="ItemTypeManagerMSSQL.cs" />
+    <Compile Include="IVehicleManager.cs" />
     <Compile Include="LogicValidationExtensionMethods.cs" />
     <Compile Include="MaintenanceStatusTypeManagerMSSQl.cs" />
     <Compile Include="MaintenanceTypeManagerMSSQl.cs" />
@@ -120,6 +121,7 @@
     <Compile Include="SupplierValidator.cs" />
     <Compile Include="UserManager.cs" />
     <Compile Include="ValidationExtensionMethods.cs" />
+    <Compile Include="VehicleManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DataAccessLayer\DataAccessLayer.csproj">
