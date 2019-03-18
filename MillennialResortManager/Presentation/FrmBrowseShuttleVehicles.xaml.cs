@@ -3,6 +3,7 @@ using LogicLayer;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -11,7 +12,7 @@ namespace Presentation
     /// <summary>
     /// Interaction logic for frmBrowseShuttleVehicles.xaml
     /// </summary>
-    public partial class FrmBrowseShuttleVehicles : Window
+    public partial class FrmBrowseShuttleVehicles : UserControl
     {
         private readonly IVehicleManager _vehicleManager;
         private List<Vehicle> _shuttleVehicles;
@@ -29,22 +30,26 @@ namespace Presentation
         /// </summary>
         public FrmBrowseShuttleVehicles() : this(new User()) { }
 
-        private void Window_Loaded(object sender, RoutedEventArgs e)
-        {
-            RefreshShuttleVehiclesDatagrid();
-        }
-
         /// <summary>
         /// Created By: Francis Mingomba
         /// Description: Called by frmManageShuttleVehicle when 
-        ///              a vechicle is created or updated
+        ///              a vehicle is created or updated
+        ///              Do it on another thread to avoid hanging
+        ///              form.
         /// </summary>
-        public void RefreshShuttleVehiclesDatagrid()
+        public async Task RefreshShuttleVehiclesDatagrid()
+        {
+            await Task.Run(() => getVehicles());
+
+            if (_shuttleVehicles != null)
+                dtgShuttleVehicles.ItemsSource = _shuttleVehicles;
+        }
+
+        private void getVehicles()
         {
             try
             {
                 _shuttleVehicles = _vehicleManager.RetrieveVehicles().ToList();
-                dtgShuttleVehicles.ItemsSource = _shuttleVehicles;
             }
             catch (Exception e)
             {

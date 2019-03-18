@@ -1523,7 +1523,7 @@
 
             <!--Manage Vehicles Page-->
             <Grid x:Name="BrowseShuttleVehiclesPage" Visibility="Hidden">
-                <!--Add Browse Shuttel Vehicle Here-->
+                <local:FrmBrowseShuttleVehicles/>
             </Grid>
             <!--End of Browse Vehicles-->
         </Grid>

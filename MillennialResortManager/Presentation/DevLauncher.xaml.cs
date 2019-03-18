@@ -5875,8 +5875,16 @@ namespace Presentation
          */
         private void NavBarSubHeaderManageShuttleVehicles_OnClick(object sender, RoutedEventArgs e)
         {
-            var frmBrowsShuttleVehicles = new FrmBrowseShuttleVehicles(_fullUser);
-            frmBrowsShuttleVehicles.ShowDialog();
+            HideSidebar();
+            DisplayPage("BrowseShuttleVehiclesPage");
+
+            foreach (UserControl item in this.BrowseShuttleVehiclesPage.Children)
+            {
+                if (item.GetType() != typeof(FrmBrowseShuttleVehicles)) continue;
+
+                FrmBrowseShuttleVehicles instance = (FrmBrowseShuttleVehicles)item;
+                instance.RefreshShuttleVehiclesDatagrid();
+            }
         }
     }
 }
