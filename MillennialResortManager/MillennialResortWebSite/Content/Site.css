@@ -1,12 +1,14 @@
-﻿body {
-    padding-top: 50px;
-    padding-bottom: 20px;
+﻿/*base css setting form html elements*/
+/*////////////////////////////////////*/
+body {
+    /*padding-top: 50px;
+    padding-bottom: 20px;*/
 }
 
 /* Set padding to keep content from hitting the edges */
 .body-content {
-    padding-left: 15px;
-    padding-right: 15px;
+    /*padding-left: 15px;
+    padding-right: 15px;*/
 }
 
 /* Override the default bootstrap behavior where horizontal description lists 
@@ -40,4 +42,113 @@ li a {
     text-decoration: none;
     font-size: 22px;
 }
+
+
+
+
+
+
+
+/*Layout //////////////////////////////////////////////////////////////////////////////////////////////*/
+/*/////////////////////////////////////////////////////////////////////////////////////////////////////*/
+/* This with header div */
+.clearfix {
+    clear: both;
+    overflow: hidden;
+}
+
+.top-container {
+    height: 50px;
+    background-color: #067BC2;
+    padding: 5px;
+    color: white;
+}
+
+ /*These are for the header*/
+/*.top-container {
+    height: 50px;
+    background-color: #00aeef;
+    padding: 5px;
+}*/
+
+/*.top-container h1 {
+   font-size: 22px;
+   margin: -5px;
+   padding: 0px;
+   float: left;
+}
+*/
+.top-container p {
+   float: left;
+   margin-left: 20px;
+   margin-top: 10px;
+   font-size: 22px;
+}
+
+/*.resortHeader {
+    background: #004b87;
+    color: #fff;
+    height: 155px;
+    border-bottom: 3px #114968 solid;
+}*/
+
+/* This runs the css header to slide up until the nav is in a fixed position */
+.sticky {
+    box-sizing: border-box;
+    position: fixed;
+    top: 0;
+    width: 100%;
+}
+.sticky + .content {
+   padding-top: 5px;
+}
+
+
+
+/*navbar */
+.navbar-default {
+
+    background-color: #495867;
+    border-color: #495867;
+    border-radius: unset;
+    background-repeat: no-repeat;
+    background-position: center;
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*modual css setting for partials and for chat windows and dialog boxes*/
+/*//////////////////////////////////////////////////////////////////////*/
+
+
+
+
+
+
 
