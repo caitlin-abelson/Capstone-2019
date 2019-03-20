@@ -48,6 +48,14 @@ li a {
     padding-top: 40px;
     color: azure;
 }
+
+
+
+
+
+
+
+
 /*Layout //////////////////////////////////////////////////////////////////////////////////////////////*/
 /*/////////////////////////////////////////////////////////////////////////////////////////////////////*/
 /* This with header div */
@@ -56,6 +64,8 @@ li a {
     overflow: hidden;
 }
 
+
+/*These are for the header*/
 .top-container {
     height: 50px;
     background-color: #067BC2;
@@ -63,12 +73,7 @@ li a {
     color: white;
 }
 
- /*These are for the header*/
-/*.top-container {
-    height: 50px;
-    background-color: #00aeef;
-    padding: 5px;
-}*/
+
 
 /*.top-container h1 {
    font-size: 22px;
@@ -103,10 +108,19 @@ li a {
 }
 
 
+header {
+    z-index: 10;
+}
+
+/*.content {
+    z-index: 0;
+}*/
+
+
 
 /*navbar */
 .navbar-default {
-    height: 100px;
+ 
     background-color: #495867;
     border-color: #495867;
     border-radius: unset;
@@ -115,12 +129,15 @@ li a {
    
 }
 
-
-
 .jumbotronBackGround {
     padding-bottom: 270px;
     background-repeat: no-repeat;
     background-image: url(../Content/images/beach-family.jpg);
+}
+
+
+.col-md-4 {
+  position: static;
 }
 
 
@@ -134,6 +151,70 @@ li a {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*Media Query for ipad, iphone, sized devices.*/ 
+
+
+@media only screen and (min-width: 768px) {
+    .navbar-default {
+        height: 100px;
+        background-color: #495867;
+        border-color: #495867;
+        border-radius: unset;
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+}
 
 
 
