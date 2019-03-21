@@ -130,9 +130,9 @@ header {
 }
 
 .jumbotronBackGround {
-    padding-bottom: 270px;
+    /*padding-bottom: 220px;*/
     background-repeat: no-repeat;
-    background-image: url(../Content/images/beach-family.jpg);
+    background-image: url(../Content/images/beach-familyTwo.jpg);
 }
 
 
@@ -202,23 +202,38 @@ header {
         background-position: center;
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
 }
 
 
 
+/*@media only screen and (max-width: 992px) {
+    .jumbotronBackGround {
+        padding-bottom: 190px;
+        background-repeat: no-repeat;
+        background-image: url(../Content/images/beach-family.jpg);
+    }
+}*/
 
+
+
+/*@media only screen and (min-width: for the phone) {
+    .navbar-default {
+        height: 100px;
+        background-color: #495867;
+        border-color: #495867;
+        border-radius: unset;
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+
+
+    .jumbotronBackGround {
+        padding-bottom: 200px;
+        background-repeat: no-repeat;
+        background-image: url(../Content/images/beach-family.jpg);
+    }
+}*/
 
 
 
