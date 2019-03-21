@@ -67,8 +67,8 @@ li a {
 
 /*These are for the header*/
 .top-container {
-    height: 50px;
-    background-color: #067BC2;
+    height: 40px;
+    background-color: #40798C;
     padding: 5px;
     color: white;
 }
@@ -85,7 +85,7 @@ li a {
 .top-container p {
    float: left;
    margin-left: 20px;
-   margin-top: 10px;
+   margin-top: 5px;
    font-size: 22px;
 }
 
@@ -121,8 +121,8 @@ header {
 /*navbar */
 .navbar-default {
  
-    background-color: #495867;
-    border-color: #495867;
+    background-color: #0B2027;
+    /*border-color: #495867;*/
     border-radius: unset;
     background-repeat: no-repeat;
     background-position: center;
@@ -130,12 +130,22 @@ header {
 }
 
 .jumbotronBackGround {
-    /*padding-bottom: 220px;*/
+    padding-bottom: 270px;
     background-repeat: no-repeat;
-    background-image: url(../Content/images/beach-familyTwo.jpg);
+    background-image: url(../Content/images/beach-family.jpg);
 }
 
 
+    .jumbotronBackGround h1 {
+        font-size: 70px;
+        font-family: 'Fugaz One', cursive;
+        text-shadow: 3px 3px #40798C;
+        color: #fff;
+    }
+
+.lead {
+    color: #fff;
+}
 .col-md-4 {
   position: static;
 }
@@ -195,8 +205,8 @@ header {
 @media only screen and (min-width: 768px) {
     .navbar-default {
         height: 100px;
-        background-color: #495867;
-        border-color: #495867;
+        background-color: #0B2027;
+        /*border-color: #495867;*/
         border-radius: unset;
         background-repeat: no-repeat;
         background-position: center;
