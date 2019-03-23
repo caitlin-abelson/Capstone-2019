@@ -174,11 +174,23 @@ header {
 
 
 .carousel-inner > .item > img {
+    /*width: 500px;
+    height: 300px;*/
+}
+
+
+.carousel-inner {
     width: 500px;
     height: 300px;
 }
 
+.item .active {
+    width: 500px;
+}
 
+.nav100 {
+    padding: 0px;
+}
 
 .lead {
     color: #fff;
@@ -190,11 +202,9 @@ header {
 
 
 
-
 .card-text {
-    height:200px;
-    width:350px;
-    
+    height: 200px;
+    width: 350px;
 }
 
 
