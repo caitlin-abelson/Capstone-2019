@@ -62,8 +62,9 @@ li a {
 }
 
 
-
-
+.item .active {
+    position: static;
+}
 
 
 /*Layout //////////////////////////////////////////////////////////////////////////////////////////////*/
@@ -139,6 +140,11 @@ header {
    
 }
 
+
+.jumbotron {
+    margin-bottom: 0px;
+}
+
 .jumbotronBackGround {
     padding-bottom: 270px;
     background-repeat: no-repeat;
@@ -171,6 +177,7 @@ header {
 .jumbotronEvents {
     background-repeat: no-repeat;
     background-color: #FFF1D0;
+    
 }
 
     .jumbotronEvents h1 {
@@ -191,11 +198,18 @@ header {
 .carousel-inner {
     width: 500px;
     height: 300px;
+   
 }
 
+
+.carousel {
+   position: static;
+   z-index: 0;
+}
 .item .active {
     width: 500px;
 }
+
 
 .nav100 {
     padding: 0px;
