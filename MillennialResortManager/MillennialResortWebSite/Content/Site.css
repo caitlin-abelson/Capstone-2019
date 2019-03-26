@@ -62,13 +62,18 @@ li a {
 }
 
 
-.item .active {
-    position: static;
-}
 
 
 /*Layout //////////////////////////////////////////////////////////////////////////////////////////////*/
 /*/////////////////////////////////////////////////////////////////////////////////////////////////////*/
+
+.loginRegister {
+    margin-right: 200px;
+}
+
+
+
+
 /* This with header div */
 .clearfix {
     clear: both;
@@ -78,7 +83,7 @@ li a {
 
 /*These are for the header*/
 .top-container {
-    height: 40px;
+    height: 50px;
     background-color: #40798C;
     padding: 5px;
     color: white;
@@ -100,12 +105,13 @@ li a {
    font-size: 22px;
 }
 
-/*.resortHeader {
-    background: #004b87;
+.resortHeader {
+    /*background: #004b87;
     color: #fff;
     height: 155px;
-    border-bottom: 3px #114968 solid;
-}*/
+    border-bottom: 3px #114968 solid;*/
+    z-index:50;
+}
 
 /* This runs the css header to slide up until the nav is in a fixed position */
 .sticky {
@@ -187,28 +193,27 @@ header {
         color: #fff;
     }
 
-
-
-.carousel-inner > .item > img {
-    /*width: 500px;
-    height: 300px;*/
+.jumbotronMailingList {
+    background-color: #0B2027;
+    text-align: center;
 }
 
-
+.jumbotronMailingList h2 {
+        text-shadow: 3px 3px #40798C;
+        color: #fff;
+        font-size: 40px;
+    }
+    .jumbotronMailingList legend {
+        text-shadow: 3px 3px #40798C;
+        color: #fff;
+        font-size: 30px;
+    }
+ 
 .carousel-inner {
     width: 500px;
     height: 300px;
-   
 }
 
-
-.carousel {
-   position: static;
-   z-index: 0;
-}
-.item .active {
-    width: 500px;
-}
 
 
 .nav100 {
@@ -231,12 +236,17 @@ header {
 }
 
 
+.mailingList {
+    display: inline;
+}
 
 
 
 
-
-
+#registerLink, #loginLink {
+   padding-bottom: 0px;
+   
+}
 
 
 
@@ -328,9 +338,6 @@ header {
 
 /*modual css setting for partials and for chat windows and dialog boxes*/
 /*//////////////////////////////////////////////////////////////////////*/
-
-
-
 
 
 
