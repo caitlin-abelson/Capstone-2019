@@ -1,0 +1,23 @@
+Created By: Jared Greenfield
+Created On: 2019-03-22
+Workflow for using this folder:
+0. Make sure 'USE [MillennialResort_DB]
+GO' is at the top of your file.
+1. Create a file with your name and the date of your submission that has your sql in it.
+2. Modify the newSqlAdditions.BAT file to use your .sql file. (Right click, open with notepad++, edit)
+	-Just replace the name of the file with the name of your sql file
+3. If it errors out because it says an object already exists with that name:
+	-If it's a table put a 'DROP TABLE IF EXISTS [dbo].[TableName] GO' before the table it errors on
+		It does this because it already has a definition for that table and it cannot overwrite it. 
+	-If it's a stored procedure use 'DROP PROCEDURE IF EXISTS [ProcedureName] GO' before the procedure it errors on
+		Once again, it does this because it cannot overwrite the definition currently in the master.
+		Alternatively, you can replace your CREATE in the procedure with an ALTER (ex. ALTER PROCEDURE sp_select_item)
+4. If errors still occur, double check your code.
+5. If you still cannot figure it out, ask other people to help. 
+
+Benefits of this workflow:
+1. You only have to worry about your SQL and the approved and working SQL.
+	 There is no worrying about other people's SQL in the file causing a mess of errors.
+2. Cleaner addtion to the master:
+	-I (Jared), can just copy your code into the master after testing it and can cleanly delete your file out.
+	-No more giant single dev file. Just your work.

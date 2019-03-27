@@ -1,0 +1,18 @@
+Created By: Jared Greenfield
+Created On: 2019-03-22
+Workflow for using this folder:
+0. Make sure 'USE [MillennialResort_DB]
+GO' is at the top of your file.
+1. Create a file with your name and the date of your submission that has your insert statements in it. 
+	(Please use format like YYYY-MM-DD_Name_ContentDescription) This will help keep things in chronological order and 
+	will allow you to keep better track of what would be in your file.
+2. Modify the addTestData.BAT file to use your .sql file. (Right click, open with notepad++, edit)
+	-Just replace the name of the file with the name of your sql file
+
+3. If errors occur, make sure you are following the constraints setup by the DB.
+4. If you still cannot figure it out, ask other people for help. 
+
+Benefits of this workflow:
+1. You only have to worry about your data. This is for testing your functionality you have chosen. 
+	It contains only data relevant to what you need for your part to work. You don't have to worry about invalid data in another part of the DB.
+2. You can copy test data from other people's files to quickly populate your section for proper testing.

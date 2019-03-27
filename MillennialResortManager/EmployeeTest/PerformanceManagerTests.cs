@@ -39,7 +39,7 @@ namespace UnitTests
         [TestMethod]
         public void TestCreatePerformanceValidInput()
         {
-            DateTime date = new DateTime(2019, 3, 25);
+            DateTime date = DateTime.Now.AddYears(1);
             _performanceManager.AddPerformance(new Performance(111111, "Test Name 5", date, "Test Description 5"));
             _performances = _performanceManager.RetrieveAllPerformance();
             Assert.IsNotNull(_performances.Find(x => x.Name.Equals("Test Name 5") &&

@@ -1,0 +1,25 @@
+Jared Greenfield 2019-03-27
+Added Constraints and Keys to tables:
+	Employee
+	Event
+	EventType
+	Guest
+	Item
+	ItemSupplier
+	MaintenanceWorkOrder
+	Offering
+	RecipeItemLine
+	Reservation
+	Room
+	Shop
+	SupplierOrderLine
+	
+Updated field definitions in:
+	Sponsor
+	Supplier
+	Room
+	Performance
+	Recipe
+	RecipeItemLine
+
+Added New Pushing System for DB items as recommended by Jim
