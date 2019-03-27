@@ -280,26 +280,42 @@ header {
 
 
 
+/*Media Query for ipad, iphone, sized devices.*/
+
+@media only screen and (max-width: 768px) {
 
 
-/*Media Query for ipad, iphone, sized devices.*/ 
-
-
-@media only screen and (min-width: 768px) {
-    .navbar-default {
-        height: 100px;
-        background-color: #0B2027;
-        /*border-color: #495867;*/
-        border-radius: unset;
-        background-repeat: no-repeat;
-        background-position: center;
+    .mobileHide {
+        visibility: hidden;
     }
+
+
+
+    .navbar-nav {
+        margin: 0px;
+    }
+
+    
 
 }
 
+    @media only screen and (min-width: 768px) {
+        .navbar-default {
+            height: 100px;
+            background-color: #0B2027;
+            /*border-color: #495867;*/
+            border-radius: unset;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+
+        .mobileShow {
+            visibility: hidden;
+        }
 
 
-/*@media only screen and (max-width: 992px) {
+
+        /*@media only screen and (max-width: 992px) {
     .jumbotronBackGround {
         padding-bottom: 190px;
         background-repeat: no-repeat;
@@ -309,7 +325,7 @@ header {
 
 
 
-/*@media only screen and (min-width: for the phone) {
+        /*@media only screen and (min-width: for the phone) {
     .navbar-default {
         height: 100px;
         background-color: #495867;
@@ -335,8 +351,8 @@ header {
 
 
 
-/*modual css setting for partials and for chat windows and dialog boxes*/
-/*//////////////////////////////////////////////////////////////////////*/
+        /*modual css setting for partials and for chat windows and dialog boxes*/
+        /*//////////////////////////////////////////////////////////////////////*/
 
 
 

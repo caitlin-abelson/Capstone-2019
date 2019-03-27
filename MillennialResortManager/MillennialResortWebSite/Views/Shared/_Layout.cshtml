@@ -12,9 +12,9 @@
 <body>
 
     <div class="top-container">
-        
-            @Html.Partial("_LoginPartial")
-            </div>
+        <div class="mobileHide"> @Html.Partial("_LoginPartial")</div>
+           
+    </div>
             @*<marquee>
                 <p>Welcome to Millenial Resorts! Enjoy the endless summer at anyone of our resorts located globally, accross the Millenial Verse.</p>
             </marquee>*@
@@ -54,7 +54,7 @@
 
                         </ul>
                         @*@Html.ActionLink("MILLENIAL RESORTS", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })*@
-
+                        <div class="mobileShow">@Html.Partial("_LoginPartial")</div> 
 
                     </div>
 
