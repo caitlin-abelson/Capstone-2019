@@ -25,6 +25,12 @@ textarea {
     max-width: 280px;
 }
 
+img{
+    max-width: 100%;
+}
+
+
+
 footer {
     padding: 80px 0;
     border-top: 1px solid #f2f2f2;
@@ -85,7 +91,7 @@ li a {
 .top-container {
     height: 50px;
     background-color: #40798C;
-    padding: 5px;
+    
     color: white;
 }
 
@@ -155,6 +161,8 @@ header {
     padding-bottom: 270px;
     background-repeat: no-repeat;
     background-image: url(../Content/images/beach-family.jpg);
+    background-size: cover;
+    background-position: center center;
 }
 
 
@@ -230,11 +238,6 @@ header {
 
 
 
-.card-text {
-    height: 200px;
-    width: 350px;
-}
-
 
 .mailingList {
     display: inline;
@@ -243,17 +246,13 @@ header {
 
 
 
-#registerLink, #loginLink {
-   padding-bottom: 0px;
-   
+
+
+
+.card {
+    max-width: 350px;
+    margin:auto;
 }
-
-
-
-
-
-
-
 
 
 
