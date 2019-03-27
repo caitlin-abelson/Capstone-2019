@@ -96,14 +96,6 @@ li a {
 }
 
 
-
-/*.top-container h1 {
-   font-size: 22px;
-   margin: -5px;
-   padding: 0px;
-   float: left;
-}
-*/
 .top-container p {
    float: left;
    margin-left: 20px;
@@ -112,10 +104,7 @@ li a {
 }
 
 .resortHeader {
-    /*background: #004b87;
-    color: #fff;
-    height: 155px;
-    border-bottom: 3px #114968 solid;*/
+    
     z-index:50;
 }
 
@@ -135,9 +124,6 @@ header {
     z-index: 10;
 }
 
-/*.content {
-    z-index: 0;
-}*/
 
 
 
@@ -303,7 +289,6 @@ header {
         .navbar-default {
             height: 100px;
             background-color: #0B2027;
-            /*border-color: #495867;*/
             border-radius: unset;
             background-repeat: no-repeat;
             background-position: center;
@@ -315,34 +300,6 @@ header {
 
 
 
-        /*@media only screen and (max-width: 992px) {
-    .jumbotronBackGround {
-        padding-bottom: 190px;
-        background-repeat: no-repeat;
-        background-image: url(../Content/images/beach-family.jpg);
-    }
-}*/
-
-
-
-        /*@media only screen and (min-width: for the phone) {
-    .navbar-default {
-        height: 100px;
-        background-color: #495867;
-        border-color: #495867;
-        border-radius: unset;
-        background-repeat: no-repeat;
-        background-position: center;
-    }
-
-
-
-    .jumbotronBackGround {
-        padding-bottom: 200px;
-        background-repeat: no-repeat;
-        background-image: url(../Content/images/beach-family.jpg);
-    }
-}*/
 
 
 
