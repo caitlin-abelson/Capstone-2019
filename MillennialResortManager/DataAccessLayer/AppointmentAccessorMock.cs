@@ -43,7 +43,7 @@ namespace DataAccessLayer
             Appointment apt = null;
             foreach (var appointment in _appointments)
             {
-                if(appointment.AppointmentID == id)
+                if (appointment.AppointmentID == id)
                 {
                     apt = appointment;
                 }
@@ -61,12 +61,67 @@ namespace DataAccessLayer
             return _guestViewModels;
         }
 
+        /// <summary>
+        /// Wes Richardson
+        /// Created: 2019/03/07
+        /// 
+        /// Selects Appointments based on a guest ID
+        /// </summary>
+        /// <param name="guestID"></param>
+        /// <returns>A list of Mock Appointments</returns>
+        public List<Appointment> SelectAppointmentByGuestID(int guestID)
+        {
+            List<Appointment> appointments = new List<Appointment>();
+
+            foreach (var appointment in _appointments)
+            {
+                if (appointment.GuestID == guestID)
+                {
+                    appointments.Add(appointment);
+                }
+            }
+
+            return appointments;
+        }
+
+        /// <summary>
+        /// Wes Richardson
+        /// Created: 2019/03/28
+        /// 
+        /// Deletes Mock Appointments by Given ID
+        /// </summary>
+        /// <param name="appointmentID"></param>
+        /// <returns>Number of Rows affected</returns>
+        public int DeleteAppointmentByID(int appointmentID)
+        {
+            int rows = 0;
+
+            foreach (var appointment in _appointments)
+            {
+                if (appointment.AppointmentID == appointmentID)
+                {
+                    _appointments.Remove(appointment);
+                    rows = 1;
+                    break;
+                }
+            }
+
+            return rows;
+        }
+
+        /// <summary>
+        /// Wes Richardson
+        /// Created: 2019/03/07
+        ///  
+        /// </summary>
+        /// <param name="appointment"></param>
+        /// <returns></returns>
         public int UpdateAppointment(Appointment appointment)
         {
             int row = 0;
             foreach (var appt in _appointments)
             {
-                if(appt.AppointmentID == appointment.AppointmentID)
+                if (appt.AppointmentID == appointment.AppointmentID)
                 {
                     _appointments.Remove(appt);
                     _appointments.Add(appointment);
@@ -107,7 +162,6 @@ namespace DataAccessLayer
             };
             _appointmentTypes.Add(at4);
         }
-
         private void BuildGuestList()
         {
             AppointmentGuestViewModel apgm1 = new AppointmentGuestViewModel()
@@ -130,7 +184,7 @@ namespace DataAccessLayer
         }
         private void BuildAppointmentList()
         {
-            
+
             Appointment apt1 = new Appointment()
             {
                 AppointmentID = nextAppID,
@@ -138,7 +192,7 @@ namespace DataAccessLayer
                 GuestID = 100000,
                 StartDate = new DateTime(2020, 12, 25, 10, 30, 50),
                 EndDate = new DateTime(2020, 12, 25, 10, 50, 50),
-                Description = "Spa" 
+                Description = "Spa"
             };
             nextAppID++;
             _appointments.Add(apt1);
