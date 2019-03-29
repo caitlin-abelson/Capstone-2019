@@ -184,5 +184,26 @@ namespace Presentation
             }     
            
         }
+        /// <summary>
+        /// Kevin Broskow
+        /// 3/29/2019
+        /// Added functionality to recieve external orders
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnReceived_Click(object sender, RoutedEventArgs e)
+        {
+            if ((SupplierOrder)dgSupplierOrders.SelectedItem != null)
+            {
+                _supplierOrder = (SupplierOrder)dgSupplierOrders.SelectedItem;
+
+                var orderReceived = new OrderRecieving(_supplierOrder);
+                var result = orderReceived.ShowDialog();
+            }
+            else
+            {
+                MessageBox.Show("You must select an order");
+            }
+        }
     }
 }
