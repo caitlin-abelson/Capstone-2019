@@ -149,8 +149,34 @@ namespace MillennialResortWebSite.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
+            /// <summary>
+            /// Author: Ramesh Adhikari
+            /// Created On: 03/27/2019
+            /// </summary>
             if (ModelState.IsValid)
             {
+                var member = new ApplicationUser
+                {
+                    FirstName = model.FirstName,
+                    LastName = model.LastName,
+                    UserName = model.Email,
+                    Email = model.Email,
+                    PhoneNumber = model.PhoneNumber
+                };
+                try
+                {
+                    //FirstName = model.FirstName,
+                    // LastName = model.LastName,
+                    // UserName = model.Email,
+                    //Email = model.Email,
+                    // PhoneNumber = model.PhoneNumber
+
+                }
+                catch (Exception)
+                {
+
+                    throw;
+                }
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
