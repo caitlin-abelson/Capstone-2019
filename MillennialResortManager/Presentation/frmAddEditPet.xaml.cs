@@ -34,6 +34,7 @@ namespace Presentation
         private Pet _oldPet;
         private Pet _newPet;
         private PetTypeManager _petTypeManager = new PetTypeManager();
+        private string _filename; // added on 3/12/19 by Matt H.
 
 
 
@@ -184,6 +185,10 @@ namespace Presentation
                 {
                     MessageBox.Show("Guest ID must be a six digit number");
                 }
+                else if (imgPet.Source == null) // addedon 3/12/19 by Matt H.
+                {
+                    MessageBox.Show("No pet image uploaded. Please upload an image for your pet.");
+                }
                 else
                 {
                     _newPet = new Pet()
@@ -192,7 +197,8 @@ namespace Presentation
                         Gender = cboPetGender.Text,
                         Species = txtPetSpecies.Text,
                         PetTypeID = cboPetType.Text,
-                        GuestID = int.Parse(txtGuestID.Text)
+                        GuestID = int.Parse(txtGuestID.Text),
+                        imageFilename = System.IO.Path.GetFileName(_filename) // added on 3/12/19 by Matt H.
                     };
                     result = true;
                 }
@@ -214,7 +220,8 @@ namespace Presentation
                 {
                     try
                     {
-                        _petManager.CreatePet(_newPet);
+                        int latestID = _petManager.CreatePet(_newPet); // added on 3/12/19 by Matt H.
+                        _petManager.AddPetImageFilename(_newPet.imageFilename, latestID); // added on 3/12/19 by Matt H.
                         this.DialogResult = true;
                     }
                     catch (Exception ex)
@@ -230,6 +237,7 @@ namespace Presentation
                     try
                     {
                         _petManager.UpdatePet(_oldPet, _newPet);
+                        _petManager.EditPetImageFilename(_oldPet.PetID, _oldPet.imageFilename, _newPet.imageFilename); // added on 3/14/19 by Matt H.
                         this.DialogResult = true;
                     }
                     catch (Exception ex)
@@ -256,8 +264,6 @@ namespace Presentation
             // Create OpenFileDialog 
             var dlg = new OpenFileDialog();
 
-
-
             // Set filter for file extension and default file extension 
             dlg.DefaultExt = ".png";
             dlg.Filter = "JPEG Files (*.jpeg)|*.jpeg|PNG Files (*.png)|*.png|JPG Files (*.jpg)|*.jpg|GIF Files (*.gif)|*.gif";
@@ -266,24 +272,14 @@ namespace Presentation
             // Display OpenFileDialog by calling ShowDialog method 
             Nullable<bool> result = dlg.ShowDialog();
 
-
-
             // Get the selected file name and display in a TextBox 
             if (result == true)
             {
                 // Open document 
-                string filename = dlg.FileName;
+                _filename = dlg.FileName; // added on 3/12/19 by Matt H.
                 imgPet.Source = new BitmapImage(new Uri(dlg.FileName));
             }
         }
-
-
-
-
-
-
-
-
 
         private void BtnAddEventType_Click(object sender, RoutedEventArgs e)
         {

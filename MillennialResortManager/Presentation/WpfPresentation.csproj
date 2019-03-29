@@ -562,5 +562,16 @@
       <Name>LogicLayer</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\default.png" />
+    <Resource Include="Resources\pet1.jpg" />
+    <Resource Include="Resources\pet2.JPG" />
+    <Resource Include="Resources\pet3.jpg" />
+    <Resource Include="Resources\pet4.jpg" />
+    <Resource Include="Resources\pet5.jpg" />
+    <Resource Include="Resources\pet6.jpg" />
+    <Resource Include="Resources\pet7.jpg" />
+    <Resource Include="Resources\pet8.jpg" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

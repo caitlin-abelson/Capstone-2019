@@ -40,13 +40,13 @@ namespace LogicLayer
         /// <param name="Pet newPet">The Create Pet is passes the new pet to the InsertPet.</param>
         /// <returns>Result</returns>
         //Method for creating a new Pet
-        public bool CreatePet(Pet newPet)
+        public int CreatePet(Pet newPet) // Edited on 3/17/19 by Matt H.
         {
-            bool result = false;
+            int result = 0;
 
             try
             {
-                result = (1 == _petAccessor.InsertPet(newPet));
+                result = _petAccessor.InsertPet(newPet);
             }
             catch (Exception)
             {
@@ -125,6 +125,76 @@ namespace LogicLayer
             }
             return result;
         }
-    
+
+        ///  @Author Matthew Hill
+        ///  @Created 3/10/19
+        //AddPetImageFilename(string filename, int petID)
+        /// <summary>
+        /// Method for adding a pet image filename.
+        /// </summary>
+        /// <param name="string filename, int petID">The Add calls CreatePetImageFilename(filename, petID).</param>
+        /// <returns>result</returns>
+        public bool AddPetImageFilename(string filename, int petID)
+        {
+            bool result = false;
+
+            try
+            {
+                result = (1 == _petAccessor.CreatePetImageFilename(filename, petID));
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            return result;
+        }
+
+        ///  @Author Matthew Hill
+        ///  @Created 3/10/19
+        //EditPetImageFilename(int petID, string oldFilename, string newFilename)
+        /// <summary>
+        /// Method for updating the filename associated with a specific pet.
+        /// </summary>
+        /// <param name="int petID, string oldFilename, string newFilename">The Edit calls UpdatePetImageFilename(int petID, string oldFilename, string newFilename).</param>
+        /// <returns>result</returns>
+        public bool EditPetImageFilename(int petID, string oldFilename, string newFilename)
+        {
+            bool result = false;
+
+            try
+            {
+                result = (1 == _petAccessor.UpdatePetImageFilename(petID, oldFilename, newFilename));
+            }
+            catch (Exception)
+            {
+                throw;
+
+            }
+            return result;
+        }
+
+        ///  @Author Matthew Hill
+        ///  @Created 3/10/19
+        //RetrievePetImageFilenameByPetID(int petID)
+        /// <summary>
+        /// Method for retrieving a pet image filename by petID.
+        /// </summary>
+        /// <param name="int petID">The Retrieve calls RetrievePetImageFilenameByPetID(petID).</param>
+        /// <returns>result</returns>
+        public string RetrievePetImageFilenameByPetID(int petID)
+        {
+            string filename;
+
+            try
+            {
+                filename = _petAccessor.RetrievePetImageFilenameByPetID(petID);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            return filename;
+        }
+
     }
 }
