@@ -24,7 +24,6 @@ namespace Presentation
     /// This is a launcher for Developers to use while we develop functionality for our program
     /// 
     /// To quickly find the section of code you are looking for Ctrl + F and look for one of these Keys:
-    /// #Sidebar
     /// #NavBar
     /// #BrowseReservation
     /// #BrowseShops
@@ -53,6 +52,7 @@ namespace Presentation
     /// #BrowseRoom
     /// #BrowseMaintenanceType
     /// #BrowseMember
+    /// #Profile
     /// 
     /// </summary>
     public partial class DevLauncher : Window
@@ -173,6 +173,11 @@ namespace Presentation
         //private List<Supplier> _suppliers; Already in use
         private List<SupplierOrder> _supplierOrders;
         private List<SupplierOrder> _currentSupplierOrders;
+        //Profile
+        private List<Department> _departments;
+        // EmployeeManager _employeeManager;
+        DepartmentManager _departmentManager;
+        private Employee _newEmployee;
 
 
 
@@ -186,8 +191,7 @@ namespace Presentation
         {
             _employee = employee;
             InitializeComponent();
-            //For Sidebar
-            HideSidebarSubItems();
+
             //For Navbar
             HideNavBarOptions();
         }
@@ -201,40 +205,186 @@ namespace Presentation
         /// </summary>
         private void HideNavBarOptions()
         {
-            if (_employee.EmployeeRoles.Count(x => x.RoleID == "Admin") > 0)
+            /*
+             * Admin,
+        Maintenance,
+        Events,
+        ResortOperations,
+        Pet,
+        FoodService,
+        Ordering,
+        NewEmployee
+             * */
+            if (_employee.DepartmentID == "Admin")
             {
-                return;
+                //This person can see everything
             }
+            else if (_employee.DepartmentID == "Maintenance")
+            {
+                HideNavbarOption();
+                if (_employee.EmployeeRoles.Count(x => x.RoleID == "Manager") > 0)
+                {
+                    //This employee is not an Admin so hide all admin only things within Maintenance Pages
+
+                }
+                else if (_employee.EmployeeRoles.Count(x => x.RoleID == "Worker") > 0)
+                {
+                    //This employee is not an Admin or a Manager so hide all admin/manager things within Maintenance Pages
+                    NavBarSubHeaderMaintenanceTypes.Visibility = Visibility.Collapsed;
+                }
+                else
+                {
+                    //This person has no assigned roles or his roles are messed up.
+                    NavBarSubHeaderMaintenanceTypes.Visibility = Visibility.Collapsed;
+                }
+            }
+            else if (_employee.DepartmentID == "Events")
+            {
+                HideNavbarOption();
+                if (_employee.EmployeeRoles.Count(x => x.RoleID == "Manager") > 0)
+                {
+                    //This employee is not an Admin so hide all admin only things within Events Pages
+
+                }
+                else if (_employee.EmployeeRoles.Count(x => x.RoleID == "Worker") > 0)
+                {
+                    //This employee is not an Admin or a Manager so hide all admin/manager things within Events Pages
+                    NavBarSubHeaderEventTypes.Visibility = Visibility.Collapsed;
+                }
+                else
+                {
+                    //This person has no assigned roles or his roles are messed up so be safe and hide everything.
+                    NavBarSubHeaderEventTypes.Visibility = Visibility.Collapsed;
+                    NavBarSubHeaderPerformances.Visibility = Visibility.Collapsed;
+                    NavBarSubHeaderSetupLists.Visibility = Visibility.Collapsed;
+                    NavBarSubHeaderEvents.Visibility = Visibility.Collapsed;
+                }
+            }
+            else if (_employee.DepartmentID == "ResortOperations")
+            {
+                HideNavbarOption();
+                if (_employee.EmployeeRoles.Count(x => x.RoleID == "Manager") > 0)
+                {
+                    //This employee is not an Admin so hide all admin only things within Resort Operations Pages
+
+                }
+                else if (_employee.EmployeeRoles.Count(x => x.RoleID == "Worker") > 0)
+                {
+                    //This employee is not an Admin or a Manager so hide all admin/manager things within Resort Operations Pages
+                    NavBarSubHeaderAppointmentTypes.Visibility = Visibility.Collapsed;
+                    NavBarSubHeaderGuests.Visibility = Visibility.Collapsed;
+                    NavBarSubHeaderGuestTypes.Visibility = Visibility.Collapsed;
+                    NavBarSubHeaderPets.Visibility = Visibility.Collapsed;
+                }
+                else
+                {
+                    //This person has no assigned roles or his roles are messed up.
+                    NavBarSubHeaderAppointmentTypes.Visibility = Visibility.Collapsed;
+                    NavBarSubHeaderGuests.Visibility = Visibility.Collapsed;
+                    NavBarSubHeaderGuestVehicles.Visibility = Visibility.Collapsed;
+                    NavBarSubHeaderPets.Visibility = Visibility.Collapsed;
+                    NavBarSubHeaderReservation.Visibility = Visibility.Collapsed;
+                    NavBarSubHeaderRooms.Visibility = Visibility.Collapsed;
+                    NavBarSubHeaderMembers.Visibility = Visibility.Collapsed;
+                }
+            }
+            else if (_employee.DepartmentID == "FoodService")
+            {
+                HideNavbarOption();
+                if (_employee.EmployeeRoles.Count(x => x.RoleID == "Manager") > 0)
+                {
+                    //This employee is not an Admin so hide all admin only things within Food Service Pages
+
+                }
+                else if (_employee.EmployeeRoles.Count(x => x.RoleID == "Worker") > 0)
+                {
+                    //This employee is not an Admin or a Manager so hide all admin/manager things within Food Service Pages
+                }
+                else
+                {
+                    //This person has no assigned roles or his roles are messed up.
+                    NavBarSubHeaderRecipes.Visibility = Visibility.Collapsed;
+                }
+            }
+            else if (_employee.DepartmentID == "Ordering")
+            {
+                HideNavbarOption();
+                if (_employee.EmployeeRoles.Count(x => x.RoleID == "Manager") > 0)
+                {
+                    //This employee is not an Admin so hide all admin only things within Ordering Pages
+
+                }
+                else if (_employee.EmployeeRoles.Count(x => x.RoleID == "Worker") > 0)
+                {
+                    //This employee is not an Admin or a Manager so hide all admin/manager things within Ordering Pages
+                    NavBarSubHeaderProducts.Visibility = Visibility.Collapsed;
+                }
+                else
+                {
+                    //This person has no assigned roles or his roles are messed up.
+                    NavBarSubHeaderProducts.Visibility = Visibility.Collapsed;
+                    NavBarSubHeaderSuppliers.Visibility = Visibility.Collapsed;
+                    NavBarSubHeaderSupplierOrders.Visibility = Visibility.Collapsed;
+                    NavBarSubHeaderOrders.Visibility = Visibility.Collapsed;
+                    NavBarSubHeaderSponsors.Visibility = Visibility.Collapsed;
+                }
+            }
+            else
+            {
+                //No department assigned or department has not been added above
+                HideNavbarOption();
+            }
+
+            //Ensure Profile is visible
+
+
+
+            //if (_employee.EmployeeRoles.Count(x => x.RoleID == "Admin") > 0)
+            //{
+            //    return;
+            //}
+            //foreach (MenuItem mi in NavbarMenu.Items)
+            //{
+            //    if (mi.Name.Contains('_'))
+            //    {
+            //        int displayedSubItems = 0;
+            //        foreach (MenuItem subMi in mi.Items)
+            //        {
+            //            bool canSee = false;
+            //            foreach (var role in _employee.EmployeeRoles)
+            //            {
+            //                if (subMi.Name.Contains(role.RoleID))
+            //                {
+            //                    canSee = true;
+            //                    displayedSubItems++;
+            //                    break;
+            //                }
+            //            }
+            //            if (!canSee)
+            //            {
+            //                subMi.Visibility = Visibility.Hidden;
+            //                subMi.Height = 0;
+            //            }
+            //        }
+            //        if (displayedSubItems == 0)
+            //        {
+            //            mi.Visibility = Visibility.Hidden;
+            //        }
+            //    }
+            //}
+        }
+
+        private void HideNavbarOption()
+        {
             foreach (MenuItem mi in NavbarMenu.Items)
             {
-                if (mi.Name.Contains('_'))
+                if (!(mi.Name.Contains("_") && mi.Name.Contains(_employee.DepartmentID)))
                 {
-                    int displayedSubItems = 0;
-                    foreach (MenuItem subMi in mi.Items)
-                    {
-                        bool canSee = false;
-                        foreach (var role in _employee.EmployeeRoles)
-                        {
-                            if (subMi.Name.Contains(role.RoleID))
-                            {
-                                canSee = true;
-                                displayedSubItems++;
-                                break;
-                            }
-                        }
-                        if (!canSee)
-                        {
-                            subMi.Visibility = Visibility.Hidden;
-                            subMi.Height = 0;
-                        }
-                    }
-                    if (displayedSubItems == 0)
-                    {
-                        mi.Visibility = Visibility.Hidden;
-                    }
+                    mi.Visibility = Visibility.Collapsed;
                 }
-
             }
+            _NavBarHeaderProfile.Visibility = Visibility.Visible;
+            NavBarSubHeaderEmployee.Visibility = Visibility.Collapsed; //This is admin only test
         }
 
         /// <summary>
@@ -280,17 +430,6 @@ namespace Presentation
             login.ShowDialog();
         }
 
-        /// <summary>
-        /// Author: Matt LaMarche
-        /// Created : 3/07/2019
-        /// For the Sidebar - Toggles the sidebars visibility
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void btnMenu_Click(object sender, RoutedEventArgs e)
-        {
-            ToggleSidebar();
-        }
 
         /// <summary>
         /// Author: Matt LaMarche
@@ -323,523 +462,7 @@ namespace Presentation
         }
 
 
-        /*--------------------------- Starting SideBar Code #Sidebar --------------------------------*/
 
-        /// <summary>
-        /// Author: Matt LaMarche
-        /// Created : 3/07/2019
-        /// Hides the buttons in the sidebar which are not headers. This makes the sidebar cleaner and appears more responsive
-        /// </summary>
-        private void HideSidebarSubItems()
-        {
-            int HeaderCount = 0;
-            foreach (Control c in SideBarButtons.Children)
-            {
-                if (c is Button)
-                {
-                    Button b = c as Button;
-                    if (b.Name.Contains("SubHeader"))
-                    {
-                        HideButton(b);
-                        b.Visibility = Visibility.Hidden;
-                    }
-                    else
-                    {
-                        b.SetValue(Grid.RowProperty, HeaderCount);
-                        HeaderCount++;
-                    }
-                }
-            }
-        }
-
-        /// <summary>
-        /// Author: Matt LaMarche
-        /// Created : 3/07/2019
-        /// All references to Hide a button are done here in case we want to do more than just toggle visibility
-        /// </summary>
-        /// <param name="b"></param>
-        private void HideButton(Button b)
-        {
-            b.Visibility = Visibility.Hidden;
-            b.Height = 0;
-        }
-
-        /// <summary>
-        /// Author: Matt LaMarche
-        /// Created : 3/07/2019
-        /// All references to Show a button are done here to be sure buttons are restored properly in case we are not just toggling visibility
-        /// </summary>
-        /// <param name="b"></param>
-        private void ShowButton(Button b)
-        {
-            b.Visibility = Visibility.Visible;
-            b.Height = double.NaN;
-        }
-
-        /// <summary>
-        /// Author: Matt LaMarche
-        /// Created : 3/07/2019
-        /// Displays all the sidebar sub item buttons based on which header button was clicked on
-        /// </summary>
-        /// <param name="v">Name of the Header we are using to find subheaders of</param>
-        private void DisplaySideBarSubButtonsByHeader(string v)
-        {
-            int HeaderCount = 0;
-            foreach (Control c in SideBarButtons.Children)
-            {
-                if (c is Button)
-                {
-                    Button b = c as Button;
-                    if (b.Name.Contains("SubHeader") && !b.Name.Contains(v))
-                    {
-                        b.Visibility = Visibility.Hidden;
-                    }
-                    else
-                    {
-                        if (!b.Name.Contains("SubHeader"))
-                        {
-                            b.SetValue(Grid.RowProperty, HeaderCount);
-                            HeaderCount++;
-                        }
-                        else if (b.Visibility == Visibility.Hidden)
-                        {
-                            b.SetValue(Grid.RowProperty, HeaderCount);
-                            if (CanSeeOption(b.Uid))
-                            {
-                                ShowButton(b);
-                                HeaderCount++;
-                            }
-                        }
-                        else
-                        {
-                            HideButton(b);
-                        }
-                    }
-                }
-            }
-        }
-
-
-
-        /// <summary>
-        /// Author: Matt LaMarche
-        /// Created : 3/07/2019
-        /// Hides the Sidebar and Sidebar subheader buttons
-        /// </summary>
-        private void HideSidebar()
-        {
-            SideBar.Visibility = Visibility.Hidden;
-            HideSidebarSubItems();
-        }
-
-        /// <summary>
-        /// Author: Matt LaMarche
-        /// Created : 3/07/2019
-        /// Shows the Sidebar
-        /// </summary>
-        private void ShowSidebar()
-        {
-            SideBar.Visibility = Visibility.Visible;
-        }
-
-        /// <summary>
-        /// Author: Matt LaMarche
-        /// Created : 3/07/2019
-        /// Toggles the sidebar depending on its current visibility status 
-        /// </summary>
-        private void ToggleSidebar()
-        {
-            if (SideBar.Visibility == Visibility.Visible)
-            {
-                HideSidebar();
-            }
-            else
-            {
-                ShowSidebar();
-            }
-        }
-
-        /// <summary>
-        /// Author: Matt LaMarche
-        /// Created : 3/07/2019
-        /// This is what happens when the header button for Reservation is clicked from the sidebar
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void btnSidebarHeaderReservation_Click(object sender, RoutedEventArgs e)
-        {
-            DisplaySideBarSubButtonsByHeader("Reservation");
-        }
-
-        /// <summary>
-        /// Author: Matt LaMarche
-        /// Created : 3/07/2019
-        /// This is what happens when the header button for Guest Services is clicked from the sidebar
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void btnSidebarHeaderGuestServices_Click(object sender, RoutedEventArgs e)
-        {
-            DisplaySideBarSubButtonsByHeader("GuestServices");
-        }
-
-        /// <summary>
-        /// Author: Matt LaMarche
-        /// Created : 3/07/2019
-        /// This is what happens when the header button for Food Services is clicked from the sidebar
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void btnSidebarHeaderFoodServices_Click(object sender, RoutedEventArgs e)
-        {
-            DisplaySideBarSubButtonsByHeader("FoodServices");
-        }
-
-        /// <summary>
-        /// Author: Matt LaMarche
-        /// Created : 3/07/2019
-        /// This is what happens when the subheader button for Reserving a room is clicked from the sidebar
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void btnSidebarReservationSubHeaderReserveARoom_Click(object sender, RoutedEventArgs e)
-        {
-            HideSidebar();
-            //Display stuff for Browse Reservation
-            /*var BrowseReservation = new BrowseReservation(_employee);
-            BrowseReservation.ShowDialog();*/
-            DisplayPage("BrowseReservation");
-
-            //Check. do we want to reset BrowseReservation here or do we want to keep the instance?
-            //BrowseReservationDoOnStart();
-        }
-
-        /// <summary>
-        /// Author: Matt LaMarche
-        /// Created : 3/07/2019
-        /// This is what happens when the subheader button for Shops is clicked from the sidebar
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void btnSidebarReservationSubHeaderBrowseShops_Click(object sender, RoutedEventArgs e)
-        {
-            HideSidebar();
-            DisplayPage("BrowseShops");
-            // BrowseShopsDoOnStart();
-        }
-
-        /// <summary>
-        /// Author: Matt LaMarche
-        /// Created : 3/07/2019
-        /// This is what happens when the subheader button for Employees is clicked from the sidebar
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void btnSidebarReservationSubHeaderBrowseEmployees_Click(object sender, RoutedEventArgs e)
-        {
-            HideSidebar();
-            DisplayPage("BrowseEmployees");
-            //BrowseEmployeesDoOnStart();
-        }
-
-        /// <summary>
-        /// Author: Matt LaMarche
-        /// Created : 3/07/2019
-        /// This is what happens when the subheader button for Suppliers is clicked from the sidebar
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void btnSidebarReservationSubHeaderBrowseSuppliers_Click(object sender, RoutedEventArgs e)
-        {
-            HideSidebar();
-            DisplayPage("BrowseSuppliers");
-            //BrowseSuppliersDoOnStart();
-        }
-
-        /// <summary>
-        /// Author: Matt LaMarche
-        /// Created : 3/07/2019
-        /// This is what happens when the subheader button for Products is clicked from the sidebar
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void btnSidebarReservationSubHeaderBrowseProducts_Click(object sender, RoutedEventArgs e)
-        {
-            HideSidebar();
-            DisplayPage("BrowseProducts");
-            //BrowseProductsDoOnStart();
-        }
-
-        /// <summary>
-        /// Author: Matt LaMarche
-        /// Created : 3/07/2019
-        /// This is what happens when the subheader button for Buildings is clicked from the sidebar
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void btnSidebarReservationSubHeaderBrowseBuilding_Click(object sender, RoutedEventArgs e)
-        {
-            HideSidebar();
-            DisplayPage("BrowseBuilding");
-            //BrowseBuildingDoOnStart();
-        }
-
-        /// <summary>
-        /// Author: Matt LaMarche
-        /// Created : 3/07/2019
-        /// This is what happens when the subheader button for Orders is clicked from the sidebar
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void btnSidebarReservationSubHeaderBrowseOrders_Click(object sender, RoutedEventArgs e)
-        {
-            HideSidebar();
-            DisplayPage("BrowseOrders");
-            //BrowseOrderDoOnStart();
-        }
-
-        /// <summary>
-        /// Author: Matt LaMarche
-        /// Created : 3/07/2019
-        /// This is what happens when the subheader button for Employee Roles is clicked from the sidebar
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void btnSidebarReservationSubHeaderBrowseEmployeeRoles_Click(object sender, RoutedEventArgs e)
-        {
-            HideSidebar();
-            DisplayPage("BrowseEmployeeRoles");
-            //BrowseEmployeeRolesDoOnStart();
-        }
-
-        /// <summary>
-        /// Author: Matt LaMarche
-        /// Created : 3/07/2019
-        /// This is what happens when the subheader button for Guest Types is clicked from the sidebar
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void btnSidebarReservationSubHeaderBrowseGuestType_Click(object sender, RoutedEventArgs e)
-        {
-            HideSidebar();
-            DisplayPage("BrowseGuestTypes");
-            //BrowseGuestTypesDoOnStart();
-
-        }
-
-        /// <summary>
-        /// Author: Matt LaMarche
-        /// Created : 3/07/2019
-        /// This is what happens when the subheader button for Room Types is clicked from the sidebar
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void btnSidebarReservationSubHeaderBrowseRoomType_Click(object sender, RoutedEventArgs e)
-        {
-            HideSidebar();
-            DisplayPage("BrowseRoomType");
-            //BrowseRoomTypesDoOnStart();
-        }
-
-        /// <summary>
-        /// Author: Matt LaMarche
-        /// Created : 3/07/2019
-        /// This is what happens when the subheader button for Performances is clicked from the sidebar
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void btnSidebarReservationSubHeaderBrowsePerformance_Click(object sender, RoutedEventArgs e)
-        {
-            HideSidebar();
-            DisplayPage("BrowsePerformance");
-            //BrowsePerformanceDoOnStart();
-        }
-
-        /// <summary>
-        /// Author: Matt LaMarche
-        /// Created : 3/13/2019
-        /// This is what happens when the subheader button for Event Types is clicked from the sidebar
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void btnSidebarReservationSubHeaderBrowseEventTypes_Click(object sender, RoutedEventArgs e)
-        {
-            HideSidebar();
-            DisplayPage("BrowseEventTypes");
-            //BrowseEventTypesDoOnStart();
-        }
-
-        /// <summary>
-        /// Author: Matt LaMarche
-        /// Created : 3/13/2019
-        /// This is what happens when the subheader button for Appointment Types is clicked from the sidebar
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void btnSidebarReservationSubHeaderBrowseAppointmentTypes_Click(object sender, RoutedEventArgs e)
-        {
-            HideSidebar();
-            DisplayPage("BrowseAppointmentType");
-            //BrowseAppointmentTypeDoOnStart();
-        }
-
-        /// <summary>
-        /// Author: Matt LaMarche
-        /// Created : 3/13/2019
-        /// This is what happens when the subheader button for Guests is clicked from the sidebar
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void btnSidebarGuestServicesSubHeaderBrowseGuests_Click(object sender, RoutedEventArgs e)
-        {
-            HideSidebar();
-            DisplayPage("BrowseGuests");
-            //BrowseGuestDoOnStart();
-        }
-
-        /// <summary>
-        /// Author: Matt LaMarche
-        /// Created : 3/13/2019
-        /// This is what happens when the subheader button for Guest Vehicles is clicked from the sidebar
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void btnSidebarGuestServicesSubHeaderBrowseGuestVehicles_Click(object sender, RoutedEventArgs e)
-        {
-            HideSidebar();
-            DisplayPage("BrowseGuestVehicle");
-            //BrowseGuestVehicleDoOnStart();
-        }
-
-        /// <summary>
-        /// Author: Matt LaMarche
-        /// Created : 3/13/2019
-        /// This is what happens when the subheader button for Setup Lists is clicked from the sidebar
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void btnSidebarGuestServicesSubHeaderBrowseSetupLists_Click(object sender, RoutedEventArgs e)
-        {
-            HideSidebar();
-            DisplayPage("BrowseSetupList");
-            //BrowseSetupListDoOnStart();
-        }
-
-        /// <summary>
-        /// Author: Matt LaMarche
-        /// Created : 3/13/2019
-        /// This is what happens when the subheader button for Sponsors is clicked from the sidebar
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void btnSidebarGuestServicesSubHeaderBrowseSponsors_Click(object sender, RoutedEventArgs e)
-        {
-            HideSidebar();
-            DisplayPage("BrowseSponsor");
-            //BrowseSponsorDoOnStart();
-        }
-
-        /// <summary>
-        /// Author: Matt LaMarche
-        /// Created : 3/13/2019
-        /// This is what happens when the subheader button for Recipes is clicked from the sidebar
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void btnSidebarGuestServicesSubHeaderBrowseRecipes_Click(object sender, RoutedEventArgs e)
-        {
-            HideSidebar();
-            DisplayPage("BrowseRecipe");
-            //BrowseRecipeDoOnStart();
-        }
-
-        /// <summary>
-        /// Author: Matt LaMarche
-        /// Created : 3/13/2019
-        /// This is what happens when the subheader button for Events is clicked from the sidebar
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void btnSidebarGuestServicesSubHeaderBrowseEvents_Click(object sender, RoutedEventArgs e)
-        {
-            HideSidebar();
-            DisplayPage("BrowseEvents");
-            //BrowseEventDoOnStart();
-        }
-
-        /// <summary>
-        /// Author: Matt LaMarche
-        /// Created : 3/13/2019
-        /// This is what happens when the subheader button for Supplier Orders is clicked from the sidebar
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void btnSidebarGuestServicesSubHeaderBrowseSupplierOrders_Click(object sender, RoutedEventArgs e)
-        {
-            HideSidebar();
-            DisplayPage("BrowseSupplierOrders");
-            //BrowseSupplierOrdersDoOnStart();
-        }
-
-        /// <summary>
-        /// Author: Matt LaMarche
-        /// Created : 3/13/2019
-        /// This is what happens when the subheader button for Pets is clicked from the sidebar
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void btnSidebarGuestServicesSubHeaderBrowsePets_Click(object sender, RoutedEventArgs e)
-        {
-            HideSidebar();
-            DisplayPage("BrowsePets");
-            //BrowsePetsDoOnStart();
-        }
-
-        /// <summary>
-        /// Author: Matt LaMarche
-        /// Created : 3/13/2019
-        /// This is what happens when the subheader button for Rooms is clicked from the sidebar
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void btnSidebarGuestServicesSubHeaderBrowseRooms_Click(object sender, RoutedEventArgs e)
-        {
-            HideSidebar();
-            DisplayPage("BrowseRoomss");
-            BrowseRoomsDoOnStart();
-        }
-
-        /// <summary>
-        /// Author: Matt LaMarche
-        /// Created : 3/13/2019
-        /// This is what happens when the subheader button for Maintenance Types is clicked from the sidebar
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void btnSidebarGuestServicesSubHeaderBrowseMaintenanceTypes_Click(object sender, RoutedEventArgs e)
-        {
-            HideSidebar();
-            DisplayPage("BrowseMaintenanceTypes");
-            //BrowseMaintenanceTypeDoOnStart();
-        }
-
-        /// <summary>
-        /// Author: Matt LaMarche
-        /// Created : 3/13/2019
-        /// This is what happens when the subheader button for Members is clicked from the sidebar
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void btnSidebarGuestServicesSubHeaderBrowseMembers_Click(object sender, RoutedEventArgs e)
-        {
-            HideSidebar();
-            DisplayPage("BrowseMembers");
-            //BrowseMemberDoOnStart();
-        }
-
-
-
-        /*--------------------------- Ending SideBar Code --------------------------------*/
 
 
         /*--------------------------- Starting NavBar Code #NavBar --------------------------------*/
@@ -1154,6 +777,19 @@ namespace Presentation
         {
             DisplayPage("BrowseMembers");
             //BrowseMemberDoOnStart();
+        }
+
+        /// <summary>
+        /// Author: Matt LaMarche
+        /// Created : 3/23/2019
+        /// This is what happens when the subheader button for Profile is clicked from the navbar
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void NavBarSubHeaderProfile_Click(object sender, RoutedEventArgs e)
+        {
+            DisplayPage("Profile");
+            //ProfileDoOnStart();
         }
 
         /*--------------------------- Ending NavBar Code --------------------------------*/
@@ -5869,13 +5505,399 @@ namespace Presentation
         /*--------------------------- Ending BrowseMember Code --------------------------------*/
 
 
+        /*--------------------------- Starting Profile Code #Profile--------------------------------*/
+        private void ProfileDoOnStart()
+        {
+            _departmentManager = new DepartmentManager();
+            _employeeManager = new EmployeeManager();
+
+            try
+            {
+                _departments = _departmentManager.GetAllDepartments();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            cbxDepartmentProfile.ItemsSource = _departments;
+            populateReadOnly();
+            readOnlyForm();
+        }
+
+        /// <summary>
+        /// Author: Caitlin Abelson
+        /// Created Date: 2/3/19
+        /// 
+        /// This method establishes what information is read only when someone is reading information about 
+        /// and employee.
+        /// </summary>
+        private void readOnlyForm()
+        {
+            txtFirstNameProfile.Text = _employee.FirstName;
+            txtLastNameProfile.Text = _employee.LastName;
+            txtPhoneProfile.Text = _employee.PhoneNumber;
+            txtEmailProfile.Text = _employee.Email;
+            cbxDepartmentProfile.SelectedItem = _employee.DepartmentID;
+            chkActiveProfile.IsChecked = _employee.Active;
+
+            txtFirstNameProfile.IsReadOnly = true;
+            txtLastNameProfile.IsReadOnly = true;
+            txtPhoneProfile.IsReadOnly = true;
+            txtEmailProfile.IsReadOnly = true;
+            cbxDepartmentProfile.IsEnabled = false;
+            chkActiveProfile.Visibility = Visibility.Hidden;
+            lblActiveProfile.Visibility = Visibility.Hidden;
+        }
+
+        /// <summary>
+        /// Author: Caitlin Abelson
+        /// Created Date: 2/5/19
+        /// 
+        /// This sets up the information that can be edited on the form when the user
+        /// clicks update
+        /// </summary>
+        private void editableForm()
+        {
+            txtFirstNameProfile.IsReadOnly = false;
+            txtLastNameProfile.IsReadOnly = false;
+            txtPhoneProfile.IsReadOnly = false;
+            txtEmailProfile.IsReadOnly = false;
+            cbxDepartmentProfile.IsEnabled = true;
+            btnSaveProfile.Content = "Submit";
+        }
+
+        /// <summary>
+        /// Author: Caitlin Abelson
+        /// Created Date: 2/5/19
+        /// 
+        /// This method fills in all of the information for the employee that was chosen in browse.
+        /// </summary>
+        private void populateReadOnly()
+        {
+            txtFirstNameProfile.Text = _employee.FirstName;
+            txtLastNameProfile.Text = _employee.LastName;
+            txtPhoneProfile.Text = _employee.PhoneNumber;
+            txtEmailProfile.Text = _employee.Email;
+            cbxDepartmentProfile.SelectedItem = _departments.Find(d => d.DepartmentID == _employee.DepartmentID);
+            chkActiveProfile.IsChecked = _employee.Active;
+            readOnlyForm();
+            btnSaveProfile.Content = "Update";
+        }
+
+
+        /// <summary>
+        /// Author: Caitlin Abelson
+        /// Created Date: 1/30/19
+        /// 
+        /// The btnSave_Click method is used for saving a new employee or updating 
+        /// an existing employee in the system.
+        /// </summary>
+        private void btnSaveProfile_Click(object sender, RoutedEventArgs e)
+        {
+            if (btnSaveProfile.Content.Equals("Submit"))
+            {
+                if (!ValidateInput())
+                {
+                    return;
+                }
+
+                _newEmployee = new Employee()
+                {
+                    FirstName = txtFirstNameProfile.Text,
+                    LastName = txtLastNameProfile.Text,
+                    Email = txtEmailProfile.Text,
+                    PhoneNumber = txtPhoneProfile.Text,
+                    DepartmentID = cbxDepartmentProfile.SelectedItem.ToString()
+                };
+
+                try
+                {
+                    if (_employee == null)
+                    {
+                        _employeeManager.InsertEmployee(_newEmployee);
+
+                        MessageBox.Show("Employee Created: " +
+                            "\nFirst Name: " + _newEmployee.FirstName +
+                            "\nLast Name: " + _newEmployee.LastName +
+                            "\nEmail: " + _newEmployee.Email +
+                            "\nPhone Number: " + _newEmployee.PhoneNumber +
+                            "\nDepartment: " + _newEmployee.DepartmentID);
+                    }
+                    else
+                    {
+                        _newEmployee.Active = (bool)chkActiveProfile.IsChecked;
+                        _employeeManager.UpdateEmployee(_newEmployee, _employee);
+                        SetError("");
+                        MessageBox.Show("Employee update successful: " +
+                            "\nNew First Name: " + _newEmployee.FirstName +
+                            "\nNew Last Name: " + _newEmployee.LastName +
+                            "\nNew Phone Number: " + _newEmployee.PhoneNumber +
+                            "\nNew Email: " + _newEmployee.Email +
+                            "\nNew DepartmentID: " + _newEmployee.DepartmentID +
+                            "\nOld First Name: " + _employee.FirstName +
+                            "\nOld Last Name: " + _employee.LastName +
+                            "\nOld Phone Number: " + _employee.PhoneNumber +
+                            "\nOld Email: " + _employee.Email +
+                            "\nOld DepartmentID: " + _employee.DepartmentID);
+                    }
+
+                }
+                catch (Exception ex)
+                {
+                    SetError(ex.Message);
+                }
+
+                Close();
+            }
+            else if (btnSaveProfile.Content.Equals("Update"))
+            {
+                editableForm();
+            }
+
+
+
+        }
+
+        /// <summary>
+        /// Author: Caitlin Abelson
+        /// Created Date: 1/30/19
+        /// 
+        /// This is a helper method in order to set error messages to print to the screen for the user to see.
+        /// </summary>
+        /// <param name="error"></param>
+        private void SetError(string error)
+        {
+            lblError.Content = error;
+        }
+
+        /// <summary>
+        /// Author: Caitlin Abelson
+        /// Created Date: 1/30/19
+        /// 
+        /// The ValidateInput goes through every validation method to see if they pass. If they do, then true is returned.
+        /// </summary>
+        /// <returns></returns>
+        private bool ValidateInput()
+        {
+            if (ValidateFirstName())
+            {
+                if (ValidateLastName())
+                {
+                    if (ValidatePhone())
+                    {
+                        if (ValidateEmail())
+                        {
+                            if (ValidateDepartmentID())
+                            {
+                                return true;
+                            }
+                            else
+                            {
+                                SetError("You must choose a department for this employee.");
+                            }
+                        }
+                        else
+                        {
+                            SetError("Invalid email.");
+                        }
+                    }
+                    else
+                    {
+                        SetError("Invalid phone number.");
+                    }
+                }
+                else
+                {
+                    SetError("Invalid  last name.");
+                }
+            }
+            else
+            {
+                SetError("Invalid first name.");
+            }
+            return false;
+        }
+
+
+
+
+        /// <summary>
+        /// Author: Caitlin Abelson
+        /// Created Date: 1/30/19
+        /// 
+        /// The ValidateFirstName method makes sure that the FirstName has the correct amount of characters.
+        /// </summary>
+        /// <returns></returns>
+        private bool ValidateFirstName()
+        {
+            // FirstName can't be a null or empty string
+            if (txtFirstNameProfile.Text == null || txtFirstNameProfile.Text == "")
+            {
+                return false;
+            }
+            // FirstName must be no more than 50 characters long
+            if (txtLastNameProfile.Text.Length >= 1 && txtFirstNameProfile.Text.Length <= 50)
+            {
+                return true;
+            }
+
+            // If FirstName is greater than 50 characters, then the method returns false
+            return false;
+
+        }
+
+        /// <summary>
+        /// Author: Caitlin Abelson
+        /// Created Date: 1/30/19
+        /// 
+        /// The ValidateLastName method makes sure that the LastName has the correct amount of characters.
+        /// </summary>
+        /// <returns></returns>
+        private bool ValidateLastName()
+        {
+            // LastName can't be a null or empty string
+            if (txtLastNameProfile.Text == null || txtLastNameProfile.Text == "")
+            {
+                return false;
+            }
+            // LastName must be no more than 100 characters long
+            if (txtLastNameProfile.Text.Length >= 1 && txtLastNameProfile.Text.Length <= 100)
+            {
+                return true;
+            }
+
+            // If LastName is greater than 100 characters, then the method returns false
+            return false;
+
+        }
+
+        /// <summary>
+        /// Author: Caitlin Abelson
+        /// Created Date: 1/30/19
+        /// 
+        /// The ValidateEmail method makes sure that the Email has the correct amount of characters.
+        /// </summary>
+        /// <returns></returns>
+        private bool ValidateEmail()
+        {
+            bool validExtension = false;
+
+            // Email can't be a null or empty string
+            if (txtEmailProfile.Text == null || txtLastNameProfile.Text == "")
+            {
+                return false;
+            }
+
+            // Email must be no more than 11 characters long
+            if (txtEmailProfile.Text.Length >= 1 && txtEmailProfile.Text.Length <= 250 && txtEmailProfile.Text.Contains("."))
+            {
+                // Email must contain an @ and a .com in order to be an email
+                if (txtEmailProfile.Text.Contains("@"))
+                {
+                    if (txtEmailProfile.Text.Contains("com"))
+                    {
+                        validExtension = true;
+                    }
+                    else if (txtEmailProfile.Text.Contains("edu"))
+                    {
+                        validExtension = true;
+                    }
+                    else
+                    {
+                        validExtension = false;
+                    }
+                }
+            }
+
+            // If Email is greater than 250 characters, then the method returns false
+            return validExtension;
+
+        }
+
+        /// <summary>
+        /// Author: Caitlin Abelson
+        /// Created Date: 1/30/19
+        /// 
+        /// The ValidatePhone method makes sure that the Phone has the correct amount of characters.
+        /// </summary>
+        /// <returns></returns>
+        private bool ValidatePhone()
+        {
+            // Phone can't be a null or empty string
+            if (txtPhoneProfile.Text == null || txtLastNameProfile.Text == "")
+            {
+                return false;
+            }
+            // Phone must be no more than 11 characters long
+            if (txtPhoneProfile.Text.Length == 11)
+            {
+                return true;
+            }
+
+            // If Phone is greater than 100 characters, then the method returns false
+            return false;
+
+        }
+
+        /// <summary>
+        /// Author: Caitlin Abelson
+        /// Created Date: 1/30/19
+        /// 
+        /// The ValidateDepartmentID checks to see if an item was selected from the Department drop down combo box
+        /// and returns true if there was and false if there wasn't
+        /// </summary>
+        /// <returns></returns>
+        private bool ValidateDepartmentID()
+        {
+            // The method will return false if nothing was selected.
+            if (cbxDepartmentProfile.SelectedItem == null)
+            {
+                return false;
+            }
+            else
+            {
+                // If an item was selected from the Department drop down then method returns true
+                return true;
+            }
+        }
+
+        /// <summary>
+        /// Author: Caitlin Abelson
+        /// Created Date: 2/7/19
+        /// 
+        /// This button closes the details screeen.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void BtnCancelProfile_Click(object sender, RoutedEventArgs e)
+        {
+            var result = MessageBox.Show("Are you sure you want to cancel?", "Leaving Employee detail screen.", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+
+            if (result == MessageBoxResult.Yes)
+            {
+                this.Close();
+            }
+        }
+
+
+
+        /*--------------------------- Ending Profile Code --------------------------------*/
+
+
+
+
+
+
+
+
+
         /**
          * Created By Francis Mingomba
          * Date: 3/16/2019
          */
         private void NavBarSubHeaderManageShuttleVehicles_OnClick(object sender, RoutedEventArgs e)
         {
-            HideSidebar();
+
             DisplayPage("BrowseShuttleVehiclesPage");
 
             foreach (UserControl item in this.BrowseShuttleVehiclesPage.Children)

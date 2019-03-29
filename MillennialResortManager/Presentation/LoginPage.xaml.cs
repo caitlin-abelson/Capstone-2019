@@ -105,12 +105,20 @@ namespace Presentation
                 emp.LastName = "Smith";
                 emp.Email = "joanne@company.com";
                 emp.PhoneNumber = "1234567890";
-                emp.DepartmentID = "Kitchen";
+                //emp.DepartmentID = "Maintenance";
+                //emp.DepartmentID = "Events";
+                //emp.DepartmentID = "FoodService";
+                //emp.DepartmentID = "ResortOperations";
+                //emp.DepartmentID = "Ordering";
+                //emp.DepartmentID = "Potato";
+                emp.DepartmentID = "Admin";
+
+
+
                 emp.EmployeeRoles.Add(new Role() { RoleID = "Admin", Description = "Overworked and under paid" });
-                //emp.EmployeeRoles.Add(new Role() { RoleID = "Reservation", Description = "Overworked and under paid" });
-                //emp.EmployeeRoles.Add(new Role() { RoleID = "Shops", Description = "Overworked and under paid" });
-                //emp.EmployeeRoles.Add(new Role() { RoleID = "GuestType", Description = "Overworked and under paid" });
-                //emp.EmployeeRoles.Add(new Role() { RoleID = "RoomType", Description = "Overworked and under paid" });
+                //emp.EmployeeRoles.Add(new Role() { RoleID = "Manager", Description = "Overworked and under paid" });
+                //emp.EmployeeRoles.Add(new Role() { RoleID = "Worker", Description = "Overworked and under paid" });
+                //emp.EmployeeRoles.Add(new Role() { RoleID = "Potato", Description = "Overworked and under paid" });
                 _employee = emp;
                 if (_employee != null)
                 {

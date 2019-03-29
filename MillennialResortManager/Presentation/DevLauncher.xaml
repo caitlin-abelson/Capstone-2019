@@ -6,7 +6,19 @@
         xmlns:local="clr-namespace:Presentation"
         mc:Ignorable="d"
         Title="DevLauncher" Height="600" Width="1000">
-
+    <!-- 
+    Dark Blue: #0B2027
+    Blue: #40798C
+    Teal: #70A9A1
+    Cream: #FFF1D0
+    Dirt: #C3BEAC
+    -->
+    <!-- Include this block to add the Stylesheet -->
+    <Window.Resources>
+        <ResourceDictionary Source="Stylesheet.xaml"/>
+    </Window.Resources>
+    
+    
     <Grid x:Name="MainWindow">
         <Grid.RowDefinitions>
             <RowDefinition Height="40"/>
@@ -14,7 +26,7 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
         <!-- Banner -->
-        <Grid Grid.Row="0" x:Name="Banner">
+        <Grid Grid.Row="0" x:Name="Banner" Style="{StaticResource BannerStyle}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
                 <ColumnDefinition/>
@@ -25,129 +37,60 @@
             </Grid.ColumnDefinitions>
             <Button Grid.Column="5" Content="Logout" x:Name="btnLogout" Margin="5" Click="btnLogout_Click"/>
             <Label x:Name="lblTitle" Grid.Column="2" Grid.ColumnSpan="2" Content="Last Resort" FontSize="22" FontFamily="Rockwell Extra Bold" HorizontalAlignment="Center" />
-            <Button Grid.Column="0" Content="Menu" x:Name="btnMenu" Margin="5" Click="btnMenu_Click"/>
+            <!--<Button Grid.Column="0" Content="Menu" x:Name="btnMenu" Margin="5" Click="btnMenu_Click"/>-->
         </Grid>
         <!-- Nav Bar -->
         <Grid Grid.Row="1" x:Name="NavBar">
-            <DockPanel>
-                <Menu x:Name="NavbarMenu" Background="#FFA9D1F4" VerticalAlignment="Center">
-                    <MenuItem Header="_Reservation" x:Name="_NavBarHeaderReservation" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" >
-                        <MenuItem Header="Reservation"  x:Name="NavBarSubHeaderReservation" x:Uid="NBReservation" Click="NavBarSubHeaderReservation_Click"  />
+            <DockPanel Style="{StaticResource NavBarDockPanel}">
+                <Menu x:Name="NavbarMenu" Style="{StaticResource NavBarMenu}" VerticalAlignment="Center">
+                    <MenuItem Header="_Admin" x:Name="_NavBarHeaderAdmin" Style="{StaticResource NavBarHeader}" >
                         <MenuItem Header="Shops"  x:Name="NavBarSubHeaderShops" x:Uid="NBShops" Click="NavBarSubHeaderShops_Click"/>
-                        <MenuItem Header="Employee"  x:Name="NavBarSubHeaderEmployee" x:Uid="NBEmployee" Click="NavBarSubHeaderEmployee_Click"/>
-                        <MenuItem Header="Suppliers"  x:Name="NavBarSubHeaderSuppliers" x:Uid="NBSuppliers" Click="NavBarSubHeaderSuppliers_Click"/>
-                        <MenuItem Header="Products"  x:Name="NavBarSubHeaderProducts" x:Uid="NBProducts" Click="NavBarSubHeaderProducts_Click"/>
                         <MenuItem Header="Buildings"  x:Name="NavBarSubHeaderBuildings" x:Uid="NBBuildings" Click="NavBarSubHeaderBuildings_Click"/>
-                        <MenuItem Header="Orders" x:Name="NavBarSubHeaderOrders" x:Uid="NBOrders" Click="NavBarSubHeaderOrders_Click" />
                         <MenuItem Header="Employee Roles"  x:Name="NavBarSubHeaderEmployeeRoles" x:Uid="NBEmployeeRoles" Click="NavBarSubHeaderEmployeeRoles_Click"/>
                         <MenuItem Header="Guest Types"  x:Name="NavBarSubHeaderGuestTypes" x:Uid="NBGuestTypes" Click="NavBarSubHeaderGuestTypes_Click"/>
                         <MenuItem Header="Room Types"  x:Name="NavBarSubHeaderRoomTypes" x:Uid="NBRoomTypes" Click="NavBarSubHeaderRoomTypes_Click"/>
+                    </MenuItem>
+                    <MenuItem Header="_Events" x:Name="_NavBarHeaderEvents" Style="{StaticResource NavBarHeader}" >
                         <MenuItem Header="Performances" x:Name="NavBarSubHeaderPerformances" x:Uid="NBPerformances" Click="NavBarSubHeaderPerformances_Click" />
                         <MenuItem Header="Event Types" x:Name="NavBarSubHeaderEventTypes" x:Uid="NBEventTypes" Click="NavBarSubHeaderEventTypes_Click"/>
-                        <MenuItem Header="Appointment Types" x:Name="NavBarSubHeaderAppointmentTypes" x:Uid="NBAppointmentTypes" Click="NavBarSubHeaderAppointmentTypes_Click"/>
-                        <MenuItem Header="Manage Shuttle Vehicles" x:Name="NavBarSubHeaderManageShuttleVehicles" x:Uid="NBManageShuttleVehicles" Click="NavBarSubHeaderManageShuttleVehicles_OnClick"/>
-
-
-                    </MenuItem>
-                    <MenuItem Header="_Guest Services" x:Name="_NavBarHeaderGuestServices" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center">
-                        <MenuItem Header="Guests" x:Name="NavBarSubHeaderGuests" x:Uid="NBGuests" Click="NavBarSubHeaderGuests_Click"/>
-                        <MenuItem Header="Guest Vehicles" x:Name="NavBarSubHeaderGuestVehicles" x:Uid="NBGuestVehicles" Click="NavBarSubHeaderGuestVehicles_Click"/>
-                        <!-- New Items Go Here-->
                         <MenuItem Header="Setup Lists" x:Name="NavBarSubHeaderSetupLists" x:Uid="NBSetupLists" Click="NavBarSubHeaderSetupLists_Click"/>
-                        <MenuItem Header="Sponsors" x:Name="NavBarSubHeaderSponsors" x:Uid="NBSponsors" Click="NavBarSubHeaderSponsors_Click"/>
-                        <MenuItem Header="Recipes" x:Name="NavBarSubHeaderRecipes" x:Uid="NBRecipes" Click="NavBarSubHeaderRecipes_Click"/>
                         <MenuItem Header="Events" x:Name="NavBarSubHeaderEvents" x:Uid="NBEvents" Click="NavBarSubHeaderEvents_Click"/>
+                    </MenuItem>
+                    <MenuItem Header="_FoodService" x:Name="_NavBarHeaderFoodService" Style="{StaticResource NavBarHeader}" >
+                        <MenuItem Header="Recipes" x:Name="NavBarSubHeaderRecipes" x:Uid="NBRecipes" Click="NavBarSubHeaderRecipes_Click"/>
+                    </MenuItem>
+                    <MenuItem Header="_Maintenance" x:Name="_NavBarHeaderMaintenance" Style="{StaticResource NavBarHeader}" >
+                        <MenuItem Header="MaintenanceTypes" x:Name="NavBarSubHeaderMaintenanceTypes" x:Uid="NBMaintenanceTypes" Click="NavBarSubHeaderMaintenanceTypes_Click"/>
+                    </MenuItem>
+                    <MenuItem Header="_Ordering" x:Name="_NavBarHeaderOrdering" Style="{StaticResource NavBarHeader}" >
+                        <MenuItem Header="Suppliers"  x:Name="NavBarSubHeaderSuppliers" x:Uid="NBSuppliers" Click="NavBarSubHeaderSuppliers_Click"/>
+                        <MenuItem Header="Orders" x:Name="NavBarSubHeaderOrders" x:Uid="NBOrders" Click="NavBarSubHeaderOrders_Click" />
+                        <MenuItem Header="Products"  x:Name="NavBarSubHeaderProducts" x:Uid="NBProducts" Click="NavBarSubHeaderProducts_Click"/>
+                        <MenuItem Header="Sponsors" x:Name="NavBarSubHeaderSponsors" x:Uid="NBSponsors" Click="NavBarSubHeaderSponsors_Click"/>
                         <MenuItem Header="SupplierOrders" x:Name="NavBarSubHeaderSupplierOrders" x:Uid="NBSupplierOrders" Click="NavBarSubHeaderSupplierOrders_Click"/>
+                    </MenuItem>
+                    <MenuItem Header="_Resort Ops" x:Name="_NavBarHeaderResortOperations" Style="{StaticResource NavBarHeader}" >
+                        <MenuItem Header="Appointment Types" x:Name="NavBarSubHeaderAppointmentTypes" x:Uid="NBAppointmentTypes" Click="NavBarSubHeaderAppointmentTypes_Click"/>
+                        <MenuItem Header="Guests" x:Name="NavBarSubHeaderGuests" x:Uid="NBGuests" Click="NavBarSubHeaderGuests_Click"/>
+                        <MenuItem Header="Reservation" x:Name="NavBarSubHeaderReservation" x:Uid="NBReservation" Click="NavBarSubHeaderReservation_Click" />
+                        <MenuItem Header="Guest Vehicles" x:Name="NavBarSubHeaderGuestVehicles" x:Uid="NBGuestVehicles" Click="NavBarSubHeaderGuestVehicles_Click"/>
                         <MenuItem Header="Pets" x:Name="NavBarSubHeaderPets" x:Uid="NBPets" Click="NavBarSubHeaderPets_Click"/>
                         <MenuItem Header="Rooms" x:Name="NavBarSubHeaderRooms" x:Uid="NBRooms" Click="NavBarSubHeaderRooms_Click"/>
-                        <MenuItem Header="MaintenanceTypes" x:Name="NavBarSubHeaderMaintenanceTypes" x:Uid="NBMaintenanceTypes" Click="NavBarSubHeaderMaintenanceTypes_Click"/>
                         <MenuItem Header="Members" x:Name="NavBarSubHeaderMembers" x:Uid="NBMembers" Click="NavBarSubHeaderMembers_Click"/>
-
                     </MenuItem>
-                    <MenuItem Header="_Food Services" x:Name="_NavBarHeaderFoodServices" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center">
-                        <MenuItem Header="Recipes"  />
-                        <MenuItem Header="Inventory"  />
+                    <MenuItem Header="_Profile" x:Name="_NavBarHeaderProfile" Style="{StaticResource NavBarHeader}" >
+                        <MenuItem Header="Employees"  x:Name="NavBarSubHeaderEmployee" x:Uid="NBEmployee" Click="NavBarSubHeaderEmployee_Click"/>
+                        <MenuItem Header="Profile" x:Name="NavBarSubHeaderProfile" x:Uid="NBProfile" Click="NavBarSubHeaderProfile_Click"/>
                     </MenuItem>
                 </Menu>
             </DockPanel>
 
         </Grid>
 
-        <!-- SideBar -->
-        <Grid Grid.Row="1" Grid.RowSpan="2" Panel.ZIndex="5" x:Name="SideBar"  Width="200" HorizontalAlignment="Left" Visibility="Hidden">
-            <ScrollViewer VerticalScrollBarVisibility="Hidden">
-                <Grid x:Name="SideBarButtons" Grid.Column="0" Background="Aqua">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="30"/>
-                        <RowDefinition Height="30"/>
-                        <RowDefinition Height="30"/>
-                        <RowDefinition Height="30"/>
-                        <RowDefinition Height="30"/>
-                        <RowDefinition Height="30"/>
-                        <RowDefinition Height="30"/>
-                        <RowDefinition Height="30"/>
-                        <RowDefinition Height="30"/>
-                        <RowDefinition Height="30"/>
-                        <RowDefinition Height="30"/>
-                        <RowDefinition Height="30"/>
-                        <RowDefinition Height="30"/>
-                        <RowDefinition Height="30"/>
-                        <RowDefinition Height="30"/>
-                        <RowDefinition Height="30"/>
-                    </Grid.RowDefinitions>
-                    <!-- Reservation -->
-                    <!-- Header-->
-                    <Button x:Name="btnSidebarHeaderReservation" Content="Reservation" Background="LightBlue" Click="btnSidebarHeaderReservation_Click"/>
-                    <!-- SubHeaders -->
-                    <Button x:Name="btnSidebarReservationSubHeaderReserveARoom" x:Uid="SBReservation" Content="Reserve a Room" Background="LightCyan" Click="btnSidebarReservationSubHeaderReserveARoom_Click" />
-                    <Button x:Name="btnSidebarReservationSubHeaderBrowseShops" x:Uid="SBShops" Content="Shops" Background="LightCyan" Click="btnSidebarReservationSubHeaderBrowseShops_Click"/>
-                    <Button x:Name="btnSidebarReservationSubHeaderBrowseEmployees" x:Uid="SBEmployees" Content="Employees" Background="LightCyan" Click="btnSidebarReservationSubHeaderBrowseEmployees_Click"/>
-                    <Button x:Name="btnSidebarReservationSubHeaderBrowseSuppliers" x:Uid="SBSuppliers" Content="Suppliers" Background="LightCyan" Click="btnSidebarReservationSubHeaderBrowseSuppliers_Click"/>
-                    <Button x:Name="btnSidebarReservationSubHeaderBrowseProducts" x:Uid="SBProducts" Content="Products" Background="LightCyan" Click="btnSidebarReservationSubHeaderBrowseProducts_Click"/>
-                    <Button x:Name="btnSidebarReservationSubHeaderBrowseBuilding" x:Uid="SBBuildings" Content="Buildings" Background="LightCyan" Click="btnSidebarReservationSubHeaderBrowseBuilding_Click"/>
-                    <Button x:Name="btnSidebarReservationSubHeaderBrowseOrders" x:Uid="SBOrders" Content="Orders" Background="LightCyan" Click="btnSidebarReservationSubHeaderBrowseOrders_Click"/>
-                    <Button x:Name="btnSidebarReservationSubHeaderBrowseEmployeeRoles" x:Uid="SBEmployeeRoles" Content="Employee Roles" Background="LightCyan" Click="btnSidebarReservationSubHeaderBrowseEmployeeRoles_Click"/>
-                    <Button x:Name="btnSidebarReservationSubHeaderBrowseGuestType" x:Uid="SBGuestType" Content="Guest Types" Background="LightCyan" Click="btnSidebarReservationSubHeaderBrowseGuestType_Click"/>
-                    <Button x:Name="btnSidebarReservationSubHeaderBrowseRoomType" x:Uid="SBRoomType" Content="Room Types" Background="LightCyan" Click="btnSidebarReservationSubHeaderBrowseRoomType_Click"/>
-                    <Button x:Name="btnSidebarReservationSubHeaderBrowsePerformance" x:Uid="SBPerformances" Content="Performances" Background="LightCyan" Click="btnSidebarReservationSubHeaderBrowsePerformance_Click"/>
-                    <Button x:Name="btnSidebarReservationSubHeaderBrowseEventTypes" x:Uid="SBEventTypes" Content="Event Types" Background="LightCyan" Click="btnSidebarReservationSubHeaderBrowseEventTypes_Click"/>
-                    <Button x:Name="btnSidebarReservationSubHeaderBrowseAppointmentTypes" x:Uid="SBAppointmentTypes" Content="Appointment Types" Background="LightCyan" Click="btnSidebarReservationSubHeaderBrowseAppointmentTypes_Click"/>
-
-
-                    <!-- Guest Services -->
-                    <!-- Header -->
-                    <Button x:Name="btnSidebarHeaderGuestServices" Content="Guest Services" Background="LightBlue" Click="btnSidebarHeaderGuestServices_Click"/>
-                    <!-- SubHeaders -->
-                    <Button x:Name="btnSidebarGuestServicesSubHeaderBrowseGuestVehicles" x:Uid="SBGuestVehicles" Content="Guest Vehicles" Background="LightCyan" Click="btnSidebarGuestServicesSubHeaderBrowseGuestVehicles_Click"/>
-                    <Button x:Name="btnSidebarGuestServicesSubHeaderBrowseGuests" x:Uid="SBGuests" Content="Guests" Background="LightCyan" Click="btnSidebarGuestServicesSubHeaderBrowseGuests_Click"/>
-                    <!-- Add New Buttons Here Up To 14 Total-->
-                    <Button x:Name="btnSidebarGuestServicesSubHeaderBrowseSetupLists" x:Uid="SBSetupLists" Content="Setup Lists" Background="LightCyan" Click="btnSidebarGuestServicesSubHeaderBrowseSetupLists_Click"/>
-                    <Button x:Name="btnSidebarGuestServicesSubHeaderBrowseSponsors" x:Uid="SBSponsors" Content="Sponsors" Background="LightCyan" Click="btnSidebarGuestServicesSubHeaderBrowseSponsors_Click"/>
-                    <Button x:Name="btnSidebarGuestServicesSubHeaderBrowseRecipes" x:Uid="SBRecipes" Content="Recipes" Background="LightCyan" Click="btnSidebarGuestServicesSubHeaderBrowseRecipes_Click"/>
-                    <Button x:Name="btnSidebarGuestServicesSubHeaderBrowseEvents" x:Uid="SBEvents" Content="Events" Background="LightCyan" Click="btnSidebarGuestServicesSubHeaderBrowseEvents_Click"/>
-                    <Button x:Name="btnSidebarGuestServicesSubHeaderBrowseSupplierOrders" x:Uid="SBSupplierOrders" Content="Supplier Orders" Background="LightCyan" Click="btnSidebarGuestServicesSubHeaderBrowseSupplierOrders_Click"/>
-                    <Button x:Name="btnSidebarGuestServicesSubHeaderBrowsePets" x:Uid="SBPets" Content="Pets" Background="LightCyan" Click="btnSidebarGuestServicesSubHeaderBrowsePets_Click"/>
-                    <Button x:Name="btnSidebarGuestServicesSubHeaderBrowseRooms" x:Uid="SBRooms" Content="Rooms" Background="LightCyan" Click="btnSidebarGuestServicesSubHeaderBrowseRooms_Click"/>
-                    <Button x:Name="btnSidebarGuestServicesSubHeaderBrowseMaintenanceTypes" x:Uid="SBMaintenanceTypes" Content="Maintenance Types" Background="LightCyan" Click="btnSidebarGuestServicesSubHeaderBrowseMaintenanceTypes_Click"/>
-                    <Button x:Name="btnSidebarGuestServicesSubHeaderBrowseMembers" x:Uid="SBMembers" Content="Members" Background="LightCyan" Click="btnSidebarGuestServicesSubHeaderBrowseMembers_Click"/>
-
-
-
-                    <!-- Food Services -->
-                    <!-- Header -->
-                    <Button x:Name="btnSidebarHeaderFoodServices" Content="Food Services" Background="LightBlue" Click="btnSidebarHeaderFoodServices_Click"/>
-                    <!-- SubHeaders -->
-                    <Button x:Name="btnSidebarFoodServicesSubHeaderRecipes" Content="Recipes" Background="LightCyan"/>
-                    <Button x:Name="btnSidebarFoodServicesSubHeaderFoodInventory" Content="Inventory" Background="LightCyan"/>
-
-                </Grid>
-            </ScrollViewer>
-
-        </Grid>
         <!-- Content -->
         <Grid Grid.Row="2" Panel.ZIndex="1" x:Name="Content">
             <!-- Landing Page-->
-            <Grid x:Name="LandingPage" Visibility="Visible">
+            <Grid x:Name="LandingPage" Visibility="Visible" Style="{StaticResource LandingPage }">
                 <Label Content="Content Goes Here" Grid.Column="0" Grid.ColumnSpan="2" FontSize="72" HorizontalAlignment="Center" VerticalAlignment="Center"/>
             </Grid>
             <!-- Browse Reservation Page-->
@@ -636,9 +579,9 @@
             <Grid x:Name="BrowseOrdersPage" Visibility="Hidden">
                 <Grid.RowDefinitions>
 
-                    <RowDefinition Height="55"></RowDefinition>
-                    <RowDefinition></RowDefinition>
-                    <RowDefinition Height="55"></RowDefinition>
+                    <RowDefinition/>
+                    <RowDefinition Height="8*"/>
+                    <RowDefinition />
 
                 </Grid.RowDefinitions>
                 <Grid Grid.Row="0">
@@ -659,7 +602,7 @@
                 <Grid Grid.Row="1">
                     <DataGrid x:Name="dgInternalOrders" IsReadOnly="True" VerticalGridLinesBrush="{x:Null}" SelectionMode="Single" AlternatingRowBackground="#FF3DD8CA" RowBackground="LightGoldenrodYellow" MouseDoubleClick="DgInternalOrders_MouseDoubleClick"></DataGrid>
                 </Grid>
-                <Grid Grid.Row="2">
+                <Grid Grid.Row="2" Style="{StaticResource BottomBar}">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition />
                         <ColumnDefinition />
@@ -677,73 +620,34 @@
             </Grid>
             <!-- Browse Employee Roles Page-->
             <Grid x:Name="BrowseEmployeeRolesPage" Visibility="Hidden">
-
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="80" ></RowDefinition>
-                    <RowDefinition Height="50"></RowDefinition>
-                    <RowDefinition Height="50"></RowDefinition>
-                    <RowDefinition  ></RowDefinition>
-                    <RowDefinition Height="40" ></RowDefinition>
+                    <RowDefinition/>
+                    <RowDefinition Height="8*"/>
+                    <RowDefinition/>
                 </Grid.RowDefinitions>
-                <Grid Grid.Row="0">
+                <!-- <Label Padding="5" Margin="10" HorizontalAlignment="Center" VerticalContentAlignment="Center" Grid.Row="0" FontSize="15px" VerticalAlignment="top" Content="View Employee Roles" /> -->
+                <Grid Grid.Row="0" >
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition></ColumnDefinition>
-                    </Grid.ColumnDefinitions>
-                    <Label Padding="5" Margin="10" HorizontalAlignment="Center" VerticalContentAlignment="Center" Grid.Column="0" FontSize="15px" VerticalAlignment="top" Content="View Employee Roles" />
-                </Grid>
-                <Grid Grid.Row="1" >
-                    <Grid.ColumnDefinitions>
-
-                        <ColumnDefinition Width="200"></ColumnDefinition>
+                        <ColumnDefinition ></ColumnDefinition>
                         <ColumnDefinition Width="300"  ></ColumnDefinition>
-                        <ColumnDefinition Width="0"></ColumnDefinition>
                         <ColumnDefinition Width="150"></ColumnDefinition>
                         <ColumnDefinition Width="150"></ColumnDefinition>
                     </Grid.ColumnDefinitions>
                     <Label Grid.Column="0" Content="Search Term:"  Padding="5" HorizontalAlignment="Right" VerticalContentAlignment="Center" />
                     <TextBox x:Name="txtSearchEmployeeRole" Grid.Column="1" Margin="5" Height="25" HorizontalContentAlignment="Left" Text=""    />
-
-                    <Button x:Name="btnFilterEmployeeRole"  Grid.Column="3" Margin="5" Height="25" Content="Filter" Click="BtnFilterEmployeeRole_Click" />
-
-                </Grid>
-                <Grid Grid.Row="2">
-                    <Grid.ColumnDefinitions>
-
-                        <ColumnDefinition Width="250"></ColumnDefinition>
-                        <ColumnDefinition Width="50"  ></ColumnDefinition>
-                        <ColumnDefinition Width="50"></ColumnDefinition>
-                        <ColumnDefinition Width="50"></ColumnDefinition>
-                        <ColumnDefinition Width="100"></ColumnDefinition>
-                        <ColumnDefinition Width="150"></ColumnDefinition>
-                    </Grid.ColumnDefinitions>
-                    <!--    <CheckBox x:Name="cbActive" HorizontalAlignment="Left"  VerticalAlignment="Center" Grid.Column="2" IsChecked="True" Click="CbActive_Click" /> -->
-                    <!--Click="cbActive_Click"-->
-                    <!--   <Label x:Name="lblActive" HorizontalAlignment="Right" VerticalAlignment="Center" Content="Active" Grid.Column="1"/> -->
-                    <!--   <CheckBox x:Name="cbDeactive" IsChecked="True" HorizontalAlignment="Left"  VerticalAlignment="Center" Grid.Column="4" Click="CbDeactive_Click" /> -->
-                    <!-- Checked="cbDeactive_Checked"-->
-                    <!--    <Label x:Name="lblDeactive"  HorizontalAlignment="Left" VerticalAlignment="Center" Content="Inactive" Grid.Column="3"/>-->
+                    <Button x:Name="btnFilterEmployeeRole"  Grid.Column="2" Margin="5" Height="25" Content="Filter" Click="BtnFilterEmployeeRole_Click" />
                     <Button x:Name="btnClearRoles" VerticalAlignment="Center" Grid.Column="5" Content="Clear Filter" Margin="5" Height="25" Click="BtnClearRoles_Click" />
                 </Grid>
-                <Grid Grid.Row="3" >
-                    <Grid.RowDefinitions>
 
-                        <!--      <RowDefinition Height="50"></RowDefinition> -->
-                        <RowDefinition></RowDefinition>
-
-                        <!--  <RowDefinition Height="30"></RowDefinition> -->
-                    </Grid.RowDefinitions>
-                    <TabControl Grid.Row="0" x:Name="tabsetMainEmployeeRole">
-                        <TabItem Name="tabRole" Header="Employee Role" GotFocus="TabRole_GotFocus">
-                            <DataGrid Grid.Row="1" x:Name="dgRole" VerticalGridLinesBrush="{x:Null}" 
+                <Grid Grid.Row="1" >
+                    <DataGrid Grid.Row="1" x:Name="dgRole" VerticalGridLinesBrush="{x:Null}" 
                               SelectionMode="Single" AlternatingRowBackground="#FFDFF7F1" 
                               RowBackground="#FFF4F7DF"  IsReadOnly="True"
                            Grid.ColumnSpan="4"
                               MouseDoubleClick="DgRole_MouseDoubleClick" />
-                        </TabItem>
-                    </TabControl>
                 </Grid>
 
-                <Grid Grid.Row="4">
+                <Grid Grid.Row="2" Style="{StaticResource BottomBar}">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="100"/>
                         <ColumnDefinition />
@@ -762,150 +666,110 @@
             <!-- Browse Guest Types Page -->
             <Grid x:Name="BrowseGuestTypesPage" Visibility="Hidden">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="50"></RowDefinition>
-                    <RowDefinition></RowDefinition>
-                    <RowDefinition Height="100"></RowDefinition>
+                    <RowDefinition/>
+                    <RowDefinition Height="8*"/>
+                    <RowDefinition/>
                 </Grid.RowDefinitions>
-                <Grid Grid.Row="0" Background="LightGray">
-                    <Label Content="Guest Types" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="26" FontWeight="Bold"></Label>
+                <Grid Grid.Row="0">
+                    <Label Content="Guest Types - Filters go here" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="26" FontWeight="Bold"></Label>
                 </Grid>
-                <Grid Grid.Row="1" Background="LightGray">
+                <Grid Grid.Row="1">
+                    <DataGrid x:Name="dgGuests"/>
+                </Grid>
+                <Grid Grid.Row="2" Style="{StaticResource BottomBar}">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="50"></ColumnDefinition>
-                        <ColumnDefinition></ColumnDefinition>
-                        <ColumnDefinition Width="50"></ColumnDefinition>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width=".5*"/>
+                        <ColumnDefinition Width=".5*"/>
                     </Grid.ColumnDefinitions>
                     <Grid Grid.Column="1">
-                        <DataGrid x:Name="dgGuests"></DataGrid>
+                        <Button x:Name="btnAddRoomGuestType" Margin="5 5" Content="Add" Click="btnAddGuestType_Click"></Button>
                     </Grid>
-                </Grid>
-                <Grid Grid.Row="2" Background="LightGray">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition></ColumnDefinition>
-                        <ColumnDefinition></ColumnDefinition>
-                    </Grid.ColumnDefinitions>
-                    <Grid Grid.Column="0">
-                        <Button x:Name="btnAddRoomGuestType" Margin="50 30" Content="Add" Click="btnAddGuestType_Click"></Button>
-                    </Grid>
-                    <Grid Grid.Column="1">
-                        <Button x:Name="btnDeleteGuestType" Margin="50 30" Content="Delete" Click="btnDeleteGuestType_Click"></Button>
+                    <Grid Grid.Column="2">
+                        <Button x:Name="btnDeleteGuestType" Margin="5 5" Content="Delete" Click="btnDeleteGuestType_Click"></Button>
                     </Grid>
                 </Grid>
             </Grid>
             <!-- Browse Room Types Page-->
             <Grid x:Name="BrowseRoomTypesPage" Visibility="Hidden">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="50"></RowDefinition>
-                    <RowDefinition></RowDefinition>
-                    <RowDefinition Height="100"></RowDefinition>
+                    <RowDefinition/>
+                    <RowDefinition Height="8*"/>
+                    <RowDefinition/>
                 </Grid.RowDefinitions>
-                <Grid Grid.Row="0" Background="LightGray">
-                    <Label Content="Room Types" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="26" FontWeight="Bold"></Label>
+                <Grid Grid.Row="0">
+                    <Label Content="Room Types - Filters go here" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="26" FontWeight="Bold"></Label>
                 </Grid>
-                <Grid Grid.Row="1" Background="LightGray">
+                <Grid Grid.Row="1">
+                    <DataGrid x:Name="dgRooms"></DataGrid>
+                </Grid>
+                <Grid Grid.Row="2" Style="{StaticResource BottomBar}">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="50"></ColumnDefinition>
-                        <ColumnDefinition></ColumnDefinition>
-                        <ColumnDefinition Width="50"></ColumnDefinition>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width=".5*"/>
+                        <ColumnDefinition Width=".5*"/>
                     </Grid.ColumnDefinitions>
                     <Grid Grid.Column="1">
-                        <DataGrid x:Name="dgRooms"></DataGrid>
+                        <Button x:Name="btnAddRoomTypes" Margin="5" Content="Add" Click="btnAddRoomType_Click"></Button>
                     </Grid>
-                </Grid>
-                <Grid Grid.Row="2" Background="LightGray">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition></ColumnDefinition>
-                        <ColumnDefinition></ColumnDefinition>
-                    </Grid.ColumnDefinitions>
-                    <Grid Grid.Column="0">
-                        <Button x:Name="btnAddRoomTypes" Margin="50 30" Content="Add" Click="btnAddRoomType_Click"></Button>
-                    </Grid>
-                    <Grid Grid.Column="1">
-                        <Button x:Name="btnDeleteRoomTypes" Margin="50 30" Content="Delete" Click="btnDeleteRoomType_Click"></Button>
+                    <Grid Grid.Column="2">
+                        <Button x:Name="btnDeleteRoomTypes" Margin="5" Content="Delete" Click="btnDeleteRoomType_Click"></Button>
                     </Grid>
                 </Grid>
             </Grid>
             <!-- Browse Performance Page-->
             <Grid x:Name="BrowsePerformancePage" Visibility="Hidden">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="50"/>
-                    <RowDefinition Height="120"/>
                     <RowDefinition/>
-                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="8*"/>
+                    <RowDefinition/>
                 </Grid.RowDefinitions>
-                <Label Grid.Row="0" Content="Performances" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
-                <Grid Grid.Row="1">
+                <!--<Label Grid.Row="0" Content="Performances" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>-->
+                <Grid Grid.Row="0">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="30"/>
-                        <ColumnDefinition Width="65"/>
                         <ColumnDefinition/>
-                        <ColumnDefinition Width="80"/>
-                        <ColumnDefinition Width="200"/>
-                        <ColumnDefinition Width="30"/>
+                        <ColumnDefinition Width=".5*"/>
+                        <ColumnDefinition Width=".5*"/>
                     </Grid.ColumnDefinitions>
-                    <Label Grid.Column="1" Content="Filters:" VerticalContentAlignment="Center" HorizontalContentAlignment="Right"/>
-                    <Grid Grid.Column="2">
-                        <Grid.RowDefinitions>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="35"/>
-                            <ColumnDefinition/>
-                        </Grid.ColumnDefinitions>
-                        <CheckBox Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                        <CheckBox Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                        <CheckBox Grid.Row="2" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                        <Label Grid.Row="0" Grid.Column="1" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Content="Default Label 1"/>
-                        <Label Grid.Row="1" Grid.Column="1" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Content="Default Label 2"/>
-                        <Label Grid.Row="2" Grid.Column="1" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Content="Default Label 3"/>
-                    </Grid>
-                    <Label Grid.Column="3" Content="Search:" VerticalContentAlignment="Center" HorizontalContentAlignment="Right"/>
-                    <TextBox x:Name="txtSearchPerformance" Grid.Column="4" Height="30" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" TextChanged="txtSearchPerformance_TextChanged" />
+                    <Label Grid.Column="0" Content="Performance - Filters go here" VerticalContentAlignment="Center" HorizontalContentAlignment="Right"/>
+
+                    <Label Grid.Column="1" Content="Search:" VerticalContentAlignment="Center" HorizontalContentAlignment="Right"/>
+                    <TextBox x:Name="txtSearchPerformance" Grid.Column="2" Height="30" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" TextChanged="txtSearchPerformance_TextChanged" />
                 </Grid>
-                <DataGrid Grid.Row="2" x:Name="dgPerformaces" SelectionChanged="dgPerformaces_SelectionChanged"/>
-                <Grid Grid.Row="3">
+                <DataGrid Grid.Row="1" x:Name="dgPerformaces" SelectionChanged="dgPerformaces_SelectionChanged"/>
+                <Grid Grid.Row="2" Style="{StaticResource BottomBar}">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition/>
-                        <ColumnDefinition Width="100"/>
-                        <ColumnDefinition Width="100"/>
+                        <ColumnDefinition Width=".5*"/>
+                        <ColumnDefinition Width=".5*"/>
                     </Grid.ColumnDefinitions>
-                    <Button x:Name="btnAddPerformance" Grid.Column="1" Content="Add" Margin="15 10" Click="btnAddPerformance_Click"/>
+                    <Button x:Name="btnAddPerformance" Grid.Column="1" Content="Add" Margin="5" Click="btnAddPerformance_Click"/>
                 </Grid>
             </Grid>
-            <!-- Browse Item Suppliers Page-->
-
             <!-- Browse Event Types Page-->
             <Grid x:Name="BrowseEventTypesPage" Visibility="Hidden">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="50"></RowDefinition>
-                    <RowDefinition></RowDefinition>
-                    <RowDefinition Height="100"></RowDefinition>
+                    <RowDefinition/>
+                    <RowDefinition Height="8*"/>
+                    <RowDefinition/>
                 </Grid.RowDefinitions>
-                <Grid Grid.Row="0" Background="LightGray">
-                    <Label Content="Event Type" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="26" FontWeight="Bold"></Label>
+                <Grid Grid.Row="0">
+                    <Label Content="Event Type - Filters go here" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="26" FontWeight="Bold"></Label>
                 </Grid>
-                <Grid Grid.Row="1" Background="LightGray">
+                <Grid Grid.Row="1">
+                    <DataGrid CanUserDeleteRows="True" x:Name="dgEventTypes"></DataGrid>
+                </Grid>
+                <Grid Grid.Row="2" Style="{StaticResource BottomBar}">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="50"></ColumnDefinition>
-                        <ColumnDefinition></ColumnDefinition>
-                        <ColumnDefinition Width="50"></ColumnDefinition>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width=".5*"/>
+                        <ColumnDefinition Width=".5*"/>
                     </Grid.ColumnDefinitions>
                     <Grid Grid.Column="1">
-                        <DataGrid CanUserDeleteRows="True" x:Name="dgEventTypes"></DataGrid>
+                        <Button x:Name="btnEventTypeAddAction" Margin="5" Content="Add" Click="BtnEventTypeAddAction_Click"></Button>
                     </Grid>
-                </Grid>
-                <Grid Grid.Row="2" Background="LightGray">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition></ColumnDefinition>
-                        <ColumnDefinition></ColumnDefinition>
-                    </Grid.ColumnDefinitions>
-                    <Grid Grid.Column="0">
-                        <Button x:Name="btnEventTypeAddAction" Margin="50 30" Content="Add" Click="BtnEventTypeAddAction_Click"></Button>
-                    </Grid>
-                    <Grid Grid.Column="1">
-                        <Button x:Name="btnEventTypeActionDelete" Margin="50 30" Content="Delete" Click="BtnEventTypeActionDelete_Click" ></Button>
+                    <Grid Grid.Column="2">
+                        <Button x:Name="btnEventTypeActionDelete" Margin="5" Content="Delete" Click="BtnEventTypeActionDelete_Click" ></Button>
                     </Grid>
                 </Grid>
             </Grid>
@@ -1692,6 +1556,86 @@
 
             </Grid>
 
+            <!-- Profile Page -->
+            <Grid x:Name="ProfilePage" Visibility="Hidden">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30"></RowDefinition>
+                    <RowDefinition Height="50"></RowDefinition>
+                    <RowDefinition Height="50"></RowDefinition>
+                    <RowDefinition Height="50"></RowDefinition>
+                    <RowDefinition Height="50"></RowDefinition>
+                    <RowDefinition Height="50"></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition Height="45"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0">
+                    <Label x:Name="lblError" VerticalContentAlignment="Top" HorizontalContentAlignment="Center"/>
+                </Grid>
+
+                <Grid  Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="160"></ColumnDefinition>
+                        <ColumnDefinition ></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Label x:Name="lblFirstNameProfile" Grid.Column="0" Content="First Name: " VerticalContentAlignment="Center" HorizontalContentAlignment="Right" Margin="5"/>
+                    <TextBox x:Name="txtFirstNameProfile" Grid.Column="1" Margin="10" VerticalContentAlignment="Center" HorizontalContentAlignment="Left"/>
+                </Grid>
+                <Grid  Grid.Row="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="160"></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Label x:Name="lblLastNameProfile" Grid.Column="0" Content="Last Name: " VerticalContentAlignment="Center" HorizontalContentAlignment="Right" Margin="5"/>
+                    <TextBox x:Name="txtLastNameProfile" Grid.Column="1" Margin="10" VerticalContentAlignment="Center" HorizontalContentAlignment="Left"/>
+                </Grid>
+                <Grid  Grid.Row="3">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="160"></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Label x:Name="lblPhoneProfile" Grid.Column="0" Content="Phone Number: " VerticalContentAlignment="Center" HorizontalContentAlignment="Right" Margin="5"/>
+                    <TextBox x:Name="txtPhoneProfile" Grid.Column="1" Margin="10" VerticalContentAlignment="Center" HorizontalContentAlignment="Left"/>
+                </Grid>
+                <Grid  Grid.Row="4">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="160"></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Label x:Name="lblEmailProfile" Grid.Column="0" Content="Email: " VerticalContentAlignment="Center" HorizontalContentAlignment="Right" Margin="5"/>
+                    <TextBox x:Name="txtEmailProfile" Grid.Column="1" Margin="10" VerticalContentAlignment="Center" HorizontalContentAlignment="Left"/>
+                </Grid>
+                <Grid  Grid.Row="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="160"></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Label x:Name="lblDepartmentProfile" Grid.Column="0" Content="Department: " VerticalContentAlignment="Center" HorizontalContentAlignment="Right" Margin="5"/>
+                    <ComboBox x:Name="cbxDepartmentProfile" Grid.Column="1" Margin="10" />
+                </Grid>
+                <Grid Grid.Row="6">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="200"></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Label x:Name="lblActiveProfile" Content="Active" Margin="5,0,0,5" HorizontalContentAlignment="Right" VerticalContentAlignment="Center"/>
+                    <CheckBox x:Name="chkActiveProfile" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+
+                </Grid>
+                <Grid  Grid.Row="7">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Button x:Name="btnSaveProfile" Grid.Column="3" Margin="7" Content="Sumbit" Click="btnSaveProfile_Click"/>
+                    <Button x:Name="btnCancelProfile" Grid.Column="0" Margin="7" Content="Cancel" Click="BtnCancelProfile_Click"/>
+                </Grid>
+
+
+            </Grid>
+            
+            
             <!--Manage Vehicles Page-->
             <Grid x:Name="BrowseShuttleVehiclesPage" Visibility="Hidden">
                 <local:FrmBrowseShuttleVehicles/>
