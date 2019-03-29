@@ -203,7 +203,7 @@ namespace WpfPresentation
         {
             //Event ID never changes
             txtEventID.IsEnabled = false;
-            txtEventOfferingID.IsEnabled = true;
+            txtEventOfferingID.IsEnabled = false;
 
             txtEventTitle.IsEnabled = true;
             txtEventEmployee.Text = _oldEvent.EmployeeID.ToString();
