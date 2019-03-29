@@ -59,11 +59,13 @@ namespace DataAccessLayer
         }
 
         /// <summary>
-        /// Wes Richardson
+        /// /// Wes Richardson
         /// Created: 2019/03/07
         /// 
         /// Retrieves an Appointment based on given ID
         /// </summary>
+        /// <param name="id">An Appointment ID</param>
+        /// <returns>An Appointment based on ID</returns>
         public Appointment SelectAppointmentByID(int id)
         {
             Appointment appointment = null;
@@ -83,7 +85,7 @@ namespace DataAccessLayer
                 conn.Open();
                 var reader = cmd.ExecuteReader();
 
-                if(reader.HasRows)
+                if (reader.HasRows)
                 {
                     appointment = new Appointment()
                     {
@@ -111,6 +113,66 @@ namespace DataAccessLayer
             }
 
             return appointment;
+        }
+
+        /// <summary>
+        /// Wes Richardson
+        /// Created: 2019/03/28
+        /// 
+        /// Selects Appointments based on a guest ID
+        /// </summary>
+        /// <param name="guestID"></param>
+        /// <returns>A list of appointments</returns>
+        public List<Appointment> SelectAppointmentByGuestID(int guestID)
+        {
+            List<Appointment> appointments = null;
+
+            var conn = DBConnection.GetDbConnection();
+
+            var cmdText = @"sp_select_appointment_by_guest_id";
+
+            var cmd = new SqlCommand(cmdText, conn);
+
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+
+            try
+            {
+                conn.Open();
+
+                var reader = cmd.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    appointments = new List<Appointment>();
+                    while (reader.Read())
+                    {
+                        Appointment app = new Appointment()
+                        {
+                            AppointmentID = reader.GetInt32(0),
+                            AppointmentType = reader.GetString(1),
+                            GuestID = guestID,
+                            StartDate = reader.GetDateTime(2),
+                            EndDate = reader.GetDateTime(3),
+                            Description = reader.GetString(4)
+                        };
+                        appointments.Add(app);
+                    }
+                }
+                else
+                {
+                    throw new ApplicationException("No Appointments Found for Guest");
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw new ApplicationException("Database access error", ex);
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            return appointments;
         }
 
         /// <summary>
@@ -179,10 +241,10 @@ namespace DataAccessLayer
                 conn.Open();
 
                 var reader = cmd.ExecuteReader();
-                if(reader.HasRows)
+                if (reader.HasRows)
                 {
                     appointmentTypes = new List<AppointmentType>();
-                    while(reader.Read())
+                    while (reader.Read())
                     {
                         var apt = new AppointmentType()
                         {
@@ -232,7 +294,7 @@ namespace DataAccessLayer
             {
                 conn.Open();
                 var reader = cmd.ExecuteReader();
-                if(reader.HasRows)
+                if (reader.HasRows)
                 {
                     appointmentGuestViewModelList = new List<AppointmentGuestViewModel>();
                     while (reader.Read())
@@ -263,6 +325,36 @@ namespace DataAccessLayer
             }
 
             return appointmentGuestViewModelList;
+        }
+
+        public int DeleteAppointmentByID(int ID)
+        {
+            int rows = 0;
+            var conn = DBConnection.GetDbConnection();
+
+            var cmdText = @"sp_delete_appointment_by_id";
+
+            var cmd = new SqlCommand(cmdText, conn);
+
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@AppointmentID", ID);
+
+            try
+            {
+                conn.Open();
+                rows = cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+
+                throw new ApplicationException("Database access error", ex);
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            return rows;
         }
     }
 }

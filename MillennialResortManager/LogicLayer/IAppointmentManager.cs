@@ -16,5 +16,7 @@ namespace LogicLayer
         List<AppointmentType> RetrieveAppointmentTypes();
         List<AppointmentGuestViewModel> RetrieveGuestList();
         bool UpdateAppointment(Appointment appointment);
+        List<Appointment> RetrieveAppointmentsByGuestID(int guestID);
+        bool DeleteAppointmentByID(int id);
     }
 }

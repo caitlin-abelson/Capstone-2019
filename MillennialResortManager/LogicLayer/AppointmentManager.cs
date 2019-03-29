@@ -84,7 +84,7 @@ namespace LogicLayer
             try
             {
                 appointment = _appointmentAccessor.SelectAppointmentByID(id);
-                if(appointment == null)
+                if (appointment == null)
                 {
                     throw new ApplicationException("No Data");
                 }
@@ -141,7 +141,7 @@ namespace LogicLayer
             try
             {
                 appointmentTypes = _appointmentAccessor.SelectAppointmentTypes();
-                if(appointmentTypes == null)
+                if (appointmentTypes == null)
                 {
                     throw new ApplicationException("No Appointment Type Data");
                 }
@@ -166,7 +166,7 @@ namespace LogicLayer
             try
             {
                 appointmentGuestViewModelList = _appointmentAccessor.SelectGuestList();
-                if(appointmentGuestViewModelList == null)
+                if (appointmentGuestViewModelList == null)
                 {
                     throw new ApplicationException("No Guest Data found");
                 }
@@ -182,6 +182,61 @@ namespace LogicLayer
 
         /// <summary>
         /// Wes Richardson
+        /// Created: 2019/03/28
+        ///  
+        /// </summary>
+        /// <param name="guestID"></param>
+        /// <returns>A list of appointments</returns>
+        public List<Appointment> RetrieveAppointmentsByGuestID(int guestID)
+        {
+            List<Appointment> appointments = null;
+
+            try
+            {
+                appointments = _appointmentAccessor.SelectAppointmentByGuestID(guestID);
+                if (appointments == null)
+                {
+                    throw new ApplicationException("Appointment for Guest Not found");
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+            return appointments;
+        }
+
+        /// <summary>
+        /// Wes Richardson
+        /// Created: 2019/03/28
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>If the record was deleted</returns>
+        public bool DeleteAppointmentByID(int id)
+        {
+            bool results = false;
+            try
+            {
+                int rows = _appointmentAccessor.DeleteAppointmentByID(id);
+                if (rows > 0)
+                {
+                    results = true;
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+            return results;
+        }
+
+        /// <summary>
+        /// Wes Richardson
         /// Created: 2019/03/07
         /// 
         /// Validates the data for an appoitment
@@ -193,12 +248,12 @@ namespace LogicLayer
                 appointmentValid = false;
                 throw new ApplicationException("No Appointment type selected");
             }
-            else if(appointment.AppointmentType.Length > 25)
+            else if (appointment.AppointmentType.Length > 25)
             {
                 appointmentValid = false;
                 throw new ApplicationException("Appointment Type too long");
             }
-            else if (string.IsNullOrEmpty(appointment.StartDate.ToString()))
+            else if (appointment.StartDate == null && string.IsNullOrEmpty(appointment.StartDate.ToString()))
             {
                 appointmentValid = false;
                 throw new ApplicationException("No Start date");
@@ -208,7 +263,7 @@ namespace LogicLayer
                 appointmentValid = false;
                 throw new ApplicationException("Cannot create an appointment with a past start time");
             }
-            else if (string.IsNullOrEmpty(appointment.EndDate.ToString()))
+            else if (appointment.EndDate == null && string.IsNullOrEmpty(appointment.EndDate.ToString()))
             {
                 appointmentValid = false;
                 throw new ApplicationException("No end date");

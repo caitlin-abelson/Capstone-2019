@@ -75,12 +75,13 @@ namespace UnitTests
             try
             {
                 _appMgr.CreateAppointment(appointmnet);
+                Assert.IsTrue(false);
             }
-            catch (ApplicationException)
+            catch (ApplicationException ex)
             {
                 Assert.IsTrue(true);
             }
-            catch(Exception)
+            catch (Exception)
             {
                 throw;
             }
@@ -94,6 +95,7 @@ namespace UnitTests
             try
             {
                 _appMgr.CreateAppointment(appointmnet);
+                Assert.IsTrue(false);
             }
             catch (ApplicationException)
             {
@@ -118,6 +120,7 @@ namespace UnitTests
             try
             {
                 _appMgr.CreateAppointment(appointment);
+                Assert.IsTrue(false);
             }
             catch (ApplicationException)
             {
@@ -143,6 +146,7 @@ namespace UnitTests
             try
             {
                 _appMgr.CreateAppointment(appointment);
+                Assert.IsTrue(false);
             }
             catch (ApplicationException)
             {
@@ -155,16 +159,29 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void CreateNewAppointmentNoEndtDate()
+        public void CreateNewAppointmentNoEndDate()
         {
             Appointment appointment = new Appointment()
             {
                 AppointmentType = "Spa",
                 GuestID = 100000,
                 StartDate = new DateTime(2020, 12, 25, 10, 50, 50),
-                EndDate = new DateTime(2020, 12, 24, 10, 50, 50),
+                EndDate = new DateTime(),
                 Description = "Stuff"
             };
+            try
+            {
+                _appMgr.CreateAppointment(appointment);
+                Assert.IsTrue(false);
+            }
+            catch (ApplicationException)
+            {
+                Assert.IsTrue(true);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
 
         [TestMethod]
@@ -181,6 +198,7 @@ namespace UnitTests
             try
             {
                 _appMgr.CreateAppointment(appointment);
+                Assert.IsTrue(false);
             }
             catch (ApplicationException)
             {
@@ -200,6 +218,7 @@ namespace UnitTests
             try
             {
                 _appMgr.CreateAppointment(appointmnet);
+                Assert.IsTrue(false);
             }
             catch (ApplicationException)
             {
@@ -209,6 +228,195 @@ namespace UnitTests
             {
                 throw;
             }
+
+        }
+
+        [TestMethod]
+        public void UpdateAppointmentAllValid()
+        {
+            Appointment appt1 = BuildNewAppointment();
+            appt1.AppointmentID = 100000;
+            appt1.Description = "Test Type 1";
+            appt1.AppointmentType = "Test Type 1";
+            bool results = _appMgr.UpdateAppointment(appt1);
+            Assert.IsTrue(results);
+        }
+
+        [TestMethod]
+        public void UpdateAppointmentDescriptionTooLong()
+        {
+            Appointment appt1 = BuildNewAppointment();
+            appt1.AppointmentID = 100000;
+            appt1.Description = BuildStringOfGivenLenght(10002);
+            try
+            {
+                _appMgr.UpdateAppointment(appt1);
+                Assert.IsTrue(false);
+            }
+            catch (ApplicationException)
+            {
+                Assert.IsTrue(true);
+            }
+
+
+        }
+
+        [TestMethod]
+        public void UpdateAppointmentEndDateEarlyThenStartDate()
+        {
+            Appointment appt1 = BuildNewAppointment();
+            appt1.AppointmentID = 100000;
+            appt1.EndDate = new DateTime(2020, 12, 25, 10, 00, 50);
+            try
+            {
+                _appMgr.UpdateAppointment(appt1);
+                Assert.IsTrue(false);
+            }
+            catch (ApplicationException)
+            {
+                Assert.IsTrue(true);
+            }
+        }
+        [TestMethod]
+        public void UpdateAppointmentNoEndDate()
+        {
+            Appointment appt1 = BuildNewAppointment();
+            appt1.AppointmentID = 100000;
+            appt1.EndDate = new DateTime();
+            try
+            {
+                _appMgr.UpdateAppointment(appt1);
+                Assert.IsTrue(false);
+            }
+            catch (ApplicationException)
+            {
+                Assert.IsTrue(true);
+            }
+        }
+
+        [TestMethod]
+        public void UpdateAppointmentNoStartDate()
+        {
+            Appointment appt1 = BuildNewAppointment();
+            appt1.AppointmentID = 100000;
+            appt1.StartDate = new DateTime();
+            try
+            {
+                _appMgr.UpdateAppointment(appt1);
+                Assert.IsTrue(false);
+            }
+            catch (ApplicationException)
+            {
+                Assert.IsTrue(true);
+            }
+        }
+
+        [TestMethod]
+        public void UpdateAppointmentStartPastDate()
+        {
+            Appointment appt1 = BuildNewAppointment();
+            appt1.AppointmentID = 100000;
+            appt1.EndDate = new DateTime(2018, 12, 25, 10, 00, 50);
+            try
+            {
+                _appMgr.UpdateAppointment(appt1);
+                Assert.IsTrue(false);
+            }
+            catch (ApplicationException)
+            {
+                Assert.IsTrue(true);
+            }
+        }
+
+        [TestMethod]
+        public void UpdateAppointmentAppointmentTypeEmpty()
+        {
+            Appointment appt1 = BuildNewAppointment();
+            appt1.AppointmentID = 100000;
+            appt1.AppointmentType = "";
+            try
+            {
+                _appMgr.UpdateAppointment(appt1);
+                Assert.IsTrue(false);
+            }
+            catch (ApplicationException)
+            {
+                Assert.IsTrue(true);
+            }
+        }
+
+        [TestMethod]
+        public void UpdateAppointmentAppointmentTypeTooLong()
+        {
+            Appointment appt1 = BuildNewAppointment();
+            appt1.AppointmentID = 100000;
+            appt1.AppointmentType = BuildStringOfGivenLenght(26);
+            try
+            {
+                _appMgr.UpdateAppointment(appt1);
+                Assert.IsTrue(false);
+            }
+            catch (ApplicationException)
+            {
+                Assert.IsTrue(true);
+            }
+        }
+
+        [TestMethod]
+        public void RetrieveAppointmentsByGuestID()
+        {
+            int guestID = 100000;
+
+            List<Appointment> apptList1 = _appMgr.RetrieveAppointmentsByGuestID(guestID);
+            BuildAppointmentList();
+
+            for (int i = 0; i < apptList1.Count; i++)
+            {
+                Assert.AreEqual(apptList1[i].AppointmentType, _testAppointments[i].AppointmentType);
+                Assert.AreEqual(apptList1[i].StartDate, _testAppointments[i].StartDate);
+                Assert.AreEqual(apptList1[i].EndDate, _testAppointments[i].EndDate);
+                Assert.AreEqual(apptList1[i].GuestID, _testAppointments[i].GuestID);
+                Assert.AreEqual(apptList1[i].Description, _testAppointments[i].Description);
+            }
+        }
+
+        [TestMethod]
+        public void RetrieveAppointmentByID()
+        {
+            Appointment apt1 = new Appointment()
+            {
+                AppointmentID = 100000,
+                AppointmentType = "Spa",
+                GuestID = 100000,
+                StartDate = new DateTime(2020, 12, 25, 10, 30, 50),
+                EndDate = new DateTime(2020, 12, 25, 10, 50, 50),
+                Description = "Spa"
+            };
+
+            var apt2 = _appMgr.RetrieveAppointmentByID(apt1.AppointmentID);
+
+            Assert.AreEqual(apt1.AppointmentType, apt2.AppointmentType);
+            Assert.AreEqual(apt1.StartDate, apt2.StartDate);
+            Assert.AreEqual(apt1.EndDate, apt2.EndDate);
+            Assert.AreEqual(apt1.GuestID, apt2.GuestID);
+            Assert.AreEqual(apt1.Description, apt2.Description);
+        }
+
+        [TestMethod]
+        public void DeleteAppointment()
+        {
+            int appointmentIDToDelete = 100001;
+            try
+            {
+                bool results = _appMgr.DeleteAppointmentByID(appointmentIDToDelete);
+                Assert.IsTrue(results);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
         }
 
         private Appointment BuildNewAppointment()
@@ -318,7 +526,7 @@ namespace UnitTests
         private string BuildStringOfGivenLenght(int length)
         {
             string newString = "";
-            for (int i = 1; i == length; i++)
+            for (int i = 1; i <= length; i++)
             {
                 newString = newString + "*";
             }
