@@ -57,6 +57,7 @@ namespace Presentation
     /// </summary>
     public partial class DevLauncher : Window
     {
+        #region Variables Code #Variables
         //This is the employee who is logged in to our system
         private Employee _employee;
         //Reservation
@@ -178,8 +179,14 @@ namespace Presentation
         // EmployeeManager _employeeManager;
         DepartmentManager _departmentManager;
         private Employee _newEmployee;
+        //Maintenance Work Order
+        private List<MaintenanceWorkOrder> _allMaintenanceWorkOrders;
+        private List<MaintenanceWorkOrder> _currentMaintenanceWorkOrders;
+        private MaintenanceWorkOrderManagerMSSQL _maintenanceWorkOrderManager;
 
+        #endregion
 
+        #region DevLauncher Code #DevLauncher
 
         /// <summary>
         /// Author: Matt LaMarche
@@ -236,6 +243,7 @@ namespace Presentation
                 {
                     //This person has no assigned roles or his roles are messed up.
                     NavBarSubHeaderMaintenanceTypes.Visibility = Visibility.Collapsed;
+                    NavBarSubHeaderMaintenanceWorkOrders.Visibility = Visibility.Collapsed;
                 }
             }
             else if (_employee.DepartmentID == "Events")
@@ -335,43 +343,6 @@ namespace Presentation
                 HideNavbarOption();
             }
 
-            //Ensure Profile is visible
-
-
-
-            //if (_employee.EmployeeRoles.Count(x => x.RoleID == "Admin") > 0)
-            //{
-            //    return;
-            //}
-            //foreach (MenuItem mi in NavbarMenu.Items)
-            //{
-            //    if (mi.Name.Contains('_'))
-            //    {
-            //        int displayedSubItems = 0;
-            //        foreach (MenuItem subMi in mi.Items)
-            //        {
-            //            bool canSee = false;
-            //            foreach (var role in _employee.EmployeeRoles)
-            //            {
-            //                if (subMi.Name.Contains(role.RoleID))
-            //                {
-            //                    canSee = true;
-            //                    displayedSubItems++;
-            //                    break;
-            //                }
-            //            }
-            //            if (!canSee)
-            //            {
-            //                subMi.Visibility = Visibility.Hidden;
-            //                subMi.Height = 0;
-            //            }
-            //        }
-            //        if (displayedSubItems == 0)
-            //        {
-            //            mi.Visibility = Visibility.Hidden;
-            //        }
-            //    }
-            //}
         }
 
         private void HideNavbarOption()
@@ -462,9 +433,9 @@ namespace Presentation
         }
 
 
+        #endregion
 
-
-
+        #region Navbar Code
         /*--------------------------- Starting NavBar Code #NavBar --------------------------------*/
 
         /// <summary>
@@ -792,9 +763,21 @@ namespace Presentation
             //ProfileDoOnStart();
         }
 
+        /// <summary>
+        /// This is what happens when the subheader button for Maintenance Work Orders is clicked from the navbar
+        /// </summary>
+        /// <param name=""></param>
+        /// <param name="e"></param>
+        private void NavBarSubHeaderMaintenanceWorkOrder_Click(object sender, RoutedEventArgs e)
+        {
+            DisplayPage("MaintenanceWorkOrder");
+            //BrowseMaintenanceWorkOrderDoOnStart();
+        }
+
         /*--------------------------- Ending NavBar Code --------------------------------*/
+        #endregion
 
-
+        #region Reservation Code
         /*--------------------------- Starting BrowseReservation Code #BrowseReservation --------------------------------*/
         /// <summary>
         /// Author: Matt LaMarche
@@ -1148,7 +1131,9 @@ namespace Presentation
 
 
         /*--------------------------- Ending BrowseReservation Code --------------------------------*/
+        #endregion
 
+        #region Shops Code
         /*--------------------------- Starting BrowseShops Code #BrowseShops --------------------------------*/
         /// <summary>
         /// Author: Matt LaMarche
@@ -1283,7 +1268,7 @@ namespace Presentation
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void BtnAdd_Click(object sender, RoutedEventArgs e)
+        private void BtnAddShops_Click(object sender, RoutedEventArgs e)
         {
             var varAddForm = new CreateShop();
             var formResult = varAddForm.ShowDialog();
@@ -1297,12 +1282,12 @@ namespace Presentation
             }
         }
 
-        private void BtnView_Click(object sender, RoutedEventArgs e)
+        private void BtnViewShop_Click(object sender, RoutedEventArgs e)
         {
 
         }
 
-        private void BtnDeactivate_Click(object sender, RoutedEventArgs e)
+        private void BtnDeactivateShop_Click(object sender, RoutedEventArgs e)
         {
 
         }
@@ -1339,7 +1324,9 @@ namespace Presentation
             refreshShops();
         }
         /*--------------------------- Ending BrowseShops Code --------------------------------*/
+        #endregion
 
+        #region Employees Code
         /*--------------------------- Starting BrowseEmployees Code #BrowseEmployees --------------------------------*/
         /// <summary>
         /// Author: Matt LaMarche
@@ -1618,7 +1605,9 @@ namespace Presentation
             }
         }
         /*--------------------------- Ending BrowseEmployees Code --------------------------------*/
+        #endregion
 
+        #region Suppliers Code
         /*--------------------------- Starting BrowseSuppliers Code #BrowseSuppliers --------------------------------*/
         /// <summary>
         /// Author: Matt LaMarche
@@ -1967,8 +1956,9 @@ namespace Presentation
         }
 
         /*--------------------------- Ending BrowseSuppliers Code --------------------------------*/
+        #endregion
 
-
+        #region Products Code
         /*--------------------------- Starting BrowseProducts Code #BrowseProducts --------------------------------*/
         /// <summary>
         /// Author: Matt LaMarche
@@ -2330,8 +2320,9 @@ namespace Presentation
 
 
         /*--------------------------- Ending BrowseProducts Code --------------------------------*/
+        #endregion
 
-
+        #region Building Code
         /*--------------------------- Starting BrowseBuilding Code #BrowseBuilding --------------------------------*/
         /// <summary>
         /// Author: Matt LaMarche
@@ -2473,8 +2464,9 @@ namespace Presentation
         }
 
         /*--------------------------- Ending BrowseBuilding Code --------------------------------*/
+        #endregion
 
-
+        #region Order Code
         /*--------------------------- Starting BrowseOrder Code #BrowseOrder --------------------------------*/
         /// <summary>
         /// Author: Matt LaMarche
@@ -2697,7 +2689,9 @@ namespace Presentation
         }
 
         /*--------------------------- Ending BrowseOrder Code --------------------------------*/
+        #endregion
 
+        #region Employee Role Code
         /*--------------------------- Starting BrowseEmployeeRole Code #BrowseEmployeeRole --------------------------------*/
         /// <summary>
         /// Author: Matt LaMarche
@@ -2963,8 +2957,9 @@ namespace Presentation
         }
 
         /*--------------------------- Ending BrowseEmployeeRole Code --------------------------------*/
+        #endregion
 
-
+        #region Guest Types Code
         /*--------------------------- Starting BrowseGuestTypes Code #BrowseGuestTypes --------------------------------*/
         /// <summary>
         /// Author: Matt LaMarche
@@ -3045,7 +3040,9 @@ namespace Presentation
 
         /*--------------------------- Ending BrowseGuestTypes Code --------------------------------*/
 
+        #endregion
 
+        #region Room Types Code
         /*--------------------------- Starting BrowseRoomTypes Code #BrowseRoomTypes --------------------------------*/
         /// <summary>
         /// Author: Matt LaMarche
@@ -3127,8 +3124,9 @@ namespace Presentation
 
 
         /*--------------------------- Ending BrowseRoomTypes Code --------------------------------*/
+        #endregion
 
-
+        #region Performance Code
         /*--------------------------- Starting BrowsePerformance Code #BrowsePerformance --------------------------------*/
         /// <summary>
         /// Author: Matt LaMarche
@@ -3191,8 +3189,9 @@ namespace Presentation
         }
 
         /*--------------------------- Ending BrowsePerformance Code --------------------------------*/
+        #endregion
 
-
+        #region Item Suppliers Code
         /*--------------------------- Starting BrowseItemSuppliers Code #BrowseItemSuppliers --------------------------------*/
         //frmManageItemSuppliers Has required parameters.
         private void BrowseItemSuppliersDoOnStart()
@@ -3206,8 +3205,9 @@ namespace Presentation
 
 
         /*--------------------------- Ending BrowseItemSuppliers Code --------------------------------*/
+        #endregion
 
-
+        #region Event Types Code
         /*--------------------------- Starting BrowseEventTypes Code #BrowseEventTypes --------------------------------*/
         /// <summary>
         /// Author: Matt LaMarche
@@ -3284,8 +3284,9 @@ namespace Presentation
         }
 
         /*--------------------------- Ending BrowseEventTypes Code --------------------------------*/
+        #endregion
 
-
+        #region Appointment Type Code
         /*--------------------------- Starting BrowseAppointment Code #BrowseAppointment --------------------------------*/
         /// <summary>
         /// Author: Matt LaMarche
@@ -3378,8 +3379,9 @@ namespace Presentation
 
 
         /*--------------------------- Ending BrowseAppointment Code --------------------------------*/
+        #endregion
 
-
+        #region Guest Code
         /*--------------------------- Starting BrowseGuest Code #BrowseGuest --------------------------------*/
         /// <summary>
         /// Author: Matt LaMarche
@@ -3710,8 +3712,9 @@ namespace Presentation
         }
 
         /*--------------------------- Ending BrowseGuest Code --------------------------------*/
+        #endregion
 
-
+        #region Guest Vehicle Code
         /*--------------------------- Starting BrowseGuestVehicle Code #BrowseGuestVehicle --------------------------------*/
         /// <summary>
         /// Author: Matt LaMarche
@@ -3928,8 +3931,9 @@ namespace Presentation
             }
         }
         /*--------------------------- Ending BrowseRoom Code --------------------------------*/
+        #endregion
 
-
+        #region Setup List Code
         /*--------------------------- Starting BrowseSetupList Code #BrowseSetupList --------------------------------*/
         /// <summary>
         /// Author: Matt LaMarche
@@ -4096,8 +4100,9 @@ namespace Presentation
 
 
         /*--------------------------- Ending BrowseSetupList Code --------------------------------*/
+        #endregion
 
-
+        #region Sponsor Code
         /*--------------------------- Starting BrowseSponsor Code #BrowseSponsor --------------------------------*/
         /// <summary>
         /// Author: Matt LaMarche
@@ -4232,7 +4237,9 @@ namespace Presentation
 
 
         /*--------------------------- Ending BrowseSponsor Code --------------------------------*/
+        #endregion
 
+        #region Recipe Code
         /*--------------------------- Starting BrowseRecipe Code #BrowseRecipe --------------------------------*/
         /// <summary>
         /// Author: Matt LaMarche
@@ -4490,7 +4497,9 @@ namespace Presentation
 
 
         /*--------------------------- Ending BrowseRecipe Code --------------------------------*/
+        #endregion
 
+        #region Event Code
         /*--------------------------- Starting BrowseEvent Code #BrowseEvent --------------------------------*/
         /// <summary>
         /// Author: Matt LaMarche
@@ -4654,8 +4663,9 @@ namespace Presentation
 
 
         /*--------------------------- Ending BrowseEvent Code --------------------------------*/
+        #endregion
 
-
+        #region Supplier Orders Code
         /*--------------------------- Starting BrowseSupplierOrders Code #BrowseSupplierOrders --------------------------------*/
         /// <summary>
         /// Author: Matt LaMarche
@@ -4821,8 +4831,9 @@ namespace Presentation
 
 
         /*--------------------------- Ending BrowseSupplierOrders Code --------------------------------*/
+        #endregion
 
-
+        #region Pets Code        
         /*--------------------------- Starting BrowsePets Code #BrowsePets --------------------------------*/
         /// <summary>
         /// Author: Matt LaMarche
@@ -4962,8 +4973,9 @@ namespace Presentation
 
 
         /*--------------------------- Ending BrowsePets Code --------------------------------*/
+        #endregion
 
-
+        #region Room Code
         /*--------------------------- Starting BrowseRoom Code #BrowseRoom --------------------------------*/
         /// <summary>
         /// Author: Matt LaMarche
@@ -5138,8 +5150,9 @@ namespace Presentation
         }
 
         /*--------------------------- Ending BrowseRoom Code --------------------------------*/
+        #endregion
 
-
+        #region Maintenance Type Code
         /*--------------------------- Starting BrowseMaintenanceType Code #BrowseMaintenanceType --------------------------------*/
         /// <summary>
         /// Author: Matt LaMarche
@@ -5224,8 +5237,9 @@ namespace Presentation
 
 
         /*--------------------------- Ending BrowseMaintenanceType Code --------------------------------*/
+        #endregion
 
-
+        #region Member Code        
         /*--------------------------- Starting BrowseMember Code #BrowseMember --------------------------------*/
         /// <summary>
         /// Author: Matt LaMarche
@@ -5503,8 +5517,9 @@ namespace Presentation
 
 
         /*--------------------------- Ending BrowseMember Code --------------------------------*/
+        #endregion
 
-
+        #region Profile Code
         /*--------------------------- Starting Profile Code #Profile--------------------------------*/
         private void ProfileDoOnStart()
         {
@@ -5883,6 +5898,220 @@ namespace Presentation
 
         /*--------------------------- Ending Profile Code --------------------------------*/
 
+        #endregion
+
+        #region Maintenance Work Order Code
+        /*----------------------------- Starting BrowseMaintenanceWorkOrder code #BrowseMaintenanceWorkOrder ---------------------------*/
+        private void BrowseMaintenanceWorkOrderDoOnStart()
+        {
+            _maintenanceWorkOrderManager = new MaintenanceWorkOrderManagerMSSQL();
+            refreshAllMaintenanceWorkOrders();
+            populateMaintenanceWorkOrders();
+        }
+
+        /// <summary>
+        /// Author: Dalton Cleveland
+        /// Created : 2/21/2019
+        /// gets a list of all Work Orders from our database and updates our lists
+        /// </summary>
+        private void refreshAllMaintenanceWorkOrders()
+        {
+
+            try
+            {
+                _allMaintenanceWorkOrders = _maintenanceWorkOrderManager.RetrieveAllMaintenanceWorkOrders();
+                _currentMaintenanceWorkOrders = _allMaintenanceWorkOrders;
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+            }
+
+        }
+
+        /// <summary>
+        /// Author: Dalton Cleveland
+        /// Created : 2/21/2019
+        /// sets the Data Grids Item Source to our current WorkOrders
+        /// </summary>
+        private void populateMaintenanceWorkOrders()
+        {
+            dgMaintenanceWorkOrders.ItemsSource = _currentMaintenanceWorkOrders;
+        }
+
+        /// <summary>
+        /// Author: Dalton Cleveland
+        /// Created : 2/21/2019
+        /// The function which runs when cancel is clicked
+        /// </summary>
+        private void btnCancelMaintenanceWorkOrder_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
+
+        /// <summary>
+        /// Author: Dalton Cleveland
+        /// Created : 2/21/2019
+        /// The function which runs when Add is clicked
+        /// </summary>
+        private void btnAddMaintenanceWorkOrder_Click(object sender, RoutedEventArgs e)
+        {
+            var createMaintenanceWorkOrder = new CreateMaintenanceWorkOrder(_maintenanceWorkOrderManager);
+            createMaintenanceWorkOrder.ShowDialog();
+            refreshAllMaintenanceWorkOrders();
+            populateMaintenanceWorkOrders();
+        }
+
+        /// <summary>
+        /// Author: Dalton Cleveland
+        /// Created : 2/21/2019
+        /// The function which runs when Delete is clicked
+        /// </summary>
+        private void btnDeleteMaintenanceWorkOrder_Click(object sender, RoutedEventArgs e)
+        {
+            if (dgMaintenanceWorkOrders.SelectedIndex != -1)
+            {
+                var deleteMaintenanceWorkOrder = new DeactivateMaintenanceWorkOrder(((MaintenanceWorkOrder)dgMaintenanceWorkOrders.SelectedItem), _maintenanceWorkOrderManager);
+                deleteMaintenanceWorkOrder.ShowDialog();
+                refreshAllMaintenanceWorkOrders();
+                populateMaintenanceWorkOrders();
+            }
+        }
+
+
+        /// <summary>
+        /// Author: Dalton Cleveland
+        /// Created : 2/21/2019
+        /// The function which runs when Clear Filters is clicked
+        /// </summary>
+        private void btnClearFiltersMaintenanceWorkOrder_Click(object sender, RoutedEventArgs e)
+        {
+            _currentMaintenanceWorkOrders = _allMaintenanceWorkOrders;
+        }
+
+        /// <summary>
+        /// Author: Dalton Cleveland
+        /// Created : 2/21/2019
+        /// The function which runs when Filter is clicked
+        /// </summary>
+        private void btnFilterMaintenanceWorkOrder_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("Not Implemented Yet");
+        }
+
+        private void filterMaintenanceWorkOrders()
+        {
+            string status = null;
+            try
+            {
+                status = (cboStatus.SelectedItem).ToString();
+                _currentMaintenanceWorkOrders = _allMaintenanceWorkOrders.FindAll(m => m.MaintenanceStatusID == status);
+
+                if (cboStatus.SelectedItem.ToString() != null)
+                {
+                    _currentMaintenanceWorkOrders = _currentMaintenanceWorkOrders.FindAll(m => m.MaintenanceStatusID == cboStatus.SelectedItem.ToString());
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// Author: Dalton Cleveland
+        /// Created : 2/21/2019
+        /// This method takes the current list of MaintenanceWorkOrdesr and filters out the deactive ones 
+        /// </summary>
+        private void filterActiveOnlyMaintenanceWorkOrder()
+        {
+            _currentMaintenanceWorkOrders = _currentMaintenanceWorkOrders.FindAll(x => x.Complete == false);
+        }
+
+        /// <summary>
+        /// Author: Dalton Cleveland
+        /// Created : 2/21/2019
+        /// This method takes the current list of MaintenanceWorkOrders and filters out the active ones
+        /// </summary>
+        private void filterDeActiveOnlyMaintenanceWorkOrder()
+        {
+            _currentMaintenanceWorkOrders = _currentMaintenanceWorkOrders.FindAll(x => x.Complete == false);
+        }
+
+        /// <summary>
+        /// Author: Dalton Cleveland
+        /// Created : 2/21/2019
+        /// The function which runs when a MaintenanceWorkOrder is double clicked
+        /// </summary>
+        private void dgMaintenanceWorkOrders_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            if (dgMaintenanceWorkOrders.SelectedIndex != -1)
+            {
+                MaintenanceWorkOrder selectedMaintenanceWorkOrder = new MaintenanceWorkOrder();
+                try
+                {
+                    selectedMaintenanceWorkOrder = _maintenanceWorkOrderManager.RetrieveMaintenanceWorkOrder(((MaintenanceWorkOrder)dgMaintenanceWorkOrders.SelectedItem).MaintenanceWorkOrderID);
+                    var readUpdateMaintenanceWorkOrder = new CreateMaintenanceWorkOrder(selectedMaintenanceWorkOrder, _maintenanceWorkOrderManager);
+                    readUpdateMaintenanceWorkOrder.ShowDialog();
+                    refreshAllMaintenanceWorkOrders();
+                    populateMaintenanceWorkOrders();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Unable to find that Maintenance Work Order\n" + ex.Message);
+                }
+
+            }
+        }
+
+        /// <summary>
+        /// Author: Dalton Cleveland
+        /// Created : 2/21/2019
+        /// The function which runs when the view MaintenanceWorkOrder button is clicked. 
+        /// It will launch the CreateMaintenanceWorkOrder window in view mode with the option of updating 
+        /// </summary>
+        private void btnViewMaintenanceWorkOrder_Click(object sender, RoutedEventArgs e)
+        {
+            if (dgMaintenanceWorkOrders.SelectedIndex != -1)
+            {
+                MaintenanceWorkOrder selectedMaintenanceWorkOrder = new MaintenanceWorkOrder();
+                try
+                {
+                    selectedMaintenanceWorkOrder = _maintenanceWorkOrderManager.RetrieveMaintenanceWorkOrder(((MaintenanceWorkOrder)dgMaintenanceWorkOrders.SelectedItem).MaintenanceWorkOrderID);
+                    var readUpdateMaintenanceWorkOrder = new CreateMaintenanceWorkOrder(selectedMaintenanceWorkOrder, _maintenanceWorkOrderManager);
+                    readUpdateMaintenanceWorkOrder.ShowDialog();
+                    refreshAllMaintenanceWorkOrders();
+                    populateMaintenanceWorkOrders();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Unable to find that Maintenance Work Order\n" + ex.Message);
+                }
+
+            }
+        }
+
+        private void dgMaintenanceWorkOrders_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
+        {
+            if (e.PropertyType == typeof(DateTime))
+            {
+                (e.Column as DataGridTextColumn).Binding.StringFormat = "MM/dd/yyyy";
+            }
+
+            string headerName = e.Column.Header.ToString();
+
+            if (headerName == "MaintenanceTypeID")
+            {
+                e.Cancel = true;
+            }
+
+            if (headerName == "MaintenanceStatusID")
+            {
+                e.Cancel = true;
+            }
+        }
+        /*----------------------------- Ending BrowseMaintenanceWorkOrder code ----------------------------------*/
+        #endregion
 
 
 

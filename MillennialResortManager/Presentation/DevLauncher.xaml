@@ -61,6 +61,7 @@
                     </MenuItem>
                     <MenuItem Header="_Maintenance" x:Name="_NavBarHeaderMaintenance" Style="{StaticResource NavBarHeader}" >
                         <MenuItem Header="MaintenanceTypes" x:Name="NavBarSubHeaderMaintenanceTypes" x:Uid="NBMaintenanceTypes" Click="NavBarSubHeaderMaintenanceTypes_Click"/>
+                        <MenuItem Header="Maintenance Orders" x:Name="NavBarSubHeaderMaintenanceWorkOrders" x:Uid="NBMaintenanceWorkOrders" Click="NavBarSubHeaderMaintenanceWorkOrder_Click"/>
                     </MenuItem>
                     <MenuItem Header="_Ordering" x:Name="_NavBarHeaderOrdering" Style="{StaticResource NavBarHeader}" >
                         <MenuItem Header="Suppliers"  x:Name="NavBarSubHeaderSuppliers" x:Uid="NBSuppliers" Click="NavBarSubHeaderSuppliers_Click"/>
@@ -94,13 +95,15 @@
                 <Label Content="Content Goes Here" Grid.Column="0" Grid.ColumnSpan="2" FontSize="72" HorizontalAlignment="Center" VerticalAlignment="Center"/>
             </Grid>
             <!-- Browse Reservation Page-->
+            <!-- Updated: Gunardi Saputra -->
+            <!-- Date: 03/19/2019 -->
             <Grid x:Name="BrowseReservationPage" Visibility="Hidden">
                 <Grid.RowDefinitions>
                     <RowDefinition/>
                     <RowDefinition Height="8*"/>
                     <RowDefinition/>
                 </Grid.RowDefinitions>
-                <Grid Grid.Row="0">
+                <Grid Grid.Row="0" Style="{StaticResource FilterBar}">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width=".7*"/>
                         <ColumnDefinition/>
@@ -147,8 +150,8 @@
                     <Button Grid.Column="6" Content="Filter" x:Name="btnFilterReservation" Margin="5" Click="btnFilterReservation_Click"/>
                     <Button Grid.Column="7" Content="Clear" x:Name="btnClearFiltersReservation" Margin="5" Click="btnClearFiltersReservation_Click"/>
                 </Grid>
-                <DataGrid Grid.Row="1" x:Name="dgReservations" VerticalGridLinesBrush="{x:Null}" SelectionMode="Single" AlternatingRowBackground="#FF3DD8CA" RowBackground="LightGoldenrodYellow" IsReadOnly="True" AutoGeneratingColumn="dgReservations_AutoGeneratingColumn" MouseDoubleClick="dgReservations_MouseDoubleClick" />
-                <Grid Grid.Row="2">
+                <DataGrid Grid.Row="1" x:Name="dgReservations" Style="{StaticResource DataGridStyle}" VerticalGridLinesBrush="{x:Null}" SelectionMode="Single" AlternatingRowBackground="#FF3DD8CA" RowBackground="LightGoldenrodYellow" IsReadOnly="True" AutoGeneratingColumn="dgReservations_AutoGeneratingColumn" MouseDoubleClick="dgReservations_MouseDoubleClick" />
+                <Grid Grid.Row="2" Style="{StaticResource BottomBar}">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition/>
                         <ColumnDefinition/>
@@ -164,13 +167,15 @@
                 </Grid>
             </Grid>
             <!-- Browse Shops Page-->
+            <!-- Updated: Gunardi Saputra -->
+            <!-- Date: 03/19/2019 -->
             <Grid x:Name="BrowseShopsPage" Visibility="Hidden">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="55"></RowDefinition>
                     <RowDefinition></RowDefinition>
                     <RowDefinition Height="55"></RowDefinition>
                 </Grid.RowDefinitions>
-                <Grid Grid.Row="0">
+                <Grid Grid.Row="0" Style="{StaticResource FilterBar}">
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="40" />
@@ -224,7 +229,7 @@
                     </Grid>
                 </Grid>
                 <!-- Grid Row 0 -->
-                <DataGrid Grid.Row="1" x:Name="dgShops" VerticalGridLinesBrush="{x:Null}" SelectionMode="Single" IsReadOnly="True" AutoGenerateColumns="False" ItemsSource="{Binding}" MouseDoubleClick="DgShops_MouseDoubleClick">
+                <DataGrid Grid.Row="1" x:Name="dgShops" Style="{StaticResource DataGridStyle}" VerticalGridLinesBrush="{x:Null}" SelectionMode="Single" IsReadOnly="True" AutoGenerateColumns="False" ItemsSource="{Binding}" MouseDoubleClick="DgShops_MouseDoubleClick">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Shop" Binding="{Binding Name}"/>
                         <DataGridTextColumn Header="Building" Binding="{Binding BuildingID}"/>
@@ -233,7 +238,7 @@
                         <DataGridTextColumn Header="Act" Binding="{Binding Active}"/>
                     </DataGrid.Columns>
                 </DataGrid>
-                <Grid Grid.Row="2">
+                <Grid Grid.Row="2" Style="{StaticResource BottomBar}">
 
                     <Grid>
                         <Grid.RowDefinitions>
@@ -251,9 +256,9 @@
                                 <ColumnDefinition Width="100"/>
 
                             </Grid.ColumnDefinitions>
-                            <Button x:Name="btnAdd" Grid.Column="2" Content="Add Shop" Margin="5" Click="BtnAddEmployeeRole_Click" ></Button>
-                            <Button x:Name="btnView" Grid.Column="3" Margin="5" Content="View" Click="BtnView_Click" />
-                            <Button x:Name="btnDeactivate" Grid.Column="4" Content="Deactivate" Margin="5" Click="BtnDeactivate_Click" />
+                            <Button x:Name="btnAdd" Grid.Column="2" Content="Add Shop" Margin="5" Click="BtnAddShops_Click" ></Button>
+                            <Button x:Name="btnView" Grid.Column="3" Margin="5" Content="View Shop" Click="BtnViewShop_Click" />
+                            <Button x:Name="btnDeactivate" Grid.Column="4" Content="Deactivate" Margin="5" Click="BtnDeactivateShop_Click" />
                             <Button x:Name="btnDelete" IsEnabled="False" Visibility="Hidden" Grid.Column="4" Content="Delete" Margin="5" />
 
                         </Grid>
@@ -264,17 +269,16 @@
                 </Grid>
             </Grid>
             <!-- Browse Employees Page-->
+            <!-- Updated: Gunardi Saputra -->
+            <!-- Date: 03/19/2019 -->
+            <!-- Browse Employees Page-->
             <Grid x:Name="BrowseEmployeesPage" Visibility="Hidden">
                 <Grid.RowDefinitions>
-
                     <RowDefinition Height="80"></RowDefinition>
                     <RowDefinition></RowDefinition>
                     <RowDefinition Height="55"></RowDefinition>
-
                 </Grid.RowDefinitions>
-
-
-                <Grid Grid.Row="0">
+                <Grid Grid.Row="0" Style="{StaticResource FilterBar}">
 
                     <Grid>
                         <Grid.RowDefinitions>
@@ -329,7 +333,7 @@
                     </Grid>
                 </Grid>
 
-                <DataGrid Grid.Row="1" x:Name="dgEmployees" VerticalGridLinesBrush="{x:Null}" SelectionMode="Single" IsReadOnly="True" AutoGenerateColumns="False" ItemsSource="{Binding}" MouseDoubleClick="DgEmployees_MouseDoubleClick" >
+                <DataGrid Grid.Row="1" x:Name="dgEmployees" Style="{StaticResource DataGridStyle}" VerticalGridLinesBrush="{x:Null}" SelectionMode="Single" IsReadOnly="True" AutoGenerateColumns="False" ItemsSource="{Binding}" MouseDoubleClick="DgEmployees_MouseDoubleClick" >
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="First Name" Binding="{Binding FirstName}"/>
                         <DataGridTextColumn Header="Last Name" Binding="{Binding LastName}"/>
@@ -337,7 +341,7 @@
                         <DataGridTextColumn Header="Department" Binding="{Binding DepartmentID}"/>
                     </DataGrid.Columns>
                 </DataGrid>
-                <Grid Grid.Row="2">
+                <Grid Grid.Row="2" Style="{StaticResource BottomBar}">
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="40" />
@@ -355,7 +359,7 @@
 
                             </Grid.ColumnDefinitions>
                             <Button x:Name="btnAddEmployee" Grid.Column="2" Content="Add Employee" Margin="5" Click="BtnAddEmployee_Click"></Button>
-                            <Button x:Name="btnReadEmployee" Grid.Column="3" Margin="5" Content="View" Click="BtnReadEmployee_Click"/>
+                            <Button x:Name="btnReadEmployee" Grid.Column="3" Margin="5" Content="View Employee" Click="BtnReadEmployee_Click"/>
                             <Button x:Name="btnDeleteEmployee"  Grid.Column="4" Content="Delete" Margin="5" Click="BtnDeleteEmployee_Click"/>
 
                         </Grid>
@@ -366,18 +370,15 @@
                 </Grid>
             </Grid>
             <!-- Browse Suppliers Page-->
+            <!-- Updated: Gunardi Saputra -->
+            <!-- Date: 03/19/2019 -->
             <Grid x:Name="BrowseSuppliersPage" Visibility="Hidden">
                 <Grid.RowDefinitions>
-
                     <RowDefinition Height="55"></RowDefinition>
                     <RowDefinition></RowDefinition>
                     <RowDefinition Height="55"></RowDefinition>
-
                 </Grid.RowDefinitions>
-
-
-                <Grid Grid.Row="0">
-
+                <Grid Grid.Row="0" Style="{StaticResource FilterBar}">
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="40" />
@@ -425,7 +426,7 @@
                 </Grid>
                 <!-- Modified 2019/01/31 by James Heim
         Disable AutoGenerating Columns to remove the SupplierID from the list. -->
-                <DataGrid Grid.Row="1" x:Name="dgSuppliers" VerticalGridLinesBrush="{x:Null}" SelectionMode="Single" IsReadOnly="True" AutoGenerateColumns="False" ItemsSource="{Binding}" MouseDoubleClick="DgSuppliers_MouseDoubleClick">
+                <DataGrid Grid.Row="1" x:Name="dgSuppliers" Style="{StaticResource DataGridStyle}" VerticalGridLinesBrush="{x:Null}" SelectionMode="Single" IsReadOnly="True" AutoGenerateColumns="False" ItemsSource="{Binding}" MouseDoubleClick="DgSuppliers_MouseDoubleClick">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Supplier Name" Binding="{Binding Name}"/>
                         <DataGridTextColumn Header="City" Binding="{Binding City}"/>
@@ -433,7 +434,7 @@
                         <DataGridTextColumn Header="Description" Binding="{Binding Description}"/>
                     </DataGrid.Columns>
                 </DataGrid>
-                <Grid Grid.Row="2">
+                <Grid Grid.Row="2" Style="{StaticResource BottomBar}">
 
                     <Grid>
                         <Grid.RowDefinitions>
@@ -452,7 +453,7 @@
 
                             </Grid.ColumnDefinitions>
                             <Button x:Name="btnAddSuppliers" Grid.Column="2" Content="Add Supplier" Margin="5" Click="BtnAddSuppliers_Click"></Button>
-                            <Button x:Name="btnReadSuppliers" Grid.Column="3" Margin="5" Content="View" Click="BtnReadSuppliers_Click"/>
+                            <Button x:Name="btnReadSuppliers" Grid.Column="3" Margin="5" Content="View Supplier" Click="BtnReadSuppliers_Click"/>
                             <Button x:Name="btnDeactivateSuppliers" Grid.Column="4" Content="Deactivate" Margin="5" Click="BtnDeactivateSuppliers_Click" />
                             <Button x:Name="btnDeleteSuppliers" IsEnabled="False" Visibility="Hidden" Grid.Column="4" Content="Delete" Margin="5" Click="BtnDeleteSuppliers_Click" />
                         </Grid>
@@ -463,91 +464,74 @@
                 </Grid>
             </Grid>
             <!-- Browse Product Page-->
+            <!-- Updated: Gunardi Saputra -->
+            <!-- Date: 03/19/2019 -->
             <Grid x:Name="BrowseProductsPage" Visibility="Hidden">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="30"></RowDefinition>
-                    <RowDefinition></RowDefinition>
-                    <RowDefinition Height="40"></RowDefinition>
+                    <RowDefinition Height="12*"></RowDefinition>
+                    <RowDefinition ></RowDefinition>
                 </Grid.RowDefinitions>
-                <Grid Grid.Row="0">
-                    <Label Content="Browse Products" VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="Bold" FontSize="16" />
-                </Grid>
-                <Grid Grid.Row="1">
+                <Grid Grid.Row="0" >
                     <Grid.RowDefinitions>
+                        
                         <RowDefinition Height="30"></RowDefinition>
-                        <RowDefinition Height="30"></RowDefinition>
-                        <RowDefinition></RowDefinition>
+                        <RowDefinition ></RowDefinition>
                     </Grid.RowDefinitions>
-                    <Grid Grid.Row="0">
-                        <Label x:Name="lblListOfProducts" Content="List Of Products" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                    </Grid>
-                    <Grid Grid.Row="1">
+
+                    <Grid Grid.Row="0" Style="{StaticResource FilterBar}">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="20"></ColumnDefinition>
                             <ColumnDefinition Width="50"></ColumnDefinition>
                             <ColumnDefinition Width="20"></ColumnDefinition>
                             <ColumnDefinition Width="60"></ColumnDefinition>
                             <ColumnDefinition></ColumnDefinition>
-                            <ColumnDefinition Width="75"></ColumnDefinition>
-                            <ColumnDefinition Width="75"></ColumnDefinition>
                             <ColumnDefinition Width="125"></ColumnDefinition>
+                            <ColumnDefinition Width="75"></ColumnDefinition>
+                            <ColumnDefinition Width="75"></ColumnDefinition>
                         </Grid.ColumnDefinitions>
                         <CheckBox x:Name="cbActive" HorizontalAlignment="Left"  VerticalAlignment="Center" Grid.Column="0" Click="cbActive_Click"/>
                         <Label x:Name="lblActive" HorizontalAlignment="Left" VerticalAlignment="Center" Content="Active" Grid.Column="1"/>
                         <CheckBox x:Name="cbDeactive" HorizontalAlignment="Left"  VerticalAlignment="Center" Grid.Column="2" Checked="cbDeactive_Checked"/>
                         <Label x:Name="lblDeactive"  HorizontalAlignment="Left" VerticalAlignment="Center" Content="Deactive" Grid.Column="3"/>
-                        <Button x:Name="btnSearch" Content="Search" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="6" Width="60" Height="25" Click="btnSearch_Click"/>
-                        <Button x:Name="btnClear" Content="Clear" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="5" Width="60" Height="25" Click="btnClear_Click"/>
-                        <TextBox x:Name="txtSearchBox" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="7" Width="120" Text="Search" GotFocus="txtSearchBox_GotFocus"/>
+                        <Button x:Name="btnSearch" Content="Filter" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="6" Width="60" Height="25" Click="btnSearch_Click"/>
+                        <Button x:Name="btnClear" Content="Clear" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="7" Width="60" Height="25" Click="btnClear_Click"/>
+                        <TextBox x:Name="txtSearchBox" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="5" Width="120" Text="Search" GotFocus="txtSearchBox_GotFocus"/>
 
                     </Grid>
-                    <TabControl Grid.Row="2" x:Name="tabsetMain">
-                        <TabItem Name="tabProducts" Header="Products">
-                            <Grid>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="40" />
-                                    <RowDefinition />
-                                    <RowDefinition Height="40" />
-                                </Grid.RowDefinitions>
-                                <Grid Grid.Row="0">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="100"/>
-                                        <ColumnDefinition />
-                                        <ColumnDefinition Width="120"/>
-                                        <ColumnDefinition Width="100"/>
-                                        <ColumnDefinition Width="200"/>
-                                        <ColumnDefinition Width="100"/>
-                                        <ColumnDefinition Width="100"/>
-                                    </Grid.ColumnDefinitions>
-                                </Grid>
-                                <Grid Grid.Row="1">
-                                    <DataGrid x:Name="dgProducts" VerticalGridLinesBrush="{x:Null}" SelectionMode="Single" AlternatingRowBackground="#FF3DD8CA" RowBackground="LightGoldenrodYellow"  IsReadOnly="True" MouseDoubleClick="dgProducts_MouseDoubleClick" AutoGeneratingColumn="dgProducts_AutoGeneratingColumn" />
-                                </Grid>
+                    <Grid Grid.Row="1" x:Name="tabsetMain">
+                        <Grid>
+
+                            <Grid Grid.Row="1">
+                                <DataGrid x:Name="dgProducts" VerticalGridLinesBrush="{x:Null}" Style="{StaticResource DataGridStyle}" SelectionMode="Single" AlternatingRowBackground="#FF3DD8CA" RowBackground="LightGoldenrodYellow"  IsReadOnly="True" MouseDoubleClick="dgProducts_MouseDoubleClick" AutoGeneratingColumn="dgProducts_AutoGeneratingColumn" />
                             </Grid>
-                        </TabItem>
-                    </TabControl>
+                        </Grid>
+
+                    </Grid>
                 </Grid>
-                <Grid Grid.Row="2">
+                <Grid Grid.Row="1" Style="{StaticResource BottomBar}">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="100"></ColumnDefinition>
-                        <ColumnDefinition></ColumnDefinition>
-                        <ColumnDefinition Width="50"></ColumnDefinition>
-                        <ColumnDefinition Width="100"></ColumnDefinition>
-                        <ColumnDefinition Width="70"></ColumnDefinition>
+                        <ColumnDefinition Width="200"/>
+                        <ColumnDefinition Width="200"/>
+                        <ColumnDefinition Width="200"/>
+                        <ColumnDefinition MinWidth="110"/>
+                        <ColumnDefinition MinWidth="110"/>
+                        <ColumnDefinition MinWidth="110"/>
                     </Grid.ColumnDefinitions>
-                    <Button x:Name="btnAddProduct" Content="Add" Width="30" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="2" Click="btnAddProduct_Click"/>
-                    <Button x:Name="btnReadProduct" Content="Read/Update" Width="80" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="3" Click="btnReadProduct_Click"/>
-                    <Button x:Name="btnDeleteProduct" Content="Delete" Width="50" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="4" Click="btnDeleteProduct_Click"/>
+                    <Button x:Name="btnAddProduct" MinWidth="110" Content="Add Product" Margin="5" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="3" Click="btnAddProduct_Click"/>
+                    <Button x:Name="btnReadProduct" MinWidth="110" Content="View Product" Margin="5" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="4" Click="btnReadProduct_Click"/>
+                    <Button x:Name="btnDeleteProduct" MinWidth="110" Content="Delete" Margin="5" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="5" Click="btnDeleteProduct_Click"/>
                 </Grid>
             </Grid>
             <!-- Browse Building Page-->
+            <!-- Updated: Gunardi Saputra -->
+            <!-- Date: 03/19/2019 -->
             <Grid x:Name="BrowseBuildingPage" Visibility="Hidden">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="45"/>
                     <RowDefinition />
                     <RowDefinition Height="45"/>
                 </Grid.RowDefinitions>
-                <Grid Grid.Row="0">
+                <Grid Grid.Row="0" Style="{StaticResource FilterBar}">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition/>
                         <ColumnDefinition/>
@@ -561,8 +545,8 @@
                     <Button Grid.Column="3" Content="Filter" x:Name="btnFilter" Margin="5" Click="btnFilterBuilding_Click" />
                     <Button Grid.Column="4" Content="Clear" x:Name="btnClearFiltersBuilding" Margin="5" Click="btnClearFiltersBuilding_Click" />
                 </Grid>
-                <DataGrid Grid.Row="1" x:Name="dgBuildings" VerticalGridLinesBrush="{x:Null}" SelectionMode="Single" AlternatingRowBackground="#FF3DD8CA" RowBackground="LightGoldenrodYellow" IsReadOnly="True" MouseDoubleClick="dgBuildings_MouseDoubleClick" />
-                <Grid Grid.Row="2">
+                <DataGrid Grid.Row="1" x:Name="dgBuildings" Style="{StaticResource DataGridStyle}" VerticalGridLinesBrush="{x:Null}" SelectionMode="Single" AlternatingRowBackground="#FF3DD8CA" RowBackground="LightGoldenrodYellow" IsReadOnly="True" MouseDoubleClick="dgBuildings_MouseDoubleClick" />
+                <Grid Grid.Row="2" Style="{StaticResource BottomBar}">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition/>
                         <ColumnDefinition/>
@@ -571,8 +555,8 @@
                         <ColumnDefinition/>
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
-                    <Button Grid.Column="0" Content="Add Building" x:Name="btnAddBuilding" Margin="5" Click="btnAddBuilding_Click"/>
-                    <Button Grid.Column="1" Content="Select" x:Name="btnSelect" Margin="5" Click="btnSelect_Click"/>
+                    <Button Grid.Column="3" Content="Add Building" x:Name="btnAddBuilding" Margin="5" Click="btnAddBuilding_Click"/>
+                    <Button Grid.Column="4" Content="View Building" x:Name="btnSelect" Margin="5" Click="btnSelect_Click"/>
                 </Grid>
             </Grid>
             <!-- Browse Order Page-->
@@ -584,7 +568,7 @@
                     <RowDefinition />
 
                 </Grid.RowDefinitions>
-                <Grid Grid.Row="0">
+                <Grid Grid.Row="0" Style="{StaticResource FilterBar}">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="100"/>
                         <ColumnDefinition Width="300"/>
@@ -600,7 +584,7 @@
                     <Button Grid.Column="4" Width="120" Margin="5"  x:Name="btnClearFiltersOrders" Content="Clear Filters" FontSize="14" Click="BtnClearFiltersOrders_Click"></Button>
                 </Grid>
                 <Grid Grid.Row="1">
-                    <DataGrid x:Name="dgInternalOrders" IsReadOnly="True" VerticalGridLinesBrush="{x:Null}" SelectionMode="Single" AlternatingRowBackground="#FF3DD8CA" RowBackground="LightGoldenrodYellow" MouseDoubleClick="DgInternalOrders_MouseDoubleClick"></DataGrid>
+                    <DataGrid x:Name="dgInternalOrders" IsReadOnly="True" Style="{StaticResource DataGridStyle}" VerticalGridLinesBrush="{x:Null}" SelectionMode="Single" AlternatingRowBackground="#FF3DD8CA" RowBackground="LightGoldenrodYellow" MouseDoubleClick="DgInternalOrders_MouseDoubleClick"></DataGrid>
                 </Grid>
                 <Grid Grid.Row="2" Style="{StaticResource BottomBar}">
                     <Grid.ColumnDefinitions>
@@ -626,7 +610,7 @@
                     <RowDefinition/>
                 </Grid.RowDefinitions>
                 <!-- <Label Padding="5" Margin="10" HorizontalAlignment="Center" VerticalContentAlignment="Center" Grid.Row="0" FontSize="15px" VerticalAlignment="top" Content="View Employee Roles" /> -->
-                <Grid Grid.Row="0" >
+                <Grid Grid.Row="0" Style="{StaticResource FilterBar}">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition ></ColumnDefinition>
                         <ColumnDefinition Width="300"  ></ColumnDefinition>
@@ -639,8 +623,8 @@
                     <Button x:Name="btnClearRoles" VerticalAlignment="Center" Grid.Column="5" Content="Clear Filter" Margin="5" Height="25" Click="BtnClearRoles_Click" />
                 </Grid>
 
-                <Grid Grid.Row="1" >
-                    <DataGrid Grid.Row="1" x:Name="dgRole" VerticalGridLinesBrush="{x:Null}" 
+                <Grid Grid.Row="1"  >
+                    <DataGrid Grid.Row="1" x:Name="dgRole" Style="{StaticResource DataGridStyle}"  VerticalGridLinesBrush="{x:Null}" 
                               SelectionMode="Single" AlternatingRowBackground="#FFDFF7F1" 
                               RowBackground="#FFF4F7DF"  IsReadOnly="True"
                            Grid.ColumnSpan="4"
@@ -670,11 +654,11 @@
                     <RowDefinition Height="8*"/>
                     <RowDefinition/>
                 </Grid.RowDefinitions>
-                <Grid Grid.Row="0">
+                <Grid Grid.Row="0" Style="{StaticResource FilterBar}">
                     <Label Content="Guest Types - Filters go here" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="26" FontWeight="Bold"></Label>
                 </Grid>
                 <Grid Grid.Row="1">
-                    <DataGrid x:Name="dgGuests"/>
+                    <DataGrid x:Name="dgGuests" Style="{StaticResource DataGridStyle}"/>
                 </Grid>
                 <Grid Grid.Row="2" Style="{StaticResource BottomBar}">
                     <Grid.ColumnDefinitions>
@@ -697,11 +681,11 @@
                     <RowDefinition Height="8*"/>
                     <RowDefinition/>
                 </Grid.RowDefinitions>
-                <Grid Grid.Row="0">
+                <Grid Grid.Row="0" Style="{StaticResource FilterBar}">
                     <Label Content="Room Types - Filters go here" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="26" FontWeight="Bold"></Label>
                 </Grid>
                 <Grid Grid.Row="1">
-                    <DataGrid x:Name="dgRooms"></DataGrid>
+                    <DataGrid x:Name="dgRooms" Style="{StaticResource DataGridStyle}"/>
                 </Grid>
                 <Grid Grid.Row="2" Style="{StaticResource BottomBar}">
                     <Grid.ColumnDefinitions>
@@ -725,7 +709,7 @@
                     <RowDefinition/>
                 </Grid.RowDefinitions>
                 <!--<Label Grid.Row="0" Content="Performances" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>-->
-                <Grid Grid.Row="0">
+                <Grid Grid.Row="0" Style="{StaticResource FilterBar}">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition/>
                         <ColumnDefinition Width=".5*"/>
@@ -736,7 +720,7 @@
                     <Label Grid.Column="1" Content="Search:" VerticalContentAlignment="Center" HorizontalContentAlignment="Right"/>
                     <TextBox x:Name="txtSearchPerformance" Grid.Column="2" Height="30" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" TextChanged="txtSearchPerformance_TextChanged" />
                 </Grid>
-                <DataGrid Grid.Row="1" x:Name="dgPerformaces" SelectionChanged="dgPerformaces_SelectionChanged"/>
+                <DataGrid Grid.Row="1" x:Name="dgPerformaces" Style="{StaticResource DataGridStyle}" SelectionChanged="dgPerformaces_SelectionChanged"/>
                 <Grid Grid.Row="2" Style="{StaticResource BottomBar}">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition/>
@@ -753,11 +737,11 @@
                     <RowDefinition Height="8*"/>
                     <RowDefinition/>
                 </Grid.RowDefinitions>
-                <Grid Grid.Row="0">
+                <Grid Grid.Row="0" Style="{StaticResource FilterBar}">
                     <Label Content="Event Type - Filters go here" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="26" FontWeight="Bold"></Label>
                 </Grid>
                 <Grid Grid.Row="1">
-                    <DataGrid CanUserDeleteRows="True" x:Name="dgEventTypes"></DataGrid>
+                    <DataGrid CanUserDeleteRows="True" Style="{StaticResource DataGridStyle}" x:Name="dgEventTypes"></DataGrid>
                 </Grid>
                 <Grid Grid.Row="2" Style="{StaticResource BottomBar}">
                     <Grid.ColumnDefinitions>
@@ -781,7 +765,7 @@
                     <RowDefinition></RowDefinition>
                     <RowDefinition Height="40"></RowDefinition>
                 </Grid.RowDefinitions>
-                <Grid Grid.Row="0" >
+                <Grid Grid.Row="0"  >
                     <Label Content="Appointment Types" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="16" FontWeight="Bold"></Label>
                 </Grid>
                 <Grid Grid.Row="1" >
@@ -1616,7 +1600,59 @@
 
 
             </Grid>
-            
+            <!-- Maintenance Work Order-->
+            <Grid x:Name="MaintenanceWorkOrderPage" Visibility="Hidden">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition Height="8*"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0" Style="{StaticResource FilterBar}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width=".7*"/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width=".5*"/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <CheckBox Grid.Column="0" Content="Complete" IsChecked="False" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <Grid Grid.Column="1" Grid.ColumnSpan="2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Label x:Name="lblStatus" Content="Status: " HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        <ComboBox Grid.Column="2" x:Name="cboStatus" Margin="5" VerticalAlignment="Center" MinWidth="100"/>
+                        <Grid Grid.Column="2">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition Width="2*"/>
+                            </Grid.ColumnDefinitions>
+                        </Grid>
+                    </Grid>
+                    <Button Grid.Column="6" Content="Filter" x:Name="btnFilterMaintenanceWorkOrder" Margin="5" Click="btnFilterMaintenanceWorkOrder_Click"/>
+                    <Button Grid.Column="7" Content="Clear" x:Name="btnClearFiltersMaintenanceWorkOrder" Margin="5" Click="btnClearFiltersMaintenanceWorkOrder_Click"/>
+                </Grid>
+                <DataGrid Grid.Row="1" x:Name="dgMaintenanceWorkOrders" Style="{StaticResource DataGridStyle}" VerticalGridLinesBrush="{x:Null}" SelectionMode="Single" AlternatingRowBackground="#FF3DD8CA" RowBackground="LightGoldenrodYellow" IsReadOnly="True" AutoGeneratingColumn="dgMaintenanceWorkOrders_AutoGeneratingColumn" MouseDoubleClick="dgMaintenanceWorkOrders_MouseDoubleClick"/>
+                <Grid Grid.Row="2" Style="{StaticResource BottomBar}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Button Grid.Column="0" Content="Cancel" x:Name="btnCancelMaintenanceWorkOrder" Margin="5" Click="btnCancelMaintenanceWorkOrder_Click"/>
+                    <Button Grid.Column="3" Content="Add" x:Name="btnAddMaintenanceWorkOrder" Margin="5" Click="btnAddMaintenanceWorkOrder_Click" />
+                    <Button Grid.Column="4" Content="View" x:Name="btnViewMaintenanceWorkOrder" Margin="5" Click="btnViewMaintenanceWorkOrder_Click"/>
+                    <Button Grid.Column="5" Content="Delete" x:Name="btnDeleteMaintenanceWorkOrder" Margin="5" Click="btnDeleteMaintenanceWorkOrder_Click"/>
+
+                </Grid>
+            </Grid>
             
             <!--Manage Vehicles Page-->
             <Grid x:Name="BrowseShuttleVehiclesPage" Visibility="Hidden">
