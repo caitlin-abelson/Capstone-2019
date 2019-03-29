@@ -23,6 +23,7 @@
                 <RowDefinition />
                 <RowDefinition />
                 <RowDefinition />
+                <RowDefinition />
                 <RowDefinition Height="50" />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
@@ -30,20 +31,24 @@
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
             <Label Grid.Column="0" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Right">Requested Event Title: </Label>
-            <Label Grid.Column="0" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Right">Host Employee: </Label>
-            <Label Grid.Column="0" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Right">Type of Event:</Label>
-            <Label Grid.Column="0" Grid.Row="3" VerticalAlignment="Center" HorizontalAlignment="Right">Start Date Request:</Label>
-            <Label Grid.Column="0" Grid.Row="4" VerticalAlignment="Center">End Date Request:</Label>
+            <Label Grid.Column="0" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Right">Offering ID:</Label>
+            <Label Grid.Column="0" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Right">Host Employee: </Label>
+            <Label Grid.Column="0" Grid.Row="3" VerticalAlignment="Center" HorizontalAlignment="Right">Type of Event:</Label>
+            <Label Grid.Column="0" Grid.Row="4" VerticalAlignment="Center" HorizontalAlignment="Right">Start Date Request:</Label>
+            <Label Grid.Column="0" Grid.Row="5" VerticalAlignment="Center">End Date Request:</Label>
             <TextBox x:Name="txtEventTitle" Grid.Column="1" Grid.Row="0" Width="120" VerticalAlignment="Center" HorizontalAlignment="Left" />
-            <TextBox x:Name="txtEventEmployee" Grid.Column="1" Grid.Row="1" Width="120" VerticalAlignment="Center" HorizontalAlignment="Left" IsEnabled="False" />
-            <ComboBox x:Name="cboEventType" Grid.Column="1" Grid.Row="2" Width="120" VerticalAlignment="Center" HorizontalAlignment="Left" />
-            <DatePicker x:Name="dateEventStart" Grid.Column="1" Grid.Row="3" Width="120" VerticalAlignment="Center" HorizontalAlignment="Left" />
-            <DatePicker x:Name="dateEventEnd" Grid.Column="1" Grid.Row="4" Width="120" VerticalAlignment="Center" HorizontalAlignment="Left" />
-            <Button x:Name="btnEventCancel" Grid.Column="0" Grid.Row="5" Width="80" Margin="10" Height="25" Content="Cancel" Click="BtnEventCancel_Click" />
+            <TextBox x:Name="txtEventOfferingID" Grid.Column="1" Grid.Row="1" Width="120" VerticalAlignment="Center" HorizontalAlignment="Left" />
+            <TextBox x:Name="txtEventEmployee" Grid.Column="1" Grid.Row="2" Width="120" VerticalAlignment="Center" HorizontalAlignment="Left" IsEnabled="False" />
+            <ComboBox x:Name="cboEventType" Grid.Column="1" Grid.Row="3" Width="120" VerticalAlignment="Center" HorizontalAlignment="Left" />
+            <DatePicker x:Name="dateEventStart" Grid.Column="1" Grid.Row="4" Width="120" VerticalAlignment="Center" HorizontalAlignment="Left" />
+            <DatePicker x:Name="dateEventEnd" Grid.Column="1" Grid.Row="5" Width="120" VerticalAlignment="Center" HorizontalAlignment="Left" />
+            <Button x:Name="btnEventCancel" Grid.Column="0" Grid.Row="6" Width="80" Margin="10" Height="25" Content="Cancel" Click="BtnEventCancel_Click" />
         </Grid>
         <!--Middle of Window-->
         <Grid Grid.Column="1">
             <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition />
                 <RowDefinition />
                 <RowDefinition />
                 <RowDefinition />
@@ -56,16 +61,20 @@
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
             <Label Grid.Column="0" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Right">Number of Guests:</Label>
-            <Label Grid.Column="0" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Right">Location of Event:</Label>
-            <Label Grid.Column="0" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Right">Kids Allowed?</Label>
-            <Label Grid.Column="0" Grid.Row="3" VerticalAlignment="Center" HorizontalAlignment="Right">Sponsored Event?</Label>
-            <Label Grid.Column="0" Grid.Row="4" VerticalAlignment="Center">Manager Approval:</Label>
+            <Label Grid.Column="0" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Right">Number of Seats Left:</Label>
+            <Label Grid.Column="0" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Right">Location of Event:</Label>
+            <Label Grid.Column="0" Grid.Row="3" VerticalAlignment="Center" HorizontalAlignment="Right">Kids Allowed?</Label>
+            <Label Grid.Column="0" Grid.Row="4" VerticalAlignment="Center" HorizontalAlignment="Right">Sponsored Event?</Label>
+            <Label Grid.Column="0" Grid.Row="5" VerticalAlignment="Center" HorizontalAlignment="Right">Public Event?</Label>
+            <Label Grid.Column="0" Grid.Row="6" VerticalAlignment="Center">Manager Approval:</Label>
             <TextBox x:Name="txtReqNumGuest" Grid.Column="1" Grid.Row="0" Width="120" VerticalAlignment="Center" HorizontalAlignment="Left" />
-            <TextBox x:Name="txtEventLocation" Grid.Column="1" Grid.Row="1" Width="120" VerticalAlignment="Center" HorizontalAlignment="Left" />
-            <CheckBox x:Name="chkEventKids" Grid.Column="1" Grid.Row="2" VerticalAlignment="Center"  />
-            <CheckBox x:Name="chkEventSpons" Grid.Column="1" Grid.Row="3" VerticalAlignment="Center" Click="ChkEventSpons_Click" />
-            <TextBox x:Name="txtEventSponsorID" Grid.Column="1" Grid.Row="3" Width="80" Margin="5" VerticalAlignment="Center" HorizontalAlignment="Right" Text="0" IsEnabled="False" />
-            <CheckBox x:Name="chkEventAppr" Grid.Column="1" Grid.Row="4" VerticalAlignment="Center" />
+            <TextBox x:Name="txtSeatsRemaining" Grid.Column="1" Grid.Row="1" Width="120" VerticalAlignment="Center" HorizontalAlignment="Left" />
+            <TextBox x:Name="txtEventLocation" Grid.Column="1" Grid.Row="2" Width="120" VerticalAlignment="Center" HorizontalAlignment="Left" />
+            <CheckBox x:Name="chkEventKids" Grid.Column="1" Grid.Row="3" VerticalAlignment="Center"  />
+            <CheckBox x:Name="chkEventSpons" Grid.Column="1" Grid.Row="4" VerticalAlignment="Center" Click="ChkEventSpons_Click" />
+            <!--<TextBox x:Name="txtEvent//SponsorID" Grid.Column="1" Grid.Row="3" Width="80" Margin="5" VerticalAlignment="Center" HorizontalAlignment="Right" Text="0" IsEnabled="False" />-->
+            <CheckBox x:Name="chkEventPublic" Grid.Column="1" Grid.Row="5" VerticalAlignment="Center" />
+            <CheckBox x:Name="chkEventAppr" Grid.Column="1" Grid.Row="6" VerticalAlignment="Center" />
         </Grid>
         <!--Right side of Window-->
         <Grid Grid.Column="2">

@@ -100,6 +100,7 @@ namespace Presentation
                 //string username = "joanne@company.com";
                 //string password = "newuser";
                 Employee emp = new Employee();
+                emp.EmployeeID = 100000;
                 emp.FirstName = "Joanne";
                 emp.LastName = "Smith";
                 emp.Email = "joanne@company.com";

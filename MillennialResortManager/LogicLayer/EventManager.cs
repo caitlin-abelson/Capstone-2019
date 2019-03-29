@@ -181,6 +181,10 @@ namespace LogicLayer
             {
                 return false;
             }
+            else if (_event.SeatsRemaining > _event.NumGuests)
+            {
+                return false;
+            }
             else
             {
                 return true;

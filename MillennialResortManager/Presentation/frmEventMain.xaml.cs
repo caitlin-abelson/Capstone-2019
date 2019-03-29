@@ -26,13 +26,13 @@ namespace WpfPresentation
     /// </summary>
     public partial class frmEventMain : Window
     {
-        private User _user;
+        private Employee _employee;
         EventManager _eventManager = new EventManager();
         private EventTypeManager _eventTypeManager = new EventTypeManager();
         private List<Event> _events;
-        public frmEventMain(User user)
+        public frmEventMain(Employee employee)
         {
-            _user = user;
+            _employee = employee;
             InitializeComponent();
 
             populateEvents();
@@ -59,7 +59,7 @@ namespace WpfPresentation
                 }
                 else
                 {
-                    var detailA = new frmAddEditEvent(_user, selectedEvent);
+                    var detailA = new frmAddEditEvent(_employee, selectedEvent);
                     detailA.ShowDialog();
                     if(detailA.DialogResult == true)
                     {
@@ -84,7 +84,7 @@ namespace WpfPresentation
         private void BtnCreateEvReq_Click(object sender, RoutedEventArgs e)
         {
             //The Form requires the User's ID for a field in the record
-            var addEventReq = new frmAddEditEvent(_user);
+            var addEventReq = new frmAddEditEvent(_employee);
             var result = addEventReq.ShowDialog();
             if(result == true)
             {
@@ -111,7 +111,7 @@ namespace WpfPresentation
             {
                 e.Cancel = true;
             }
-            if (headerName == "SponsorID")
+            if (headerName == "OfferingID")
             {
                 e.Cancel = true;
             }
@@ -143,7 +143,11 @@ namespace WpfPresentation
             {
                 e.Column.Header = "Max Guests";
             }
-            if(headerName == "Sponsored")
+            if (headerName == "SeatsRemaining")
+            {
+                e.Column.Header = "Seats Remaining";
+            }
+            if (headerName == "Sponsored")
             {
                 e.Column.Header = "Sponsored?";
             }

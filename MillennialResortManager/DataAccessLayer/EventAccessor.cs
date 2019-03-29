@@ -32,6 +32,12 @@ namespace DataAccessLayer
         /// <summary>
         /// @Author Phillip Hansen
         /// 
+        /// Updated: 3/1/2019 by Phillip Hansen
+        /// Update fields to match new definition in Data Dictionary
+        /// 
+        /// Updated: 3/29/2019 by Phillip Hansen
+        /// Updated fields to match new definitions in Data Dictionary
+        /// 
         /// Method for inserting a new event
         /// </summary>
         /// <param name="newEvent"></param> allows a new Event object to be created, called 'newEvent'
@@ -43,15 +49,17 @@ namespace DataAccessLayer
             cmd.CommandType = CommandType.StoredProcedure;
             //Parameters for new Event Request
             cmd.Parameters.AddWithValue("@EventTitle", newEvent.EventTitle);
+            cmd.Parameters.AddWithValue("@OfferingID", newEvent.OfferingID);
             cmd.Parameters.AddWithValue("@EmployeeID", newEvent.EmployeeID);
             cmd.Parameters.AddWithValue("@EventTypeID", newEvent.EventTypeID);
             cmd.Parameters.AddWithValue("@Description", newEvent.Description);
             cmd.Parameters.AddWithValue("@EventStartDate", newEvent.EventStartDate);
             cmd.Parameters.AddWithValue("@EventEndDate", newEvent.EventEndDate);
             cmd.Parameters.AddWithValue("@KidsAllowed", newEvent.KidsAllowed);
+            cmd.Parameters.AddWithValue("@SeatsRemaining", newEvent.SeatsRemaining);
             cmd.Parameters.AddWithValue("@NumGuests", newEvent.NumGuests);
             cmd.Parameters.AddWithValue("@Location", newEvent.Location);
-            cmd.Parameters.AddWithValue("@Sponsored", newEvent.Sponsored);
+            cmd.Parameters.AddWithValue("@PublicEvent", newEvent.PublicEvent);
             cmd.Parameters.AddWithValue("@Approved", newEvent.Approved);
 
             try
@@ -74,6 +82,12 @@ namespace DataAccessLayer
         /// <summary>
         /// @Author Phillip Hansen
         /// 
+        /// Updated: 3/1/2019 by Phillip Hansen
+        /// Update fields to match new definition in Data Dictionary
+        /// 
+        /// Updated: 3/29/2019 by Phillip Hansen
+        /// Updated fields to match new definitions in Data Dictionary
+        /// 
         /// Method for updating an event object from old to new
         /// </summary>
         /// <param name="oldEvent"></param> Needs the old event object
@@ -86,6 +100,7 @@ namespace DataAccessLayer
             cmd.CommandType = CommandType.StoredProcedure;
             //Parameters for new Event Request
             cmd.Parameters.AddWithValue("@EventID", oldEvent.EventID);
+            cmd.Parameters.AddWithValue("@OfferingID", newEvent.OfferingID);
             cmd.Parameters.AddWithValue("@EventTitle", newEvent.EventTitle);
             cmd.Parameters.AddWithValue("@EmployeeID", newEvent.EmployeeID);
             cmd.Parameters.AddWithValue("@EventTypeID", newEvent.EventTypeID);
@@ -94,12 +109,14 @@ namespace DataAccessLayer
             cmd.Parameters.AddWithValue("@EventEndDate", newEvent.EventEndDate);
             cmd.Parameters.AddWithValue("@KidsAllowed", newEvent.KidsAllowed);
             cmd.Parameters.AddWithValue("@NumGuests", newEvent.NumGuests);
+            cmd.Parameters.AddWithValue("@SeatsRemaining", newEvent.SeatsRemaining);
             cmd.Parameters.AddWithValue("@Location", newEvent.Location);
             cmd.Parameters.AddWithValue("@Sponsored", newEvent.Sponsored);
-            cmd.Parameters.AddWithValue("@SponsorID", oldEvent.SponsorID);
             cmd.Parameters.AddWithValue("@Approved", newEvent.Approved);
+            cmd.Parameters.AddWithValue("@PublicEvent", newEvent.PublicEvent);
             //Parameters for old Event Request
             //The PK ID should not change
+            cmd.Parameters.AddWithValue("@OldOfferingID", oldEvent.OfferingID);
             cmd.Parameters.AddWithValue("@OldEventTitle", oldEvent.EventTitle);
             cmd.Parameters.AddWithValue("@OldEmployeeID", oldEvent.EmployeeID);
             cmd.Parameters.AddWithValue("@OldEventTypeID", oldEvent.EventTypeID);
@@ -108,10 +125,11 @@ namespace DataAccessLayer
             cmd.Parameters.AddWithValue("@OldEventEndDate", oldEvent.EventEndDate);
             cmd.Parameters.AddWithValue("@OldKidsAllowed", oldEvent.KidsAllowed);
             cmd.Parameters.AddWithValue("@OldNumGuests", oldEvent.NumGuests);
+            cmd.Parameters.AddWithValue("@OldSeatsRemaining", oldEvent.SeatsRemaining);
             cmd.Parameters.AddWithValue("@OldLocation", oldEvent.Location);
             cmd.Parameters.AddWithValue("@OldSponsored", oldEvent.Sponsored);
-            cmd.Parameters.AddWithValue("@OldSponsorID", oldEvent.SponsorID);
             cmd.Parameters.AddWithValue("@OldApproved", oldEvent.Approved);
+            cmd.Parameters.AddWithValue("@OldPublicEvent", oldEvent.PublicEvent);
 
             try
             {
@@ -132,6 +150,9 @@ namespace DataAccessLayer
 
         /// <summary>
         /// @Author Phillip Hansen
+        /// 
+        /// Updated: 3/1/2019 by Phillip Hansen
+        /// Update fields to match new definition in Data Dictionary
         /// 
         /// Method for retrieving all Events
         /// </summary>
@@ -157,20 +178,22 @@ namespace DataAccessLayer
                         Events.Add(new Event()
                         {
                             EventID = r.GetInt32(0),
-                            EventTitle = r.GetString(1),
-                            EmployeeID = r.GetInt32(2),
-                            EmployeeName = r.GetString(3),
-                            EventTypeID = r.GetString(4),
-                            Description = r.GetString(5),
-                            EventStartDate = r.GetDateTime(6),
-                            EventEndDate = r.GetDateTime(7),
-                            KidsAllowed = r.GetBoolean(8),
-                            NumGuests = r.GetInt32(9),
-                            Location = r.GetString(10),
-                            Sponsored = r.GetBoolean(11),
-                            SponsorID = r.GetInt32(12),
-                            SponsorName = r.GetString(13),
-                            Approved = r.GetBoolean(14)
+                            OfferingID = r.GetInt32(1),
+                            //OfferingName = r.GetString(2),
+                            EventTitle = r.GetString(2),
+                            EmployeeID = r.GetInt32(3),
+                            EmployeeName = r.GetString(4),
+                            EventTypeID = r.GetString(5),
+                            Description = r.GetString(6),
+                            EventStartDate = r.GetDateTime(7),
+                            EventEndDate = r.GetDateTime(8),
+                            KidsAllowed = r.GetBoolean(9),
+                            NumGuests = r.GetInt32(10),
+                            SeatsRemaining = r.GetInt32(11),
+                            Location = r.GetString(12),
+                            Sponsored = r.GetBoolean(13),
+                            Approved = r.GetBoolean(14),
+                            PublicEvent = r.GetBoolean(15)
                         });
                               
                     }
@@ -190,6 +213,9 @@ namespace DataAccessLayer
 
         /// <summary>
         /// @Author Phillip Hansen
+        /// 
+        /// Updated: 3/1/2019 by Phillip Hansen
+        /// Update fields to match new definition in Data Dictionary
         /// 
         /// Method for retrieving a specific Event
         /// </summary>
@@ -217,19 +243,23 @@ namespace DataAccessLayer
                     {
                         _event = new Event()
                         {
-                            //EventID = r.getInt32(0),
-                            EventTitle = r.GetString(1),
-                            EmployeeName = r.GetString(2),
-                            EventTypeID = r.GetString(3),
-                            Description = r.GetString(4),
-                            EventStartDate = r.GetDateTime(5),
-                            EventEndDate = r.GetDateTime(6),
-                            KidsAllowed = r.GetBoolean(7),
-                            NumGuests = r.GetInt32(8),
-                            Location = r.GetString(9),
-                            Sponsored = r.GetBoolean(10),
-                            SponsorName = r.GetString(11),
-                            Approved = r.GetBoolean(12)
+                            EventID = r.GetInt32(0),
+                            OfferingID = r.GetInt32(1),
+                            //OfferingName = r.GetString(2),
+                            EventTitle = r.GetString(2),
+                            EmployeeID = r.GetInt32(3),
+                            EmployeeName = r.GetString(4),
+                            EventTypeID = r.GetString(5),
+                            Description = r.GetString(6),
+                            EventStartDate = r.GetDateTime(7),
+                            EventEndDate = r.GetDateTime(8),
+                            KidsAllowed = r.GetBoolean(9),
+                            NumGuests = r.GetInt32(10),
+                            SeatsRemaining = r.GetInt32(11),
+                            Location = r.GetString(12),
+                            Sponsored = r.GetBoolean(13),
+                            Approved = r.GetBoolean(14),
+                            PublicEvent = r.GetBoolean(15)
                         };
                     }
                 }
