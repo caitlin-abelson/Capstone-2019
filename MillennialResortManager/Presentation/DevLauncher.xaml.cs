@@ -5908,5 +5908,31 @@ namespace Presentation
                 instance.RefreshShuttleVehiclesDatagrid();
             }
         }
+
+        /// <summary>
+        /// @Author by Phillip Hansen
+        /// @Created 3/29/2019
+        /// 
+        /// Needed a 'Delete Recipe' button to exist and perform functionality.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void BtnDeleteRecipe_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        /// <summary>
+        /// @Author by Phillip Hansen
+        /// @Created 3/29/2019
+        /// 
+        /// Needed a 'Read Sponsor' button to exist and perform functionality.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnReadSponsor_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

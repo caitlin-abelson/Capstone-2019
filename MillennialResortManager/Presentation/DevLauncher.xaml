@@ -781,7 +781,7 @@
                     <RowDefinition></RowDefinition>
                     <RowDefinition Height="40"></RowDefinition>
                 </Grid.RowDefinitions>
-                <Grid Grid.Row="0">
+                <Grid Grid.Row="0" >
                     <Label Content="Appointment Types" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="16" FontWeight="Bold"></Label>
                 </Grid>
                 <Grid Grid.Row="1" >
@@ -825,7 +825,7 @@
                         </TabItem>
                     </TabControl>
                 </Grid>
-                <Grid Grid.Row="2">
+                <Grid Grid.Row="2" Style="{StaticResource BottomBar}">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="100"></ColumnDefinition>
                         <ColumnDefinition></ColumnDefinition>
@@ -858,7 +858,7 @@
                     <Grid Grid.Row="0">
                         <Label x:Name="lblListOfGuests" Content="List of Guests" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                     </Grid>
-                    <Grid Grid.Row="1">
+                    <Grid Grid.Row="1" Style="{StaticResource FilterBar}">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="80"/>
                             <ColumnDefinition Width="100"/>
@@ -917,7 +917,7 @@
                     </TabControl>
                 </Grid>
 
-                <Grid Grid.Row="2">
+                <Grid Grid.Row="2" Style="{StaticResource BottomBar}">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="100"/>
                         <ColumnDefinition Width="100"/>
@@ -928,8 +928,8 @@
                     </Grid.ColumnDefinitions>
                     <Button x:Name="btnCheckGuest" Grid.Column="0" Margin="5" Content="Check In" Click="btnCheckGuest_Click" />
                     <Button x:Name="btnActivateGuest" Grid.Column="1" Margin="5" Content="Deactivate" Click="btnActivateGuest_Click" />
-                    <Button x:Name="btnAddGuest"  Grid.Column="3" Margin="5" Content="Add Guest" Click="btnAddGuest_Click" />
-                    <Button x:Name="btnViewGuest"  Grid.Column="4" Margin="5" Content="View Guest" Click="btnViewGuest_Click" />
+                    <Button x:Name="btnAddGuest"  Grid.Column="3" Margin="5" Content="Add" Click="btnAddGuest_Click" />
+                    <Button x:Name="btnViewGuest"  Grid.Column="4" Margin="5" Content="View" Click="btnViewGuest_Click" />
                     <Button x:Name="btnDeleteGuest"  Grid.Column="5" Margin="5" Content="Delete" Click="btnDeleteGuest_Click" />
 
                 </Grid>
@@ -954,7 +954,7 @@
                     <Grid Grid.Row="0">
                         <Label x:Name="lblListOfGuestVehicles" Content="List Of Guest Vehicles" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                     </Grid>
-                    <Grid Grid.Row="1">
+                    <Grid Grid.Row="1" Style="{StaticResource FilterBar}">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="130"></ColumnDefinition>
                             <ColumnDefinition Width="120"></ColumnDefinition>
@@ -1010,7 +1010,7 @@
                         </TabItem>
                     </TabControl>
                 </Grid>
-                <Grid Grid.Row="2">
+                <Grid Grid.Row="2" Style="{StaticResource BottomBar}">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="100" />
                         <ColumnDefinition />
@@ -1042,50 +1042,32 @@
                         <RowDefinition Height="35"></RowDefinition>
                         <RowDefinition Height="35"></RowDefinition>
                         <RowDefinition></RowDefinition>
-                        <RowDefinition></RowDefinition>
                     </Grid.RowDefinitions>
                     <Grid Grid.Row="0">
                         <Label x:Name="lblListOfSetUp" Content="List Of Set-Up Lists" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                     </Grid>
-                    <Grid Grid.Row="1">
+                    <Grid Grid.Row="1" Style="{StaticResource FilterBar}">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="120"></ColumnDefinition>
+                            <ColumnDefinition Width="80"></ColumnDefinition>
                             <ColumnDefinition Width="100"></ColumnDefinition>
-                            <ColumnDefinition Width="60"></ColumnDefinition>
+                            <ColumnDefinition Width="80"></ColumnDefinition>
+                            <ColumnDefinition Width="40"></ColumnDefinition>
+                            <ColumnDefinition Width="80"></ColumnDefinition>
+                            <ColumnDefinition Width="40"></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition Width="100"></ColumnDefinition>
                             <ColumnDefinition Width="100"></ColumnDefinition>
                         </Grid.ColumnDefinitions>
                         <Label Grid.Column="0" Content="Search Description:"  Padding="5" HorizontalAlignment="Right" VerticalContentAlignment="Center" />
                         <TextBox x:Name="txtSearchSetupList" Grid.Column="1" Height="25" HorizontalContentAlignment="Left" Text=""/>
-                        <Button x:Name="btnFilterSetupList"  Grid.Column="3" Width="40" Height="25" Content="Filter" Click="BtnFilterSetupList_Click" />
+                        <Label x:Name="lblCompleted" HorizontalAlignment="Right" VerticalAlignment="Center" Content="Completed" Grid.Column="2"/>
+                        <CheckBox x:Name="cbCompleted" HorizontalAlignment="Left"  VerticalAlignment="Center" Grid.Column="3" IsChecked="True" Click="CbCompleted_Click" />
+                        <Label x:Name="lblUncompleted"  HorizontalAlignment="Left" VerticalAlignment="Center" Content="Uncompleted" Grid.Column="4"/>
+                        <CheckBox x:Name="cbUncompleted" IsChecked="True" HorizontalAlignment="Left"  VerticalAlignment="Center" Grid.Column="5" Click="CbUncompleted_Click" />
+                        <Button x:Name="btnClearList" VerticalAlignment="Center" Grid.Column="7" Content="Clear" Height="25" Click="BtnClearSetupList_Click" />
+                        <Button x:Name="btnFilterSetupList"  Grid.Column="8" Width="80" Height="25" Content="Filter" Click="BtnFilterSetupList_Click" />
                     </Grid>
-                    <Grid Grid.Row="2">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="50"></ColumnDefinition>
-                            <ColumnDefinition Width="100"  ></ColumnDefinition>
-                            <ColumnDefinition Width="50"></ColumnDefinition>
-                            <ColumnDefinition Width="100"></ColumnDefinition>
-                            <ColumnDefinition Width="100"></ColumnDefinition>
-                            <ColumnDefinition Width="150"></ColumnDefinition>
-                        </Grid.ColumnDefinitions>
-                        <Label x:Name="lblCompleted" HorizontalAlignment="Right" VerticalAlignment="Center" Content="Completed" Grid.Column="1"/>
-                        <CheckBox x:Name="cbCompleted" HorizontalAlignment="Left"  VerticalAlignment="Center" Grid.Column="2" IsChecked="True" Click="CbCompleted_Click" />
-                        <Label x:Name="lblUncompleted"  HorizontalAlignment="Left" VerticalAlignment="Center" Content="Uncompleted" Grid.Column="3"/>
-                        <CheckBox x:Name="cbUncompleted" IsChecked="True" HorizontalAlignment="Left"  VerticalAlignment="Center" Grid.Column="4" Click="CbUncompleted_Click" />
-                        <Button x:Name="btnClearList" VerticalAlignment="Center" Grid.Column="5" Content="Clear Filter" Margin="5" Height="25" Click="BtnClearSetupList_Click" />
-                    </Grid>
-                    <Grid Grid.Row="4">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="50"></RowDefinition>
-                            <RowDefinition></RowDefinition>
-                            <RowDefinition Height="30"></RowDefinition>
-                        </Grid.RowDefinitions>
-                        <TabControl Grid.Row="0" x:Name="tabsetMainSetupList">
-                            <TabItem Name="tabSetupList" Header="Employee Role" >
-
-                            </TabItem>
-                        </TabControl>
-                    </Grid>
-                    <TabControl Grid.Row="5" x:Name="tabsetMainSetUp">
+                    <TabControl Grid.Row="4" x:Name="tabsetMainSetUp">
                         <TabItem Name="tabSetUp" Header="SetUpLists">
                             <Grid>
                                 <Grid.RowDefinitions>
@@ -1112,7 +1094,7 @@
                     </TabControl>
                 </Grid>
 
-                <Grid Grid.Row="2">
+                <Grid Grid.Row="2" Style="{StaticResource BottomBar}">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="100"/>
                         <ColumnDefinition />
@@ -1146,7 +1128,7 @@
                     <Grid Grid.Row="0" >
                         <Label x:Name="lblListOfSponsors" Content="List Of Sponsors" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                     </Grid>
-                    <Grid Grid.Row="1">
+                    <Grid Grid.Row="1" Style="{StaticResource FilterBar}">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="60"></ColumnDefinition>
                             <ColumnDefinition Width="80"></ColumnDefinition>
@@ -1188,7 +1170,7 @@
                         </TabItem>
                     </TabControl>
                 </Grid>
-                <Grid Grid.Row="2" >
+                <Grid Grid.Row="2" Style="{StaticResource BottomBar}">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="100"/>
                         <ColumnDefinition/>
@@ -1196,8 +1178,8 @@
                         <ColumnDefinition Width="100"/>
                         <ColumnDefinition Width="100"/>
                     </Grid.ColumnDefinitions>
-                    <Button x:Name="btnAddSponsor" Grid.Column="2" Content="Add Sponsor" Width="80" Margin="5" Click="btnAddSponsor_Click" />
-                    <Label Grid.Column="3" Margin="5">Read Button Here</Label>
+                    <Button x:Name="btnAddSponsor" Grid.Column="2" Content="Add" Width="80" Margin="5" Click="btnAddSponsor_Click" />
+                    <Button x:Name="btnReadSponsor" Grid.Column="3" Content="View" Width="80" Margin="5" Click="btnReadSponsor_Click" />
                     <Button x:Name="btnDeleteBrowseSponsor" Grid.Column="4" Content="Delete" Width="80" Margin="5" Click="btnDeleteBrowseSponsor_Click"/>
                 </Grid>
             </Grid>
@@ -1221,7 +1203,7 @@
                     <Grid Grid.Row="0">
                         <Label x:Name="lblListOfRecipes" Content="List Of Recipes" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                     </Grid>
-                    <Grid Grid.Row="1">
+                    <Grid Grid.Row="1" Style="{StaticResource FilterBar}">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="50"></ColumnDefinition>
                             <ColumnDefinition Width="130"></ColumnDefinition>
@@ -1235,15 +1217,15 @@
                             <ColumnDefinition Width="80"></ColumnDefinition>
                             <ColumnDefinition Width="80"></ColumnDefinition>
                         </Grid.ColumnDefinitions>
-                        <Label Grid.Column="0" Content="Name" HorizontalAlignment="Center" ></Label>
-                        <TextBox x:Name="txtNameBrowseRecipe" Grid.Column="1" Width="120" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" VerticalAlignment="Center" Margin="5"></TextBox>
-                        <Label Grid.Column="2" Content="Description" HorizontalAlignment="Center" ></Label>
-                        <TextBox x:Name="txtDescriptionBrowseRecipe" Grid.Column="3" Width="120" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" VerticalAlignment="Center" Margin="5"></TextBox>
-                        <Label Grid.Column="4" Content="Start Date" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
-                        <DatePicker x:Name="dtpDateStartBrowseRecipe" Grid.Column="5" Width="110" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" VerticalAlignment="Center" SelectedDateChanged="DtpDateStartBrowseRecipe_SelectedDateChanged"></DatePicker>
-                        <Label Grid.Column="6" Content="End Date" HorizontalAlignment="Center" VerticalAlignment="Bottom"></Label>
+                        <Label Grid.Column="0" Content="Name" VerticalAlignment="Center" HorizontalAlignment="Center" ></Label>
+                        <TextBox x:Name="txtNameBrowseRecipe" Grid.Column="1" Width="120" Height="25" Margin="5"></TextBox>
+                        <Label Grid.Column="2" Content="Description" VerticalAlignment="Center" HorizontalAlignment="Center" ></Label>
+                        <TextBox x:Name="txtDescriptionBrowseRecipe" Grid.Column="3" Width="120" Height="25" Margin="5"></TextBox>
+                        <Label Grid.Column="4" Content="Start Date" VerticalAlignment="Center" HorizontalAlignment="Center" ></Label>
+                        <DatePicker x:Name="dtpDateStartBrowseRecipe" Grid.Column="5" Width="110" HorizontalAlignment="Center" VerticalAlignment="Center" SelectedDateChanged="DtpDateStartBrowseRecipe_SelectedDateChanged"></DatePicker>
+                        <Label Grid.Column="6" Content="End Date" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
                         <DatePicker x:Name="dtpDateEndBrowseRecipe" Grid.Column="7" Width="110" HorizontalAlignment="Center" VerticalAlignment="Center" SelectedDateChanged="DtpDateEndBrowseRecipe_SelectedDateChanged"></DatePicker>
-                        <Button x:Name="btnClearFilterBrowseRecipe" Grid.Column="9" Width="60" Height="25" Content="Clear Filter" Click="BtnClearFilterBrowseRecipe_Click"></Button>
+                        <Button x:Name="btnClearFilterBrowseRecipe" Grid.Column="9" Width="60" Height="25" Content="Clear" Click="BtnClearFilterBrowseRecipe_Click"></Button>
                         <Button x:Name="btnFilterBrowseRecipe" Grid.Column="10" Width="60" Height="25" Content="Filter" Click="BtnFilterBrowseRecipe_Click"></Button>
                     </Grid>
                     <TabControl Grid.Row="2" x:Name="tabsetMainRecipe">
@@ -1272,7 +1254,7 @@
                         </TabItem>
                     </TabControl>
                 </Grid>
-                <Grid Grid.Row="2">
+                <Grid Grid.Row="2" Style="{StaticResource BottomBar}">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="100"/>
                         <ColumnDefinition/>
@@ -1281,8 +1263,8 @@
                         <ColumnDefinition Width="100"/>
                     </Grid.ColumnDefinitions>
                     <Button x:Name="btnCreateRecipe" Grid.Column="2" Content="Add" Width="80" Click="BtnCreateRecipe_Click"></Button>
-                    <Button x:Name="btnViewRecipe" Grid.Column="3" Content="Details" Width="80" Click="BtnViewRecipe_Click_1"></Button>
-                    <Label Grid.Column="4">Add Delete Button</Label>
+                    <Button x:Name="btnViewRecipe" Grid.Column="3" Content="Read" Width="80" Click="BtnViewRecipe_Click_1"></Button>
+                    <Button x:Name="btnDeleteRecipe" Grid.Column="4" Content="Delete" Width="80" Click="BtnDeleteRecipe_Click"></Button>
                 </Grid>
             </Grid>
             <!-- Browse Events Page-->
