@@ -86,6 +86,7 @@
     <Compile Include="IPetAccessor.cs" />
     <Compile Include="IPetTypeAccessor.cs" />
     <Compile Include="IProductAccessor.cs" />
+    <Compile Include="IReceivingAccessor.cs" />
     <Compile Include="IRecipeAccessor.cs" />
     <Compile Include="IReservationAccessor.cs" />
     <Compile Include="IRoleAccessor.cs" />
@@ -129,6 +130,7 @@
     <Compile Include="ProductAccessorMock.cs" />
     <Compile Include="ProductAccessorMSSQL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ReceivingAccessor.cs" />
     <Compile Include="RecipeAccessor.cs" />
     <Compile Include="RecipeAccessorMock.cs" />
     <Compile Include="ReservationAccessorMock.cs" />
