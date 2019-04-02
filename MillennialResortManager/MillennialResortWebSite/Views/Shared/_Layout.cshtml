@@ -7,6 +7,8 @@
     <link href="https://fonts.googleapis.com/css?family=Fugaz+One" rel="stylesheet">
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+  
+
 
 </head>
 <body>
@@ -193,27 +195,9 @@
     @RenderSection("scripts", required: false)
     @Scripts.Render("~/bundles/main")
 
-    @section Scripts {
+   
 
-        @Scripts.Render("~/bundles/jqueryui")
-        @Styles.Render("~/Content/cssjqryUi")
-
-        <script type="text/javascript">
-            $(document).ready(function () {
-                $('input[type=datetime]').datepicker({
-                    dateFormat: "dd/M/yy",
-                    changeMonth: true,
-                    changeYear: true,
-                    yearRange: "-60:+0"
-                });
-
-            });
-        </script>
-
-    }
-    @*@Scripts.Render("~/bundles/jquery-ui-{version}")
-    @Scripts.Render("~/bundles/jquery-ui")*@
-
+    
 
 
 </body>
