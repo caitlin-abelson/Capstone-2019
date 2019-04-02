@@ -1,6 +1,9 @@
-﻿@{
+﻿@model MillennialResortWebSite.Models.ReservationSearchModel
+
+@{
     ViewBag.Title = "Home Page";
 }
+
 <div class="content">
 
     <div class="jumbotron jumbotronBackGround">
@@ -9,38 +12,52 @@
             <p class="lead">Stay with Millennial Resorts, bring your pets, enjoy events with us and throughout the local area. </p>
             <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
 
-            
-                        <legend>Plan Your Vacation</legend>
 
-                        <div class="form-group">
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
 
-                        <input class="DateFrom form-control hasDatepicker" readonly="" name="reservation-date" placeholder="Arrival Date" id=""> 
-
-                        </div>
-
-                        <div class="form-group">
-                        <input class="DateTo form-control hasDatepicker" readonly="" name="reservation-date" placeholder="Departure Date" id="">
-                        </div>
+            <div class="form-horizontal">
+                <h4>Plan Your Vacation</h4>
+                <hr />
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
 
+                <div class="form-group">
+                    @Html.LabelFor(model => model.startDate, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.startDate, new { htmlAttributes = new { @class = "form-control", placeholder = "Start Date", @readonly = "true" } })
+                        @Html.ValidationMessageFor(model => model.startDate, "", new { @class = "text-danger" })
+                    </div>
+                </div>
 
-                        <div>
-                            <label for="arrivalDate">Arrival Date:</label>
-                            <input type="datetime-local" name="arrivalDate" value="" />
-                        </div>
-                        <div>
-                            <label for="departureDate">Departure Date:</label>
-                            <input type="datetime-local" name="departureDate" value="" />
-                        </div>
-                        <div>
-                            <label for="guestCount">Guest Count:</label>
-                            <input type="text" name="Employees" value="" />
-                        </div>
-                        <div>
-                            <label>&nbsp;</label>
-                            <input type="submit" value="Submit" class="submit" />
-                        </div>
-                   
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.endDate, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.endDate, new { htmlAttributes = new { @class = "form-control", placeholder = "End Date", @readonly = "true" } })
+                        @Html.ValidationMessageFor(model => model.endDate, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.numberOfGuests, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.numberOfGuests, new { htmlAttributes = new { @class = "form-control", placeholder = "Number Of Guests", @readonly = "true" } })
+                        @Html.ValidationMessageFor(model => model.numberOfGuests, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Create" class="btn btn-default" />
+                    </div>
+                </div>
+            </div>
+            }
+
+
 
 
 
@@ -128,11 +145,11 @@
                         </div>
                     </div>
                 </div>
-           
 
-           
+
+
                 <div class="col-md-4 col-sm-6">
-                    <div class="card" >
+                    <div class="card">
                         <img class="card-img-top" src="~/Content/images/resortDining.jpg" alt="Card image cap">
                         <div class="card-body">
                             <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
@@ -140,7 +157,7 @@
                     </div>
                 </div>
                 <div class="col-md-4 col-sm-6">
-                    <div class="card" >
+                    <div class="card">
                         <img class="card-img-top" src="~/Content/images/resortDining.jpg" alt="Card image cap">
                         <div class="card-body">
                             <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
@@ -148,7 +165,7 @@
                     </div>
                 </div>
                 <div class="col-md-4 col-sm-6">
-                    <div class="card" >
+                    <div class="card">
                         <img class="card-img-top" src="~/Content/images/resortDining.jpg" alt="Card image cap">
                         <div class="card-body">
                             <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
@@ -201,15 +218,15 @@
                 <fieldset>
                     <legend>Subscribe to our newsletter and receive Legendary offers</legend>
                     <div class="mailingList">
-                      
-                        <input type="text" name="firstName" value="" placeholder="First Name"   required />
+
+                        <input type="text" name="firstName" value="" placeholder="First Name" required />
                     </div>
                     <div class="mailingList">
-                       
+
                         <input type="text" name="lastName" value="" placeholder="Last Name" required />
                     </div>
                     <div class="mailingList">
-                        
+
                         <input type="text" name="email" value="" placeholder="Email Address" required />
                     </div>
                     <div class="mailingList">
