@@ -13,7 +13,7 @@ body {
     /*padding-top: 50px;
      padding-bottom: 20px;
     */
-   
+   overflow-x: hidden;
 }
 /* Set padding to keep content from hitting the edges */
 .body-content {
@@ -145,6 +145,9 @@ li a {
 header {
     z-index: 10;
 }
+
+
+
 /*navbar */
 .navbar-default {
     background-color: #0B2027;
@@ -242,6 +245,38 @@ header {
 
 
 
+.planTripHomepage {
+    float: right;
+    border-radius: 10px;
+    background-color: rgba(255, 255, 255, 0.7);
+    text-align: center;
+    padding: 35px;
+    margin-right: 40px;
+}
+
+
+    .planTripHomepage h2 {
+        font-family: 'Fugaz One', cursive;
+        margin-top: -10px;
+        color: #0B2027;
+        padding-bottom: 10px;
+    }
+
+    .planTripHomepage p {
+        padding-top: 15px;
+        margin-bottom: -10px;
+    }
+
+.planTripHomepage .col-md-10 {
+    width: 100%;
+}
+
+#centerButton input[type="submit"] {
+    text-align:center;
+}
+
+
+
 
 
 
@@ -279,6 +314,34 @@ header {
     .mobileShow {
         visibility: hidden;
     }
-    /*modual css setting for partials and for chat windows and dialog boxes*/
+
+
+
+
+
+    @media only screen and (min-width: 992px) {
+        
+
+        .col-md-offset-2{
+            margin: 0;
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        /*modual css setting for partials and for chat windows and dialog boxes*/
    
    

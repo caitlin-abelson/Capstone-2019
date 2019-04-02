@@ -9,52 +9,55 @@
     <div class="jumbotron jumbotronBackGround">
         <div class="container body-content">
             <h1>Welcome to Millennial Resorts</h1>
-            <p class="lead">Stay with Millennial Resorts, bring your pets, enjoy events with us and throughout the local area. </p>
-            <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
+            @*<p class="lead">Stay with Millennial Resorts, bring your pets, enjoy events with us and throughout the local area. </p>
+                <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>*@
 
 
             @using (Html.BeginForm())
             {
                 @Html.AntiForgeryToken()
 
-            <div class="form-horizontal">
-                <h4>Plan Your Vacation</h4>
-                <hr />
-                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-horizontal planTripHomepage">
+                    <h2>Plan Your Vacation</h2>
+
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
 
-                <div class="form-group">
-                    @Html.LabelFor(model => model.startDate, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.startDate, new { htmlAttributes = new { @class = "form-control", placeholder = "Start Date", @readonly = "true" } })
-                        @Html.ValidationMessageFor(model => model.startDate, "", new { @class = "text-danger" })
+                    <div class="form-group">
+                      
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.startDate, new { htmlAttributes = new { @class = "form-control", placeholder = "Start Date", @readonly = "true" } })
+                            @Html.ValidationMessageFor(model => model.startDate, "", new { @class = "text-danger" })
+                        </div>
                     </div>
-                </div>
 
 
-                <div class="form-group">
-                    @Html.LabelFor(model => model.endDate, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.endDate, new { htmlAttributes = new { @class = "form-control", placeholder = "End Date", @readonly = "true" } })
-                        @Html.ValidationMessageFor(model => model.endDate, "", new { @class = "text-danger" })
+                    <div class="form-group">
+                      
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.endDate, new { htmlAttributes = new { @class = "form-control", placeholder = "End Date", @readonly = "true" } })
+                            @Html.ValidationMessageFor(model => model.endDate, "", new { @class = "text-danger" })
+                        </div>
                     </div>
-                </div>
 
 
-                <div class="form-group">
-                    @Html.LabelFor(model => model.numberOfGuests, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.numberOfGuests, new { htmlAttributes = new { @class = "form-control", placeholder = "Number Of Guests", @readonly = "true" } })
-                        @Html.ValidationMessageFor(model => model.numberOfGuests, "", new { @class = "text-danger" })
+                    <div class="form-group">
+                       
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.numberOfGuests, new { htmlAttributes = new { @class = "form-control", placeholder = "Number Of Guests", @readonly = "true" } })
+                            @Html.ValidationMessageFor(model => model.numberOfGuests, "", new { @class = "text-danger" })
+                        </div>
                     </div>
-                </div>
 
-                <div class="form-group">
-                    <div class="col-md-offset-2 col-md-10">
-                        <input type="submit" value="Create" class="btn btn-default" />
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <input type="submit" value="Search" id="centerButton" class="btn btn-default" />
+                        </div>
                     </div>
+
+                    <p><a class="" href=""><i>View All Properties</i></a></p>
+
                 </div>
-            </div>
             }
 
 
