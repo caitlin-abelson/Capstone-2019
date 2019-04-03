@@ -200,7 +200,12 @@
     <Content Include="Content\images\eventSlider\market.jpg" />
     <Content Include="Content\images\eventSlider\redrocks.jpg" />
     <Content Include="Content\images\eventSlider\snorkelling-bali.jpg" />
+    <Content Include="Content\images\helochoopper.jpg" />
+    <Content Include="Content\images\island_fish.jpg" />
+    <Content Include="Content\images\limbo.jpg" />
     <Content Include="Content\images\resortDining.jpg" />
+    <Content Include="Content\images\ropes.jpg" />
+    <Content Include="Content\images\sing-along.jpg" />
     <Content Include="Content\themes\base\accordion.css" />
     <Content Include="Content\themes\base\all.css" />
     <Content Include="Content\themes\base\autocomplete.css" />
