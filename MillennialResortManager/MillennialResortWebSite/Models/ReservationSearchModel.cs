@@ -26,4 +26,10 @@ namespace MillennialResortWebSite.Models
         public int numberOfGuests { get; set; }
 
     }
+
+  
+  
+
+
 }
+
