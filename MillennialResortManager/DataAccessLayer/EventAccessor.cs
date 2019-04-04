@@ -116,6 +116,7 @@ namespace DataAccessLayer
             //Parameters for old Event Request
             //The PK ID should not change
             cmd.Parameters.AddWithValue("@OldEventTitle", oldEvent.EventTitle);
+            cmd.Parameters.AddWithValue("@OldOfferingID", oldEvent.OfferingID);
             cmd.Parameters.AddWithValue("@OldEmployeeID", oldEvent.EmployeeID);
             cmd.Parameters.AddWithValue("@OldEventTypeID", oldEvent.EventTypeID);
             cmd.Parameters.AddWithValue("@OldDescription", oldEvent.Description);
@@ -220,23 +221,23 @@ namespace DataAccessLayer
                         Events.Add(new Event()
                         {
                             EventID = r.GetInt32(0),
-                            //OfferingName = r.GetString(2),
-                            EventTitle = r.GetString(1),
-                            EmployeeID = r.GetInt32(2),
-                            EmployeeName = r.GetString(3),
-                            EventTypeID = r.GetString(4),
-                            Description = r.GetString(5),
-                            EventStartDate = r.GetDateTime(6),
-                            EventEndDate = r.GetDateTime(7),
-                            KidsAllowed = r.GetBoolean(8),
-                            NumGuests = r.GetInt32(9),
-                            SeatsRemaining = r.GetInt32(10),
-                            Location = r.GetString(11),
-                            Sponsored = r.GetBoolean(12),
-                            Approved = r.GetBoolean(13),
-                            Cancelled = r.GetBoolean(14),
-                            PublicEvent = r.GetBoolean(15),
-                            Price = (decimal)r.GetSqlMoney(16)
+                            OfferingID = r.GetInt32(1),
+                            EventTitle = r.GetString(2),
+                            EmployeeID = r.GetInt32(3),
+                            EmployeeName = r.GetString(4),
+                            EventTypeID = r.GetString(5),
+                            Description = r.GetString(6),
+                            EventStartDate = r.GetDateTime(7),
+                            EventEndDate = r.GetDateTime(8),
+                            KidsAllowed = r.GetBoolean(9),
+                            NumGuests = r.GetInt32(10),
+                            SeatsRemaining = r.GetInt32(11),
+                            Location = r.GetString(12),
+                            Sponsored = r.GetBoolean(13),
+                            Approved = r.GetBoolean(14),
+                            Cancelled = r.GetBoolean(15),
+                            PublicEvent = r.GetBoolean(16),
+                            Price = (decimal)r.GetSqlMoney(17)
                         });
                               
                     }
@@ -284,23 +285,23 @@ namespace DataAccessLayer
                         Events.Add(new Event()
                         {
                             EventID = r.GetInt32(0),
-                            //OfferingName = r.GetString(2),
-                            EventTitle = r.GetString(1),
-                            EmployeeID = r.GetInt32(2),
-                            EmployeeName = r.GetString(3),
-                            EventTypeID = r.GetString(4),
-                            Description = r.GetString(5),
-                            EventStartDate = r.GetDateTime(6),
-                            EventEndDate = r.GetDateTime(7),
-                            KidsAllowed = r.GetBoolean(8),
-                            NumGuests = r.GetInt32(9),
-                            SeatsRemaining = r.GetInt32(10),
-                            Location = r.GetString(11),
-                            Sponsored = r.GetBoolean(12),
-                            Approved = r.GetBoolean(13),
-                            Cancelled = r.GetBoolean(14),
-                            PublicEvent = r.GetBoolean(15),
-                            Price = (decimal)r.GetSqlMoney(16)
+                            OfferingID = r.GetInt32(1),
+                            EventTitle = r.GetString(2),
+                            EmployeeID = r.GetInt32(3),
+                            EmployeeName = r.GetString(4),
+                            EventTypeID = r.GetString(5),
+                            Description = r.GetString(6),
+                            EventStartDate = r.GetDateTime(7),
+                            EventEndDate = r.GetDateTime(8),
+                            KidsAllowed = r.GetBoolean(9),
+                            NumGuests = r.GetInt32(10),
+                            SeatsRemaining = r.GetInt32(11),
+                            Location = r.GetString(12),
+                            Sponsored = r.GetBoolean(13),
+                            Approved = r.GetBoolean(14),
+                            Cancelled = r.GetBoolean(15),
+                            PublicEvent = r.GetBoolean(16),
+                            Price = (decimal)r.GetSqlMoney(17)
                         });
 
                     }
@@ -351,23 +352,23 @@ namespace DataAccessLayer
                         _event = new Event()
                         {
                             EventID = r.GetInt32(0),
-                            //OfferingName = r.GetString(2),
-                            EventTitle = r.GetString(1),
-                            EmployeeID = r.GetInt32(2),
-                            EmployeeName = r.GetString(3),
-                            EventTypeID = r.GetString(4),
-                            Description = r.GetString(5),
-                            EventStartDate = r.GetDateTime(6),
-                            EventEndDate = r.GetDateTime(7),
-                            KidsAllowed = r.GetBoolean(8),
-                            NumGuests = r.GetInt32(9),
-                            SeatsRemaining = r.GetInt32(10),
-                            Location = r.GetString(11),
-                            Sponsored = r.GetBoolean(12),
-                            Approved = r.GetBoolean(13),
-                            Cancelled = r.GetBoolean(14),
-                            PublicEvent = r.GetBoolean(15),
-                            Price = (decimal)r.GetSqlMoney(16)
+                            OfferingID = r.GetInt32(1),
+                            EventTitle = r.GetString(2),
+                            EmployeeID = r.GetInt32(3),
+                            EmployeeName = r.GetString(4),
+                            EventTypeID = r.GetString(5),
+                            Description = r.GetString(6),
+                            EventStartDate = r.GetDateTime(7),
+                            EventEndDate = r.GetDateTime(8),
+                            KidsAllowed = r.GetBoolean(9),
+                            NumGuests = r.GetInt32(10),
+                            SeatsRemaining = r.GetInt32(11),
+                            Location = r.GetString(12),
+                            Sponsored = r.GetBoolean(13),
+                            Approved = r.GetBoolean(14),
+                            Cancelled = r.GetBoolean(15),
+                            PublicEvent = r.GetBoolean(16),
+                            Price = (decimal)r.GetSqlMoney(17)
                         };
                     }
                 }

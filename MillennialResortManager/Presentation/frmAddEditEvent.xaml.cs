@@ -267,7 +267,7 @@ namespace WpfPresentation
         private void setOldEvent()
         {
             txtEventID.Text = _oldEvent.EventID.ToString();
-
+            txtEventOfferingID.Text = _oldEvent.OfferingID.ToString();
             txtEventTitle.Text = _oldEvent.EventTitle;
             txtEventPrice.Text = _oldEvent.Price.ToString();
             txtDescription.Text = _oldEvent.Description;
@@ -361,7 +361,6 @@ namespace WpfPresentation
                             SeatsRemaining = int.Parse(txtSeatsRemaining.Text),
                             Location = txtEventLocation.Text,
                             Sponsored = chkEventSpons.IsChecked.Value,
-                            ////SponsorID = int.Parse(txtEvent//SponsorID.Text),
                             Approved = chkEventAppr.IsChecked.Value,
                             PublicEvent = chkEventPublic.IsChecked.Value
                         };
@@ -372,6 +371,7 @@ namespace WpfPresentation
                         _newEvent = new Event
                         {
                             EventID = int.Parse(txtEventID.Text),
+                            OfferingID = int.Parse(txtEventOfferingID.Text),
                             EventTitle = txtEventTitle.Text,
                             Price = decimal.Parse(txtEventPrice.Text),
                             EmployeeID = int.Parse(txtEventEmployee.Text),

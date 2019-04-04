@@ -21,7 +21,7 @@ namespace DataObjects
         public string EventTitle { get; set; }
 
         public decimal Price { get; set; }
-        //public int OfferingID { get; set; }
+        public int OfferingID { get; set; }
         //public string OfferingName { get; set; }
         public int EmployeeID { get; set; }
         public string EmployeeName { get; set; }

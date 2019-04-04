@@ -1,21 +1,6 @@
 USE [MillennialResort_DB]
 GO
 
-print '' print '*** Altering Event table***'
-GO
-print '' print 'Adding Price column'
-GO
-ALTER TABLE [dbo].[Event]
-	ADD		Price	[money]
-GO
-print '' print 'Dropping OfferingID Column'
-GO
-ALTER TABLE [dbo].[Event]
-	DROP CONSTRAINT fk_OfferingID
-GO
-ALTER TABLE [dbo].[Event]
-	DROP COLUMN OfferingID
-GO
 
 print '' print '***Altering multiple Event Stored Procedures***'
 GO
@@ -40,8 +25,15 @@ CREATE PROCEDURE [dbo].[sp_insert_event]
 )
 AS
 	BEGIN
+		INSERT INTO [dbo].[Offering]
+		([OfferingTypeID],[EmployeeID],[Description],[Price])
+		VALUES
+		('Event', @EmployeeID, @Description, @Price)
+		DECLARE @NewOfferingID [int] = (SELECT @@IDENTITY)
+	
 		INSERT INTO [dbo].[Event]
-			([EventTitle]
+			([OfferingID]
+			,[EventTitle]
 			,[EmployeeID]
 			,[EventTypeID]
 			,[Description]
@@ -52,10 +44,10 @@ AS
 			,[NumGuests]
 			,[Location]
 			,[PublicEvent]
-			,[Approved]
-			,[Price])
+			,[Approved])
 			VALUES
-			(@EventTitle
+			(@NewOfferingID
+			,@EventTitle
 			,@EmployeeID
 			,@EventTypeID
 			,@Description
@@ -67,7 +59,7 @@ AS
 			,@Location
 			,@PublicEvent
 			,@Approved
-			,@Price)
+			)
 
 			RETURN @@ROWCOUNT
 	END
@@ -83,11 +75,12 @@ CREATE PROCEDURE [dbo].[sp_retrieve_event]
 AS
 	BEGIN
 		SELECT  [EventID],
+				[Event].[OfferingID],
 				[EventTitle],
 				[Event].[EmployeeID],
 				[Employee].[FirstName],
 				[EventTypeID],
-				[Description],
+				[Event].[Description],
 				[EventStartDate],
 				[EventEndDate],
 				[KidsAllowed],
@@ -100,9 +93,84 @@ AS
 				[Price]
 		FROM	[dbo].[Employee] INNER JOIN [dbo].[Event]
 		ON		[Employee].[EmployeeID] = [Event].[EmployeeID]
+		INNER JOIN [dbo].[Offering]
+		ON		[Offering].[OfferingID] = [Event].[OfferingID]
 		WHERE	[EventID] = @EventID
 	END
 GO
+print '' print'sp_update_event'
+DROP PROCEDURE [dbo].[sp_update_event]
+GO
+CREATE PROCEDURE [dbo].[sp_update_event]
+	(
+		@EventID				[int],
+		@EventTitle				[nvarchar](50),
+		@EmployeeID			 	[int],
+		@EventTypeID			[nvarchar](15),
+		@Description			[nvarchar](1000),
+		@EventStartDate			[date],
+		@EventEndDate			[date],
+		@KidsAllowed			[bit],
+		@NumGuests				[int],
+		@SeatsRemaining			[int],
+		@Location				[nvarchar](50),
+		@Sponsored				[bit],
+		@Approved				[bit],
+		@PublicEvent			[bit],
+
+		@OldEventTitle			[nvarchar](50),
+		@OldOfferingID			[int],
+		@OldEmployeeID			[int],
+		@OldEventTypeID			[nvarchar](15),
+		@OldDescription			[nvarchar](1000),
+		@OldEventStartDate		[date],
+		@OldEventEndDate		[date],
+		@OldKidsAllowed			[bit],
+		@OldNumGuests			[int],
+		@OldSeatsRemaining		[int],
+		@OldLocation			[nvarchar](50),
+		@OldSponsored			[bit],
+		@OldApproved			[bit],
+		@OldPublicEvent			[bit]
+
+	)
+AS
+	BEGIN
+		UPDATE [Event]
+		SET		[EventTitle] = @EventTitle,
+				[EmployeeID] = @EmployeeID,
+				[EventTypeID] = @EventTypeID,
+				[Description] = @Description,
+				[EventStartDate] = @EventStartDate,
+				[EventEndDate] = @EventEndDate,
+				[KidsAllowed] = @KidsAllowed,
+				[NumGuests] = @NumGuests,
+				[Location] = @Location,
+				[Sponsored] = @Sponsored,
+				[Approved] = @Approved,
+				[SeatsRemaining] = @SeatsRemaining,
+				[PublicEvent] = @PublicEvent
+		FROM 	[dbo].[Event]
+		WHERE	[EventID] = @EventID
+		AND		[OfferingID] = @OldOfferingID
+		AND 	[EventTitle] = @OldEventTitle
+		AND		[EmployeeID] = @OldEmployeeID
+		AND		[EventTypeID] = @OldEventTypeID
+		AND		[Description] = @OldDescription
+		AND		[EventStartDate] = @OldEventStartDate
+		AND		[EventEndDate] = @OldEventEndDate
+		AND		[KidsAllowed] = @OldKidsAllowed
+		AND		[SeatsRemaining] = @OldSeatsRemaining
+		AND		[NumGuests] = @OldNumGuests
+		AND		[Location] = @OldLocation
+		AND 	[Sponsored] = @OldSponsored
+		AND		[Approved] = @OldApproved
+		AND		[PublicEvent] = @OldPublicEvent
+
+			RETURN @@ROWCOUNT
+	END
+GO
+
 
 print '' print '*** Creating table EventSponsor'
 GO
@@ -171,11 +239,12 @@ AS
 	BEGIN
 		SELECT
 		[EventID],
+		[Event].[OfferingID],
 		[EventTitle],
 		[Event].[EmployeeID],
 		[Employee].[FirstName],
 		[EventTypeID] AS [EventType],
-		[Description],
+		[Event].[Description],
 		[EventStartDate],
 		[EventEndDate],
 		[KidsAllowed],
@@ -186,10 +255,12 @@ AS
 		[Approved],
 		[Cancelled],
 		[PublicEvent],
-		[Price]
+		[Offering].[Price]
 		
 		FROM	[dbo].[Event] INNER JOIN [dbo].[Employee]
 			ON		[Employee].[EmployeeID] = [Event].[EmployeeID]
+			INNER JOIN [dbo].[Offering] 
+			ON [Offering].[OfferingID] = [Event].[OfferingID]
 		WHERE [Cancelled] = 0
 	END
 GO
@@ -201,11 +272,12 @@ AS
 	BEGIN
 		SELECT
 		[EventID],
+		[Event].[OfferingID],
 		[EventTitle],
 		[Event].[EmployeeID],
 		[Employee].[FirstName],
 		[EventTypeID] AS [EventType],
-		[Description],
+		[Event].[Description],
 		[EventStartDate],
 		[EventEndDate],
 		[KidsAllowed],
@@ -216,10 +288,12 @@ AS
 		[Approved],
 		[Cancelled],
 		[PublicEvent],
-		[Price]
+		[Offering].[Price]
 		
 		FROM	[dbo].[Event] INNER JOIN [dbo].[Employee]
 			ON		[Employee].[EmployeeID] = [Event].[EmployeeID]
+			INNER JOIN [dbo].[Offering] 
+			ON [Offering].[OfferingID] = [Event].[OfferingID]
 		WHERE [Cancelled] = 1
 	END
 GO
