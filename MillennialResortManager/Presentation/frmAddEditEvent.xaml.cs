@@ -18,7 +18,7 @@ using Presentation;
 namespace WpfPresentation
 {
     /// <summary>
-    /// @Author Phillip Hansen
+    /// @Author: Phillip Hansen
     /// @Created 1/24/2019
     /// 
     /// Interaction logic for frmCreateEvent.xaml
@@ -34,7 +34,7 @@ namespace WpfPresentation
         private EventTypeManager _eventTypeManager = new EventTypeManager();
         
         /// <summary>
-        /// @Author Phillip Hansen
+        /// @Author: Phillip Hansen
         /// 
         /// Updated by Phillip Hansen on 3/8/2019
         /// Updated presentation functionality to match Data Dictionary
@@ -63,7 +63,7 @@ namespace WpfPresentation
         }
         
         /// <summary>
-        /// @Author Phillip Hansen
+        /// @Author: Phillip Hansen
         /// 
         /// When editing an event record
         /// </summary>
@@ -83,7 +83,7 @@ namespace WpfPresentation
         }
 
         /// <summary>
-        /// @Author Phillip Hansen
+        /// @Author: Phillip Hansen
         /// 
         /// When the window loads
         /// </summary>
@@ -152,7 +152,7 @@ namespace WpfPresentation
         } //End of loaded method
 
         /// <summary>
-        /// @Author Phillip Hansen
+        /// @Author: Phillip Hansen
         /// 
         /// When the 'Cancel' Button is clicked
         /// </summary>
@@ -164,7 +164,7 @@ namespace WpfPresentation
         }
 
         /// <summary>
-        /// @Author Phillip Hansen
+        /// @Author: Phillip Hansen
         /// 
         /// Sets the window controls to be editable by the user
         /// </summary>
@@ -192,7 +192,7 @@ namespace WpfPresentation
         }
 
         /// <summary>
-        /// @Author Phillip Hansen
+        /// @Author: Phillip Hansen
         /// 
         /// Sets the window controls to be editable
         /// Needs the old event field data to display on the window
@@ -225,7 +225,7 @@ namespace WpfPresentation
         }
 
         /// <summary>
-        /// @Author Phillip Hansen
+        /// @Author: Phillip Hansen
         /// 
         /// Updated: 3/1/2019 by Phillip Hansen
         /// Updated fields to match new definition in Data Dictionary
@@ -301,7 +301,7 @@ namespace WpfPresentation
         }
 
         /// <summary>
-        /// @Author Phillip Hansen
+        /// @Author: Phillip Hansen
         /// 
         /// Updated: 3/7/2019 by Phillip Hansen
         /// Updated fields to match new definition in Data Dictionary
@@ -399,7 +399,7 @@ namespace WpfPresentation
         }
 
         /// <summary>
-        /// @Author Phillip Hansen
+        /// @Author: Phillip Hansen
         /// 
         /// For saving or creating the event on the window
         /// </summary>
@@ -454,7 +454,7 @@ namespace WpfPresentation
         }
         
                 /// <summary>
-                /// @Author Phillip Hansen
+                /// @Author: Phillip Hansen
                 /// 
                 /// Only for interchanging the content in the Sponser Name in confliction with the check box
                 /// </summary>
@@ -478,7 +478,7 @@ namespace WpfPresentation
 
 
         /// <summary>
-        /// @Author Phillip Hansen
+        /// @Author: Phillip Hansen
         /// 
         /// When the delete button is clicked, passes event into a new confirmation window
         /// </summary>
@@ -504,7 +504,7 @@ namespace WpfPresentation
         }
 
         /// <summary>
-        /// @Author Phillip Hansen
+        /// @Author: Phillip Hansen
         /// 
         /// Button to enable editing the records of a specific event
         /// </summary>

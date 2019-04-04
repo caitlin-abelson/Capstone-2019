@@ -94,7 +94,7 @@
             <!-- Landing Page-->
             <Grid x:Name="LandingPage" Visibility="Visible" Style="{StaticResource LandingPage }">
                 <Label Content="Content Goes Here" Grid.Column="0" Grid.ColumnSpan="2" FontSize="72" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                <!-- <Image Source="MillennialResortWebSite/Content/images/beachPool.jpg"/> -->
+                <Image Source="../MillennialResortWebSite/Content/images/beachPool.jpg"/>
                 <!-- C:\Users\mattl\Desktop\New folder\Capstone-2019\MillennialResortManager\MillennialResortWebSite\Content\images\beach-family.jpg-->
             </Grid>
             <!-- Browse Reservation Page-->
@@ -1127,6 +1127,9 @@
             
                  Made XAML more uniform to match button controls and no tab control layout.
                  Took out tabControl and add view and update button.
+            
+                 Updated By: Phillip Hansen on 4/4/2019
+                 Added buttons and filters to improve event functionality
             -->
             <Grid x:Name="BrowseEventsPage" Visibility="Hidden">
 
@@ -1137,17 +1140,28 @@
                 </Grid.RowDefinitions>
                 <Grid Grid.Row="0">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width=".7*"/>
+                        <ColumnDefinition Width="160"/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="160"/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="100"/>
                         <ColumnDefinition/>
                         <ColumnDefinition/>
                         <ColumnDefinition/>
-                        <ColumnDefinition Width=".5*"/>
-                        <ColumnDefinition/>
-                        <ColumnDefinition/>
+                        <ColumnDefinition Width="5"/>
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
+                    <Label Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center">Show Un-Cancelled Events: </Label>
+                    <RadioButton x:Name="btnEventUncancelled" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5" Checked="BtnEventUncancelled_Checked" />
+                    <Label Grid.Column="2" HorizontalAlignment="Right" VerticalAlignment="Center">Show Cancelled Events:</Label>
+                    <RadioButton x:Name="btnEventCancelled" Grid.Column="3" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5" Checked="BtnEventCancelled_Checked" />
+                    <Label Grid.Column="4" HorizontalAlignment="Right" VerticalAlignment="Center">Search By Name: </Label>
+                    <TextBox x:Name="txtEventSearchName" Grid.Column="5" Height="20" />
+
+                    <Button x:Name="btnEventFilter" Grid.Column="7" Width="120" Height="35" Content="Filter" Click="BtnEventFilter_Click" />
+                    <Button x:Name="btnEventClearFilter" Grid.Column="9" Width="120" Height="35" Content="Clear" />
                 </Grid>
-                <DataGrid Grid.Row="1" x:Name="dgEvents" IsReadOnly="True" MouseDoubleClick="dgEvents_MouseDoubleClick" AutoGeneratingColumn="DgEvents_AutoGeneratingColumn"/>
+                <DataGrid Grid.Row="1" x:Name="dgEvents" SelectionMode="Single" IsReadOnly="True" MouseDoubleClick="dgEvents_MouseDoubleClick" AutoGeneratingColumn="DgEvents_AutoGeneratingColumn"/>
                 <Grid Grid.Row="2">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition/>
@@ -1157,9 +1171,10 @@
                         <ColumnDefinition/>
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
-                    <Button Grid.Column="3" Content="Create Event" x:Name="btnCreateEvReq" Margin="5" Click="BtnCreateEvReq_Click" />
-                    <Button Grid.Column="4" Content="View Event" x:Name="btnViewEvent" Margin="5"/>
-                    <Button Grid.Column="5" Content="Delete" x:Name="btnDeleteEvent" Margin="5" Click="btnDeleteReservation_Click"/>
+                    <Button Grid.Column="0" Content="Un-Cancel" x:Name="btnUncancelEvent" Margin="5" Click="BtnUncancelEvent_Click" />
+                    <Button Grid.Column="3" Content="Create" x:Name="btnCreateEvent" Margin="5" Click="BtnCreateEvent_Click" />
+                    <Button Grid.Column="4" Content="Read/Update" x:Name="btnViewEvent" Margin="5" Click="BtnViewEvent_Click"/>
+                    <Button Grid.Column="5" Content="Delete" x:Name="btnDeleteEvent" Margin="5" Click="btnDeleteEvent_Click"/>
 
                 </Grid>
 

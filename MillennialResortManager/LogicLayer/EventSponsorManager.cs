@@ -20,7 +20,7 @@ namespace LogicLayer
         private EventSponsorAccessor _eventSponsorAccessor;
 
         /// <summary>
-        /// @Author Phillip Hansen
+        /// @Author: Phillip Hansen
         /// 
         /// Constructor for calling non-static methods
         /// </summary>
@@ -30,7 +30,7 @@ namespace LogicLayer
         }
 
         /// <summary>
-        /// @Author Phillip Hansen
+        /// @Author: Phillip Hansen
         /// 
         /// Method for creating an event calling to the accessor for events
         /// </summary>
@@ -53,7 +53,7 @@ namespace LogicLayer
         }
 
         /// <summary>
-        /// @Author Phillip Hansen
+        /// @Author: Phillip Hansen
         /// 
         /// Method for retrieving all event sponsors as a list
         /// </summary>
@@ -75,7 +75,7 @@ namespace LogicLayer
         }
 
         /// <summary>
-        /// @Author Phillip Hansen
+        /// @Author: Phillip Hansen
         /// 
         /// Deletes the event by taking the object as a whole, and passes only the ID
         /// </summary>

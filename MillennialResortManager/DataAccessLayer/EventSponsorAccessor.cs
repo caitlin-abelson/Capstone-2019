@@ -12,7 +12,7 @@ namespace DataAccessLayer
     public class EventSponsorAccessor
     {
         /// <summary>
-        ///  @Author Phillip Hansen
+        ///  @Author: Phillip Hansen
         ///  @Created 4/3/2019
         ///  
         /// Class for the stored procedure data for Event Sponsor Requests
@@ -20,7 +20,7 @@ namespace DataAccessLayer
 
 
         /// <summary>
-        /// @Author Phillip Hansen
+        /// @Author: Phillip Hansen
         /// 
         /// Constructor for calling non-static methods
         /// </summary>
@@ -60,7 +60,7 @@ namespace DataAccessLayer
         }
 
         /// <summary>
-        /// @Author Phillip Hansen
+        /// @Author: Phillip Hansen
         /// 
         /// Created: 4/3/2019
         /// 

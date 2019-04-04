@@ -10,7 +10,7 @@ namespace DataAccessLayer
     public class MockEventAccessor : IEventAccessor
     {
         /// <summary>
-        /// @Author Phillip Hansen
+        /// @Author: Phillip Hansen
         /// 
         /// A fake Event Accessor for testing methods used in the real Event Accessor class
         /// </summary>
@@ -19,7 +19,7 @@ namespace DataAccessLayer
         private List<Event> _events;
 
         /// <summary>
-        /// @Author Phillip Hansen
+        /// @Author: Phillip Hansen
         /// 
         /// Creates a list of mock events
         /// </summary>
@@ -33,7 +33,7 @@ namespace DataAccessLayer
         }
 
         /// <summary>
-        /// @Author Phillip Hansen
+        /// @Author: Phillip Hansen
         /// 
         /// Deletes an Event by an ID
         /// </summary>
@@ -63,7 +63,7 @@ namespace DataAccessLayer
         }
 
         /// <summary>
-        /// @Author Phillip Hansen
+        /// @Author: Phillip Hansen
         /// 
         /// Adds a new event to the event list
         /// </summary>
@@ -73,8 +73,13 @@ namespace DataAccessLayer
             _events.Add(newEvent);
         }
 
+        public List<Event> selectAllCancelledEvents()
+        {
+            throw new NotImplementedException();
+        }
+
         /// <summary>
-        /// @Author Phillip Hansen
+        /// @Author: Phillip Hansen
         /// 
         /// Retrieves all events
         /// </summary>
@@ -85,7 +90,7 @@ namespace DataAccessLayer
         }
 
         /// <summary>
-        /// @Author Phillip Hansen
+        /// @Author: Phillip Hansen
         /// 
         /// Selects a specific event by an Event ID
         /// </summary>
@@ -104,7 +109,7 @@ namespace DataAccessLayer
         }
 
         /// <summary>
-        /// @Author Phillip Hansen
+        /// @Author: Phillip Hansen
         /// 
         /// Updates an event from old to new
         /// </summary>
@@ -132,6 +137,16 @@ namespace DataAccessLayer
                     _event.Approved = newEvent.Approved;
                 }
             }
+        }
+
+        public void updateEventToCancelled(Event cancelEvent)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void updateEventToUncancelled(Event uncancelEvent)
+        {
+            throw new NotImplementedException();
         }
     }
 }

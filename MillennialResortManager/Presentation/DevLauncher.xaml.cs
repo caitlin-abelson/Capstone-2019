@@ -151,6 +151,7 @@ namespace Presentation
         private EventManager _eventManager;
         //private EventTypeManager _eventTypeManager = new EventTypeManager();  Already in use 
         private List<Event> _events;
+        private Event _selectedEvent;
         //Pets
         //private Pet _pet;
         private PetManager _petManager;
@@ -686,7 +687,7 @@ namespace Presentation
         private void NavBarSubHeaderEventSponsList_Click(object sender, RoutedEventArgs e)
         {
             DisplayPage("BrowseEventSponsorsList");
-            BrowseEventSponsorsListDoOnStart();
+            //BrowseEventSponsorsListDoOnStart();
         }
 
         /// <summary>
@@ -4515,7 +4516,7 @@ namespace Presentation
 
         /*--------------------------- Ending BrowseRecipe Code --------------------------------*/
         #endregion
-    
+
         #region Event Sponsor Code
         /*--------------------------- Starting BrowseEventSponsor Code #BrowseEventSponsor --------------------------------*/
         /// <summary>
@@ -4532,7 +4533,7 @@ namespace Presentation
         }
 
         /// <summary>
-        /// @Author Phillip Hansen
+        /// @Author: Phillip Hansen
         /// 
         /// When a record is selected
         /// </summary>
@@ -4634,16 +4635,21 @@ namespace Presentation
         /// Created : 3/13/2019
         /// 
         /// This is where you stick all the code you want to run in your Constructor/Window_Loaded statement
+        /// 
+        /// Updated by Phillip Hansen on 4/4/2019
+        /// Added data for improved functionality flow
         /// </summary>
         private void BrowseEventDoOnStart()
         {
             _eventManager = new EventManager();
+            _selectedEvent = new Event();
+            btnEventUncancelled.IsChecked = true;
             populateEvents();
             dgEvents.IsEnabled = true;
         }
 
         /// <summary>
-        /// @Author Phillip Hansen
+        /// @Author: Phillip Hansen
         /// 
         /// When an event record is selected
         /// </summary>
@@ -4653,15 +4659,15 @@ namespace Presentation
         {
             if (dgEvents.SelectedIndex > -1)
             {
-                var selectedEvent = (Event)dgEvents.SelectedItem;
+                _selectedEvent = (Event)dgEvents.SelectedItem;
 
-                if (selectedEvent == null)
+                if (_selectedEvent == null)
                 {
                     MessageBox.Show("No Event Selected!");
                 }
                 else
                 {
-                    var detailA = new frmAddEditEvent(_employee, selectedEvent);
+                    var detailA = new frmAddEditEvent(_employee, _selectedEvent);
                     detailA.ShowDialog();
                     if (detailA.DialogResult == true)
                     {
@@ -4677,13 +4683,166 @@ namespace Presentation
         }
 
         /// <summary>
-        /// @Author Phillip Hansen
+        /// @Author: Phillip Hansen
+        /// @Created: 4/3/2019
+        /// 
+        /// Event handler for when the radio button 'UncancelledEvents' is checked
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void BtnEventUncancelled_Checked(object sender, RoutedEventArgs e)
+        {
+            //make sure the button for 'cancelled' is inaccessable
+            btnUncancelEvent.Visibility = Visibility.Hidden;
+
+            //populate events with the corresponding method
+            _events = _eventManager.RetrieveAllEvents();
+
+            //re-populate the data grid with the events
+            populateEvents();
+
+            //The "delete" button for Event should be 'Cancel Event' instead
+            btnDeleteEvent.Content = "Cancel Event";
+            
+        }
+
+        /// <summary>
+        /// @Author: Phillip Hansen
+        /// @Created: 4/3/2019
+        /// 
+        /// Event handler for when the radio button 'CancelledEvents' is checked
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void BtnEventCancelled_Checked(object sender, RoutedEventArgs e)
+        {
+            btnUncancelEvent.Visibility = Visibility.Visible;
+
+            _events = _eventManager.RetrieveAllCancelledEvents();
+
+            populateEvents();
+
+            btnDeleteEvent.Content = "Delete";
+        }
+
+        /// <summary>
+        /// @Author: Phillip Hansen
+        /// @Created: 4/4/2019
+        /// 
+        /// Event handler for a button to un-cancel a pre-selected event object
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void BtnUncancelEvent_Click(object sender, RoutedEventArgs e)
+        {
+            _selectedEvent = (Event)dgEvents.SelectedItem;
+
+            try
+            {
+                _eventManager.UpdatEventToUncancel(_selectedEvent);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message + "\nCould not update event to un-cancelled!");
+            }
+        }
+
+        /// <summary>
+        /// @Author: Phillip Hansen
+        /// Created: 4/4/2019
+        /// 
+        /// Re-populates the list based on what is in the text for searching an event by name
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void BtnEventFilter_Click(object sender, RoutedEventArgs e)
+        {
+            if (btnEventUncancelled.IsChecked == true)
+            {
+                if(txtEventSearchName != null)
+                {
+                    List<Event> _filteredEvents = new List<Event>();
+                    foreach (var item in _eventManager.RetrieveAllEvents().Where(b => b.EventTitle.Equals(txtEventSearchName.Text.ToString())))
+                    {
+                        _filteredEvents.Add(item);
+                    }
+                    
+                    dgEvents.ItemsSource = _filteredEvents;
+                }
+                else
+                {
+                    dgEvents.ItemsSource = _events;
+                }
+                
+            }
+            else if(btnEventCancelled.IsChecked == true)
+            {
+                if (txtEventSearchName != null)
+                {
+                    List<Event> _filteredEvents = new List<Event>();
+                    foreach (var item in _eventManager.RetrieveAllCancelledEvents().Where(b => b.EventTitle.Equals(txtEventSearchName.Text.ToString())))
+                    {
+                        _filteredEvents.Add(item);
+                    }
+
+                    dgEvents.ItemsSource = _filteredEvents;
+                }
+                else
+                {
+                    dgEvents.ItemsSource = _events;
+                }
+            }
+        }
+
+        /// <summary>
+        /// @Author: Phillip Hansen
+        /// Created: 4/4/2019
+        /// 
+        /// Method for clearing the filter, depending on what radio button is selected
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void BtnEventClearFilter_Click(object sender, RoutedEventArgs e)
+        {
+            txtEventSearchName.Text = "";
+
+            if(btnEventCancelled.IsChecked == true)
+            {
+                try
+                {
+                    _events = _eventManager.RetrieveAllCancelledEvents();
+                    dgEvents.ItemsSource = _events;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message + "\nCould not repopulate grid after clearing filter!");
+                }
+                
+            }
+            else if (btnEventUncancelled.IsChecked == true)
+            {
+                try
+                {
+                    _events = _eventManager.RetrieveAllEvents();
+                    dgEvents.ItemsSource = _events;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message + "\nCould not repopulate grid after clearing filter!");
+                }
+
+            }
+
+        }
+
+        /// <summary>
+        /// @Author: Phillip Hansen
         /// 
         /// Code for when the 'create' button is clicked
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void BtnCreateEvReq_Click(object sender, RoutedEventArgs e)
+        private void BtnCreateEvent_Click(object sender, RoutedEventArgs e)
         {
             //The Form requires the User's ID for a field in the record
             var addEventReq = new frmAddEditEvent(_employee);
@@ -4695,7 +4854,78 @@ namespace Presentation
         }
 
         /// <summary>
-        /// @Author Phillip Hansen
+        /// @Author: Phillip Hansen
+        /// @Created: 4/3/2019
+        /// 
+        /// Button to capture a selected record and allow it to be read/updated
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void BtnViewEvent_Click(object sender, RoutedEventArgs e)
+        {
+            _selectedEvent = (Event)dgEvents.SelectedItem;
+
+            if (dgEvents.SelectedIndex > -1)
+            {
+                var viewEvent = new frmAddEditEvent(_employee, _selectedEvent);
+                var result = viewEvent.ShowDialog();
+                if(result == true)
+                {
+                    populateEvents();
+                }
+            }
+            else
+            {
+                MessageBox.Show("A record from the list must be selected!");
+            }
+
+        }
+
+        /// <summary>
+        /// @Author: Phillip Hansen
+        /// @Created: 4/3/2019
+        /// 
+        /// Button to capture a selected record and allow it to be cancelled or deleted
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnDeleteEvent_Click(object sender, RoutedEventArgs e)
+        {
+            _selectedEvent = (Event)dgEvents.SelectedItem;
+
+            if (dgEvents.SelectedIndex > -1)
+            {
+                if(btnDeleteEvent.Content.Equals("Cancel Event"))
+                {
+                    _eventManager.UpdateEventToCancel(_selectedEvent);
+                    populateEvents();
+                }
+                else if(btnDeleteEvent.Content.Equals("Delete"))
+                {
+                    if (_selectedEvent.Approved == false)
+                    {
+                        var deleteEvent = new frmEventDeleteConfirmation(_selectedEvent);
+                        var result = deleteEvent.ShowDialog();
+                        if(result == true)
+                        {
+                            populateEvents();
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("Event must not be approved!");
+                    }
+                }
+                
+            }
+            else
+            {
+                MessageBox.Show("A record from the list must be selected!");
+            }
+        }
+
+        /// <summary>
+        /// @Author: Phillip Hansen
         /// 
         /// Changes the titles for the columns in the event datagrid to be human-readable
         /// </summary>
@@ -4759,26 +4989,32 @@ namespace Presentation
             }
         }
 
+
+
         /// <summary>
-        /// @Author Phillip Hansen
+        /// @Author: Phillip Hansen
+        /// @Created 4/3/2019
         /// 
-        /// Method for populating the events
+        /// Method for populating the events, depending on what the Event list contains
+        /// 
         /// </summary>
         private void populateEvents()
         {
+            dgEvents.ItemsSource = null;
+
             try
             {
-                _events = _eventManager.RetrieveAllEvents();
                 dgEvents.ItemsSource = _events;
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message + "\nCould not retrieve the list of Event Requests.");
+                MessageBox.Show(ex.Message + "\nCould not retrieve the list of Events.");
             }
+
         }
 
         /// <summary>
-        /// @Author Phillip Hansen
+        /// @Author: Phillip Hansen
         /// 
         /// Closes the window if the 'cancel' button is clicked
         /// </summary>

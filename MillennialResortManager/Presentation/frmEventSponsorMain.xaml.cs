@@ -37,7 +37,7 @@ namespace Presentation
         }
         
         /// <summary>
-        /// @Author Phillip Hansen
+        /// @Author: Phillip Hansen
         /// 
         /// When a record is selected
         /// </summary>

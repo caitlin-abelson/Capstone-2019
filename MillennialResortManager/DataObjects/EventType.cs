@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace DataObjects
 {
     /// <summary>
-    /// @Author Phillip Hansen, craig barkley
+    /// @Author: Phillip Hansen, craig barkley
     /// @Created 1/24/2019
     /// 
     /// Creates a Event Type object to populate selection

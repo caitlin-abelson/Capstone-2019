@@ -9,14 +9,11 @@ namespace DataObjects
     public class Event
     {
         /// <summary>
-        /// @Author Phillip Hansen
+        /// @Author: Phillip Hansen
         /// @Created 1/23/2019
         /// 
-        /// Updated: 3/1/2019 by Phillip Hansen
+        /// Updated: 4/3/2019 by Phillip Hansen
         /// Updated fields to match new definition in Data Dictionary
-        /// 
-        /// Updated: 3/29/2019 by Phillip Hansen
-        /// Updated fields to match new definitions in Data Dictionary
         /// 
         /// Creates the Event Request Object
         /// </summary>
@@ -36,6 +33,7 @@ namespace DataObjects
         public string Location { get; set; }
         public bool Sponsored { get; set; }
         public bool Approved { get; set; }
+        public bool Cancelled { get; set; }
         public bool PublicEvent { get; set; }
 
 

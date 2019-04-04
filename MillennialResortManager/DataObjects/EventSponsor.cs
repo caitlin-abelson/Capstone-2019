@@ -9,7 +9,7 @@ namespace DataObjects
     public class EventSponsor
     {
         /// <summary>
-        /// @Author Phillip Hansen
+        /// @Author: Phillip Hansen
         /// @Created 4/3/2019
         /// 
         /// Creates the Event Sponsor object for the joined table

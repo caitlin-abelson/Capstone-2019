@@ -9,7 +9,7 @@ namespace UnitTests
 {
 
     /// <summary>
-    /// @Author Phillip Hansen
+    /// @Author: Phillip Hansen
     /// @Created 2/15/2019
     /// 
     /// Test Class for the Event data object
@@ -35,7 +35,7 @@ namespace UnitTests
         }
 
         /// <summary>
-        /// @Author Phillip Hansen
+        /// @Author: Phillip Hansen
         /// 
         /// All tests for creating a new event data object
         /// </summary>
@@ -355,7 +355,7 @@ namespace UnitTests
         }
 
         /// <summary>
-        /// @Author Phillip Hansen
+        /// @Author: Phillip Hansen
         /// 
         /// Tests for retrieving all events
         /// </summary>
@@ -370,7 +370,7 @@ namespace UnitTests
         }
 
         /// <summary>
-        /// @Author Phillip Hansen
+        /// @Author: Phillip Hansen
         /// 
         /// Tests for updating an event object
         /// </summary>
@@ -528,7 +528,7 @@ namespace UnitTests
         }
 
         /// <summary>
-        /// @Author Phillip Hansen
+        /// @Author: Phillip Hansen
         /// 
         /// Test for deleting a room by the ID
         /// </summary>

@@ -1,7 +1,7 @@
 USE [MillennialResort_DB]
 GO
 
-print '' print '*Inserting a fake Offering Type record'
+print '' print '***Inserting a fake Offering Type record'
 GO
 INSERT INTO [dbo].[OfferingType]
 			([OfferingTypeID], [Description])
@@ -9,7 +9,7 @@ INSERT INTO [dbo].[OfferingType]
 			('FakeOffType','A Fake Offering Type Description')
 GO
 
-print '' print '*Inserting a fake Offering record'
+print '' print '***Inserting a fake Offering record'
 GO
 INSERT INTO [dbo].[Offering]
 			([OfferingTypeID],[EmployeeID],[Description],[Price])
@@ -17,7 +17,7 @@ INSERT INTO [dbo].[Offering]
 			('FakeOffType',100000,'A description for a fake Offering',100.00)
 GO
 		
-print '' print '*Inserting a fake Sponsor record'
+print '' print '***Inserting a fake Sponsor record'
 GO
 INSERT INTO [dbo].[Sponsor]
 			([SponsorID],[Name],[Address],[City],[State],[PhoneNumber],
@@ -27,7 +27,7 @@ INSERT INTO [dbo].[Sponsor]
 				'fakeSpons@sponsor.com', 'Fake','Fakerson', '2019-01-01', 1)
 GO
 
-print '' print '*Inserting a fake Event record'
+print '' print '***Inserting fake Event records'
 GO
 INSERT INTO [dbo].[Event]
 			([OfferingID],[EventTitle],[EmployeeID],[EventTypeID],[Description],
@@ -35,5 +35,7 @@ INSERT INTO [dbo].[Event]
 				[Sponsored],[Approved],[Cancelled],[SeatsRemaining],[PublicEvent])
 		VALUES
 			(100000,'Fake Event Title',100000,'Beach Party','Fake Event Description',
-				'2019-01-02','2019-01-04',0,500,'Beach',1,1,0,100,1)
+				'2020-01-02','2020-01-04',0,500,'Beach',1,1,0,100,1),
+			(100000,'Fake Cancelled Event',100000,'Beach Party','Fake Event Description',
+				'2020-01-02','2020-01-04',0,500,'Beach',0,0,1,100,0)
 GO	
