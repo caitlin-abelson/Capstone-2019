@@ -49,6 +49,7 @@
     <Compile Include="EmployeeManager.cs" />
     <Compile Include="EmpRolesManager.cs" />
     <Compile Include="EventManager.cs" />
+    <Compile Include="EventSponsorManager.cs" />
     <Compile Include="EventTypeManager.cs" />
     <Compile Include="GuestManager.cs" />
     <Compile Include="GuestVehicleManager.cs" />
