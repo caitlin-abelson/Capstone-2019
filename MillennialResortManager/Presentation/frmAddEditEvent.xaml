@@ -31,13 +31,13 @@
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
             <Label Grid.Column="0" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Right">Requested Event Title: </Label>
-            <Label Grid.Column="0" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Right">Offering ID:</Label>
+            <Label Grid.Column="0" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Right">Entry Price:</Label>
             <Label Grid.Column="0" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Right">Host Employee: </Label>
             <Label Grid.Column="0" Grid.Row="3" VerticalAlignment="Center" HorizontalAlignment="Right">Type of Event:</Label>
             <Label Grid.Column="0" Grid.Row="4" VerticalAlignment="Center" HorizontalAlignment="Right">Start Date Request:</Label>
             <Label Grid.Column="0" Grid.Row="5" VerticalAlignment="Center">End Date Request:</Label>
             <TextBox x:Name="txtEventTitle" Grid.Column="1" Grid.Row="0" Width="120" VerticalAlignment="Center" HorizontalAlignment="Left" />
-            <TextBox x:Name="txtEventOfferingID" Grid.Column="1" Grid.Row="1" Width="120" VerticalAlignment="Center" HorizontalAlignment="Left" />
+            <TextBox x:Name="txtEventPrice" Grid.Column="1" Grid.Row="1" Width="120" VerticalAlignment="Center" HorizontalAlignment="Left" />
             <TextBox x:Name="txtEventEmployee" Grid.Column="1" Grid.Row="2" Width="120" VerticalAlignment="Center" HorizontalAlignment="Left" IsEnabled="False" />
             <ComboBox x:Name="cboEventType" Grid.Column="1" Grid.Row="3" Width="120" VerticalAlignment="Center" HorizontalAlignment="Left" />
             <DatePicker x:Name="dateEventStart" Grid.Column="1" Grid.Row="4" Width="120" VerticalAlignment="Center" HorizontalAlignment="Left" />

@@ -700,7 +700,7 @@ namespace Presentation
         private void NavBarSubHeaderEvents_Click(object sender, RoutedEventArgs e)
         {
             DisplayPage("BrowseEvents");
-            //BrowseEventDoOnStart();
+            BrowseEventDoOnStart();
         }
 
         /// <summary>
@@ -4694,10 +4694,7 @@ namespace Presentation
         {
             //make sure the button for 'cancelled' is inaccessable
             btnUncancelEvent.Visibility = Visibility.Hidden;
-
-            //populate events with the corresponding method
-            _events = _eventManager.RetrieveAllEvents();
-
+            
             //re-populate the data grid with the events
             populateEvents();
 
@@ -4717,8 +4714,6 @@ namespace Presentation
         private void BtnEventCancelled_Checked(object sender, RoutedEventArgs e)
         {
             btnUncancelEvent.Visibility = Visibility.Visible;
-
-            _events = _eventManager.RetrieveAllCancelledEvents();
 
             populateEvents();
 
@@ -4744,6 +4739,10 @@ namespace Presentation
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message + "\nCould not update event to un-cancelled!");
+            }
+            finally
+            {
+                populateEvents();
             }
         }
 
@@ -4806,32 +4805,7 @@ namespace Presentation
         {
             txtEventSearchName.Text = "";
 
-            if(btnEventCancelled.IsChecked == true)
-            {
-                try
-                {
-                    _events = _eventManager.RetrieveAllCancelledEvents();
-                    dgEvents.ItemsSource = _events;
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message + "\nCould not repopulate grid after clearing filter!");
-                }
-                
-            }
-            else if (btnEventUncancelled.IsChecked == true)
-            {
-                try
-                {
-                    _events = _eventManager.RetrieveAllEvents();
-                    dgEvents.ItemsSource = _events;
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message + "\nCould not repopulate grid after clearing filter!");
-                }
-
-            }
+            populateEvents();
 
         }
 
@@ -4897,8 +4871,19 @@ namespace Presentation
             {
                 if(btnDeleteEvent.Content.Equals("Cancel Event"))
                 {
-                    _eventManager.UpdateEventToCancel(_selectedEvent);
-                    populateEvents();
+                    try
+                    {
+                        _eventManager.UpdateEventToCancel(_selectedEvent);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message + "\nCould not update event to cancel!");
+                    }
+                    finally
+                    {
+                        populateEvents();
+                    }
+                    
                 }
                 else if(btnDeleteEvent.Content.Equals("Delete"))
                 {
@@ -4943,9 +4928,21 @@ namespace Presentation
             {
                 e.Cancel = true;
             }
-            if (headerName == "SponsorID")
+            if(headerName == "Cancelled")
             {
                 e.Cancel = true;
+            }
+            if(headerName == "SeatsRemaining")
+            {
+                e.Column.Header = "Open Seats";
+            }
+            if(headerName == "PublicEvent")
+            {
+                e.Column.Header = "Public?";
+            }
+            if(headerName == "Price")
+            {
+                e.Column.Header = "Entry Price";
             }
             if (headerName == "EventTitle")
             {
@@ -4979,10 +4976,6 @@ namespace Presentation
             {
                 e.Column.Header = "Sponsored?";
             }
-            if (headerName == "SponsorName")
-            {
-                e.Column.Header = "Sponsor Name";
-            }
             if (headerName == "Approved")
             {
                 e.Column.Header = "Approved?";
@@ -5000,7 +4993,24 @@ namespace Presentation
         /// </summary>
         private void populateEvents()
         {
+            //Empty the event list
+            _events = null;
+            //Make the source of the data grid null
             dgEvents.ItemsSource = null;
+            //Refresh the data grid to empty all items
+            dgEvents.Items.Refresh();
+
+
+            //Re-Add the events based on the radio button selected
+            if(btnEventCancelled.IsChecked == true)
+            {
+                _events = _eventManager.RetrieveAllCancelledEvents();
+            }
+            else if(btnEventUncancelled.IsChecked == true)
+            {
+                _events = _eventManager.RetrieveAllEvents();
+            }
+
 
             try
             {

@@ -30,12 +30,12 @@ GO
 print '' print '***Inserting fake Event records'
 GO
 INSERT INTO [dbo].[Event]
-			([OfferingID],[EventTitle],[EmployeeID],[EventTypeID],[Description],
+			([EventTitle],[EmployeeID],[EventTypeID],[Description],
 				[EventStartDate],[EventEndDate],[KidsAllowed],[NumGuests],[Location],
-				[Sponsored],[Approved],[Cancelled],[SeatsRemaining],[PublicEvent])
+				[Sponsored],[Approved],[Cancelled],[SeatsRemaining],[PublicEvent],[Price])
 		VALUES
-			(100000,'Fake Event Title',100000,'Beach Party','Fake Event Description',
-				'2020-01-02','2020-01-04',0,500,'Beach',1,1,0,100,1),
-			(100000,'Fake Cancelled Event',100000,'Beach Party','Fake Event Description',
-				'2020-01-02','2020-01-04',0,500,'Beach',0,0,1,100,0)
+			('Fake Event Title',100000,'Beach Party','Fake Event Description',
+				'2020-01-02','2020-01-04',0,500,'Beach',1,1,0,100,1,150.00),
+			('Fake Cancelled Event',100000,'Beach Party','Fake Event Description',
+				'2020-01-02','2020-01-04',0,500,'Beach',0,0,1,100,0,200.00)
 GO	

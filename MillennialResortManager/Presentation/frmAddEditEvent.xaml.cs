@@ -203,7 +203,8 @@ namespace WpfPresentation
         {
             //Event ID never changes
             txtEventID.IsEnabled = false;
-            txtEventOfferingID.IsEnabled = false;
+            //Offering Price never changes
+            txtEventPrice.IsEnabled = false;
 
             txtEventTitle.IsEnabled = true;
             txtEventEmployee.Text = _oldEvent.EmployeeID.ToString();
@@ -237,7 +238,7 @@ namespace WpfPresentation
             //Event ID never changes
             txtEventID.IsEnabled = false;
 
-            txtEventOfferingID.IsEnabled = false;
+            txtEventPrice.IsEnabled = false;
 
             txtEventTitle.IsEnabled = false;
             //txtEventEmployee.IsEnabled = true;
@@ -268,7 +269,7 @@ namespace WpfPresentation
             txtEventID.Text = _oldEvent.EventID.ToString();
 
             txtEventTitle.Text = _oldEvent.EventTitle;
-            txtEventOfferingID.Text = _oldEvent.OfferingID.ToString();
+            txtEventPrice.Text = _oldEvent.Price.ToString();
             txtDescription.Text = _oldEvent.Description;
             txtEventEmployee.Text = _oldEvent.EmployeeID.ToString();
             txtEventLocation.Text = _oldEvent.Location;
@@ -319,7 +320,7 @@ namespace WpfPresentation
                     MessageBox.Show("Event Title must be between 1 and 50 characters!");
                     return;
                 }
-                else if (!int.TryParse(txtReqNumGuest.Text, out int aNumber) || (!int.TryParse(txtEventOfferingID.Text, out aNumber)) || (!int.TryParse(txtSeatsRemaining.Text, out aNumber))/*(!int.TryParse(txtEvent//SponsorID.Text, out aNumber))*/)
+                else if (!int.TryParse(txtReqNumGuest.Text, out int aNumber) || (!decimal.TryParse(txtEventPrice.Text, out decimal bNumber)) || (!int.TryParse(txtSeatsRemaining.Text, out aNumber))/*(!int.TryParse(txtEvent//SponsorID.Text, out aNumber))*/)
                 {
                     MessageBox.Show("Numbers only!");
                     return;
@@ -349,7 +350,7 @@ namespace WpfPresentation
                         _newEvent = new Event
                         {
                             EventTitle = txtEventTitle.Text,
-                            OfferingID = int.Parse(txtEventOfferingID.Text),
+                            Price = decimal.Parse(txtEventPrice.Text),
                             EmployeeID = int.Parse(txtEventEmployee.Text),
                             EventTypeID = cboEventType.SelectedItem.ToString(),
                             Description = txtDescription.Text,
@@ -372,7 +373,7 @@ namespace WpfPresentation
                         {
                             EventID = int.Parse(txtEventID.Text),
                             EventTitle = txtEventTitle.Text,
-                            OfferingID = int.Parse(txtEventOfferingID.Text),
+                            Price = decimal.Parse(txtEventPrice.Text),
                             EmployeeID = int.Parse(txtEventEmployee.Text),
                             EventTypeID = cboEventType.SelectedItem.ToString(),
                             Description = txtDescription.Text,

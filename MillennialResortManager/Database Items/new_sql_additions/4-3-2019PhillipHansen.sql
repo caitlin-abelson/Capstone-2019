@@ -1,6 +1,109 @@
 USE [MillennialResort_DB]
 GO
 
+print '' print '*** Altering Event table***'
+GO
+print '' print 'Adding Price column'
+GO
+ALTER TABLE [dbo].[Event]
+	ADD		Price	[money]
+GO
+print '' print 'Dropping OfferingID Column'
+GO
+ALTER TABLE [dbo].[Event]
+	DROP CONSTRAINT fk_OfferingID
+GO
+ALTER TABLE [dbo].[Event]
+	DROP COLUMN OfferingID
+GO
+
+print '' print '***Altering multiple Event Stored Procedures***'
+GO
+print '' print 'sp_insert_event'
+DROP PROCEDURE [dbo].[sp_insert_event]
+GO
+CREATE PROCEDURE [dbo].[sp_insert_event]
+(
+		@EventTitle 	[nvarchar](50),
+		@EmployeeID		[int],
+		@EventTypeID 	[nvarchar](15),
+		@Description 	[nvarchar](1000),
+		@EventStartDate [date],
+		@EventEndDate 	[date],
+		@KidsAllowed 	[bit],
+		@SeatsRemaining [int],
+		@NumGuests 		[int],
+		@Location 		[nvarchar](50),
+		@PublicEvent 	[bit],
+		@Approved 		[bit],
+		@Price			[money]
+)
+AS
+	BEGIN
+		INSERT INTO [dbo].[Event]
+			([EventTitle]
+			,[EmployeeID]
+			,[EventTypeID]
+			,[Description]
+			,[EventStartDate]
+			,[EventEndDate]
+			,[KidsAllowed]
+			,[SeatsRemaining]
+			,[NumGuests]
+			,[Location]
+			,[PublicEvent]
+			,[Approved]
+			,[Price])
+			VALUES
+			(@EventTitle
+			,@EmployeeID
+			,@EventTypeID
+			,@Description
+			,@EventStartDate
+			,@EventEndDate
+			,@KidsAllowed
+			,@SeatsRemaining
+			,@NumGuests
+			,@Location
+			,@PublicEvent
+			,@Approved
+			,@Price)
+
+			RETURN @@ROWCOUNT
+	END
+GO
+print '' print'sp_retrieve_event'
+GO
+DROP PROCEDURE [dbo].[sp_retrieve_event]
+GO
+CREATE PROCEDURE [dbo].[sp_retrieve_event]
+	(
+		@EventID [int]
+	)
+AS
+	BEGIN
+		SELECT  [EventID],
+				[EventTitle],
+				[Event].[EmployeeID],
+				[Employee].[FirstName],
+				[EventTypeID],
+				[Description],
+				[EventStartDate],
+				[EventEndDate],
+				[KidsAllowed],
+				[NumGuests],
+				[SeatsRemaining],
+				[Location],
+				[Sponsored],
+				[Approved],
+				[PublicEvent],
+				[Price]
+		FROM	[dbo].[Employee] INNER JOIN [dbo].[Event]
+		ON		[Employee].[EmployeeID] = [Event].[EmployeeID]
+		WHERE	[EventID] = @EventID
+	END
+GO
+
 print '' print '*** Creating table EventSponsor'
 GO
 CREATE TABLE [dbo].[EventSponsor](
@@ -21,10 +124,12 @@ CREATE PROCEDURE [dbo].[sp_insert_event_sponsor]
 	)
 AS
 	BEGIN	
+		
 		INSERT INTO 	[EventSponsor]
 			([EventID], [SponsorID])
 		VALUES
 			(@EventID, @SponsorID)
+		
 	END
 GO
 
@@ -66,7 +171,6 @@ AS
 	BEGIN
 		SELECT
 		[EventID],
-		[OfferingID],
 		[EventTitle],
 		[Event].[EmployeeID],
 		[Employee].[FirstName],
@@ -81,7 +185,9 @@ AS
 		[Sponsored],
 		[Approved],
 		[Cancelled],
-		[PublicEvent]
+		[PublicEvent],
+		[Price]
+		
 		FROM	[dbo].[Event] INNER JOIN [dbo].[Employee]
 			ON		[Employee].[EmployeeID] = [Event].[EmployeeID]
 		WHERE [Cancelled] = 0
@@ -95,7 +201,6 @@ AS
 	BEGIN
 		SELECT
 		[EventID],
-		[OfferingID],
 		[EventTitle],
 		[Event].[EmployeeID],
 		[Employee].[FirstName],
@@ -110,7 +215,9 @@ AS
 		[Sponsored],
 		[Approved],
 		[Cancelled],
-		[PublicEvent]
+		[PublicEvent],
+		[Price]
+		
 		FROM	[dbo].[Event] INNER JOIN [dbo].[Employee]
 			ON		[Employee].[EmployeeID] = [Event].[EmployeeID]
 		WHERE [Cancelled] = 1

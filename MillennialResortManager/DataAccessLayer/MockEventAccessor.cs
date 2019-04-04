@@ -26,10 +26,10 @@ namespace DataAccessLayer
         public MockEventAccessor()
         {
             _events = new List<Event>();
-            _events.Add(new Event() { EventID = 111000, EventTitle = "TestEvent1", OfferingID = 100001,  EmployeeID = 100001, EventTypeID = "Beach Party", Description = "Testing", EventStartDate = DateTime.Now.AddDays(1).Date, EventEndDate = DateTime.Now.AddDays(2).Date, NumGuests = 100, SeatsRemaining = 50, KidsAllowed = false, Location = "TestLobby", Sponsored = false, Approved = false, PublicEvent = false });
-            _events.Add(new Event() { EventID = 111000, EventTitle = "TestEvent1", OfferingID = 100001, EmployeeID = 100001, EventTypeID = "Beach Party", Description = "Testing", EventStartDate = DateTime.Now.AddDays(3).Date, EventEndDate = DateTime.Now.AddDays(4).Date, NumGuests = 100, SeatsRemaining = 50, KidsAllowed = false, Location = "TestLobby", Sponsored = false, Approved = false, PublicEvent = false });
-            _events.Add(new Event() { EventID = 111000, EventTitle = "TestEvent1", OfferingID = 100001, EmployeeID = 100001, EventTypeID = "Beach Party", Description = "Testing", EventStartDate = DateTime.Now.AddDays(5).Date, EventEndDate = DateTime.Now.AddDays(6).Date, NumGuests = 100, SeatsRemaining = 50, KidsAllowed = false, Location = "TestLobby", Sponsored = false, Approved = false, PublicEvent = false });
-            _events.Add(new Event() { EventID = 111000, EventTitle = "TestEvent1", OfferingID = 100001, EmployeeID = 100001, EventTypeID = "Beach Party", Description = "Testing", EventStartDate = DateTime.Now.AddDays(7).Date, EventEndDate = DateTime.Now.AddDays(8).Date, NumGuests = 100, SeatsRemaining = 50, KidsAllowed = false, Location = "TestLobby", Sponsored = false, Approved = false, PublicEvent = false });
+            _events.Add(new Event() { EventID = 111000, EventTitle = "TestEvent1", Price = 100.50M,  EmployeeID = 100001, EventTypeID = "Beach Party", Description = "Testing", EventStartDate = DateTime.Now.AddDays(1).Date, EventEndDate = DateTime.Now.AddDays(2).Date, NumGuests = 100, SeatsRemaining = 50, KidsAllowed = false, Location = "TestLobby", Sponsored = false, Approved = false, PublicEvent = false });
+            _events.Add(new Event() { EventID = 111000, EventTitle = "TestEvent1", Price = 100.50M, EmployeeID = 100001, EventTypeID = "Beach Party", Description = "Testing", EventStartDate = DateTime.Now.AddDays(3).Date, EventEndDate = DateTime.Now.AddDays(4).Date, NumGuests = 100, SeatsRemaining = 50, KidsAllowed = false, Location = "TestLobby", Sponsored = false, Approved = false, PublicEvent = false });
+            _events.Add(new Event() { EventID = 111000, EventTitle = "TestEvent1", Price = 100.50M, EmployeeID = 100001, EventTypeID = "Beach Party", Description = "Testing", EventStartDate = DateTime.Now.AddDays(5).Date, EventEndDate = DateTime.Now.AddDays(6).Date, NumGuests = 100, SeatsRemaining = 50, KidsAllowed = false, Location = "TestLobby", Sponsored = false, Approved = false, PublicEvent = false });
+            _events.Add(new Event() { EventID = 111000, EventTitle = "TestEvent1", Price = 100.50M, EmployeeID = 100001, EventTypeID = "Beach Party", Description = "Testing", EventStartDate = DateTime.Now.AddDays(7).Date, EventEndDate = DateTime.Now.AddDays(8).Date, NumGuests = 100, SeatsRemaining = 50, KidsAllowed = false, Location = "TestLobby", Sponsored = false, Approved = false, PublicEvent = false });
         }
 
         /// <summary>
@@ -122,7 +122,7 @@ namespace DataAccessLayer
                 if(_event.EventID == oldEvent.EventID)
                 {
                     _event.EventTitle = newEvent.EventTitle;
-                    _event.OfferingID = newEvent.OfferingID;
+                    _event.Price = newEvent.Price;
                     _event.EmployeeID = newEvent.EmployeeID;
                     _event.EmployeeName = newEvent.EmployeeName;
                     _event.EventTypeID = newEvent.EventTypeID;

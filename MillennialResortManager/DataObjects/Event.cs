@@ -12,14 +12,16 @@ namespace DataObjects
         /// @Author: Phillip Hansen
         /// @Created 1/23/2019
         /// 
-        /// Updated: 4/3/2019 by Phillip Hansen
+        /// Updated: 4/4/2019 by Phillip Hansen
         /// Updated fields to match new definition in Data Dictionary
         /// 
         /// Creates the Event Request Object
         /// </summary>
         public int EventID { get; set; }
         public string EventTitle { get; set; }
-        public int OfferingID { get; set; }
+
+        public decimal Price { get; set; }
+        //public int OfferingID { get; set; }
         //public string OfferingName { get; set; }
         public int EmployeeID { get; set; }
         public string EmployeeName { get; set; }
