@@ -53,6 +53,7 @@
     <Compile Include="EmpRoles.cs" />
     <Compile Include="Enumerations.cs" />
     <Compile Include="Event.cs" />
+    <Compile Include="EventSponsor.cs" />
     <Compile Include="EventType.cs" />
     <Compile Include="ExtensionMethods.cs" />
     <Compile Include="Guest.cs" />

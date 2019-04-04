@@ -47,6 +47,7 @@ namespace Presentation
     /// #BrowseSponsor
     /// #BrowseRecipe
     /// #BrowseEvent
+    /// #BrowseEventSponsor
     /// #BrowseSupplierOrders
     /// #BrowsePets
     /// #BrowseRoom
@@ -142,6 +143,9 @@ namespace Presentation
         private List<Recipe> _recipes;
         private RecipeManager _recipeManager;
         private bool _isFilterRestting;
+        //EventSponsor
+        private EventSponsorManager _eventSponsManager;
+        private List<EventSponsor> _eventSponsors;
         //Event
         private EventManager _eventManager;
         //private EventTypeManager _eventTypeManager = new EventTypeManager();  Already in use 
@@ -699,6 +703,19 @@ namespace Presentation
         {
             DisplayPage("BrowseRecipe");
             //BrowseRecipeDoOnStart();
+        }
+
+        /// <summary>
+        /// @Author: Phillip Hansen
+        /// @Created: 4/3/2019
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void NavBarSubHeaderEventSponsList_Click(object sender, RoutedEventArgs e)
+        {
+            DisplayPage("BrowseEventSponsorsList");
+            BrowseEventSponsorsListDoOnStart();
         }
 
         /// <summary>
@@ -4491,6 +4508,114 @@ namespace Presentation
 
         /*--------------------------- Ending BrowseRecipe Code --------------------------------*/
 
+        /*--------------------------- Starting BrowseEventSponsor Code #BrowseEventSponsor --------------------------------*/
+        /// <summary>
+        /// @Author: Phillip Hansen
+        /// @Created : 3/13/2019
+        /// 
+        /// 
+        /// </summary>
+        private void BrowseEventSponsorsListDoOnStart()
+        {
+            _eventSponsManager = new EventSponsorManager();
+            populateEvSponsList();
+            dgEventSponsor.IsEnabled = true;
+        }
+
+        /// <summary>
+        /// @Author Phillip Hansen
+        /// 
+        /// When a record is selected
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void dgEventSponsor_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            if (dgEventSponsor.SelectedIndex > -1)
+            {
+                var selectedEvSpons = (EventSponsor)dgEventSponsor.SelectedItem;
+
+                if (selectedEvSpons == null)
+                {
+                    MessageBox.Show("No record selected!");
+                }
+            }
+            else
+            {
+                MessageBox.Show("No record selected!");
+            }
+
+        }
+
+        private void dgEventSponsor_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
+        {
+            string headerName = e.Column.Header.ToString();
+
+            if (headerName == "Event ID")
+            {
+                e.Column.Header = "Event ID";
+            }
+            else if (headerName == "SponsorID")
+            {
+                e.Column.Header = "Sponsor ID";
+            }
+
+        }
+
+        /// <summary>
+        /// @Author: Phillip Hansen
+        /// 
+        /// Event Handler for loading a create record page
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnAddEventSpons_Click(object sender, RoutedEventArgs e)
+        {
+            var createEventSponsForm = new frmAddEventSponsor();
+            createEventSponsForm.ShowDialog();
+
+        }
+
+        /// <summary>
+        /// @Author: Phillip Hansen
+        /// 
+        /// Event Handler for deleting a selected record
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnDeleteEventSpons_Click(object sender, RoutedEventArgs e)
+        {
+            EventSponsor selectedRecord = (EventSponsor)dgEventSponsor.SelectedItem;
+
+            if (dgEventSponsor.SelectedIndex > -1)
+            {
+                _eventSponsManager.DeleteEventSponsor(selectedRecord);
+            }
+            else
+            {
+                MessageBox.Show("A record from the list must be selected!");
+            }
+        }
+
+        /// <summary>
+        /// @Author: Phillip Hansen
+        /// 
+        /// Method for populating the data grid with records
+        /// </summary>
+        private void populateEvSponsList()
+        {
+            try
+            {
+                _eventSponsors = _eventSponsManager.RetrieveAllEvents();
+                dgEventSponsor.ItemsSource = _eventSponsors;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message + "\nCould not retrieve Event Sponsor List.");
+            }
+        }
+        /*--------------------------- Ending BrowseEventSponsor Code --------------------------------*/
+
         /*--------------------------- Starting BrowseEvent Code #BrowseEvent --------------------------------*/
         /// <summary>
         /// Author: Matt LaMarche
@@ -5934,5 +6059,7 @@ namespace Presentation
         {
 
         }
+
+        
     }
 }
