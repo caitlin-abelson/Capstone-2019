@@ -32,7 +32,7 @@ namespace WpfPresentation
         private Event _oldEvent;
         private Event _newEvent;
         private EventTypeManager _eventTypeManager = new EventTypeManager();
-        
+
         /// <summary>
         /// @Author: Phillip Hansen
         /// 
@@ -59,9 +59,9 @@ namespace WpfPresentation
             chkEventAppr.IsEnabled = false;
 
             //this.txtEvent//SponsorID.Text = "0";
-            
+
         }
-        
+
         /// <summary>
         /// @Author: Phillip Hansen
         /// 
@@ -92,7 +92,7 @@ namespace WpfPresentation
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             //Code only if the window being loaded is 'not' for a new event
-            if(this.Title != "New Event Record")
+            if (this.Title != "New Event Record")
             {
 
                 this.btnDeleteEvent.Visibility = Visibility.Visible;
@@ -148,7 +148,7 @@ namespace WpfPresentation
                     MessageBox.Show("Event Types not found.");
                 }
             }
-            
+
         } //End of loaded method
 
         /// <summary>
@@ -180,15 +180,16 @@ namespace WpfPresentation
             txtReqNumGuest.IsEnabled = true;
             txtEventLocation.IsEnabled = true;
             txtDescription.IsEnabled = true;
-            
-            cboEventType.IsReadOnly = false;   /*<-- Use if RetrieveEventTypes() works?*/
+
+            cboEventType.IsReadOnly = false;
 
             dateEventStart.IsEnabled = true;
             dateEventEnd.IsEnabled = true;
-            
+
             chkEventKids.IsEnabled = true;
-            chkEventSpons.IsEnabled = false;
+            chkEventSpons.IsEnabled = true;
             chkEventPublic.IsEnabled = true;
+
         }
 
         /// <summary>
@@ -213,7 +214,7 @@ namespace WpfPresentation
             txtSeatsRemaining.IsEnabled = true;
             txtEventLocation.IsEnabled = true;
             txtDescription.IsEnabled = true;
-            
+
             cboEventType.IsEnabled = true;   /*<-- Use if RetrieveEventTypes() works?*/
 
             dateEventStart.IsEnabled = true;
@@ -277,7 +278,7 @@ namespace WpfPresentation
             txtReqNumGuest.Text = _oldEvent.NumGuests.ToString();
             txtSeatsRemaining.Text = _oldEvent.SeatsRemaining.ToString();
 
-            if(_oldEvent.KidsAllowed == true)
+            if (_oldEvent.KidsAllowed == true)
             {
                 chkEventKids.IsChecked = true;
             }
@@ -289,7 +290,7 @@ namespace WpfPresentation
             {
                 chkEventSpons.IsChecked = true;
             }
-            if(_oldEvent.PublicEvent == true)
+            if (_oldEvent.PublicEvent == true)
             {
                 chkEventPublic.IsChecked = true;
             }
@@ -298,7 +299,7 @@ namespace WpfPresentation
 
             dateEventStart.SelectedDate = _oldEvent.EventStartDate;
             dateEventEnd.SelectedDate = _oldEvent.EventEndDate;
-            
+
         }
 
         /// <summary>
@@ -325,7 +326,7 @@ namespace WpfPresentation
                     MessageBox.Show("Numbers only!");
                     return;
                 }
-                else if(int.Parse(txtSeatsRemaining.Text) > int.Parse(txtReqNumGuest.Text))
+                else if (int.Parse(txtSeatsRemaining.Text) > int.Parse(txtReqNumGuest.Text))
                 {
                     MessageBox.Show("Seats Remaining must be less or equal to the Number of Guests allowed!");
                     return;
@@ -345,7 +346,7 @@ namespace WpfPresentation
                 else
                 {
                     //If a new record is being created, the place holder for 'EventID' will be blank and would cause errors if captured in its state
-                    if(this.Title == "New Event Record")
+                    if (this.Title == "New Event Record")
                     {
                         _newEvent = new Event
                         {
@@ -386,17 +387,17 @@ namespace WpfPresentation
                             Sponsored = chkEventSpons.IsChecked.Value,
                             ////SponsorID = int.Parse(txtEvent//SponsorID.Text),
                             Approved = chkEventAppr.IsChecked.Value,
-                            PublicEvent = chkEventPublic.IsChecked.Value  
+                            PublicEvent = chkEventPublic.IsChecked.Value
                         };
                     }
-                    
+
                 }
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message + "\nCould not capture the event.");
             }
-            
+
         }
 
         /// <summary>
@@ -408,7 +409,7 @@ namespace WpfPresentation
         /// <param name="e"></param>
         private void BtnEventAction1_Click(object sender, RoutedEventArgs e)
         {
-            if(this.Title == "New Event Record")
+            if (this.Title == "New Event Record")
             {
                 //Captures the input within the fields
                 captureEvent();
@@ -432,7 +433,7 @@ namespace WpfPresentation
                     MessageBox.Show(ex.Message + "\nInsert for new event has failed.");
                 }
             }
-            if(this.btnEventAction1.Content.ToString() == "Save")
+            if (this.btnEventAction1.Content.ToString() == "Save")
             {
                 this.btnEventAction2.IsEnabled = true;
 
@@ -443,7 +444,7 @@ namespace WpfPresentation
 
                 try
                 {
-                    
+
                     _eventManager.UpdateEvent(_oldEvent, _newEvent);
                     this.DialogResult = true;
                 }
@@ -453,28 +454,31 @@ namespace WpfPresentation
                 }
             }
         }
-        
-                /// <summary>
-                /// @Author: Phillip Hansen
-                /// 
-                /// Only for interchanging the content in the Sponser Name in confliction with the check box
-                /// </summary>
-                /// <param name="sender"></param>
-                /// <param name="e"></param>
-                private void ChkEventSpons_Click(object sender, RoutedEventArgs e)
-                {
-                    /*
-                    if(chkEventSpons.IsChecked == true)
-                    {
-                        txtEvent//SponsorID.Text = "Sponosr ID Only";
-                        txtEvent//SponsorID.IsEnabled = true;
-                    }
 
-                    if (chkEventSpons.IsChecked == false)
-                    {
-                        txtEvent//SponsorID.Text = "0";
-                        txtEvent//SponsorID.IsEnabled = false;
-                    }*/
+        /// <summary>
+        /// @Author: Phillip Hansen
+        /// 
+        /// Only for interchanging the content in the Sponser Name in confliction with the check box
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ChkEventSpons_Click(object sender, RoutedEventArgs e)
+        {
+            //Sponsor elements can only be enabled if the event is sponsored
+            if (chkEventSpons.IsChecked == true)
+            {
+                txtEventSponsor.IsEnabled = true;
+                btnEventSponsor.IsEnabled = true;
+
+                //Force the user to go through the process of selecting an existing sponsor
+                btnEventAction1.IsEnabled = false;
+            }
+            else
+            {
+                txtEventSponsor.Text = null;
+                txtEventSponsor.IsEnabled = false;
+                btnEventSponsor.IsEnabled = false;
+            }
         }
 
 
@@ -488,7 +492,7 @@ namespace WpfPresentation
         private void BtnDeleteEvent_Click(object sender, RoutedEventArgs e)
         {
             //Event must 'not' be approved to be deleted from data table
-            if(chkEventAppr.IsChecked == true)
+            if (chkEventAppr.IsChecked == true)
             {
                 MessageBox.Show("Event cannot be deleted if the event is approved!");
             }
@@ -501,7 +505,7 @@ namespace WpfPresentation
                 var deleteEvent = new frmEventDeleteConfirmation(_newEvent);
                 var result = deleteEvent.ShowDialog();
             }
-            
+
         }
 
         /// <summary>
@@ -521,6 +525,59 @@ namespace WpfPresentation
 
 
             setEditable(_employee, _oldEvent);
+        }
+
+        /// <summary>
+        /// @Author: Phillip Hansen
+        /// 
+        /// Button grabs text from the text box, displays a window that:
+        /// 1) Opens a window with a grid for Sponsors
+        /// 2) Grid is filtered with the input from the textbox and that only
+        /// 3) If the requested sponsor exists, or is created if not, the sponsor should be selected and make the fields valid
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void BtnEventSponsor_Click(object sender, RoutedEventArgs e)
+        {
+
+            if (txtEventSponsor != null)
+            {
+                //Create a new SponsorMainWindow that passes in the filter value
+                var filterSponsor = new SponsorMainWindow(txtEventSponsor.Text.ToString());
+                var result = filterSponsor.ShowDialog();
+
+                try
+                {
+                    if (filterSponsor.DialogResult == true)
+                    {
+                        //If the dialogResult of said window is true, do not allow
+                        //user to modify the input fields (unless they wish to redo the process)
+                        
+                        txtEventSponsor.IsEnabled = false;
+                        btnEventSponsor.IsEnabled = false;
+                        
+                    }
+                    else
+                    {
+                        //If the window was not successful, then the event will not associate with a sponsor
+                        chkEventSpons.IsChecked = false;
+                        txtEventSponsor.Text = null;
+                        txtEventSponsor.IsEnabled = false;
+                        btnEventSponsor.IsEnabled = false;
+                        MessageBox.Show("If an Event is sponsored, the Sponsor must exist in the Database!");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message + "\nCould not retrieve associated sponsor");
+                }
+                finally
+                {
+                    //No matter how the process goes, works or failed, the create button should be re-enabled
+                    btnEventAction1.IsEnabled = true;
+                }
+                
+            }
         }
     }
 }

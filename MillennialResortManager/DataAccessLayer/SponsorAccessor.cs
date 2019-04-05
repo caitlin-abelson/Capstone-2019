@@ -253,20 +253,21 @@ namespace DataAccessLayer
                 {
                     while (reader2.Read())
                     {
-                        Sponsor sponsor = new Sponsor();
-                        sponsor.SponsorID = reader2.GetInt32(0);
-                        sponsor.Name = reader2.GetString(1);
-                        sponsor.Address = reader2.GetString(2);
-                        sponsor.City= reader2.GetString(3);
-                        sponsor.State= reader2.GetString(4);
-                        sponsor.PhoneNumber = reader2.GetString(5);
-                        sponsor.Email = reader2.GetString(6);
-                        sponsor.ContactFirstName = reader2.GetString(7);
-                        sponsor.ContactLastName= reader2.GetString(8);
-                        sponsor.StatusID= reader2.GetString(9);
-                        sponsor.DateAdded = reader2.GetDateTime(10);
-                        sponsor.Active = reader2.GetBoolean(11);
-                        sponsors.Add(sponsor);
+                        sponsors.Add(new Sponsor()
+                        {
+                            SponsorID = reader2.GetInt32(0),
+                            Name = reader2.GetString(1),
+                            Address = reader2.GetString(2),
+                            City = reader2.GetString(3),
+                            State = reader2.GetString(4),
+                            PhoneNumber = reader2.GetString(5),
+                            Email = reader2.GetString(6),
+                            ContactFirstName = reader2.GetString(7),
+                            ContactLastName = reader2.GetString(8),
+                            DateAdded = reader2.GetDateTime(9),
+                            Active = reader2.GetBoolean(10)
+                        });
+                        
                     }
                 }
             }
