@@ -41,7 +41,7 @@ namespace UnitTests
         private string createString(int strlength)
         {
             string longString = "";
-            for(int i = 0; i < strlength; i++)
+            for (int i = 0; i < strlength; i++)
             {
                 longString += "o";
             }
@@ -83,7 +83,7 @@ namespace UnitTests
         public void TestCreateEmployeeValidInput()
         {
             //Arrange
-            Employee newEmployee = new Employee() { EmployeeID = 100005, FirstName = "John", LastName = "Duden", PhoneNumber = "13195554677", Email = "john.duden@company.com", DepartmentID = "Talent", Active = true };
+            Employee newEmployee = new Employee() { EmployeeID = 100005, FirstName = "John", LastName = "Duden", PhoneNumber = "1319555467", Email = "john.duden@company.com", DepartmentID = "Talent", Active = true };
             //Act
             _employeeManager.InsertEmployee(newEmployee);
             //Assert
@@ -109,8 +109,16 @@ namespace UnitTests
         public void TestCreateEmployeeInValidInputFirstNameLongString()
         {
             //Arrange
-            Employee employee = new Employee() { EmployeeID = 100005, FirstName = createString(51), LastName = "Duden",
-                PhoneNumber = "13195554677", Email = "john.duden@company.com", DepartmentID = "Talent", Active = true };
+            Employee employee = new Employee()
+            {
+                EmployeeID = 100005,
+                FirstName = createString(51),
+                LastName = "Duden",
+                PhoneNumber = "13195554677",
+                Email = "john.duden@company.com",
+                DepartmentID = "Talent",
+                Active = true
+            };
             //Act
             _employeeManager.InsertEmployee(employee);
         }
@@ -126,8 +134,16 @@ namespace UnitTests
         public void TestCreateEmployeeInValidInputFirstNameEmptyString()
         {
             //Arrange
-            Employee employee = new Employee() { EmployeeID = 100005, FirstName = "", LastName = "Duden",
-                PhoneNumber = "13195554677", Email = "john.duden@company.com", DepartmentID = "Talent", Active = true };
+            Employee employee = new Employee()
+            {
+                EmployeeID = 100005,
+                FirstName = "",
+                LastName = "Duden",
+                PhoneNumber = "13195554677",
+                Email = "john.duden@company.com",
+                DepartmentID = "Talent",
+                Active = true
+            };
             //Act
             _employeeManager.InsertEmployee(employee);
         }
@@ -143,8 +159,16 @@ namespace UnitTests
         public void TestCreateEmployeeInValidInputLastNameLongString()
         {
             //Arrange
-            Employee employee = new Employee() { EmployeeID = 100005, FirstName = "John", LastName = createString(101),
-                PhoneNumber = "13195554677", Email = "john.duden@company.com", DepartmentID = "Talent", Active = true };
+            Employee employee = new Employee()
+            {
+                EmployeeID = 100005,
+                FirstName = "John",
+                LastName = createString(101),
+                PhoneNumber = "13195554677",
+                Email = "john.duden@company.com",
+                DepartmentID = "Talent",
+                Active = true
+            };
             //Act
             _employeeManager.InsertEmployee(employee);
         }
@@ -160,8 +184,16 @@ namespace UnitTests
         public void TestCreateEmployeeInValidInputLastNameEmptyString()
         {
             //Arrange
-            Employee employee = new Employee() { EmployeeID = 100005, FirstName = "John", LastName = "",
-                PhoneNumber = "13195554677", Email = "john.duden@company.com", DepartmentID = "Talent", Active = true };
+            Employee employee = new Employee()
+            {
+                EmployeeID = 100005,
+                FirstName = "John",
+                LastName = "",
+                PhoneNumber = "13195554677",
+                Email = "john.duden@company.com",
+                DepartmentID = "Talent",
+                Active = true
+            };
             //Act
             _employeeManager.InsertEmployee(employee);
         }
@@ -177,8 +209,16 @@ namespace UnitTests
         public void TestCreateEmployeeInValidInputPhoneNumber()
         {
             //Arrange
-            Employee employee = new Employee() { EmployeeID = 100005, FirstName = "John", LastName = "Duden",
-                PhoneNumber = "1319555467", Email = "john.duden@company.com", DepartmentID = "Talent", Active = true };
+            Employee employee = new Employee()
+            {
+                EmployeeID = 100005,
+                FirstName = "John",
+                LastName = "Duden",
+                PhoneNumber = "131955546447",
+                Email = "john.duden@company.com",
+                DepartmentID = "Talent",
+                Active = true
+            };
             //Act
             _employeeManager.InsertEmployee(employee);
         }
@@ -194,8 +234,16 @@ namespace UnitTests
         public void TestCreateEmployeeInValidInputEmailLongString()
         {
             //Arrange
-            Employee employee = new Employee() { EmployeeID = 100005, FirstName = "John", LastName = "Duden",
-                PhoneNumber = "13195554677", Email = createString(251), DepartmentID = "Talent", Active = true };
+            Employee employee = new Employee()
+            {
+                EmployeeID = 100005,
+                FirstName = "John",
+                LastName = "Duden",
+                PhoneNumber = "13195554677",
+                Email = createString(251),
+                DepartmentID = "Talent",
+                Active = true
+            };
             //Act
             _employeeManager.InsertEmployee(employee);
         }
@@ -211,8 +259,16 @@ namespace UnitTests
         public void TestCreateEmployeeInValidInputEmailEmptyString()
         {
             //Arrange
-            Employee employee = new Employee() { EmployeeID = 100005, FirstName = "John", LastName = "Duden",
-                PhoneNumber = "13195554677", Email = "", DepartmentID = "Talent", Active = true };
+            Employee employee = new Employee()
+            {
+                EmployeeID = 100005,
+                FirstName = "John",
+                LastName = "Duden",
+                PhoneNumber = "13195554677",
+                Email = "",
+                DepartmentID = "Talent",
+                Active = true
+            };
             //Act
             _employeeManager.InsertEmployee(employee);
         }
@@ -228,8 +284,16 @@ namespace UnitTests
         public void TestCreateEmployeeInValidInputDepartmentLongLength()
         {
             //Arrange
-            Employee employee = new Employee() { EmployeeID = 100005, FirstName = "John", LastName = "Duden",
-                PhoneNumber = "13195554677", Email = "john.duden@company.com", DepartmentID = createString(51), Active = true };
+            Employee employee = new Employee()
+            {
+                EmployeeID = 100005,
+                FirstName = "John",
+                LastName = "Duden",
+                PhoneNumber = "13195554677",
+                Email = "john.duden@company.com",
+                DepartmentID = createString(51),
+                Active = true
+            };
             //Act
             _employeeManager.InsertEmployee(employee);
         }
@@ -245,8 +309,16 @@ namespace UnitTests
         public void TestCreateEmployeeInValidInputDepartmentEmptyLength()
         {
             //Arrange
-            Employee employee = new Employee() { EmployeeID = 100005, FirstName = "John", LastName = "Duden",
-                PhoneNumber = "13195554677", Email = "john.duden@company.com", DepartmentID = "", Active = true };
+            Employee employee = new Employee()
+            {
+                EmployeeID = 100005,
+                FirstName = "John",
+                LastName = "Duden",
+                PhoneNumber = "13195554677",
+                Email = "john.duden@company.com",
+                DepartmentID = "",
+                Active = true
+            };
             //Act
             _employeeManager.InsertEmployee(employee);
         }
@@ -334,7 +406,7 @@ namespace UnitTests
 
             //Assert
             _employee = _employeeManager.SelectAllEmployees();
-            Assert.AreEqual(_employeeManager.SelectEmployee(_employee[0].EmployeeID), 
+            Assert.AreEqual(_employeeManager.SelectEmployee(_employee[0].EmployeeID),
                 _employeeManager.SelectEmployee(newEmployee.EmployeeID));
 
         }
@@ -390,7 +462,7 @@ namespace UnitTests
             //Arrange
             Employee newEmployee = new Employee();
             setUpdateEmployee(newEmployee, _employee[0]);
-            newEmployee.PhoneNumber = createString(6);
+            newEmployee.PhoneNumber = createString(12);
 
             //Act
             _employeeManager.UpdateEmployee(newEmployee, _employee[0]);

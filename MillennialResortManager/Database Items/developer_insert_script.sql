@@ -238,7 +238,7 @@ CREATE PROCEDURE [dbo].[sp_retrieve_sponsor_by_status_id]
 AS
 	BEGIN
 		SELECT 	[SponsorID], [Name],[Address],[City],[State],[PhoneNumber],[Email],[ContactFirstName],
-					[ContactLastName],[DateAdded],[Active]
+		[ContactLastName],[StatusID],[DateAdded],[Active]
 		FROM [Sponsor]
 		WHERE [StatusID] = @StatusID
 		RETURN @@ROWCOUNT
@@ -254,7 +254,7 @@ CREATE PROCEDURE [dbo].[sp_select_all_sponsors]
 AS
 	BEGIN
 		SELECT 	[SponsorID], [Name],[Address],[City],[State],[PhoneNumber],[Email],[ContactFirstName],
-		[ContactLastName],[DateAdded],[Active]
+		[ContactLastName],[StatusID],[DateAdded],[Active]
 		FROM [Sponsor]
 
 	END
@@ -274,16 +274,17 @@ CREATE PROCEDURE sp_insert_sponsor
 		@PhoneNumber		[nvarchar](11),
 		@Email				[nvarchar](50),
 		@ContactFirstName	[nvarchar](50),
-		@ContactLastName	[nvarchar](100)
+		@ContactLastName	[nvarchar](100),
+		@StatusID			[nvarchar](50)
 	)
 AS
 	BEGIN
 		INSERT INTO [dbo].[Sponsor]
 			( [Name],[Address],[City],[State],[PhoneNumber],[Email],[ContactFirstName],
-			[ContactLastName],[DateAdded])
+			[ContactLastName],[StatusID],[DateAdded])
 		VALUES
 			(@Name, @Address, @City, @State,
-			@PhoneNumber, @Email, @ContactFirstName, @ContactLastName, Convert(Varchar(10), GetDate(), 101))
+			@PhoneNumber, @Email, @ContactFirstName, @ContactLastName, @StatusID,Convert(Varchar(10), GetDate(), 101))
 
 		RETURN @@ROWCOUNT
 	END
@@ -306,6 +307,7 @@ CREATE PROCEDURE sp_update_sponsor
 		@OldEmail			[nvarchar](50),
 		@OldContactFirstName	[nvarchar](50),
 		@OldContactLastName	[nvarchar](100),
+		@OldStatusID		[nvarchar](50),
 		@OldDateAdded		[datetime],
 		@OldActive			[bit],
 
@@ -318,6 +320,7 @@ CREATE PROCEDURE sp_update_sponsor
 		@Email			[nvarchar](50),
 		@ContactFirstName [nvarchar](50),
 		@ContactLastName [nvarchar](100),
+		@StatusID		[nvarchar](50),
 		@DateAdded		[datetime],
 		@Active			[bit]
 	)

@@ -110,7 +110,7 @@ namespace LogicLayer
         /// <returns></returns>
         public bool validatePhoneNumber(string phoneNumber)
         {
-            if (phoneNumber.Length != 11)
+            if (phoneNumber.Length >= 11)
             {
                 return false;
             }
@@ -427,7 +427,7 @@ namespace LogicLayer
             return employee;
         }
 
-        
+
 
         /// <summary>
         /// Alisa Roehr

@@ -500,7 +500,7 @@ namespace DataAccessLayer
                 }
                 else
                 {
-                    throw new ApplicationException("User not found.");      // only be possible if user was deleted while this is executed
+                    // No roles found
                 }
 
             }
@@ -561,7 +561,7 @@ namespace DataAccessLayer
                 }
                 else
                 {
-                    throw new ApplicationException("No Roles found for this user.");      // only be possible if user was deleted while this is executed
+
                 }
 
             }

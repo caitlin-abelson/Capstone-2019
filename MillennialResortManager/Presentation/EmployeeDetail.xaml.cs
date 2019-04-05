@@ -29,7 +29,6 @@ namespace Presentation
         private Employee _newEmployee;
         private Employee _oldEmployee;
 
-
         // commented out the create constructor in order to test the update and read constructor
 
         /// <summary>
@@ -98,6 +97,14 @@ namespace Presentation
             cbxDepartment.ItemsSource = _departments;
             cbxEmployeeRole.ItemsSource = _roles;
             _oldEmployee = oldEmployee;
+            try
+            {
+                _oldEmployee = _employeeManager.RetrieveEmployeeIDByEmail(_oldEmployee.Email);
+            }
+            catch (Exception)
+            {
+
+            }
             populateReadOnly();
             readOnlyForm();
         }
@@ -434,7 +441,7 @@ namespace Presentation
                 return false;
             }
             // Phone must be no more than 11 characters long
-            if (txtPhone.Text.Length == 11)
+            if (txtPhone.Text.Length <= 11)
             {
                 return true;
             }

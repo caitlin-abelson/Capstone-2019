@@ -167,8 +167,8 @@ namespace LogicLayer
             }
             catch (Exception)
             {
-                throw;
-
+                //throw;
+                result = false;
             }
             return result;
         }

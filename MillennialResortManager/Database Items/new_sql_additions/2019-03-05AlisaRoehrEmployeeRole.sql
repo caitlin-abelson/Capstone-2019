@@ -1,4 +1,5 @@
-
+USE [MillennialResort_DB]
+GO
 /* Alisa Roehr 2019/03/29 */
 print '' print '*** Creating sp_insert_employee_role'
 GO
