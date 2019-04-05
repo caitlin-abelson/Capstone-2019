@@ -12,7 +12,7 @@ namespace DataAccessLayer
     public class EventAccessor : IEventAccessor
     {
         /// <summary>
-        ///  @Author Phillip Hansen
+        ///  @Author: Phillip Hansen
         ///  @Created 1/23/2019
         ///  
         /// Class for the stored procedure data for Event Requests
@@ -20,7 +20,7 @@ namespace DataAccessLayer
 
 
         /// <summary>
-        /// @Author Phillip Hansen
+        /// @Author: Phillip Hansen
         /// 
         /// Constructor for calling non-static methods
         /// </summary>
@@ -30,7 +30,7 @@ namespace DataAccessLayer
         }
 
         /// <summary>
-        /// @Author Phillip Hansen
+        /// @Author: Phillip Hansen
         /// 
         /// Updated: 3/1/2019 by Phillip Hansen
         /// Update fields to match new definition in Data Dictionary
@@ -49,7 +49,7 @@ namespace DataAccessLayer
             cmd.CommandType = CommandType.StoredProcedure;
             //Parameters for new Event Request
             cmd.Parameters.AddWithValue("@EventTitle", newEvent.EventTitle);
-            cmd.Parameters.AddWithValue("@OfferingID", newEvent.OfferingID);
+            cmd.Parameters.AddWithValue("@Price", newEvent.Price);
             cmd.Parameters.AddWithValue("@EmployeeID", newEvent.EmployeeID);
             cmd.Parameters.AddWithValue("@EventTypeID", newEvent.EventTypeID);
             cmd.Parameters.AddWithValue("@Description", newEvent.Description);
@@ -80,7 +80,7 @@ namespace DataAccessLayer
         }
 
         /// <summary>
-        /// @Author Phillip Hansen
+        /// @Author: Phillip Hansen
         /// 
         /// Updated: 3/1/2019 by Phillip Hansen
         /// Update fields to match new definition in Data Dictionary
@@ -100,7 +100,6 @@ namespace DataAccessLayer
             cmd.CommandType = CommandType.StoredProcedure;
             //Parameters for new Event Request
             cmd.Parameters.AddWithValue("@EventID", oldEvent.EventID);
-            cmd.Parameters.AddWithValue("@OfferingID", newEvent.OfferingID);
             cmd.Parameters.AddWithValue("@EventTitle", newEvent.EventTitle);
             cmd.Parameters.AddWithValue("@EmployeeID", newEvent.EmployeeID);
             cmd.Parameters.AddWithValue("@EventTypeID", newEvent.EventTypeID);
@@ -116,8 +115,8 @@ namespace DataAccessLayer
             cmd.Parameters.AddWithValue("@PublicEvent", newEvent.PublicEvent);
             //Parameters for old Event Request
             //The PK ID should not change
-            cmd.Parameters.AddWithValue("@OldOfferingID", oldEvent.OfferingID);
             cmd.Parameters.AddWithValue("@OldEventTitle", oldEvent.EventTitle);
+            cmd.Parameters.AddWithValue("@OldOfferingID", oldEvent.OfferingID);
             cmd.Parameters.AddWithValue("@OldEmployeeID", oldEvent.EmployeeID);
             cmd.Parameters.AddWithValue("@OldEventTypeID", oldEvent.EventTypeID);
             cmd.Parameters.AddWithValue("@OldDescription", oldEvent.Description);
@@ -148,8 +147,52 @@ namespace DataAccessLayer
             
         }
 
+        public void updateEventToCancelled(Event cancelledEvent)
+        {
+            var conn = DBConnection.GetDbConnection();
+            var cmd = new SqlCommand("sp_update_event_to_cancelled", conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@EventID", cancelledEvent.EventID);
+
+            try
+            {
+                conn.Open();
+                cmd.ExecuteNonQuery();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                conn.Close();
+            }
+        }
+
+        public void updateEventToUncancelled(Event uncancelEvent)
+        {
+            var conn = DBConnection.GetDbConnection();
+            var cmd = new SqlCommand("sp_update_event_to_uncancelled", conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@EventID", uncancelEvent.EventID);
+
+            try
+            {
+                conn.Open();
+                cmd.ExecuteNonQuery();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                conn.Close();
+            }
+        }
+
         /// <summary>
-        /// @Author Phillip Hansen
+        /// @Author: Phillip Hansen
         /// 
         /// Updated: 3/1/2019 by Phillip Hansen
         /// Update fields to match new definition in Data Dictionary
@@ -162,7 +205,7 @@ namespace DataAccessLayer
             List<Event> Events = new List<Event>();
 
             var conn = DBConnection.GetDbConnection();
-            var cmdText = "sp_retrieve_all_events";
+            var cmdText = "sp_retrieve_all_events_uncancelled";
             var cmd = new SqlCommand(cmdText, conn);
             cmd.CommandType = CommandType.StoredProcedure;
 
@@ -179,7 +222,6 @@ namespace DataAccessLayer
                         {
                             EventID = r.GetInt32(0),
                             OfferingID = r.GetInt32(1),
-                            //OfferingName = r.GetString(2),
                             EventTitle = r.GetString(2),
                             EmployeeID = r.GetInt32(3),
                             EmployeeName = r.GetString(4),
@@ -193,7 +235,9 @@ namespace DataAccessLayer
                             Location = r.GetString(12),
                             Sponsored = r.GetBoolean(13),
                             Approved = r.GetBoolean(14),
-                            PublicEvent = r.GetBoolean(15)
+                            Cancelled = r.GetBoolean(15),
+                            PublicEvent = r.GetBoolean(16),
+                            Price = (decimal)r.GetSqlMoney(17)
                         });
                               
                     }
@@ -212,7 +256,71 @@ namespace DataAccessLayer
         }
 
         /// <summary>
-        /// @Author Phillip Hansen
+        /// @Author: Phillip Hansen
+        /// 
+        /// Updated: 3/1/2019 by Phillip Hansen
+        /// Update fields to match new definition in Data Dictionary
+        /// 
+        /// Method for retrieving all Events
+        /// </summary>
+        /// <returns></returns> returns all events
+        public List<Event> selectAllCancelledEvents()
+        {
+            List<Event> Events = new List<Event>();
+
+            var conn = DBConnection.GetDbConnection();
+            var cmdText = "sp_retrieve_all_events_cancelled";
+            var cmd = new SqlCommand(cmdText, conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            try
+            {
+                conn.Open();
+
+                var r = cmd.ExecuteReader();
+                if (r.HasRows)
+                {
+                    while (r.Read())
+                    {
+                        Events.Add(new Event()
+                        {
+                            EventID = r.GetInt32(0),
+                            OfferingID = r.GetInt32(1),
+                            EventTitle = r.GetString(2),
+                            EmployeeID = r.GetInt32(3),
+                            EmployeeName = r.GetString(4),
+                            EventTypeID = r.GetString(5),
+                            Description = r.GetString(6),
+                            EventStartDate = r.GetDateTime(7),
+                            EventEndDate = r.GetDateTime(8),
+                            KidsAllowed = r.GetBoolean(9),
+                            NumGuests = r.GetInt32(10),
+                            SeatsRemaining = r.GetInt32(11),
+                            Location = r.GetString(12),
+                            Sponsored = r.GetBoolean(13),
+                            Approved = r.GetBoolean(14),
+                            Cancelled = r.GetBoolean(15),
+                            PublicEvent = r.GetBoolean(16),
+                            Price = (decimal)r.GetSqlMoney(17)
+                        });
+
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            return Events;
+        }
+
+        /// <summary>
+        /// @Author: Phillip Hansen
         /// 
         /// Updated: 3/1/2019 by Phillip Hansen
         /// Update fields to match new definition in Data Dictionary
@@ -245,7 +353,6 @@ namespace DataAccessLayer
                         {
                             EventID = r.GetInt32(0),
                             OfferingID = r.GetInt32(1),
-                            //OfferingName = r.GetString(2),
                             EventTitle = r.GetString(2),
                             EmployeeID = r.GetInt32(3),
                             EmployeeName = r.GetString(4),
@@ -259,7 +366,9 @@ namespace DataAccessLayer
                             Location = r.GetString(12),
                             Sponsored = r.GetBoolean(13),
                             Approved = r.GetBoolean(14),
-                            PublicEvent = r.GetBoolean(15)
+                            Cancelled = r.GetBoolean(15),
+                            PublicEvent = r.GetBoolean(16),
+                            Price = (decimal)r.GetSqlMoney(17)
                         };
                     }
                 }
@@ -277,7 +386,7 @@ namespace DataAccessLayer
         }
 
         /// <summary>
-        /// @Author Phillip Hansen
+        /// @Author: Phillip Hansen
         /// 
         /// Method for purging an event
         /// NOTE: The event must be approved as 'false' or the default value '0' in SQL to be purged

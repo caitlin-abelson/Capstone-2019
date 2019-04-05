@@ -7,6 +7,7 @@
     <SolidColorBrush x:Key="Teal" Color="#70A9A1"/>
     <SolidColorBrush x:Key="Cream" Color="#FFF1D0"/>
     <SolidColorBrush x:Key="Dirt" Color="#C3BEAC"/>
+    
     <!-- NavBar -->
     <Style x:Key="NavBarDockPanel" TargetType="DockPanel">
         <Setter Property="Background" Value="{StaticResource Cream}"/>
@@ -25,37 +26,127 @@
         <Setter Property="Background" Value="{StaticResource Teal}"/>
         <Setter Property="Foreground" Value="{StaticResource Cream}"/>
     </Style>
+    
     <!-- Default Menu Item-->
     <Style TargetType="MenuItem">
         <Setter Property="Background" Value="{StaticResource Teal}"/>
         <Setter Property="Foreground" Value="{StaticResource Cream}"/>
     </Style>
 
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Button Default -->
+    <Style TargetType="Button">
+        <Setter Property="Background" Value="{StaticResource DarkBlue}"/>
+        <Setter Property="Foreground" Value="{StaticResource Teal}"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="BorderBrush" Value="{StaticResource Teal}"/>
+        <Setter Property="FontSize" Value="18"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border Background="{TemplateBinding Background}" BorderThickness="0" BorderBrush="{StaticResource Teal}" Name="border">
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Opacity" Value="0.8"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    
+    <!-- Textbox Default -->
+    <Style TargetType="TextBox">
+        <Setter Property="Background" Value="{StaticResource Cream}"/>
+        <Setter Property="BorderBrush" Value="{StaticResource Teal}"/>
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="Foreground" Value="{StaticResource DarkBlue}"/>
+        <Setter Property="HorizontalContentAlignment" Value="Left"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+    </Style>
+    
+    <!-- DatePicker Default -->
+    <Style TargetType="DatePicker">
+        <Setter Property="Background" Value="{StaticResource Cream}"/>
+    </Style>
+
+    <!-- Radio Buttons Default-->
+    <Style TargetType="RadioButton">
+        <Setter Property="Background" Value="{StaticResource Cream}"/>
+        <Setter Property="Foreground" Value="{StaticResource DarkBlue}"/>
+    </Style>
+    
+    <!-- Checkbox Default-->
+    <Style TargetType="CheckBox">
+        <Setter Property="Background" Value="{StaticResource Cream}"/>
+        <Setter Property="Foreground" Value="{StaticResource DarkBlue}"/>
+        
+    </Style>
+    
+    
+
     <!-- Banner -->
     <Style TargetType="Grid" x:Key="BannerStyle">
         <Setter Property="Background" Value="{StaticResource Teal}"/>
         <Style.Resources>
-            <Style TargetType="Button">
-                <Setter Property="Background" Value="{StaticResource DarkBlue}"/>
-                <Setter Property="Foreground" Value="{StaticResource Teal}"/>
-                <Setter Property="FontWeight" Value="Bold"/>
-                <Setter Property="BorderBrush" Value="{StaticResource Teal}"/>
-                <Setter Property="FontSize" Value="18"/>
-                <Setter Property="Template">
-                    <Setter.Value>
-                        <ControlTemplate TargetType="Button">
-                            <Border Background="{TemplateBinding Background}" BorderThickness="0" BorderBrush="{StaticResource Teal}" Name="border">
-                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                            </Border>
-                            <ControlTemplate.Triggers>
-                                <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter Property="Opacity" Value="0.8"/>
-                                </Trigger>
-                            </ControlTemplate.Triggers>
-                        </ControlTemplate>
-                    </Setter.Value>
-                </Setter>
-            </Style>
             <Style TargetType="Label">
                 <Setter Property="FontSize" Value="22"/>
                 <Setter Property="FontWeight" Value="Bold"/>
@@ -63,84 +154,39 @@
             </Style>
         </Style.Resources>
     </Style>
-    
+
+    <!-- Data Grid -->
+    <Style TargetType="DataGrid">
+        <Setter Property="Background" Value="{StaticResource Dirt}"/>
+    </Style>
+
+
+
     <!-- Content Styles -->
     <!-- Filter bar-->
     <Style TargetType="Grid" x:Key="FilterBar">
         <!-- Bar Properties -->
         <Setter Property="Background" Value="{StaticResource Teal}"/>
         <Style.Resources>
-            <!-- Buttons -->
-            <Style TargetType="Button">
-                <Setter Property="Background" Value="{StaticResource DarkBlue}"/>
-                <Setter Property="Foreground" Value="{StaticResource Teal}"/>
-                <Setter Property="FontWeight" Value="Bold"/>
-                <Setter Property="BorderBrush" Value="{StaticResource Teal}"/>
-                <Setter Property="FontSize" Value="18"/>
-                <Setter Property="Template">
-                    <Setter.Value>
-                        <ControlTemplate TargetType="Button">
-                            <Border Background="{TemplateBinding Background}" BorderThickness="0" BorderBrush="{StaticResource Teal}" Name="border">
-                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                            </Border>
-                            <ControlTemplate.Triggers>
-                                <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter Property="Opacity" Value="0.8"/>
-                                </Trigger>
-                            </ControlTemplate.Triggers>
-                        </ControlTemplate>
-                    </Setter.Value>
-                </Setter>
-            </Style>
-            <!-- Text Boxes -->
-            <Style TargetType="TextBox">
-                
-            </Style>
-            
             <!-- Labels -->
             <Style TargetType="Label">
-                
+                <Setter Property="FontSize" Value="16"/>
+                <Setter Property="FontWeight" Value="Bold"/>
+                <Setter Property="Foreground" Value="{StaticResource DarkBlue}"/>
             </Style>
-            
+
             <!-- Check boxes -->
             <Style TargetType="CheckBox">
-                
+
             </Style>
+
         </Style.Resources>
-        
+
     </Style>
 
-    <!-- Data Grid -->
-    <Style TargetType="DataGrid" x:Key="DataGridStyle">
-        <Setter Property="Background" Value="{StaticResource Dirt}"/>
-    </Style>
-    
     <!-- Bottom bar -->
     <Style TargetType="Grid" x:Key="BottomBar">
         <Setter Property="Background" Value="{StaticResource Teal}"/>
-        <Style.Resources>
-            <Style TargetType="Button">
-                <Setter Property="Background" Value="{StaticResource DarkBlue}"/>
-                <Setter Property="Foreground" Value="{StaticResource Teal}"/>
-                <Setter Property="FontWeight" Value="Bold"/>
-                <Setter Property="BorderBrush" Value="{StaticResource Teal}"/>
-                <Setter Property="FontSize" Value="18"/>
-                <Setter Property="Template">
-                    <Setter.Value>
-                        <ControlTemplate TargetType="Button">
-                            <Border Background="{TemplateBinding Background}" BorderThickness="0" BorderBrush="{StaticResource Teal}" Name="border">
-                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                            </Border>
-                            <ControlTemplate.Triggers>
-                                <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter Property="Opacity" Value="0.8"/>
-                                </Trigger>
-                            </ControlTemplate.Triggers>
-                        </ControlTemplate>
-                    </Setter.Value>
-                </Setter>
-            </Style>
-        </Style.Resources>
     </Style>
 
     <!-- Page specific things -->
@@ -159,29 +205,7 @@
                 <Setter Property="Foreground" Value="{StaticResource DarkBlue}"/>
                 <Setter Property="FontWeight" Value="Bold"/>
             </Style>
-            <Style TargetType="Button">
-                <Setter Property="Background" Value="{StaticResource DarkBlue}"/>
-                <Setter Property="Foreground" Value="{StaticResource Cream}"/>
-                <Setter Property="FontSize" Value="16"/>
-                <Setter Property="FontWeight" Value="Bold"/>
-                <Setter Property="Margin" Value="8"/>
-
-                <Setter Property="Template">
-                    <Setter.Value>
-                        <ControlTemplate TargetType="Button">
-                            <Border Background="{TemplateBinding Background}" BorderThickness="0" BorderBrush="{StaticResource Teal}" Name="border">
-                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                            </Border>
-                            <ControlTemplate.Triggers>
-                                <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter Property="Opacity" Value="0.8"/>
-                                </Trigger>
-                            </ControlTemplate.Triggers>
-                        </ControlTemplate>
-                    </Setter.Value>
-                </Setter>
-
-            </Style>
+            
             <Style TargetType="TextBox">
                 <Setter Property="Background" Value="{StaticResource Cream}"/>
                 <Setter Property="BorderBrush" Value="{StaticResource Teal}"/>
@@ -206,5 +230,17 @@
         <Setter Property="FontSize" Value="30"/>
         <Setter Property="Foreground" Value="{StaticResource DarkBlue}"/>
         <Setter Property="FontWeight" Value="Bold"/>
+    </Style>
+    <!-- Profile page -->
+    <Style TargetType="Grid" x:Key="ProfilePage">
+        <Setter Property="Background" Value="{StaticResource Blue}"/>
+        <Style.Resources>
+            <Style TargetType="Label">
+                <Setter Property="Foreground" Value="{StaticResource DarkBlue}"/>
+                <Setter Property="FontWeight" Value="Bold"/>
+                <Setter Property="FontSize" Value="16"/>
+            </Style>
+            
+        </Style.Resources>
     </Style>
 </ResourceDictionary>

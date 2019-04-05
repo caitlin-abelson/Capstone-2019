@@ -40,8 +40,8 @@
                     <ColumnDefinition/>
 
                 </Grid.ColumnDefinitions>
-                <Button Grid.Column="1" x:Name="btnLogin" Content="Log in"  Click="btnLogin_Click"/>
-                <Button Grid.Column="2" x:Name="btnSpeedLogin" Content="Cheat" Click="btnSpeedLogin_Click"/>
+                <Button Grid.Column="1" x:Name="btnLogin" Content="Log in"  Click="btnLogin_Click" Margin="8"/>
+                <Button Grid.Column="2" x:Name="btnSpeedLogin" Content="Cheat" Click="btnSpeedLogin_Click" Margin="8"/>
 
             </Grid>
         </Grid>

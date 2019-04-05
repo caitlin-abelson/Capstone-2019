@@ -49,6 +49,7 @@
     <Compile Include="EmployeeManager.cs" />
     <Compile Include="EmpRolesManager.cs" />
     <Compile Include="EventManager.cs" />
+    <Compile Include="EventSponsorManager.cs" />
     <Compile Include="EventTypeManager.cs" />
     <Compile Include="GuestManager.cs" />
     <Compile Include="GuestVehicleManager.cs" />
@@ -96,6 +97,7 @@
     <Compile Include="ItemTypeManagerMSSQL.cs" />
     <Compile Include="IVehicleManager.cs" />
     <Compile Include="LogicValidationExtensionMethods.cs" />
+    <Compile Include="LuggageManager.cs" />
     <Compile Include="MaintenanceStatusTypeManagerMSSQl.cs" />
     <Compile Include="MaintenanceTypeManagerMSSQl.cs" />
     <Compile Include="MaintenanceWorkOrderManagerMSSQL.cs" />

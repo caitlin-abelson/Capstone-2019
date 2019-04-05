@@ -125,12 +125,12 @@ namespace Presentation
             cboPetGender.IsEnabled = true;
             txtPetSpecies.IsEnabled = true;
             cboPetType.IsEnabled = true;
-            btnAddPetType.IsEnabled = true;
+            //btnAddPetType.IsEnabled = true;
             btnPetAction.IsEnabled = true;
             txtGuestID.IsEnabled = true;
-            btnAddEventType.IsEnabled = true;
-            btnAddAppointmentType.IsEnabled = true;
-            btnAddPetType.IsEnabled = true;
+            //btnAddEventType.IsEnabled = true;
+            //btnAddAppointmentType.IsEnabled = true;
+            //btnAddPetType.IsEnabled = true;
             btnImageUpload.IsEnabled = true;
         }
 
@@ -146,11 +146,11 @@ namespace Presentation
             txtPetSpecies.IsEnabled = false;
             cboPetType.IsEnabled = false;
             txtGuestID.IsEnabled = false;
-            btnAddPetType.IsEnabled = false;
+            //btnAddPetType.IsEnabled = false;
             btnPetAction.IsEnabled = false;
-            btnAddPetType.IsEnabled = false;
-            btnAddEventType.IsEnabled = false;
-            btnAddAppointmentType.IsEnabled = false;
+            //btnAddPetType.IsEnabled = false;
+            //btnAddEventType.IsEnabled = false;
+            //btnAddAppointmentType.IsEnabled = false;
             btnImageUpload.IsEnabled = false;
         }
 
@@ -281,23 +281,33 @@ namespace Presentation
             }
         }
 
-        private void BtnAddEventType_Click(object sender, RoutedEventArgs e)
-        {
-            var browse = new BrowseEventType();
-            browse.ShowDialog();
-        }
 
-        private void BtnAddAppointmentType_Click(object sender, RoutedEventArgs e)
-        {
-            var browse = new BrowseAppointmentType();
-            browse.ShowDialog();
-        }
 
-        private void BtnAddPetType_Click(object sender, RoutedEventArgs e)
-        {
-            var browse = new BrowsePetType();
-            browse.ShowDialog();
-        }
+
+
+
+
+
+
+
+        //private void BtnAddEventType_Click(object sender, RoutedEventArgs e)
+        //{
+        //    var browse = new BrowseEventType();
+        //    browse.ShowDialog();
+        //}
+
+
+        //private void BtnAddAppointmentType_Click(object sender, RoutedEventArgs e)
+        //{
+        //    var browse = new BrowseAppointmentType();
+        //    browse.ShowDialog();
+        //}
+
+        //private void BtnAddPetType_Click(object sender, RoutedEventArgs e)
+        //{
+        //    var browse = new BrowsePetType();
+        //    browse.ShowDialog();
+        //}
     }
 }
             

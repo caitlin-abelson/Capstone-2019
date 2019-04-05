@@ -64,9 +64,9 @@
             <Label Grid.Column="0" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Right">Pet Species:</Label>
 
             <TextBox x:Name="txtPetSpecies" Grid.Column="1" Grid.Row="1" Width="120" VerticalAlignment="Center" HorizontalAlignment="Left"  />
-            <Button x:Name="btnAddAppointmentType" Grid.Column="1" Grid.Row="3"  Width="100" Height="25" Content="Add Appt Type" Click="BtnAddAppointmentType_Click"  />
+            <!--<Button x:Name="btnAddAppointmentType" Grid.Column="1" Grid.Row="3"  Width="100" Height="25" Content="Add Appt Type" Click="BtnAddAppointmentType_Click"  />
             <Button x:Name="btnAddEventType" Grid.Column="1" Grid.Row="4" Width="100" Height="25" Content="Add Event Type" Click="BtnAddEventType_Click" />
-            <Button x:Name="btnAddPetType" Grid.Column="1" Grid.Row="5" Width="100" Height="25" Content="Add Pet Type" Click="BtnAddPetType_Click" />
+            <Button x:Name="btnAddPetType" Grid.Column="1" Grid.Row="5" Width="100" Height="25" Content="Add Pet Type" Click="BtnAddPetType_Click" />-->
         </Grid>
         <!--Right side of Window-->
         <Grid Grid.Column="2">

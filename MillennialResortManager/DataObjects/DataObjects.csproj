@@ -53,6 +53,7 @@
     <Compile Include="EmpRoles.cs" />
     <Compile Include="Enumerations.cs" />
     <Compile Include="Event.cs" />
+    <Compile Include="EventSponsor.cs" />
     <Compile Include="EventType.cs" />
     <Compile Include="ExtensionMethods.cs" />
     <Compile Include="Guest.cs" />
@@ -63,6 +64,8 @@
     <Compile Include="Item.cs" />
     <Compile Include="ItemSupplier.cs" />
     <Compile Include="ItemType.cs" />
+    <Compile Include="Luggage.cs" />
+    <Compile Include="LuggageStatus.cs" />
     <Compile Include="MaintenanceStatusType.cs" />
     <Compile Include="MaintenanceType.cs" />
     <Compile Include="MaintenanceWorkOrder.cs" />
