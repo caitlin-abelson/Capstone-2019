@@ -1,35 +1,38 @@
-﻿/*base css setting form html elements*/
-/*////////////////////////////////////*/
+﻿
+
+
+
+
+
+
+/*base css setting form html elements*/
+/*/
+//////////////////////////////////
+/*/
 body {
     /*padding-top: 50px;
-    padding-bottom: 20px;*/
+     padding-bottom: 20px;
+    */
+   overflow-x: hidden;
 }
-
 /* Set padding to keep content from hitting the edges */
 .body-content {
     /*padding-left: 15px;
-    padding-right: 15px;*/
+     padding-right: 15px;
+    */
 }
-
-/* Override the default bootstrap behavior where horizontal description lists 
-   will truncate terms that are too long to fit in the left column 
-*/
+/* Override the default bootstrap behavior where horizontal description lists will truncate terms that are too long to fit in the left column */
 .dl-horizontal dt {
     white-space: normal;
 }
-
 /* Set width on the form input elements since they're 100% wide by default */
-input,
-select,
-textarea {
+input, select, textarea {
     max-width: 280px;
 }
 
-img{
+img {
     max-width: 100%;
 }
-
-
 
 footer {
     padding: 80px 0;
@@ -39,17 +42,15 @@ footer {
 }
 
 .footerDate {
-  padding: 20px;
-  font-size:17px;
-
+    padding: 20px;
+    font-size: 17px;
 }
+
 .footerBackground {
     background: #C3BEAC;
     background-image: linear-gradient(#0B2027, #C3BEAC);
     opacity: 0.7;
 }
-
-
 
 .latest-posts {
     list-style: none;
@@ -61,7 +62,6 @@ li a {
     font-size: 22px;
 }
 
-
 .navbar-inverse .navbar-nav > li > a {
     padding-top: 40px;
     color: azure;
@@ -70,44 +70,66 @@ li a {
 
 
 
-/*Layout //////////////////////////////////////////////////////////////////////////////////////////////*/
-/*/////////////////////////////////////////////////////////////////////////////////////////////////////*/
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*Layout /////////////////////////////////////////////////////////////////////////////////////////////
+/*/
+/*/
+///////////////////////////////////////////////////////////////////////////////////////////////////
+/*/
 .loginRegister {
     margin-right: 200px;
 }
-
-
-
-
 /* This with header div */
 .clearfix {
     clear: both;
     overflow: hidden;
 }
-
-
 /*These are for the header*/
 .top-container {
     height: 50px;
     background-color: #40798C;
-    
     color: white;
 }
 
-
-.top-container p {
-   float: left;
-   margin-left: 20px;
-   margin-top: 5px;
-   font-size: 22px;
-}
+    .top-container p {
+        float: left;
+        margin-left: 20px;
+        margin-top: 5px;
+        font-size: 22px;
+    }
 
 .resortHeader {
-    
-    z-index:50;
+    z-index: 50;
 }
-
 /* This runs the css header to slide up until the nav is in a fixed position */
 .sticky {
     box-sizing: border-box;
@@ -115,10 +137,10 @@ li a {
     top: 0;
     width: 100%;
 }
-.sticky + .content {
-   padding-top: 100px;
-}
 
+    .sticky + .content {
+        padding-top: 100px;
+    }
 
 header {
     z-index: 10;
@@ -126,58 +148,48 @@ header {
 
 
 
-
 /*navbar */
 .navbar-default {
- 
     background-color: #0B2027;
-    /*border-color: #495867;*/
     border-radius: unset;
     background-repeat: no-repeat;
     background-position: center;
-   
 }
-
 
 .jumbotron {
     margin-bottom: 0px;
 }
 
 .jumbotronBackGround {
-    padding-bottom: 270px;
+    /*padding-bottom: 270px;*/
     background-repeat: no-repeat;
     background-image: url(../Content/images/beach-family.jpg);
     background-size: cover;
     background-position: center center;
 }
 
-
-.jumbotronBackGround h1 {
+    .jumbotronBackGround h1 {
         font-size: 70px;
         font-family: 'Fugaz One', cursive;
         text-shadow: 3px 3px #40798C;
         color: #fff;
-}
+    }
 
 .jumbotronHighlights {
-   
     background-repeat: no-repeat;
     background-color: #70A9A1;
 }
 
-.jumbotronHighlights h1 {
-    margin-top: -50px;
-    padding: 25px;
+    .jumbotronHighlights h1 {
+        margin-top: -50px;
+        padding: 25px;
         text-shadow: 3px 3px #40798C;
         color: #fff;
-     
-}
-
+    }
 
 .jumbotronEvents {
     background-repeat: no-repeat;
     background-color: #FFF1D0;
-    
 }
 
     .jumbotronEvents h1 {
@@ -192,23 +204,22 @@ header {
     text-align: center;
 }
 
-.jumbotronMailingList h2 {
+   .jumbotronMailingList h2 {
         text-shadow: 3px 3px #40798C;
         color: #fff;
         font-size: 40px;
     }
+
     .jumbotronMailingList legend {
         text-shadow: 3px 3px #40798C;
         color: #fff;
         font-size: 30px;
     }
- 
+
 .carousel-inner {
     width: 500px;
     height: 300px;
 }
-
-
 
 .nav100 {
     padding: 0px;
@@ -217,38 +228,55 @@ header {
 .lead {
     color: #fff;
 }
+
 .col-md-4 {
-  position: static;
+    position: static;
 }
-
-
-
-
 
 .mailingList {
     display: inline;
 }
 
-
-
-
-
-
-
 .card {
     max-width: 350px;
-    margin:auto;
+    margin: auto;
 }
 
 
 
 
+.planTripHomepage {
+    float: right;
+    border-radius: 10px;
+    background-color: rgba(255, 255, 255, 0.5);
+    text-align: center;
+    padding: 35px;
+    margin-right: 40px;
+    border: solid white 3px;
+    box-shadow: 3px 6px 12px #888888;
+}
 
 
+    .planTripHomepage h2 {
+        font-family: 'Fugaz One', cursive;
+        margin-top: -10px;
+        color: #0B2027;
+        padding-bottom: 10px;
+      
+    }
 
+    .planTripHomepage p {
+        padding-top: 15px;
+        margin-bottom: -10px;
+    }
 
+.planTripHomepage .col-md-10 {
+    width: 100%;
+}
 
-
+#centerButton input[type="submit"] {
+    text-align:center;
+}
 
 
 
@@ -267,36 +295,45 @@ header {
 
 
 /*Media Query for ipad, iphone, sized devices.*/
-
 @media only screen and (max-width: 768px) {
-
-
     .mobileHide {
+        visibility: hidden;
+    }
+
+    .navbar-nav {
+        margin: 0px;
+    }
+}
+
+@media only screen and (min-width: 768px) {
+    .navbar-default {
+        height: 100px;
+        background-color: #0B2027;
+        border-radius: unset;
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .mobileShow {
         visibility: hidden;
     }
 
 
 
-    .navbar-nav {
-        margin: 0px;
-    }
 
-    
 
-}
+    @media only screen and (min-width: 992px) {
+        
 
-    @media only screen and (min-width: 768px) {
-        .navbar-default {
-            height: 100px;
-            background-color: #0B2027;
-            border-radius: unset;
-            background-repeat: no-repeat;
-            background-position: center;
+        .col-md-offset-2{
+            margin: 0;
         }
 
-        .mobileShow {
-            visibility: hidden;
-        }
+
+
+
+
+
 
 
 
@@ -309,8 +346,5 @@ header {
 
 
         /*modual css setting for partials and for chat windows and dialog boxes*/
-        /*//////////////////////////////////////////////////////////////////////*/
-
-
-
-
+   
+   
