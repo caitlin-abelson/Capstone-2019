@@ -4301,6 +4301,19 @@ namespace Presentation
             }
         }
 
+        /// <summary>
+        /// @Author by Phillip Hansen
+        /// @Created 3/29/2019
+        /// 
+        /// Needed a 'Read Sponsor' button to exist and perform functionality.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnReadSponsor_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
 
         /*--------------------------- Ending BrowseSponsor Code --------------------------------*/
         #endregion
@@ -4687,19 +4700,6 @@ namespace Presentation
             }
         }
 
-
-        /// <summary>
-        /// @Author by Phillip Hansen
-        /// @Created 3/29/2019
-        /// 
-        /// Needed a 'Read Sponsor' button to exist and perform functionality.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void btnReadSponsor_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
 
         /*--------------------------- Ending BrowseEventSponsor Code --------------------------------*/
         #endregion
@@ -6588,19 +6588,6 @@ namespace Presentation
         }
         /*----------------------------- Ending BrowseMaintenanceWorkOrder code ----------------------------------*/
         #endregion
-
-
-
-
-
-
-
-
-       
-
-       
-
-        
 
         
     }
