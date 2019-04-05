@@ -27,7 +27,7 @@ namespace DataAccessLayer
             _pets.Add(new Pet() { PetID = 100001, PetName = "RayDog", Gender = "Male", Species = "Labradoors", PetTypeID = "snoopdoggy keyboards", GuestID = 100001 });
             _pets.Add(new Pet() { PetID = 100002, PetName = "JohnDog", Gender = "Male", Species = "Labradoors", PetTypeID = "snoopdoggy drums", GuestID = 100002 });
             _pets.Add(new Pet() { PetID = 100003, PetName = "RobbieDog", Gender = "Male", Species = "Labradoors", PetTypeID = "snoopdoggy guitar", GuestID = 100003 });
-            _pets.Add(new Pet() { PetID = 100099, PetName = "TestDog", Gender = "Male", Species = "BullDog", PetTypeID = "Mean Dog", GuestID = 100004, imageFilename = "testPetImg.jpg" }); // added on 3/15/19 by Matt H.
+       
 
             _AllPets = new List<int>();
 

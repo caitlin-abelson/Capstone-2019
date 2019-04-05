@@ -115,6 +115,7 @@ namespace Presentation
             txtPetSpecies.Text = _oldPet.Species;
             cboPetType.SelectedItem = _oldPet.PetTypeID;
             txtGuestID.Text = _oldPet.GuestID.ToString();
+            imgPet.Source = new BitmapImage(new Uri(@"Resources/" + _oldPet.imageFilename, UriKind.Relative)); // added on 3/14/19 by Matt H.
         }
 
         private void setEditable()
