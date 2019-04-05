@@ -60,6 +60,8 @@
     <Compile Include="EventTypeAccessorMock.cs" />
     <Compile Include="GuestVehicleAccessor.cs" />
     <Compile Include="GuestVehicleAccessorMock.cs" />
+    <Compile Include="HouseKeepingRequestAccessorMock.cs" />
+    <Compile Include="HouseKeepingRequestAccessorMSSQL.cs" />
     <Compile Include="IAppointmentAccessor.cs" />
     <Compile Include="IAppointmentTypeAccessor.cs" />
     <Compile Include="IBuildingAccessor.cs" />
@@ -72,6 +74,7 @@
     <Compile Include="IEventTypeAccessor.cs" />
     <Compile Include="IGuestTypeAccessor.cs" />
     <Compile Include="IGuestVehicleAccessor.cs" />
+    <Compile Include="IHouseKeepingRequestAccessor.cs" />
     <Compile Include="IInternalOrderAccessor.cs" />
     <Compile Include="IItemAccessor.cs" />
     <Compile Include="IItemTypeAccessor.cs" />
@@ -136,6 +139,7 @@
     <Compile Include="ProductAccessorMSSQL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReceivingAccessor.cs" />
+    <Compile Include="ReceivingAccessorMock.cs" />
     <Compile Include="RecipeAccessor.cs" />
     <Compile Include="RecipeAccessorMock.cs" />
     <Compile Include="ReservationAccessorMock.cs" />

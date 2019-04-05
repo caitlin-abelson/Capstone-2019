@@ -4,7 +4,7 @@
              xmlns:local="clr-namespace:Presentation"
              StartupUri="LoginPage.xaml"
 			 Startup="Application_Startup">
-	<Application.Resources>
+    <Application.Resources>
 
-	</Application.Resources>
+    </Application.Resources>
 </Application>

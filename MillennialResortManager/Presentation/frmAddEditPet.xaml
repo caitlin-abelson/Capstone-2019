@@ -16,8 +16,8 @@
             <ColumnDefinition Width="250" />
             <ColumnDefinition  />
         </Grid.ColumnDefinitions>
-        
-        
+
+
         <!--Left Side of Window-->
         <Grid Grid.Column="0">
             <Grid.RowDefinitions>
@@ -38,11 +38,9 @@
             <Label Grid.Column="0" Grid.Row="3" VerticalAlignment="Center" HorizontalAlignment="Right">Guest ID:</Label>
             <Label Grid.Column="0" Grid.Row="4" VerticalAlignment="Center" HorizontalAlignment="Right">Pet ID:</Label>
 
-
-
             <TextBox x:Name="txtPetName" Grid.Column="1" Grid.Row="0" Width="120" VerticalAlignment="Center" HorizontalAlignment="Left" />
             <ComboBox x:Name="cboPetGender" Grid.Column="1" Grid.Row="1" Width="120" VerticalAlignment="Center" HorizontalAlignment="Left"  />
-            <ComboBox x:Name="cboPetType" Grid.Column="1" Grid.Row="2" Width="120" VerticalAlignment="Center" HorizontalAlignment="Left" />         
+            <ComboBox x:Name="cboPetType" Grid.Column="1" Grid.Row="2" Width="120" VerticalAlignment="Center" HorizontalAlignment="Left" />
             <TextBox x:Name="txtGuestID" Grid.Column="1" Grid.Row="3" Width="120" VerticalAlignment="Center" HorizontalAlignment="Left" MaxLength="6"/>
             <TextBox x:Name="txtPetID" Grid.Column="1" Grid.Row="4" Width="120" VerticalAlignment="Center" HorizontalAlignment="Left" IsEnabled="False"/>
 
@@ -83,16 +81,5 @@
             <Image x:Name="imgPet" Grid.Column="2" Grid.Row="2" />
             <Button x:Name="btnPetCancel" Grid.Column="2" Grid.Row="3" Width="100" Height="25" Content="Cancel" Click="BtnPetCancel_Click" />
         </Grid>
-
-
-
-
-
-
-
-
-
-
-
     </Grid>
 </Window>

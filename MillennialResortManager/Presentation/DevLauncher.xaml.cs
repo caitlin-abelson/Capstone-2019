@@ -53,6 +53,7 @@ namespace Presentation
     /// #BrowseRoom
     /// #BrowseMaintenanceType
     /// #BrowseMember
+    /// #Receiving
     /// #Profile
     /// 
     /// </summary>
@@ -187,7 +188,11 @@ namespace Presentation
         private List<MaintenanceWorkOrder> _allMaintenanceWorkOrders;
         private List<MaintenanceWorkOrder> _currentMaintenanceWorkOrders;
         private MaintenanceWorkOrderManagerMSSQL _maintenanceWorkOrderManager;
+        //Order receiving 
 
+
+        ReceivingTicketManager _receivingManager = new ReceivingTicketManager();
+        private SupplierOrderManager _receivingSupplierManager = new SupplierOrderManager();
         #endregion
 
         #region DevLauncher Code #DevLauncher
@@ -790,7 +795,16 @@ namespace Presentation
             DisplayPage("MaintenanceWorkOrder");
             BrowseMaintenanceWorkOrderDoOnStart();
         }
-
+        /// <summary>
+        /// This is what happens when the subheader button for Maintenance Work Orders is clicked from the navbar
+        /// </summary>
+        /// <param name=""></param>
+        /// <param name="e"></param>
+        private void NavBarSubHeaderReceiving_Click(object sender, RoutedEventArgs e)
+        {
+            DisplayPage("Receiving");
+            BrowseReceivingDoOnStart();
+        }
         /**
         * Created By Francis Mingomba
         * Date: 3/16/2019
@@ -6591,7 +6605,89 @@ namespace Presentation
         }
         /*----------------------------- Ending BrowseMaintenanceWorkOrder code ----------------------------------*/
         #endregion
+        #region Receiving #Receiving
+        private void BrowseReceivingDoOnStart()
+        {
 
-        
+            dgReceiving.ItemsSource = _receivingManager.retrieveAllReceivingTickets();
+
+        }
+
+        private void dgReceiving_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+
+            if (dgReceiving.SelectedIndex < 0)
+            {
+                MessageBox.Show("You must have a ticket selected");
+            }
+            else
+            {
+                ReceivingTicket ticket = (ReceivingTicket)dgReceiving.SelectedItem;
+                var viewTicket = new OrderRecieving(ticket);
+                viewTicket.ShowDialog();
+            }
+        }
+
+        private void dgReceiving_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
+        {
+            string headerName = e.Column.Header.ToString();
+            if (e.PropertyType == typeof(DateTime))
+            {
+                (e.Column as DataGridTextColumn).Binding.StringFormat = "MM/dd/yy";
+            }
+            if (headerName == "Active")
+            {
+                e.Cancel = true;
+            }
+            if (headerName == "ReceivingTicketExceptions")
+            {
+                e.Cancel = true;
+            }
+        }
+
+        private void Cancel_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
+
+        private void Edit_Click(object sender, RoutedEventArgs e)
+        {
+            if (dgReceiving.SelectedIndex < 0)
+            {
+                MessageBox.Show("You must have a ticket selected");
+            }
+            else
+            {
+                ReceivingTicket ticket = (ReceivingTicket)dgReceiving.SelectedItem;
+                var viewTicket = new OrderRecieving(ticket);
+                viewTicket.ShowDialog();
+            }
+        }
+
+        private void Complete_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                if (dgReceiving.SelectedIndex < 0)
+                {
+                    MessageBox.Show("You must have a ticket selected");
+                }
+                else
+                {
+                    ReceivingTicket ticket = (ReceivingTicket)dgReceiving.SelectedItem;
+                    _receivingSupplierManager.CompleteSupplierOrder(ticket.SupplierOrderID);
+                    _receivingManager.deactivateReceivingTicket(ticket.ReceivingTicketID);
+                }
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show("ERROR:" + ex.Message);
+            }
+        }
+
+
+        #endregion
+
     }
 }

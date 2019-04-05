@@ -15,6 +15,7 @@ namespace DataObjects
         public string Species { get; set; }
         public string PetTypeID { get; set; }
         public int GuestID { get; set; }
+        public string imageFilename { get; set; }  // Added on 3/21/19 by Matt Hill.
 
 
     }

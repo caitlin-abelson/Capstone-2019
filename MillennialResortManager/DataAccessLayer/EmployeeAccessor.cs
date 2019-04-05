@@ -575,5 +575,73 @@ namespace DataAccessLayer
             }
             return roles;
         }
+
+        /// <summary>
+        /// Alisa Roehr
+        /// Created: 2019/03/29
+        ///
+        /// connect to database to insert an employeeRole into the EmployeeRole crosstable.
+        /// </summary>
+        /// <param name="employeeID"></param>
+        /// <param name="role"></param>
+        public void InsertEmployeeRole(int employeeID, Role role)
+        {
+            var conn = DBConnection.GetDbConnection();
+            var cmdText = @"sp_insert_employee_role";
+            var cmd = new SqlCommand(cmdText, conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.AddWithValue("@EmployeeID", employeeID);
+            cmd.Parameters.AddWithValue("@RoleID", role.RoleID);
+
+            try
+            {
+                conn.Open();
+
+                cmd.ExecuteNonQuery();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                conn.Close();
+            }
+        }
+
+        /// <summary>
+        /// Alisa Roehr
+        /// Created: 2019/03/29
+        ///
+        /// connect to database to delete an employeeRole into the EmployeeRole crosstable.
+        /// </summary>
+        /// <param name="employeeID"></param>
+        /// <param name="role"></param>
+        public void DeleteEmployeeRole(int employeeID, Role role)
+        {
+            var conn = DBConnection.GetDbConnection();
+            var cmdText = @"sp_delete_employee_role";
+            var cmd = new SqlCommand(cmdText, conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.AddWithValue("@EmployeeID", employeeID);
+            cmd.Parameters.AddWithValue("@RoleID", role.RoleID);
+
+            try
+            {
+                conn.Open();
+
+                cmd.ExecuteNonQuery();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                conn.Close();
+            }
+        }
     }
 }

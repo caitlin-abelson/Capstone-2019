@@ -16,5 +16,15 @@ namespace DataObjects
     {
         public string DepartmentID { get; set; }
         public string Description { get; set; }
+
+        /// <summary>
+        /// Alisa Roehr
+        /// Created: 2019/04/05
+        /// </summary>
+        /// <returns></returns>
+        public override string ToString()
+        {
+            return DepartmentID;
+        }
     }
 }

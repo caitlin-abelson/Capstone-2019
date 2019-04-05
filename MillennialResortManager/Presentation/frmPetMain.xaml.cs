@@ -28,6 +28,7 @@ namespace Presentation
         public frmPetMain()
         {
             InitializeComponent();
+            populatePets(); // added on 3/10/19 by Matt H.
         }
         private Pet _pet;
 
@@ -58,7 +59,11 @@ namespace Presentation
 
         private void dgPets_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            
+            if (dgPets.SelectedIndex != -1) // Added on 3/14/19 by Matt Hill.
+            {
+                Pet selectedPet = (Pet)dgPets.SelectedItem;
+                petImg.Source = new BitmapImage(new Uri(@"Resources/" + selectedPet.imageFilename, UriKind.Relative));
+            }
         }
 
 
@@ -89,6 +94,12 @@ namespace Presentation
             try
             {
                 _pets = _petManager.RetrieveAllPets();
+
+                foreach (Pet pet in _pets) // added on 3/14/19 by Matt H.
+                {
+                    pet.imageFilename = _petManager.RetrievePetImageFilenameByPetID(pet.PetID);
+                }
+
                 dgPets.ItemsSource = _pets;
             }
             catch (Exception ex)
@@ -185,6 +196,11 @@ namespace Presentation
             {
                 MessageBox.Show("Please select a pet to edit");
             }
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e) // added on 3/14/19 by Matt H.
+        {
+            petImg.Source = new BitmapImage(new Uri(@"Resources/default.png", UriKind.Relative));
         }
     }
 }
