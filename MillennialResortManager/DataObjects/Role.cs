@@ -20,10 +20,14 @@ namespace DataObjects
         public string Description { get; set; }
         //  public bool Active { get; set; }
 
-
+        /// <summary>
+        /// Alisa Roehr
+        /// Created: 2019/04/05
+        /// </summary>
+        /// <returns></returns>
         public override string ToString()
         {
-            return RoleID + Environment.NewLine + Environment.NewLine + Description;
+            return RoleID;
         }
     }
 

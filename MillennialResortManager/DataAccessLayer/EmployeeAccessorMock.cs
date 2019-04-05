@@ -252,5 +252,22 @@ namespace DataAccessLayer
             }
             return r;
         }
+
+        public void InsertEmployeeRole(int employeeID, Role role)
+        {
+            try
+            {
+                _employee.Find(x => x.EmployeeID == employeeID).EmployeeRoles.Add(role);
+            }
+            catch (Exception)
+            {
+                throw new ApplicationException("No Roles found for this user");
+            }
+        }
+
+        public void DeleteEmployeeRole(int employeeID, Role role)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

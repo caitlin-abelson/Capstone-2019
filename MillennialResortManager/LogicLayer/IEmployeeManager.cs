@@ -28,5 +28,9 @@ namespace LogicLayer
         List<Employee> SelectAllInActiveEmployees();
         void DeleteEmployee(int employeeID, bool isActive);
         Employee AuthenticateEmployee(string username, string password);
+        Employee RetrieveEmployeeIDByEmail(string email);
+        List<Role> SelectEmployeeRoles(int EmployeeID);
+        void AddEmployeeRole(int employeeID, Role role);
+        void RemoveEmployeeRole(int employeeID, Role role);
     }
 }

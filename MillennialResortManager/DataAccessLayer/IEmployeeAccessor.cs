@@ -21,5 +21,7 @@ namespace DataAccessLayer
         int VerifyUsernameAndPassword(string username, string password);
         Employee RetrieveEmployeeByEmail(string username);
         List<Role> RetrieveEmployeeRoles(int EmployeeID);
+        void InsertEmployeeRole(int employeeID, Role role);
+        void DeleteEmployeeRole(int employeeID, Role role);
     }
 }
