@@ -63,6 +63,8 @@
     <Compile Include="Item.cs" />
     <Compile Include="ItemSupplier.cs" />
     <Compile Include="ItemType.cs" />
+    <Compile Include="Luggage.cs" />
+    <Compile Include="LuggageStatus.cs" />
     <Compile Include="MaintenanceStatusType.cs" />
     <Compile Include="MaintenanceType.cs" />
     <Compile Include="MaintenanceWorkOrder.cs" />

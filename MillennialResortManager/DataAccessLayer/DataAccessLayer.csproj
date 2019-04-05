@@ -75,6 +75,7 @@
     <Compile Include="IItemAccessor.cs" />
     <Compile Include="IItemTypeAccessor.cs" />
     <Compile Include="IItemSupplierAccessor.cs" />
+    <Compile Include="ILuggageAccessor.cs" />
     <Compile Include="IMaintenanceStatusTypeAccessor.cs" />
     <Compile Include="IMaintenanceTypeAccessor.cs" />
     <Compile Include="IMaintenanceWorkOrderAccessor.cs" />
@@ -104,6 +105,7 @@
     <Compile Include="ItemTypeAccessorMock.cs" />
     <Compile Include="ItemTypeAccessorMSSQL.cs" />
     <Compile Include="IVehicleAccessor.cs" />
+    <Compile Include="LuggageAccessor.cs" />
     <Compile Include="MaintenanceStatusTypeAccessorMSSQL.cs" />
     <Compile Include="MaintenanceTypeAccessorMSSQL.cs" />
     <Compile Include="MaintenanceWorkOrderAccessorMock.cs" />
@@ -115,6 +117,7 @@
     <Compile Include="MockEmpRolesAccessor.cs" />
     <Compile Include="MockEventAccessor.cs" />
     <Compile Include="MockGuestTypeAccessor.cs" />
+    <Compile Include="MockLuggageAccessor.cs" />
     <Compile Include="MockRoomAccessor.cs" />
     <Compile Include="MockRoomTypeAccessor.cs" />
     <Compile Include="MockVehicleAccessor.cs" />

@@ -95,6 +95,7 @@
     <Compile Include="ItemTypeManagerMSSQL.cs" />
     <Compile Include="IVehicleManager.cs" />
     <Compile Include="LogicValidationExtensionMethods.cs" />
+    <Compile Include="LuggageManager.cs" />
     <Compile Include="MaintenanceStatusTypeManagerMSSQl.cs" />
     <Compile Include="MaintenanceTypeManagerMSSQl.cs" />
     <Compile Include="MaintenanceWorkOrderManagerMSSQL.cs" />

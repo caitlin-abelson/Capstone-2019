@@ -73,6 +73,7 @@
     <Compile Include="AddDepartment.xaml.cs" />
     <Compile Include="AddGuestType.xaml.cs" />
     <Compile Include="AddItem.xaml.cs" />
+    <Compile Include="AddLuggage.xaml.cs" />
     <Compile Include="AddPerformance.xaml.cs" />
     <Compile Include="AddSpecialOrder.xaml.cs" />
     <Compile Include="BrowseAppointmentType.xaml.cs" />
@@ -124,6 +125,7 @@
     <Compile Include="DeleteRole.xaml.cs" />
     <Compile Include="DeleteRoom.xaml.cs" />
     <Compile Include="Departments.xaml.cs" />
+    <Compile Include="EditLuggage.xaml.cs" />
     <Compile Include="EmployeeRoles.xaml.cs" />
     <Compile Include="frmAddEditSponsor.xaml.cs" />
     <Compile Include="FrmBrowseShuttleVehicles.xaml.cs">
@@ -151,6 +153,7 @@
     <Compile Include="frmSelectGuestForAppointment.xaml.cs">
       <DependentUpon>frmSelectGuestForAppointment.xaml</DependentUpon>
     </Compile>
+    <Compile Include="FrontDeskTemplate.xaml.cs" />
     <Compile Include="GuestTypes.xaml.cs" />
     <Compile Include="GuestVehicleDetail.xaml.cs">
       <DependentUpon>GuestVehicleDetail.xaml</DependentUpon>
@@ -168,6 +171,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="AddItem.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="AddLuggage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -321,6 +328,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="EditLuggage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="EmployeeDetail.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -424,6 +435,10 @@
     <Page Include="frmUpdatePassword.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="FrontDeskTemplate.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="GuestTypes.xaml">
       <Generator>MSBuild:Compile</Generator>
