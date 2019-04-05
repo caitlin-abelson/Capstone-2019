@@ -98,6 +98,7 @@
       <DependentUpon>BrowseOrders.xaml</DependentUpon>
     </Compile>
     <Compile Include="BrowsePetType.xaml.cs" />
+    <Compile Include="BrowseReceiving.xaml.cs" />
     <Compile Include="BrowseReservation.xaml.cs" />
     <Compile Include="BrowseSetupList.xaml.cs">
       <DependentUpon>BrowseSetupList.xaml</DependentUpon>
@@ -114,8 +115,10 @@
     </Compile>
     <Compile Include="CreateAppointmentType.xaml.cs" />
     <Compile Include="CreateEventType.xaml.cs" />
+    <Compile Include="CreateHouseKeepingRequest.xaml.cs" />
     <Compile Include="CreateMaintenanceWorkOrder.xaml.cs" />
     <Compile Include="CreatePetType.xaml.cs" />
+    <Compile Include="DeactivateHouseKeepingRequest.xaml.cs" />
     <Compile Include="DeactivateMaintenanceWorkOrder.xaml.cs" />
     <Compile Include="DeleteAppointmentType.xaml.cs" />
     <Compile Include="DeleteDepartment.xaml.cs" />
@@ -239,6 +242,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="BrowseReceiving.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="BrowseReservation.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -271,6 +278,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="CreateHouseKeepingRequest.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="CreateMaintenanceWorkOrder.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -288,6 +299,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="CreateShop.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="DeactivateHouseKeepingRequest.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

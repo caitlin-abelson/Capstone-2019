@@ -7,7 +7,6 @@ rem This is the name you change. _____.sql Your file name goes in the blank.
 
 sqlcmd -S localhost -E -i test_data_scripts/matthew-hill-update-3.29.19.sql
 
-
 ECHO .
 ECHO If no errors appeared, your test script and/or data was inserted
 PAUSE

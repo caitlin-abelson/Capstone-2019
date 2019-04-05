@@ -30,6 +30,7 @@ namespace Presentation
         private SupplierOrderLine _line = new SupplierOrderLine();
         private SupplierOrder order = new SupplierOrder();
         ReceivingTicket ticket = new ReceivingTicket();
+        ReceivingTicket originalTicket = new ReceivingTicket();
         bool orderComplete = true;
 
 
@@ -65,32 +66,31 @@ namespace Presentation
         /// </summary>
         private void btnSubmit_Click(object sender, RoutedEventArgs e)
         {
-            /* Remove comment once order test data has been added
             ticket.SupplierOrderID = order.SupplierOrderID;
-            */
-            //remove following line when order test data has been added
-            ticket.SupplierOrderID = 100002;
-            ticket.ReceivingTicketExceptions = this.txtException.Text;
-            ticket.ReceivingTicketCreationDate = DateTime.Now;
-            for (int i = 0; i < dgOrderRecieving.Items.Count-1; i++)
+
+            if (this.btnSubmit.Content.Equals("Submit"))
             {
-                dgOrderRecieving.SelectedIndex = i;
-                SupplierOrderLine temp = (SupplierOrderLine)dgOrderRecieving.SelectedItem;
-                var _tempLine = supplierOrderLine.Find(x => x.ItemID == temp.ItemID);
-                _tempLine.QtyReceived = temp.QtyReceived;
-                if(_tempLine.QtyReceived != temp.QtyReceived)
+                ticket.ReceivingTicketExceptions = this.txtException.Text;
+                ticket.ReceivingTicketCreationDate = DateTime.Now;
+                for (int i = 0; i < dgOrderRecieving.Items.Count - 1; i++)
                 {
-                    orderComplete = false;
+                    dgOrderRecieving.SelectedIndex = i;
+                    SupplierOrderLine temp = (SupplierOrderLine)dgOrderRecieving.SelectedItem;
+                    var _tempLine = supplierOrderLine.Find(x => x.ItemID == temp.ItemID);
+                    _tempLine.QtyReceived = temp.QtyReceived;
+                    if (_tempLine.OrderQty != temp.QtyReceived)
+                    {
+                        orderComplete = false;
+                    }
+                    supplierOrderLine.Find(x => x.ItemID == temp.ItemID).QtyReceived = temp.QtyReceived;
                 }
-            }
-            
+
                 try
                 {
-                /* Remove comment once order test data has been added
                     order.OrderComplete = orderComplete;
-                    
+
                     _supplierManager.UpdateSupplierOrder(order, supplierOrderLine);
-                    */
+
                     _receivingManager.createReceivingTicket(ticket);
 
                 }
@@ -98,7 +98,37 @@ namespace Presentation
                 {
                     MessageBox.Show(ex.Message);
                 }
-            
+            }else if (this.btnSubmit.Content.Equals("Save"))
+            {
+                ticket.ReceivingTicketExceptions = this.txtException.Text;
+                ticket.ReceivingTicketCreationDate = DateTime.Now;
+                for (int i = 0; i < dgOrderRecieving.Items.Count - 1; i++)
+                {
+                    dgOrderRecieving.SelectedIndex = i;
+                    SupplierOrderLine temp = (SupplierOrderLine)dgOrderRecieving.SelectedItem;
+                    var _tempLine = supplierOrderLine.Find(x => x.ItemID == temp.ItemID);
+                    _tempLine.QtyReceived = temp.QtyReceived;
+                    if (_tempLine.OrderQty != temp.QtyReceived)
+                    {
+                        orderComplete = false;
+                    }
+                    supplierOrderLine.Find(x => x.ItemID == temp.ItemID).QtyReceived = temp.QtyReceived;
+                }
+
+                try
+                {
+                    order.OrderComplete = orderComplete;
+
+                    _supplierManager.UpdateSupplierOrder(order, supplierOrderLine);
+
+                    _receivingManager.updateReceivingTicket(originalTicket, ticket);
+
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+            }
             
             this.Close();
 
@@ -123,16 +153,41 @@ namespace Presentation
             }
             InitializeComponent();
             this.lblRecieving.Content += supplierOrder.SupplierOrderID.ToString();
+            this.btnSubmit.Content = "Submit";
             doOnStart();
             
         }
         /// <summary>
         /// Author: Kevin Broskow
         /// Created : 3/25/2019
-        /// Helper method to setup the datagrid
+        /// Real constructor for the window being opened
         /// 
         /// </summary>
-        private void doOnStart()
+        public OrderRecieving(ReceivingTicket ticket)
+        {
+            originalTicket = ticket;
+            try
+            {
+                supplierOrderLine = _supplierManager.RetrieveAllSupplierOrderLinesBySupplierOrderID(ticket.SupplierOrderID);
+                order = _supplierManager.RetrieveSupplierOrderByID(ticket.SupplierOrderID);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            InitializeComponent();
+            this.lblRecieving.Content += ticket.SupplierOrderID.ToString();
+
+            this.btnSubmit.Content = "Save";
+            doOnStart();
+        }
+            /// <summary>
+            /// Author: Kevin Broskow
+            /// Created : 3/25/2019
+            /// Helper method to setup the datagrid
+            /// 
+            /// </summary>
+            private void doOnStart()
         {
             dgOrderRecieving.ItemsSource = supplierOrderLine;
             
