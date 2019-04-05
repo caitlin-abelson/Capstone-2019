@@ -60,6 +60,7 @@
     <Compile Include="EventTypeManagerTests.cs" />
     <Compile Include="GuestTypeUnitTests.cs" />
     <Compile Include="GuestVehicleManagerTests.cs" />
+    <Compile Include="HouseKeepingRequestManagerTests.cs" />
     <Compile Include="InternalOrderManagerTests.cs" />
     <Compile Include="ItemManagerTest.cs" />
     <Compile Include="ItemSupplierTests.cs" />

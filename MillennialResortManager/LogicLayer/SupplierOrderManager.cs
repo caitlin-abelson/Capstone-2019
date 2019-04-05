@@ -163,5 +163,33 @@ namespace LogicLayer
             }
             return result;
         }
+
+        public SupplierOrder RetrieveSupplierOrderByID(int supplierOrderID)
+        {
+            SupplierOrder order = new SupplierOrder();
+            try
+            {
+                order = _supplierOrderManager.RetrieveSupplierOrderByID(supplierOrderID);
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            return order;
+        }
+
+        public void CompleteSupplierOrder(int supplierOrderID)
+        {
+            try
+            {
+                _supplierOrderManager.CompleteSupplierOrder(supplierOrderID);
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
     }
 }

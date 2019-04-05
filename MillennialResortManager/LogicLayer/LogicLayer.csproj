@@ -53,6 +53,7 @@
     <Compile Include="EventTypeManager.cs" />
     <Compile Include="GuestManager.cs" />
     <Compile Include="GuestVehicleManager.cs" />
+    <Compile Include="HouseKeepingRequestManagerMSSQL.cs" />
     <Compile Include="IAppointmentManager.cs" />
     <Compile Include="IAppointmentTypeManager.cs" />
     <Compile Include="IBuildingManager.cs" />
@@ -66,6 +67,7 @@
     <Compile Include="IEventTypeManager.cs" />
     <Compile Include="IGuestTypeManager.cs" />
     <Compile Include="IGuestVehicleManager.cs" />
+    <Compile Include="IHouseKeepingRequestManager.cs" />
     <Compile Include="IInternalOrderManager.cs" />
     <Compile Include="IItemManager.cs" />
     <Compile Include="IItemTypeManager.cs" />

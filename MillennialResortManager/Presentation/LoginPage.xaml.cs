@@ -110,7 +110,7 @@ namespace Presentation
                 //emp.DepartmentID = "FoodService";
                 //emp.DepartmentID = "ResortOperations";
                 //emp.DepartmentID = "Ordering";
-                //emp.DepartmentID = "Potato";
+                //emp.DepartmentID = "French Fry";
                 emp.DepartmentID = "Admin";
 
 

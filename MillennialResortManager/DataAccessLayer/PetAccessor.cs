@@ -22,7 +22,7 @@ namespace DataAccessLayer
         //For creating a new Pet
         public int InsertPet(Pet newPet)
         {
-            int rows = 0;
+            int newPetID = 0; // Edited on 3/17/19 by Matt Hill.
 
             var conn = DBConnection.GetDbConnection();
             var cmd = new SqlCommand("sp_insert_pet", conn);
@@ -37,7 +37,7 @@ namespace DataAccessLayer
             try
             {
                 conn.Open();
-                rows = cmd.ExecuteNonQuery();
+                newPetID = Convert.ToInt32(cmd.ExecuteScalar()); // Edited on 3/17/19 by Matt H.
             }
             catch (Exception)
             {
@@ -49,7 +49,7 @@ namespace DataAccessLayer
             }
 
 
-            return rows;
+            return newPetID;
         }
         
         //SelectAllPets()
@@ -227,7 +227,113 @@ namespace DataAccessLayer
             return rows;
         }
 
+        ///  @Author Matthew Hill
+        ///  @Created 3/10/19
+        //RetrievePetImageFilenameByPetID(int petID)
+        /// <summary>
+        /// Method that retrieves a filename by petID
+        /// </summary>
+        /// <param name="int petID">The ID of the Pet is used to get a filename</param>
+        /// <returns>Filename</returns>
+        public string RetrievePetImageFilenameByPetID(int petID)
+        {
+            string filename;
 
+            var conn = DBConnection.GetDbConnection();
+            var cmd = new SqlCommand("sp_select_pet_image_filename_by_pet_id", conn);
+
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@PetID", petID);
+
+            try
+            {
+                conn.Open();
+                filename = (string)cmd.ExecuteScalar();
+            }
+            catch (SqlException)
+            {
+                throw;
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            return filename;
+        }
+
+        ///  @Author Matthew Hill
+        ///  @Created 3/10/19
+        //CreatePetImageFilename(string filename, int petID)
+        /// <summary>
+        /// Method that creates a new Pet Image filename record.
+        /// </summary>
+        /// <param name="string filename, int petID">The filename to insert into the database and pet id to associate the image with.</param>
+        /// <returns>Filename</returns>
+        public int CreatePetImageFilename(string filename, int petID)
+        {
+            int rows;
+
+            var conn = DBConnection.GetDbConnection();
+            var cmd = new SqlCommand("sp_insert_pet_image_filename", conn);
+
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@Filename", filename);
+            cmd.Parameters.AddWithValue("@PetID", petID);
+
+            try
+            {
+                conn.Open();
+                rows = cmd.ExecuteNonQuery();
+            }
+            catch (SqlException)
+            {
+                throw;
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            return rows;
+        }
+
+        ///  @Author Matthew Hill
+        ///  @Created 3/10/19
+        //UpdatePetImageFilename(int petID, string oldFilename)
+        /// <summary>
+        /// Method that creates a new Pet Image filename record.
+        /// </summary>
+        /// <param name="string filename, int petID">The filename to insert into the database and pet id to associate the image with.</param>
+        /// <returns>Filename</returns>
+        public int UpdatePetImageFilename(int petID, string oldFilename, string newFilename)
+        {
+            int rows;
+
+            var conn = DBConnection.GetDbConnection();
+            var cmd = new SqlCommand("sp_update_pet_image_filename", conn);
+
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@PetID", petID);
+            cmd.Parameters.AddWithValue("@OldFilename", oldFilename);
+            cmd.Parameters.AddWithValue("@NewFilename", newFilename);
+
+            try
+            {
+                conn.Open();
+                rows = cmd.ExecuteNonQuery();
+            }
+            catch (SqlException)
+            {
+                throw;
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            return rows;
+        }
 
 
 
