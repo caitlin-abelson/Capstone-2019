@@ -39,3 +39,15 @@ INSERT INTO [dbo].[Event]
 			(100000,'Fake Cancelled Event',100000,'Beach Party','Fake Event Description',
 				'2020-01-02','2020-01-04',0,500,'Beach',0,0,1,100,0)
 GO	
+
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			

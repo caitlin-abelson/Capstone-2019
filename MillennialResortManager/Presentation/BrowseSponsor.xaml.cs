@@ -32,6 +32,50 @@ namespace Presentation
             populateSponsors();
         }
 
+        /// <summary>
+        /// @Author: Phillip Hansen
+        /// 
+        /// This constructor is specifically for an outside page/window to search Sponsors
+        /// with a filter
+        /// </summary>
+        /// <param name="filterSearch"></param>
+        public SponsorMainWindow(string filterSearch)
+        {
+            InitializeComponent();
+            //Search Box should only contain the filter given
+            txtSearch.IsEnabled = false;
+            txtSearch.Text = filterSearch;
+            
+            //Disable buttons for this specifically constructed window
+            btnFilter.IsEnabled = false;
+            btnClearFilters.IsEnabled = false;
+            btnCancel.IsEnabled = false;
+
+
+            btnDelete.Content = "Select Sponsor";
+
+            _sponsorManager = new SponsorManager();
+            
+            //Refresh sponsor list to empty gird
+            refreshAllSponsors();
+            List<Sponsor> _filteredSponsors = new List<Sponsor>();
+            
+            
+            foreach (var item in _sponsorManager.SelectAllSponsors().Where(s => s.Name.Equals(txtSearch.Text.ToString())))
+            {
+                _filteredSponsors.Add(item);
+            }
+
+            try
+            {
+                dgSponsors.ItemsSource = _filteredSponsors;
+
+            } catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message + "\nCould not populate filtered Sponsors");
+            }
+            
+        }
 
 
         private void refreshAllSponsors()
@@ -66,21 +110,45 @@ namespace Presentation
             populateSponsors();
         }
 
+        /// <summary>
+        /// Author Gunardi Saputra
+        /// 
+        /// Modified by Phil Hansen on 4/5/2019
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnDelete_Click(object sender, RoutedEventArgs e)
         {
             if (dgSponsors.SelectedIndex != -1)
             {
-                try
+                if(btnDelete.Content.Equals("Select Sponsor"))
                 {
-                    _sponsorManager.DeleteSponsor(((Sponsor)dgSponsors.SelectedItem).SponsorID, ((Sponsor)dgSponsors.SelectedItem).Active);
-                    refreshAllSponsors();
-                    populateSponsors();
+                    Sponsor selectedSponsor;
+                    selectedSponsor = (Sponsor)dgSponsors.SelectedItem;
+                    if(selectedSponsor != null)
+                    {
+                        this.DialogResult = true;
+                    }
+                    else
+                    {
+                        this.DialogResult = false;
+                        MessageBox.Show("Must have a Sponsor selected!\nCreate a new one if the Sponsor does not exist yet.");
+                    }
                 }
-                catch (Exception ex)
+                else
                 {
-                    MessageBox.Show("Unable to Delete that Sponsor\n" + ex.Message);
+                    try
+                    {
+                        _sponsorManager.DeleteSponsor(((Sponsor)dgSponsors.SelectedItem).SponsorID, ((Sponsor)dgSponsors.SelectedItem).Active);
+                        refreshAllSponsors();
+                        populateSponsors();
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Unable to Delete that Sponsor\n" + ex.Message);
+                    }
                 }
-
+                
             }
         }
 
