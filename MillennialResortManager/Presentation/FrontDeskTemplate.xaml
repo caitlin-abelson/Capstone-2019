@@ -1,0 +1,61 @@
+﻿<Window x:Class="Presentation.FrontDeskTemplate"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Presentation"
+        mc:Ignorable="d"
+        Title="Guest Services" Height="500" Width="800" Loaded="Window_Loaded">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+            <RowDefinition Height="75"></RowDefinition>
+        </Grid.RowDefinitions>
+        <TabControl x:Name="tabSetGuestServicesMain" Grid.Row="0">
+            <!--Start Check-In Tab-->
+            <TabItem x:Name="tabCheckIn" Header="Check-In">
+            </TabItem>
+            
+            <!--Start Housekeeping Tab-->
+            <TabItem x:Name="tabHousekeepingService" Header="Housekeeping">
+            </TabItem>
+            
+            <!--Start Bell Hop Tab-->
+            <TabItem x:Name="tabBellHopService" Header="Bell Hop">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <DataGrid x:Name="dgLuggage" Grid.Column="0" IsReadOnly="True"/>
+                    <Grid Grid.Column="1">
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                    </Grid>
+                </Grid>
+            </TabItem>
+            
+            <!--Start Concierge Tab-->
+            <TabItem x:Name="tabConcierge" Header="Concierge">
+            </TabItem>
+        </TabControl>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Button x:Name="btnAdd" Grid.Column="2" Content="Add New" Margin="10 15" Click="btnAdd_Click"/>
+            <Button x:Name="btnUpdate" Grid.Column="3" Content="Set Status" Margin="10 15" Click="btnUpdate_Click"/>
+            <Button x:Name="btnDelte" Grid.Column="4" Content="Delete" Margin="10 15" Click="btnDelte_Click"/>
+            <Button x:Name="btnCancel" Grid.Column="5" Content="Cancel" Margin="10 15" Click="btnCancel_Click"/>
+        </Grid>
+    </Grid>
+</Window>
