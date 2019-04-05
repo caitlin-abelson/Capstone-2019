@@ -15,6 +15,8 @@ namespace DataAccessLayer
         Appointment SelectAppointmentByID(int id);
         List<AppointmentType> SelectAppointmentTypes();
         List<AppointmentGuestViewModel> SelectGuestList();
+        List<Appointment> SelectAppointmentByGuestID(int guestID);
         int UpdateAppointment(Appointment appointment);
+        int DeleteAppointmentByID(int appointmentID);
     }
 }

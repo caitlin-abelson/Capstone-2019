@@ -128,8 +128,14 @@
     <Compile Include="EditLuggage.xaml.cs" />
     <Compile Include="EmployeeRoles.xaml.cs" />
     <Compile Include="frmAddEditSponsor.xaml.cs" />
+    <Compile Include="frmAddEventSponsor.xaml.cs">
+      <DependentUpon>frmAddEventSponsor.xaml</DependentUpon>
+    </Compile>
     <Compile Include="FrmBrowseShuttleVehicles.xaml.cs">
       <DependentUpon>FrmBrowseShuttleVehicles.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="frmEventSponsorMain.xaml.cs">
+      <DependentUpon>frmEventSponsorMain.xaml</DependentUpon>
     </Compile>
     <Compile Include="FrmManageShuttleVehicle.xaml.cs">
       <DependentUpon>FrmManageShuttleVehicle.xaml</DependentUpon>
@@ -158,6 +164,7 @@
     <Compile Include="GuestVehicleDetail.xaml.cs">
       <DependentUpon>GuestVehicleDetail.xaml</DependentUpon>
     </Compile>
+    <Compile Include="OrderRecieving.xaml.cs" />
     <Compile Include="Read_BrowseOrder.xaml.cs" />
     <Compile Include="RoomTypes.xaml.cs" />
     <Compile Include="viewAccount.xaml.cs" />
@@ -368,6 +375,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="frmAddEventSponsor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="frmAddItemSupplierForItem.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -395,6 +406,10 @@
     <Page Include="frmEventMain.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="frmEventSponsorMain.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="frmManageItemSuppliers.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -509,6 +524,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="OrderRecieving.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="PerformanceViewer.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -518,6 +537,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="RoomTypes.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="StyleSheet.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

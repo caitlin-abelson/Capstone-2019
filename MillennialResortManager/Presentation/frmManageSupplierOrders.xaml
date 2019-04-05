@@ -7,15 +7,15 @@
         mc:Ignorable="d"
         Title="Manage Supplier Orders" Height="480" Width="640">
     <Grid>
-        <Grid.RowDefinitions>  
+        <Grid.RowDefinitions>
             <RowDefinition Height="25"  />
-            
+
             <RowDefinition Height="30"/>
             <RowDefinition Height="30" />
             <RowDefinition />
             <RowDefinition Height="50"/>
         </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>            
+        <Grid.ColumnDefinitions>
 
             <ColumnDefinition Width="5"/>
             <ColumnDefinition/>
@@ -60,10 +60,12 @@
                 <DataGridCheckBoxColumn Header="Complete" Binding="{Binding Path='OrderComplete'}" IsReadOnly="True"/>
             </DataGrid.Columns>
         </DataGrid>
+
         <Button Grid.Row="4" Grid.Column="1" x:Name="btnCancel" Content="Cancel" Margin="8" Click="BtnCancel_Click"/>
+        <Button Grid.Row="4" Grid.Column="2" x:Name="btnReceived" Content="Received" Margin="8" Click="btnReceived_Click"  />
         <Button Grid.Row="4" Grid.Column="3" x:Name="btnAddOrder" Content="Add Order" Margin="8" Click="BtnAddOrder_Click" />
         <Button Grid.Row="4" Grid.Column="4" x:Name="btnDeleteOrder" Content="Delete Order" Margin="40,20,5,8" Click="BtnDeleteOrder_Click" />
 
     </Grid>
-    
+
 </Window>

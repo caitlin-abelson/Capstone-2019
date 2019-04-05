@@ -1,12 +1,14 @@
-﻿body {
-    padding-top: 50px;
-    padding-bottom: 20px;
+﻿/*base css setting form html elements*/
+/*////////////////////////////////////*/
+body {
+    /*padding-top: 50px;
+    padding-bottom: 20px;*/
 }
 
 /* Set padding to keep content from hitting the edges */
 .body-content {
-    padding-left: 15px;
-    padding-right: 15px;
+    /*padding-left: 15px;
+    padding-right: 15px;*/
 }
 
 /* Override the default bootstrap behavior where horizontal description lists 
@@ -23,16 +25,34 @@ textarea {
     max-width: 280px;
 }
 
-footer .footer-widgets {
-    padding: 60px 0;
-    background: #596869;
+img{
+    max-width: 100%;
+}
+
+
+
+footer {
+    padding: 80px 0;
     border-top: 1px solid #f2f2f2;
     border-bottom: 1px solid #f2f2f2;
+    color: black;
 }
+
+.footerDate {
+  padding: 20px;
+  font-size:17px;
+
+}
+.footerBackground {
+    background: #C3BEAC;
+    background-image: linear-gradient(#0B2027, #C3BEAC);
+    opacity: 0.7;
+}
+
+
 
 .latest-posts {
     list-style: none;
-    
 }
 
 li a {
@@ -40,4 +60,257 @@ li a {
     text-decoration: none;
     font-size: 22px;
 }
+
+
+.navbar-inverse .navbar-nav > li > a {
+    padding-top: 40px;
+    color: azure;
+}
+
+
+
+
+/*Layout //////////////////////////////////////////////////////////////////////////////////////////////*/
+/*/////////////////////////////////////////////////////////////////////////////////////////////////////*/
+
+.loginRegister {
+    margin-right: 200px;
+}
+
+
+
+
+/* This with header div */
+.clearfix {
+    clear: both;
+    overflow: hidden;
+}
+
+
+/*These are for the header*/
+.top-container {
+    height: 50px;
+    background-color: #40798C;
+    
+    color: white;
+}
+
+
+.top-container p {
+   float: left;
+   margin-left: 20px;
+   margin-top: 5px;
+   font-size: 22px;
+}
+
+.resortHeader {
+    
+    z-index:50;
+}
+
+/* This runs the css header to slide up until the nav is in a fixed position */
+.sticky {
+    box-sizing: border-box;
+    position: fixed;
+    top: 0;
+    width: 100%;
+}
+.sticky + .content {
+   padding-top: 100px;
+}
+
+
+header {
+    z-index: 10;
+}
+
+
+
+
+/*navbar */
+.navbar-default {
+ 
+    background-color: #0B2027;
+    /*border-color: #495867;*/
+    border-radius: unset;
+    background-repeat: no-repeat;
+    background-position: center;
+   
+}
+
+
+.jumbotron {
+    margin-bottom: 0px;
+}
+
+.jumbotronBackGround {
+    padding-bottom: 270px;
+    background-repeat: no-repeat;
+    background-image: url(../Content/images/beach-family.jpg);
+    background-size: cover;
+    background-position: center center;
+}
+
+
+.jumbotronBackGround h1 {
+        font-size: 70px;
+        font-family: 'Fugaz One', cursive;
+        text-shadow: 3px 3px #40798C;
+        color: #fff;
+}
+
+.jumbotronHighlights {
+   
+    background-repeat: no-repeat;
+    background-color: #70A9A1;
+}
+
+.jumbotronHighlights h1 {
+    margin-top: -50px;
+    padding: 25px;
+        text-shadow: 3px 3px #40798C;
+        color: #fff;
+     
+}
+
+
+.jumbotronEvents {
+    background-repeat: no-repeat;
+    background-color: #FFF1D0;
+    
+}
+
+    .jumbotronEvents h1 {
+        margin-top: -50px;
+        padding: 25px;
+        text-shadow: 3px 3px #40798C;
+        color: #fff;
+    }
+
+.jumbotronMailingList {
+    background-color: #0B2027;
+    text-align: center;
+}
+
+.jumbotronMailingList h2 {
+        text-shadow: 3px 3px #40798C;
+        color: #fff;
+        font-size: 40px;
+    }
+    .jumbotronMailingList legend {
+        text-shadow: 3px 3px #40798C;
+        color: #fff;
+        font-size: 30px;
+    }
+ 
+.carousel-inner {
+    width: 500px;
+    height: 300px;
+}
+
+
+
+.nav100 {
+    padding: 0px;
+}
+
+.lead {
+    color: #fff;
+}
+.col-md-4 {
+  position: static;
+}
+
+
+
+
+
+.mailingList {
+    display: inline;
+}
+
+
+
+
+
+
+
+.card {
+    max-width: 350px;
+    margin:auto;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*Media Query for ipad, iphone, sized devices.*/
+
+@media only screen and (max-width: 768px) {
+
+
+    .mobileHide {
+        visibility: hidden;
+    }
+
+
+
+    .navbar-nav {
+        margin: 0px;
+    }
+
+    
+
+}
+
+    @media only screen and (min-width: 768px) {
+        .navbar-default {
+            height: 100px;
+            background-color: #0B2027;
+            border-radius: unset;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+
+        .mobileShow {
+            visibility: hidden;
+        }
+
+
+
+
+
+
+
+
+
+
+
+        /*modual css setting for partials and for chat windows and dialog boxes*/
+        /*//////////////////////////////////////////////////////////////////////*/
+
+
+
 

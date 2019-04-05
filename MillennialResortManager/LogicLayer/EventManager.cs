@@ -9,7 +9,7 @@ using DataObjects;
 namespace LogicLayer
 {
     /// <summary>
-    /// @Author Phillip Hansen
+    /// @Author: Phillip Hansen
     /// @Created 1/23/2019
     /// 
     /// This class is for the Event objects in the logic layer, to be a building block between
@@ -20,7 +20,7 @@ namespace LogicLayer
         private IEventAccessor _eventAccessor;
 
         /// <summary>
-        /// @Author Phillip Hansen
+        /// @Author: Phillip Hansen
         /// 
         /// Constructor for calling non-static methods
         /// </summary>
@@ -35,7 +35,7 @@ namespace LogicLayer
         }
 
         /// <summary>
-        /// @Author Phillip Hansen
+        /// @Author: Phillip Hansen
         /// 
         /// Method for creating an event calling to the accessor for events
         /// </summary>
@@ -59,7 +59,7 @@ namespace LogicLayer
         }
 
         /// <summary>
-        /// @Author Phillip Hansen
+        /// @Author: Phillip Hansen
         /// 
         /// Method for retrieving all events as a list
         /// </summary>
@@ -71,6 +71,28 @@ namespace LogicLayer
             try
             {
                 events = _eventAccessor.selectAllEvents();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+
+            return events;
+        }
+
+        /// <summary>
+        /// @Author: Phillip Hansen
+        /// 
+        /// Method for retrieving all events as a list
+        /// </summary>
+        /// <returns></returns>
+        public List<Event> RetrieveAllCancelledEvents()
+        {
+            List<Event> events;
+
+            try
+            {
+                events = _eventAccessor.selectAllCancelledEvents();
             }
             catch (Exception)
             {
@@ -98,7 +120,7 @@ namespace LogicLayer
         }
 
         /// <summary>
-        /// @Author Phillip Hansen
+        /// @Author: Phillip Hansen
         /// 
         /// Updates the event
         /// </summary>
@@ -122,8 +144,40 @@ namespace LogicLayer
 
         }
 
+        public void UpdatEventToUncancel(Event uncancelEvent)
+        {
+            try
+            {
+                _eventAccessor.updateEventToUncancelled(uncancelEvent);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
         /// <summary>
-        /// @Author Phillip Hansen
+        /// @Author: Phillip Hansen
+        /// @Created: 4/3/2019
+        /// 
+        /// Method for cancelling a chosen event
+        /// </summary>
+        /// <param name="selectedEvent"></param> the specific event passed through
+        public void UpdateEventToCancel(Event cancelEvent)
+        {
+            try
+            {
+                _eventAccessor.updateEventToCancelled(cancelEvent);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            
+        }
+
+        /// <summary>
+        /// @Author: Phillip Hansen
         /// 
         /// Deletes the event by taking the object as a whole, and passes only the ID
         /// </summary>
@@ -181,11 +235,17 @@ namespace LogicLayer
             {
                 return false;
             }
+            else if (_event.SeatsRemaining > _event.NumGuests)
+            {
+                return false;
+            }
             else
             {
                 return true;
             }
         }
+
+
 
         public bool ValidateDates(Event _event)
         {
@@ -203,5 +263,6 @@ namespace LogicLayer
             }
         }
 
+        
     }
 }

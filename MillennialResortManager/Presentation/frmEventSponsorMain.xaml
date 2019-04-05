@@ -1,0 +1,74 @@
+﻿<Window x:Class="Presentation.frmEventSponsorMain"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Presentation"
+        mc:Ignorable="d"
+        Title="frmEventSponsorMain" Height="450" Width="800">
+    <Grid x:Name="EventSponsorsListPage">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition Height="40"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <Label Content="Browse Event Sponsors" VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="Bold" FontSize="16" />
+        </Grid>
+        <Grid Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30"></RowDefinition>
+                <RowDefinition Height="30"></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0">
+                <Label x:Name="lblListOfEventSponsors" Content="List Of Sponsored Events" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            </Grid>
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="20"></ColumnDefinition>
+                    <ColumnDefinition Width="100"></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Label HorizontalAlignment="Left" VerticalAlignment="Center" Content="Filters Here" Grid.Column="1"/>
+
+            </Grid>
+            <TabControl Grid.Row="2" x:Name="tabsetMainEventSpons">
+                <TabItem Name="tabEventSponsor" Header="Event Sponsor">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="40" />
+                            <RowDefinition />
+                            <RowDefinition Height="40" />
+                        </Grid.RowDefinitions>
+                        <Grid Grid.Row="0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="100"/>
+                                <ColumnDefinition />
+                                <ColumnDefinition Width="120"/>
+                                <ColumnDefinition Width="100"/>
+                                <ColumnDefinition Width="200"/>
+                                <ColumnDefinition Width="100"/>
+                                <ColumnDefinition Width="100"/>
+                            </Grid.ColumnDefinitions>
+                        </Grid>
+                        <Grid Grid.Row="1">
+                            <DataGrid x:Name="dgEventSponsor" VerticalGridLinesBrush="{x:Null}" SelectionMode="Single" AlternatingRowBackground="#FF3DD8CA" RowBackground="LightGoldenrodYellow"  IsReadOnly="True" MouseDoubleClick="dgEventSponsor_MouseDoubleClick" AutoGeneratingColumn="dgEventSponsor_AutoGeneratingColumn" />
+                        </Grid>
+                    </Grid>
+                </TabItem>
+            </TabControl>
+        </Grid>
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="100"></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition Width="70"></ColumnDefinition>
+                <ColumnDefinition Width="100"></ColumnDefinition>
+                <ColumnDefinition Width="70"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Button x:Name="btnAddEventSpons" Content="Add" Width="50" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="2" Click="btnAddEventSpons_Click"/>
+            <Button x:Name="btnDeleteEventSpons" Content="Delete" Width="50" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="4" Click="btnDeleteEventSpons_Click"/>
+        </Grid>
+    </Grid>
+</Window>

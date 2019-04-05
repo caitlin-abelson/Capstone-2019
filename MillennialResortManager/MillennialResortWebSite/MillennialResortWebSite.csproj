@@ -190,6 +190,15 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\images\beach-family.jpg" />
+    <Content Include="Content\images\beach-familyTwo.jpg" />
+    <Content Include="Content\images\beach-resorts.jpg" />
+    <Content Include="Content\images\beachPool.jpg" />
+    <Content Include="Content\images\eventSlider\hawaii-surfboards.jpg" />
+    <Content Include="Content\images\eventSlider\market.jpg" />
+    <Content Include="Content\images\eventSlider\redrocks.jpg" />
+    <Content Include="Content\images\eventSlider\snorkelling-bali.jpg" />
+    <Content Include="Content\images\resortDining.jpg" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -206,6 +215,7 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\main.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">

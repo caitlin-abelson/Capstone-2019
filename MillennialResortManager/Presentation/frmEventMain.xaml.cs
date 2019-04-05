@@ -18,7 +18,7 @@ using EventManager = LogicLayer.EventManager;
 namespace WpfPresentation
 {
     /// <summary>
-    /// @Author Phillip Hansen
+    /// @Author: Phillip Hansen
     /// 
     /// Test window for showing all Event Requests
     /// 
@@ -26,13 +26,13 @@ namespace WpfPresentation
     /// </summary>
     public partial class frmEventMain : Window
     {
-        private User _user;
+        private Employee _employee;
         EventManager _eventManager = new EventManager();
         private EventTypeManager _eventTypeManager = new EventTypeManager();
         private List<Event> _events;
-        public frmEventMain(User user)
+        public frmEventMain(Employee employee)
         {
-            _user = user;
+            _employee = employee;
             InitializeComponent();
 
             populateEvents();
@@ -41,7 +41,7 @@ namespace WpfPresentation
         
         
         /// <summary>
-        /// @Author Phillip Hansen
+        /// @Author: Phillip Hansen
         /// 
         /// When an event record is selected
         /// </summary>
@@ -59,7 +59,7 @@ namespace WpfPresentation
                 }
                 else
                 {
-                    var detailA = new frmAddEditEvent(_user, selectedEvent);
+                    var detailA = new frmAddEditEvent(_employee, selectedEvent);
                     detailA.ShowDialog();
                     if(detailA.DialogResult == true)
                     {
@@ -75,7 +75,7 @@ namespace WpfPresentation
         }
 
         /// <summary>
-        /// @Author Phillip Hansen
+        /// @Author: Phillip Hansen
         /// 
         /// Code for when the 'create' button is clicked
         /// </summary>
@@ -84,7 +84,7 @@ namespace WpfPresentation
         private void BtnCreateEvReq_Click(object sender, RoutedEventArgs e)
         {
             //The Form requires the User's ID for a field in the record
-            var addEventReq = new frmAddEditEvent(_user);
+            var addEventReq = new frmAddEditEvent(_employee);
             var result = addEventReq.ShowDialog();
             if(result == true)
             {
@@ -93,7 +93,7 @@ namespace WpfPresentation
         }
 
         /// <summary>
-        /// @Author Phillip Hansen
+        /// @Author: Phillip Hansen
         /// 
         /// Changes the titles for the columns in the event datagrid to be human-readable
         /// </summary>
@@ -111,7 +111,7 @@ namespace WpfPresentation
             {
                 e.Cancel = true;
             }
-            if (headerName == "SponsorID")
+            if (headerName == "OfferingID")
             {
                 e.Cancel = true;
             }
@@ -143,7 +143,11 @@ namespace WpfPresentation
             {
                 e.Column.Header = "Max Guests";
             }
-            if(headerName == "Sponsored")
+            if (headerName == "SeatsRemaining")
+            {
+                e.Column.Header = "Seats Remaining";
+            }
+            if (headerName == "Sponsored")
             {
                 e.Column.Header = "Sponsored?";
             }
@@ -158,7 +162,7 @@ namespace WpfPresentation
         }
 
         /// <summary>
-        /// @Author Phillip Hansen
+        /// @Author: Phillip Hansen
         /// 
         /// Method for populating the events
         /// </summary>
@@ -176,7 +180,7 @@ namespace WpfPresentation
         }
 
         /// <summary>
-        /// @Author Phillip Hansen
+        /// @Author: Phillip Hansen
         /// 
         /// Closes the window if the 'cancel' button is clicked
         /// </summary>

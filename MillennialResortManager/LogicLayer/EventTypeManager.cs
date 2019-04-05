@@ -9,7 +9,7 @@ using DataObjects;
 namespace LogicLayer
 {
     /// <summary>
-    /// @Author Phillip Hansen
+    /// @Author: Phillip Hansen
     /// @Created 1/24/2019
     /// 
     /// Manages Event Types through the Logic Layer

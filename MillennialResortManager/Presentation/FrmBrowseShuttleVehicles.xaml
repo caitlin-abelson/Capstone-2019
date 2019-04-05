@@ -4,32 +4,27 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d">
+    <UserControl.Resources>
+        <ResourceDictionary Source="Stylesheet.xaml"/>
+    </UserControl.Resources>
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="10"/>
-            <ColumnDefinition Width="*"/>
-            <!-- Data Grid will live here -->
-            <ColumnDefinition Width="10"/>
-        </Grid.ColumnDefinitions>
-
         <Grid.RowDefinitions>
-            <RowDefinition Height="10"/>
-            <RowDefinition Height="40"/>
+            <RowDefinition Height="50"/>
             <RowDefinition Height="*"/>
             <!-- Data Grid will live here -->
-            <RowDefinition Height="10"/>
-            <RowDefinition Height="36"/>
-            <RowDefinition Height="10"/>
+            <RowDefinition Height="50"/>
         </Grid.RowDefinitions>
 
         <!--Filter Box-->
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Grid.Row="1" Grid.Column="1" Margin="0 0 0 10">
-            <TextBlock VerticalAlignment="Center" FontSize="15" Margin="0 0 10 0">Filter:</TextBlock>
-            <TextBox Name="txtFilterVehicles" Width="350" FontSize="12" Padding="0 5 0 0" TextChanged="TxtFilterVehicles_TextChanged"/>
-        </StackPanel>
+        <Grid Grid.Row="0" Style="{StaticResource FilterBar}">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right"  Margin="0 0 0 10">
+                <TextBlock VerticalAlignment="Center" FontSize="15" Margin="0 0 10 0">Filter:</TextBlock>
+                <TextBox Name="txtFilterVehicles" Width="350" FontSize="12" Margin="5" TextChanged="TxtFilterVehicles_TextChanged"/>
+            </StackPanel>
+        </Grid>
 
         <!--Data Grid-->
-        <DataGrid x:Name="dtgShuttleVehicles"  Grid.Row="2" Grid.Column="1"
+        <DataGrid x:Name="dtgShuttleVehicles"  Grid.Row="1" 
                                       IsTextSearchEnabled="True" AutoGenerateColumns="False"
                                       ItemsSource="{Binding}" GridLinesVisibility="Horizontal" SelectionMode="Single" IsReadOnly="True" 
                                       CanUserSortColumns="True" CanUserAddRows="False">
@@ -48,22 +43,25 @@
         </DataGrid>
 
         <!--Button Group-->
-        <StackPanel Grid.Row="4" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center">
-            <Button Content="Create Shuttle Vehicle" 
-                                    Margin="0 0 0 0"
+        <Grid Grid.Row="2" Style="{StaticResource BottomBar}">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <Button Content="Create Shuttle Vehicle" 
+                                    Margin="5"
                                     Name="btnCreateShuttle" Width="150" Click="BtnCreateShuttle_Click"/>
-            <Button Content="Edit Shuttle Vehicle" 
-                                    Margin="10 0 0 0"
+                <Button Content="Edit Shuttle Vehicle" 
+                                    Margin="5"
                                     Name="btnEditShuttle" Width="150" Click="BtnEditShuttle_Click"/>
-            <Button Content="View Shuttle Vehicle" 
-                                    Margin="10 0 0 0"
+                <Button Content="View Shuttle Vehicle" 
+                                    Margin="5"
                                     Name="btnViewShuttle" Width="150" Click="BtnViewShuttle_Click"/>
-            <Button Content="Deactivate Vehicle" 
-                    Margin="10 0 0 0" Name="btnDeactivateVehicle"
+                <Button Content="Deactivate Vehicle" 
+                    Margin="5" Name="btnDeactivateVehicle"
                     Width="150" Click="BtnDeactivateVehicle_OnClick"/>
-            <Button Content="Delete Vehicle" 
-                    Margin="10 0 0 0" Name="btnDeleteVehicle" 
+                <Button Content="Delete Vehicle" 
+                    Margin="5" Name="btnDeleteVehicle" 
                     Width="150" Click="BtnDeleteVehicle_OnClick"/>
-        </StackPanel>
+            </StackPanel>
+        </Grid>
+        
     </Grid>
 </UserControl>
