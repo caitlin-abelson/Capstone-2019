@@ -86,6 +86,7 @@
     <Compile Include="IRoleManager.cs" />
     <Compile Include="IRoomManager.cs" />
     <Compile Include="ISetupListManager.cs" />
+    <Compile Include="ISetupManager.cs" />
     <Compile Include="IShopManager.cs" />
     <Compile Include="IRoomType.cs" />
     <Compile Include="ISpecialOrderManager.cs" />
@@ -117,6 +118,7 @@
     <Compile Include="RoomTypeManager.cs" />
     <Compile Include="RoomVerifier.cs" />
     <Compile Include="SetupListManager.cs" />
+    <Compile Include="SetupManager.cs" />
     <Compile Include="ShopManagerMSSQL.cs" />
     <Compile Include="SpecialOrderManagerMSSQL.cs" />
     <Compile Include="SponsorManager.cs" />

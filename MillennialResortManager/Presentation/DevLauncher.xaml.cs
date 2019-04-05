@@ -130,11 +130,10 @@ namespace Presentation
         private GuestVehicleManager _guestVehicleManager;
         private List<string> _searchOptions;
         private List<VMGuestVehicle> _currentListGuestVehicle;
-        //Setup List
-        private ISetupListManager _setupListManager;
-        private List<SetupList> _setupLists;
-        private List<SetupList> _currentSetupLists;
-        private SetupList _selectedSetupList;
+        //Setup
+        SetupManager _setupManager;
+        List<VMSetup> _setups;
+        List<VMSetup> _currentSetups;
         //Sponsor
         private List<Sponsor> _allSponsors;
         private List<Sponsor> _currentSponsors;
@@ -647,7 +646,7 @@ namespace Presentation
         /// <param name="e"></param>
         private void NavBarSubHeaderSetupLists_Click(object sender, RoutedEventArgs e)
         {
-            DisplayPage("BrowseSetupList");
+            DisplayPage("BrowseSetup");
             BrowseSetupListDoOnStart();
         }
 
@@ -4009,158 +4008,162 @@ namespace Presentation
         /// </summary>
         private void BrowseSetupListDoOnStart()
         {
-            _selectedSetupList = new SetupList();
-            _setupListManager = new SetupListManager();
-            refreshRoles();
+            _setupManager = new SetupManager();
+            refreshAllSetups();
+            populateSetups();
 
         }
-
-        /// <summary>
-        /// Eduardo Colon
-        /// Created: 2019/03/05
-        /// 
-        /// method to refresh browse setup list.
-        /// </summary>
-        private void refreshRoles()
+        private void refreshAllSetups()
         {
             try
             {
-                _setupLists = _setupListManager.RetrieveAllSetupLists();
-
-                _currentSetupLists = _setupLists;
-
-                dgSetupList.ItemsSource = _currentSetupLists;
-                filterRoles();
-
+                _setups = _setupManager.SelectVMSetups();
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message + Environment.NewLine + ex.StackTrace);
+                MessageBox.Show(ex.Message);
             }
+
+            _currentSetups = _setups;
         }
 
-
-        /// <summary>
-        /// Eduardo Colon
-        /// Created: 2019/03/05
-        /// 
-        /// //method to call the filter method
-        /// </summary>
-
-        private void BtnFilterSetupList_Click(object sender, RoutedEventArgs e)
+        private void populateSetups()
         {
-            filterRoles();
-        }
-
-
-        /// <summary>
-        /// Eduardo Colon
-        /// Created: 2019/03/05
-        /// 
-        /// //method to filter the setup list
-        /// </summary>
-        private void filterRoles()
-        {
-
-            IEnumerable<SetupList> _currentSetupLists = _setupLists;
             try
             {
-
-
-                if (txtSearch.Text.ToString() != "")
+                _setups = _setupManager.SelectVMSetups();
+                if (_currentSetups == null)
                 {
-
-                    if (txtSearch.Text != "" && txtSearch.Text != null)
-                    {
-                        _currentSetupLists = _currentSetupLists.Where(b => b.Description.ToLower().Contains(txtSearch.Text.ToLower())).ToList();
-
-
-                    }
+                    _currentSetups = _setups;
                 }
-
-                if (cbCompleted.IsChecked == true && cbUncompleted.IsChecked == false)
-                {
-                    _currentSetupLists = _currentSetupLists.Where(b => b.Completed == true);
-                }
-                else if (cbCompleted.IsChecked == false && cbUncompleted.IsChecked == true)
-                {
-                    _currentSetupLists = _currentSetupLists.Where(b => b.Completed == false);
-                }
-                else if (cbCompleted.IsChecked == false && cbUncompleted.IsChecked == false)
-                {
-                    _currentSetupLists = _currentSetupLists.Where(b => b.Completed == false && b.Completed == true);
-                }
-
-                dgSetupList.ItemsSource = null;
-
-                dgSetupList.ItemsSource = _currentSetupLists;
+                dgSetups.ItemsSource = _currentSetups;
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message + Environment.NewLine + ex.StackTrace);
-
-
+                MessageBox.Show(ex.Message);
             }
-
         }
 
-        /// <summary>
-        /// Eduardo Colon
-        /// Created: 2019/03/05
-        /// 
-        /// //method to clear the filters
-        /// </summary>
-        private void BtnClearSetupList_Click(object sender, RoutedEventArgs e)
+        private void dgSetups_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
+            Setup chosenSetup = new Setup();
 
-            txtSearch.Text = "";
-            _currentSetupLists = _setupLists;
-            cbUncompleted.IsChecked = true;
-            cbCompleted.IsChecked = true;
-
-            dgSetupList.ItemsSource = _currentSetupLists;
-
-        }
-
-
-
-
-        /// <summary>
-        /// Eduardo Colon
-        /// Created: 2019/03/05
-        /// 
-        /// //method to cancel and exit a window
-        /// </summary>
-        private void BtnCancelBrowseSetupList_Click(object sender, RoutedEventArgs e)
-        {
-            var result = MessageBox.Show("Are you sure you want to quit?", "Closing Application", MessageBoxButton.OKCancel, MessageBoxImage.Question);
-            if (result == MessageBoxResult.OK)
+            chosenSetup = _setupManager.SelectSetup(((VMSetup)dgSetups.SelectedItem).SetupID);
+            try
             {
-                this.Close();
+                var readSetup = new SetupDetail(chosenSetup);
+                readSetup.ShowDialog();
+
+                refreshAllSetups();
+                populateSetups();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Unable to find that specific Setup." + ex.Message);
             }
         }
 
-
-        /// <summary>
-        /// Eduardo Colon
-        /// Created: 2019/02/25
-        /// 
-        /// method to filter uncompleted
-        /// </summary>
-        private void CbUncompleted_Click(object sender, RoutedEventArgs e)
+        private void btnAddSetup_Click(object sender, RoutedEventArgs e)
         {
-            filterRoles();
+            var createSetup = new SetupDetail();
+            createSetup.ShowDialog();
+            refreshAllSetups();
+            populateSetups();
         }
 
-        /// <summary>
-        /// Eduardo Colon
-        /// Created: 2019/03/05
-        /// 
-        /// method to filter completed
-        /// </summary>
-        private void CbCompleted_Click(object sender, RoutedEventArgs e)
+
+        private void filterDateEntered(DateTime date)
         {
-            filterRoles();
+            _currentSetups = _currentSetups.FindAll(s => s.DateEntered.CompareTo(date) >= 0);
+        }
+
+        private void filterDateRequired(DateTime date)
+        {
+            _currentSetups = _currentSetups.FindAll(s => s.DateRequired.CompareTo(date) >= 0);
+        }
+
+        private void filterSpecificDate(DateTime dateEntered, DateTime dateRequired)
+        {
+            _currentSetups = _currentSetups.FindAll(s => s.DateEntered.Date.CompareTo(dateEntered) <= 0 && s.DateEntered.Date.CompareTo(dateRequired) >= 0);
+        }
+
+        private void filterEventTitle(string eventTitle)
+        {
+            _currentSetups = _currentSetups.FindAll(s => s.EventTitle.Contains(eventTitle));
+        }
+
+        private void btnFilterSetup_Click(object sender, RoutedEventArgs e)
+        {
+            if (!(txtEventSetup.Text == null || txtEventSetup.Text.Length < 1))
+            {
+                filterEventTitle(txtEventSetup.Text);
+            }
+
+            if (!(dtpSetupDateEntered.Text == null || dtpSetupDateEntered.Text.Length < 1)
+                && (dtpSetupDateRequired.Text == null || dtpSetupDateRequired.Text.Length < 1))
+            {
+                filterDateEntered(dtpSetupDateEntered.SelectedDate.Value.Date);
+            }
+
+            if (!(dtpSetupDateRequired.Text == null || dtpSetupDateRequired.Text.Length < 1)
+                && (dtpSetupDateEntered == null || dtpSetupDateEntered.Text.Length < 1))
+            {
+                filterDateRequired(dtpSetupDateRequired.SelectedDate.Value.Date);
+            }
+
+            if (!(dtpSetupDateEntered.Text == null || dtpSetupDateEntered.Text.Length < 1)
+                && !(dtpSetupDateRequired.Text == null || dtpSetupDateRequired.Text.Length < 1))
+            {
+                filterSpecificDate(dtpSetupDateEntered.SelectedDate.Value.Date, dtpSetupDateRequired.SelectedDate.Value.Date);
+            }
+
+            populateSetups();
+        }
+
+        private void btnClearSetup_Click(object sender, RoutedEventArgs e)
+        {
+            _currentSetups = _setups;
+            populateSetups();
+            dtpSetupDateEntered.Text = "";
+            dtpSetupDateRequired.Text = "";
+            txtEventSetup.Text = "";
+        }
+
+        private void btnBrowseSetupList_Click(object sender, RoutedEventArgs e)
+        {
+            //check to see if an item is selected from the datagrid
+            VMSetup vmsetup = new VMSetup();
+            if (dgSetups.SelectedItem != null)
+            {
+                vmsetup = (VMSetup)dgSetups.SelectedItem;
+                var browseSetupList = new BrowseSetupList(vmsetup);
+                browseSetupList.ShowDialog();
+            }
+            else
+            {
+                var browseSetupList = new BrowseSetupList();
+                browseSetupList.ShowDialog();
+            }
+
+
+        }
+
+        private void BtnDeleteSetup_Click(object sender, RoutedEventArgs e)
+        {
+
+
+            _setupManager.DeleteSetup(((VMSetup)dgSetups.SelectedItem).SetupID);
+
+            var result = MessageBox.Show("Are you sure you want to delete this setup? You will also have to " +
+                "delete the Setup List too.", "This Setup will no longer be in the system.", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+
+            if (result == MessageBoxResult.Yes)
+            {
+                MessageBox.Show("The Setup has been purged from the system.");
+            }
+            refreshAllSetups();
+            populateSetups();
+
         }
 
 

@@ -1,0 +1,72 @@
+﻿<Window x:Class="Presentation.SetupListDetail"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Presentation"
+        mc:Ignorable="d"
+        Title="Setup List Detail" Height="550" Width="550">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"></RowDefinition>
+            <RowDefinition Height="50"></RowDefinition>
+            <RowDefinition Height="50"></RowDefinition>
+            <RowDefinition Height="150"></RowDefinition>
+            <RowDefinition Height="150"></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition Height="45"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <Label x:Name="lblError" VerticalContentAlignment="Top" HorizontalContentAlignment="Center"/>
+        </Grid>
+        <Grid  Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="160"></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Label x:Name="lblEventName" Grid.Column="0" Content="Event Name: " VerticalContentAlignment="Center" HorizontalContentAlignment="Right" Margin="5"/>
+            <TextBox x:Name="txtEventName" Grid.Column="1" IsReadOnly="True" Margin="10"></TextBox>
+        </Grid>
+        <Grid  Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="160"></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Label x:Name="lblCompleted" Grid.Column="0" Content="Completed: " VerticalContentAlignment="Center" HorizontalContentAlignment="Right" Margin="5"/>
+            <CheckBox x:Name="cbxCompleted" Grid.Column="1" VerticalContentAlignment="Center" Margin="5"></CheckBox>
+        </Grid>
+
+
+
+        <Grid  Grid.Row="3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="160"></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Label x:Name="lblDesription" Grid.Column="0" Content="Description: " VerticalContentAlignment="Center" HorizontalContentAlignment="Right" Margin="5"/>
+            <TextBox x:Name="txtDescription" Grid.Column="1" Margin="10" TextWrapping="Wrap" VerticalContentAlignment="Center" HorizontalContentAlignment="Left"/>
+        </Grid>
+        <Grid  Grid.Row="4">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="160"></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Label x:Name="lblComments" Grid.Column="0" Content="Comments: " VerticalContentAlignment="Center" HorizontalContentAlignment="Right" Margin="5"/>
+            <TextBox x:Name="txtComments" Grid.Column="1" Margin="10" TextWrapping="Wrap" VerticalContentAlignment="Center" HorizontalContentAlignment="Left"/>
+        </Grid>
+
+
+        <Grid  Grid.Row="7">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Button x:Name="btnSave" Grid.Column="3" Margin="7" Content="Submit" Click="BtnSave_Click" />
+            <Button x:Name="btnCancel" Grid.Column="0" Margin="7" Content="Cancel" Click="BtnCancel_Click" />
+        </Grid>
+
+
+    </Grid>
+</Window>

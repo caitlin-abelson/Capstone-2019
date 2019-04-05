@@ -24,10 +24,13 @@ namespace Presentation
     {
 
 
-        private ISetupListManager _setupListManager;
-        private List<SetupList> _setupLists;
-        private List<SetupList> _currentSetupLists;
-        SetupList _selectedSetupList = new SetupList();
+        SetupListManager _setupListManager;
+        List<VMSetupList> _setupLists;
+        List<VMSetupList> _currentSetupLists;
+
+        private VMSetup vmsetup;
+
+
 
 
         /// <summary>
@@ -38,133 +41,182 @@ namespace Presentation
         /// </summary>
         public BrowseSetupList()
         {
+
+            InitializeComponent();
             _setupListManager = new SetupListManager();
 
-            InitializeComponent();
-            
+            refreshAllSetupLists();
+            populateSetupLists();
+
         }
 
-        /// <summary>
-        /// Eduardo Colon
-        /// Created: 2019/03/05
-        /// 
-        /// constructor: BrowseSetupList with one parameter.
-        /// </summary>
-        public BrowseSetupList(ISetupListManager setupListManager = null)
+        public BrowseSetupList(VMSetup vmsetup)
         {
-            if(setupListManager == null)
-            {
-                _setupListManager = new SetupListManager();
-            }
-
-            _setupListManager = setupListManager;
+            // TODO: Complete member initialization
             InitializeComponent();
-        }
-       
-        private void TabSetupList_GotFocus(object sender, RoutedEventArgs e)
-        {
+            _setupListManager = new SetupListManager();
 
-            //dgRole.Items.Refresh();
-          
-
+            this.vmsetup = vmsetup;
+            populateSetupLists(vmsetup);
         }
 
-        private void DgSetupList_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-        {  
-           //   var role = (Role)dgRole.SelectedItem;
-            //  var detailForm = new UpdateEmployeeRole(role); 
-   
-        }
-
-       
-        /// <summary>
-        /// Eduardo Colon
-        /// Created: 2019/03/05
-        /// 
-        /// method to refresh browse setup list.
-        /// </summary>
-        private void refreshRoles()
+        private void populateSetupLists(VMSetup vmsetup)
         {
             try
             {
-                _setupLists = _setupListManager.RetrieveAllSetupLists();
-
-                _currentSetupLists = _setupLists;
-               
+                _setupLists = _setupListManager.SelectAllVMSetupLists();
+                _currentSetupLists = null;
+                if (_currentSetupLists == null)
+                {
+                    _currentSetupLists = new List<VMSetupList>();
+                    foreach (var item in _setupLists)
+                    {
+                        if (item.SetupID == vmsetup.SetupID)
+                        {
+                            _currentSetupLists.Add(item);
+                        }
+                    }
+                }
                 dgSetupList.ItemsSource = _currentSetupLists;
-                filterRoles();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+
+
+
+        /// <summary>
+        /// Author: Caitlin Abelson
+        /// Date: 2019/3/14
+        /// 
+        /// Populates the data grid with a fresh list of the current list of the setup lists.
+        /// </summary>
+        private void populateSetupLists()
+        {
+            try
+            {
+                _setupLists = _setupListManager.SelectAllVMSetupLists();
+                if (_currentSetupLists == null)
+                {
+                    _currentSetupLists = _setupLists;
+                }
+                dgSetupList.ItemsSource = _currentSetupLists;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
+        }
+
+        /// <summary>
+        /// Author: Caitlin Abelson
+        /// Date: 2019/3/14
+        /// 
+        /// Refreshes the current list to show anything new that has been added or taken away.
+        /// </summary>
+        private void refreshAllSetupLists()
+        {
+            try
+            {
+
+                _setupLists = _setupListManager.SelectAllVMSetupLists();
 
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message + Environment.NewLine + ex.StackTrace);
+                MessageBox.Show(ex.Message);
+            }
+            _currentSetupLists = _setupLists;
+        }
+
+
+        private void DgSetupList_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            SetupList chosenSetupList = new SetupList();
+
+
+            try
+            {
+                chosenSetupList = _setupListManager.SelectSetupList(((VMSetupList)dgSetupList.SelectedItem).SetupListID);
+                var readSetupList = new SetupListDetail(chosenSetupList, ((VMSetupList)dgSetupList.SelectedItem).EventTitle);
+                readSetupList.ShowDialog();
+                refreshAllSetupLists();
+                populateSetupLists();
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Unable to find selected setup list.\n" + ex.Message);
+            }
+
+        }
+
+        private void ApplyFilters()
+        {
+            try
+            {
+                refreshAllSetupLists();
+
+                if (cbxCompleted.IsChecked == true)
+                {
+                    _currentSetupLists = _setupListManager.SelectAllActiveSetupLists();
+                }
+
+                if (cbxIncomplete.IsChecked == true)
+                {
+                    _currentSetupLists = _setupListManager.SelectAllInActiveSetupLists();
+                }
+
+                if (txtSearchSetupLists.Text.ToString() != "")
+                {
+                    _currentSetupLists = _currentSetupLists.FindAll(s => s.EventTitle.ToLower().Contains(txtSearchSetupLists.Text.ToString().ToLower()));
+                }
+
+                if (vmsetup != null)
+                {
+                    List<VMSetupList> _cur = new List<VMSetupList>();
+                    foreach (var item in _currentSetupLists)
+                    {
+                        if (item.SetupID == vmsetup.SetupID)
+                        {
+                            _cur.Add(item);
+                        }
+                    }
+                    _currentSetupLists = _cur;
+                }
+
+                populateSetupLists();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
             }
         }
 
-       
         /// <summary>
         /// Eduardo Colon
         /// Created: 2019/03/05
         /// 
         /// //method to call the filter method
+        /// 
+        /// Updated By: Caitlin Abelson
+        /// Updated Date: 2019-03-27
+        /// 
+        /// The filter click button was calling a filter method that did not work. Changed filters and made adjusts
+        /// to the button method in order for it to call the appropriate filters when needed.
         /// </summary>
 
         private void BtnFilter_Click(object sender, RoutedEventArgs e)
         {
-            filterRoles();
+            ApplyFilters();
         }
 
 
-        /// <summary>
-        /// Eduardo Colon
-        /// Created: 2019/03/05
-        /// 
-        /// //method to filter the setup list
-        /// </summary>
-        private void filterRoles()
-        {
-           
-            IEnumerable<SetupList> _currentSetupLists = _setupLists;
-            try
-            {
-               
-                
-                if (txtSearch.Text.ToString() != "")
-                {
-                   
-                    if (txtSearch.Text != "" && txtSearch.Text != null)
-                    {
-                        _currentSetupLists = _currentSetupLists.Where(b => b.Description.ToLower().Contains(txtSearch.Text.ToLower())).ToList();
 
-                        
-                    }
-                }
-
-                if (cbCompleted.IsChecked == true && cbUncompleted.IsChecked == false)
-                {
-                    _currentSetupLists = _currentSetupLists.Where(b => b.Completed == true);
-                }
-                else if (cbCompleted.IsChecked == false && cbUncompleted.IsChecked == true)
-                {
-                    _currentSetupLists = _currentSetupLists.Where(b => b.Completed == false);
-                }
-                else if (cbCompleted.IsChecked == false && cbUncompleted.IsChecked == false)
-                {
-                    _currentSetupLists = _currentSetupLists.Where(b => b.Completed == false && b.Completed == true);
-                }
-                
-                dgSetupList.ItemsSource = null;
-
-                dgSetupList.ItemsSource = _currentSetupLists;
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message + Environment.NewLine + ex.StackTrace);
-
-
-            }
-
-        }
 
         /// <summary>
         /// Eduardo Colon
@@ -175,10 +227,16 @@ namespace Presentation
         private void BtnClearSetupList_Click(object sender, RoutedEventArgs e)
         {
 
-            txtSearch.Text = "";
-            _currentSetupLists = _setupLists;
-            cbUncompleted.IsChecked = true;
-            cbCompleted.IsChecked = true;
+            txtSearchSetupLists.Text = "";
+            if (vmsetup != null)
+            {
+                _currentSetupLists = _setupLists.FindAll(x => x.SetupID == vmsetup.SetupID);
+            }
+            else
+            {
+                _currentSetupLists = _setupLists;
+            }
+
 
             dgSetupList.ItemsSource = _currentSetupLists;
 
@@ -186,7 +244,7 @@ namespace Presentation
 
 
 
-    
+
         /// <summary>
         /// Eduardo Colon
         /// Created: 2019/03/05
@@ -196,46 +254,74 @@ namespace Presentation
         private void BtnCancel_Click(object sender, RoutedEventArgs e)
         {
             var result = MessageBox.Show("Are you sure you want to quit?", "Closing Application", MessageBoxButton.OKCancel, MessageBoxImage.Question);
-            if(result == MessageBoxResult.OK)
+            if (result == MessageBoxResult.OK)
             {
                 this.Close();
             }
         }
 
-     
 
-        /// <summary>
-        /// Eduardo Colon
-        /// Created: 2019/02/05
-        /// 
-        /// method window loaded to refresh roles
-        /// </summary>
-        private void Window_Loaded(object sender, RoutedEventArgs e)
+
+
+        private void BtnUpdateSetupList_Click(object sender, RoutedEventArgs e)
         {
-            refreshRoles();
+            SetupList chosenSetupList = new SetupList();
+
+
+            try
+            {
+                chosenSetupList = _setupListManager.SelectSetupList(((VMSetupList)dgSetupList.SelectedItem).SetupListID);
+                var readSetupList = new SetupListDetail(chosenSetupList, ((VMSetupList)dgSetupList.SelectedItem).EventTitle);
+                readSetupList.ShowDialog();
+                refreshAllSetupLists();
+                populateSetupLists();
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Unable to find selected setup list.\n" + ex.Message);
+            }
         }
 
-
-        /// <summary>
-        /// Eduardo Colon
-        /// Created: 2019/02/25
-        /// 
-        /// method to filter uncompleted
-        /// </summary>
-        private void CbUncompleted_Click(object sender, RoutedEventArgs e)
+        private void BtnDeleteSetupList_Click(object sender, RoutedEventArgs e)
         {
-            filterRoles();
+            try
+            {
+                _setupListManager.DeleteSetupList(((VMSetupList)dgSetupList.SelectedItem).SetupListID, ((VMSetupList)dgSetupList.SelectedItem).Completed);
+                if (((VMSetupList)dgSetupList.SelectedItem).Completed)
+                {
+                    var result = MessageBox.Show("Are you sure you want to deactivate this Setup List?", "This Setup List will no longer be active in the system.", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+
+                    if (result == MessageBoxResult.Yes)
+                    {
+                        MessageBox.Show("The Setup List has been deactivated.");
+                    }
+                }
+                else
+                {
+                    var result = MessageBox.Show("Are you sure you want to delete this Setup List?", "This Setup List will no longer be in the system.", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+
+                    if (result == MessageBoxResult.Yes)
+                    {
+                        MessageBox.Show("The Setup List has been purged.");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Can't delete this Setup List" + ex.Message);
+            }
+
+            refreshAllSetupLists();
+            populateSetupLists();
         }
 
-        /// <summary>
-        /// Eduardo Colon
-        /// Created: 2019/03/05
-        /// 
-        /// method to filter completed
-        /// </summary>
-        private void CbCompleted_Click(object sender, RoutedEventArgs e)
+        private void BtnViewSetupList_Click(object sender, RoutedEventArgs e)
         {
-            filterRoles();
+            SetupList chosenSetupList = new SetupList();
+            chosenSetupList = _setupListManager.SelectSetupList(((VMSetupList)dgSetupList.SelectedItem).SetupListID);
+            var readSetupList = new SetupListDetail(chosenSetupList, ((VMSetupList)dgSetupList.SelectedItem).EventTitle);
+            readSetupList.ShowDialog();
         }
     }
 

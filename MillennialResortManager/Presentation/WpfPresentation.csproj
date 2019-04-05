@@ -99,6 +99,9 @@
     </Compile>
     <Compile Include="BrowsePetType.xaml.cs" />
     <Compile Include="BrowseReservation.xaml.cs" />
+    <Compile Include="BrowseSetup.xaml.cs">
+      <DependentUpon>BrowseSetup.xaml</DependentUpon>
+    </Compile>
     <Compile Include="BrowseSetupList.xaml.cs">
       <DependentUpon>BrowseSetupList.xaml</DependentUpon>
     </Compile>
@@ -167,6 +170,12 @@
     <Compile Include="OrderRecieving.xaml.cs" />
     <Compile Include="Read_BrowseOrder.xaml.cs" />
     <Compile Include="RoomTypes.xaml.cs" />
+    <Compile Include="SetupDetail.xaml.cs">
+      <DependentUpon>SetupDetail.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SetupListDetail.xaml.cs">
+      <DependentUpon>SetupListDetail.xaml</DependentUpon>
+    </Compile>
     <Compile Include="viewAccount.xaml.cs" />
     <Compile Include="ViewPerformance.xaml.cs" />
     <Page Include="AddDepartment.xaml">
@@ -240,6 +249,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="BrowseReservation.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="BrowseSetup.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -537,6 +550,14 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="RoomTypes.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="SetupDetail.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="SetupListDetail.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

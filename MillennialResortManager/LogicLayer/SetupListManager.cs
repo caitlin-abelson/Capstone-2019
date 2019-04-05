@@ -3,47 +3,127 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Security.Cryptography;
-using DataAccessLayer;
 using DataObjects;
+using DataAccessLayer;
 
 namespace LogicLayer
 {
 
-    /// <summary>
-    /// Eduardo Colon
-    /// Created: 2019/03/05
-    /// 
-    /// Concrete class for ISetupManager.
-    /// </summary>
     public class SetupListManager : ISetupListManager
     {
         private ISetupListAccessor _setupListAccessor;
 
-
+        /// <summary>
+        /// Author: Caitlin Abelson
+        /// Created Date: 2/28/19
+        /// 
+        /// Constructor for SetupListManager
+        /// </summary>
         public SetupListManager()
         {
             _setupListAccessor = new SetupListAccessor();
         }
 
-
-        public SetupListManager(SetupListAccessorMock setupListAccessorMock)
+        /// <summary>
+        /// Author: Caitlin Abelson
+        /// Created Date: 2019-02-28
+        /// 
+        /// The method for deactivating and deleting a setupList. 
+        /// </summary>
+        /// <param name="setupListID"></param>
+        /// <param name="isActive"></param>
+        public void DeleteSetupList(int setupListID, bool isActive)
         {
-            _setupListAccessor = setupListAccessorMock;
+            // If the setupList is completed, the setuplist needs to be deactivated or made incomplete
+            // before it can be deleted.
+            if (isActive == true)
+            {
+                try
+                {
+                    _setupListAccessor.DeactiveSetupList(setupListID);
+                }
+                catch (Exception)
+                {
+                    throw;
+                }
+            }
+            // If the setuplist is incomplete then the setupList can be deleted.
+            else
+            {
+                try
+                {
+                    _setupListAccessor.DeleteSetupList(setupListID);
+                }
+                catch (Exception)
+                {
+                    throw;
+                }
+            }
         }
 
         /// <summary>
-        /// Eduardo Colon
-        /// Created: 2019/03/05
+        /// Author: Caitlin Abelson
+        /// Created Date: 2019-02-28
         /// 
-        /// method to get a list of setup
+        /// 
         /// </summary>
-        public List<SetupList> RetrieveAllSetupLists()
+        /// <param name="newSetupList">The object that the new SetupList is being created to</param>
+        /// <returns></returns>
+        public void InsertSetupList(SetupList newSetupList)
         {
-            List<SetupList> setupLists;
+
             try
             {
-               setupLists = _setupListAccessor.RetrieveAllSetupLists();
+                _setupListAccessor.InsertSetupList(newSetupList);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+
+
+
+        }
+
+        /// <summary>
+        /// Author: Caitlin Abelson
+        /// Created Date: 2019-02-28
+        /// 
+        /// Get a list of all of the SetupLists.
+        /// </summary>
+        /// <returns></returns>
+        public List<VMSetupList> SelectAllVMSetupLists()
+        {
+            List<VMSetupList> setupLists = new List<VMSetupList>();
+
+            try
+            {
+                setupLists = _setupListAccessor.SelectVMSetupLists();
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+            return setupLists;
+        }
+
+        //Eduardo
+        /// <summary>
+        /// Updated By: Caitlin Abelson
+        /// Updated Date: 2019-03-19
+        /// 
+        /// The active SetupLists needs to be a list of the the VMSetupList objects not the SetupList objects.
+        /// With that, I also changed the accessor method that is being called.
+        /// </summary>
+        /// <returns></returns>
+        public List<VMSetupList> SelectAllActiveSetupLists()
+        {
+            List<VMSetupList> setupLists;
+            try
+            {
+                setupLists = _setupListAccessor.SelectActiveSetupLists();
             }
             catch (Exception)
             {
@@ -54,19 +134,18 @@ namespace LogicLayer
         }
 
         /// <summary>
-        /// Eduardo Colon
-        /// Created: 2019/03/05
+        /// Author: Caitlin Abelson
+        /// Created Date: 2019-03-19
         /// 
-        /// method to retrieve setupList by setuplistid
+        /// 
         /// </summary>
-
-       
-        public SetupList RetrieveSetupListBySetupListID(int setupListID)
+        /// <returns></returns>
+        public List<VMSetupList> SelectAllInActiveSetupLists()
         {
-            SetupList setupList;
+            List<VMSetupList> setupList;
             try
             {
-                setupList = _setupListAccessor.RetrieveSetupListByRoleId(setupListID);
+                setupList = _setupListAccessor.SelectInactiveSetupLists();
             }
             catch (Exception)
             {
@@ -75,6 +154,63 @@ namespace LogicLayer
             return setupList;
         }
 
+        /// <summary>
+        /// Author: Caitlin Abelson
+        /// Created Date: 2/28/19
+        /// 
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public List<SetupList> SelectAllSetupLists()
+        {
+            List<SetupList> setupLists = new List<SetupList>();
+            try
+            {
+                setupLists = _setupListAccessor.SelectAllSetupLists();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            return setupLists;
+        }
 
+        //Eduardo
+        public SetupList SelectSetupList(int setupListID)
+        {
+            SetupList setupList;
+            try
+            {
+                setupList = _setupListAccessor.SelectSetupList(setupListID);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            return setupList;
+        }
+
+        /// <summary>
+        /// Author: Caitlin Abelson
+        /// Created Date: 2/28/19
+        /// 
+        /// 
+        /// </summary>
+        /// <param name="newSetupList"></param>
+        /// <param name="oldSetupList"></param>
+        public void UpdateSetupList(SetupList newSetupList, SetupList oldSetupList)
+        {
+
+            try
+            {
+                _setupListAccessor.UpdateSetupList(newSetupList, oldSetupList);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+
+
+        }
     }
 }

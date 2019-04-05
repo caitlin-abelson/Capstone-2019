@@ -93,6 +93,7 @@
     <Compile Include="IReservationAccessor.cs" />
     <Compile Include="IRoleAccessor.cs" />
     <Compile Include="IRoomAccessor.cs" />
+    <Compile Include="ISetupAccessor.cs" />
     <Compile Include="ISetupListAccessor.cs" />
     <Compile Include="IShopAccessor.cs" />
     <Compile Include="IRoomTypeAccessor.cs" />
@@ -142,6 +143,7 @@
     <Compile Include="RoleAccessor.cs" />
     <Compile Include="RoleAccessorMock.cs" />
     <Compile Include="RoomAccessor.cs" />
+    <Compile Include="SetupAccessor.cs" />
     <Compile Include="SetupListAccessor.cs" />
     <Compile Include="SetupListAccessorMock.cs" />
     <Compile Include="ShopAccessorMock.cs" />
