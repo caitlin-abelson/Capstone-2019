@@ -32,6 +32,63 @@
         <Setter Property="Background" Value="{StaticResource Teal}"/>
         <Setter Property="Foreground" Value="{StaticResource Cream}"/>
     </Style>
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     <!-- Button Default -->
     <Style TargetType="Button">
         <Setter Property="Background" Value="{StaticResource DarkBlue}"/>
@@ -98,6 +155,7 @@
         </Style.Resources>
     </Style>
 
+    <!-- Data Grid -->
     <Style TargetType="DataGrid">
         <Setter Property="Background" Value="{StaticResource Dirt}"/>
     </Style>

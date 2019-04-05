@@ -453,7 +453,7 @@ namespace Presentation
         private void NavBarSubHeaderReservation_Click(object sender, RoutedEventArgs e)
         {
             DisplayPage("BrowseReservation");
-            //BrowseReservationDoOnStart();
+            BrowseReservationDoOnStart();
         }
 
         /// <summary>
@@ -466,7 +466,7 @@ namespace Presentation
         private void NavBarSubHeaderShops_Click(object sender, RoutedEventArgs e)
         {
             DisplayPage("BrowseShops");
-            // BrowseShopsDoOnStart();
+            BrowseShopsDoOnStart();
         }
 
         /// <summary>
@@ -479,7 +479,7 @@ namespace Presentation
         private void NavBarSubHeaderEmployee_Click(object sender, RoutedEventArgs e)
         {
             DisplayPage("BrowseEmployees");
-            //BrowseEmployeesDoOnStart();
+            BrowseEmployeesDoOnStart();
         }
 
         /// <summary>
@@ -492,7 +492,7 @@ namespace Presentation
         private void NavBarSubHeaderSuppliers_Click(object sender, RoutedEventArgs e)
         {
             DisplayPage("BrowseSuppliers");
-            //BrowseSuppliersDoOnStart();
+            BrowseSuppliersDoOnStart();
         }
 
         /// <summary>
@@ -505,7 +505,7 @@ namespace Presentation
         private void NavBarSubHeaderProducts_Click(object sender, RoutedEventArgs e)
         {
             DisplayPage("BrowseProducts");
-            //BrowseProductsDoOnStart();
+            BrowseProductsDoOnStart();
         }
 
         /// <summary>
@@ -518,7 +518,7 @@ namespace Presentation
         private void NavBarSubHeaderBuildings_Click(object sender, RoutedEventArgs e)
         {
             DisplayPage("BrowseBuilding");
-            //BrowseBuildingDoOnStart();
+            BrowseBuildingDoOnStart();
         }
 
         /// <summary>
@@ -531,7 +531,7 @@ namespace Presentation
         private void NavBarSubHeaderOrders_Click(object sender, RoutedEventArgs e)
         {
             DisplayPage("BrowseOrders");
-            //BrowseOrderDoOnStart();
+            BrowseOrderDoOnStart();
         }
 
         /// <summary>
@@ -544,7 +544,7 @@ namespace Presentation
         private void NavBarSubHeaderEmployeeRoles_Click(object sender, RoutedEventArgs e)
         {
             DisplayPage("BrowseEmployeeRoles");
-            //BrowseEmployeeRolesDoOnStart();
+            BrowseEmployeeRolesDoOnStart();
         }
 
         /// <summary>
@@ -557,7 +557,7 @@ namespace Presentation
         private void NavBarSubHeaderGuestTypes_Click(object sender, RoutedEventArgs e)
         {
             DisplayPage("BrowseGuestTypes");
-            //BrowseGuestTypesDoOnStart();
+            BrowseGuestTypesDoOnStart();
         }
 
         /// <summary>
@@ -570,7 +570,7 @@ namespace Presentation
         private void NavBarSubHeaderRoomTypes_Click(object sender, RoutedEventArgs e)
         {
             DisplayPage("BrowseRoomType");
-            //BrowseRoomTypesDoOnStart();
+            BrowseRoomTypesDoOnStart();
         }
 
         /// <summary>
@@ -583,7 +583,7 @@ namespace Presentation
         private void NavBarSubHeaderPerformances_Click(object sender, RoutedEventArgs e)
         {
             DisplayPage("BrowsePerformance");
-            //BrowsePerformanceDoOnStart();
+            BrowsePerformanceDoOnStart();
         }
 
         /// <summary>
@@ -596,7 +596,7 @@ namespace Presentation
         private void NavBarSubHeaderEventTypes_Click(object sender, RoutedEventArgs e)
         {
             DisplayPage("BrowseEventTypes");
-            //BrowseEventTypesDoOnStart();
+            BrowseEventTypesDoOnStart();
         }
 
         /// <summary>
@@ -609,7 +609,7 @@ namespace Presentation
         private void NavBarSubHeaderAppointmentTypes_Click(object sender, RoutedEventArgs e)
         {
             DisplayPage("BrowseAppointmentType");
-            //BrowseAppointmentTypeDoOnStart();
+            BrowseAppointmentTypeDoOnStart();
         }
 
         /// <summary>
@@ -622,7 +622,7 @@ namespace Presentation
         private void NavBarSubHeaderGuests_Click(object sender, RoutedEventArgs e)
         {
             DisplayPage("BrowseGuests");
-            //BrowseGuestDoOnStart();
+            BrowseGuestDoOnStart();
         }
 
         /// <summary>
@@ -635,7 +635,7 @@ namespace Presentation
         private void NavBarSubHeaderGuestVehicles_Click(object sender, RoutedEventArgs e)
         {
             DisplayPage("BrowseGuestVehicle");
-            //BrowseGuestVehicleDoOnStart();
+            BrowseGuestVehicleDoOnStart();
         }
 
         /// <summary>
@@ -648,7 +648,7 @@ namespace Presentation
         private void NavBarSubHeaderSetupLists_Click(object sender, RoutedEventArgs e)
         {
             DisplayPage("BrowseSetupList");
-            //BrowseSetupListDoOnStart();
+            BrowseSetupListDoOnStart();
         }
 
         /// <summary>
@@ -661,7 +661,7 @@ namespace Presentation
         private void NavBarSubHeaderSponsors_Click(object sender, RoutedEventArgs e)
         {
             DisplayPage("BrowseSponsor");
-            //BrowseSponsorDoOnStart();
+            BrowseSponsorDoOnStart();
         }
 
         /// <summary>
@@ -674,7 +674,7 @@ namespace Presentation
         private void NavBarSubHeaderRecipes_Click(object sender, RoutedEventArgs e)
         {
             DisplayPage("BrowseRecipe");
-            //BrowseRecipeDoOnStart();
+            BrowseRecipeDoOnStart();
         }
 
         /// <summary>
@@ -687,7 +687,7 @@ namespace Presentation
         private void NavBarSubHeaderEventSponsList_Click(object sender, RoutedEventArgs e)
         {
             DisplayPage("BrowseEventSponsorsList");
-            //BrowseEventSponsorsListDoOnStart();
+            BrowseEventSponsorsListDoOnStart();
         }
 
         /// <summary>
@@ -713,7 +713,7 @@ namespace Presentation
         private void NavBarSubHeaderSupplierOrders_Click(object sender, RoutedEventArgs e)
         {
             DisplayPage("BrowseSupplierOrders");
-            //BrowseSupplierOrdersDoOnStart();
+            BrowseSupplierOrdersDoOnStart();
         }
 
         /// <summary>
@@ -726,7 +726,7 @@ namespace Presentation
         private void NavBarSubHeaderPets_Click(object sender, RoutedEventArgs e)
         {
             DisplayPage("BrowsePets");
-            //BrowsePetsDoOnStart();
+            BrowsePetsDoOnStart();
         }
 
         /// <summary>
@@ -739,7 +739,7 @@ namespace Presentation
         private void NavBarSubHeaderRooms_Click(object sender, RoutedEventArgs e)
         {
             DisplayPage("BrowseRooms");
-            //BrowseRoomsDoOnStart();
+            BrowseRoomsDoOnStart();
         }
 
         /// <summary>
@@ -752,7 +752,7 @@ namespace Presentation
         private void NavBarSubHeaderMaintenanceTypes_Click(object sender, RoutedEventArgs e)
         {
             DisplayPage("BrowseMaintenanceTypes");
-            //BrowseMaintenanceTypeDoOnStart();
+            BrowseMaintenanceTypeDoOnStart();
         }
 
         /// <summary>
@@ -765,7 +765,7 @@ namespace Presentation
         private void NavBarSubHeaderMembers_Click(object sender, RoutedEventArgs e)
         {
             DisplayPage("BrowseMembers");
-            //BrowseMemberDoOnStart();
+            BrowseMemberDoOnStart();
         }
 
         /// <summary>
@@ -778,7 +778,7 @@ namespace Presentation
         private void NavBarSubHeaderProfile_Click(object sender, RoutedEventArgs e)
         {
             DisplayPage("Profile");
-            //ProfileDoOnStart();
+            ProfileDoOnStart();
         }
 
         /// <summary>
@@ -789,7 +789,25 @@ namespace Presentation
         private void NavBarSubHeaderMaintenanceWorkOrder_Click(object sender, RoutedEventArgs e)
         {
             DisplayPage("MaintenanceWorkOrder");
-            //BrowseMaintenanceWorkOrderDoOnStart();
+            BrowseMaintenanceWorkOrderDoOnStart();
+        }
+
+        /**
+        * Created By Francis Mingomba
+        * Date: 3/16/2019
+        */
+        private void NavBarSubHeaderManageShuttleVehicles_OnClick(object sender, RoutedEventArgs e)
+        {
+
+            DisplayPage("BrowseShuttleVehiclesPage");
+
+            foreach (UserControl item in this.BrowseShuttleVehiclesPage.Children)
+            {
+                if (item.GetType() != typeof(FrmBrowseShuttleVehicles)) continue;
+
+                FrmBrowseShuttleVehicles instance = (FrmBrowseShuttleVehicles)item;
+                instance.RefreshShuttleVehiclesDatagrid();
+            }
         }
 
         /*--------------------------- Ending NavBar Code --------------------------------*/
@@ -2351,8 +2369,14 @@ namespace Presentation
         private void BrowseBuildingDoOnStart()
         {
             buildingManager = new BuildingManager();
-
-            allBuildings = buildingManager.RetrieveAllBuildings();
+            try{
+                allBuildings = buildingManager.RetrieveAllBuildings();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            
             dgBuildings.ItemsSource = allBuildings;
         }
 
@@ -2371,7 +2395,15 @@ namespace Presentation
         /// </remarks>
         private void displayBuildings()
         {
-            dgBuildings.ItemsSource = allBuildings;
+            try
+            {
+                dgBuildings.ItemsSource = allBuildings;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            
         }
 
         /// <summary>
@@ -3198,12 +3230,28 @@ namespace Presentation
 
         private void txtSearchPerformance_TextChanged(object sender, TextChangedEventArgs e)
         {
-            dgPerformaces.ItemsSource = performanceManager.SearchPerformances(txtSearch.Text);
+            try
+            {
+                dgPerformaces.ItemsSource = performanceManager.SearchPerformances(txtSearch.Text);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            
         }
 
         private void setupWindowPerformance()
         {
-            dgPerformaces.ItemsSource = performanceManager.RetrieveAllPerformance();
+            try
+            {
+                dgPerformaces.ItemsSource = performanceManager.RetrieveAllPerformance();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            
         }
 
         /*--------------------------- Ending BrowsePerformance Code --------------------------------*/
@@ -4514,6 +4562,20 @@ namespace Presentation
         }
 
 
+        /// <summary>
+        /// @Author by Phillip Hansen
+        /// @Created 3/29/2019
+        /// 
+        /// Needed a 'Delete Recipe' button to exist and perform functionality.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void BtnDeleteRecipe_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+
         /*--------------------------- Ending BrowseRecipe Code --------------------------------*/
         #endregion
 
@@ -4624,6 +4686,21 @@ namespace Presentation
                 MessageBox.Show(ex.Message + "\nCould not retrieve Event Sponsor List.");
             }
         }
+
+
+        /// <summary>
+        /// @Author by Phillip Hansen
+        /// @Created 3/29/2019
+        /// 
+        /// Needed a 'Read Sponsor' button to exist and perform functionality.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnReadSponsor_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
         /*--------------------------- Ending BrowseEventSponsor Code --------------------------------*/
         #endregion
 
@@ -5004,11 +5081,27 @@ namespace Presentation
             //Re-Add the events based on the radio button selected
             if(btnEventCancelled.IsChecked == true)
             {
-                _events = _eventManager.RetrieveAllCancelledEvents();
+                try
+                {
+                    _events = _eventManager.RetrieveAllCancelledEvents();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error: " + ex.Message);
+                }
+                
             }
             else if(btnEventUncancelled.IsChecked == true)
             {
-                _events = _eventManager.RetrieveAllEvents();
+                try
+                {
+                    _events = _eventManager.RetrieveAllEvents();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error: "+ex.Message);
+                }
+                
             }
 
 
@@ -5967,7 +6060,16 @@ namespace Presentation
             txtLastNameProfile.Text = _employee.LastName;
             txtPhoneProfile.Text = _employee.PhoneNumber;
             txtEmailProfile.Text = _employee.Email;
-            cbxDepartmentProfile.SelectedItem = _departments.Find(d => d.DepartmentID == _employee.DepartmentID);
+            if (_departments != null)
+            {
+                cbxDepartmentProfile.SelectedItem = _departments.Find(d => d.DepartmentID == _employee.DepartmentID);
+            }
+            else
+            {
+                cbxDepartmentProfile.ItemsSource = new List<string>() { _employee.DepartmentID };
+                cbxDepartmentProfile.SelectedIndex = 0;
+            }
+            
             chkActiveProfile.IsChecked = _employee.Active;
             readOnlyForm();
             btnSaveProfile.Content = "Update";
@@ -6494,49 +6596,11 @@ namespace Presentation
 
 
 
-        /**
-         * Created By Francis Mingomba
-         * Date: 3/16/2019
-         */
-        private void NavBarSubHeaderManageShuttleVehicles_OnClick(object sender, RoutedEventArgs e)
-        {
+       
 
-            DisplayPage("BrowseShuttleVehiclesPage");
+       
 
-            foreach (UserControl item in this.BrowseShuttleVehiclesPage.Children)
-            {
-                if (item.GetType() != typeof(FrmBrowseShuttleVehicles)) continue;
-
-                FrmBrowseShuttleVehicles instance = (FrmBrowseShuttleVehicles)item;
-                instance.RefreshShuttleVehiclesDatagrid();
-            }
-        }
-
-        /// <summary>
-        /// @Author by Phillip Hansen
-        /// @Created 3/29/2019
-        /// 
-        /// Needed a 'Delete Recipe' button to exist and perform functionality.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void BtnDeleteRecipe_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        /// <summary>
-        /// @Author by Phillip Hansen
-        /// @Created 3/29/2019
-        /// 
-        /// Needed a 'Read Sponsor' button to exist and perform functionality.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void btnReadSponsor_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
+        
 
         
     }
