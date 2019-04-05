@@ -23,5 +23,9 @@ namespace LogicLayer
 
         int DeleteSupplierOrder(int supplierOrderID);
 
+        SupplierOrder RetrieveSupplierOrderByID(int supplierOrderID);
+
+        void CompleteSupplierOrder(int supplierOrderID);
+
     }
 }

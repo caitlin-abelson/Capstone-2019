@@ -132,6 +132,7 @@
     <Compile Include="ProductAccessorMSSQL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReceivingAccessor.cs" />
+    <Compile Include="ReceivingAccessorMock.cs" />
     <Compile Include="RecipeAccessor.cs" />
     <Compile Include="RecipeAccessorMock.cs" />
     <Compile Include="ReservationAccessorMock.cs" />

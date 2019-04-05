@@ -70,6 +70,7 @@
                         <MenuItem Header="Products"  x:Name="NavBarSubHeaderProducts" x:Uid="NBProducts" Click="NavBarSubHeaderProducts_Click"/>
                         <MenuItem Header="Sponsors" x:Name="NavBarSubHeaderSponsors" x:Uid="NBSponsors" Click="NavBarSubHeaderSponsors_Click"/>
                         <MenuItem Header="SupplierOrders" x:Name="NavBarSubHeaderSupplierOrders" x:Uid="NBSupplierOrders" Click="NavBarSubHeaderSupplierOrders_Click"/>
+                        <MenuItem Header="Receiving" x:Name="NavBarSubHeaderReceiving" x:Uid="NBReceiving"/>
                     </MenuItem>
                     <MenuItem Header="_Resort Ops" x:Name="_NavBarHeaderResortOperations" Style="{StaticResource NavBarHeader}" >
                         <MenuItem Header="Appointment Types" x:Name="NavBarSubHeaderAppointmentTypes" x:Uid="NBAppointmentTypes" Click="NavBarSubHeaderAppointmentTypes_Click"/>
@@ -1502,7 +1503,35 @@
 
                 </Grid>
             </Grid>
-            
+            <!--Receiving Page-->
+            <Grid x:Name="ReceivingPage" Visibility="Hidden">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="50"></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition Height="75"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0">
+                    <Label x:Name="lblReceiving" Content="Receiving Tickets:" VerticalAlignment="Center" HorizontalAlignment="Left"></Label>
+                </Grid>
+                <Grid Grid.Row="1">
+                    <DataGrid x:Name="dgReceiving" MouseDoubleClick="dgReceiving_MouseDoubleClick" AutoGeneratingColumn="dgReceiving_AutoGeneratingColumn" >
+
+                    </DataGrid>
+                </Grid>
+                <Grid Grid.Row="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Button x:Name="Cancel" Click="Cancel_Click" Content="Cancel" Margin="10" Grid.Column="0"></Button>
+                    <Button x:Name="Edit" Content="Edit" Margin="10" Grid.Column="3" Click="Edit_Click"></Button>
+                    <Button x:Name="Complete" Content="Finish Ticket" Margin="10" Grid.Column="2" Click="Complete_Click" ></Button>
+                </Grid>
+
+            </Grid>
+           
             <!--Manage Vehicles Page-->
             <Grid x:Name="BrowseShuttleVehiclesPage" Visibility="Hidden">
                 <local:FrmBrowseShuttleVehicles/>

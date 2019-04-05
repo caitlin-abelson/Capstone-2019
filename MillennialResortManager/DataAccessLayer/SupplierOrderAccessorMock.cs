@@ -297,5 +297,15 @@ namespace DataAccessLayer
                 return 0;
             }
         }
+
+        public SupplierOrder RetrieveSupplierOrderByID(int supplierOrderID)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void CompleteSupplierOrder(int supplierOrderID)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
