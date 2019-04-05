@@ -120,10 +120,10 @@ namespace UnitTests
         
         [TestMethod]
         [ExpectedException(typeof(ArgumentException))]
-        public void TestCreateReservationInValidInputDescription()
+        public void TestCreateMaintenanceWorkOrderInValidInputDescription()
         {
             //Arrange
-            MaintenanceWorkOrder newMaintenanceWorkOrder = new MaintenanceWorkOrder() { MaintenanceTypeID = "Plumbing", DateRequested = DateTime.Now, DateCompleted = DateTime.Now.AddDays(1), RequestingEmployeeID = 100000, WorkingEmployeeID = 100000, Description = "Created In Unit Test: TestCreateReservationInValidInputDescription()" + createLongString(1001), Comments = "Test Comment", MaintenanceStatusID = "Open", ResortPropertyID = 1, Complete = true };
+            MaintenanceWorkOrder newMaintenanceWorkOrder = new MaintenanceWorkOrder() { MaintenanceTypeID = "Plumbing", DateRequested = DateTime.Now, DateCompleted = DateTime.Now.AddDays(1), RequestingEmployeeID = 100000, WorkingEmployeeID = 100000, Description = "Created In Unit Test: TestCreateMaintenanceWorkOrderInValidInputDescription()" + createLongString(1001), Comments = "Test Comment", MaintenanceStatusID = "Open", ResortPropertyID = 1, Complete = true };
             //Act
             //Since Description is invalid, this should throw an Exception
             _maintenanceWorkOrderManager.AddMaintenanceWorkOrder(newMaintenanceWorkOrder);
@@ -131,10 +131,10 @@ namespace UnitTests
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentException))]
-        public void TestCreateReservationInValidInputComments()
+        public void TestCreateMaintenanceWorkOrderInValidInputComments()
         {
             //Arrange
-            MaintenanceWorkOrder newMaintenanceWorkOrder = new MaintenanceWorkOrder() { MaintenanceTypeID = "Plumbing", DateRequested = DateTime.Now, DateCompleted = DateTime.Now.AddDays(1), RequestingEmployeeID = 100000, WorkingEmployeeID = 100000, Description = "Created In Unit Test: TestCreateReservationInValidInputComments()", Comments = createLongString(1001), MaintenanceStatusID = "Open", ResortPropertyID = 1, Complete = true };
+            MaintenanceWorkOrder newMaintenanceWorkOrder = new MaintenanceWorkOrder() { MaintenanceTypeID = "Plumbing", DateRequested = DateTime.Now, DateCompleted = DateTime.Now.AddDays(1), RequestingEmployeeID = 100000, WorkingEmployeeID = 100000, Description = "Created In Unit Test: TestCreateMaintenanceWorkOrderInValidInputComments()", Comments = createLongString(1001), MaintenanceStatusID = "Open", ResortPropertyID = 1, Complete = true };
             //Act
             //Since Description is invalid, this should throw an Exception
             _maintenanceWorkOrderManager.AddMaintenanceWorkOrder(newMaintenanceWorkOrder);
@@ -142,10 +142,10 @@ namespace UnitTests
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentException))]
-        public void TestCreateReservationInValidInputMaintenanceResortID()
+        public void TestCreateMaintenanceWorkOrderInValidInputMaintenanceResortID()
         {
             //Arrange
-            MaintenanceWorkOrder newMaintenanceWorkOrder = new MaintenanceWorkOrder() { MaintenanceTypeID = "Plumbing", DateRequested = DateTime.Now, DateCompleted = DateTime.Now.AddDays(1), RequestingEmployeeID = 100000, WorkingEmployeeID = 100000, Description = "Created In Unit Test: TestCreateReservationInValidInputMaintenanceResortID()", Comments = "Test Comment", MaintenanceStatusID = "Open", ResortPropertyID = -1, Complete = true };
+            MaintenanceWorkOrder newMaintenanceWorkOrder = new MaintenanceWorkOrder() { MaintenanceTypeID = "Plumbing", DateRequested = DateTime.Now, DateCompleted = DateTime.Now.AddDays(1), RequestingEmployeeID = 100000, WorkingEmployeeID = 100000, Description = "Created In Unit Test: TestCreateMaintenanceWorkOrderInValidInputMaintenanceResortID()", Comments = "Test Comment", MaintenanceStatusID = "Open", ResortPropertyID = -1, Complete = true };
             //Act
             //Since Status is invalid, this should throw an Exception
             _maintenanceWorkOrderManager.AddMaintenanceWorkOrder(newMaintenanceWorkOrder);
@@ -271,7 +271,7 @@ namespace UnitTests
         /// </summary>
 
         [TestMethod]
-        public void TestDeactivateReservationValid()
+        public void TestDeactivateMaintenanceWorkOrderValid()
         {
             //Arrange
             int validMaintenanceWorkOrderID = _maintenanceWorkOrders[0].MaintenanceWorkOrderID;
@@ -285,7 +285,7 @@ namespace UnitTests
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentException))]
-        public void TestDeactivateReservationInValidMaintenanceWorkOrderID()
+        public void TestDeactivateMaintenanceWorkOrderInValidMaintenanceWorkOrderID()
         {
             //Arrange
             int invalidMaintenanceWorkOrderID = -1;
