@@ -96,6 +96,10 @@
     <Compile Include="IReceivingAccessor.cs" />
     <Compile Include="IRecipeAccessor.cs" />
     <Compile Include="IReservationAccessor.cs" />
+    <Compile Include="IResortPropertyAccessor.cs" />
+    <Compile Include="IResortPropertyTypeAccessor.cs" />
+    <Compile Include="IResortVehicleCheckoutAccessor.cs" />
+    <Compile Include="IResortVehicleStatusAccessor.cs" />
     <Compile Include="IRoleAccessor.cs" />
     <Compile Include="IRoomAccessor.cs" />
     <Compile Include="ISetupAccessor.cs" />
@@ -112,7 +116,7 @@
     <Compile Include="ISupplierAccessor.cs" />
     <Compile Include="ItemTypeAccessorMock.cs" />
     <Compile Include="ItemTypeAccessorMSSQL.cs" />
-    <Compile Include="IVehicleAccessor.cs" />
+    <Compile Include="IResortVehicleAccessor.cs" />
     <Compile Include="LuggageAccessor.cs" />
     <Compile Include="MaintenanceStatusTypeAccessorMSSQL.cs" />
     <Compile Include="MaintenanceTypeAccessorMSSQL.cs" />
@@ -128,7 +132,7 @@
     <Compile Include="MockLuggageAccessor.cs" />
     <Compile Include="MockRoomAccessor.cs" />
     <Compile Include="MockRoomTypeAccessor.cs" />
-    <Compile Include="MockVehicleAccessor.cs" />
+    <Compile Include="MockResortVehicleAccessor.cs" />
     <Compile Include="OfferingAccessor.cs" />
     <Compile Include="OfferingAccessorMock.cs" />
     <Compile Include="PerformanceAccessor.cs" />
@@ -146,6 +150,10 @@
     <Compile Include="RecipeAccessorMock.cs" />
     <Compile Include="ReservationAccessorMock.cs" />
     <Compile Include="ReservationAccessorMSSQL.cs" />
+    <Compile Include="ResortPropertyAccessor.cs" />
+    <Compile Include="ResortPropertyTypeAccessor.cs" />
+    <Compile Include="ResortVehicleCheckoutAccessor.cs" />
+    <Compile Include="ResortVehicleStatusAccessor.cs" />
     <Compile Include="RoleAccessor.cs" />
     <Compile Include="RoleAccessorMock.cs" />
     <Compile Include="RoomAccessor.cs" />
@@ -164,7 +172,7 @@
     <Compile Include="SupplierOrderAccessor.cs" />
     <Compile Include="SupplierOrderAccessorMock.cs" />
     <Compile Include="UserAccessor.cs" />
-    <Compile Include="VehicleAccessor.cs" />
+    <Compile Include="ResortVehicleAccessor.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DataObjects\DataObjects.csproj">

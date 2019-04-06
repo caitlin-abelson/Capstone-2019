@@ -87,7 +87,7 @@
     <Compile Include="SupplierOrderTests.cs" />
     <Compile Include="UnitTest1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="VehicleManagerUnitTests.cs" />
+    <Compile Include="ResortVehicleManagerUnitTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

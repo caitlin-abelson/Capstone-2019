@@ -12,15 +12,15 @@ namespace DataAccessLayer
     /// Created: 2019/03/2
     /// 
     /// </summary>
-    public class MockVehicleAccessor : IVehicleAccessor
+    public class MockResortVehicleAccessor : IResortVehicleAccessor
     {
         /// <summary>
         /// To not have mock drive unit test
         /// return zero at all times
         /// </summary>
-        /// <param name="vehicle"></param>
+        /// <param name="resortVehicle"></param>
         /// <returns>0</returns>
-        public int AddVehicle(Vehicle vehicle)
+        public int AddVehicle(ResortVehicle resortVehicle)
         {
             return 0;
         }
@@ -44,13 +44,13 @@ namespace DataAccessLayer
         }
 
         /// <summary>
-        /// Returns an empty vehicle
+        /// Returns an empty resortVehicle
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public Vehicle RetrieveVehicleById(int id)
+        public ResortVehicle RetrieveVehicleById(int id)
         {
-            return new Vehicle();
+            return new ResortVehicle();
         }
 
         /// <summary>
@@ -58,7 +58,7 @@ namespace DataAccessLayer
         /// have logic layer throw an exception
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<Vehicle> RetrieveVehicles()
+        public IEnumerable<ResortVehicle> RetrieveVehicles()
         {
             return null;
         }
@@ -67,9 +67,9 @@ namespace DataAccessLayer
         /// Throws no exceptions
         /// Intended to do nothing
         /// </summary>
-        /// <param name="oldVehicle"></param>
-        /// <param name="newVehicle"></param>
-        public void UpdateVehicle(Vehicle oldVehicle, Vehicle newVehicle)
+        /// <param name="oldResortVehicle"></param>
+        /// <param name="newResortVehicle"></param>
+        public void UpdateVehicle(ResortVehicle oldResortVehicle, ResortVehicle newResortVehicle)
         {
             // do nothing
         }

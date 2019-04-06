@@ -51,6 +51,7 @@
     <Compile Include="EventManager.cs" />
     <Compile Include="EventSponsorManager.cs" />
     <Compile Include="EventTypeManager.cs" />
+    <Compile Include="GenericPropertyValidator.cs" />
     <Compile Include="GuestManager.cs" />
     <Compile Include="GuestVehicleManager.cs" />
     <Compile Include="HouseKeepingRequestManagerMSSQL.cs" />
@@ -87,6 +88,10 @@
     <Compile Include="IReceivingManager.cs" />
     <Compile Include="IRecipeManager.cs" />
     <Compile Include="IReservationManager.cs" />
+    <Compile Include="IResortPropertyManager.cs" />
+    <Compile Include="IResortPropertyTypeManager.cs" />
+    <Compile Include="IResortVehicleCheckoutManager.cs" />
+    <Compile Include="IResortVehicleStatusManager.cs" />
     <Compile Include="IRoleManager.cs" />
     <Compile Include="IRoomManager.cs" />
     <Compile Include="ISetupListManager.cs" />
@@ -100,7 +105,7 @@
     <Compile Include="ItemManager.cs" />
     <Compile Include="ItemSupplierManager.cs" />
     <Compile Include="ItemTypeManagerMSSQL.cs" />
-    <Compile Include="IVehicleManager.cs" />
+    <Compile Include="IResortVehicleManager.cs" />
     <Compile Include="LogicValidationExtensionMethods.cs" />
     <Compile Include="LuggageManager.cs" />
     <Compile Include="MaintenanceStatusTypeManagerMSSQl.cs" />
@@ -117,6 +122,10 @@
     <Compile Include="ReceivingTicketManager.cs" />
     <Compile Include="RecipeManager.cs" />
     <Compile Include="ReservationManagerMSSQL.cs" />
+    <Compile Include="ResortPropertyManager.cs" />
+    <Compile Include="ResortPropertyTypeManager.cs" />
+    <Compile Include="ResortVehicleCheckoutManager.cs" />
+    <Compile Include="ResortVehicleStatusManager.cs" />
     <Compile Include="RoleManager.cs" />
     <Compile Include="RoomManager.cs" />
     <Compile Include="RoomTypeManager.cs" />
@@ -130,8 +139,9 @@
     <Compile Include="SupplierOrderManager.cs" />
     <Compile Include="SupplierValidator.cs" />
     <Compile Include="UserManager.cs" />
+    <Compile Include="ValidationCriteria.cs" />
     <Compile Include="ValidationExtensionMethods.cs" />
-    <Compile Include="VehicleManager.cs" />
+    <Compile Include="ResortVehicleManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DataAccessLayer\DataAccessLayer.csproj">

@@ -82,6 +82,10 @@
     <Compile Include="Recipe.cs" />
     <Compile Include="RecipeItemLineVM.cs" />
     <Compile Include="Reservation.cs" />
+    <Compile Include="ResortProperty.cs" />
+    <Compile Include="ResortPropertyType.cs" />
+    <Compile Include="ResortVehicleCheckout.cs" />
+    <Compile Include="ResortVehicleStatus.cs" />
     <Compile Include="Role.cs" />
     <Compile Include="Room.cs" />
     <Compile Include="RoomType.cs" />
@@ -97,7 +101,7 @@
     <Compile Include="Suppliers.cs" />
     <Compile Include="User.cs" />
     <Compile Include="Validation.cs" />
-    <Compile Include="Vehicle.cs" />
+    <Compile Include="ResortVehicle.cs" />
     <Compile Include="VMBrowseReservation.cs" />
     <Compile Include="VMBrowseShop.cs" />
     <Compile Include="VMGuestVehicle.cs" />

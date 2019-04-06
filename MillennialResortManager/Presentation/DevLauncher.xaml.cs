@@ -819,7 +819,7 @@ namespace Presentation
                 if (item.GetType() != typeof(FrmBrowseShuttleVehicles)) continue;
 
                 FrmBrowseShuttleVehicles instance = (FrmBrowseShuttleVehicles)item;
-                instance.RefreshShuttleVehiclesDatagrid();
+                instance.setupForm(_employee);
             }
         }
 
