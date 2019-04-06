@@ -120,6 +120,12 @@ namespace Presentation
         /// 
         /// Controls what happens when the Add or Edit button is clicked based on the mode of the window
         /// </summary>
+        /// <remarks>
+        /// Danielle Russo
+        /// Updated: 2019/04/04
+        /// 
+        /// Removed all references of Available or Active checkboxes
+        /// </remarks>
         private void BtnAddEdit_Click(object sender, RoutedEventArgs e)
         {
             if (_mode == EditMode.View)
@@ -160,7 +166,7 @@ namespace Presentation
                 {
                     try
                     {
-                        bool created = _roomMgr.CreateRoom(rm, employeeID);
+                        bool created = _roomMgr.CreateRoom(rm, employeeID, (int)iudNumberOfRooms.Value);
                         if (created == true)
                         {
                             MessageBox.Show("Room Added");
@@ -180,7 +186,6 @@ namespace Presentation
                     txtRoomNumber.Text = "";
                     txtDescription.Text = "";
                     iudCapacity.Value = 1;
-                    cbxAvailable.IsChecked = false;
                 }
             }
         }
@@ -191,6 +196,11 @@ namespace Presentation
         /// 
         /// Checks the inputs for correct data
         /// </summary>
+        /// <remarks>
+        /// Danielle Russo
+        /// Updated: 2019/04/05
+        /// Removed Active and Available references
+        /// </remarks>
         private void CheckInputs()/* Add checks for Text box lengths */
         {
 
@@ -237,8 +247,6 @@ namespace Presentation
                 rm.Description = txtDescription.Text;
                 rm.Capacity = iudCapacity.Value.Value;
                 rm.Price = dudPrice.Value.Value;
-                rm.Available = (bool)cbxAvailable.IsChecked;
-                rm.Active = (bool)cbxActive.IsChecked;
                 rm.RoomStatus = this.cboRoomStatus.SelectedItem.ToString();
                 inputsGood = true;
             }
@@ -290,17 +298,20 @@ namespace Presentation
         /// 
         /// Inserts the data in the fields
         /// </summary>
+        /// <remarks>
+        /// Danielle Russo
+        /// Updated: 2019/04/05
+        /// Removed Active and Available references
+        /// </remarks>
         private void populateControls()
         {
             txtRoomNumber.Text = rm.RoomNumber;
             cboBuilding.SelectedItem = rm.Building;
             cboRoomType.SelectedItem = rm.RoomType;
             iudCapacity.Value = rm.Capacity;
-            cbxAvailable.IsChecked = rm.Available;
             txtDescription.Text = rm.Description;
             dudPrice.Value = rm.Price;
             cboRoomStatus.SelectedItem = rm.RoomStatus;
-            cbxActive.IsChecked = rm.Active;
         }
 
         /// <summary>
@@ -309,14 +320,18 @@ namespace Presentation
         /// 
         /// Locks or Unlocks the inputs
         /// </summary>
+        /// <remarks>
+        /// Danielle Russo
+        /// Updated: 2019/04/04
+        /// 
+        /// Removed all references of Available or Active checkboxes
+        /// </remarks>
         private void lockInputs(bool readOnly)
         {
             this.txtRoomNumber.IsReadOnly = readOnly;
             this.cboBuilding.IsEnabled = !readOnly;
             this.cboRoomType.IsEnabled = !readOnly;
             this.iudCapacity.IsEnabled = !readOnly;
-            this.cbxAvailable.IsEnabled = !readOnly;
-            this.cbxActive.IsEnabled = !readOnly;
             this.txtDescription.IsReadOnly = readOnly;
             this.dudPrice.IsEnabled = !readOnly;
             this.cboRoomStatus.IsEnabled = !readOnly;

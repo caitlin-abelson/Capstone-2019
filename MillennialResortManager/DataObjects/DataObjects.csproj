@@ -60,6 +60,7 @@
     <Compile Include="GuestType.cs" />
     <Compile Include="GuestVehicle.cs" />
     <Compile Include="HouseKeepingRequest.cs" />
+    <Compile Include="Inspection.cs" />
     <Compile Include="InternalOrder.cs" />
     <Compile Include="InternalOrderLine.cs" />
     <Compile Include="Item.cs" />

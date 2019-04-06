@@ -125,6 +125,11 @@ namespace Presentation
             MessageBox.Show("Feature not yet enabled");
         }
 
+        ///<remarks>
+        /// Danielle Russo
+        /// Updated: 2019/04/05
+        /// Removed lamba expression used to find all current rooms since Active is no longer a field in the Room table
+        /// </remarks>
         private void filterRooms()
         {
             int capacity = 1;
@@ -160,7 +165,6 @@ namespace Presentation
                     _currentRooms = _currentRooms.FindAll(r => r.RoomType == cboRoomType.SelectedItem.ToString());
                 }
 
-                _currentRooms = _currentRooms.FindAll(r => r.Active == cbxRoomActive.IsChecked || r.Active != cbxRoomInactive.IsChecked);
 
 
                 this.dgRoom.ItemsSource = _currentRooms;

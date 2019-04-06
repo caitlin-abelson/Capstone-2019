@@ -14,14 +14,13 @@ using System.Threading.Tasks;
 namespace LogicLayer
 {
     public static class LogicValidationExtensionMethods
-    {
-        /// <summary>
-        /// Dani Russo
-        /// Created: 2019/02/20
-        /// 
-        /// If a string value is a valid length or not null
-        /// Max length 50 characters.
-        /// </summary>
+    {/// <summary>
+     /// Dani Russo
+     /// Created: 2019/02/20
+     /// 
+     /// If a string value is a valid length or not null
+     /// Max length 50 characters.
+     /// </summary>
         public static void ValidateBuildingID(this string buildingID)
         {
 
@@ -55,6 +54,100 @@ namespace LogicLayer
 
         /// <summary>
         /// Dani Russo
+        /// Created: 2019/03/14
+        /// 
+        /// If a string value is a valid length
+        /// Max length 50 characters.
+        /// Cannot be null
+        /// </summary>
+        public static void ValidateInspectionName(this string name)
+        {
+            if (name == null)
+            {
+                throw new ArgumentNullException("Inspection name needs a value.");
+            }
+            if (name.Length > 50)
+            {
+                throw new ArgumentException("Limit inspection name to 50 characters.");
+            }
+        }
+
+        /// <summary>
+        /// Dani Russo
+        /// Created: 2019/03/14
+        /// 
+        /// If a string value is a valid length
+        /// Max length 25 characters.
+        /// </summary>
+        public static void ValidateAffiliation(this string resortInspectionAffiliation)
+        {
+            if (resortInspectionAffiliation != null)
+            {
+                if (resortInspectionAffiliation.Length > 25)
+                {
+                    throw new ArgumentException("Limit inspection affiliation to 150 characters.");
+                }
+            }
+        }
+
+        /// <summary>
+        /// Dani Russo
+        /// Created: 2019/03/14
+        /// 
+        /// If a string value is a valid length
+        /// Max length 1000 characters.
+        /// </summary>
+        public static void ValidateInspectionProblemNotes(this string inspectionProblemNotes)
+        {
+            if (inspectionProblemNotes != null)
+            {
+                if (inspectionProblemNotes.Length > 1000)
+                {
+                    throw new ArgumentException("Limit problem notes to 1000 characters.");
+                }
+            }
+        }
+
+        /// <summary>
+        /// Dani Russo
+        /// Created: 2019/03/14
+        /// 
+        /// If a string value is a valid length
+        /// Max length 1000 characters.
+        /// </summary>
+        public static void ValidateInspectionFixNotes(this string inspectionFixNotes)
+        {
+            if (inspectionFixNotes != null)
+            {
+                if (inspectionFixNotes.Length > 1000)
+                {
+                    throw new ArgumentException("Limit fix notes to 1000 characters.");
+                }
+            }
+        }
+
+        /// <summary>
+        /// Dani Russo
+        /// Created: 2019/03/14
+        /// 
+        /// If a string value is a valid length
+        /// Max length 50 characters.
+        /// Cannot be null
+        /// </summary>
+        public static void ValidateInspectionRating(this string rating)
+        {
+            if (rating == null)
+            {
+                throw new ArgumentNullException("Inspection rating needs a value.");
+            }
+            if (rating.Length > 50)
+            {
+                throw new ArgumentException("Limit inspection rating to 50 characters.");
+            }
+        }
+
+        /// <summary>
+        /// Dani Russo
         /// Created: 2019/02/20
         /// 
         /// If a string value is a valid length or null
@@ -83,7 +176,7 @@ namespace LogicLayer
             {
                 if (description.Length > 1000)
                 {
-                    throw new ArgumentException("Limit description to 150 characters.");
+                    throw new ArgumentException("Limit description to 1000 characters.");
                 }
             }
         }

@@ -19,11 +19,16 @@ namespace LogicLayer
 
         private IRoomAccessor _roomAccessor;
 
+        /// <summary>
+        /// Dani Russo
+        /// Updated: 2019/04/05
+        /// 
+        /// _roomAccessor is assigned to actual accessor, not mock accessor
+        /// </summary>
         public RoomManager()
         {
             // used for database access, to be used when Intergartion testing is ready
-            // _roomAccessor = new RoomAccessor();
-            _roomAccessor = new MockRoomAccessor(); // when database is fixed Mock should be dropped
+            _roomAccessor = new RoomAccessor();
         }
 
 
@@ -84,9 +89,15 @@ namespace LogicLayer
         /// 
         /// Inserts a new Room into the database
         /// <param name="room">A room object</param>
+        /// <remarks>
+        /// Danielle Russo
+        /// Updated: 2019/04/04
+        /// 
+        /// Updated to accomidate the number of rooms to be added
+        /// </remarks>
         /// <returns>A bool if the room was created</returns>
         /// </summary>
-        public bool CreateRoom(Room room, int employeeID)
+        public bool CreateRoom(Room room, int employeeID, int numOfRooms)
         {
             int rows = 0;
             bool roomCreated = false;
@@ -94,7 +105,7 @@ namespace LogicLayer
             try
             {
                 RoomVerifier.VerifyRoom(room, _roomAccessor);
-                rows = _roomAccessor.InsertNewRoom(room, employeeID);
+                rows = _roomAccessor.InsertNewRoom(room, employeeID, numOfRooms);
             }
             catch (Exception ex)
             {

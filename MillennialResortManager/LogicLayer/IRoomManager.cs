@@ -5,7 +5,13 @@ namespace LogicLayer
 {
     public interface IRoomManager
     {
-        bool CreateRoom(Room room, int employeeID);
+        /// <remarks>
+        /// Danielle Russo
+        /// Updated: 2019/04/04
+        /// 
+        /// Updated to accomidate the number of rooms to be added
+        /// </remarks>
+        bool CreateRoom(Room room, int employeeID, int numOfRooms);
         Room RetreieveRoomByID(int roomID);
         List<string> RetrieveBuildingList();
         List<Room> RetrieveRoomList();

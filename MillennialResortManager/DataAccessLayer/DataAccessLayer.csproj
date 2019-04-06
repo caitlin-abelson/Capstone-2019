@@ -75,6 +75,7 @@
     <Compile Include="IGuestTypeAccessor.cs" />
     <Compile Include="IGuestVehicleAccessor.cs" />
     <Compile Include="IHouseKeepingRequestAccessor.cs" />
+    <Compile Include="IInspectionAccessor.cs" />
     <Compile Include="IInternalOrderAccessor.cs" />
     <Compile Include="IItemAccessor.cs" />
     <Compile Include="IItemTypeAccessor.cs" />
@@ -84,6 +85,7 @@
     <Compile Include="IMaintenanceTypeAccessor.cs" />
     <Compile Include="IMaintenanceWorkOrderAccessor.cs" />
     <Compile Include="IMemberAccessor.cs" />
+    <Compile Include="InspectionAccessor.cs" />
     <Compile Include="InternalOrderAccessor.cs" />
     <Compile Include="InternalOrderAccessorMock.cs" />
     <Compile Include="IOfferingAccessor.cs" />
@@ -118,7 +120,7 @@
     <Compile Include="MaintenanceWorkOrderAccessorMSSQL.cs" />
     <Compile Include="MemberAccessorMock.cs" />
     <Compile Include="MemberAccessorMSSQL.cs" />
-    <Compile Include="MockBuildingAccessor.cs" />
+    <Compile Include="BuildingAccessorMock.cs" />
     <Compile Include="MockDepartmentAccessor.cs" />
     <Compile Include="MockEmpRolesAccessor.cs" />
     <Compile Include="MockEventAccessor.cs" />

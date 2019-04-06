@@ -170,6 +170,9 @@
     <Compile Include="GuestVehicleDetail.xaml.cs">
       <DependentUpon>GuestVehicleDetail.xaml</DependentUpon>
     </Compile>
+    <Compile Include="InspectionDetail.xaml.cs">
+      <DependentUpon>InspectionDetail.xaml</DependentUpon>
+    </Compile>
     <Compile Include="OrderRecieving.xaml.cs" />
     <Compile Include="Read_BrowseOrder.xaml.cs" />
     <Compile Include="RoomTypes.xaml.cs" />
@@ -488,6 +491,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="GuestVehicleDetail.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="InspectionDetail.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

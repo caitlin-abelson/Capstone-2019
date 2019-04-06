@@ -19,7 +19,13 @@ namespace DataAccessLayer
 {
     public interface IRoomAccessor
     {
-        int InsertNewRoom(Room room, int employeeID);
+        /// <remarks>
+        /// Danielle Russo
+        /// Updated: 2019/04/04
+        /// 
+        /// Updated to accomidate the number of rooms to be added
+        /// </remarks>
+        int InsertNewRoom(Room room, int employeeID, int numOfRooms);
         List<string> SelectBuildings();
         Room SelectRoomByID(int roomID);
         List<Room> SelectRoomList();

@@ -47,9 +47,15 @@ namespace DataAccessLayer
         /// Created: 2019/02/12
         /// 
         /// </summary>
+        /// <remarks>
+        /// Danielle Russo
+        /// Updated: 2019/04/04
+        /// 
+        /// Updated to accomidate the number of rooms to be added
+        /// </remarks>
         /// <param name="room"></param>
         /// <returns>A 1 when a room was added</returns>
-        public int InsertNewRoom(Room room, int employeeID)
+        public int InsertNewRoom(Room room, int employeeID, int numOfRooms)
         {
             room.RoomID = nextRoomID;
             nextRoomID++;
@@ -173,6 +179,11 @@ namespace DataAccessLayer
         /// 
         /// </summary>
         /// <returns>A list of Room Status</returns>
+        /// <remarks>
+        /// Danielle Russo
+        /// Updated: 2019/04/05
+        /// Removed Active and Available
+        /// </remarks>
         public List<string> SelectRoomStatusList()
         {
             return roomStatusList;
@@ -189,9 +200,7 @@ namespace DataAccessLayer
                 RoomType = "Test Room Type 1",
                 Description = "Test Room " + nextRoomID,
                 Capacity = 2,
-                Available = true,
                 Price = 200.00M,
-                Active = true,
                 OfferingID = nextofferingID,
                 RoomStatus = "Ready",
                 ResortPropertyID = 100003
@@ -207,9 +216,7 @@ namespace DataAccessLayer
                 RoomType = "Test Room Type 2",
                 Description = "Test Room " + nextRoomID,
                 Capacity = 2,
-                Available = true,
                 Price = 200.00M,
-                Active = false,
                 OfferingID = nextofferingID,
                 RoomStatus = "Ready",
                 ResortPropertyID = 100003
@@ -225,9 +232,7 @@ namespace DataAccessLayer
                 RoomType = "Test Room Type 3",
                 Description = "Test Room " + nextRoomID,
                 Capacity = 2,
-                Available = true,
                 Price = 200.00M,
-                Active = true,
                 OfferingID = nextofferingID,
                 RoomStatus = "Occupied",
                 ResortPropertyID = 100003
@@ -242,9 +247,7 @@ namespace DataAccessLayer
                 RoomType = "Test Room Type 4",
                 Description = "Test Room " + nextRoomID,
                 Capacity = 2,
-                Available = true,
                 Price = 200.00M,
-                Active = true,
                 OfferingID = nextofferingID,
                 RoomStatus = "Needs Cleaning",
                 ResortPropertyID = 100003
@@ -260,9 +263,7 @@ namespace DataAccessLayer
                 RoomType = "Test Room Type 1",
                 Description = "Test Room " + nextRoomID,
                 Capacity = 2,
-                Available = true,
                 Price = 200.00M,
-                Active = true,
                 OfferingID = nextofferingID,
                 RoomStatus = "Murder Scene",
                 ResortPropertyID = 100003
@@ -278,9 +279,7 @@ namespace DataAccessLayer
                 RoomType = "Test Room Type 2",
                 Description = "Test Room " + nextRoomID,
                 Capacity = 2,
-                Available = false,
                 Price = 200.00M,
-                Active = true,
                 OfferingID = nextofferingID,
                 RoomStatus = "Needs Fumigation",
                 ResortPropertyID = 100003
@@ -296,9 +295,7 @@ namespace DataAccessLayer
                 RoomType = "Test Room Type 2",
                 Description = "Test Room " + nextRoomID,
                 Capacity = 2,
-                Available = true,
                 Price = 200.00M,
-                Active = true,
                 OfferingID = nextofferingID,
                 RoomStatus = "Needs Inspection",
                 ResortPropertyID = 100003
@@ -314,9 +311,7 @@ namespace DataAccessLayer
                 RoomType = "Test Room Type 3",
                 Description = "Test Room " + nextRoomID,
                 Capacity = 2,
-                Available = true,
                 Price = 200.00M,
-                Active = true,
                 OfferingID = nextofferingID,
                 RoomStatus = "Jim Quote Needed",
                 ResortPropertyID = 100003

@@ -1,0 +1,141 @@
+﻿<Window x:Class="Presentation.InspectionDetail"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Presentation"
+        mc:Ignorable="d"
+        Title="Inspection" Height="650" Width="600">
+    <Window.Resources>
+        <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+xmlns:local="clr-namespace:Presentation">
+
+            <Style TargetType="Button">
+                <Setter Property="Margin" Value="5" />
+                <Setter Property="FontSize" Value="14" />
+            </Style>
+            <Style TargetType="CheckBox">
+                <Setter Property="Margin" Value="5" />
+                <Setter Property="FontSize" Value="14" />
+            </Style>
+            <Style TargetType="Label">
+                <Setter Property="Margin" Value="5" />
+                <Setter Property="FontSize" Value="14" />
+            </Style>
+            <Style TargetType="ComboBox">
+                <Setter Property="Margin" Value="5" />
+                <Setter Property="FontSize" Value="14" />
+                <Setter Property="IsReadOnly" Value="True" />
+                <Setter Property="AllowDrop" Value="True" />
+                <Setter Property="IsEditable" Value="False" />
+            </Style>
+            <Style TargetType="TextBox">
+                <Setter Property="Margin" Value="5" />
+                <Setter Property="FontSize" Value="14" />
+            </Style>
+            <Style TargetType="DataGrid">
+                <Setter Property="Margin" Value="5" />
+                <Setter Property="IsReadOnly" Value="True" />
+                <Setter Property="VerticalGridLinesBrush" Value="{x:Null}" />
+                <Setter Property="SelectionMode" Value="Single" />
+            </Style>
+            <Style TargetType="Grid">
+                <Setter Property="Background" Value="#eef2ff" />
+            </Style>
+            <Style TargetType="ListView">
+                <Setter Property="Margin" Value="5" />
+                <Setter Property="FontSize" Value="14" />
+                <Setter Property="SelectionMode" Value="Single" />
+            </Style>
+            <Style TargetType="Menu">
+                <Setter Property="FontSize" Value="14" />
+            </Style>
+            <Style TargetType="MenuItem">
+                <Setter Property="Margin" Value="5" />
+                <Setter Property="FontSize" Value="14" />
+            </Style>
+            <Style TargetType="PasswordBox">
+                <Setter Property="Margin" Value="5" />
+                <Setter Property="FontSize" Value="14" />
+            </Style>
+            <Style TargetType="RadioButton">
+                <Setter Property="Margin" Value="5" />
+                <Setter Property="FontSize" Value="14" />
+            </Style>
+        </ResourceDictionary>
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="100"></RowDefinition>
+            <RowDefinition Height="75"></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition Height="25"></RowDefinition>
+            <RowDefinition Height="75"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition/>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition Height="30"></RowDefinition>
+            </Grid.RowDefinitions>
+            <TextBox x:Name="txtInspectionName" Grid.Row="0" Grid.Column="0" Margin="30,30,30,10" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+            <Label Grid.Column="0" Content="Inspection" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,60,0,14" Grid.RowSpan="2"/>
+            <TextBox x:Name="txtAffiliation" Grid.Row="0" Grid.Column="1" Margin="30,30,30,10" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+            <Label Grid.Column="1" Content="Affiliation" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,60,0,14" Grid.RowSpan="2"/>
+            <DatePicker x:Name="dtpkrDateInspected" Grid.Column="2" Margin="20,30,30,10" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+            <Label Grid.Column="2" Content="Date Inspected" HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="30,60,30,14" Grid.RowSpan="2"/>
+        </Grid>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition Height="30"></RowDefinition>
+            </Grid.RowDefinitions>
+            <TextBox x:Name="txtResortPropertyID" Grid.Row="0" Margin="30,5,30,10" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+            <Label Grid.Row="1" Content="Property ID" Margin="30,-10,30,0" HorizontalContentAlignment="Center"/>
+            <TextBox x:Name="txtRating" Grid.Row="0" Grid.Column="1" Margin="20,5,30,10" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+            <Label Grid.Row="1" Grid.Column="1" Content="Rating" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,-25,0,0"/>
+        </Grid>
+        <Grid Grid.Row="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="15"></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            <Label Grid.Row="0" Content="Problems Found" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="30,5,0,140" Grid.RowSpan="2"/>
+            <TextBox x:Name="txtProblemNotes" Grid.Row="1" Margin="30,15" />
+        </Grid>
+        <Grid Grid.Row="3">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="15"></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            <Label Grid.Row="0" Content="Repair Log" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="30,5,0,140" Grid.RowSpan="2" />
+            <TextBox x:Name="txtFixNotes" Grid.Row="1" Margin="30,15" />
+        </Grid>
+        <Grid Grid.Row="4">
+            <Label x:Name="lblError" Grid.Row="2" Margin="10,0,30,0" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+        </Grid>
+        <Grid Grid.Row="5">
+            <!-- Active Check Box & Buttons -->
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Button x:Name="btnPrimaryAction" Grid.Column="3" Content="Primary" FontSize="12" Margin="10 20" Click="btnPrimaryAction_Click" />
+            <Button x:Name="btnSecondaryAction" Grid.Column="4" Content="Secondary" FontSize="12" Margin="10 20"/>
+            <Button x:Name="btnTernaryAction" Grid.Column="2" Content="Ternary" FontSize="12" Margin="10 20" Visibility="Hidden"/>
+        </Grid>
+    </Grid>
+</Window>

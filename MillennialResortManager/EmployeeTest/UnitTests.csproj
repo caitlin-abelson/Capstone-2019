@@ -52,6 +52,7 @@
   <ItemGroup>
     <Compile Include="AppointmentManagerTest.cs" />
     <Compile Include="AppointmentTypeManagerTests.cs" />
+    <Compile Include="BuildingLogicTests.cs" />
     <Compile Include="DepartmentUnitTests.cs" />
     <Compile Include="EmployeeManagerTests.cs" />
     <Compile Include="EmployeeRolesUnitTests.cs" />
