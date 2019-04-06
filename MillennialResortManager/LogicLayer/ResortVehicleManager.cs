@@ -2,7 +2,6 @@
 using DataObjects;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace LogicLayer
 {
@@ -16,16 +15,12 @@ namespace LogicLayer
     {
         readonly IResortVehicleAccessor _resortVehicleAccessor;
         private readonly IResortPropertyAccessor _resortPropertyAccessor;
-        private readonly IResortVehicleStatusAccessor _resortVehicleStatusAccessor;
-
 
         public ResortVehicleManager(IResortVehicleAccessor resortVehicleAccessor
-                                    , IResortPropertyAccessor resortPropertyAccessor = null
-                                    , IResortVehicleStatusAccessor resortVehicleStatusAccessor = null)
+                                    , IResortPropertyAccessor resortPropertyAccessor = null)
         {
             _resortVehicleAccessor = resortVehicleAccessor;
             _resortPropertyAccessor = resortPropertyAccessor ?? new ResortPropertyAccessor();
-            _resortVehicleStatusAccessor = resortVehicleStatusAccessor ?? new ResortVehicleStatusAccessor();
         }
 
         public ResortVehicleManager() : this(new ResortVehicleAccessor()) { }
@@ -91,7 +86,7 @@ namespace LogicLayer
             if (!resortVehicle.Active)
                 throw new ApplicationException("Vehicle already inactive");
 
-            if (!EmployeeCanPerformThisOperation(employee, new List<string>() { "Admin" }, out string errorStr))
+            if(!employee.HasRoles(out string errorStr, "Admin"))
                 throw new ApplicationException(errorStr);
 
             try
@@ -120,8 +115,7 @@ namespace LogicLayer
                 if (resortVehicle == null)
                     throw new ApplicationException("Vehicle cannot be null");
 
-                var allowedRoles = new List<string> { "Admin" };
-                if (!EmployeeCanPerformThisOperation(employee, allowedRoles, out string errorStr))
+                if (!employee.HasRoles(out string errorStr, "Admin"))
                     throw new ApplicationException(errorStr);
 
                 var newVehicle = resortVehicle.DeepClone();
@@ -203,8 +197,7 @@ namespace LogicLayer
                 if (resortVehicle.Active)
                     throw new ApplicationException("Vehicle is active. Deactivate first");
 
-                var allowedRoles = new List<string>() { "Admin" };
-                if (!EmployeeCanPerformThisOperation(employee, allowedRoles, out string errorStr))
+                if (!employee.HasRoles(out string errorStr, "Admin"))
                     throw new ApplicationException(errorStr);
 
                 _resortVehicleAccessor.DeleteVehicle(resortVehicle.Id);
@@ -232,52 +225,6 @@ namespace LogicLayer
             {
                 throw;
             }
-        }
-
-        /// <summary>
-        /// Francis Mingomba
-        /// Created: 2019/04/03
-        ///
-        /// Returns a collection of resort vehicle statuses
-        /// </summary>
-        /// <returns></returns>
-        public IEnumerable<ResortVehicleStatus> RetrieveResortVehicleStatuses()
-        {
-            try
-            {
-                return _resortVehicleStatusAccessor.RetrieveResortVehicleStatuses();
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// Francis Mingomba
-        /// Created: 2019/04/03
-        ///
-        /// Use to check employee privileges
-        /// </summary>
-        /// <param name="employee">Employee to be checked</param>
-        /// <param name="roles">List of roles that can perform operation</param>
-        /// <param name="errorStr">out parameter for error message</param>
-        /// <returns></returns>
-        private bool EmployeeCanPerformThisOperation(Employee employee, IEnumerable<string> roles, out string errorStr)
-        {
-            errorStr = "";
-
-            // .. if employee or employee role is null, there is nothing to check, return true
-            if (employee?.EmployeeRoles == null)
-                return true;
-
-            if (roles.Any(role => employee.EmployeeRoles.SingleOrDefault(x => x.RoleID == role) != null))
-                return true;
-
-            // ... role was not found, return false
-            var rolesStr = string.Join(separator: ", ", values: employee.EmployeeRoles.Select(x => x.RoleID));
-            errorStr = $"You do not have system privilege to delete\nCurrent Roles: {rolesStr}";
-            return false;
         }
 
         /// <summary>

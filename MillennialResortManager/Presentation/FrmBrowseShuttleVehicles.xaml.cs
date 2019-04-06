@@ -42,6 +42,15 @@ namespace Presentation
             RefreshShuttleVehiclesDatagrid();
         }
 
+        private void DisableControls()
+        {
+            btnCreateShuttle.IsEnabled = false;
+            btnDeactivateVehicle.IsEnabled = false;
+            btnEditShuttle.IsEnabled = false;
+            btnViewShuttle.IsEnabled = false;
+            btnDeleteVehicle.IsEnabled = false;
+        }
+
         /// <summary>
         /// Francis Mingomba
         /// Created: 2019/04/06
@@ -73,7 +82,9 @@ namespace Presentation
             }
             catch (Exception e)
             {
-                MessageBox.Show(e.Message + "\n" + e.StackTrace);
+                MessageBox.Show($"Database Error: Controls shall be disabled.\n\n{e.Message}\n{e.StackTrace}");
+
+                this.Dispatcher.Invoke(DisableControls);                
             }
         }
 
