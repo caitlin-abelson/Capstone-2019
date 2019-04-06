@@ -203,7 +203,7 @@ namespace UnitTest
         public void UpdatePetImageWithInvalidOldFilenameReturnsFalse()
         {
             //Arrange
-            var mockPetAccessor = new PetAccessor();
+            var mockPetAccessor = new PetAccessorMock();
             var petManager = new PetManager(mockPetAccessor);
             //Act
             int testID = 100099;
@@ -223,7 +223,7 @@ namespace UnitTest
         public void UpdatePetImageWithInvalidIDReturnsFalse()
         {
             //Arrange
-            var mockPetAccessor = new PetAccessor();
+            var mockPetAccessor = new PetAccessorMock();
             var petManager = new PetManager(mockPetAccessor);
             //Act
             int testID = 199999;
