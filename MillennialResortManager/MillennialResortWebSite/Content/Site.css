@@ -295,6 +295,19 @@ header {
 
 
 /*Media Query for ipad, iphone, sized devices.*/
+
+
+
+
+
+@media(min-wodth:768px) {
+
+    .navbar-display {
+        display: inline-block !important;
+    }
+}
+
+
 @media only screen and (max-width: 768px) {
     .mobileHide {
         visibility: hidden;
@@ -303,6 +316,7 @@ header {
     .navbar-nav {
         margin: 0px;
     }
+
 }
 
 @media only screen and (min-width: 768px) {
@@ -317,17 +331,19 @@ header {
     .mobileShow {
         visibility: hidden;
     }
-
-
+}
 
 
 
     @media only screen and (min-width: 992px) {
-        
 
-        .col-md-offset-2{
+        .col-md-offset-2 {
             margin: 0;
         }
+    }
+
+
+
 
 
 
