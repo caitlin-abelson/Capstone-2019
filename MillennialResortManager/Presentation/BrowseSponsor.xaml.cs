@@ -24,6 +24,9 @@ namespace Presentation
         List<Sponsor> _allSponsors;
         List<Sponsor> _currentSponsors;
         SponsorManager _sponsorManager;
+
+        public int retrievedSponsorID;
+        public Sponsor retrievedSponsor;
         public SponsorMainWindow()
         {
             InitializeComponent();
@@ -42,6 +45,8 @@ namespace Presentation
         public SponsorMainWindow(string filterSearch)
         {
             InitializeComponent();
+            
+
             //Search Box should only contain the filter given
             txtSearch.IsEnabled = false;
             txtSearch.Text = filterSearch;
@@ -123,9 +128,8 @@ namespace Presentation
             {
                 if(btnDelete.Content.Equals("Select Sponsor"))
                 {
-                    Sponsor selectedSponsor;
-                    selectedSponsor = (Sponsor)dgSponsors.SelectedItem;
-                    if(selectedSponsor != null)
+                    retrievedSponsor = (Sponsor)dgSponsors.SelectedItem;
+                    if(retrievedSponsor != null)
                     {
                         this.DialogResult = true;
                     }

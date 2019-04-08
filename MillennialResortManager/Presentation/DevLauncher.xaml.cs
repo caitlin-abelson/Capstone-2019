@@ -4667,20 +4667,6 @@ namespace Presentation
         /// <summary>
         /// @Author: Phillip Hansen
         /// 
-        /// Event Handler for loading a create record page
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void btnAddEventSpons_Click(object sender, RoutedEventArgs e)
-        {
-            var createEventSponsForm = new frmAddEventSponsor();
-            createEventSponsForm.ShowDialog();
-
-        }
-
-        /// <summary>
-        /// @Author: Phillip Hansen
-        /// 
         /// Event Handler for deleting a selected record
         /// </summary>
         /// <param name="sender"></param>
@@ -4912,9 +4898,15 @@ namespace Presentation
         /// <param name="e"></param>
         private void BtnCreateEvent_Click(object sender, RoutedEventArgs e)
         {
+            _eventSponsManager = new EventSponsorManager();
+
             //The Form requires the User's ID for a field in the record
             var addEventReq = new frmAddEditEvent(_employee);
             var result = addEventReq.ShowDialog();
+            if (addEventReq._createdEventID != 0 && addEventReq._retrievedSponsor != null)
+            {
+                _eventSponsManager.CreateEventSponsor(addEventReq._createdEventID, addEventReq._retrievedSponsor.SponsorID);
+            }
             if (result == true)
             {
                 populateEvents();

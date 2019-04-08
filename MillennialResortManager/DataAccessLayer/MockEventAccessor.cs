@@ -68,9 +68,11 @@ namespace DataAccessLayer
         /// Adds a new event to the event list
         /// </summary>
         /// <param name="newEvent"></param>
-        public void insertEvent(Event newEvent)
+        public int insertEvent(Event newEvent)
         {
             _events.Add(newEvent);
+
+            return newEvent.EventID;
         }
 
         public List<Event> selectAllCancelledEvents()

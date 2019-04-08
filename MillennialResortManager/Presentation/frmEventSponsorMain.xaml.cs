@@ -79,20 +79,6 @@ namespace Presentation
         /// <summary>
         /// @Author: Phillip Hansen
         /// 
-        /// Event Handler for loading a create record page
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void btnAddEventSpons_Click(object sender, RoutedEventArgs e)
-        {
-            var createEventSponsForm = new frmAddEventSponsor();
-            createEventSponsForm.ShowDialog();
-
-        }
-
-        /// <summary>
-        /// @Author: Phillip Hansen
-        /// 
         /// Event Handler for deleting a selected record
         /// </summary>
         /// <param name="sender"></param>
@@ -118,6 +104,10 @@ namespace Presentation
         /// </summary>
         private void populateEvSponsList()
         {
+            _eventSponsors = null;
+            dgEventSponsor.ItemsSource = null;
+            dgEventSponsor.Items.Refresh();
+
             try
             {
                 _eventSponsors = _eventSponsManager.RetrieveAllEvents();

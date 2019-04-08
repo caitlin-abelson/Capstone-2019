@@ -35,16 +35,12 @@ namespace LogicLayer
         /// Method for creating an event calling to the accessor for events
         /// </summary>
         /// <param name="newEvent"></param> creates a new Event object called newEvent
-        public void CreateEventSponsor(EventSponsor newEventSpons)
+        public void CreateEventSponsor(int eventID, int sponsorID)
         {
 
             try
             {
-                if (!IsValid(newEventSpons))
-                {
-                    throw new ArgumentException("Input for the new event was invalid!");
-                }
-                _eventSponsorAccessor.insertEventSponsor(newEventSpons);
+                _eventSponsorAccessor.insertEventSponsor(eventID, sponsorID);
             }
             catch (Exception)
             {
@@ -91,11 +87,6 @@ namespace LogicLayer
             {
                 throw;
             }
-        }
-
-        public bool IsValid(EventSponsor _eventSpons)
-        {
-            return true;
         }
     }
 }

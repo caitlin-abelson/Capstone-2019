@@ -17,7 +17,7 @@ namespace DataAccessLayer
         /// </summary>
         /// <param name="newEvent"></param>
 
-        void insertEvent(Event newEvent);
+        int insertEvent(Event newEvent);
         void updateEvent(Event oldEvent, Event newEvent);
         void deleteEventByID(int EventID);
         List<Event> selectAllEvents();
