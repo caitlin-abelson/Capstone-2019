@@ -332,3 +332,14 @@ AS
 		AND		[Cancelled] = 0
 	END
 GO
+
+print '' print '*** Creating sp_select_all_sponsors'
+GO
+CREATE PROCEDURE [dbo].[sp_select_all_sponsors]
+AS
+	BEGIN
+		SELECT 	[SponsorID],[Name],[Address],[City],[State],[PhoneNumber],
+					[Email],[ContactFirstName],[ContactLastName],[DateAdded],[Active]
+		FROM	[dbo].[Sponsor]
+	END
+GO
