@@ -103,10 +103,10 @@ xmlns:local="clr-namespace:Presentation">
                 <ColumnDefinition/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            <Button x:Name="btnAdd" Grid.Column="2" Content="Add New" Margin="10 15" Click="btnAdd_Click"/>
-            <Button x:Name="btnUpdate" Grid.Column="3" Content="Edit" Margin="10 15" Click="btnUpdate_Click"/>
-            <Button x:Name="btnDelte" Grid.Column="4" Content="Delete" Margin="10 15" Click="btnDelte_Click"/>
-            <Button x:Name="btnCancel" Grid.Column="5" Content="Cancel" Margin="10 15" Click="btnCancel_Click"/>
+            <Button x:Name="btnAddFrontDesk" Grid.Column="2" Content="Add New" Margin="10 15" Click="btnAddFrontDesk_Click"/>
+            <Button x:Name="btnUpdateFrontDesk" Grid.Column="3" Content="Edit" Margin="10 15" Click="btnUpdateFrontDesk_Click"/>
+            <Button x:Name="btnDelteFrontDesk" Grid.Column="4" Content="Delete" Margin="10 15" Click="btnDelteFrontDesk_Click"/>
+            <Button x:Name="btnCancelFrontDesk" Grid.Column="5" Content="Cancel" Margin="10 15" Click="btnCancelFrontDesk_Click"/>
         </Grid>
     </Grid>
 </Window>

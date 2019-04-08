@@ -34,7 +34,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <IntermediateOutputPath>C:\Users\rphan\AppData\Local\Temp\vs4B42.tmp\Debug\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\mattl\AppData\Local\Temp\vs1886.tmp\Debug\</IntermediateOutputPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -44,7 +44,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <IntermediateOutputPath>C:\Users\rphan\AppData\Local\Temp\vs4B42.tmp\Release\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\mattl\AppData\Local\Temp\vs1886.tmp\Release\</IntermediateOutputPath>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />

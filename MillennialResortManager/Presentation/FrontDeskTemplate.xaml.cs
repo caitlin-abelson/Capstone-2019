@@ -68,7 +68,7 @@ namespace Presentation
                 MessageBox.Show(e.Message);
             }
         }
-        private void btnAdd_Click(object sender, RoutedEventArgs e)
+        private void btnAddFrontDesk_Click(object sender, RoutedEventArgs e)
         {
             if (tabBellHopService.IsSelected) {
                 var frmAdd = new AddLuggage(luggageManager, guestManager);
@@ -93,7 +93,7 @@ namespace Presentation
             return;
         }
 
-        private void btnUpdate_Click(object sender, RoutedEventArgs e)
+        private void btnUpdateFrontDesk_Click(object sender, RoutedEventArgs e)
         {
             if (tabBellHopService.IsSelected) {
                 try
@@ -143,7 +143,7 @@ namespace Presentation
             }
         }
 
-        private void btnDelte_Click(object sender, RoutedEventArgs e)
+        private void btnDelteFrontDesk_Click(object sender, RoutedEventArgs e)
         {
             if (tabBellHopService.IsSelected) {
                 try
@@ -197,7 +197,7 @@ namespace Presentation
             return;
         }
 
-        private void btnCancel_Click(object sender, RoutedEventArgs e)
+        private void btnCancelFrontDesk_Click(object sender, RoutedEventArgs e)
         {
             Close();
         }
