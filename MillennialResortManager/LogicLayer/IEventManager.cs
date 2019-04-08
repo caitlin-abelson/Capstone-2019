@@ -16,7 +16,7 @@ namespace LogicLayer
     /// </summary>
     public interface IEventManager
     {
-        void CreateEvent(Event newEvent);
+        int CreateEvent(Event newEvent);
         void UpdateEvent(Event oldEvent, Event newEvent);
         void DeleteEvent(Event purgeEvent);
         List<Event> RetrieveAllEvents();

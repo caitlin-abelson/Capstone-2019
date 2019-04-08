@@ -29,9 +29,14 @@ namespace WpfPresentation
     {
         private Employee _employee;
         private LogicLayer.EventManager _eventManager = new LogicLayer.EventManager();
+        private EventSponsorManager _eventSponsManager = new EventSponsorManager();
         private Event _oldEvent;
         private Event _newEvent;
+        public int _createdEventID;
+        public Sponsor _retrievedSponsor;
         private EventTypeManager _eventTypeManager = new EventTypeManager();
+
+        public int newEventID;
 
         /// <summary>
         /// @Author: Phillip Hansen
@@ -425,7 +430,7 @@ namespace WpfPresentation
 
                 try
                 {
-                    _eventManager.CreateEvent(_newEvent);
+                    _createdEventID = _eventManager.CreateEvent(_newEvent);
                     this.DialogResult = true;
                 }
                 catch (Exception ex)
@@ -444,7 +449,6 @@ namespace WpfPresentation
 
                 try
                 {
-
                     _eventManager.UpdateEvent(_oldEvent, _newEvent);
                     this.DialogResult = true;
                 }
@@ -478,6 +482,7 @@ namespace WpfPresentation
                 txtEventSponsor.Text = null;
                 txtEventSponsor.IsEnabled = false;
                 btnEventSponsor.IsEnabled = false;
+                btnEventAction1.IsEnabled = true;
             }
         }
 
@@ -543,6 +548,7 @@ namespace WpfPresentation
             if (txtEventSponsor != null)
             {
                 //Create a new SponsorMainWindow that passes in the filter value
+                
                 var filterSponsor = new SponsorMainWindow(txtEventSponsor.Text.ToString());
                 var result = filterSponsor.ShowDialog();
 
@@ -550,9 +556,13 @@ namespace WpfPresentation
                 {
                     if (filterSponsor.DialogResult == true)
                     {
+                        //The retrievedSponsor field in the window should
+                        //be the same sponsor the user selected.
+                        _retrievedSponsor = filterSponsor.retrievedSponsor;
+
                         //If the dialogResult of said window is true, do not allow
                         //user to modify the input fields (unless they wish to redo the process)
-                        
+                        txtEventSponsor.Text = _retrievedSponsor.Name;
                         txtEventSponsor.IsEnabled = false;
                         btnEventSponsor.IsEnabled = false;
                         

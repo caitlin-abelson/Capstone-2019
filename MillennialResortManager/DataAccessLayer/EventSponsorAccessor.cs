@@ -35,14 +35,14 @@ namespace DataAccessLayer
         /// Insert method using a stored procedure
         /// </summary>
         /// <param name="newEvSpons"></param> EventSponsor object must be supplied first
-        public void insertEventSponsor(EventSponsor newEvSpons)
+        public void insertEventSponsor(int eventID, int sponsorID)
         {
             var conn = DBConnection.GetDbConnection();
             var cmd = new SqlCommand("sp_insert_event_sponsor", conn);
             cmd.CommandType = CommandType.StoredProcedure;
             //Parameters for new Event Sponsor record
-            cmd.Parameters.AddWithValue("@EventID", newEvSpons.EventID);
-            cmd.Parameters.AddWithValue("@SponsorID", newEvSpons.SponsorID);
+            cmd.Parameters.AddWithValue("@EventID", eventID);
+            cmd.Parameters.AddWithValue("@SponsorID", sponsorID);
 
             try
             {
@@ -88,7 +88,9 @@ namespace DataAccessLayer
                         EventSponsors.Add(new EventSponsor()
                         {
                             EventID = r.GetInt32(0),
-                            SponsorID = r.GetInt32(1)
+                            EventTitle = r.GetString(1),
+                            SponsorName = r.GetString(2),
+                            SponsorID = r.GetInt32(3)
                         });
 
                     }

@@ -20,6 +20,7 @@ CREATE PROCEDURE [dbo].[sp_insert_event]
 		@NumGuests 		[int],
 		@Location 		[nvarchar](50),
 		@PublicEvent 	[bit],
+		@Sponsored		[bit],
 		@Approved 		[bit],
 		@Price			[money]
 )
@@ -44,6 +45,7 @@ AS
 			,[NumGuests]
 			,[Location]
 			,[PublicEvent]
+			,[Sponsored]
 			,[Approved])
 			VALUES
 			(@NewOfferingID
@@ -58,10 +60,11 @@ AS
 			,@NumGuests
 			,@Location
 			,@PublicEvent
+			,@Sponsored
 			,@Approved
 			)
 
-			RETURN @@ROWCOUNT
+			RETURN SCOPE_IDENTITY()
 	END
 GO
 print '' print'sp_retrieve_event'
@@ -198,6 +201,7 @@ AS
 		VALUES
 			(@EventID, @SponsorID)
 		
+		RETURN @@ROWCOUNT
 	END
 GO
 
@@ -206,7 +210,8 @@ GO
 CREATE PROCEDURE [dbo].[sp_retrieve_all_event_sponsors]
 AS
 	BEGIN	
-		SELECT 	[EventSponsor].[EventID], [EventSponsor].[SponsorID]
+		SELECT 	[EventSponsor].[EventID], [Event].[EventTitle],
+					[Sponsor].[Name], [EventSponsor].[SponsorID]
 		FROM	[Event] INNER JOIN [EventSponsor]
 				ON	[Event].[EventID] = [EventSponsor].[EventID]
 		INNER JOIN [Sponsor] ON [EventSponsor].[SponsorID] = [Sponsor].[SponsorID]

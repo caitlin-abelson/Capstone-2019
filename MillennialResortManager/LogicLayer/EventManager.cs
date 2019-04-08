@@ -18,6 +18,7 @@ namespace LogicLayer
     public class EventManager : IEventManager
     {
         private IEventAccessor _eventAccessor;
+        public int _createdEventID = 0;
 
         /// <summary>
         /// @Author: Phillip Hansen
@@ -40,22 +41,22 @@ namespace LogicLayer
         /// Method for creating an event calling to the accessor for events
         /// </summary>
         /// <param name="newEvent"></param> creates a new Event object called newEvent
-        public void CreateEvent(Event newEvent)
+        public int CreateEvent(Event newEvent)
         {
-
             try
             {
                 if (!IsValid(newEvent))
                 {
                     throw new ArgumentException("Input for the new event was invalid!");
                 }
-                _eventAccessor.insertEvent(newEvent);
+                _createdEventID = _eventAccessor.insertEvent(newEvent);
             }
             catch (Exception)
             {
                 throw;
             }
 
+            return _createdEventID;
         }
 
         /// <summary>

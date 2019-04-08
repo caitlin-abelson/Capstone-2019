@@ -15,6 +15,8 @@ namespace DataObjects
         /// Creates the Event Sponsor object for the joined table
         /// </summary>
         public int EventID { get; set; }
+        public string EventTitle { get; set; }
         public int SponsorID { get; set; }
+        public string SponsorName { get; set; }
     }
 }

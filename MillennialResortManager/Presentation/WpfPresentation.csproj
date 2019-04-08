@@ -134,9 +134,6 @@
     <Compile Include="EditLuggage.xaml.cs" />
     <Compile Include="EmployeeRoles.xaml.cs" />
     <Compile Include="frmAddEditSponsor.xaml.cs" />
-    <Compile Include="frmAddEventSponsor.xaml.cs">
-      <DependentUpon>frmAddEventSponsor.xaml</DependentUpon>
-    </Compile>
     <Compile Include="FrmBrowseShuttleVehicles.xaml.cs">
       <DependentUpon>FrmBrowseShuttleVehicles.xaml</DependentUpon>
     </Compile>
@@ -402,10 +399,6 @@
     <Page Include="frmAddEditViewRoom.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="frmAddEventSponsor.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="frmAddItemSupplierForItem.xaml">
       <Generator>MSBuild:Compile</Generator>

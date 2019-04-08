@@ -67,7 +67,6 @@
                 <ColumnDefinition Width="100"></ColumnDefinition>
                 <ColumnDefinition Width="70"></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <Button x:Name="btnAddEventSpons" Content="Add" Width="50" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="2" Click="btnAddEventSpons_Click"/>
             <Button x:Name="btnDeleteEventSpons" Content="Delete" Width="50" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="4" Click="btnDeleteEventSpons_Click"/>
         </Grid>
     </Grid>

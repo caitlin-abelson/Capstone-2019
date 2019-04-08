@@ -41,8 +41,9 @@ namespace DataAccessLayer
         /// Method for inserting a new event
         /// </summary>
         /// <param name="newEvent"></param> allows a new Event object to be created, called 'newEvent'
-        public void insertEvent(Event newEvent)
+        public int insertEvent(Event newEvent)
         {
+            int eventID = 0;
 
             var conn = DBConnection.GetDbConnection();
             var cmd = new SqlCommand("sp_insert_event", conn);
@@ -60,12 +61,26 @@ namespace DataAccessLayer
             cmd.Parameters.AddWithValue("@NumGuests", newEvent.NumGuests);
             cmd.Parameters.AddWithValue("@Location", newEvent.Location);
             cmd.Parameters.AddWithValue("@PublicEvent", newEvent.PublicEvent);
+            cmd.Parameters.AddWithValue("@Sponsored", newEvent.Sponsored);
             cmd.Parameters.AddWithValue("@Approved", newEvent.Approved);
+
+            //Add a new parameter without messing with
+            //the stored procedure code
+            SqlParameter _value = cmd.Parameters.Add("ScopeID", SqlDbType.Int);
+            //Direct the parameter to the @return_value
+            //In this case, it is the SCOPE_IDENTITY
+            _value.Direction = ParameterDirection.ReturnValue;
+
+
 
             try
             {
                 conn.Open();
                 cmd.ExecuteNonQuery();
+
+                //Retrieve the parameter's value
+                //Must happen after the query is executed
+                eventID = (int)_value.Value;
             }
             catch (Exception)
             {
@@ -76,7 +91,7 @@ namespace DataAccessLayer
                 conn.Close();
             }
 
-            
+            return eventID;
         }
 
         /// <summary>

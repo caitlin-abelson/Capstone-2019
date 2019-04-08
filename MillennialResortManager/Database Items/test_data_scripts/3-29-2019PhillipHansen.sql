@@ -1,12 +1,30 @@
 USE [MillennialResort_DB]
 GO
 
+print '' print '***Inserting a fake Department record'
+GO
+INSERT INTO [dbo].[Department]
+			([DepartmentID],[Description])
+		VALUES
+			('Admin','Admin Department')
+GO
+
+print '' print '***Inserting a fake Employee record'
+GO
+INSERT INTO [dbo].[Employee]
+			([FirstName],[LastName],[PhoneNumber],[Email],[PasswordHash],[Active],[DepartmentID])
+		VALUES
+			('Admin','Admin',999-9999999,'admin@place.com'
+			,'9c9064c59f1ffa2e174ee754d2979be80dd30db552ec03e7e327e9b1a4bd594e'
+			,1,'Admin')
+GO
+
 print '' print '***Inserting a fake Offering Type record'
 GO
 INSERT INTO [dbo].[OfferingType]
-			([OfferingTypeID], [Description])
+			([OfferingTypeID],[Description])
 		VALUES
-			('Event','A Description if you dont know what an Event is')
+			('Event','A description of what an Event is')
 GO
 
 print '' print '***Inserting a fake Offering record'
@@ -39,6 +57,14 @@ INSERT INTO [dbo].[Event]
 			(100000,'Fake Cancelled Event',100000,'Beach Party','Fake Event Description',
 				'2020-01-02','2020-01-04',0,500,'Beach',0,0,1,100,0)
 GO	
+
+print '' print '***Inserting fake EventSponsor record'
+GO
+INSERT INTO [dbo].[EventSponsor]
+			([EventID], [SponsorID])
+		VALUES
+			(100000, 110000)
+GO
 
 			
 			

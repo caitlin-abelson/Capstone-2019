@@ -19,7 +19,6 @@ namespace DataObjects
         /// </summary>
         public int EventID { get; set; }
         public string EventTitle { get; set; }
-
         public decimal Price { get; set; }
         public int OfferingID { get; set; }
         //public string OfferingName { get; set; }
