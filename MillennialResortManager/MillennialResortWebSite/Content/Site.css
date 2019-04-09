@@ -160,6 +160,12 @@ header {
     margin-bottom: 0px;
 }
 
+
+
+
+
+
+
 .jumbotronBackGround {
     /*padding-bottom: 270px;*/
     background-repeat: no-repeat;
@@ -215,6 +221,29 @@ header {
         color: #fff;
         font-size: 30px;
     }
+
+
+.jumbotronBackGroundReservationPage {
+    /*padding-bottom: 270px;*/
+    background-repeat: no-repeat;
+    background-image: url(../Content/images/beach-familyTwo.jpg);
+    background-size: cover;
+    background-position: center center;
+}
+
+    .jumbotronBackGroundReservationPage h1 {
+        font-size: 55px;
+        font-family: 'Fugaz One', cursive;
+        text-shadow: 3px 3px #40798C;
+        color: #fff;
+    }
+    .jumbotronBackGroundReservationPage h2 {
+        font-size: 30px;
+        font-family: 'Fugaz One', cursive;
+        text-shadow: 3px 3px #40798C;
+        color: #fff;
+    }
+
 
 .carousel-inner {
     width: 500px;
