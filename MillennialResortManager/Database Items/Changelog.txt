@@ -23,3 +23,22 @@ Updated field definitions in:
 	RecipeItemLine
 
 Added New Pushing System for DB items as recommended by Jim
+
+Jared Greenfield 2019-04-09
+Added Tables
+	- Receiving
+	- ResortVehicle
+	- ResortVehicleStatus
+	- Luggage
+	- LuggageStatus
+	- VehicleCheckout
+	- HouseKeepingRequest
+	- Inspection
+	- RoomStatus
+	- PetImageFileName
+Updated Constraints
+Updated Table
+	- Room (Removed Active, Price, Available) (Added RoomStatus and OfferingID)
+Other small fixes to make DB run
+Moved Test Data from scripts to seperate files
+	

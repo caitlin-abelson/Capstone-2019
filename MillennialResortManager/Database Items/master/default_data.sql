@@ -54,6 +54,18 @@ INSERT INTO [dbo].[Role]
 	('Manager', 'Makes sure parties go as planned'),
 	('Worker', 'Gets stuff in, moves stuff out')
 	GO
+	
+INSERT INTO [RoomType]
+(
+    [RoomTypeID], [Description] 
+)	
+VALUES
+    ('Double', 'Double beds'),
+    ('Queen', 'Single Queen'),
+    ('King', 'Single King'),
+	('Shop', 'Shop')
+GO
+
 INSERT INTO [Employee]
 (
 	[FirstName], [LastName], [PhoneNumber], [Email], [DepartmentID]
@@ -61,8 +73,45 @@ INSERT INTO [Employee]
 VALUES
 	("Bob", "Trap", "1234567890", "BTrapp@gmail.com", "Admin")
 GO
+
+INSERT INTO [ResortPropertyType]
+(
+    [ResortPropertyTypeID]
+)
+VALUES
+    ('Building'),
+    ('Room'),
+    ('Vehicle')
+GO
 INSERT INTO [dbo].[EmployeeRole]
 	([RoleID], [EmployeeID])
 	VALUES
 	('Admin', 100000)
 	GO
+/*	Author: Jacob Miller
+	Created: 3/28/19
+	Updated:
+*/
+
+INSERT INTO [dbo].[LuggageStatus]
+		([LuggageStatusID])
+	VALUES
+		('In Lobby'),
+		('In Room'),
+		('In Transit')
+GO
+
+INSERT INTO [dbo].[RoomStatus]
+	([RoomStatusID],[Description])
+	VALUES
+	('Available', 'Available'),
+	('Occupied', 'Occupied')
+GO
+
+INSERT INTO [dbo].[BuildingStatus]
+		([BuildingStatusID], [Description])
+	VALUES
+		('Available', 'Building is good to go!'),
+		('No Vacancy', 'All rooms are filled'),
+		('Undergoing Maintanance', 'Some rooms available')
+GO
