@@ -29,20 +29,45 @@ namespace Presentation
             InitializeComponent();
             this.luggageManager = luggageManager;
             this.guestManager = guestManager;
-            List<LuggageStatus> status = luggageManager.RetrieveAllLuggageStatus();
-            List<string> statusNames = new List<string>();
-            foreach (var s in status)
+            List<LuggageStatus> status = null;
+            try
             {
-                statusNames.Add(s.LuggageStatusID);
+                status = luggageManager.RetrieveAllLuggageStatus();
             }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            
+            List<string> statusNames = new List<string>();
+            if (status != null)
+            {
+                foreach (var s in status)
+                {
+                    statusNames.Add(s.LuggageStatusID);
+                }
+            }
+            
             cboStatus.ItemsSource = statusNames;
             cboStatus.SelectedIndex = 0;
-            List<Guest> guests = guestManager.ReadAllGuests();
-            List<int> guestIDs = new List<int>();
-            foreach (var g in guests)
+            List<Guest> guests = null;
+            try
             {
-                guestIDs.Add(g.GuestID);
+                guests = guestManager.ReadAllGuests();
             }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            List<int> guestIDs = new List<int>();
+            if (guests != null)
+            {
+                foreach (var g in guests)
+                {
+                    guestIDs.Add(g.GuestID);
+                }
+            }
+            
             cboGuest.ItemsSource = guestIDs;
             cboGuest.SelectedIndex = 0;
         }

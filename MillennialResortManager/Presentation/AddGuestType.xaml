@@ -6,7 +6,10 @@
         xmlns:local="clr-namespace:Presentation"
         mc:Ignorable="d"
         Title="AddGuestType" Height="400" Width="300">
-    <Grid Background="LightGray">
+    <Window.Resources>
+        <ResourceDictionary Source="Stylesheet.xaml"/>
+    </Window.Resources>
+    <Grid Style="{StaticResource DefaultPage}">
         <Grid.RowDefinitions>
             <RowDefinition Height="40"></RowDefinition>
             <RowDefinition Height="40"></RowDefinition>

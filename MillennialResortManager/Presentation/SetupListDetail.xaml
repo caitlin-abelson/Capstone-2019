@@ -6,7 +6,10 @@
         xmlns:local="clr-namespace:Presentation"
         mc:Ignorable="d"
         Title="Setup List Detail" Height="550" Width="550">
-    <Grid>
+    <Window.Resources>
+        <ResourceDictionary Source="Stylesheet.xaml"/>
+    </Window.Resources>
+    <Grid Style="{StaticResource DefaultPage}">
         <Grid.RowDefinitions>
             <RowDefinition Height="30"></RowDefinition>
             <RowDefinition Height="50"></RowDefinition>

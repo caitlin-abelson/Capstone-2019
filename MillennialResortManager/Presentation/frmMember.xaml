@@ -6,7 +6,11 @@
         xmlns:local="clr-namespace:Presentation"
         mc:Ignorable="d"
         Title="UpdateAccount" Height="500" Width="700" WindowStartupLocation="CenterScreen">
-    <Grid Background="LightGray" >
+    <Window.Resources>
+        <ResourceDictionary Source="Stylesheet.xaml"/>
+    </Window.Resources>
+
+    <Grid Style="{StaticResource DefaultPage}">
 
         <Grid.RowDefinitions>
             <RowDefinition></RowDefinition>

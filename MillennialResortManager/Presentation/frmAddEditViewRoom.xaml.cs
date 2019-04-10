@@ -109,9 +109,18 @@ namespace Presentation
             {
                 setupAddMode();
             }
-            this.cboBuilding.ItemsSource = _roomMgr.RetrieveBuildingList();
-            this.cboRoomType.ItemsSource = _roomMgr.RetrieveRoomTypeList();
-            this.cboRoomStatus.ItemsSource = _roomMgr.RetrieveRoomStatusList();
+            try
+            {
+                this.cboBuilding.ItemsSource = _roomMgr.RetrieveBuildingList();
+                this.cboRoomType.ItemsSource = _roomMgr.RetrieveRoomTypeList();
+                this.cboRoomStatus.ItemsSource = _roomMgr.RetrieveRoomStatusList();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                
+            }
+            
         }
 
         /// <summary>

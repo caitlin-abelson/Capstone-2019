@@ -2097,7 +2097,6 @@ namespace Presentation
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
-                throw;
             }
             _currentProducts = _allProducts;
             dgProducts.ItemsSource = _currentProducts;
@@ -3546,7 +3545,15 @@ namespace Presentation
         {
             var detail = new frmAddEditGuest();
             detail.ShowDialog();
-            _guestsBrowseGuests = _guestManager.ReadAllGuests();
+            try
+            {
+                _guestsBrowseGuests = _guestManager.ReadAllGuests();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            
             dgGuestsList.ItemsSource = _guestsBrowseGuests;
         }
 
@@ -5538,10 +5545,14 @@ namespace Presentation
             if (cboRoomType.Items.Count == 0)
             {
                 this.cboRoomType.Items.Add("Show All");
-                foreach (var item in _roomTypesIDList)
+                if (_roomTypesIDList != null)
                 {
-                    cboRoomType.Items.Add(item);
+                    foreach (var item in _roomTypesIDList)
+                    {
+                        cboRoomType.Items.Add(item);
+                    }
                 }
+                
                 cboRoomType.SelectedItem = "Show All";
             }
             cbxRoomActive.IsChecked = true;
@@ -5608,10 +5619,9 @@ namespace Presentation
 
                 this.dgRoom.ItemsSource = _currentRooms;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
-                throw;
+                MessageBox.Show(ex.Message);
             }
         }
 
@@ -6621,12 +6631,20 @@ namespace Presentation
             _houseKeepingRequestManager = new HouseKeepingRequestManagerMSSQL();
             refreshAllHouseKeepingRequests();
             populateHouseKeepingRequests();
-            dgLuggage.ItemsSource = luggageManager.RetrieveAllLuggage();
+            setupFrontDeskWindow();
         }
 
         public void setupFrontDeskWindow()
         {
-            dgLuggage.ItemsSource = luggageManager.RetrieveAllLuggage();
+            try
+            {
+                dgLuggage.ItemsSource = luggageManager.RetrieveAllLuggage();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            
         }
 
         /// <summary>
@@ -6636,7 +6654,16 @@ namespace Presentation
         /// </summary>
         private void populateHouseKeepingRequests()
         {
-            dgHouseKeepingRequests.ItemsSource = _currentHouseKeepingRequests;
+            try
+            {
+                dgHouseKeepingRequests.ItemsSource = _currentHouseKeepingRequests;
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.Message);
+            }
+           
         }
         /// <summary>
         /// Author: Dalton Cleveland
@@ -6822,8 +6849,15 @@ namespace Presentation
         #region Receiving #Receiving
         private void BrowseReceivingDoOnStart()
         {
-
-            dgReceiving.ItemsSource = _receivingManager.retrieveAllReceivingTickets();
+            try
+            {
+                dgReceiving.ItemsSource = _receivingManager.retrieveAllReceivingTickets();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show( ex.Message);
+            }
+            
 
         }
 

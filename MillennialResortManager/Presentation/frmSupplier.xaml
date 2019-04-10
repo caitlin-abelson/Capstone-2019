@@ -6,7 +6,10 @@
         xmlns:local="clr-namespace:Presentation"
         mc:Ignorable="d"
         Title="CreateSupplier" Height="600" Width="1000" Loaded="Window_Loaded">
-    <Grid>
+    <Window.Resources>
+        <ResourceDictionary Source="Stylesheet.xaml"/>
+    </Window.Resources>
+    <Grid Style="{StaticResource DefaultPage}">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="19"/>
             <ColumnDefinition/>

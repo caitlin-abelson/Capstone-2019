@@ -6,7 +6,11 @@
         xmlns:local="clr-namespace:Presentation"
         mc:Ignorable="d"
         Title="Add New Luggage" Height="200" Width="400">
-    <Grid>
+    <Window.Resources>
+        <ResourceDictionary Source="Stylesheet.xaml"/>
+    </Window.Resources>
+
+    <Grid Style="{StaticResource DefaultPage}">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="150"/>
             <ColumnDefinition/>

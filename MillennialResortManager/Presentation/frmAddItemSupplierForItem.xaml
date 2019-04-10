@@ -6,7 +6,11 @@
         xmlns:local="clr-namespace:Presentation"
         mc:Ignorable="d"
         Title="Add Supplier To Item" Height="480" Width="640">
-    <Grid>
+
+    <Window.Resources>
+        <ResourceDictionary Source="Stylesheet.xaml"/>
+    </Window.Resources>
+    <Grid Style="{StaticResource DefaultPage}">
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
             <ColumnDefinition/>

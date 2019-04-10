@@ -6,8 +6,11 @@
         xmlns:local="clr-namespace:Presentation"
         mc:Ignorable="d"
         Title="Create Appointment Type" Height="400" Width="300">
+    <Window.Resources>
+        <ResourceDictionary Source="Stylesheet.xaml"/>
+    </Window.Resources>
 
-    <Grid Background="LightGray">
+    <Grid Style="{StaticResource DefaultPage}">
         <Grid.RowDefinitions>
             <RowDefinition Height="40"></RowDefinition>
             <RowDefinition Height="40"></RowDefinition>

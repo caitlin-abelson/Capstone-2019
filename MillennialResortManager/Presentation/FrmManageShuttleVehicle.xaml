@@ -9,10 +9,16 @@
         Title="Create Shuttle Form" Height="450" Width="800" ResizeMode="NoResize">
 
     <Window.Resources>
-        <window:GridLength x:Key="LhsWidth">93</window:GridLength>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Stylesheet.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+            <window:GridLength x:Key="LhsWidth">93</window:GridLength>
+        </ResourceDictionary>
+
     </Window.Resources>
 
-    <Grid>
+    <Grid Style="{StaticResource DefaultPage}">
         <Grid.RowDefinitions>
             <RowDefinition Height="10"/>
             <RowDefinition Height="*"/>

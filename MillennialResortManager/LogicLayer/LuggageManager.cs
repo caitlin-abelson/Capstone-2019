@@ -41,18 +41,35 @@ namespace LogicLayer
         }
         public Luggage RetrieveLuggageByID(int id)
         {
-            return luggageAccessor.RetrieveLuggageByID(id);
+            Luggage pleaseUseATryCatch = new Luggage();
+            try
+            {
+                pleaseUseATryCatch = luggageAccessor.RetrieveLuggageByID(id);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            return pleaseUseATryCatch;
         }
         public List<Luggage> RetrieveAllLuggage()
         {
-            List<Luggage> luggage = luggageAccessor.RetrieveAllLuggage();
-            Guest g;
-            for (int l = 0; l < luggage.Count; l++)
+            List<Luggage> luggage;
+            try
             {
-                g = guestAccessor.SelectGuestByGuestID(luggage[l].GuestID);
-                luggage[l].GuestFirstName = g.FirstName;
-                luggage[l].GuestLastName = g.LastName;
+                luggage = luggageAccessor.RetrieveAllLuggage();
+                Guest g;
+                for (int l = 0; l < luggage.Count; l++)
+                {
+                    g = guestAccessor.SelectGuestByGuestID(luggage[l].GuestID);
+                    luggage[l].GuestFirstName = g.FirstName;
+                    luggage[l].GuestLastName = g.LastName;
+                }
             }
+            catch (Exception)
+            {
+                throw;
+            }             
             return luggage;
         }
         public bool EditLuggage(Luggage oldLuggage, Luggage newLuggage)
@@ -70,11 +87,29 @@ namespace LogicLayer
         }
         public bool DeleteLuggage(Luggage l)
         {
-            return luggageAccessor.DeleteLuggage(l);
+            bool result = false;
+            try
+            {
+                result = luggageAccessor.DeleteLuggage(l);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            return result;
         }
         public List<LuggageStatus> RetrieveAllLuggageStatus()
         {
-            return luggageAccessor.RetrieveAllLuggageStatus();
+            List<LuggageStatus> s;
+            try
+            {
+                s = luggageAccessor.RetrieveAllLuggageStatus();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            return s;
         }
     }
 }

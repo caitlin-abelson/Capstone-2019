@@ -70,7 +70,7 @@
                         <MenuItem Header="Products"  x:Name="NavBarSubHeaderProducts" x:Uid="NBProducts" Click="NavBarSubHeaderProducts_Click"/>
                         <MenuItem Header="Sponsors" x:Name="NavBarSubHeaderSponsors" x:Uid="NBSponsors" Click="NavBarSubHeaderSponsors_Click"/>
                         <MenuItem Header="SupplierOrders" x:Name="NavBarSubHeaderSupplierOrders" x:Uid="NBSupplierOrders" Click="NavBarSubHeaderSupplierOrders_Click"/>
-                        <MenuItem Header="Receiving" x:Name="NavBarSubHeaderReceiving" x:Uid="NBReceiving"/>
+                        <MenuItem Header="Receiving" x:Name="NavBarSubHeaderReceiving" x:Uid="NBReceiving" Click="NavBarSubHeaderReceiving_Click"/>
                     </MenuItem>
                     <MenuItem Header="_Resort Ops" x:Name="_NavBarHeaderResortOperations" Style="{StaticResource NavBarHeader}" >
                         <MenuItem Header="Appointment Types" x:Name="NavBarSubHeaderAppointmentTypes" x:Uid="NBAppointmentTypes" Click="NavBarSubHeaderAppointmentTypes_Click"/>
@@ -857,52 +857,32 @@
             <!-- Browse Setup List Page -->
             <!--Modified by Phil Hansen on 8/22/2019, changed layout and performences-->
             <Grid x:Name="BrowseSetupPage" Visibility="Hidden">
-                    <Grid.RowDefinitions>
-
-                        <RowDefinition Height="55"></RowDefinition>
-                        <RowDefinition></RowDefinition>
-                        <RowDefinition Height="55"></RowDefinition>
-
-                    </Grid.RowDefinitions>
-
-
-                    <Grid Grid.Row="0">
-
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="40" />
-                                <RowDefinition />
-                                <RowDefinition Height="40" />
-                            </Grid.RowDefinitions>
-                            <Grid Grid.Row="0">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition/>
-                                    <ColumnDefinition Width="120"/>
-                                    <ColumnDefinition Width="100"/>
-                                    <ColumnDefinition Width="120"/>
-                                    <ColumnDefinition Width="70"/>
-                                    <ColumnDefinition Width="200"/>
-                                    <ColumnDefinition Width="100"/>
-                                    <ColumnDefinition Width="100"/>
-
-                                </Grid.ColumnDefinitions>
-                                <Label Grid.Column="0" Content="Date Entered:" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"></Label>
-                                <DatePicker x:Name="dtpSetupDateEntered" Grid.Column="1" Margin="7"></DatePicker>
-                                <Label Grid.Column="2" Content="Date Required:" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"></Label>
-                                <DatePicker x:Name="dtpSetupDateRequired" Grid.Column="3" Margin="7"></DatePicker>
-                                <Label Grid.Column="4" Content="Event Title: " Padding="5" HorizontalAlignment="Right" VerticalContentAlignment="Center" />
-                                <TextBox x:Name="txtEventSetup" Grid.Column="5" HorizontalContentAlignment="Center" Text="" Margin="5"/>
-                                <Button x:Name="btnFilterSetup" Grid.Column="6" Margin="5" Content="Filter" Click="btnFilterSetup_Click" />
-
-                                <Button x:Name="btnClearSetup"  Grid.Column="7" Content="Clear" Margin="5" Click="btnClearSetup_Click" />
-
-                            </Grid>
-
-
-                        </Grid>
-
-                    </Grid>
-                    <DataGrid Grid.Row="1" x:Name="dgSetups" SelectionMode="Single"  IsReadOnly="True" AutoGenerateColumns="False" ItemsSource="{Binding}" MouseDoubleClick="dgSetups_MouseDoubleClick" >
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="55"></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition Height="55"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0" Style="{StaticResource FilterBar}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="120"/>
+                        <ColumnDefinition Width="100"/>
+                        <ColumnDefinition Width="120"/>
+                        <ColumnDefinition Width="70"/>
+                        <ColumnDefinition Width="200"/>
+                        <ColumnDefinition Width="100"/>
+                        <ColumnDefinition Width="100"/>
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Column="0" Content="Date Entered:" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+                    <DatePicker x:Name="dtpSetupDateEntered" Grid.Column="1" Margin="7" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    <Label Grid.Column="2" Content="Date Required:" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+                    <DatePicker x:Name="dtpSetupDateRequired" Grid.Column="3" Margin="7" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    <Label Grid.Column="4" Content="Event Title: " Padding="5" HorizontalAlignment="Right" VerticalContentAlignment="Center" />
+                    <TextBox x:Name="txtEventSetup" Grid.Column="5" HorizontalContentAlignment="Center" Text="" Margin="5"/>
+                    <Button x:Name="btnFilterSetup" Grid.Column="6" Margin="5" Content="Filter" Click="btnFilterSetup_Click" />
+                    <Button x:Name="btnClearSetup"  Grid.Column="7" Content="Clear" Margin="5" Click="btnClearSetup_Click" />
+                </Grid>
+                <DataGrid Grid.Row="1" x:Name="dgSetups" SelectionMode="Single"  IsReadOnly="True" AutoGenerateColumns="False" ItemsSource="{Binding}" MouseDoubleClick="dgSetups_MouseDoubleClick" >
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Event" Binding="{Binding EventTitle}"/>
                             <DataGridTextColumn Header="DateEntered" Binding="{Binding DateEntered}"/>
@@ -911,36 +891,21 @@
                         </DataGrid.Columns>
 
                     </DataGrid>
+                <Grid Grid.Row="2" Style="{StaticResource BottomBar}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition />
+                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition Width="100"/>
+                        </Grid.ColumnDefinitions>
+                        <Button x:Name="btnBrowseSetupList" Grid.Column="2" Content="View Setup List" Margin="5" Click="btnBrowseSetupList_Click"/>
+                        <Button x:Name="btnAddSetup" Grid.Column="3" Content="Add Setup" Margin="5" Click="btnAddSetup_Click"/>
+                        <Button x:Name="btnDeleteSetup"  Grid.Column="4" Content="Delete" Margin="5" Click="BtnDeleteSetup_Click"  />
 
-                    <Grid Grid.Row="2">
-
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="40" />
-                                <RowDefinition />
-                                <RowDefinition Height="40" />
-                            </Grid.RowDefinitions>
-                            <Grid Grid.Row="0">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="100"/>
-                                    <ColumnDefinition />
-
-                                    <ColumnDefinition Width="100"/>
-                                    <ColumnDefinition Width="100"/>
-                                    <ColumnDefinition Width="100"/>
-
-                                </Grid.ColumnDefinitions>
-                                <Button x:Name="btnBrowseSetupList" Grid.Column="2" Content="View Setup List" Margin="5" Click="btnBrowseSetupList_Click"/>
-                                <Button x:Name="btnAddSetup" Grid.Column="3" Content="Add Setup" Margin="5" Click="btnAddSetup_Click"/>
-                                <Button x:Name="btnDeleteSetup"  Grid.Column="4" Content="Delete" Margin="5" Click="BtnDeleteSetup_Click"  />
-
-                            </Grid>
-
-
-                        </Grid>
-
-                    </Grid>
                 </Grid>
+
+            </Grid>
             <!-- Browse Sponsor Page -->
             <!--Modified by Phil Hansen on 8/22/2019, changed layout and performences-->
             <Grid x:Name="BrowseSponsorPage" Visibility="Hidden">
@@ -1549,7 +1514,7 @@
                     <RowDefinition></RowDefinition>
                     <RowDefinition Height="75"></RowDefinition>
                 </Grid.RowDefinitions>
-                <Grid Grid.Row="0">
+                <Grid Grid.Row="0" Style="{StaticResource FilterBar}">
                     <Label x:Name="lblReceiving" Content="Receiving Tickets:" VerticalAlignment="Center" HorizontalAlignment="Left"></Label>
                 </Grid>
                 <Grid Grid.Row="1">
@@ -1557,7 +1522,7 @@
 
                     </DataGrid>
                 </Grid>
-                <Grid Grid.Row="2">
+                <Grid Grid.Row="2" Style="{StaticResource BottomBar}">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition></ColumnDefinition>
                         <ColumnDefinition></ColumnDefinition>
@@ -1601,7 +1566,7 @@
                     <TabItem x:Name="tabConcierge" Header="Concierge">
                     </TabItem>
                 </TabControl>
-                <Grid Grid.Row="1">
+                <Grid Grid.Row="1" Style="{StaticResource BottomBar}">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition/>
                         <ColumnDefinition/>

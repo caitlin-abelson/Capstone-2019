@@ -6,19 +6,12 @@
         xmlns:local="clr-namespace:Presentation"
         mc:Ignorable="d"
         Title="Add/Edit Supplier Order" Height="480" Width="640">
+
+
     <Window.Resources>
-        <Style x:Key="WrappedColumnHeaderStyle" TargetType="{x:Type DataGridColumnHeader}">
-            <Setter Property="ContentTemplate">
-                <Setter.Value>
-                    <DataTemplate>
-                        <TextBlock TextWrapping="Wrap" HorizontalAlignment="Center" Text="{Binding}"></TextBlock>
-                    </DataTemplate>
-                </Setter.Value>
-            </Setter>
-            <Setter Property="HorizontalContentAlignment" Value="Center" />
-        </Style>
+        <ResourceDictionary Source="Stylesheet.xaml"/>
     </Window.Resources>
-    <Grid>
+    <Grid Style="{StaticResource DefaultPage}">
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
             <ColumnDefinition/>
@@ -99,7 +92,7 @@
         <Button Grid.Row="6" Grid.Column="4" HorizontalAlignment="Right" x:Name="btnAddLine" Content="Add Line"  Width="100" Margin="8,5,25,5" Click="BtnAddLine_Click"/>
 
         <DataGrid Grid.Row="8" Grid.Column="0" Grid.ColumnSpan="3" x:Name="dgOrderLines"  AutoGenerateColumns="False" VerticalGridLinesBrush="{x:Null}" SelectionMode="Single"   
-                                  IsReadOnly="True" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="#fff" FontWeight="Bold" Foreground="#525252" 
+                                  IsReadOnly="True" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" FontWeight="Bold"  
                                   ScrollViewer.CanContentScroll="True" 
                                   ScrollViewer.HorizontalScrollBarVisibility="Visible" ScrollViewer.VerticalScrollBarVisibility="Auto" 
                                   Margin="5" MouseDoubleClick="DgOrderLines_MouseDoubleClick" >

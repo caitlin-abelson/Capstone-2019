@@ -47,19 +47,23 @@ namespace Presentation
             {
                 _events = _eventManager.RetrieveAllEvents();
             }
-            catch(Exception)
+            catch(Exception ex)
             {
-                throw;
+                MessageBox.Show(ex.Message);
             }
 
             // The combobox for all of the event names for the user to choose from
             //cboEventName.ItemsSource = _events;
             // Jared Addition
             cboEventName.Items.Clear();
-            foreach (var item in _events)
+            if (_events != null)
             {
-                cboEventName.Items.Add(item.EventTitle);
+                foreach (var item in _events)
+                {
+                    cboEventName.Items.Add(item.EventTitle);
+                }
             }
+            
 
             dtpDateEntered.IsEnabled = false;
             btnSetupList.Visibility = Visibility.Hidden;
@@ -85,9 +89,9 @@ namespace Presentation
             {
                 _events = _eventManager.RetrieveAllEvents();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw;
+                MessageBox.Show( ex.Message);
             }
 
             // The combobox for all of the event names for the user to choose from

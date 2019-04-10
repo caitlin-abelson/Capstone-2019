@@ -53,9 +53,12 @@ namespace Presentation
                 SetError(ex.Message);
             }
             List<string> list1 = new List<string>();
-            foreach (var item in _maintenanceTypes)
+            if (_maintenanceTypes != null)
             {
-                list1.Add(item.MaintenanceTypeID);
+                foreach (var item in _maintenanceTypes)
+                {
+                    list1.Add(item.MaintenanceTypeID);
+                }
             }
             cboMaintenanceTypeID.ItemsSource = list1;
 
@@ -68,9 +71,12 @@ namespace Presentation
                 SetError(ex.Message);
             }
             List<string> list2 = new List<string>();
-            foreach (var item in _maintenanceStatusTypes)
+            if (_maintenanceStatusTypes != null)
             {
-                list2.Add(item.MaintenanceStatusID);
+                foreach (var item in _maintenanceStatusTypes)
+                {
+                    list2.Add(item.MaintenanceStatusID);
+                }
             }
             cboStatus.ItemsSource = list2;
 
