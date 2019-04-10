@@ -727,5 +727,97 @@ namespace DataAccessLayer
                 return true;
             }
         }
+
+        /// <summary>
+        /// Eduardo Colon
+        /// Created: 2019/03/20
+        /// 
+        /// method to retrieve all guestinfo by guestid
+        /// </summary>
+        public Guest RetrieveGuestInfo(int guestID)
+        {
+            Guest guest = new Guest();
+
+            var conn = DBConnection.GetDbConnection();
+            var cmdText = @"sp_retrieve_guest_info_by_id";
+            var cmd = new SqlCommand(cmdText, conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.AddWithValue("@GuestID", guestID);
+
+            try
+            {
+                conn.Open();
+
+                SqlDataReader reader = cmd.ExecuteReader();
+
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        guest.GuestID = reader.GetInt32(0);
+                        guest.FirstName = reader.GetString(1);
+                        guest.LastName = reader.GetString(2);
+                        guest.PhoneNumber = reader.GetString(3);
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            return guest;
+        }
+
+        /// <summary>
+        /// Eduardo Colon
+        /// Created: 2019/03/20
+        /// 
+        /// method to retrieve all guestinfo
+        /// </summary>
+        public List<Guest> RetrieveAllGuestInfo()
+        {
+            var guests = new List<Guest>();
+
+            var conn = DBConnection.GetDbConnection();
+            var cmdText = @"sp_retrieve_guest_info";
+            var cmd = new SqlCommand(cmdText, conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            try
+            {
+                conn.Open();
+
+                SqlDataReader reader = cmd.ExecuteReader();
+
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        var guest = new Guest();
+                        guest.GuestID = reader.GetInt32(0);
+                        guest.FirstName = reader.GetString(1);
+                        guest.LastName = reader.GetString(2);
+                        guest.PhoneNumber = reader.GetString(3);
+                        guests.Add(guest);
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            return guests;
+        }
     }
 }

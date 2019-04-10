@@ -92,6 +92,7 @@
     <Compile Include="Setup.CS" />
     <Compile Include="SetupList.cs" />
     <Compile Include="Shop.cs" />
+    <Compile Include="ShuttleReservation.cs" />
     <Compile Include="SpecialOrderLine.cs" />
     <Compile Include="Sponsor.cs" />
     <Compile Include="SponsorMainWindow.cs" />

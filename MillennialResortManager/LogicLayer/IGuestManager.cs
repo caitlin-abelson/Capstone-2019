@@ -9,7 +9,7 @@ namespace LogicLayer
     /// 
     /// The IGuestManager interface that has all CRUD methods for Guests for the Logic Layer
     /// </summary>
-    interface IGuestManager
+    public interface IGuestManager
     {
         bool CreateGuest(Guest newGuest);
         bool EditGuest(Guest newGuest, Guest oldGuest);
@@ -23,5 +23,7 @@ namespace LogicLayer
         void CheckInGuest(int guestID);
         void DeleteGuest(int guestID);
         List<Guest> RetrieveGuestNamesAndIds();
+        List<Guest> RetrieveAllGuestInfo(); //eduardo colon 2019-03-20
+        Guest RetrieveGuestInfo(int guestID); //eduardo colon 2019-03-20
     }
 }

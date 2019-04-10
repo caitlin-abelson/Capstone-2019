@@ -23,5 +23,7 @@ namespace DataAccessLayer
         List<Role> RetrieveEmployeeRoles(int EmployeeID);
         void InsertEmployeeRole(int employeeID, Role role);
         void DeleteEmployeeRole(int employeeID, Role role);
+        List<Employee> RetrieveAllEmployeeInfo(); //eduardo colon 2019-03-20
+        Employee RetrieveEmployeeInfo(int employeeID);//eduardo colon 2019-03-20
     }
 }

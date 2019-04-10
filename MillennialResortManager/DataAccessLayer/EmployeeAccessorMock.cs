@@ -269,5 +269,15 @@ namespace DataAccessLayer
         {
             throw new NotImplementedException();
         }
+
+        public List<Employee> RetrieveAllEmployeeInfo()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Employee RetrieveEmployeeInfo(int employeeID)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

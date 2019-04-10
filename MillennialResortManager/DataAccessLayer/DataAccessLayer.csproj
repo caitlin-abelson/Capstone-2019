@@ -106,6 +106,7 @@
     <Compile Include="ISetupListAccessor.cs" />
     <Compile Include="IShopAccessor.cs" />
     <Compile Include="IRoomTypeAccessor.cs" />
+    <Compile Include="IShuttleReservationAccessor.cs" />
     <Compile Include="ISpecialOrderAccessor.cs" />
     <Compile Include="ISponsorAccessor.cs" />
     <Compile Include="ISupplierOrderAccessor.cs" />
@@ -163,6 +164,8 @@
     <Compile Include="ShopAccessorMock.cs" />
     <Compile Include="ShopAccessorMSSQL.cs" />
     <Compile Include="RoomTypeAccessor.cs" />
+    <Compile Include="ShuttleReservationAccessor.cs" />
+    <Compile Include="ShuttleReservationAccessorMock.cs" />
     <Compile Include="SpecialOrderAccessorMock.cs" />
     <Compile Include="SpecialOrderAccessorMSSQL.cs" />
     <Compile Include="SponsorAccessor.cs" />

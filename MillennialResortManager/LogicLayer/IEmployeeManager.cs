@@ -32,5 +32,7 @@ namespace LogicLayer
         List<Role> SelectEmployeeRoles(int EmployeeID);
         void AddEmployeeRole(int employeeID, Role role);
         void RemoveEmployeeRole(int employeeID, Role role);
+        List<Employee> RetrieveAllEmployeeInfo(); //eduardo colon 2019-03-20
+        Employee RetrieveEmployeeInfo(int employeeID);//eduardo colon 2019-03-20
     }
 }

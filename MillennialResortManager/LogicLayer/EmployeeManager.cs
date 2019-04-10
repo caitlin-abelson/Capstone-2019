@@ -490,5 +490,51 @@ namespace LogicLayer
             }
             return roles;
         }
+
+        /// <summary>
+        /// Eduardo Colon
+        /// Created: 2019/03/20
+        /// 
+        /// method to retrieve all employeeinfo 
+        /// </summary>
+        public List<Employee> RetrieveAllEmployeeInfo()
+        {
+            var employees = new List<Employee>();
+            try
+            {
+                employees = _employeeAccessor.RetrieveAllEmployeeInfo();
+            }
+            catch
+            {
+                throw;
+            }
+            return employees;
+        }
+
+        /// <summary>
+        /// Eduardo Colon
+        /// Created: 2019/03/20
+        /// 
+        /// method to retrieve all employeeinfo by employeeid
+        /// </summary>
+        public Employee RetrieveEmployeeInfo(int employeeID)
+        {
+            Employee employee = new Employee();
+
+
+
+            try
+            {
+
+                employee = _employeeAccessor.RetrieveEmployeeInfo(employeeID);
+
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+
+            return employee;
+        }
     }
 }

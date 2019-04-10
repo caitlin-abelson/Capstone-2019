@@ -347,5 +347,13 @@ namespace DataAccessLayer
 
 
         public List<Guest> SelectGuestNamesAndIds() { return null;  }
+        public Guest RetrieveGuestInfo(int guestID)
+        {
+            throw new NotImplementedException();
+        }
+        public List<Guest> RetrieveAllGuestInfo()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

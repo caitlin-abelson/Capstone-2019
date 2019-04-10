@@ -98,6 +98,7 @@
     <Compile Include="ISetupManager.cs" />
     <Compile Include="IShopManager.cs" />
     <Compile Include="IRoomType.cs" />
+    <Compile Include="IShuttleReservationManager.cs" />
     <Compile Include="ISpecialOrderManager.cs" />
     <Compile Include="ISponsorManager.cs" />
     <Compile Include="ISupplierManager.cs" />
@@ -133,6 +134,7 @@
     <Compile Include="SetupListManager.cs" />
     <Compile Include="SetupManager.cs" />
     <Compile Include="ShopManagerMSSQL.cs" />
+    <Compile Include="ShuttleReservationManager.cs" />
     <Compile Include="SpecialOrderManagerMSSQL.cs" />
     <Compile Include="SponsorManager.cs" />
     <Compile Include="SupplierManager.cs" />
