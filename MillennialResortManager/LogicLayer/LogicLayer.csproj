@@ -84,7 +84,6 @@
     <Compile Include="IPerformanceManager.cs" />
     <Compile Include="IPetManager.cs" />
     <Compile Include="IPetTypeManager.cs" />
-    <Compile Include="IProductManager.cs" />
     <Compile Include="IReceivingManager.cs" />
     <Compile Include="IRecipeManager.cs" />
     <Compile Include="IReservationManager.cs" />
@@ -118,7 +117,6 @@
     <Compile Include="PerformanceManager.cs" />
     <Compile Include="PetManager.cs" />
     <Compile Include="PetTypeManager.cs" />
-    <Compile Include="ProductManagerMSSQL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReceivingTicketManager.cs" />
     <Compile Include="RecipeManager.cs" />

@@ -92,7 +92,6 @@
     <Compile Include="IPerformanceAccessor.cs" />
     <Compile Include="IPetAccessor.cs" />
     <Compile Include="IPetTypeAccessor.cs" />
-    <Compile Include="IProductAccessor.cs" />
     <Compile Include="IReceivingAccessor.cs" />
     <Compile Include="IRecipeAccessor.cs" />
     <Compile Include="IReservationAccessor.cs" />
@@ -142,8 +141,6 @@
     <Compile Include="PetAccessorMock.cs" />
     <Compile Include="PetTypeAccessor.cs" />
     <Compile Include="PetTypeAccessorMock.cs" />
-    <Compile Include="ProductAccessorMock.cs" />
-    <Compile Include="ProductAccessorMSSQL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReceivingAccessor.cs" />
     <Compile Include="ReceivingAccessorMock.cs" />

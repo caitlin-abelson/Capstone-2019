@@ -28,7 +28,7 @@ namespace Presentation
     public partial class frmAddItemSupplierForItem : Window
     {
         private ItemSupplierManager _itemSupplierManager = new ItemSupplierManager();
-        private Product _item;
+        private Item _item;
         //private List<ItemSupplier> _itemSuppliers;
         private ItemSupplier _itemSupplier;
         private ItemSupplier _oldItemSupplier;
@@ -44,7 +44,7 @@ namespace Presentation
         }
 
         //Constructor if we are editing an item supplier
-        public frmAddItemSupplierForItem(Product item, ItemSupplier itemSupplier, EditMode editMode)
+        public frmAddItemSupplierForItem(Item item, ItemSupplier itemSupplier, EditMode editMode)
         {
             InitializeComponent();
             _item = item;
@@ -55,7 +55,7 @@ namespace Presentation
         }
 
         //Contructor If we are adding an item supplier
-        public frmAddItemSupplierForItem(Product item, EditMode editmode)
+        public frmAddItemSupplierForItem(Item item, EditMode editmode)
         {
             InitializeComponent();
             _item = item;
@@ -96,7 +96,7 @@ namespace Presentation
 
         public void LoadControls()
         {
-            lblItemID.Content = _item.ProductID;
+            lblItemID.Content = _item.ItemID;
             this.txtDescription.Text = _item.Description;
             this.txtDescription.IsEnabled = false;
             this.txtName.Text = _item.Name;
@@ -165,7 +165,7 @@ namespace Presentation
         {
             try
             {
-                _suppliers = _itemSupplierManager.RetrieveAllSuppliersForItemSupplierManagement(_item.ProductID);
+                _suppliers = _itemSupplierManager.RetrieveAllSuppliersForItemSupplierManagement(_item.ItemID);
                 foreach ( Supplier supplier in _suppliers)
                 {                   
                     cboSupplier.Items.Add(supplier.Name + " " + supplier.SupplierID);
@@ -287,7 +287,8 @@ namespace Presentation
             {
                 return;
             }
-            _itemSupplier.ItemID = _item.ProductID;
+
+            _itemSupplier.ItemID = _item.ItemID;
 
             if (!(_supplier == null))
             {
@@ -345,7 +346,7 @@ namespace Presentation
         {
             try
             {
-                _itemSupplier = _itemSupplierManager.RetrieveItemSupplier(_item.ProductID, _itemSupplier.SupplierID);
+                _itemSupplier = _itemSupplierManager.RetrieveItemSupplier(_item.ItemID, _itemSupplier.SupplierID);
             }
             catch (Exception ex)
             {

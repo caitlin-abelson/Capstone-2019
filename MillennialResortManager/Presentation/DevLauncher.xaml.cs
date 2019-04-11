@@ -29,7 +29,7 @@ namespace Presentation
     /// #BrowseShops
     /// #BrowseEmployees
     /// #BrowseSuppliers
-    /// #BrowseProducts
+    /// #BrowseItems
     /// #BrowseBuilding
     /// #BrowseOrder
     /// #BrowseEmployeeRole
@@ -54,6 +54,7 @@ namespace Presentation
     /// #BrowseMaintenanceType
     /// #BrowseMember
     /// #Receiving
+    /// #BrowseOffering
     /// #Profile
     /// #FrontDesk
     /// 
@@ -79,11 +80,11 @@ namespace Presentation
         private List<Supplier> _suppliers;
         private List<Supplier> _currentSuppliers;
         private SupplierManager _supplierManager;
-        //Products
-        private List<Product> _allProducts;
-        private List<Product> _currentProducts;
-        private ProductManagerMSSQL _productManager;
-        private Product _selectedProduct;
+        //Items
+        private List<Item> _allItems;
+        private List<Item> _currentItems;
+        private ItemManager _itemManager;
+        private Item _selectedItem;
         //Buildings
         private List<Building> allBuildings;
         private List<Building> currentBuildings; // needed?
@@ -198,6 +199,11 @@ namespace Presentation
         private List<HouseKeepingRequest> _allHouseKeepingRequests;
         private List<HouseKeepingRequest> _currentHouseKeepingRequests;
         private HouseKeepingRequestManagerMSSQL _houseKeepingRequestManager;
+
+        //Offering
+        private List<OfferingVM> _offeringVms;
+        private List<OfferingVM> _currentOfferingVms;
+        private OfferingManager _offeringManager;
 
         #endregion
 
@@ -515,7 +521,7 @@ namespace Presentation
         private void NavBarSubHeaderProducts_Click(object sender, RoutedEventArgs e)
         {
             DisplayPage("BrowseProducts");
-            BrowseProductsDoOnStart();
+            BrowseItemsDoOnStart();
         }
 
         /// <summary>
@@ -833,6 +839,19 @@ namespace Presentation
         {
             DisplayPage("FrontDesk");
             frontDeskDoOnStart();
+        }
+
+        /// <summary>
+        /// Author: Jared Greenfield
+        /// Created : 03/28/2019
+        /// This is what happens when the subheader button for Offerings is clicked from the navbar
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void NavBarSubHeaderOfferings_Click(object sender, RoutedEventArgs e)
+        {
+            DisplayPage("BrowseOfferings");
+            //BrowseOfferingsDoOnStart();
         }
 
         /*--------------------------- Ending NavBar Code --------------------------------*/
@@ -2019,19 +2038,19 @@ namespace Presentation
         /*--------------------------- Ending BrowseSuppliers Code --------------------------------*/
         #endregion
 
-        #region Products Code
-        /*--------------------------- Starting BrowseProducts Code #BrowseProducts --------------------------------*/
+        #region Items Code
+        /*--------------------------- Starting BrowseItems Code #BrowseItems --------------------------------*/
         /// <summary>
         /// Author: Matt LaMarche
         /// Created : 3/13/2019
         /// 
         /// This is where you stick all the code you want to run in your Constructor/Window_Loaded statement
         /// </summary>
-        private void BrowseProductsDoOnStart()
+        private void BrowseItemsDoOnStart()
         {
-            _productManager = new ProductManagerMSSQL();
-            _selectedProduct = new Product();
-            populateProducts();
+            _itemManager = new ItemManager();
+            _selectedItem = new Item();
+            populateItems();
         }
 
         /// <summary>
@@ -2049,10 +2068,13 @@ namespace Presentation
         /// <param name="e"></param>
         private void dgProducts_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            var product = (Product)dgProducts.SelectedItem;
-            var createForm = new CreateProduct(product);
-            var productAdded = createForm.ShowDialog();
-            refreshProducts();
+            if (dgProducts.SelectedItem != null)
+            {
+                var item = (Item)dgProducts.SelectedItem;
+                var createForm = new CreateItem(item, _employee);
+                var productAdded = createForm.ShowDialog();
+                refreshItems();
+            }
         }
         /// <summary>
         /// Kevin Broskow
@@ -2065,17 +2087,17 @@ namespace Presentation
         /// Updated: yyyy/mm/dd 
         /// example: Fixed a problem when user inputs bad data
         /// </remarks>
-        private void populateProducts()
+        private void populateItems()
         {
             try
             {
-                _allProducts = _productManager.RetrieveAllProducts();
+                _allItems = _itemManager.RetrieveAllItems();
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
-            dgProducts.ItemsSource = _allProducts;
+            dgProducts.ItemsSource = _allItems;
         }
         /// <summary>
         /// Kevin Broskow
@@ -2088,18 +2110,19 @@ namespace Presentation
         /// Updated: yyyy/mm/dd 
         /// example: Fixed a problem when user inputs bad data
         /// </remarks>
-        private void refreshProducts()
+        private void refreshItems()
         {
             try
             {
-                _allProducts = _productManager.RetrieveAllProducts();
+                _allItems = _itemManager.RetrieveAllItems();
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
+                throw;
             }
-            _currentProducts = _allProducts;
-            dgProducts.ItemsSource = _currentProducts;
+            _currentItems = _allItems;
+            dgProducts.ItemsSource = _currentItems;
         }
 
         /// <summary>
@@ -2107,19 +2130,19 @@ namespace Presentation
         /// Created: 2019/02/5
         /// 
         /// </summary>
-        /// Handler to deal with a user clicking on a add product button. Calls the createProduct window.
+        /// Handler to deal with a user clicking on a add item button. Calls the createItem window.
         /// <remarks>
-        /// Updater Name
-        /// Updated: yyyy/mm/dd 
-        /// example: Fixed a problem when user inputs bad data
+        /// Jared Greenfield
+        /// Updated: 2019/04/03
+        /// Converted to Items from Products
         /// </remarks>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void btnAddProduct_Click(object sender, RoutedEventArgs e)
         {
-            var createForm = new CreateProduct();
+            var createForm = new CreateItem();
             createForm.ShowDialog();
-            refreshProducts();
+            refreshItems();
         }
         /// <summary>
         /// Kevin Broskow
@@ -2138,16 +2161,16 @@ namespace Presentation
         {
             if (dgProducts.SelectedIndex != -1)
             {
-                _selectedProduct = (Product)dgProducts.SelectedItem;
+                _selectedItem = (Item)dgProducts.SelectedItem;
 
-                var createForm = new CreateProduct(_selectedProduct);
+                var createForm = new CreateItem(_selectedItem, _employee);
                 createForm.ShowDialog();
             }
             else
             {
-                MessageBox.Show("You must have a product selected.");
+                MessageBox.Show("You must have a item selected.");
             }
-            refreshProducts();
+            refreshItems();
         }
         /// <summary>
         /// Kevin Broskow
@@ -2164,47 +2187,47 @@ namespace Presentation
         /// <param name="e"></param>
         private void btnDeleteProduct_Click(object sender, RoutedEventArgs e)
         {
-            Product selectedProduct = (Product)dgProducts.SelectedItem;
+            Item selectedItem = (Item)dgProducts.SelectedItem;
             MessageBoxResult result;
             if (dgProducts.SelectedIndex != -1)
             {
-                if (selectedProduct.Active)
+                if (selectedItem.Active)
                 {
-                    result = MessageBox.Show("Are you sure you want to deactivate " + selectedProduct.Name, "Deactivating Item", MessageBoxButton.YesNo);
+                    result = MessageBox.Show("Are you sure you want to deactivate " + selectedItem.Name, "Deactivating Item", MessageBoxButton.YesNo);
                     if (result == MessageBoxResult.No)
                     {
                         return;
                     }
                     else
                     {
-                        _productManager.DeactivateProduct(_selectedProduct);
+                        _itemManager.DeactivateItem(selectedItem);
                     }
                 }
-                if (!selectedProduct.Active)
+                if (!selectedItem.Active)
                 {
-                    result = MessageBox.Show("Are you sure you want to purge " + selectedProduct.Name, "Purging Item", MessageBoxButton.YesNo);
+                    result = MessageBox.Show("Are you sure you want to purge " + selectedItem.Name, "Purging Item", MessageBoxButton.YesNo);
                     if (result == MessageBoxResult.No)
                     {
                         return;
                     }
                     else
                     {
-                        _productManager.DeleteProduct(_selectedProduct);
+                        _itemManager.DeleteItem(selectedItem);
                     }
                 }
             }
             else
             {
-                MessageBox.Show("You must have a product selected.");
+                MessageBox.Show("You must have a Item selected.");
             }
-            populateProducts();
+            populateItems();
         }
         /// <summary>
         /// Kevin Broskow
         /// Created: 2019/02/5
         /// 
         /// </summary>
-        /// Handler to deal with a user checking a box labled active to view only active products.
+        /// Handler to deal with a user checking a box labled active to view only active items.
         /// <remarks>
         /// Updater Name
         /// Updated: yyyy/mm/dd 
@@ -2216,14 +2239,14 @@ namespace Presentation
         {
             if ((bool)cbActive.IsChecked && (bool)cbDeactive.IsChecked)
             {
-                populateProducts();
+                populateItems();
             }
             else if ((bool)cbActive.IsChecked)
             {
                 try
                 {
-                    _currentProducts = _productManager.RetrieveActiveProducts();
-                    dgProducts.ItemsSource = _currentProducts;
+                    _currentItems = _itemManager.RetrieveActiveItems();
+                    dgProducts.ItemsSource = _currentItems;
                 }
                 catch (Exception ex)
                 {
@@ -2232,7 +2255,7 @@ namespace Presentation
             }
             else if (!(bool)cbActive.IsChecked)
             {
-                populateProducts();
+                populateItems();
             }
         }
         /// <summary>
@@ -2240,7 +2263,7 @@ namespace Presentation
         /// Created: 2019/02/5
         /// 
         /// </summary>
-        /// Handler to deal with a user checking a box labled deactive to view only deactive *should be inactive* products.
+        /// Handler to deal with a user checking a box labled deactive to view only deactive *should be inactive* items.
         /// <remarks>
         /// Updater Name
         /// Updated: yyyy/mm/dd 
@@ -2252,14 +2275,14 @@ namespace Presentation
         {
             if ((bool)cbActive.IsChecked && (bool)cbDeactive.IsChecked)
             {
-                populateProducts();
+                populateItems();
             }
             else if ((bool)cbDeactive.IsChecked)
             {
                 try
                 {
-                    _currentProducts = _productManager.RetrieveDeactiveProducts();
-                    dgProducts.ItemsSource = _currentProducts;
+                    _currentItems = _itemManager.RetrieveDeactiveItems();
+                    dgProducts.ItemsSource = _currentItems;
                 }
                 catch (Exception ex)
                 {
@@ -2268,7 +2291,7 @@ namespace Presentation
             }
             else if (!(bool)cbDeactive.IsChecked)
             {
-                populateProducts();
+                populateItems();
             }
         }
         /// <summary>
@@ -2290,12 +2313,12 @@ namespace Presentation
             {
                 if (txtSearchBox.Text.ToString() != "")
                 {
-                    _currentProducts = _allProducts.FindAll(b => b.Name.ToLower().Contains(txtSearchBox.Text.ToString().ToLower()));
-                    dgProducts.ItemsSource = _currentProducts;
+                    _currentItems = _allItems.FindAll(b => b.Name.ToLower().Contains(txtSearchBox.Text.ToString().ToLower()));
+                    dgProducts.ItemsSource = _currentItems;
                 }
                 else
                 {
-                    MessageBox.Show("You must search for a product");
+                    MessageBox.Show("You must search for an item.");
                 }
             }
             catch (Exception ex)
@@ -2318,7 +2341,7 @@ namespace Presentation
         /// <param name="e"></param>
         private void btnClear_Click(object sender, RoutedEventArgs e)
         {
-            populateProducts();
+            populateItems();
             this.txtSearchBox.Text = "";
             this.cbActive.IsChecked = false;
             this.cbDeactive.IsChecked = false;
@@ -2343,7 +2366,11 @@ namespace Presentation
                 (e.Column as DataGridTextColumn).Binding.StringFormat = "MM/dd/yyyy";
             }
             string headerName = e.Column.Header.ToString();
-            if (headerName == "ProductID")
+            if (headerName == "ItemID")
+            {
+                e.Cancel = true;
+            }
+            if (headerName == "OfferingID")
             {
                 e.Cancel = true;
             }
@@ -2379,7 +2406,7 @@ namespace Presentation
         }
 
 
-        /*--------------------------- Ending BrowseProducts Code --------------------------------*/
+        /*--------------------------- Ending BrowseItems Code --------------------------------*/
         #endregion
 
         #region Building Code
@@ -6936,6 +6963,229 @@ namespace Presentation
 
 
         #endregion
+        #region Offering
+        /*--------------------------- Starting BrowseOffering Code #BrowseOffering --------------------------------*/
+
+        /// <summary>
+        /// Author: Jared Greenfield
+        /// Created : 03/28/2019
+        /// 
+        /// This is where you stick all the code you want to run in your Constructor/Window_Loaded statement
+        /// </summary>
+        private void BrowseOfferingDoOnStart()
+        {
+            _offeringManager = new OfferingManager();
+            try
+            {
+                _offeringVms = _offeringManager.RetrieveAllOfferingViewModels();
+                _currentOfferingVms = _offeringVms;
+                List<string> offeringTypes = new List<string>();
+                offeringTypes = _offeringManager.RetrieveAllOfferingTypes();
+
+                cboOfferingType.Items.Clear();
+                foreach (var item in offeringTypes)
+                {
+                    cboOfferingType.Items.Add(item);
+                }
+                cboOfferingType.Items.Add("All");
+                cboOfferingType.SelectedItem = "All";
+            }
+            catch (Exception)
+            {
+            }
+            dgOfferings.ItemsSource = _offeringVms;
+            btnAddOffering.Visibility = Visibility.Collapsed;
+        }
+
+        /// <summary>
+        /// Author: Jared Greenfield
+        /// Created On: 03/27/2019
+        /// </summary>
+        private void NavBarSubHeadersOfferings_Click(object sender, RoutedEventArgs e)
+        {
+            DisplayPage("BrowseOfferingsPage");
+            BrowseOfferingDoOnStart();
+        }
+
+        /// <summary>
+        /// Author: Jared Greenfield
+        /// Created On: 03/28/2019
+        /// Filters the Offering Grid
+        /// </summary>
+        private void btnFilterOfferings_Click(object sender, RoutedEventArgs e)
+        {
+            _currentOfferingVms = _offeringVms;
+            if (cboOfferingType.SelectedItem.ToString() != "All")
+            {
+                _currentOfferingVms = _currentOfferingVms.Where(x => x.OfferingTypeID == cboOfferingType.SelectedItem.ToString()).ToList();
+            }
+            if (txtOfferingName.Text != "")
+            {
+                _currentOfferingVms = _currentOfferingVms.Where(x => x.OfferingName.ToUpper().Contains(txtOfferingName.Text.ToUpper())).ToList();
+            }
+            if (txtOfferingDescription.Text != "")
+            {
+                _currentOfferingVms = _currentOfferingVms.Where(x => x.Description.ToUpper().Contains(txtOfferingDescription.Text.ToUpper())).ToList();
+            }
+            _currentOfferingVms = _currentOfferingVms.Where(x => x.Active == chkOfferingActive.IsChecked).ToList();
+            dgOfferings.ItemsSource = _currentOfferingVms;
+        }
+
+        /// <summary>
+        /// Author: Jared Greenfield
+        /// Created On: 03/28/2019
+        /// Clears the filters for offerings
+        /// </summary>
+        private void BtnClearFiltersOfferings_Click(object sender, RoutedEventArgs e)
+        {
+            txtOfferingName.Text = "";
+            txtOfferingDescription.Text = "";
+            cboOfferingType.SelectedItem = "All";
+            chkOfferingActive.IsChecked = true;
+            dgOfferings.ItemsSource = _offeringVms;
+        }
+
+        /// <summary>
+        /// Author: Jared Greenfield
+        /// Created On: 03/28/2019
+        /// Makes the Offering datagrid human-readable
+        /// </summary>
+        private void DgOfferings_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
+        {
+            string header = e.Column.Header.ToString();
+            if (e.PropertyType == typeof(Decimal))
+            {
+                (e.Column as DataGridTextColumn).Binding.StringFormat = "c";
+            }
+            switch (header)
+            {
+                case "OfferingID":
+                    e.Column.Visibility = Visibility.Collapsed;
+                    break;
+                case "OfferingTypeID":
+                    e.Column.Header = "Offering Type";
+                    break;
+                case "Description":
+                    e.Column.Width = new DataGridLength(1, DataGridLengthUnitType.Star);
+                    break;
+                case "OfferingPrice":
+                    e.Column.Header = "Price";
+                    break;
+                case "OfferingActive":
+                    e.Column.Header = "Active";
+                    e.Column.DisplayIndex = 5;
+                    break;
+                case "OfferingName":
+                    e.Column.Header = "Offering Name";
+                    e.Column.DisplayIndex = 0;
+                    e.Column.Width = new DataGridLength(1, DataGridLengthUnitType.Star);
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        /// <summary>
+        /// Author: Jared Greenfield
+        /// Created On: 03/28/2019
+        /// Makes the Offering datagrid human-readable
+        /// </summary>
+        private void BtnViewOffering_Click(object sender, RoutedEventArgs e)
+        {
+            if (dgOfferings.SelectedItem != null)
+            {
+                var offering = _offeringManager.RetrieveOfferingByID(((OfferingVM)dgOfferings.SelectedItem).OfferingID);
+                var form = new frmOffering(CrudFunction.Retrieve, offering, _employee);
+                var result = form.ShowDialog();
+                BrowseOfferingDoOnStart();
+            }
+            else
+            {
+                MessageBox.Show("Select an Offering first.");
+            }
+        }
+
+        /// <summary>
+        /// Author: Jared Greenfield
+        /// Created On: 04/03/2019
+        /// Opens the details of an offering.
+        /// </summary>
+        private void DgOfferings_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            if (dgOfferings.SelectedItem != null)
+            {
+                var offering = _offeringManager.RetrieveOfferingByID(((OfferingVM)dgOfferings.SelectedItem).OfferingID);
+                var form = new frmOffering(CrudFunction.Retrieve, offering, _employee);
+                var result = form.ShowDialog();
+                BrowseOfferingDoOnStart();
+            }
+            else
+            {
+                MessageBox.Show("Select an Offering first.");
+            }
+        }
+        /// <summary>
+        /// Author: Jared Greenfield
+        /// Created On: 04/03/2019
+        /// Deletes / Deactivates a record. 
+        /// </summary>
+        private void BtnDeleteOffering_Click(object sender, RoutedEventArgs e)
+        {
+            if (dgOfferings.SelectedItem != null && btnDeleteOffering.Content.ToString() == "Delete Offering")
+            {
+                try
+                {
+                    _offeringManager.DeactivateOfferingByID(((OfferingVM)dgOfferings.SelectedItem).OfferingID);
+
+                }
+                catch (Exception)
+                {
+                    MessageBox.Show("This operation could not be completed.");
+                }
+                BrowseOfferingDoOnStart();
+            }
+            else if (dgOfferings.SelectedItem != null && btnDeleteOffering.Content.ToString() == "Purge Offering")
+            {
+                try
+                {
+                    _offeringManager.DeleteOfferingByID(((OfferingVM)dgOfferings.SelectedItem).OfferingID);
+
+                }
+                catch (Exception)
+                {
+                    MessageBox.Show("This operation could not be completed.");
+                }
+                BrowseOfferingDoOnStart();
+            }
+            else
+            {
+                MessageBox.Show("Select an Offering first.");
+            }
+        }
+        /// <summary>
+        /// Author: Jared Greenfield
+        /// Created On: 04/03/2019
+        /// Changes button text for different operations.
+        /// </summary>
+        private void DgOfferings_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if ((OfferingVM)dgOfferings.SelectedItem != null)
+            {
+                if (((OfferingVM)dgOfferings.SelectedItem).Active)
+                {
+                    btnDeleteOffering.Content = "Delete Offering";
+                }
+                else
+                {
+                    btnDeleteOffering.Content = "Purge Offering";
+                }
+            }
+
+
+        }
+        #endregion
+
+        /*--------------------------- Ending BrowseOffering Code --------------------------------*/
 
     }
 }

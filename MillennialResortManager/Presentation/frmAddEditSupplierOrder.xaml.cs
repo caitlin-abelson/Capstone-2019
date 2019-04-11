@@ -28,7 +28,7 @@ namespace Presentation
     {
         private SupplierOrderManager _supplierOrderManager = new SupplierOrderManager();
         private SupplierManager _supplierManager = new SupplierManager();
-        private ProductManagerMSSQL _itemManager = new ProductManagerMSSQL();
+        private ItemManager _itemManager = new ItemManager();
         private ItemSupplierManager _itemSupplierManager = new ItemSupplierManager();
         //private Product _item;
 

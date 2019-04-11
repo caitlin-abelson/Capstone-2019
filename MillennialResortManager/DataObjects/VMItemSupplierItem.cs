@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DataObjects
 {
-    public class VMItemSupplierItem :  Product
+    public class VMItemSupplierItem :  Item
     {
         public int ItemID { get; set; }
         public int SupplierID { get; set; }

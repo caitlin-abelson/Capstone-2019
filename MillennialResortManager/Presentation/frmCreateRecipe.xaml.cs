@@ -195,7 +195,7 @@ namespace Presentation
             {
                 MessageBox.Show("There was an error collecting Type options. " + ex.Message);
             }
-            cboType.SelectedItem = _item.ItemTypeID;
+            cboType.SelectedItem = _item.ItemType;
 
 
             // Hiding Fields
@@ -256,7 +256,7 @@ namespace Presentation
             }
             txtDateAdded.Text = _oldRecipe.DateAdded.ToShortDateString();
             chkActive.IsChecked = _oldRecipe.Active;
-            cboType.SelectedItem = _item.ItemTypeID;
+            cboType.SelectedItem = _item.ItemType;
 
             //Fields and Buttons
 

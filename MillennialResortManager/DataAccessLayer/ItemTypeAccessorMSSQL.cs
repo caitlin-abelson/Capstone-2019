@@ -31,20 +31,9 @@ namespace DataAccessLayer
         {
             throw new NotImplementedException();
         }
-        /// <summary>
-        /// Kevin Broskow
-        /// Created: 2019/01/23
-        /// 
-        /// Method used to access the database and retrieve all item types.
-        /// </summary>
-        ///
-        /// <remarks>
-        /// Updater Name
-        /// Updated: yyyy/mm/dd
-        /// example: Fixed a problem when user inputs bad data
-        /// </remarks>
-        /// <returns>List<String> That contains all of the ItemTypeIDs</returns>	
-        public List<String> RetrieveAllItemTypes()
+
+
+        public List<string> RetrieveAllItemTypesString()
         {
             List<String> itemTypes = new List<String>();
             var conn = DBConnection.GetDbConnection();
@@ -77,11 +66,6 @@ namespace DataAccessLayer
             return itemTypes;
         }
 
-        public List<string> RetrieveAllItemTypesString()
-        {
-            throw new NotImplementedException();
-        }
-
         public ItemType RetrieveItemType()
         {
             throw new NotImplementedException();
@@ -92,7 +76,7 @@ namespace DataAccessLayer
             throw new NotImplementedException();
         }
 
-        List<ItemType> IItemTypeAccessor.RetrieveAllItemTypes()
+        public List<ItemType> RetrieveAllItemTypes()
         {
             List<ItemType> itemTypes = new List<ItemType>();
 

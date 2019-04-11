@@ -209,7 +209,7 @@ namespace Presentation
             }
             if (cboItemType.SelectedItem.ToString() != "Item Type")
             {
-                currentItems = currentItems.Where(a => a.ItemTypeID.Equals(cboItemType.SelectedItem.ToString()));
+                currentItems = currentItems.Where(a => a.ItemType.Equals(cboItemType.SelectedItem.ToString()));
             }
             dgItemList.ItemsSource = currentItems;
         }

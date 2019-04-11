@@ -17,30 +17,33 @@ using LogicLayer;
 namespace Presentation
 {
     /// <summary>
-    /// Interaction logic for ProductBrowse.xaml
+    /// Interaction logic for ItemBrowse.xaml
     /// </summary>
-    public partial class ProductBrowse : Window
+    /// <remarks>
+    /// Jared Greenfield
+    /// Updated: 2019/04/03
+    /// Updated to remove products and add in Item
+    /// </remarks>
+    public partial class ItemBrowse : Window
     {
 
-        List<Product> _allProducts;
-        List<Product> _currentProducts;
-        ProductManagerMSSQL _productManager = new ProductManagerMSSQL();
-        Product _selectedProduct = new Product();
+        List<Item> _allItems;
+        List<Item> _currentItems;
+        ItemManager _itemManager = new ItemManager();
+        Item _selectedItem = new Item();
         /// <summary>
         /// Kevin Broskow
         /// Created: 2019/02/5
         /// 
-        /// </summary>
-        /// Initial Constructor
         /// <remarks>
-        /// Updater Name
-        /// Updated: yyyy/mm/dd 
-        /// example: Fixed a problem when user inputs bad data
+        /// Jared Greenfield
+        /// Updated: 2019/04/03
+        /// Updated to remove products and add in Item
         /// </remarks>
-        public ProductBrowse()
+        public ItemBrowse()
         {
             InitializeComponent();
-            populateProducts();
+            populateItems();
         }
         /// <summary>
         /// Kevin Broskow
@@ -49,66 +52,62 @@ namespace Presentation
         /// </summary>
         /// Handler for a mouse double click on an item within the data grid.
         /// <remarks>
-        /// Updater Name
-        /// Updated: yyyy/mm/dd 
-        /// example: Fixed a problem when user inputs bad data
+        /// Jared Greenfield
+        /// Updated: 2019/04/03
+        /// Updated to remove products and add in Item
         /// </remarks>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void dgProducts_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            var product = (Product)dgProducts.SelectedItem;
-            var createForm = new CreateProduct(product);
-            var productAdded = createForm.ShowDialog();
-            refreshProducts();
+            var product = (Item)dgProducts.SelectedItem;
+            //var createForm = new CreateItem(product);
+           // var productAdded = createForm.ShowDialog();
+            refreshItems();
         }
         /// <summary>
         /// Kevin Broskow
         /// Created: 2019/02/5
         /// 
-        /// </summary>
-        /// Method to populate the datagrid.
         /// <remarks>
-        /// Updater Name
-        /// Updated: yyyy/mm/dd 
-        /// example: Fixed a problem when user inputs bad data
+        /// Jared Greenfield
+        /// Updated: 2019/04/03
+        /// Updated to remove products and add in Item
         /// </remarks>
-        private void populateProducts()
+        private void populateItems()
         {
             try
             {
-                _allProducts = _productManager.RetrieveAllProducts();
+                _allItems = _itemManager.RetrieveAllItems();
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
-            dgProducts.ItemsSource = _allProducts;
+            dgProducts.ItemsSource = _allItems;
         }
         /// <summary>
         /// Kevin Broskow
         /// Created: 2019/02/5
         /// 
-        /// </summary>
-        /// Method to refresh the datagrid information after a change
         /// <remarks>
-        /// Updater Name
-        /// Updated: yyyy/mm/dd 
-        /// example: Fixed a problem when user inputs bad data
+        /// Jared Greenfield
+        /// Updated: 2019/04/03
+        /// Updated to remove products and add in Item
         /// </remarks>
-        private void refreshProducts()
+        private void refreshItems()
         {
             try
             {
-                _allProducts = _productManager.RetrieveAllProducts();
+                _allItems = _itemManager.RetrieveAllItems();
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
                 throw;
             }
-            _currentProducts = _allProducts;
-            dgProducts.ItemsSource = _currentProducts;
+            _currentItems = _allItems;
+            dgProducts.ItemsSource = _currentItems;
         }
         /// <summary>
         /// Kevin Broskow
@@ -132,7 +131,7 @@ namespace Presentation
         /// Created: 2019/02/5
         /// 
         /// </summary>
-        /// Handler to deal with a user clicking on a add product button. Calls the createProduct window.
+        /// Handler to deal with a user clicking on a add item button. Calls the createItem window.
         /// <remarks>
         /// Updater Name
         /// Updated: yyyy/mm/dd 
@@ -142,20 +141,18 @@ namespace Presentation
         /// <param name="e"></param>
         private void btnAddProduct_Click(object sender, RoutedEventArgs e)
         {
-            var createForm = new CreateProduct();
+            var createForm = new CreateItem();
             createForm.ShowDialog();
-            refreshProducts();
+            refreshItems();
         }
         /// <summary>
         /// Kevin Broskow
         /// Created: 2019/02/5
         /// 
-        /// </summary>
-        /// Handler to deal with a user clicking on a button labled read/update. Checks to assure an item is selected.
         /// <remarks>
-        /// Updater Name
-        /// Updated: yyyy/mm/dd 
-        /// example: Fixed a problem when user inputs bad data
+        /// Jared Greenfield
+        /// Updated: 2019/04/03
+        /// Updated to remove products and add in Item
         /// </remarks>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -163,77 +160,74 @@ namespace Presentation
         {
             if (dgProducts.SelectedIndex != -1)
             {
-                _selectedProduct = (Product)dgProducts.SelectedItem;
+                _selectedItem = (Item)dgProducts.SelectedItem;
 
-                var createForm = new CreateProduct(_selectedProduct);
-                createForm.ShowDialog();
+                //var createForm = new CreateItem(_selectedItem);
+                //createForm.ShowDialog();
             }
             else
             {
-                MessageBox.Show("You must have a product selected.");
+                MessageBox.Show("You must have a item selected.");
             }
-            refreshProducts();
+            refreshItems();
         }
         /// <summary>
         /// Kevin Broskow
         /// Created: 2019/02/5
         /// 
         /// </summary>
-        /// Handler to deal with a user clicking on a delete button. Assures that there is an item selected.
         /// <remarks>
-        /// Updater Name
-        /// Updated: yyyy/mm/dd 
-        /// example: Fixed a problem when user inputs bad data
+        /// Jared Greenfield
+        /// Updated: 2019/04/03
+        /// Updated to remove products and add in Item
         /// </remarks>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void btnDeleteProduct_Click(object sender, RoutedEventArgs e)
         {
-            Product selectedProduct = (Product)dgProducts.SelectedItem;
+            Item selectedItem = (Item)dgProducts.SelectedItem;
             MessageBoxResult result;
             if(dgProducts.SelectedIndex != -1)
             {
-                if (selectedProduct.Active)
+                if (selectedItem.Active)
                 {
-                    result = MessageBox.Show("Are you sure you want to deactivate " + selectedProduct.Name, "Deactivating Item", MessageBoxButton.YesNo);
+                    result = MessageBox.Show("Are you sure you want to deactivate " + selectedItem.Name, "Deactivating Item", MessageBoxButton.YesNo);
                     if (result == MessageBoxResult.No)
                     {
                         return;
                     }
                     else
                     {
-                        _productManager.DeactivateProduct(_selectedProduct);
+                        _itemManager.DeactivateItem(_selectedItem);
                     }
                 }
-                if (!selectedProduct.Active)
+                if (!selectedItem.Active)
                 {
-                    result = MessageBox.Show("Are you sure you want to purge " + selectedProduct.Name, "Purging Item", MessageBoxButton.YesNo);
+                    result = MessageBox.Show("Are you sure you want to purge " + selectedItem.Name, "Purging Item", MessageBoxButton.YesNo);
                     if (result == MessageBoxResult.No)
                     {
                         return;
                     }
                     else
                     {
-                        _productManager.DeleteProduct(_selectedProduct);
+                        _itemManager.DeleteItem(_selectedItem);
                     }
                 }
             }
             else
             {
-                MessageBox.Show("You must have a product selected.");
+                MessageBox.Show("You must have a item selected.");
             }
-            populateProducts();
+            populateItems();
         }
         /// <summary>
         /// Kevin Broskow
         /// Created: 2019/02/5
         /// 
-        /// </summary>
-        /// Handler to deal with a user checking a box labled active to view only active products.
         /// <remarks>
-        /// Updater Name
-        /// Updated: yyyy/mm/dd 
-        /// example: Fixed a problem when user inputs bad data
+        /// Jared Greenfield
+        /// Updated: 2019/04/03
+        /// Updated to remove products and add in Item
         /// </remarks>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -241,14 +235,14 @@ namespace Presentation
         {
             if((bool)cbActive.IsChecked && (bool)cbDeactive.IsChecked)
             {
-                populateProducts();
+                populateItems();
             }
             else if ((bool)cbActive.IsChecked)
             {
                 try
                 {
-                    _currentProducts = _productManager.RetrieveActiveProducts();
-                    dgProducts.ItemsSource = _currentProducts;
+                    _currentItems = _itemManager.RetrieveActiveItems();
+                    dgProducts.ItemsSource = _currentItems;
                 }
                 catch (Exception ex)
                 {
@@ -257,7 +251,7 @@ namespace Presentation
             }
             else if (!(bool)cbActive.IsChecked)
             {
-                populateProducts();
+                populateItems();
             }
         }
         /// <summary>
@@ -267,9 +261,9 @@ namespace Presentation
         /// </summary>
         /// Handler to deal with a user checking a box labled deactive to view only deactive *should be inactive* products.
         /// <remarks>
-        /// Updater Name
-        /// Updated: yyyy/mm/dd 
-        /// example: Fixed a problem when user inputs bad data
+        /// Jared Greenfield
+        /// Updated: 2019/04/03
+        /// Updated to remove products and add in Item
         /// </remarks>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -277,14 +271,14 @@ namespace Presentation
         {
             if ((bool)cbActive.IsChecked && (bool)cbDeactive.IsChecked)
             {
-                populateProducts();
+                populateItems();
             }
             else if ((bool)cbDeactive.IsChecked)
             {
                 try
                 {
-                    _currentProducts = _productManager.RetrieveDeactiveProducts();
-                    dgProducts.ItemsSource = _currentProducts;
+                    _currentItems = _itemManager.RetrieveDeactiveItems();
+                    dgProducts.ItemsSource = _currentItems;
                 }
                 catch (Exception ex)
                 {
@@ -293,7 +287,7 @@ namespace Presentation
             }
             else if (!(bool)cbDeactive.IsChecked)
             {
-                populateProducts();
+                populateItems();
             }
         }
         /// <summary>
@@ -315,12 +309,12 @@ namespace Presentation
             {
                 if (txtSearchBox.Text.ToString() != "")
                 {
-                    _currentProducts = _allProducts.FindAll(b => b.Name.ToLower().Contains(txtSearchBox.Text.ToString().ToLower()));
-                    dgProducts.ItemsSource = _currentProducts;
+                    _currentItems = _allItems.FindAll(b => b.Name.ToLower().Contains(txtSearchBox.Text.ToString().ToLower()));
+                    dgProducts.ItemsSource = _currentItems;
                 }
                 else
                 {
-                    MessageBox.Show("You must search for a product");
+                    MessageBox.Show("You must search for a item.");
                 }
             }
             catch (Exception ex)
@@ -343,7 +337,7 @@ namespace Presentation
         /// <param name="e"></param>
         private void btnClear_Click(object sender, RoutedEventArgs e)
         {
-            populateProducts();
+            populateItems();
             this.txtSearchBox.Text = "";
             this.cbActive.IsChecked = false;
             this.cbDeactive.IsChecked = false;
@@ -368,7 +362,7 @@ namespace Presentation
                 (e.Column as DataGridTextColumn).Binding.StringFormat = "MM/dd/yyyy";
             }
             string headerName = e.Column.Header.ToString();
-            if (headerName == "ProductID")
+            if (headerName == "ItemID")
             {
                 e.Cancel = true;
             }

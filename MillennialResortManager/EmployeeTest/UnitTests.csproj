@@ -73,7 +73,6 @@
     <Compile Include="PerformanceManagerTests.cs" />
     <Compile Include="PetManagerTests.cs" />
     <Compile Include="PetTypeManagerTests.cs" />
-    <Compile Include="ProductManagerTests.cs" />
     <Compile Include="RecipeManagerTest.cs" />
     <Compile Include="ReservationManagerTests.cs" />
     <Compile Include="RoleManagerTests.cs" />

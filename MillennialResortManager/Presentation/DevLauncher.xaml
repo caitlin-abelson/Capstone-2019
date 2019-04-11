@@ -67,10 +67,11 @@
                     <MenuItem Header="_Ordering" x:Name="_NavBarHeaderOrdering" Style="{StaticResource NavBarHeader}" >
                         <MenuItem Header="Suppliers"  x:Name="NavBarSubHeaderSuppliers" x:Uid="NBSuppliers" Click="NavBarSubHeaderSuppliers_Click"/>
                         <MenuItem Header="Orders" x:Name="NavBarSubHeaderOrders" x:Uid="NBOrders" Click="NavBarSubHeaderOrders_Click" />
-                        <MenuItem Header="Products"  x:Name="NavBarSubHeaderProducts" x:Uid="NBProducts" Click="NavBarSubHeaderProducts_Click"/>
+                        <MenuItem Header="Items"  x:Name="NavBarSubHeaderProducts" x:Uid="NBProducts" Click="NavBarSubHeaderProducts_Click"/>
                         <MenuItem Header="Sponsors" x:Name="NavBarSubHeaderSponsors" x:Uid="NBSponsors" Click="NavBarSubHeaderSponsors_Click"/>
                         <MenuItem Header="SupplierOrders" x:Name="NavBarSubHeaderSupplierOrders" x:Uid="NBSupplierOrders" Click="NavBarSubHeaderSupplierOrders_Click"/>
                         <MenuItem Header="Receiving" x:Name="NavBarSubHeaderReceiving" x:Uid="NBReceiving" Click="NavBarSubHeaderReceiving_Click"/>
+                        <MenuItem Header="Offerings" x:Name="NavBarSubHeaderOfferings" x:Uid="NBOfferings" Click="NavBarSubHeadersOfferings_Click"/>
                     </MenuItem>
                     <MenuItem Header="_Resort Ops" x:Name="_NavBarHeaderResortOperations" Style="{StaticResource NavBarHeader}" >
                         <MenuItem Header="Appointment Types" x:Name="NavBarSubHeaderAppointmentTypes" x:Uid="NBAppointmentTypes" Click="NavBarSubHeaderAppointmentTypes_Click"/>
@@ -436,7 +437,7 @@
                     </Grid>
                 </Grid>
             </Grid>
-            <!-- Browse Product Page-->
+            <!-- Browse Item Page-->
             <!-- Updated: Gunardi Saputra -->
             <!-- Date: 03/19/2019 -->
             <Grid x:Name="BrowseProductsPage" Visibility="Hidden">
@@ -448,9 +449,9 @@
                 <Grid Grid.Row="0" Style="{StaticResource FilterBar}">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="20"></ColumnDefinition>
-                        <ColumnDefinition Width="50"></ColumnDefinition>
+                        <ColumnDefinition Width="100"></ColumnDefinition>
                         <ColumnDefinition Width="20"></ColumnDefinition>
-                        <ColumnDefinition Width="60"></ColumnDefinition>
+                        <ColumnDefinition Width="100"></ColumnDefinition>
                         <ColumnDefinition></ColumnDefinition>
                         <ColumnDefinition Width="125"></ColumnDefinition>
                         <ColumnDefinition Width="75"></ColumnDefinition>
@@ -459,10 +460,10 @@
                     <CheckBox x:Name="cbActive" HorizontalAlignment="Left"  VerticalAlignment="Center" Grid.Column="0" Click="cbActive_Click"/>
                     <Label x:Name="lblActive" HorizontalAlignment="Left" VerticalAlignment="Center" Content="Active" Grid.Column="1"/>
                     <CheckBox x:Name="cbDeactive" HorizontalAlignment="Left"  VerticalAlignment="Center" Grid.Column="2" Checked="cbDeactive_Checked"/>
-                    <Label x:Name="lblDeactive"  HorizontalAlignment="Left" VerticalAlignment="Center" Content="Deactive" Grid.Column="3"/>
+                    <Label x:Name="lblDeactive"  HorizontalAlignment="Left" VerticalAlignment="Center" Content="Inactive" Grid.Column="3"/>
                     <Button x:Name="btnSearch" Content="Filter" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="6" Width="60" Height="25" Click="btnSearch_Click"/>
                     <Button x:Name="btnClear" Content="Clear" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="7" Width="60" Height="25" Click="btnClear_Click"/>
-                    <TextBox x:Name="txtSearchBox" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="5" Width="120" Text="Search" GotFocus="txtSearchBox_GotFocus"/>
+                    <TextBox x:Name="txtSearchBox" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="5" Width="120" Text="Name Search" GotFocus="txtSearchBox_GotFocus"/>
                 </Grid>
                 <DataGrid x:Name="dgProducts" VerticalGridLinesBrush="{x:Null}" Grid.Row="1"  SelectionMode="Single" AlternatingRowBackground="#FF3DD8CA" RowBackground="LightGoldenrodYellow"  IsReadOnly="True" MouseDoubleClick="dgProducts_MouseDoubleClick" AutoGeneratingColumn="dgProducts_AutoGeneratingColumn" />
                 <Grid Grid.Row="2" Style="{StaticResource BottomBar}">
@@ -1581,6 +1582,77 @@
                     <Button x:Name="btnCancelFrontDesk" Grid.Column="5" Content="Cancel" Margin="10 15" Click="btnCancelFrontDesk_Click"/>
                 </Grid>
             </Grid>
+            <!-- Created By: Jared Greenfield-->
+            <!-- Added Date: 2019-04-10-->
+            <!-- Browse Offering Page-->
+            <Grid x:Name="BrowseOfferingsPage" Visibility="Hidden">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition Height="8*"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0" Style="{StaticResource FilterBar}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width=".5*"/>
+                        <ColumnDefinition Width="1.50*"/>
+                        <ColumnDefinition Width="1.50*"/>
+                        <ColumnDefinition Width="1.50*"/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width=".5*"/>
+                        <ColumnDefinition Width=".5*"/>
+                    </Grid.ColumnDefinitions>
+                    <CheckBox x:Name="chkOfferingActive" Grid.Column="0" Content="Active" IsChecked="True" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <Grid Grid.Column="1" Grid.ColumnSpan="3">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Grid Grid.Column="0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition Width="1.*"/>
+                            </Grid.ColumnDefinitions>
+                            <Label x:Name="lblOfferingType" Content="Type: " HorizontalAlignment="Center" VerticalAlignment="Center" />
+                            <ComboBox Grid.Column="1" x:Name="cboOfferingType" Margin="5" VerticalAlignment="Center" MinWidth="100"/>
+                        </Grid>
+                        <Grid Grid.Column="1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition Width="1.*"/>
+                            </Grid.ColumnDefinitions>
+                            <Label x:Name="lblOfferingName" Content="Name: " HorizontalAlignment="Center" VerticalAlignment="Center" />
+                            <TextBox Grid.Column="1" x:Name="txtOfferingName" Margin="5" VerticalAlignment="Center" MinWidth="100"/>
+                        </Grid>
+                        <Grid Grid.Column="2">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition Width="1.*"/>
+                            </Grid.ColumnDefinitions>
+                            <Label x:Name="lblOfferingDescription" Content="Description: " HorizontalAlignment="Center" VerticalAlignment="Center" />
+                            <TextBox Grid.Column="1" x:Name="txtOfferingDescription" Margin="5" VerticalAlignment="Center" MinWidth="100"/>
+                        </Grid>
+                    </Grid>
+                    <Button Grid.Column="5" Content="Filter" x:Name="btnFilterOfferings" Margin="5" Click="btnFilterOfferings_Click"/>
+                    <Button Grid.Column="6" Content="Clear" x:Name="btnClearFiltersOfferings" Margin="5" Click="BtnClearFiltersOfferings_Click" />
+                </Grid>
+                <DataGrid Grid.Row="1" x:Name="dgOfferings" VerticalGridLinesBrush="{x:Null}" SelectionMode="Single" AlternatingRowBackground="#FF3DD8CA" RowBackground="LightGoldenrodYellow" IsReadOnly="True" AutoGeneratingColumn="DgOfferings_AutoGeneratingColumn" MouseDoubleClick="DgOfferings_MouseDoubleClick" SelectionChanged="DgOfferings_SelectionChanged" />
+                <Grid Grid.Row="2" Style="{StaticResource BottomBar}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Button Grid.Column="3" Content="Add Offering" x:Name="btnAddOffering" Margin="5" />
+                    <Button Grid.Column="4" Content="View Offering" x:Name="btnViewOffering" Margin="5" Click="BtnViewOffering_Click" />
+                    <Button Grid.Column="5" Content="Delete" x:Name="btnDeleteOffering" Margin="5" Click="BtnDeleteOffering_Click" />
+
+                </Grid>
+            </Grid>
+            <!-- End Browse Offering Page-->
 
 
             <!--Manage Vehicles Page-->

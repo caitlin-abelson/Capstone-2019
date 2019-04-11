@@ -218,7 +218,7 @@ namespace DataAccessLayer
                     reader.Read();
                     room = new Room
                     {
-                        RoomNumber = reader.GetString(0),
+                        RoomNumber = reader.GetInt32(0).ToString(),
                         Building = reader.GetString(1),
                         RoomType = reader.GetString(2),
                         Description = reader.GetString(3),

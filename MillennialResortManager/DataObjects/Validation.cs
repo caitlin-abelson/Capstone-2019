@@ -21,6 +21,26 @@ namespace DataObjects
     /// </summary>
     public static class Validation
     {
+
+        /// <summary>
+        /// Jared Greenfield
+        /// Created: 2019/02/27
+        /// 
+        /// If a string value is a valid offerin type, returns true, else returns false.
+        /// A valid offering type is:
+        ///     - Between 1 and 15 characters
+        ///     - Not null
+        /// </summary>
+        public static bool IsValidOfferingType(this string type)
+        {
+            bool isValid = false;
+            if (type != "" && type != null && type.Length >= 1 && type.Length <= 15)
+            {
+                isValid = true;
+            }
+            return isValid;
+        }
+
         /// <summary>
         /// Jared Greenfield
         /// Created: 2019/02/27
