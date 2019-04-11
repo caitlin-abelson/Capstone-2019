@@ -65,7 +65,7 @@ namespace Presentation
         {
             string headerName = e.Column.Header.ToString();
 
-            if(headerName == "Event ID")
+            if(headerName == "EventID")
             {
                 e.Column.Header = "Event ID";
             }
@@ -110,7 +110,7 @@ namespace Presentation
 
             try
             {
-                _eventSponsors = _eventSponsManager.RetrieveAllEvents();
+                _eventSponsors = _eventSponsManager.RetrieveAllEventSponsors();
                 dgEventSponsor.ItemsSource = _eventSponsors;
             }
             catch(Exception ex)
