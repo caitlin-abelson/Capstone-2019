@@ -61,7 +61,7 @@ namespace DataAccessLayer
             buildings.Add(newBuilding);
             if (listLength + 1 == buildings.Count)
             {
-                return 1;
+                return 2;
             }
             else
             {
