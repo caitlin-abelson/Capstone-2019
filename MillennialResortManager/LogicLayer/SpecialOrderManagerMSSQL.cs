@@ -189,6 +189,23 @@ namespace LogicLayer
             }
             return result;
         }
+        /// <summary>
+        /// Kevin Broskow
+        /// Created: 04/11/2019
+        /// 
+        /// Update a line in a special order.
+        /// </summary>
+        public void UpdateSpecialOrderLine(List<SpecialOrderLine> specialOrderLines)
+        {
+            try
+            {
+                specialOrderAccessor.UpdateSpecialOrderLine(specialOrderLines);
+            }
+            catch (Exception ex)
+            {
 
+                throw ex;
+            }
+        }
     }
 }

@@ -49,7 +49,7 @@ namespace Presentation
                 SetError(ex.Message);
             }
             chkActive.Visibility = Visibility.Hidden;
-            txtSponsorID.Visibility = Visibility.Hidden;
+            //txtSponsorID.Visibility = Visibility.Hidden;
             dtpDateAdded.Visibility = Visibility.Hidden;
             chkActive.IsChecked = true;
             _existingSponsor = null;
@@ -85,7 +85,7 @@ namespace Presentation
         /// </summary>
         private void populateFormReadOnly()
         {
-            txtSponsorID.Text = "" + _existingSponsor.SponsorID;
+            //txtSponsorID.Text = "" + _existingSponsor.SponsorID;
             txtName.Text = "" + _existingSponsor.Name;
             txtAddress.Text = "" + _existingSponsor.Address; 
             txtCity.Text = "" + _existingSponsor.City;
@@ -132,7 +132,7 @@ namespace Presentation
         /// </summary>
         private void setReadOnly()
         {
-            txtSponsorID.IsReadOnly = true;
+            //txtSponsorID.IsReadOnly = true;
             txtName.IsReadOnly = true;
             txtAddress.IsReadOnly = true;
             txtCity.IsReadOnly = true;
@@ -411,17 +411,17 @@ namespace Presentation
         /// The ValidateSponsorID method makes sure that 
         /// the SponsorID  has the correct amount of characters.
         /// </summary>
-        private bool ValidateSponsorID()
-        {
-            if (txtSponsorID.Text == null || txtSponsorID.Text == "")
-            {
-                return false;
-            }
-            else
-            {
-                return true;
-            }
-        }
+        //private bool ValidateSponsorID()
+        //{
+        //    if (txtSponsorID.Text == null || txtSponsorID.Text == "")
+        //    {
+        //        return false;
+        //    }
+        //    else
+        //    {
+        //        return true;
+        //    }
+        //}
 
         /// <summary>
         /// Author: Gunardi Saputra

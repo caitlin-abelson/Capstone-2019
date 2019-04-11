@@ -93,6 +93,7 @@
     <Compile Include="BrowseGuestVehicles.xaml.cs">
       <DependentUpon>BrowseGuestVehicles.xaml</DependentUpon>
     </Compile>
+    <Compile Include="BrowseItem.cs" />
     <Compile Include="BrowseMaintenanceWorkOrders.xaml.cs" />
     <Compile Include="BrowseOrders.xaml.cs">
       <DependentUpon>BrowseOrders.xaml</DependentUpon>
@@ -120,6 +121,7 @@
     <Compile Include="CreateAppointmentType.xaml.cs" />
     <Compile Include="CreateEventType.xaml.cs" />
     <Compile Include="CreateHouseKeepingRequest.xaml.cs" />
+    <Compile Include="CreateItem.cs" />
     <Compile Include="CreateMaintenanceWorkOrder.xaml.cs" />
     <Compile Include="CreatePetType.xaml.cs" />
     <Compile Include="DeactivateHouseKeepingRequest.xaml.cs" />
@@ -155,6 +157,9 @@
     <Compile Include="frmBrowseRecipes.xaml.cs" />
     <Compile Include="frmConfirmAction.xaml.cs" />
     <Compile Include="frmCreateRecipe.xaml.cs" />
+    <Compile Include="frmOffering.xaml.cs">
+      <DependentUpon>frmOffering.xaml</DependentUpon>
+    </Compile>
     <Compile Include="frmSelectRecipeItem.xaml.cs" />
     <Compile Include="frmAddEditViewAppointment.xaml.cs">
       <DependentUpon>frmAddEditViewAppointment.xaml</DependentUpon>
@@ -244,6 +249,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="BrowseItem.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="BrowseMaintenanceWorkOrders.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -304,15 +313,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="CreateItem.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="CreateMaintenanceWorkOrder.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
     <Page Include="CreatePetType.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="CreateProduct.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -464,6 +473,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="frmOffering.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="frmPetMain.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -521,7 +534,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="CreateEmployeeRole.xaml.cs" />
-    <Compile Include="CreateProduct.xaml.cs" />
     <Compile Include="CreateReservation.xaml.cs" />
     <Compile Include="CreateShop.xaml.cs" />
     <Compile Include="DeactivateReservation.xaml.cs" />
@@ -560,10 +572,6 @@
     <Page Include="BrowseSupplier.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="BrowseProduct.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
     </Page>
     <Page Include="OrderRecieving.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -607,7 +615,6 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BrowseProduct.cs" />
     <Compile Include="PerformanceViewer.xaml.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>

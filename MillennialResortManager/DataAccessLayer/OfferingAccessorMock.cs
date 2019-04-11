@@ -15,6 +15,8 @@ namespace DataAccessLayer
     public class OfferingAccessorMock : IOfferingAccessor
     {
         private List<Offering> _offerings;
+        private List<OfferingVM> _viewModels;
+        private List<string> _offeringTypes;
 
         /// <summary>
         /// Author: Jared Greenfield
@@ -27,9 +29,68 @@ namespace DataAccessLayer
             _offerings.Add(new Offering(100000, "Item", 100000, "Big Burger", (Decimal)12.99, true));
             _offerings.Add(new Offering(100001, "Item", 100000, "Big Hot Dog", (Decimal)11.99, true));
             _offerings.Add(new Offering(100002, "Item", 100000, "Big Pool Noodle", (Decimal)10.99, true));
-            _offerings.Add(new Offering(100003, "Item", 100000, "Taco Grande Supreme 100 Pound Edition", (Decimal)200.99, true));
+            _offerings.Add(new Offering(100003, "Item", 100000, "Taco Grande Supreme 100 Pound Edition", (Decimal)200.99, false));
 
+            _viewModels = new List<OfferingVM>();
+            _viewModels.Add(new OfferingVM()
+            {
+                OfferingID = 100000,
+                OfferingTypeID = "Item",
+                Description = "Big Burger",
+                Price = (Decimal)12.99,
+                Active = true,
+                OfferingName = "Franken Burger"
+            });
+
+            _offeringTypes = new List<string>();
+            _offeringTypes.Add("Event");
+            _offeringTypes.Add("Item");
+            _offeringTypes.Add("Room");
+            _offeringTypes.Add("Service");
         }
+
+        /// <summary>
+        /// Jared Greenfield
+        /// Created: 2018/01/24
+        ///
+        /// Deactivates an Offering based on an ID
+        /// </summary>
+        /// <param name="offeringID">The ID of the Offering.</param>
+        /// <returns>True if successful, false if not</returns>
+        public int DeactivateOfferingByID(int offeringID)
+        {
+            int result = 0;
+            if (_offerings.Find(x => x.OfferingID == offeringID) != null)
+            {
+                _offerings.Find(x => x.OfferingID == offeringID).Active = false;
+                result = 1;
+            }
+            return result;
+        }
+
+        /// <summary>
+        /// Jared Greenfield
+        /// Created: 2018/01/24
+        ///
+        /// Deletes an Offering based on an ID
+        /// </summary>
+        /// <param name="offeringID">The ID of the Offering.</param>
+        /// <exception cref="SQLException">Delete Fails (example of exception tag)</exception>
+        /// <returns>True if successful, false if not</returns>
+        public int DeleteOfferingByID(int offeringID)
+        {
+            int result = 0;
+            if (_offerings.Find(x => x.OfferingID == offeringID) != null)
+            {
+                _offerings.Remove(_offerings.Find(x => x.OfferingID == offeringID));
+                if (_offerings.Find(x => x.OfferingID == offeringID) == null)
+                {
+                    result = 1;
+                }
+            }
+            return result;
+        }
+
         /// <summary>
         /// Author: Jared Greenfield
         /// Created : 02/20/2019
@@ -42,6 +103,51 @@ namespace DataAccessLayer
             _offerings.Add(offering);
             return offering.OfferingID;
         }
+
+        /// <summary>
+        /// Jared Greenfield
+        /// Created: 2018/01/24
+        ///
+        /// Reactivates an Offering based on an ID
+        /// </summary>
+        /// <param name="offeringID">The ID of the Offering.</param>
+        /// <exception cref="SQLException">Update Fails (example of exception tag)</exception>
+        /// <returns>True if successful, false if not</returns>
+        public int ReactivateOfferingByID(int offeringID)
+        {
+            int result = 0;
+            if (_offerings.Find(x => x.OfferingID == offeringID) != null)
+            {
+                _offerings.Find(x => x.OfferingID == offeringID).Active = true;
+                result = 1;
+            }
+            return result;
+        }
+
+        /// <summary>
+        /// Jared Greenfield
+        /// Created: 2018/01/28
+        ///
+        /// Retrieves all Offering Types
+        /// </summary>
+        /// <returns>List of Offeringtypes</returns>
+        public List<string> SelectAllOfferingTypes()
+        {
+            return _offeringTypes;
+        }
+
+        /// <summary>
+        /// Jared Greenfield
+        /// Created: 2018/01/24
+        ///
+        /// Retrieves all Offering View Models
+        /// </summary>
+        /// <returns>List of Offering VMs</returns>
+        public List<OfferingVM> SelectAllOfferingViewModels()
+        {
+            return _viewModels;
+        }
+
         /// <summary>
         /// Author: Jared Greenfield
         /// Created : 02/20/2019
@@ -54,6 +160,11 @@ namespace DataAccessLayer
             Offering offering = null;
             offering = _offerings.Find(x => x.OfferingID == offeringID);
             return offering;
+        }
+
+        public Object SelectOfferingInternalRecordByIDAndType(int id, string offeringType)
+        {
+            throw new NotImplementedException();
         }
 
         /// <summary>

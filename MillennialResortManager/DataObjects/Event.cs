@@ -30,7 +30,7 @@ namespace DataObjects
         public DateTime EventEndDate { get; set; }
         public bool KidsAllowed { get; set; }
         public int NumGuests { get; set; }
-        public int SeatsRemaining { get; set; }
+        public int? SeatsRemaining { get; set; }
         public string Location { get; set; }
         public bool Sponsored { get; set; }
         public bool Approved { get; set; }

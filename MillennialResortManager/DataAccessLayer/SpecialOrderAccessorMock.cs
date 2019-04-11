@@ -148,7 +148,10 @@ namespace DataAccessLayer
             throw new NotImplementedException();
         }
 
-     
+        public void UpdateSpecialOrderLine(List<SpecialOrderLine> specialOrderLines)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
 

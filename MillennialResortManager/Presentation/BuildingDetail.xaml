@@ -5,7 +5,7 @@
     <Window.Resources>
         <ResourceDictionary Source="Stylesheet.xaml"/>
     </Window.Resources>
-    <Grid Style="{StaticResource CreateBuildingPage}">
+    <Grid Style="{StaticResource DefaultPage}">
         <Grid.RowDefinitions>
             <RowDefinition></RowDefinition>
             <RowDefinition Height="30"></RowDefinition>
@@ -71,8 +71,8 @@
                                 <ColumnDefinition></ColumnDefinition>
                                 <ColumnDefinition></ColumnDefinition>
                             </Grid.ColumnDefinitions>
-                            <Button x:Name="btnAddRoom" Grid.Column="0" FontSize="12" Margin="10,0,30,0" Content="Add Room" HorizontalAlignment="Center" VerticalAlignment="Center" Click="btnAddRoom_Click" />
-                            <Button x:Name="btnSelectRoom" Grid.Column="1" FontSize="12" Margin="10,0,30,0" Content="Select Room" HorizontalAlignment="Center" VerticalAlignment="Center" Click="btnSelectRoom_Click"  />
+                            <Button x:Name="btnAddRoom" Grid.Column="0"  Margin="10,0,30,0" Content="Add Room" HorizontalAlignment="Center" VerticalAlignment="Center" Click="btnAddRoom_Click" />
+                            <Button x:Name="btnSelectRoom" Grid.Column="1"  Margin="10,0,30,0" Content="Select Room" HorizontalAlignment="Center" VerticalAlignment="Center" Click="btnSelectRoom_Click"  />
                         </Grid>
                     </Grid>
                 </Grid>
@@ -116,9 +116,9 @@
                 <ColumnDefinition></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <Button x:Name="btnPrimaryAction" Grid.Column="3" Content="Primary" FontSize="12" Margin="10 20" Click="btnPrimaryAction_Click" />
-            <Button x:Name="btnSecondaryAction" Grid.Column="4" Content="Secondary" FontSize="12" Margin="10 20" Click="btnSecondaryAction_Click" />
-            <Button x:Name="btnTernaryAction" Grid.Column="2" Content="Ternary" FontSize="12" Margin="10 20" Visibility="Hidden"/>
+            <Button x:Name="btnPrimaryAction" Grid.Column="3" Content="Primary"  Margin="10 20" Click="btnPrimaryAction_Click" />
+            <Button x:Name="btnSecondaryAction" Grid.Column="4" Content="Secondary"  Margin="10 20" Click="btnSecondaryAction_Click" />
+            <Button x:Name="btnTernaryAction" Grid.Column="2" Content="Ternary"  Margin="10 20" Visibility="Hidden"/>
         </Grid>
     </Grid>
 </Window>
