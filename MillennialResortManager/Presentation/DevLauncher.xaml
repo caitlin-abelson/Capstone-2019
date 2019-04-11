@@ -1128,10 +1128,10 @@
                     <Label Grid.Column="2" HorizontalAlignment="Right" VerticalAlignment="Center">Show Cancelled Events:</Label>
                     <RadioButton x:Name="btnEventCancelled" Grid.Column="3" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5" Checked="BtnEventCancelled_Checked" />
                     <Label Grid.Column="4" HorizontalAlignment="Right" VerticalAlignment="Center">Search By Name: </Label>
-                    <TextBox x:Name="txtEventSearchName" Grid.Column="5" Height="20" />
+                    <TextBox x:Name="txtEventSearchName" Grid.Column="5" Height="20"/>
 
-                    <Button x:Name="btnEventFilter" Grid.Column="7" Width="120" Height="35" Content="Filter" Click="BtnEventFilter_Click" />
-                    <Button x:Name="btnEventClearFilter" Grid.Column="9" Width="120" Height="35" Content="Clear" />
+                    <Button x:Name="btnEventFilter" Grid.Column="7" Width="90" Height="35" Content="Filter" Click="BtnEventFilter_Click" HorizontalContentAlignment="Center"/>
+                    <Button x:Name="btnEventClearFilter" Grid.Column="9" Width="90" Height="35" Content="Clear" HorizontalContentAlignment="Center" Click="BtnEventClearFilter_Click"/>
                 </Grid>
                 <DataGrid Grid.Row="1" x:Name="dgEvents" SelectionMode="Single" IsReadOnly="True" MouseDoubleClick="dgEvents_MouseDoubleClick" AutoGeneratingColumn="DgEvents_AutoGeneratingColumn"/>
                 <Grid Grid.Row="2" Style="{StaticResource BottomBar}">

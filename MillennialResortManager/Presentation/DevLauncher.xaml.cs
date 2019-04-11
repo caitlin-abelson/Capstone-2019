@@ -5023,6 +5023,7 @@ namespace Presentation
                     dgEvents.ItemsSource = _events;
                 }
             }
+            
         }
 
         /// <summary>
@@ -5036,7 +5037,6 @@ namespace Presentation
         private void BtnEventClearFilter_Click(object sender, RoutedEventArgs e)
         {
             txtEventSearchName.Text = "";
-
             populateEvents();
 
         }
