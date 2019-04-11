@@ -31,7 +31,7 @@ namespace DataAccessLayer
             BuildGuestList();
         }
 
-        public int InsertAppointment(Appointment appointment)
+        public int InsertAppointmentByGuest(Appointment appointment)
         {
             appointment.AppointmentID = nextAppID;
             _appointments.Add(appointment);
