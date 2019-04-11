@@ -56,6 +56,7 @@
                         <MenuItem Header="Setup Lists" x:Name="NavBarSubHeaderSetupLists" x:Uid="NBSetupLists" Click="NavBarSubHeaderSetupLists_Click"/>
                         <MenuItem Header="Events" x:Name="NavBarSubHeaderEvents" x:Uid="NBEvents" Click="NavBarSubHeaderEvents_Click"/>
                         <MenuItem Header="Event Sponsor List" x:Name="NavBarSubHeaderEventSponsList" x:Uid="NBEventSponsList" Click="NavBarSubHeaderEventSponsList_Click" />
+                        <MenuItem Header="Event Performance List" x:Name="NavBarSubHeaderEventPerfList" x:Uid="NBEventPerfList" Click="NavBarSubHeaderEventPerfList_Click" />
                     </MenuItem>
                     <MenuItem Header="_FoodService" x:Name="_NavBarHeaderFoodService" Style="{StaticResource NavBarHeader}" >
                         <MenuItem Header="Recipes" x:Name="NavBarSubHeaderRecipes" x:Uid="NBRecipes" Click="NavBarSubHeaderRecipes_Click"/>
@@ -1024,6 +1025,71 @@
                         <ColumnDefinition Width="70"></ColumnDefinition>
                     </Grid.ColumnDefinitions>
                     <Button x:Name="btnDeleteEventSpons" Content="Delete" Width="50" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="4" Click="btnDeleteEventSpons_Click"/>
+                </Grid>
+            </Grid>
+            <!-- Browse Event Performances List Page-->
+            <Grid x:Name="BrowseEventPerformancesListPage" Visibility="Hidden">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30"></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition Height="40"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0">
+                    <Label Content="Browse Event Performances" VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="Bold" FontSize="16" />
+                </Grid>
+                <Grid Grid.Row="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="30"></RowDefinition>
+                        <RowDefinition Height="30"></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="0">
+                        <Label x:Name="lblListOfEventPerformances" Content="List Of Performed Events" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Grid>
+                    <Grid Grid.Row="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="20"></ColumnDefinition>
+                            <ColumnDefinition Width="100"></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Label HorizontalAlignment="Left" VerticalAlignment="Center" Content="Filters Here" Grid.Column="1"/>
+
+                    </Grid>
+                    <TabControl Grid.Row="2" x:Name="tabsetMainEventPerf">
+                        <TabItem Name="tabEventPerformance" Header="Event Performance">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="40" />
+                                    <RowDefinition />
+                                    <RowDefinition Height="40" />
+                                </Grid.RowDefinitions>
+                                <Grid Grid.Row="0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="100"/>
+                                        <ColumnDefinition />
+                                        <ColumnDefinition Width="120"/>
+                                        <ColumnDefinition Width="100"/>
+                                        <ColumnDefinition Width="200"/>
+                                        <ColumnDefinition Width="100"/>
+                                        <ColumnDefinition Width="100"/>
+                                    </Grid.ColumnDefinitions>
+                                </Grid>
+                                <Grid Grid.Row="1">
+                                    <DataGrid x:Name="dgEventPerformance" VerticalGridLinesBrush="{x:Null}" SelectionMode="Single" AlternatingRowBackground="#FF3DD8CA" RowBackground="LightGoldenrodYellow"  IsReadOnly="True" MouseDoubleClick="dgEventPerformance_MouseDoubleClick" AutoGeneratingColumn="dgEventPerformance_AutoGeneratingColumn" />
+                                </Grid>
+                            </Grid>
+                        </TabItem>
+                    </TabControl>
+                </Grid>
+                <Grid Grid.Row="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="100"></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition Width="70"></ColumnDefinition>
+                        <ColumnDefinition Width="100"></ColumnDefinition>
+                        <ColumnDefinition Width="70"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Button x:Name="btnDeleteEventPerf" Content="Delete" Width="50" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="4" Click="btnDeleteEventPerf_Click"/>
                 </Grid>
             </Grid>
             <!-- Browse Events Page-->

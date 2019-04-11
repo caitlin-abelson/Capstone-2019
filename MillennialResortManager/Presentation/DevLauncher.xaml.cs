@@ -48,6 +48,7 @@ namespace Presentation
     /// #BrowseRecipe
     /// #BrowseEvent
     /// #BrowseEventSponsor
+    /// #BrowseEventPerformance
     /// #BrowseSupplierOrders
     /// #BrowsePets
     /// #BrowseRoom
@@ -148,6 +149,9 @@ namespace Presentation
         //EventSponsor
         private EventSponsorManager _eventSponsManager;
         private List<EventSponsor> _eventSponsors;
+        //EventPerformance
+        private EventPerformanceManager _eventPerfManager;
+        private List<EventPerformance> _eventPerformances;
         //Event
         private EventManager _eventManager;
         //private EventTypeManager _eventTypeManager = new EventTypeManager();  Already in use 
@@ -703,6 +707,18 @@ namespace Presentation
         {
             DisplayPage("BrowseEventSponsorsList");
             BrowseEventSponsorsListDoOnStart();
+        }
+
+        /// <summary>
+        /// @Author: Phillip Hansen
+        /// Created 4/10/2019
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void NavBarSubHeaderEventPerfList_Click(object sender, RoutedEventArgs e)
+        {
+            DisplayPage("BrowseEventPerformancesList");
+            BrowseEventPerformancesListDoOnStart();
         }
 
         /// <summary>
@@ -4724,7 +4740,7 @@ namespace Presentation
         {
             try
             {
-                _eventSponsors = _eventSponsManager.RetrieveAllEvents();
+                _eventSponsors = _eventSponsManager.RetrieveAllEventSponsors();
                 dgEventSponsor.ItemsSource = _eventSponsors;
             }
             catch (Exception ex)
@@ -4735,6 +4751,112 @@ namespace Presentation
 
 
         /*--------------------------- Ending BrowseEventSponsor Code --------------------------------*/
+        #endregion
+
+        #region Event Performance Code
+        /*--------------------------- Starting BrowseEventPerformance Code #BrowseEventPerformance --------------------------------*/
+        /// <summary>
+        /// @Author: Phillip Hansen
+        /// @Created : 4/10/2019
+        /// 
+        /// 
+        /// </summary>
+        private void BrowseEventPerformancesListDoOnStart()
+        {
+            _eventPerfManager = new EventPerformanceManager();
+            populateEvPerfList();
+            
+            dgEventPerformance.IsEnabled = true;
+        }
+
+       
+        /// <summary>
+        /// @Author: Phillip Hansen
+        /// 
+        /// Populates the data grid list with the complete table
+        /// </summary>
+        private void populateEvPerfList()
+        {
+            _eventPerformances = null;
+            dgEventPerformance.ItemsSource = null;
+            dgEventPerformance.Items.Refresh();
+
+            try
+            {
+                _eventPerformances = _eventPerfManager.RetrieveAllEventPerformances();
+                dgEventPerformance.ItemsSource = _eventPerformances;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message + "\nCould not retrieve Event Performance List.");
+            }
+        }
+
+        /// <summary>
+        /// @Author: Phillip Hansen
+        /// 
+        /// Changes the names of the header columns
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void dgEventPerformance_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
+        {
+            string headerName = e.Column.Header.ToString();
+
+            if (headerName == "EventID")
+            {
+                e.Column.Header = "Event ID";
+            }
+            else if (headerName == "PerformanceID")
+            {
+                e.Column.Header = "Performance ID";
+            }
+        }
+
+        /// <summary>
+        /// @Author: Phillip Hansen
+        /// 
+        /// Event listener when a record is double clicked
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void dgEventPerformance_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            if(dgEventPerformance.SelectedIndex > -1)
+            {
+                var selectedEvPerf = (EventPerformance)dgEventPerformance.SelectedItem;
+
+                if(selectedEvPerf == null)
+                {
+                    MessageBox.Show("No record selected!");
+                }
+            }
+            else
+            {
+                MessageBox.Show("No record selected!");
+            }
+        }
+
+        /// <summary>
+        /// @Author: Phillip Hansen
+        /// 
+        /// Button action for deleting a selected record
+        /// (Keep this?)
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnDeleteEventPerf_Click(object sender, RoutedEventArgs e)
+        {
+            EventPerformance selectedRecord = (EventPerformance)dgEventPerformance.SelectedItem;
+
+            if(dgEventPerformance.SelectedIndex > -1)
+            {
+                //Add delete method here
+            }
+        }
+
+
+        /*--------------------------- Ending BrowseEventPerformance Code --------------------------------*/
         #endregion
 
         #region Event Code
@@ -4929,6 +5051,7 @@ namespace Presentation
         private void BtnCreateEvent_Click(object sender, RoutedEventArgs e)
         {
             _eventSponsManager = new EventSponsorManager();
+            _eventPerfManager = new EventPerformanceManager();
 
             //The Form requires the User's ID for a field in the record
             var addEventReq = new frmAddEditEvent(_employee);
@@ -4936,6 +5059,10 @@ namespace Presentation
             if (addEventReq._createdEventID != 0 && addEventReq._retrievedSponsor != null)
             {
                 _eventSponsManager.CreateEventSponsor(addEventReq._createdEventID, addEventReq._retrievedSponsor.SponsorID);
+            }
+            else if (addEventReq._createdEventID != 0 && addEventReq._retrievedPerf != null)
+            {
+                _eventPerfManager.CreateEventSponsor(addEventReq._createdEventID, addEventReq._retrievedPerf.ID);
             }
             if (result == true)
             {
