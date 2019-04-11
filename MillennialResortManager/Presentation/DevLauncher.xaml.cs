@@ -90,9 +90,9 @@ namespace Presentation
         private IBuildingManager buildingManager;
         //Orders
         private List<string> _searchCategories;
-        private UserManager _userManager;
+        //private UserManager _userManager;
         private InternalOrderManager _internalOrderManager;
-        private User _fullUser;
+       // private User _fullUser;
         private List<VMInternalOrder> _orders;
         private List<VMInternalOrder> _currentOrders;
         //Employee Roles
@@ -198,6 +198,11 @@ namespace Presentation
         private List<HouseKeepingRequest> _allHouseKeepingRequests;
         private List<HouseKeepingRequest> _currentHouseKeepingRequests;
         private HouseKeepingRequestManagerMSSQL _houseKeepingRequestManager;
+        //ShuttleReservation
+        private IShuttleReservationManager _shuttleReservationManager;
+        private List<ShuttleReservation> _shuttleReservations;
+        private List<ShuttleReservation> _currentShuttleReservations;
+        private ShuttleReservation _shuttleReservation;
 
         #endregion
 
@@ -833,6 +838,12 @@ namespace Presentation
         {
             DisplayPage("FrontDesk");
             frontDeskDoOnStart();
+        }
+
+        private void NavBarSubHeaderShuttleReservation_OnClick(object sender, RoutedEventArgs e)
+        {
+            DisplayPage("ShuttleReservation");
+            BrowseShuttleReservationDoOnStart();
         }
 
         /*--------------------------- Ending NavBar Code --------------------------------*/
@@ -2551,9 +2562,9 @@ namespace Presentation
         private void BrowseOrderDoOnStart()
         {
             _searchCategories = new List<string>();
-            _userManager = new UserManager();
+            //_userManager = new UserManager();
             _internalOrderManager = new InternalOrderManager();
-            _fullUser = new User();
+            //_fullUser = new User();
             _orders = new List<VMInternalOrder>();
             dgInternalOrders.Visibility = Visibility.Visible;
             refreshGrid();
@@ -2620,8 +2631,8 @@ namespace Presentation
             if (dgInternalOrders.SelectedItem != null)
             {
                 var order = (VMInternalOrder)dgInternalOrders.SelectedItem;
-                var viewOrderDetail = new TestWindow(order);
-                viewOrderDetail.ShowDialog();
+                //var viewOrderDetail = new TestWindow(order);
+                //viewOrderDetail.ShowDialog();
             }
         }
 
@@ -2637,8 +2648,8 @@ namespace Presentation
             if (dgInternalOrders.SelectedItem != null)
             {
                 var order = (VMInternalOrder)dgInternalOrders.SelectedItem;
-                var viewOrderDetail = new TestWindow(order);
-                viewOrderDetail.ShowDialog();
+                //var viewOrderDetail = new TestWindow(order);
+                //viewOrderDetail.ShowDialog();
             }
         }
 
@@ -2748,13 +2759,13 @@ namespace Presentation
 
             try
             {
-                _fullUser = _userManager.RetrieveFullUserByEmail(_fullUser.Email);
-                var addOrder = new TestWindow(_fullUser);
-                var result = addOrder.ShowDialog();
-                if (result == true)
-                {
-                    refreshGrid();
-                }
+                //_fullUser = _userManager.RetrieveFullUserByEmail(_fullUser.Email);
+                //var addOrder = new TestWindow(_fullUser);
+                //var result = addOrder.ShowDialog();
+                //if (result == true)
+                //{
+                //    refreshGrid();
+                //}
             }
             catch (Exception ex)
             {
@@ -6934,6 +6945,289 @@ namespace Presentation
             }
         }
 
+
+        #endregion
+
+        #region Browse Shuttle Reservation
+        //#ShuttleReservation
+        private void BrowseShuttleReservationDoOnStart()
+        {
+            _shuttleReservation = new ShuttleReservation();
+            _shuttleReservationManager = new ShuttleReservationManager();
+            refreshShuttleReservation();
+        }
+
+
+
+        /// <summary>
+        /// Eduardo Colon
+        /// Created: 2019/03/20
+        /// 
+        /// method to refresh browse shuttlereservations.
+        /// </summary>
+        private void refreshShuttleReservation()
+        {
+            try
+            {
+                _shuttleReservations = _shuttleReservationManager.RetrieveAllShuttleReservations();
+
+                _currentShuttleReservations = _shuttleReservations;
+
+                dgShuttleReservation.ItemsSource = _currentShuttleReservations;
+                dgShuttleReservation.Items.Refresh();
+                filterShuttleReservations();
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message + Environment.NewLine + ex.StackTrace);
+            }
+        }
+
+
+
+
+
+        /// <summary>
+        /// Eduardo Colon
+        /// Created: 2019/03/20
+        /// 
+        /// //method to call the filter method
+        /// </summary>
+
+        private void BtnFilterShuttleReservation_Click(object sender, RoutedEventArgs e)
+        {
+            filterShuttleReservations();
+        }
+
+
+        /// <summary>
+        /// Eduardo Colon
+        /// Created: 2019/03/20
+        /// 
+        /// //method to filter the shuttleReservation list
+        /// </summary>
+        private void filterShuttleReservations()
+        {
+
+            IEnumerable<Guest> _currentGuestLists = _shuttleReservations.Select(s => s.Guest);
+            IEnumerable<ShuttleReservation> _currentLists = _shuttleReservations;
+            try
+            {
+
+
+                if (txtSearchShuttleReservation.Text.ToString() != "")
+                {
+
+                    if (txtSearchShuttleReservation.Text != "" && txtSearchShuttleReservation.Text != null)
+                    {
+                        _currentLists = _currentLists.Where(b => b.PickupLocation.ToLower().Contains(txtSearchShuttleReservation.Text.ToLower())).ToList();
+
+
+                    }
+                }
+
+                if (txtSearchLastNameShuttleReservation.Text.ToString() != "")
+                {
+
+                    if (txtSearchLastNameShuttleReservation.Text != "" && txtSearchLastNameShuttleReservation.Text != null)
+                    {
+
+                        _currentLists = _currentLists.Where(s => s.Guest.LastName.ToLower().Contains(txtSearchLastNameShuttleReservation.Text.ToLower()));
+
+                    }
+                }
+
+
+                if (dtpSearchDate.Text != null & dtpSearchDate.Text != "")
+                {
+                    //  DateTime date = TimeZone.Now;
+                    _currentLists = _currentLists.Where(d => d.PickupDateTime.ToString().Contains(dtpSearchDate.Text.ToLower())).ToList();
+                }
+
+
+                if (cbActiveShuttleReservation.IsChecked == true && cbDeactiveShuttleReservation.IsChecked == false)
+                {
+                    _currentLists = _currentLists.Where(b => b.Active == true);
+                }
+                else if (cbActiveShuttleReservation.IsChecked == false && cbDeactiveShuttleReservation.IsChecked == true)
+                {
+                    _currentLists = _currentLists.Where(b => b.Active == false);
+                }
+                else if (cbActiveShuttleReservation.IsChecked == false && cbDeactiveShuttleReservation.IsChecked == false)
+                {
+                    _currentLists = _currentLists.Where(b => b.Active == false && b.Active == true);
+                }
+
+                dgShuttleReservation.ItemsSource = null;
+
+                dgShuttleReservation.ItemsSource = _currentLists;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message + Environment.NewLine + ex.StackTrace);
+
+
+            }
+
+        }
+
+        /// <summary>
+        /// Eduardo Colon
+        /// Created: 2019/03/20
+        /// 
+        /// //method to clear the filters
+        /// </summary>
+        private void BtnClearSetupListShuttleReservation_Click(object sender, RoutedEventArgs e)
+        {
+            cbDeactiveShuttleReservation.IsChecked = true;
+            cbActiveShuttleReservation.IsChecked = true;
+            txtSearchShuttleReservation.Text = "";
+            txtSearchLastNameShuttleReservation.Text = "";
+            dtpSearchDate.Text = "";
+            _currentShuttleReservations = _shuttleReservations;
+
+            dgShuttleReservation.ItemsSource = _currentShuttleReservations;
+
+        }
+
+
+
+
+        /// <summary>
+        /// Eduardo Colon
+        /// Created: 2019/03/20
+        /// 
+        /// //method to cancel and exit a window
+        /// </summary>
+        private void BtnCancelShuttleReservation_Click(object sender, RoutedEventArgs e)
+        {
+            var result = MessageBox.Show("Are you sure you want to quit?", "Closing Application", MessageBoxButton.OKCancel, MessageBoxImage.Question);
+            if (result == MessageBoxResult.OK)
+            {
+                this.Close();
+            }
+        }
+
+
+
+
+        /// <summary>
+        /// Eduardo Colon
+        /// Created: 2019/03/20
+        /// 
+        /// //method to open the update  dialog
+        /// </summary>
+        private void BtnUpdateShuttleReservation_Click(object sender, RoutedEventArgs e)
+        {
+
+            if (dgShuttleReservation.SelectedItem != null)
+            {
+                _shuttleReservation = (ShuttleReservation)dgShuttleReservation.SelectedItem;
+
+
+                var assign = new ShuttleReservationDetail(_shuttleReservation);
+                assign.ShowDialog();
+            }
+            else
+            {
+
+                MessageBox.Show("You must select an item first");
+
+            }
+            refreshShuttleReservation();
+        }
+
+        /// <summary>
+        /// Eduardo Colon
+        /// Created: 2019/03/10
+        /// 
+        /// method to open the create shuttlereservation dialog.
+        /// </summary>
+        private void BtnAddShuttleReservation_Click(object sender, RoutedEventArgs e)
+        {
+
+
+            var detailForm = new ShuttleReservationDetail();
+
+            var result = detailForm.ShowDialog();// need to be added
+
+
+
+            if (result == true)
+            {
+
+                MessageBox.Show(result.ToString());
+            }
+            refreshShuttleReservation();
+
+        }
+        /// <summary>
+        /// Eduardo Colon
+        /// Created: 2019/03/10
+        /// 
+        /// //method to Deactivate shuttleReservation
+        /// </summary>
+        private void BtnDeactivateShuttleReservation_Click(object sender, RoutedEventArgs e)
+        {
+
+            if (dgShuttleReservation.SelectedItem != null)
+            {
+                ShuttleReservation current = (ShuttleReservation)dgShuttleReservation.SelectedItem;
+
+                try
+                {
+                    if (current.Active == true)
+                    {
+                        var result = MessageBox.Show("Are you sure that you want to cancel this shuttle reservation?", "cancel ShuttleReservation", MessageBoxButton.YesNo);
+                        if (result == MessageBoxResult.Yes)
+                        {
+                            _shuttleReservationManager.DeactivateShuttleReservation(current.ShuttleReservationID, current.Active);
+                        }
+                    }
+
+
+                }
+                catch (Exception ex)
+                {
+
+                    MessageBox.Show(ex.Message + Environment.NewLine + ex.StackTrace);
+                }
+
+
+
+            }
+            else
+            {
+
+                MessageBox.Show("You must select an item first");
+
+            }
+            refreshShuttleReservation();
+
+        }
+
+        /// <summary>
+        /// Eduardo Colon
+        /// Created: 2019/03/10
+        /// 
+        /// //method to filter active shuttle reservation
+        /// </summary>
+        private void CbDeactiveShuttleReservation_Click(object sender, RoutedEventArgs e)
+        {
+            filterShuttleReservations();
+        }
+
+        /// <summary>
+        /// Eduardo Colon
+        /// Created: 2019/03/10
+        /// 
+        /// //method to filter inactive shuttle reservation
+        /// </summary>
+        private void CbActiveShuttleReservation_Click(object sender, RoutedEventArgs e)
+        {
+            filterShuttleReservations();
+        }
 
         #endregion
 
