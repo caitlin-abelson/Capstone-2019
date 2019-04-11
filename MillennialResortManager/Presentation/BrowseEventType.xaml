@@ -24,7 +24,7 @@
                 <ColumnDefinition Width="50"></ColumnDefinition>
             </Grid.ColumnDefinitions>
             <Grid Grid.Column="1">
-                <DataGrid CanUserDeleteRows="True" x:Name="dgEventTypes"></DataGrid>
+                <DataGrid CanUserDeleteRows="True" x:Name="dgEventTypes" IsReadOnly="True"></DataGrid>
             </Grid>
         </Grid>
         <Grid Grid.Row="2" Background="LightGray">

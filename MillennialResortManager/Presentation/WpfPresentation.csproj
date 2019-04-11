@@ -140,6 +140,9 @@
     <Compile Include="FrmBrowseShuttleVehicles.xaml.cs">
       <DependentUpon>FrmBrowseShuttleVehicles.xaml</DependentUpon>
     </Compile>
+    <Compile Include="frmEventPerformanceMain.xaml.cs">
+      <DependentUpon>frmEventPerformanceMain.xaml</DependentUpon>
+    </Compile>
     <Compile Include="frmEventSponsorMain.xaml.cs">
       <DependentUpon>frmEventSponsorMain.xaml</DependentUpon>
     </Compile>
@@ -445,6 +448,10 @@
     <Page Include="frmEventMain.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="frmEventPerformanceMain.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="frmEventSponsorMain.xaml">
       <SubType>Designer</SubType>

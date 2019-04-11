@@ -64,8 +64,7 @@ namespace DataAccessLayer
             cmd.Parameters.AddWithValue("@Sponsored", newEvent.Sponsored);
             cmd.Parameters.AddWithValue("@Approved", newEvent.Approved);
 
-            //Add a new parameter without messing with
-            //the stored procedure code
+            //Add a new parameter without messing with the stored procedure code
             SqlParameter _value = cmd.Parameters.Add("ScopeID", SqlDbType.Int);
             //Direct the parameter to the @return_value
             //In this case, it is the SCOPE_IDENTITY

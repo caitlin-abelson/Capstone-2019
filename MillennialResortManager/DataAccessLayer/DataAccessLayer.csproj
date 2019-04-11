@@ -53,6 +53,7 @@
     <Compile Include="EmployeeAccessorMock.cs" />
     <Compile Include="EmpRolesAccessor.cs" />
     <Compile Include="EventAccessor.cs" />
+    <Compile Include="EventPerformanceAccessor.cs" />
     <Compile Include="EventSponsorAccessor.cs" />
     <Compile Include="EventTypeAccessor.cs" />
     <Compile Include="GuestAccessor.cs" />

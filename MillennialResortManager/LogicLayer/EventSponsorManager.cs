@@ -54,7 +54,7 @@ namespace LogicLayer
         /// Method for retrieving all event sponsors as a list
         /// </summary>
         /// <returns></returns>
-        public List<EventSponsor> RetrieveAllEvents()
+        public List<EventSponsor> RetrieveAllEventSponsors()
         {
             List<EventSponsor> eventSponsors;
 
