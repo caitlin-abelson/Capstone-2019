@@ -5498,7 +5498,20 @@ namespace Presentation
                 MessageBox.Show(ex.Message);
             }
         }
+        private void btnReceived_Click(object sender, RoutedEventArgs e)
+        {
+            if ((SupplierOrder)dgSupplierOrders.SelectedItem != null)
+            {
+                _supplierOrder = (SupplierOrder)dgSupplierOrders.SelectedItem;
 
+                var orderReceived = new OrderRecieving(_supplierOrder);
+                var result = orderReceived.ShowDialog();
+            }
+            else
+            {
+                MessageBox.Show("You must select an order");
+            }
+        }
         private void BtnDeleteOrder_Click(object sender, RoutedEventArgs e)
         {
             if ((SupplierOrder)dgSupplierOrders.SelectedItem != null)

@@ -1182,6 +1182,7 @@
 
                             </Grid.ColumnDefinitions>
                             <!--<Button Grid.Column="0" x:Name="btnCancelBrowseSupplierOrders" Content="Cancel" Margin="5" Click="BtnCancelBrowseSupplierOrders_Click"/>-->
+                            <Button Grid.Column="1" x:Name="btnReceived" Content="Received" Margin="5" Click="btnReceived_Click"  />
                             <Button Grid.Column="2" x:Name="btnAddOrder" Content="Add Order" Margin="5" Click="BtnAddOrder_Click" />
                             <Button Grid.Column="3" x:Name="btnViewOrder" Content="View Order" Margin="5"/>
                             <Button Grid.Column="4" x:Name="btnDeleteOrder" Content="Delete Order" Margin="5" Click="BtnDeleteOrder_Click" />
