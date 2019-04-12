@@ -31,5 +31,6 @@ namespace LogicLayer
         List<Member> RetrieveAllMembers();
         void DeactivateMember(Member member);
         void DeleteMember(Member member);
+        int RetrieveMemberByEmail(string email);
     }
 }

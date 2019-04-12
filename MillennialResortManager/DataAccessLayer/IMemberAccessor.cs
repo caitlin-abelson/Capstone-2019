@@ -20,5 +20,6 @@ namespace DataAccessLayer
         void UpdateMember(Member newMember, Member oldMember);
         void DeactivateMember(Member member);
         void DeleteMember(Member member);
+        int SelectMemberByEmail(String email);       
     }
 }

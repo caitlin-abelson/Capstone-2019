@@ -152,5 +152,25 @@ namespace LogicLayer
                 throw ex;
             }
         }
+
+        public int RetrieveMemberByEmail(string email)
+        {
+            int id = 0;
+            try
+            {
+                id = _memberAccessor.SelectMemberByEmail(email);
+                if (id == 0)
+                {
+                    throw new NullReferenceException("Member not found");
+                }
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            return id;
+        }
     }
 }

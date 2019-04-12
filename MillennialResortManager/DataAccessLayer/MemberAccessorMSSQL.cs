@@ -267,6 +267,41 @@ namespace DataAccessLayer
             }
         }
 
-       
+        public int SelectMemberByEmail(string email)
+        {
+            int id = 0;
+
+            var conn = DBConnection.GetDbConnection();
+            var procedure = @"sp_select_member_by_email";
+            var cmd = new SqlCommand(procedure, conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            
+            cmd.Parameters.AddWithValue("@Email", email);
+
+            try
+            {
+                conn.Open();
+                var reader = cmd.ExecuteReader();
+
+                if (reader.HasRows)
+                {
+                    reader.Read();
+
+                    id = reader.GetInt32(0);
+                    
+                }
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return id;
+        }
     }
 }

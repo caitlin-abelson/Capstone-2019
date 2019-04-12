@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace MillennialResortWebSite.Models
@@ -100,6 +101,30 @@ namespace MillennialResortWebSite.Models
         [Display(Name = "Confirm password")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
+
+        [Required]
+        [DataType(DataType.Date)]
+        public DateTime DateOfBirth { get; set; }
+
+        [Required]
+        public string Address { get; set; }
+
+        [Required]
+        public string EmergencyFirstName { get; set; }
+
+
+        [Required]
+        public string EmergencyLastName { get; set; }
+
+        [Required]
+        public string EmergencyPhoneNumber { get; set; }
+
+        [Required]
+        public string Relation { get; set; }
+
+        [Required]
+        public bool RecieveTexts { get; set; }
+
     }
 
     public class ResetPasswordViewModel

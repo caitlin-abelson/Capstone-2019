@@ -52,7 +52,10 @@
                     <ul class="nav navbar-nav">
 
                         <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                        <li>@Html.ActionLink("My Account", "Index", "Member")</li>
+                        @if (Request.IsAuthenticated)
+                        {
+                            <li>@Html.ActionLink("My Account", "Index", "MyAccount")</li>
+                        }
                         <li>@Html.ActionLink("Events", "Index", "Events")</li>
                         <li>@Html.ActionLink("Rooms", "Index", "Reservations")</li>
                         <li>@Html.ActionLink("About", "About", "Home")</li>

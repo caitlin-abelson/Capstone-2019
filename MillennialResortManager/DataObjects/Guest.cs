@@ -41,19 +41,28 @@ namespace DataObjects
         public string EmergencyRelation { get; set; }
         public bool CheckedIn { get; set; }
 
-        /*
-        // Need constructor with all inputs b/c setters are private
-        public Guest(int guestID, int memberID, string guestType, string firstName,
-                string lastName, string phoneNumber, bool minor)
+        
+        public Guest(int memberID, string fName,
+                string lName, string phoneNumber, string mail, bool texts, string emergencyFName, 
+                string emergencyLName, string emergencyPhone, string emergencyRelation)
         {
-            GuestID = guestID;
             MemberID = memberID;
-            GuestTypeID = guestType;
-            FirstName = firstName;
-            LastName = lastName;
+            GuestTypeID = "Basic guest";
+            FirstName = fName;
+            LastName = lName;
             PhoneNumber = phoneNumber;
-            Minor = minor;
+            Email = mail;
+            ReceiveTexts = texts;
+            EmergencyFirstName = emergencyFName;
+            EmergencyLastName = emergencyLName;
+            EmergencyPhoneNumber = emergencyPhone;
+            EmergencyRelation = emergencyRelation;
+            Minor = false;
             Active = true;
-        }*/
+            CheckedIn = false;
+        }
+        public Guest()
+        {
+        }
     }
 }
