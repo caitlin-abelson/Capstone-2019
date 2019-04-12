@@ -49,6 +49,7 @@
                         <MenuItem Header="Employee Roles"  x:Name="NavBarSubHeaderEmployeeRoles" x:Uid="NBEmployeeRoles" Click="NavBarSubHeaderEmployeeRoles_Click"/>
                         <MenuItem Header="Guest Types"  x:Name="NavBarSubHeaderGuestTypes" x:Uid="NBGuestTypes" Click="NavBarSubHeaderGuestTypes_Click"/>
                         <MenuItem Header="Room Types"  x:Name="NavBarSubHeaderRoomTypes" x:Uid="NBRoomTypes" Click="NavBarSubHeaderRoomTypes_Click"/>
+                        <MenuItem Header="Departments" x:Name="NavBarSubHeaderDepartment" x:Uid="NBDepartment" Click="NavBarSubHeaderDepartment_Click"/>
                     </MenuItem>
                     <MenuItem Header="_Events" x:Name="_NavBarHeaderEvents" Style="{StaticResource NavBarHeader}" >
                         <MenuItem Header="Performances" x:Name="NavBarSubHeaderPerformances" x:Uid="NBPerformances" Click="NavBarSubHeaderPerformances_Click" />
@@ -84,7 +85,7 @@
                         <MenuItem Header="Members" x:Name="NavBarSubHeaderMembers" x:Uid="NBMembers" Click="NavBarSubHeaderMembers_Click"/>
                         <MenuItem Header="Shuttle Vehicles" x:Name="NavBarSubHeaderShuttleVehicles" x:Uid="NBShuttleVehicles" Click="NavBarSubHeaderManageShuttleVehicles_OnClick"/>
                         <MenuItem Header="Front Desk" x:Name="NavBarSubHeaderFrontDesk" x:Uid="NBFrontDesk" Click="NavBarSubHeaderFrontDesk_OnClick"/>
-                        <MenuItem Header="Shuttle Reservation" x:Name="NavBarSubHeaserShuttleReservation" x:Uid="NBShuttleReservation" Click="NavBarSubHeaderShuttleReservation_OnClick"/>
+                        <MenuItem Header="Shuttle Reservation" x:Name="NavBarSubHeaderShuttleReservation" x:Uid="NBShuttleReservation" Click="NavBarSubHeaderShuttleReservation_OnClick"/>
                     </MenuItem>
                     <MenuItem Header="_Profile" x:Name="_NavBarHeaderProfile" Style="{StaticResource NavBarHeader}" >
                         <MenuItem Header="Employees"  x:Name="NavBarSubHeaderEmployee" x:Uid="NBEmployee" Click="NavBarSubHeaderEmployee_Click"/>
@@ -595,7 +596,9 @@
                     <Button x:Name="btnCancel" Grid.Column="0" Margin="5" Height="25" Content="Cancel" Click="BtnCancelEmployeeRole_Click" />
                     <Button x:Name="btnDeactivateEmployeeRole"  Grid.Column="6" Content="Deactivate/Delete" Margin="5" Height="25" Click="BtnDeactivateEmployeeRole_Click"/>
                     <Button x:Name="btnUpdateEmployeeRole" Grid.Column="5" Margin="5" Content="Read/Update" Height="25" Click="BtnUpdateEmployeeRole_Click" />
+                    <!--
                     <Button x:Name="btnAddEmployeeRole"  Grid.Column="4" Content="Add" Margin="5" Height="25" Click="BtnAddEmployeeRole_Click"/>
+                    -->
                 </Grid>
             </Grid>
             <!-- Browse Guest Types Page -->
@@ -609,7 +612,7 @@
                     <Label Content="Guest Types - Filters go here" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="26" FontWeight="Bold"></Label>
                 </Grid>
                 <Grid Grid.Row="1">
-                    <DataGrid x:Name="dgGuests"  />
+                    <DataGrid x:Name="dgGuests" IsReadOnly="True"  />
                 </Grid>
                 <Grid Grid.Row="2" Style="{StaticResource BottomBar}">
                     <Grid.ColumnDefinitions>
@@ -636,7 +639,7 @@
                     <Label Content="Room Types - Filters go here" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="26" FontWeight="Bold"></Label>
                 </Grid>
                 <Grid Grid.Row="1">
-                    <DataGrid x:Name="dgRooms"  />
+                    <DataGrid x:Name="dgRooms" IsReadOnly="True"  />
                 </Grid>
                 <Grid Grid.Row="2" Style="{StaticResource BottomBar}">
                     <Grid.ColumnDefinitions>
@@ -1799,7 +1802,31 @@
                     <Button x:Name="btnAddShuttleReservation"  Grid.Column="4" Content="Add" Margin="5" Height="25" Click="BtnAddShuttleReservation_Click"/>
                 </Grid>
             </Grid>
-            
+            <!-- Browse Departments Page-->
+            <Grid x:Name="BrowseDepartmentPage" Visibility="Hidden">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="50"></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition Height="50"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0" Style="{StaticResource FilterBar}">
+                    <Label Content="Departments" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="26" FontWeight="Bold"></Label>
+                </Grid>
+                <DataGrid x:Name="dgDepartment" Grid.Row="1"/>
+                <Grid Grid.Row="2" Style="{StaticResource BottomBar}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Column="1">
+                       <!-- <Button x:Name="btnAddDepartment" Margin="5" Content="Add" Click="btnAddDepartment_Click"></Button>-->
+                    </Grid>
+                    <Grid Grid.Column="2">
+                        <Button x:Name="btnDeleteDepartment" Margin="5" Content="Delete" Click="btnDeleteDepartment_Click"></Button>
+                    </Grid>
+                </Grid>
+            </Grid>
             <!--Manage Vehicles Page-->
             <Grid x:Name="BrowseShuttleVehiclesPage" Visibility="Hidden">
                 <local:FrmBrowseShuttleVehicles/>

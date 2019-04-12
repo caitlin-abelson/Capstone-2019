@@ -10,31 +10,24 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="50"></RowDefinition>
             <RowDefinition></RowDefinition>
-            <RowDefinition Height="100"></RowDefinition>
+            <RowDefinition Height="50"></RowDefinition>
         </Grid.RowDefinitions>
-        <Grid Grid.Row="0" Background="LightGray">
+        <Grid Grid.Row="0">
             <Label Content="Departments" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="26" FontWeight="Bold"></Label>
         </Grid>
-        <Grid Grid.Row="1" Background="LightGray">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="50"></ColumnDefinition>
-                <ColumnDefinition></ColumnDefinition>
-                <ColumnDefinition Width="50"></ColumnDefinition>
-            </Grid.ColumnDefinitions>
-            <Grid Grid.Column="1">
-                <DataGrid x:Name="dgDepartment"></DataGrid>
-            </Grid>
-        </Grid>
-        <Grid Grid.Row="2" Background="LightGray">
+
+        <DataGrid x:Name="dgDepartment" Grid.Row="1"/>
+
+        <Grid Grid.Row="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
             <Grid Grid.Column="0">
-                <Button x:Name="btnAdd" Margin="50 30" Content="Add" Click="btnAdd_Click"></Button>
+                <Button x:Name="btnAddDepartment" Margin="5" Content="Add" Click="btnAdd_Click"></Button>
             </Grid>
             <Grid Grid.Column="1">
-                <Button x:Name="btnDelete" Margin="50 30" Content="Delete" Click="btnDelete_Click"></Button>
+                <Button x:Name="btnDeleteDepartment" Margin="5" Content="Delete" Click="btnDelete_Click"></Button>
             </Grid>
         </Grid>
     </Grid>

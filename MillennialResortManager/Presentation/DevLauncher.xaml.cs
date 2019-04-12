@@ -53,10 +53,12 @@ namespace Presentation
     /// #BrowsePets
     /// #BrowseRoom
     /// #BrowseMaintenanceType
+    /// #BrowseMaintenanceWorkOrder
     /// #BrowseMember
     /// #Receiving
     /// #BrowseOffering
     /// #Profile
+    /// #BrowseDepartment
     /// #FrontDesk
     /// 
     /// </summary>
@@ -213,7 +215,10 @@ namespace Presentation
         private List<OfferingVM> _offeringVms;
         private List<OfferingVM> _currentOfferingVms;
         private OfferingManager _offeringManager;
-
+        //Departments
+        public List<Department> _departmentsList;
+        public List<Department> _currentDepartments;
+        IDepartmentTypeManager departmentManager;
         #endregion
 
         #region DevLauncher Code #DevLauncher
@@ -296,6 +301,8 @@ namespace Presentation
                     NavBarSubHeaderPerformances.Visibility = Visibility.Collapsed;
                     NavBarSubHeaderSetupLists.Visibility = Visibility.Collapsed;
                     NavBarSubHeaderEvents.Visibility = Visibility.Collapsed;
+                    NavBarSubHeaderEventPerfList.Visibility = Visibility.Collapsed;
+                    NavBarSubHeaderEventSponsList.Visibility = Visibility.Collapsed;
                 }
             }
             else if (_employee.DepartmentID == "ResortOperations")
@@ -324,6 +331,9 @@ namespace Presentation
                     NavBarSubHeaderReservation.Visibility = Visibility.Collapsed;
                     NavBarSubHeaderRooms.Visibility = Visibility.Collapsed;
                     NavBarSubHeaderMembers.Visibility = Visibility.Collapsed;
+                    NavBarSubHeaderShuttleVehicles.Visibility = Visibility.Collapsed;
+                    NavBarSubHeaderFrontDesk.Visibility = Visibility.Collapsed;
+                    NavBarSubHeaderShuttleReservation.Visibility = Visibility.Collapsed;
                 }
             }
             else if (_employee.DepartmentID == "FoodService")
@@ -365,6 +375,8 @@ namespace Presentation
                     NavBarSubHeaderSupplierOrders.Visibility = Visibility.Collapsed;
                     NavBarSubHeaderOrders.Visibility = Visibility.Collapsed;
                     NavBarSubHeaderSponsors.Visibility = Visibility.Collapsed;
+                    NavBarSubHeaderReceiving.Visibility = Visibility.Collapsed;
+                    NavBarSubHeaderOfferings.Visibility = Visibility.Collapsed;
                 }
             }
             else
@@ -879,6 +891,12 @@ namespace Presentation
         {
             DisplayPage("ShuttleReservation");
             BrowseShuttleReservationDoOnStart();
+        }
+
+        private void NavBarSubHeaderDepartment_Click(object sender, RoutedEventArgs e)
+        {
+            DisplayPage("Department");
+
         }
 
         /*--------------------------- Ending NavBar Code --------------------------------*/
@@ -2146,7 +2164,6 @@ namespace Presentation
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
-                throw;
             }
             _currentItems = _allItems;
             dgProducts.ItemsSource = _currentItems;
@@ -3106,6 +3123,7 @@ namespace Presentation
                     _currentGuests = _guests;
                 }
                 dgGuests.ItemsSource = _currentGuests;
+                
             }
 
             catch (Exception ex)
@@ -5922,6 +5940,10 @@ namespace Presentation
 
         public void ViewSelectedRecordBrowseMembers()
         {
+            if (dgMember.SelectedItem == null)
+            {
+                return;
+            }
             var member = (Member)dgMember.SelectedItem;
             var viewMemberForm = new frmAccount(member);
             var result = viewMemberForm.ShowDialog();
@@ -7101,6 +7123,7 @@ namespace Presentation
 
 
         #endregion
+
         #region Offering
         /*--------------------------- Starting BrowseOffering Code #BrowseOffering --------------------------------*/
 
@@ -7321,9 +7344,87 @@ namespace Presentation
 
 
         }
-        #endregion
+
 
         /*--------------------------- Ending BrowseOffering Code --------------------------------*/
+        #endregion
+
+        #region Department Code
+        //#BrowseDepartment
+        private void BrowseDepartmentDoOnStart()
+        {
+            departmentManager = new DepartmentTypeManager();
+            try
+            {
+                _departmentsList = departmentManager.RetrieveAllDepartments("All");
+                if (_currentDepartments == null)
+                {
+                    _currentDepartments = _departmentsList;
+                }
+                dgDepartment.ItemsSource = _currentDepartments;
+            }
+
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// Opens up the add window and updates the datagrid if role was created successfully
+        /// </summary>
+        private void btnAddDepartment_Click(object sender, RoutedEventArgs e)
+        {
+            var addRoles = new AddDepartment();
+            var result = addRoles.ShowDialog();
+            if (result == true)
+            {
+                try
+                {
+                    _currentDepartments = null;
+                    _departmentsList = departmentManager.RetrieveAllDepartments("All");
+                    if (_currentDepartments == null)
+                    {
+                        _currentDepartments = _departmentsList;
+                    }
+                    dgDepartment.ItemsSource = _currentDepartments;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Opens up the delete window and updates the datagrid if role was deleted successfully
+        /// NOTE : If you the role is assigned to an Employee the role cannot be deleted
+        /// </summary>
+        private void btnDeleteDepartment_Click(object sender, RoutedEventArgs e)
+        {
+            var deleteRoles = new DeleteDepartment();
+            var result = deleteRoles.ShowDialog();
+            if (result == true)
+            {
+                try
+                {
+                    _currentDepartments = null;
+                    _departmentsList = departmentManager.RetrieveAllDepartments("All");
+                    if (_currentDepartments == null)
+                    {
+                        _currentDepartments = _departmentsList;
+                    }
+                    dgDepartment.ItemsSource = _currentDepartments;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+            }
+        }
+
+
+        #endregion
 
         #region Browse Shuttle Reservation
         //#ShuttleReservation
