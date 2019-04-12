@@ -15,7 +15,7 @@
     <Grid Style="{StaticResource DefaultPage}">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="250" />
-            <ColumnDefinition Width="250" />
+            <ColumnDefinition Width="280" />
             <ColumnDefinition  />
         </Grid.ColumnDefinitions>
         <!--Left Side of Window-->
@@ -34,13 +34,13 @@
                 <ColumnDefinition Width="125" />
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
-            <Label Grid.Column="0" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Right">Requested Event Title: </Label>
+            <Label Grid.Column="0" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Right">Event Title: </Label>
             <Label Grid.Column="0" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Right">Offering ID:</Label>
             <Label Grid.Column="0" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Right">Price:</Label>
-            <Label Grid.Column="0" Grid.Row="3" VerticalAlignment="Center" HorizontalAlignment="Right">Host Employee: </Label>
-            <Label Grid.Column="0" Grid.Row="4" VerticalAlignment="Center" HorizontalAlignment="Right">Type of Event:</Label>
+            <Label Grid.Column="0" Grid.Row="3" VerticalAlignment="Center" HorizontalAlignment="Right">Employee: </Label>
+            <Label Grid.Column="0" Grid.Row="4" VerticalAlignment="Center" HorizontalAlignment="Right">Event Type:</Label>
             <Label Grid.Column="0" Grid.Row="5" VerticalAlignment="Center" HorizontalAlignment="Right">Start Date:</Label>
-            <Label Grid.Column="0" Grid.Row="6" VerticalAlignment="Center">End Date:</Label>
+            <Label Grid.Column="0" Grid.Row="6" VerticalAlignment="Center" HorizontalAlignment="Right">End Date:</Label>
             <TextBox x:Name="txtEventTitle" Grid.Column="1" Grid.Row="0" Width="120" VerticalAlignment="Center" HorizontalAlignment="Left" />
             <TextBox x:Name="txtEventOfferingID" Grid.Column="1" Grid.Row="1" Width="120" VerticalAlignment="Center" HorizontalAlignment="Left" IsEnabled="False" />
             <TextBox x:Name="txtEventPrice" Grid.Column="1" Grid.Row="2" Width="120" VerticalAlignment="Center" HorizontalAlignment="Left" />
@@ -98,8 +98,8 @@
                     <RowDefinition />
                 </Grid.RowDefinitions>
                 <Label Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Left">Name:</Label>
-                <TextBox x:Name="txtEventSponsor" Grid.Row="0" Height="20" Width="80" VerticalAlignment="Center" HorizontalAlignment="Right" IsEnabled="False" />
-                <Button x:Name="btnEventSponsor" Grid.Row="1" Height="20" Width="100" Content="Search" IsEnabled="False" Click="BtnEventSponsor_Click" />
+                <TextBox x:Name="txtEventSponsor" Grid.Row="0" Height="20" Width="100" VerticalAlignment="Center" HorizontalAlignment="Right" IsEnabled="False" />
+                <Button x:Name="btnEventSponsor" Grid.Row="1" Height="25" Width="100" Content="Search" IsEnabled="False" Click="BtnEventSponsor_Click" />
             </Grid>
             <!--The Grid below is used when an Event has a performance-->
             <Grid Grid.Row="5" Grid.Column="2">
@@ -108,17 +108,17 @@
                     <RowDefinition />
                 </Grid.RowDefinitions>
                 <Label Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Left">Title:</Label>
-                <TextBox x:Name="txtEventPerf" Grid.Row="0" Height="20" Width="80" VerticalAlignment="Center" HorizontalAlignment="Right" IsEnabled="False" />
-                <Button x:Name="btnEventPerf" Grid.Row="1" Height="20" Width="100" Content="Search" IsEnabled="False" Click="BtnEventPerf_Click" />
+                <TextBox x:Name="txtEventPerf" Grid.Row="0" Height="20" Width="100" VerticalAlignment="Center" HorizontalAlignment="Right" IsEnabled="False" />
+                <Button x:Name="btnEventPerf" Grid.Row="1" Height="25" Width="100" Content="Search" IsEnabled="False" Click="BtnEventPerf_Click" />
             </Grid>
-            <Label Grid.Column="0" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Left">Number of Guests:</Label>
-            <Label Grid.Column="0" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Left">Number of Seats Left:</Label>
-            <Label Grid.Column="0" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Left">Location of Event:</Label>
-            <Label Grid.Column="0" Grid.Row="3" VerticalAlignment="Center" HorizontalAlignment="Left">Kids Allowed?</Label>
-            <Label Grid.Column="0" Grid.Row="4" VerticalAlignment="Center" HorizontalAlignment="Left">Sponsored?</Label>
-            <Label Grid.Column="0" Grid.Row="5" VerticalAlignment="Center" HorizontalAlignment="Left">Performance?</Label>
-            <Label Grid.Column="0" Grid.Row="6" VerticalAlignment="Center" HorizontalAlignment="Left">Public Event?</Label>
-            <Label Grid.Column="0" Grid.Row="7" VerticalAlignment="Center">Manager Approval:</Label>
+            <Label Grid.Column="0" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Right">Max Guests:</Label>
+            <Label Grid.Column="0" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Right">Seats Left:</Label>
+            <Label Grid.Column="0" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Right">Location:</Label>
+            <Label Grid.Column="0" Grid.Row="3" VerticalAlignment="Center" HorizontalAlignment="Right">Kids Allowed?</Label>
+            <Label Grid.Column="0" Grid.Row="4" VerticalAlignment="Center" HorizontalAlignment="Right">Sponsored?</Label>
+            <Label Grid.Column="0" Grid.Row="5" VerticalAlignment="Center" HorizontalAlignment="Right">Performance?</Label>
+            <Label Grid.Column="0" Grid.Row="6" VerticalAlignment="Center" HorizontalAlignment="Right">Public Event?</Label>
+            <Label Grid.Column="0" Grid.Row="7" VerticalAlignment="Center" HorizontalAlignment="Right">Approval:</Label>
             <TextBox x:Name="txtReqNumGuest" Grid.Column="1" Grid.Row="0" Width="120" VerticalAlignment="Center" HorizontalAlignment="Left" />
             <TextBox x:Name="txtSeatsRemaining" Grid.Column="1" Grid.Row="1" Width="120" VerticalAlignment="Center" HorizontalAlignment="Left" />
             <TextBox x:Name="txtEventLocation" Grid.Column="1" Grid.Row="2" Width="120" VerticalAlignment="Center" HorizontalAlignment="Left" />

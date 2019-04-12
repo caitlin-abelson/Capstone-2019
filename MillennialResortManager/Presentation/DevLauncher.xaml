@@ -1074,11 +1074,11 @@
                         <ColumnDefinition Width="5"/>
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
-                    <Label Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center">Show Un-Cancelled Events: </Label>
+                    <Label Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center">Un-Cancelled Events: </Label>
                     <RadioButton x:Name="btnEventUncancelled" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5" Checked="BtnEventUncancelled_Checked" />
-                    <Label Grid.Column="2" HorizontalAlignment="Right" VerticalAlignment="Center">Show Cancelled Events:</Label>
+                    <Label Grid.Column="2" HorizontalAlignment="Right" VerticalAlignment="Center">Cancelled Events:</Label>
                     <RadioButton x:Name="btnEventCancelled" Grid.Column="3" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5" Checked="BtnEventCancelled_Checked" />
-                    <Label Grid.Column="4" HorizontalAlignment="Right" VerticalAlignment="Center">Search By Name: </Label>
+                    <Label Grid.Column="4" HorizontalAlignment="Right" VerticalAlignment="Center">Search Title: </Label>
                     <TextBox x:Name="txtEventSearchName" Grid.Column="5" Height="20"/>
 
                     <Button x:Name="btnEventFilter" Grid.Column="7" Width="90" Height="35" Content="Filter" Click="BtnEventFilter_Click" HorizontalContentAlignment="Center"/>
