@@ -98,8 +98,8 @@
                     <RowDefinition />
                 </Grid.RowDefinitions>
                 <Label Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Left">Name:</Label>
-                <TextBox x:Name="txtEventSponsor" Grid.Row="0" Height="20" Width="100" VerticalAlignment="Center" HorizontalAlignment="Right" IsEnabled="False" />
-                <Button x:Name="btnEventSponsor" Grid.Row="1" Height="25" Width="100" Content="Search" IsEnabled="False" Click="BtnEventSponsor_Click" />
+                <TextBox x:Name="txtEventSponsor" Grid.Row="0" Height="20" Width="80" VerticalAlignment="Center" HorizontalAlignment="Right" IsEnabled="False" />
+                <Button x:Name="btnEventSponsor" Grid.Row="1" Height="20" Width="100" Content="Select Sponsor" IsEnabled="False" Click="BtnEventSponsor_Click" />
             </Grid>
             <!--The Grid below is used when an Event has a performance-->
             <Grid Grid.Row="5" Grid.Column="2">

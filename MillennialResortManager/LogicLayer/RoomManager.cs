@@ -89,15 +89,10 @@ namespace LogicLayer
         /// 
         /// Inserts a new Room into the database
         /// <param name="room">A room object</param>
-        /// <remarks>
-        /// Danielle Russo
-        /// Updated: 2019/04/04
         /// 
-        /// Updated to accomidate the number of rooms to be added
-        /// </remarks>
         /// <returns>A bool if the room was created</returns>
         /// </summary>
-        public bool CreateRoom(Room room, int employeeID, int numOfRooms)
+        public bool CreateRoom(Room room, int employeeID)
         {
             int rows = 0;
             bool roomCreated = false;
@@ -105,7 +100,7 @@ namespace LogicLayer
             try
             {
                 RoomVerifier.VerifyRoom(room, _roomAccessor);
-                rows = _roomAccessor.InsertNewRoom(room, employeeID, numOfRooms);
+                rows = _roomAccessor.InsertNewRoom(room, employeeID);
             }
             catch (Exception ex)
             {
@@ -275,6 +270,29 @@ namespace LogicLayer
             }
 
             return statusList;
+        }
+
+        /// <summary>
+        /// Danielle Russo
+        /// Created: 2019/04/10
+        /// 
+        /// </summary>
+        /// <returns>A list of Rooms in a selected building</returns>
+        public List<Room> RetrieveRoomListByBuildingID(string buildingID)
+        {
+            List<Room> rooms = null;
+
+            try
+            {
+                rooms = _roomAccessor.SelectRoomsByBuildingID(buildingID);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+            return rooms;
         }
     }
 }

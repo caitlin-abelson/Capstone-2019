@@ -6,6 +6,7 @@
 /// </summary>
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
@@ -125,15 +126,9 @@ namespace DataAccessLayer
         /// Added "Offering Type ID" parameter needed for creating a new Offering ID
         /// Added offeringTypeID variable to match stored procedure
         /// </remarks>
-        /// <remarks>
-        /// Danielle Russo
-        /// Updated: 2019/04/04
-        /// 
-        /// Updated to accomidate the number of rooms to be added
-        /// </remarks>
         /// <param name="room"></param>
         /// <returns>Rows affted</returns>
-        public int InsertNewRoom(Room room, int employeeID, int numOfRooms)
+        public int InsertNewRoom(Room room, int employeeID)
         {
             int rows = 0;
             var conn = DBConnection.GetDbConnection();
@@ -144,6 +139,7 @@ namespace DataAccessLayer
             var cmd = new SqlCommand(cmdText, conn);
             // room needs to create a offering to get a offeringID
             cmd.CommandType = System.Data.CommandType.StoredProcedure;
+
             cmd.Parameters.AddWithValue("@RoomNumber", room.RoomNumber);
             cmd.Parameters.AddWithValue("@BuildingID", room.Building);
             cmd.Parameters.AddWithValue("@RoomTypeID", room.RoomType);
@@ -157,11 +153,7 @@ namespace DataAccessLayer
             try
             {
                 conn.Open();
-                for (int i = 0; i <= numOfRooms; i++)
-                {
-                    cmd.Parameters.AddWithValue("@RoomNumber", room.RoomNumber + 1);
-                    rows = cmd.ExecuteNonQuery();
-                }
+                rows = cmd.ExecuteNonQuery();
 
             }
             catch
@@ -218,7 +210,7 @@ namespace DataAccessLayer
                     reader.Read();
                     room = new Room
                     {
-                        RoomNumber = reader.GetInt32(0).ToString(),
+                        RoomNumber = reader.GetInt32(0),
                         Building = reader.GetString(1),
                         RoomType = reader.GetString(2),
                         Description = reader.GetString(3),
@@ -329,7 +321,7 @@ namespace DataAccessLayer
                         var rm = new Room()
                         {
                             RoomID = reader.GetInt32(0),
-                            RoomNumber = reader.GetString(1),
+                            RoomNumber = reader.GetInt32(1),
                             Building = reader.GetString(2),
                             RoomType = reader.GetString(3),
                             Description = reader.GetString(4),
@@ -413,7 +405,7 @@ namespace DataAccessLayer
                     while (reader.Read())
                     {
                         roomStatus.Add(reader.GetString(0));
-                       
+
                     }
                 }
                 reader.Close();
@@ -430,6 +422,60 @@ namespace DataAccessLayer
 
 
             return roomStatus;
+        }
+
+        /// <summary>
+        /// Danielle Russo
+        /// Created: 2019/04/10
+        /// 
+        /// </summary>
+        /// <returns>A list of Rooms in a selected building</returns>
+        public List<Room> SelectRoomsByBuildingID(string buildingId)
+        {
+            List<Room> rooms = new List<Room>();
+
+            var conn = DBConnection.GetDbConnection();
+            var cmdText = @"sp_select_room_list_by_buildingid";
+            var cmd = new SqlCommand(cmdText, conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.AddWithValue("@BuildingID", buildingId);
+
+            try
+            {
+                conn.Open();
+                var reader = cmd.ExecuteReader();
+
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        rooms.Add(new Room()
+                        {
+                            RoomID = reader.GetInt32(0),
+                            RoomNumber = reader.GetInt32(1),
+                            RoomType = reader.GetString(2),
+                            Description = reader.GetString(3),
+                            Capacity = reader.GetInt32(4),
+                            Price = (decimal)reader.GetSqlMoney(5),
+                            ResortPropertyID = reader.GetInt32(6),
+                            RoomStatus = reader.GetString(7),
+                            Building = buildingId
+                        });
+                    }
+                }
+            }
+            catch (SqlException)
+            {
+
+                throw;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+
+            return rooms;
         }
     }
 }

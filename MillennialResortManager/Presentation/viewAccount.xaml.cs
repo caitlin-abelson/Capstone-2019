@@ -24,13 +24,56 @@ namespace Presentation
         private List<Member> _members;
         private List<Member> _currentMembers;
         private MemberManagerMSSQL _memberManager = new MemberManagerMSSQL();
-        Member _selectedMember = new Member();
+        public Member _selectedMember = new Member();
+        private string text;
+
         public ViewAccount()
         {
             InitializeComponent();
             populateMembers();
         }
-      
+
+        public ViewAccount(string filterSearch)
+        {
+            InitializeComponent();
+            
+
+            //Search Box should only contain the filter given
+            txtSearch.IsEnabled = false;
+            txtSearch.Text = filterSearch;
+
+            //Disable buttons for this specifically constructed window
+            btnFilter.IsEnabled = false;
+            btnClear.IsEnabled = false;
+            btnCancel.IsEnabled = false;
+
+
+            btnDelete.Content = "Select Member";
+
+            
+
+            try
+            {
+                _memberManager = new MemberManagerMSSQL();
+
+                //Refresh sponsor list to empty gird
+                populateMembers();
+                var _filteredMembers = new List<Member>();
+
+                foreach (var item in _memberManager.RetrieveAllMembers().Where(s => s.FirstName.Contains(txtSearch.Text.ToString())))
+                {
+                    _filteredMembers.Add(item);
+                }
+                dgMember.ItemsSource = _filteredMembers;
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message + "\nCould not populate filtered Sponsors");
+            }
+
+        }
+
         public void ViewSelectedRecord()
         {
             var member = (Member)dgMember.SelectedItem;
@@ -93,11 +136,16 @@ namespace Presentation
         private void btnFilter_Click(object sender, RoutedEventArgs e)
         {
             FilterMembers();
+
+               
+            
         }
 
         /// <summary>
         /// Author: Ramesh Adhikari
         /// Created On: 02/22/2019
+        /// Modification: Gunardi Saputra
+        /// Modified: 04/10/2019
         /// Filters search for the first name of the member and displays the result
         /// </summary>
         public void FilterMembers()
@@ -124,7 +172,6 @@ namespace Presentation
                 }
 
 
-                //_currentMembers = _currentMembers.FindAll(s => s.Active.Equals(btnActive.IsChecked));
 
 
 
@@ -240,55 +287,77 @@ namespace Presentation
        
         private void btnDeactivate_Click(object sender, RoutedEventArgs e)
         {
-            try
+            if (btnDelete.Content.Equals("Select Member"))
             {
-                if (((Member)dgMember.SelectedItem).Active)
+                if(dgMember.SelectedItem != null)
                 {
-                   var result = MessageBox.Show("Are you sure you want to deactivate member", "Member deactivating.", MessageBoxButton.YesNo, MessageBoxImage.Warning);
-
-                    if(result == MessageBoxResult.Yes)
+                    _selectedMember = (Member)dgMember.SelectedItem;
+                    if (_selectedMember != null)
                     {
-                        MessageBox.Show("Member has been deactivated");
+                        this.DialogResult = true;
                     }
-                    else if(result == MessageBoxResult.No)
+                    else
                     {
-                       
+                        this.DialogResult = false;
+                        MessageBox.Show("Must have a Member selected!\nCreate a new one if the Member does not exist yet.");
                     }
                 }
-                else
+                
+            }
+            else
+            {
+                try
                 {
-                    var result = MessageBox.Show("Are you sure you want to delete member", "Member Account Deleting.", MessageBoxButton.YesNo, MessageBoxImage.Warning);
-
-                    if (result == MessageBoxResult.Yes)
+                    if (((Member)dgMember.SelectedItem).Active)
                     {
-                        MessageBox.Show("Member has been deleted");
-                    }
+                        var result = MessageBox.Show("Are you sure you want to deactivate a member", "Member deactivating.", MessageBoxButton.YesNo, MessageBoxImage.Warning);
 
-                }
+                        if (result == MessageBoxResult.Yes)
+                        {
+                            MessageBox.Show("Member has been deactivated");
+                        }
+                        else if (result == MessageBoxResult.No)
+                        {
+
+                        }
+                    }
+                    else
+                    {
+                        var result = MessageBox.Show("Are you sure you want to delete a member", "Member Account Deleting.", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+
+                        if (result == MessageBoxResult.Yes)
+                        {
+                            MessageBox.Show("Member has been deleted");
+                        }
+
+                    }
                     var Member = (Member)dgMember.SelectedItem;
-                
 
-                
 
-                // Set the record to inactive.
-                _memberManager.DeleteMember(Member);
 
-                // Refresh the Member List.
-                _currentMembers = null;
-                populateMembers();
 
-                // Remove the record from the list of Active Members.
-                _currentMembers.Remove(Member);
-                dgMember.Items.Refresh();
+                    // Set the record to inactive.
+                    _memberManager.DeleteMember(Member);
+
+                    // Refresh the Member List.
+                    _currentMembers = null;
+                    populateMembers();
+
+                    // Remove the record from the list of Active Members.
+                    _currentMembers.Remove(Member);
+                    dgMember.Items.Refresh();
+                }
+                catch (NullReferenceException)
+                {
+
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message + "\n" + ex.InnerException);
+                }
             }
-            catch (NullReferenceException)
-            {
-                
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message + "\n" + ex.InnerException);
-            }
+
+            
         }
 
        

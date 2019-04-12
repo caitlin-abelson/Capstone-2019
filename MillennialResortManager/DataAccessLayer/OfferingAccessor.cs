@@ -418,7 +418,7 @@ namespace DataAccessLayer
                             Room room = new Room();
                             room.RoomID = reader.GetInt32(0);
                             //room.BuildingID = reader.GetString(1);
-                            room.RoomNumber = reader.GetInt32(2).ToString();
+                            room.RoomNumber = reader.GetInt32(2);
                             room.RoomType = reader.GetString(3);
                             if (reader.IsDBNull(4))
                             {
