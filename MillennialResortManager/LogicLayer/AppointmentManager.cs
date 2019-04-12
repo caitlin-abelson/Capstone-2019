@@ -48,7 +48,7 @@ namespace LogicLayer
         /// 
         /// Validtes and passes new appointment data to the appointment accessor
         /// </summary>
-        public bool CreateAppointment(Appointment appointment)
+        public bool CreateAppointmentByGuest(Appointment appointment)
         {
             bool results = false;
             int rows = 0;
@@ -57,7 +57,7 @@ namespace LogicLayer
                 validateAppointmentData(appointment);
                 if (appointmentValid)
                 {
-                    rows = _appointmentAccessor.InsertAppointment(appointment);
+                    rows = _appointmentAccessor.InsertAppointmentByGuest(appointment);
                     if (rows > 0)
                     {
                         results = true;
