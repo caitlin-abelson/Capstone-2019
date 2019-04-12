@@ -48,17 +48,30 @@ namespace LogicLayer
             CheckRoomStatusID();
             return roomIsGood;
         }
-        // string 15 char
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <remarks>
+        /// Danielle Russo
+        /// Updated: 2019/04/10
+        /// 
+        /// Updated to check if room number is used in same building
+        /// </remarks>
         public static void CheckRoomNumber()
         {
-            if (roomToCheck.RoomNumber.Length <= 15 && roomToCheck.RoomNumber != "")
+            List<Room> roomsInBld = _roomAccessor.SelectRoomsByBuildingID(roomToCheck.Building);
+            for (int i = 0; i < roomsInBld.Count; i++)
             {
-                roomIsGood = true;
-            }
-            else
-            {
-                roomIsGood = false;
-                throw new ApplicationException("Room number should be 1 to 15 characters in length.");
+                if (roomToCheck.RoomNumber == roomsInBld[i].RoomNumber)
+                {
+                    roomIsGood = false;
+                    throw new ApplicationException("Room number already exists in this building.");
+                }
+                else
+                {
+                    roomIsGood = true;
+                }
             }
         }
         // matches a room in the list

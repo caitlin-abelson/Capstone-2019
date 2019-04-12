@@ -26,7 +26,13 @@ namespace DataObjects
     public class Room
     {
         public int RoomID { get; set; }
-        public string RoomNumber { get; set; }
+
+        /// <remarks>
+        /// Danielle Russo
+        /// Updated: 2019/04/10
+        /// Updated datatype to int
+        /// </remarks>
+        public int RoomNumber { get; set; }
         public string Building { get; set; }
         public string RoomType { get; set; }
         public string Description { get; set; }
@@ -35,14 +41,5 @@ namespace DataObjects
         public int OfferingID { get; set; }
         public string RoomStatus { get; set; }
         public int ResortPropertyID { get; set; }
-
-        public override string ToString()
-        {
-            string thing = "";
-            thing += Building + " Room "+RoomNumber;
-            return thing;
-        }
     }
-
-    
 }

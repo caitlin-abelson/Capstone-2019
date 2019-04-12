@@ -115,7 +115,9 @@ namespace Presentation
         /// </remarks>
         private void setUpRooms()
         {
-            roomsInSelectedBuilding = roomManager.RetrieveRoomList().FindAll(r => r.Building == selectedBuilding.BuildingID);
+            dgRooms.ItemsSource = null;
+
+            roomsInSelectedBuilding = roomManager.RetrieveRoomListByBuildingID(selectedBuilding.BuildingID);
             dgRooms.ItemsSource = roomsInSelectedBuilding;
 
             inspections = inspectionManager.RetrieveAllInspectionsByResortPropertyId(selectedBuilding.ResortPropertyID);
@@ -446,26 +448,18 @@ namespace Presentation
         /// <param name="selectedBuilding">The building that the room will be added to</param>
         private void btnAddRoom_Click(object sender, RoutedEventArgs e)
         {
-            var addRoomForm = new frmAddEditViewRoom();
+            var addRoomForm = new frmAddEditViewRoom(selectedBuilding.BuildingID);
             var roomAdded = addRoomForm.ShowDialog();
 
-            if (roomAdded == true)
+            // if rooms were added, update list
+            try
             {
-                // if rooms were added, update list
-                try
-                {
-                    setUpRooms();
-                }
-                catch (Exception ex)
-                {
-
-                    MessageBox.Show(ex.Message);
-                }
+                setUpRooms();
             }
-            else
+            catch (Exception ex)
             {
-                // building was not added 
-                MessageBox.Show("Rooms were not added.");
+
+                MessageBox.Show(ex.Message);
             }
         }
 
@@ -577,6 +571,16 @@ namespace Presentation
         private void setUpInspectionTab()
         {
             inspections = inspectionManager.RetrieveAllInspectionsByResortPropertyId(selectedBuilding.ResortPropertyID);
+
+            if (inspections.Count > 0)
+            {
+                foreach (Room room in roomsInSelectedBuilding)
+                {
+                    inspections.AddRange(inspectionManager.RetrieveAllInspectionsByResortPropertyId(room.ResortPropertyID));
+                }
+            }
+
+
             dgBuildingInspections.ItemsSource = inspections;
         }
 
@@ -682,6 +686,21 @@ namespace Presentation
         private void btnSelectRoom_Click(object sender, RoutedEventArgs e)
         {
             selectRoom();
+        }
+
+        private void dgBuildingMaintenance_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+
+        }
+
+        private void btnAddMaintenance_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnSelectionMaintenance_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

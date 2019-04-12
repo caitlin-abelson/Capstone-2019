@@ -47,15 +47,9 @@ namespace DataAccessLayer
         /// Created: 2019/02/12
         /// 
         /// </summary>
-        /// <remarks>
-        /// Danielle Russo
-        /// Updated: 2019/04/04
-        /// 
-        /// Updated to accomidate the number of rooms to be added
-        /// </remarks>
         /// <param name="room"></param>
         /// <returns>A 1 when a room was added</returns>
-        public int InsertNewRoom(Room room, int employeeID, int numOfRooms)
+        public int InsertNewRoom(Room room, int employeeID)
         {
             room.RoomID = nextRoomID;
             nextRoomID++;
@@ -195,7 +189,7 @@ namespace DataAccessLayer
             Room room0 = new Room
             {
                 RoomID = nextRoomID,
-                RoomNumber = "101",
+                RoomNumber = 101,
                 Building = "Test Building 1",
                 RoomType = "Test Room Type 1",
                 Description = "Test Room " + nextRoomID,
@@ -211,7 +205,7 @@ namespace DataAccessLayer
             Room room1 = new Room
             {
                 RoomID = nextRoomID,
-                RoomNumber = "101",
+                RoomNumber = 101,
                 Building = "Test Building 2",
                 RoomType = "Test Room Type 2",
                 Description = "Test Room " + nextRoomID,
@@ -227,7 +221,7 @@ namespace DataAccessLayer
             Room room2 = new Room
             {
                 RoomID = nextRoomID,
-                RoomNumber = "101",
+                RoomNumber = 101,
                 Building = "Test Building 3",
                 RoomType = "Test Room Type 3",
                 Description = "Test Room " + nextRoomID,
@@ -242,7 +236,7 @@ namespace DataAccessLayer
             Room room3 = new Room
             {
                 RoomID = nextRoomID,
-                RoomNumber = "101",
+                RoomNumber = 101,
                 Building = "Test Building 4",
                 RoomType = "Test Room Type 4",
                 Description = "Test Room " + nextRoomID,
@@ -258,7 +252,7 @@ namespace DataAccessLayer
             Room room4 = new Room
             {
                 RoomID = nextRoomID,
-                RoomNumber = "102",
+                RoomNumber = 102,
                 Building = "Test Building 1",
                 RoomType = "Test Room Type 1",
                 Description = "Test Room " + nextRoomID,
@@ -274,7 +268,7 @@ namespace DataAccessLayer
             Room room5 = new Room
             {
                 RoomID = nextRoomID,
-                RoomNumber = "103",
+                RoomNumber = 103,
                 Building = "Test Building 3",
                 RoomType = "Test Room Type 2",
                 Description = "Test Room " + nextRoomID,
@@ -290,7 +284,7 @@ namespace DataAccessLayer
             Room room6 = new Room
             {
                 RoomID = nextRoomID,
-                RoomNumber = "104",
+                RoomNumber = 104,
                 Building = "Test Building 4",
                 RoomType = "Test Room Type 2",
                 Description = "Test Room " + nextRoomID,
@@ -306,7 +300,7 @@ namespace DataAccessLayer
             Room room7 = new Room
             {
                 RoomID = nextRoomID,
-                RoomNumber = "101",
+                RoomNumber = 101,
                 Building = "Test Building 3",
                 RoomType = "Test Room Type 3",
                 Description = "Test Room " + nextRoomID,
@@ -350,6 +344,11 @@ namespace DataAccessLayer
             roomStatusList.Add("Needs Fumigation");
             roomStatusList.Add("Needs Inspection");
             roomStatusList.Add("Jim Quote Needed");
+        }
+
+        public List<Room> SelectRoomsByBuildingID(string buildingId)
+        {
+            throw new NotImplementedException();
         }
     }
 }

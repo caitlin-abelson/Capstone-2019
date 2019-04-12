@@ -19,13 +19,7 @@ namespace DataAccessLayer
 {
     public interface IRoomAccessor
     {
-        /// <remarks>
-        /// Danielle Russo
-        /// Updated: 2019/04/04
-        /// 
-        /// Updated to accomidate the number of rooms to be added
-        /// </remarks>
-        int InsertNewRoom(Room room, int employeeID, int numOfRooms);
+        int InsertNewRoom(Room room, int employeeID);
         List<string> SelectBuildings();
         Room SelectRoomByID(int roomID);
         List<Room> SelectRoomList();
@@ -34,5 +28,11 @@ namespace DataAccessLayer
         int DeleteRoom(Room room);
         int DeleteRoomByID(int roomID);
         List<string> SelectRoomStatusList();
+
+        /// <remarks>
+        /// Danielle Russo
+        /// Created: 2019/04/04
+        /// </remarks>
+        List<Room> SelectRoomsByBuildingID(string buildingId);
     }
 }

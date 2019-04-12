@@ -34,15 +34,10 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-
     <IntermediateOutputPath>C:\Users\Kevin\AppData\Local\Temp\vs5400.tmp\Debug\</IntermediateOutputPath>
-
     <IntermediateOutputPath>C:\Users\Jacob\AppData\Local\Temp\vs2D73.tmp\Debug\</IntermediateOutputPath>
-	
     <IntermediateOutputPath>C:\Users\Jared\AppData\Local\Temp\vs832C.tmp\Debug\</IntermediateOutputPath>
-	
-    <IntermediateOutputPath>C:\Users\rphan\AppData\Local\Temp\vs53A0.tmp\Debug\</IntermediateOutputPath>
-	
+    <IntermediateOutputPath>C:\Users\nh229u09\AppData\Local\Temp\vsEB07.tmp\Debug\</IntermediateOutputPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -52,15 +47,10 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-
     <IntermediateOutputPath>C:\Users\Kevin\AppData\Local\Temp\vs5400.tmp\Release\</IntermediateOutputPath>
-
     <IntermediateOutputPath>C:\Users\Jacob\AppData\Local\Temp\vs2D73.tmp\Release\</IntermediateOutputPath>
-
     <IntermediateOutputPath>C:\Users\Jared\AppData\Local\Temp\vs832C.tmp\Release\</IntermediateOutputPath>
-
-    <IntermediateOutputPath>C:\Users\rphan\AppData\Local\Temp\vs53A0.tmp\Release\</IntermediateOutputPath>
-
+    <IntermediateOutputPath>C:\Users\nh229u09\AppData\Local\Temp\vsEB07.tmp\Release\</IntermediateOutputPath>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
