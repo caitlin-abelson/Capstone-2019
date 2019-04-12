@@ -33,8 +33,10 @@ namespace Presentation
         public PerformanceViewer()
         {
             InitializeComponent();
-        }
 
+            setupWindow();
+        }
+        
         /// <summary>
         /// @Author: Phillip Hansen
         /// 
@@ -58,7 +60,11 @@ namespace Presentation
             }
             try
             {
+                dgPerformaces.ItemsSource = null;
+                dgPerformaces.Items.Refresh();
+
                 dgPerformaces.ItemsSource = _filteredPerformances;
+                dgPerformaces.Items.Refresh();
             }
             catch (Exception ex)
             {
@@ -117,10 +123,7 @@ namespace Presentation
             return;
         }
 
-        private void Window_Loaded(object sender, RoutedEventArgs e)
-        {
-            setupWindow();
-        }
+        
 
         private void txtSearch_TextChanged(object sender, TextChangedEventArgs e)
         {
