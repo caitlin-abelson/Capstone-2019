@@ -248,28 +248,35 @@ namespace Presentation
         {
             if (ValidateFields())
             {
-                var vehicle = new ResortVehicle
+                try
                 {
-                    Id = _resortVehicle?.Id ?? 0,
-                    Make = txtMake.Text,
-                    Model = txtModel.Text,
-                    Year = int.Parse(txtYear.Text),
-                    License = txtLicense.Text,
-                    Mileage = int.Parse(txtMileage.Text),
-                    Capacity = int.Parse(txtCapacity.Text),
-                    Color = cmbColor.Text,
-                    PurchaseDate = txtPurchaseDate.SelectedDate,
-                    Description = txtDescription.Text,
-                    Active = _resortVehicle?.Active ?? true,
-                    DeactivationDate = _resortVehicle?.DeactivationDate,
-                    Available = _resortVehicle?.Available ?? true,
-                    ResortVehicleStatusId = _resortVehicle?.ResortVehicleStatusId ?? ResortVehicleStatuses.Available.ToString(),
-                    ResortPropertyId = int.Parse(cmbResortProperty.Text)
-                };
+                    var vehicle = new ResortVehicle
+                    {
+                        Id = _resortVehicle?.Id ?? 0,
+                        Make = txtMake.Text,
+                        Model = txtModel.Text,
+                        Year = int.Parse(txtYear.Text),
+                        License = txtLicense.Text,
+                        Mileage = int.Parse(txtMileage.Text),
+                        Capacity = int.Parse(txtCapacity.Text),
+                        Color = cmbColor.Text,
+                        PurchaseDate = txtPurchaseDate.SelectedDate,
+                        Description = txtDescription.Text,
+                        Active = _resortVehicle?.Active ?? true,
+                        DeactivationDate = _resortVehicle?.DeactivationDate,
+                        Available = _resortVehicle?.Available ?? true,
+                        ResortVehicleStatusId = _resortVehicle?.ResortVehicleStatusId ?? ResortVehicleStatuses.Available.ToString(),
+                        ResortPropertyId = int.Parse(cmbResortProperty.Text)
+                    };
 
-                if (Save(vehicle))
+                    if (Save(vehicle))
+                    {
+                        MessageBox.Show(vehicle.Id == 0 ? "Added Successfully" : "Updated Successfully");
+                    }
+                }
+                catch (Exception ex)
                 {
-                    MessageBox.Show(vehicle.Id == 0 ? "Added Successfully" : "Updated Successfully");
+                    MessageBox.Show(ex.Message);
                 }
             }
             else
