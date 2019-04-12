@@ -34,11 +34,8 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-<<<<<<< HEAD
     <IntermediateOutputPath>C:\Users\Jacob\AppData\Local\Temp\vs2D73.tmp\Debug\</IntermediateOutputPath>
-=======
     <IntermediateOutputPath>C:\Users\mattl\AppData\Local\Temp\vs3870.tmp\Debug\</IntermediateOutputPath>
->>>>>>> origin
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -48,11 +45,8 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-<<<<<<< HEAD
     <IntermediateOutputPath>C:\Users\Jacob\AppData\Local\Temp\vs2D73.tmp\Release\</IntermediateOutputPath>
-=======
     <IntermediateOutputPath>C:\Users\mattl\AppData\Local\Temp\vs3870.tmp\Release\</IntermediateOutputPath>
->>>>>>> origin
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
