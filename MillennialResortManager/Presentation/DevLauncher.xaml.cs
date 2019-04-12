@@ -301,8 +301,8 @@ namespace Presentation
                     NavBarSubHeaderPerformances.Visibility = Visibility.Collapsed;
                     NavBarSubHeaderSetupLists.Visibility = Visibility.Collapsed;
                     NavBarSubHeaderEvents.Visibility = Visibility.Collapsed;
-                    NavBarSubHeaderEventPerfList.Visibility = Visibility.Collapsed;
-                    NavBarSubHeaderEventSponsList.Visibility = Visibility.Collapsed;
+                    //NavBarSubHeaderEventPerfList.Visibility = Visibility.Collapsed;
+                    //NavBarSubHeaderEventSponsList.Visibility = Visibility.Collapsed;
                 }
             }
             else if (_employee.DepartmentID == "ResortOperations")
