@@ -56,16 +56,16 @@
                         <MenuItem Header="Event Types" x:Name="NavBarSubHeaderEventTypes" x:Uid="NBEventTypes" Click="NavBarSubHeaderEventTypes_Click"/>
                         <MenuItem Header="Setup Lists" x:Name="NavBarSubHeaderSetupLists" x:Uid="NBSetupLists" Click="NavBarSubHeaderSetupLists_Click"/>
                         <MenuItem Header="Events" x:Name="NavBarSubHeaderEvents" x:Uid="NBEvents" Click="NavBarSubHeaderEvents_Click"/>
-                        <MenuItem Header="Event Sponsor List" x:Name="NavBarSubHeaderEventSponsList" x:Uid="NBEventSponsList" Click="NavBarSubHeaderEventSponsList_Click" />
-                        <MenuItem Header="Event Performance List" x:Name="NavBarSubHeaderEventPerfList" x:Uid="NBEventPerfList" Click="NavBarSubHeaderEventPerfList_Click" />
+                        <!--<MenuItem Header="Event Sponsor List" x:Name="NavBarSubHeaderEventSponsList" x:Uid="NBEventSponsList" Click="NavBarSubHeaderEventSponsList_Click" />
+                        <MenuItem Header="Event Performance List" x:Name="NavBarSubHeaderEventPerfList" x:Uid="NBEventPerfList" Click="NavBarSubHeaderEventPerfList_Click" />-->
                     </MenuItem>
                     <MenuItem Header="_FoodService" x:Name="_NavBarHeaderFoodService" Style="{StaticResource NavBarHeader}" >
                         <MenuItem Header="Recipes" x:Name="NavBarSubHeaderRecipes" x:Uid="NBRecipes" Click="NavBarSubHeaderRecipes_Click"/>
                     </MenuItem>
-                    <MenuItem Header="_Maintenance" x:Name="_NavBarHeaderMaintenance" Style="{StaticResource NavBarHeader}" >
-                        <!--<MenuItem Header="MaintenanceTypes" x:Name="NavBarSubHeaderMaintenanceTypes" x:Uid="NBMaintenanceTypes" Click="NavBarSubHeaderMaintenanceTypes_Click"/>-->
+                    <!--<MenuItem Header="_Maintenance" x:Name="_NavBarHeaderMaintenance" Style="{StaticResource NavBarHeader}" >
+                        <MenuItem Header="MaintenanceTypes" x:Name="NavBarSubHeaderMaintenanceTypes" x:Uid="NBMaintenanceTypes" Click="NavBarSubHeaderMaintenanceTypes_Click"/>
                         <MenuItem Header="Maintenance Orders" x:Name="NavBarSubHeaderMaintenanceWorkOrders" x:Uid="NBMaintenanceWorkOrders" Click="NavBarSubHeaderMaintenanceWorkOrder_Click"/>
-                    </MenuItem>
+                    </MenuItem>-->
                     <MenuItem Header="_Ordering" x:Name="_NavBarHeaderOrdering" Style="{StaticResource NavBarHeader}" >
                         <MenuItem Header="Suppliers"  x:Name="NavBarSubHeaderSuppliers" x:Uid="NBSuppliers" Click="NavBarSubHeaderSuppliers_Click"/>
                         <MenuItem Header="Orders" x:Name="NavBarSubHeaderOrders" x:Uid="NBOrders" Click="NavBarSubHeaderOrders_Click" />
@@ -940,7 +940,7 @@
                     <Button Grid.Column="6" Content="Filter" x:Name="btnFilterBrowseSponsor" Width="60" Height="25" Margin="5" Click="btnFilterBrowseSponsor_Click"/>
                     <Button Grid.Column="7" Content="Clear" x:Name="btnClearFiltersBrowseSponsor" Width="60" Height="25" Margin="5" Click="btnClearFiltersBrowseSponsor_Click"/>
                 </Grid>
-                <DataGrid x:Name="dgSponsors" Grid.Row="2" VerticalGridLinesBrush="{x:Null}" SelectionMode="Single" AlternatingRowBackground="#FF3DD8CA" RowBackground="LightGoldenrodYellow" IsReadOnly="True" AutoGeneratingColumn="dgSponsors_AutoGeneratingColumn" MouseDoubleClick="dgSponsors_MouseDoubleClick" />
+                <DataGrid x:Name="dgSponsors" Grid.Row="2" VerticalGridLinesBrush="{x:Null}" SelectionMode="Single" IsReadOnly="True" AutoGeneratingColumn="dgSponsors_AutoGeneratingColumn" MouseDoubleClick="dgSponsors_MouseDoubleClick" />
                 <Grid Grid.Row="3" Style="{StaticResource BottomBar}">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="100"/>

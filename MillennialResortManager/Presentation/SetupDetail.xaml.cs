@@ -366,5 +366,10 @@ namespace Presentation
 
             setupListForm.ShowDialog();
         }
+
+        private void BtnCancel_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
     }
 }
