@@ -28,7 +28,7 @@ namespace Presentation
     public partial class frmBrowseRecipes : Window
     {
         private List<string> roles = new List<string>();
-        private User _user;
+        private Employee _user;
         private List<Recipe> _recipes;
         private RecipeManager _recipeManager = new RecipeManager();
         private bool _isFilterRestting = false;
@@ -42,7 +42,6 @@ namespace Presentation
         {
             InitializeComponent();
             roles.Add("Something");
-            _user = new User(100000, "Joanne", "Schmuck", roles);
             setupBrowsePage();
         }
 

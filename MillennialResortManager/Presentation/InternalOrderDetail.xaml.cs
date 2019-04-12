@@ -23,11 +23,11 @@ namespace Presentation
     /// This is the Window used for inserting/viewing 
     /// Internal Orders and the lines associated with them.
     /// </summary>
-    public partial class TestWindow : Window
+    public partial class InternalOrderDetail : Window
     {
         VMInternalOrder order = new VMInternalOrder();
         private bool isEditable;
-        private User user = null;
+        private Employee user = null;
         private List<string> _supplierNames = new List<string>();
         private List<string> _itemNames = new List<string>();
         private List<Item> _items = new List<Item>();
@@ -36,7 +36,7 @@ namespace Presentation
         private List<string> _options = new List<string>();
         private List<VMInternalOrderLine> lines = new List<VMInternalOrderLine>();
 
-        public TestWindow()
+        public InternalOrderDetail()
         {
             InitializeComponent();
         }
@@ -47,7 +47,7 @@ namespace Presentation
         /// The First constructor for the window.
         /// This is used when inserting orders.
         /// </summary>
-        public TestWindow(User user)
+        public InternalOrderDetail(Employee user)
         {
             InitializeComponent();
             this.user = user;
@@ -64,7 +64,7 @@ namespace Presentation
         /// This is used when viewing orders.
         /// </summary>
 
-        public TestWindow(VMInternalOrder order)
+        public InternalOrderDetail(VMInternalOrder order)
         {
             InitializeComponent();
             this.order = order;
@@ -96,6 +96,7 @@ namespace Presentation
             }
             dtpDateOrdered.SelectedDate = order.DateOrdered;
             txtDescription.Text = order.Description;
+            txtDepartmentID.Text = order.DepartmentID;
             lblAddViewItems.Content = "View Items Below";
             try
             {
@@ -125,7 +126,7 @@ namespace Presentation
         /// </summary>
         private void setupUserFields()
         {
-            txtEmployeeID.Text = user.UserID.ToString();
+            txtEmployeeID.Text = user.EmployeeID.ToString();
             txtDepartmentID.Text = user.DepartmentID;
 
             _options.Add("Yes");
@@ -225,7 +226,7 @@ namespace Presentation
             }
             else if (txtOrderQty.Text == "" || txtOrderQty.Text == null || !int.TryParse(txtQtyReceived.Text, out intNumber))
             {
-                MessageBox.Show("Invalid Entry for Unit Price, please try again");
+                MessageBox.Show("Invalid Entry for Quantity Recieved, please try again");
                 isGoodData = false;
             }
 
@@ -385,6 +386,21 @@ namespace Presentation
             else
             {
                 this.Close();
+            }
+        }
+
+        private void LineGrid_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
+        {
+            switch (e.Column.Header.ToString())
+            {
+                case "InternalOrderId":
+                    e.Column.Visibility = Visibility.Collapsed;
+                    break;
+                case "ItemID":
+                    e.Column.Visibility = Visibility.Collapsed;
+                    break;
+                default:
+                    break;
             }
         }
     }
