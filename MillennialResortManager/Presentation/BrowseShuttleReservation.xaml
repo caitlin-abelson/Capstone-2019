@@ -39,11 +39,11 @@
             <Label Grid.Column="3" Content="Search Pickup Date:"  Padding="5" HorizontalAlignment="Right" VerticalContentAlignment="Center" />
         
             <DatePicker Name="dtpSearchDate"  Height="25"  Grid.Row="0" Width="140" Grid.Column="4"/>
-            <Button x:Name="btnClearList" VerticalAlignment="Center" Grid.Column="8" Content="Clear Filter" Margin="5" Height="25" Click="BtnClearSetupList_Click" />
+            <Button x:Name="btnClearListShuttleReservation" VerticalAlignment="Center" Grid.Column="8" Content="Clear Filter" Margin="5" Height="25" Click="BtnClearSetupListShuttleReservation_Click" />
             <Label Grid.Column="5" Content="Search Pickup Location:"  Padding="5" HorizontalAlignment="Right" VerticalContentAlignment="Center" />
-            <TextBox x:Name="txtSearch" Grid.Column="6" Margin="5" Height="25" HorizontalContentAlignment="Left" Text=""    />
+            <TextBox x:Name="txtSearchShuttleReservation" Grid.Column="6" Margin="5" Height="25" HorizontalContentAlignment="Left" Text=""    />
 
-            <Button x:Name="btnFilter"  Grid.Column="7" Margin="5" Height="25" Content="Filter" Click="BtnFilter_Click" />
+            <Button x:Name="btnFilterShuttleReservation"  Grid.Column="7" Margin="5" Height="25" Content="Filter" Click="BtnFilterShuttleReservation_Click" />
 
 
         </Grid>
@@ -61,14 +61,14 @@
                 <ColumnDefinition Width="110"></ColumnDefinition>
                 <ColumnDefinition Width="130"></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <CheckBox x:Name="cbActive" HorizontalAlignment="Left"  VerticalAlignment="Center" Grid.Column="4" IsChecked="True" Click="CbActive_Click" />
+            <CheckBox x:Name="cbActiveShuttleReservation" HorizontalAlignment="Left"  VerticalAlignment="Center" Grid.Column="4" IsChecked="True" Click="CbActiveShuttleReservation_Click" />
            
             <Label x:Name="lblActive" HorizontalAlignment="Right" VerticalAlignment="Center" Content="Active" Grid.Column="3"/>
-            <CheckBox x:Name="cbDeactive" IsChecked="True" HorizontalAlignment="Left"  VerticalAlignment="Center" Grid.Column="3" Click="CbDeactive_Click" />
+            <CheckBox x:Name="cbDeactiveShuttleReservation" IsChecked="True" HorizontalAlignment="Left"  VerticalAlignment="Center" Grid.Column="3" Click="CbDeactiveShuttleReservation_Click" />
         
             <Label x:Name="lblDeactive"  HorizontalAlignment="Left" VerticalAlignment="Center" Content="Inactive" Grid.Column="2"/>
             <Label Grid.Column="5" Content="Search Guest Last  Name:"  Padding="5" HorizontalAlignment="Right" VerticalContentAlignment="Center" />
-            <TextBox x:Name="txtSearchLastName" Grid.Column="6" Margin="5" Height="25" HorizontalContentAlignment="Left" Text=""    />
+            <TextBox x:Name="txtSearchLastNameShuttleReservation" Grid.Column="6" Margin="5" Height="25" HorizontalContentAlignment="Left" Text=""    />
         </Grid>
 
         <Grid Grid.Row="2" >
@@ -129,9 +129,9 @@
                 <ColumnDefinition Width="150"/>
             </Grid.ColumnDefinitions>
         
-            <Button x:Name="btnDeactivate" Grid.Row="3"  Grid.Column="6" Content="Cancel Reservation" Margin="5" Height="25" Click="BtnDeactivate_Click"/>
-            <Button x:Name="btnUpdate" Grid.Column="5" Margin="5" Content="Read/Update" Height="25" Click="BtnUpdate_Click" />
-            <Button x:Name="btnAdd"  Grid.Column="4" Content="Add" Margin="5" Height="25" Click="BtnAdd_Click"/>
+            <Button x:Name="btnDeactivateShuttleReservation" Grid.Row="3"  Grid.Column="6" Content="Cancel Reservation" Margin="5" Height="25" Click="BtnDeactivateShuttleReservation_Click"/>
+            <Button x:Name="btnUpdateShuttleReservation" Grid.Column="5" Margin="5" Content="Read/Update" Height="25" Click="BtnUpdateShuttleReservation_Click" />
+            <Button x:Name="btnAddShuttleReservation"  Grid.Column="4" Content="Add" Margin="5" Height="25" Click="BtnAddShuttleReservation_Click"/>
           
          
         </Grid>

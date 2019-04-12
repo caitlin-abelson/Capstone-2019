@@ -29,12 +29,15 @@ namespace WpfPresentation
     {
         private Employee _employee;
         private LogicLayer.EventManager _eventManager = new LogicLayer.EventManager();
+        private EventTypeManager _eventTypeManager = new EventTypeManager();
         private EventSponsorManager _eventSponsManager = new EventSponsorManager();
+        private EventPerformanceManager _eventPerfManager = new EventPerformanceManager();
         private Event _oldEvent;
         private Event _newEvent;
         public int _createdEventID;
         public Sponsor _retrievedSponsor;
-        private EventTypeManager _eventTypeManager = new EventTypeManager();
+        public Performance _retrievedPerf;
+        
 
         public int newEventID;
 
@@ -194,6 +197,7 @@ namespace WpfPresentation
             chkEventKids.IsEnabled = true;
             chkEventSpons.IsEnabled = true;
             chkEventPublic.IsEnabled = true;
+            chkEventPerf.IsEnabled = true;
 
         }
 
@@ -227,8 +231,9 @@ namespace WpfPresentation
 
             chkEventAppr.IsEnabled = true;
             chkEventKids.IsEnabled = true;
-            chkEventSpons.IsEnabled = true;
+            chkEventSpons.IsEnabled = false;
             chkEventPublic.IsEnabled = true;
+            chkEventPerf.IsEnabled = false;
         }
 
         /// <summary>
@@ -265,6 +270,7 @@ namespace WpfPresentation
             chkEventKids.IsEnabled = false;
             chkEventSpons.IsEnabled = false;
             chkEventPublic.IsEnabled = false;
+            chkEventPerf.IsEnabled = false;
         }
 
         /// <summary>
@@ -435,6 +441,7 @@ namespace WpfPresentation
                 }
                 catch (Exception ex)
                 {
+                    btnEventAction1.Visibility = Visibility.Visible;
                     MessageBox.Show(ex.Message + "\nInsert for new event has failed.");
                 }
             }
@@ -484,6 +491,32 @@ namespace WpfPresentation
                 btnEventSponsor.IsEnabled = false;
                 btnEventAction1.IsEnabled = true;
             }
+        }
+
+        /// <summary>
+        /// @Author: Phillip Hansen
+        /// 
+        /// Event listener when the Performance checkbox is clicked
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ChkEventPerf_Click(object sender, RoutedEventArgs e)
+        {
+            if(chkEventPerf.IsChecked == true)
+            {
+                txtEventPerf.IsEnabled = true;
+                btnEventPerf.IsEnabled = true;
+
+                btnEventAction1.IsEnabled = false;
+            }
+            else
+            {
+                txtEventPerf.Text = null;
+                txtEventPerf.IsEnabled = false;
+                btnEventPerf.IsEnabled = false;
+                btnEventAction1.IsEnabled = true;
+            }
+
         }
 
 
@@ -590,9 +623,58 @@ namespace WpfPresentation
             }
         }
 
-        private void TxtEventSponsor_TextChanged(object sender, TextChangedEventArgs e)
+        /// <summary>
+        /// @Author: Phillip Hansen
+        /// 
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void BtnEventPerf_Click(object sender, RoutedEventArgs e)
         {
+            if (txtEventPerf != null)
+            {
+                //Create a new PerformanceMainWindow that passes in the filter value
 
+                var filterPerform = new PerformanceViewer(txtEventPerf.Text.ToString());
+                var result = filterPerform.ShowDialog();
+
+                try
+                {
+                    if (filterPerform.DialogResult == true)
+                    {
+                        //The retrievedSponsor field in the window should
+                        //be the same sponsor the user selected.
+                        _retrievedPerf = filterPerform.retrievedPerformance;
+
+                        //If the dialogResult of said window is true, do not allow
+                        //user to modify the input fields (unless they wish to redo the process)
+                        txtEventPerf.Text = _retrievedPerf.Name;
+                        txtEventPerf.IsEnabled = false;
+                        btnEventPerf.IsEnabled = false;
+
+                    }
+                    else
+                    {
+                        //If the window was not successful, then the event will not associate with a sponsor
+                        chkEventPerf.IsChecked = false;
+                        txtEventPerf.Text = null;
+                        txtEventPerf.IsEnabled = false;
+                        btnEventPerf.IsEnabled = false;
+                        MessageBox.Show("If an Event does not have a performance, the Performance must exist in the Database!");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message + "\nCould not retrieve associated sponsor");
+                }
+                finally
+                {
+                    //No matter how the process goes, works or failed, the create button should be re-enabled
+                    btnEventAction1.IsEnabled = true;
+                }
+
+            }
         }
     }
 }

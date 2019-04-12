@@ -165,7 +165,7 @@ namespace Presentation
                 {
                     try
                     {
-                        results =_appMgr.CreateAppointment(_appointment);
+                        results =_appMgr.CreateAppointmentByGuest(_appointment);
                         if(results)
                         {
                             MessageBox.Show("Appointment Added.");

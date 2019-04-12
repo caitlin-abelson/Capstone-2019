@@ -76,6 +76,52 @@ namespace LogicLayer
 
         /// <summary>
         /// Jared Greenfield
+        /// Created: 2018/01/27
+        ///
+        /// Retrieves all Offering View Models
+        /// </summary>
+        /// <exception cref="SQLException">Select Fails</exception>
+        /// <returns>List of Offering VMs</returns>
+        public List<OfferingVM> RetrieveAllOfferingViewModels()
+        {
+            List<OfferingVM> offerings = new List<OfferingVM>();
+            try
+            {
+                offerings = _offeringAccessor.SelectAllOfferingViewModels();
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            return offerings;
+        }
+
+        /// <summary>
+        /// Jared Greenfield
+        /// Created: 2018/01/28
+        ///
+        /// Retrieves all Offering Types
+        /// </summary>
+        /// <exception cref="SQLException">Select Fails</exception>
+        /// <returns>List of Offering types</returns>
+        public List<string> RetrieveAllOfferingTypes()
+        {
+            List<string> offeringTypes = new List<string>();
+            try
+            {
+                offeringTypes = _offeringAccessor.SelectAllOfferingTypes();
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            return offeringTypes;
+        }
+
+        /// <summary>
+        /// Jared Greenfield
         /// Created: 2019/01/24
         ///
         /// Retrieves an Offering based on an ID
@@ -132,6 +178,105 @@ namespace LogicLayer
                 throw new ArgumentException("Data for this New Offering is not valid.");
             }
             return result;
+        }
+
+        /// <summary>
+        /// Jared Greenfield
+        /// Created: 2018/01/24
+        ///
+        /// Deletes an Offering based on an ID
+        /// </summary>
+        /// <param name="offeringID">The ID of the Offering.</param>
+        /// <exception cref="SQLException">Delete Fails (example of exception tag)</exception>
+        /// <returns>True if successful, false if not</returns>
+        public bool DeleteOfferingByID(int offeringID)
+        {
+            bool result = false;
+
+            try
+            {
+                result = (1 == _offeringAccessor.DeleteOfferingByID(offeringID));
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        /// Jared Greenfield
+        /// Created: 2018/01/24
+        ///
+        /// Deactivates an Offering based on an ID
+        /// </summary>
+        /// <param name="offeringID">The ID of the Offering.</param>
+        /// <exception cref="SQLException">Update Fails (example of exception tag)</exception>
+        /// <returns>True if successful, false if not</returns>
+        public bool DeactivateOfferingByID(int offeringID)
+        {
+            bool result = false;
+
+            try
+            {
+                result = (1 == _offeringAccessor.DeactivateOfferingByID(offeringID));
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        /// Jared Greenfield
+        /// Created: 2018/01/24
+        ///
+        /// Reactivates an Offering based on an ID
+        /// </summary>
+        /// <param name="offeringID">The ID of the Offering.</param>
+        /// <exception cref="SQLException">Update Fails (example of exception tag)</exception>
+        /// <returns>True if successful, false if not</returns>
+        public bool ReactivateOfferingByID(int offeringID)
+        {
+            bool result = false;
+
+            try
+            {
+                result = (1 == _offeringAccessor.ReactivateOfferingByID(offeringID));
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        /// Jared Greenfield
+        /// Created: 2018/04/04
+        /// Retrieves a variety of Objects based on the OfferingType and ID
+        /// </summary>
+        /// <exception cref="SQLException">Select Fails</exception>
+        /// <param name="offeringID">ID of offering</param>
+        /// <param name="offeringType">Type of Offering</param>
+        /// <returns>Object object</returns>
+        public Object RetrieveOfferingInternalRecordByIDAndType(int offeringID, string offeringType)
+        {
+            Object objectValue = null;
+            try
+            {
+                objectValue = _offeringAccessor.SelectOfferingInternalRecordByIDAndType(offeringID, offeringType);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            return objectValue;
         }
     }
 }

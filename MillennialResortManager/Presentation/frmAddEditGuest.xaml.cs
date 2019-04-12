@@ -196,7 +196,7 @@ namespace Presentation
                 MessageBox.Show("Member ID must be filled out correctly");
                 return false;// for member id
             }
-            else if (cboGuestType.SelectedItem.ToString() == "" || cboGuestType.SelectedIndex == -1)
+            else if (cboGuestType.SelectedItem == null || cboGuestType.SelectedItem.ToString() == "" || cboGuestType.SelectedIndex == -1)
             {
                 MessageBox.Show("Select a Guest Type");
                 return false; // for guest type

@@ -26,9 +26,13 @@ namespace Presentation
 
         SupplierOrderManager _supplierManager = new SupplierOrderManager();
         ReceivingTicketManager _receivingManager = new ReceivingTicketManager();
+        SpecialOrderManagerMSSQL _specialManager = new SpecialOrderManagerMSSQL();
+        List<SpecialOrderLine> specialOrderLines;
         List<SupplierOrderLine> supplierOrderLine;
         private SupplierOrderLine _line = new SupplierOrderLine();
         private SupplierOrder order = new SupplierOrder();
+        private CompleteSpecialOrder _specialOrder = new CompleteSpecialOrder();
+        private SpecialOrderLine _specialLine = new SpecialOrderLine();
         ReceivingTicket ticket = new ReceivingTicket();
         ReceivingTicket originalTicket = new ReceivingTicket();
         bool orderComplete = true;
@@ -46,7 +50,7 @@ namespace Presentation
             SupplierOrderAccessorMock _accessorMock = new SupplierOrderAccessorMock();
             dgOrderRecieving.ItemsSource = _accessorMock.SelectSupplierOrderLinesBySupplierOrderID(100002);
             supplierOrderLine = _accessorMock.SelectSupplierOrderLinesBySupplierOrderID(100002);
-            doOnStart();
+            dgOrderRecieving.ItemsSource = supplierOrderLine;
         }
         /// <summary>
         /// Author: Kevin Broskow
@@ -66,10 +70,10 @@ namespace Presentation
         /// </summary>
         private void btnSubmit_Click(object sender, RoutedEventArgs e)
         {
-            ticket.SupplierOrderID = order.SupplierOrderID;
 
             if (this.btnSubmit.Content.Equals("Submit"))
             {
+                ticket.SupplierOrderID = order.SupplierOrderID;
                 ticket.ReceivingTicketExceptions = this.txtException.Text;
                 ticket.ReceivingTicketCreationDate = DateTime.Now;
                 for (int i = 0; i < dgOrderRecieving.Items.Count - 1; i++)
@@ -128,6 +132,41 @@ namespace Presentation
                 {
                     MessageBox.Show(ex.Message);
                 }
+            }else if (this.btnSubmit.Content.Equals("Complete"))
+            {
+                ticket.SupplierOrderID = _specialOrder.SpecialOrderID;
+                ticket.ReceivingTicketExceptions = this.txtException.Text;
+                ticket.ReceivingTicketCreationDate = DateTime.Now;
+                for (int i = 0; i < dgOrderRecieving.Items.Count - 1; i++)
+                {
+                    dgOrderRecieving.SelectedIndex = i;
+                    SpecialOrderLine temp = (SpecialOrderLine)dgOrderRecieving.SelectedItem;
+                    var _tempLine = specialOrderLines.Find(x => x.ItemID == temp.ItemID);
+                    _tempLine.QtyReceived = temp.QtyReceived;
+                    if (_tempLine.OrderQty != temp.QtyReceived)
+                    {
+                        orderComplete = false;
+                    }
+                    specialOrderLines.Find(x => x.ItemID == temp.ItemID).QtyReceived = temp.QtyReceived;
+                }
+
+                try
+                {
+                    if (orderComplete)
+                    {
+                        _specialOrder.OrderComplete = orderComplete;
+
+                        _specialManager.EditSpecialOrder(_specialOrder, _specialOrder);
+                    }
+                    _specialManager.UpdateSpecialOrderLine(specialOrderLines);
+
+                    _receivingManager.createReceivingTicket(ticket);
+
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
             }
             
             this.Close();
@@ -136,7 +175,7 @@ namespace Presentation
         /// <summary>
         /// Author: Kevin Broskow
         /// Created : 3/25/2019
-        /// Real constructor for the window being opened
+        /// Real constructor for the window being opened for a supplier order being received
         /// 
         /// </summary>
         public OrderRecieving(SupplierOrder supplierOrder)
@@ -154,8 +193,31 @@ namespace Presentation
             InitializeComponent();
             this.lblRecieving.Content += supplierOrder.SupplierOrderID.ToString();
             this.btnSubmit.Content = "Submit";
-            doOnStart();
-            
+            dgOrderRecieving.ItemsSource = supplierOrderLine;
+
+        }
+        /// <summary>
+        /// Author: Kevin Broskow
+        /// Created : 3/25/2019
+        /// Real constructor for the window being opened on a special order being recieved
+        /// 
+        /// </summary>
+        public OrderRecieving(CompleteSpecialOrder specialOrder)
+        {
+            _specialOrder = specialOrder;
+            try
+            {
+                specialOrderLines = _specialManager.RetrieveOrderLinesByID(_specialOrder.SpecialOrderID);
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error: " + ex.Message);
+            }
+            InitializeComponent();
+            this.lblRecieving.Content += _specialOrder.SpecialOrderID.ToString();
+            this.btnSubmit.Content = "Complete";
+            dgOrderRecieving.ItemsSource = specialOrderLines;
         }
         /// <summary>
         /// Author: Kevin Broskow
@@ -179,19 +241,9 @@ namespace Presentation
             this.lblRecieving.Content += ticket.SupplierOrderID.ToString();
 
             this.btnSubmit.Content = "Save";
-            doOnStart();
-        }
-            /// <summary>
-            /// Author: Kevin Broskow
-            /// Created : 3/25/2019
-            /// Helper method to setup the datagrid
-            /// 
-            /// </summary>
-            private void doOnStart()
-        {
             dgOrderRecieving.ItemsSource = supplierOrderLine;
-            
         }
+            
         /// <summary>
         /// Author: Kevin Broskow
         /// Created : 3/25/2019

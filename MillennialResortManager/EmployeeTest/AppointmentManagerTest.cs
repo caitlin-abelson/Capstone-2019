@@ -63,7 +63,7 @@ namespace UnitTests
         {
             Appointment appointment = BuildNewAppointment();
             bool results = false;
-            results = _appMgr.CreateAppointment(appointment);
+            results = _appMgr.CreateAppointmentByGuest(appointment);
             Assert.IsTrue(results);
         }
 
@@ -74,7 +74,7 @@ namespace UnitTests
             appointmnet.AppointmentType = BuildStringOfGivenLenght(26);
             try
             {
-                _appMgr.CreateAppointment(appointmnet);
+                _appMgr.CreateAppointmentByGuest(appointmnet);
                 Assert.IsTrue(false);
             }
             catch (ApplicationException ex)
@@ -94,7 +94,7 @@ namespace UnitTests
             appointmnet.AppointmentType = "";
             try
             {
-                _appMgr.CreateAppointment(appointmnet);
+                _appMgr.CreateAppointmentByGuest(appointmnet);
                 Assert.IsTrue(false);
             }
             catch (ApplicationException)
@@ -119,7 +119,7 @@ namespace UnitTests
             };
             try
             {
-                _appMgr.CreateAppointment(appointment);
+                _appMgr.CreateAppointmentByGuest(appointment);
                 Assert.IsTrue(false);
             }
             catch (ApplicationException)
@@ -145,7 +145,7 @@ namespace UnitTests
             };
             try
             {
-                _appMgr.CreateAppointment(appointment);
+                _appMgr.CreateAppointmentByGuest(appointment);
                 Assert.IsTrue(false);
             }
             catch (ApplicationException)
@@ -171,7 +171,7 @@ namespace UnitTests
             };
             try
             {
-                _appMgr.CreateAppointment(appointment);
+                _appMgr.CreateAppointmentByGuest(appointment);
                 Assert.IsTrue(false);
             }
             catch (ApplicationException)
@@ -197,7 +197,7 @@ namespace UnitTests
             };
             try
             {
-                _appMgr.CreateAppointment(appointment);
+                _appMgr.CreateAppointmentByGuest(appointment);
                 Assert.IsTrue(false);
             }
             catch (ApplicationException)
@@ -217,7 +217,7 @@ namespace UnitTests
             appointmnet.Description = BuildStringOfGivenLenght(10002);
             try
             {
-                _appMgr.CreateAppointment(appointmnet);
+                _appMgr.CreateAppointmentByGuest(appointmnet);
                 Assert.IsTrue(false);
             }
             catch (ApplicationException)

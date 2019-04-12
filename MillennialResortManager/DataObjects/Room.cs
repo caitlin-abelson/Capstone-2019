@@ -26,7 +26,13 @@ namespace DataObjects
     public class Room
     {
         public int RoomID { get; set; }
-        public string RoomNumber { get; set; }
+
+        /// <remarks>
+        /// Danielle Russo
+        /// Updated: 2019/04/10
+        /// Updated datatype to int
+        /// </remarks>
+        public int RoomNumber { get; set; }
         public string Building { get; set; }
         public string RoomType { get; set; }
         public string Description { get; set; }

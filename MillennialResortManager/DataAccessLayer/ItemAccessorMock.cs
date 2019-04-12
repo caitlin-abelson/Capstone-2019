@@ -16,6 +16,7 @@ namespace DataAccessLayer
     {
         private List<Item> _items;
         private List<RecipeItemLineVM> _recipeItemLines;
+        private List<Item> _kevinItems;
 
         /// <summary>
         /// Author: Jared Greenfield
@@ -37,7 +38,17 @@ namespace DataAccessLayer
             _recipeItemLines.Add(new RecipeItemLineVM(100002, 100000, "Famous Dave's BBQ Sauce", 1, "Tsp"));
             _recipeItemLines.Add(new RecipeItemLineVM(100003, 100000, "Homemade Sesame Roll", 1, "Bun"));
             _recipeItemLines.Add(new RecipeItemLineVM(100004, 100000, "Hamburger", 1, "Quarter Pound"));
+
+            _kevinItems = new List<Item>();
+            _kevinItems.Add(new Item() { ItemID = 100000, ItemType = "Food", RecipeID = 10000, CustomerPurchasable = true, Description = "This is a test description", OnHandQty = 2, Name = "Taco", ReorderQty = 5, DateActive = DateTime.Now, Active = true });
+            _kevinItems.Add(new Item() { ItemID = 100001, ItemType = "Food", RecipeID = 10000, CustomerPurchasable = true, Description = "This is a test description", OnHandQty = 2, Name = "Burrito", ReorderQty = 5, DateActive = DateTime.Now, Active = true });
+            _kevinItems.Add(new Item() { ItemID = 100002, ItemType = "Food", RecipeID = 10000, CustomerPurchasable = true, Description = "This is a test description", OnHandQty = 2, Name = "Nacho", ReorderQty = 5, DateActive = DateTime.Now, Active = true });
+            _kevinItems.Add(new Item() { ItemID = 100003, ItemType = "Food", RecipeID = 10000, CustomerPurchasable = true, Description = "This is a test description", OnHandQty = 2, Name = "Tbone Steak", ReorderQty = 5, DateActive = DateTime.Now, Active = true });
+            _kevinItems.Add(new Item() { ItemID = 100004, ItemType = "Food", RecipeID = 10000, CustomerPurchasable = true, Description = "This is a test description", OnHandQty = 2, Name = "Mashed Potatoes", ReorderQty = 5, DateActive = DateTime.Now, Active = true });
+
         }
+
+
 
         /// <summary>
         /// Author: Jared Greenfield
@@ -51,6 +62,8 @@ namespace DataAccessLayer
             _items.Add(item);
             return item.ItemID;
         }
+
+
         /// <summary>
         /// Author: Jared Greenfield
         /// Created : 02/14/2019
@@ -123,7 +136,7 @@ namespace DataAccessLayer
         public int UpdateItem(Item oldItem, Item newItem)
         {
             int rowsAffected = 0;
-            foreach(var item in _items)
+            foreach (var item in _items)
             {
                 if (item.ItemID == oldItem.ItemID)
                 {
@@ -131,7 +144,7 @@ namespace DataAccessLayer
                     item.CustomerPurchasable = newItem.CustomerPurchasable;
                     item.DateActive = newItem.DateActive;
                     item.Description = newItem.Description;
-                    item.ItemTypeID = newItem.ItemTypeID;
+                    item.ItemType = newItem.ItemType;
                     item.Name = newItem.Name;
                     item.OfferingID = newItem.OfferingID;
                     item.OnHandQty = newItem.OnHandQty;
@@ -141,9 +154,75 @@ namespace DataAccessLayer
 
                     break;
                 }
-                
+
             }
             return rowsAffected;
+        }
+
+        /// <summary>
+        /// Author: Kevin Broskow
+        /// Created : 02/14/2019
+        public void DeactivateItem(Item deactivatingItem)
+        {
+            Item p = null;
+            p = _items.Find(x => x.ItemID == deactivatingItem.ItemID);
+            if (p == null || p.ItemID == -1)
+            {
+                throw new ArgumentException("Item not found in system");
+            }
+            else
+            {
+                p.Active = false;
+            }
+        }
+        /// <summary>
+        /// Author: Kevin Broskow
+        /// Created : 02/14/2019
+        public void DeleteItem(Item purgingItem)
+        {
+            bool foundItem = true;
+            foreach (var item in _kevinItems)
+            {
+                if (item.ItemID == purgingItem.ItemID)
+                {
+                    item.Active = false;
+                    foundItem = false;
+
+                    _items.Remove(_kevinItems.Find(x => x.ItemID == purgingItem.ItemID));
+                    break;
+                }
+            }
+            if (!foundItem)
+            {
+                throw new ArgumentException("No item was found in the system");
+            }
+        }
+        /// <summary>
+        /// Author: Kevin Broskow
+        /// Created : 02/14/2019
+        public Item SelectItem(int itemID)
+        {
+            Item p = new Item();
+            p = _items.Find(x => x.ItemID == itemID);
+            if (p == null)
+            {
+                throw new ArgumentException("ItemID did not match any Item in the system");
+            }
+            return p;
+        }
+        /// <summary>
+        /// Author: Kevin Broskow
+        /// Created : 02/14/2019
+        public List<Item> SelectActiveItems()
+        {
+            throw new NotImplementedException();
+        }
+        /// <summary>
+        /// Author: Kevin Broskow
+        /// Created : 02/14/2019
+        public List<Item> SelectDeactiveItems()
+        {
+            throw new NotImplementedException();
         }
     }
 }

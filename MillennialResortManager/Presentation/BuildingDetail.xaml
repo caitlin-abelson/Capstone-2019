@@ -5,7 +5,7 @@
     <Window.Resources>
         <ResourceDictionary Source="Stylesheet.xaml"/>
     </Window.Resources>
-    <Grid Style="{StaticResource CreateBuildingPage}">
+    <Grid Style="{StaticResource DefaultPage}">
         <Grid.RowDefinitions>
             <RowDefinition></RowDefinition>
             <RowDefinition Height="30"></RowDefinition>
@@ -71,8 +71,8 @@
                                 <ColumnDefinition></ColumnDefinition>
                                 <ColumnDefinition></ColumnDefinition>
                             </Grid.ColumnDefinitions>
-                            <Button x:Name="btnAddRoom" Grid.Column="0" FontSize="12" Margin="10,0,30,0" Content="Add Room" HorizontalAlignment="Center" VerticalAlignment="Center" Click="btnAddRoom_Click" />
-                            <Button x:Name="btnSelectRoom" Grid.Column="1" FontSize="12" Margin="10,0,30,0" Content="Select Room" HorizontalAlignment="Center" VerticalAlignment="Center" Click="btnSelectRoom_Click"  />
+                            <Button x:Name="btnAddRoom" Grid.Column="0"  Margin="10,0,30,0" Content="Add Room" HorizontalAlignment="Center" VerticalAlignment="Center" Click="btnAddRoom_Click" />
+                            <Button x:Name="btnSelectRoom" Grid.Column="1"  Margin="10,0,30,0" Content="Select Room" HorizontalAlignment="Center" VerticalAlignment="Center" Click="btnSelectRoom_Click"  />
                         </Grid>
                     </Grid>
                 </Grid>
@@ -102,7 +102,31 @@
                     </Grid>
                 </Grid>
             </TabItem>
-            <TabItem x:Name="tabBldMaintenance" Header="Maintenance "></TabItem>
+            <TabItem x:Name="tabBldMaintenance" Header="Maintenance ">
+                <Grid x:Name="grdBldMaintenance">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="75"></RowDefinition>
+                        <RowDefinition Height="75"></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition Height="75"></RowDefinition>
+                    </Grid.RowDefinitions>
+
+                    <Grid Grid.Row="1">
+                        <!-- Search Stuff -->
+                    </Grid>
+                    <Label Grid.Row="0" Content="Mantenance" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="1" Margin="223,24,248,25"/>
+                    <DataGrid Grid.Row="2" x:Name="dgBuildingMaintenance" Margin="30,0,30,0" SelectionMode="Single" IsReadOnly="True" MouseDoubleClick="dgBuildingMaintenance_MouseDoubleClick" />
+                    <Border Grid.Row="3" BorderThickness="1" Margin="30,5,30,5" OpacityMask="Black" BorderBrush="Black"/>
+                    <Grid Grid.Row="3">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Button x:Name="btnAddMaintenance" Grid.Column="0" Margin="10,0,30,0" Content="Add Maintenance Ticket" HorizontalAlignment="Center" VerticalAlignment="Center" Click="btnAddMaintenance_Click"/>
+                        <Button x:Name="btnSelectionMaintenance" Grid.Column="1" Margin="10,0,30,0" Content="Select Maintenance Ticket" HorizontalAlignment="Center" VerticalAlignment="Center" Click="btnSelectionMaintenance_Click"/>
+                    </Grid>
+                </Grid>
+            </TabItem>
         </TabControl>
         <Grid Grid.Row="1">
             <Label x:Name="lblError" Grid.Row="2" Margin="10,0,30,0" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
@@ -116,9 +140,9 @@
                 <ColumnDefinition></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <Button x:Name="btnPrimaryAction" Grid.Column="3" Content="Primary" FontSize="12" Margin="10 20" Click="btnPrimaryAction_Click" />
-            <Button x:Name="btnSecondaryAction" Grid.Column="4" Content="Secondary" FontSize="12" Margin="10 20" Click="btnSecondaryAction_Click" />
-            <Button x:Name="btnTernaryAction" Grid.Column="2" Content="Ternary" FontSize="12" Margin="10 20" Visibility="Hidden"/>
+            <Button x:Name="btnPrimaryAction" Grid.Column="3" Content="Primary"  Margin="10 20" Click="btnPrimaryAction_Click" />
+            <Button x:Name="btnSecondaryAction" Grid.Column="4" Content="Secondary"  Margin="10 20" Click="btnSecondaryAction_Click" />
+            <Button x:Name="btnTernaryAction" Grid.Column="2" Content="Ternary"  Margin="10 20" Visibility="Hidden"/>
         </Grid>
     </Grid>
 </Window>

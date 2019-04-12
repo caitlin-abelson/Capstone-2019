@@ -152,64 +152,71 @@ namespace Presentation
         /// <param name="e"></param>
         private void BtnSave_Click(object sender, RoutedEventArgs e)
         {
-            if (btnSave.Content.Equals("Submit"))
+            try
             {
-                if (!ValidateInput())
+                if (btnSave.Content.Equals("Submit"))
                 {
-                    return;
-                }
-
-                _newSetup = new Setup();
-
-                _newSetup.EventID = _events.ElementAt(cboEventName.SelectedIndex).EventID;
-                // Jared Addition
-                _newSetup.DateEntered = DateTime.Now; // DateTime.Parse(dtpDateEntered.Text)
-                _newSetup.DateRequired = dtpDateRequired.SelectedDate.Value; //DateTime.Parse(dtpDateRequired.Text)
-                _newSetup.Comments = txtComments.Text;
-
-                try
-                {
-                    if(_oldSetup == null)
+                    if (!ValidateInput())
                     {
-                        _setupManager.InsertSetup(_newSetup);
-
-                        _newEventName = _events.ElementAt(cboEventName.SelectedIndex).EventTitle;
-
-                        MessageBox.Show("Setup Created: " +
-                            "\nEvent Name: " + _events.ElementAt(cboEventName.SelectedIndex).EventTitle +
-                            "\nDate Entered: " + _newSetup.DateEntered.ToString("MM/dd/yyyy") +
-                            "\nDate Required: " + _newSetup.DateRequired.ToString("MM/dd/yyyy") +
-                            "\nComments: " + _newSetup.Comments);
-
-                    }
-                    else
-                    {
-                        _setupManager.UpdateSetup(_newSetup, _oldSetup);
-                        SetError("");
-                        MessageBox.Show("Setup Update Successful: " +
-                            "\nNew Event: " + _events.ElementAt(cboEventName.SelectedIndex).EventTitle +
-                            "\nNew Date Required: " + _newSetup.DateRequired.ToString("MM/dd/yyyy") +
-                            "\nNew Comments: " + _newSetup.Comments +
-                            
-                            "\nOld Event: " + _newEventName +
-                            "\nOld Date Required: " + _oldSetup.DateRequired.ToString("MM/dd/yyyy") +
-                            "\nOld Comments: " + _oldSetup.Comments
-                            );
-
+                        return;
                     }
 
-                    readOnly();
-                    btnSetupList.Visibility = Visibility.Visible;
-                }
-                catch (Exception ex)
-                {
-                    SetError(ex.Message);
-                }
+                    _newSetup = new Setup();
 
+                    _newSetup.EventID = _events.ElementAt(cboEventName.SelectedIndex).EventID;
+                    // Jared Addition
+                    _newSetup.DateEntered = DateTime.Now; // DateTime.Parse(dtpDateEntered.Text)
+                    _newSetup.DateRequired = dtpDateRequired.SelectedDate.Value; //DateTime.Parse(dtpDateRequired.Text)
+                    _newSetup.Comments = txtComments.Text;
+
+                    try
+                    {
+                        if (_oldSetup == null)
+                        {
+                            _setupManager.InsertSetup(_newSetup);
+
+                            _newEventName = _events.ElementAt(cboEventName.SelectedIndex).EventTitle;
+
+                            MessageBox.Show("Setup Created: " +
+                                "\nEvent Name: " + _events.ElementAt(cboEventName.SelectedIndex).EventTitle +
+                                "\nDate Entered: " + _newSetup.DateEntered.ToString("MM/dd/yyyy") +
+                                "\nDate Required: " + _newSetup.DateRequired.ToString("MM/dd/yyyy") +
+                                "\nComments: " + _newSetup.Comments);
+
+                        }
+                        else
+                        {
+                            _setupManager.UpdateSetup(_newSetup, _oldSetup);
+                            SetError("");
+                            MessageBox.Show("Setup Update Successful: " +
+                                "\nNew Event: " + _events.ElementAt(cboEventName.SelectedIndex).EventTitle +
+                                "\nNew Date Required: " + _newSetup.DateRequired.ToString("MM/dd/yyyy") +
+                                "\nNew Comments: " + _newSetup.Comments +
+
+                                "\nOld Event: " + _newEventName +
+                                "\nOld Date Required: " + _oldSetup.DateRequired.ToString("MM/dd/yyyy") +
+                                "\nOld Comments: " + _oldSetup.Comments
+                                );
+
+                        }
+
+                        readOnly();
+                        btnSetupList.Visibility = Visibility.Visible;
+                    }
+                    catch (Exception ex)
+                    {
+                        SetError(ex.Message);
+                    }
+
+                }
+                else if (btnSave.Content.Equals("Update"))
+                {
+                    editForm();
+                }
             }
-            else if (btnSave.Content.Equals("Update"))
+            catch (Exception ex)
             {
-                editForm();
+                MessageBox.Show(ex.Message);
             }
         }
 
@@ -358,6 +365,11 @@ namespace Presentation
             var setupListForm = new SetupListDetail(_newSetup, _newEventName);
 
             setupListForm.ShowDialog();
+        }
+
+        private void BtnCancel_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
         }
     }
 }

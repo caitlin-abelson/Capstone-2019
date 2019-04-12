@@ -25,6 +25,9 @@ namespace Presentation
     {
         private int performanceID;
         private PerformanceManager manager;
+
+        
+
         public ViewPerformance(int id, PerformanceManager manager)
         {
             InitializeComponent();

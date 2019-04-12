@@ -9,6 +9,7 @@ namespace DataObjects
     public class ItemSupplier : Supplier
     {
         public int ItemID { get; set; }
+        public int ItemSupplierID { get; set; }
         public new int SupplierID { get; set; }
 
         public bool PrimarySupplier { get; set; }

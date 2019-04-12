@@ -33,6 +33,10 @@ namespace DataObjects
             Active = active;
         }
 
+        public Offering()
+        {
+        }
+
         public int OfferingID { get; set; }
         public string OfferingTypeID { get; set; }
         public int EmployeeID { get; set; }
@@ -49,7 +53,7 @@ namespace DataObjects
             }
 
             return isValid;
-            
+
         }
         public bool ValidateDescription()
         {

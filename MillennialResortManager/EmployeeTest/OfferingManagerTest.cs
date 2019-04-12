@@ -18,6 +18,7 @@ namespace LogicLayerTest
     {
         private IOfferingManager _offeringManager;
         private List<Offering> _offerings;
+        private List<OfferingVM> _viewModels;
         private OfferingAccessorMock _mock;
 
         [TestInitialize]
@@ -26,6 +27,7 @@ namespace LogicLayerTest
             _mock = new OfferingAccessorMock();
             _offeringManager = new OfferingManager(_mock);
             _offerings = new List<Offering>();
+            _viewModels = new List<OfferingVM>();
         }
 
         private string createLongString(int length)
@@ -38,6 +40,44 @@ namespace LogicLayerTest
             return longString;
         }
 
+        //Select Tests
+
+        /// <summary>
+        /// Created By: Jared Greenfield
+        /// Created Date: 2019/03/28
+        /// </summary>
+        [TestMethod]
+        public void TestRetrieveAllOfferingViewModelValidInput()
+        {
+            //Arrange
+            List<OfferingVM> viewModels = null;
+            //Act
+            viewModels = _offeringManager.RetrieveAllOfferingViewModels();
+            //Assert
+            Assert.IsNotNull(viewModels);
+
+        }
+
+        /// <summary>
+        /// Created By: Jared Greenfield
+        /// Created Date: 2019/03/28
+        /// </summary>
+        [TestMethod]
+        public void TestRetrieveAllOfferingTypesValidInput()
+        {
+            //Arrange
+            List<string> types = null;
+            //Act
+            types = _offeringManager.RetrieveAllOfferingTypes();
+            //Assert
+            Assert.IsNotNull(types);
+
+        }
+
+        /// <summary>
+        /// Author: Jared Greenfield
+        /// Created : 02/20/2019
+        /// </summary>
         [TestMethod]
         public void TestRetrieveOfferingByIDValidInput()
         {
@@ -50,6 +90,10 @@ namespace LogicLayerTest
             Assert.AreEqual(100000, offering.OfferingID);
         }
 
+        /// <summary>
+        /// Author: Jared Greenfield
+        /// Created : 02/20/2019
+        /// </summary>
         [TestMethod]
         public void TestRetrieveOfferingByIDInvalidInput()
         {
@@ -61,6 +105,12 @@ namespace LogicLayerTest
             Assert.IsNull(offering);
         }
 
+        // Create Tests
+
+        /// <summary>
+        /// Author: Jared Greenfield
+        /// Created : 02/20/2019
+        /// </summary>
         [TestMethod]
         public void TestCreateOfferingValidInput()
         {
@@ -73,6 +123,10 @@ namespace LogicLayerTest
             Assert.AreEqual(retrievedOffering, offering);
         }
 
+        /// <summary>
+        /// Author: Jared Greenfield
+        /// Created : 02/20/2019
+        /// </summary>
         [TestMethod]
         [ExpectedException(typeof(ArgumentException))]
         public void TestCreateOfferingInvalidInputOfferingTypeNull()
@@ -81,9 +135,13 @@ namespace LogicLayerTest
             Offering offering = new Offering(100050, null, 100000, "Beach front room with a view of sharks.", (Decimal)300.99, true);
             //Act
             //Because Offering Type cannot be null, this should throw an exception.
-            _offeringManager.CreateOffering(offering);;
+            _offeringManager.CreateOffering(offering); ;
         }
 
+        /// <summary>
+        /// Author: Jared Greenfield
+        /// Created : 02/20/2019
+        /// </summary>
         [TestMethod]
         [ExpectedException(typeof(ArgumentException))]
         public void TestCreateOfferingInvalidInputOfferingTypeTooShort()
@@ -95,6 +153,10 @@ namespace LogicLayerTest
             _offeringManager.CreateOffering(offering); ;
         }
 
+        /// <summary>
+        /// Author: Jared Greenfield
+        /// Created : 02/20/2019
+        /// </summary>
         [TestMethod]
         [ExpectedException(typeof(ArgumentException))]
         public void TestCreateOfferingInvalidInputOfferingTypeTooLong()
@@ -106,6 +168,10 @@ namespace LogicLayerTest
             _offeringManager.CreateOffering(offering); ;
         }
 
+        /// <summary>
+        /// Author: Jared Greenfield
+        /// Created : 02/20/2019
+        /// </summary>
         [TestMethod]
         [ExpectedException(typeof(ArgumentException))]
         public void TestCreateOfferingInvalidInputPriceNegative()
@@ -117,6 +183,10 @@ namespace LogicLayerTest
             _offeringManager.CreateOffering(offering); ;
         }
 
+        /// <summary>
+        /// Author: Jared Greenfield
+        /// Created : 02/20/2019
+        /// </summary>
         [TestMethod]
         [ExpectedException(typeof(ArgumentException))]
         public void TestCreateOfferingInvalidInputDescriptionTooLong()
@@ -128,6 +198,12 @@ namespace LogicLayerTest
             _offeringManager.CreateOffering(offering); ;
         }
 
+        //Update tests
+
+        /// <summary>
+        /// Author: Jared Greenfield
+        /// Created : 02/20/2019
+        /// </summary>
         [TestMethod]
         public void TestUpdateOfferingValidInput()
         {
@@ -139,6 +215,10 @@ namespace LogicLayerTest
             Assert.IsTrue(isSuccessful);
         }
 
+        /// <summary>
+        /// Author: Jared Greenfield
+        /// Created : 02/20/2019
+        /// </summary>
         [TestMethod]
         public void TestUpdateOfferingValidInputIDNotInUse()
         {
@@ -150,6 +230,10 @@ namespace LogicLayerTest
             Assert.IsFalse(isSuccessful);
         }
 
+        /// <summary>
+        /// Author: Jared Greenfield
+        /// Created : 02/20/2019
+        /// </summary>
         [TestMethod]
         [ExpectedException(typeof(ArgumentException))]
         public void TestUpdateOfferingInvalidInputIDOfferingTypeNull()
@@ -158,9 +242,13 @@ namespace LogicLayerTest
             Offering offering = new Offering(100000, null, 100000, "Beach front room with a view of sharks.", (Decimal)300.99, true);
             //Act
             //Because Offering Type cannot be null, this should throw an exception.
-            _offeringManager.UpdateOffering(_offeringManager.RetrieveOfferingByID(100000),offering);
+            _offeringManager.UpdateOffering(_offeringManager.RetrieveOfferingByID(100000), offering);
         }
 
+        /// <summary>
+        /// Author: Jared Greenfield
+        /// Created : 02/20/2019
+        /// </summary>
         [TestMethod]
         [ExpectedException(typeof(ArgumentException))]
         public void TestUpdateOfferingInvalidInputIDOfferingTypeTooShort()
@@ -172,6 +260,10 @@ namespace LogicLayerTest
             _offeringManager.UpdateOffering(_offeringManager.RetrieveOfferingByID(100000), offering);
         }
 
+        /// <summary>
+        /// Author: Jared Greenfield
+        /// Created : 02/20/2019
+        /// </summary>
         [TestMethod]
         [ExpectedException(typeof(ArgumentException))]
         public void TestUpdateOfferingInvalidInputIDOfferingTypeTooLong()
@@ -183,6 +275,10 @@ namespace LogicLayerTest
             _offeringManager.UpdateOffering(_offeringManager.RetrieveOfferingByID(100000), offering);
         }
 
+        /// <summary>
+        /// Author: Jared Greenfield
+        /// Created : 02/20/2019
+        /// </summary>
         [TestMethod]
         [ExpectedException(typeof(ArgumentException))]
         public void TestUpdateOfferingInvalidInputIDPriceNegative()
@@ -194,6 +290,10 @@ namespace LogicLayerTest
             _offeringManager.UpdateOffering(_offeringManager.RetrieveOfferingByID(100000), offering);
         }
 
+        /// <summary>
+        /// Author: Jared Greenfield
+        /// Created : 02/20/2019
+        /// </summary>
         [TestMethod]
         [ExpectedException(typeof(ArgumentException))]
         public void TestUpdateOfferingInvalidInputIDDescriptionTooLong()
@@ -204,5 +304,157 @@ namespace LogicLayerTest
             //Because Description has a maximum of 1000 characters, this should throw an exception.
             _offeringManager.UpdateOffering(_offeringManager.RetrieveOfferingByID(100000), offering);
         }
+
+        //Delete, Deactivate, Reactivate tests
+
+        /// <summary>
+        /// Author: Jared Greenfield
+        /// Created : 03/29/2019
+        /// </summary>
+        [TestMethod]
+        public void TestDeleteOfferingByIDValidInput()
+        {
+            //Arrange
+            int offeringID = 100000;
+            int countOfRecords = 0;
+            //Act
+            bool resultValue = _offeringManager.DeleteOfferingByID(offeringID);
+            //Assert
+            countOfRecords = 0;
+            if (_offeringManager.RetrieveOfferingByID(offeringID) != null)
+            {
+                countOfRecords = 1;
+            }
+            Assert.IsTrue(resultValue);
+            Assert.AreEqual(0, countOfRecords);
+
+        }
+        /// <summary>
+        /// Author: Jared Greenfield
+        /// Created : 03/29/2019
+        /// </summary>
+        [TestMethod]
+        public void TestDeleteOfferingByIDDoesntExist()
+        {
+            //Arrange
+            int offeringID = 200000;
+            int countOfRecords = 0;
+            //Act
+            bool resultValue = _offeringManager.DeleteOfferingByID(offeringID);
+            //Assert
+            countOfRecords = 0;
+            if (_offeringManager.RetrieveOfferingByID(offeringID) != null)
+            {
+                countOfRecords = 1;
+            }
+            Assert.IsFalse(resultValue);
+            Assert.AreEqual(0, countOfRecords);
+
+        }
+
+        /// <summary>
+        /// Author: Jared Greenfield
+        /// Created : 03/29/2019
+        /// </summary>
+        [TestMethod]
+        public void TestDeactivateOfferingByIDValidInput()
+        {
+            //Arrange
+            int offeringID = 100000;
+            int countOfRecords = 0;
+            //Act
+            bool resultValue = _offeringManager.DeactivateOfferingByID(offeringID);
+            //Assert
+            countOfRecords = 0;
+            if (_offeringManager.RetrieveOfferingByID(offeringID) != null)
+            {
+                if (_offeringManager.RetrieveOfferingByID(offeringID).Active == false)
+                {
+                    countOfRecords = 1;
+                }
+            }
+            Assert.IsTrue(resultValue);
+            Assert.AreEqual(1, countOfRecords);
+
+        }
+
+        /// <summary>
+        /// Author: Jared Greenfield
+        /// Created : 03/29/2019
+        /// </summary>
+        [TestMethod]
+        public void TestDeactivateOfferingByIDDoesntExist()
+        {
+            //Arrange
+            int offeringID = 200000;
+            int countOfRecords = 0;
+            //Act
+            bool resultValue = _offeringManager.DeactivateOfferingByID(offeringID);
+            //Assert
+            countOfRecords = 0;
+            if (_offeringManager.RetrieveOfferingByID(offeringID) != null)
+            {
+                if (_offeringManager.RetrieveOfferingByID(offeringID).Active == false)
+                {
+                    countOfRecords = 1;
+                }
+            }
+            Assert.IsFalse(resultValue);
+            Assert.AreEqual(0, countOfRecords);
+
+        }
+
+        /// <summary>
+        /// Author: Jared Greenfield
+        /// Created : 03/29/2019
+        /// </summary>
+        [TestMethod]
+        public void TestReactivateOfferingByIDValidInput()
+        {
+            //Arrange
+            int offeringID = 100003;
+            int countOfRecords = 0;
+            //Act
+            bool resultValue = _offeringManager.ReactivateOfferingByID(offeringID);
+            //Assert
+            countOfRecords = 0;
+            if (_offeringManager.RetrieveOfferingByID(offeringID) != null)
+            {
+                if (_offeringManager.RetrieveOfferingByID(offeringID).Active == true)
+                {
+                    countOfRecords = 1;
+                }
+            }
+            Assert.IsTrue(resultValue);
+            Assert.AreEqual(1, countOfRecords);
+
+        }
+
+        /// <summary>
+        /// Author: Jared Greenfield
+        /// Created : 03/29/2019
+        /// </summary>
+        [TestMethod]
+        public void TestReactivateOfferingByIDDoesntExist()
+        {
+            //Arrange
+            int offeringID = 200000;
+            int countOfRecords = 0;
+            //Act
+            bool resultValue = _offeringManager.ReactivateOfferingByID(offeringID);
+            //Assert
+            countOfRecords = 0;
+            if (_offeringManager.RetrieveOfferingByID(offeringID) != null)
+            {
+                if (_offeringManager.RetrieveOfferingByID(offeringID).Active == true)
+                {
+                    countOfRecords = 1;
+                }
+            }
+            Assert.IsFalse(resultValue);
+            Assert.AreEqual(0, countOfRecords);
+
+        }
+
     }
 }

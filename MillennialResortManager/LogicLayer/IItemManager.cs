@@ -72,6 +72,8 @@ namespace LogicLayer
         bool UpdateItem(Item oldItem, Item newItem);
 
         List<Item> RetrieveItemNamesAndIDs();
-
+        Item RetrieveItem(int itemID);
+        void DeactivateItem(Item selectedItem);
+        void DeleteItem(Item selecteditem);
     }
 }

@@ -13,6 +13,6 @@ namespace DataAccessLayer
         List<int> listOfEmployeesID();
         int UpdateOrder(CompleteSpecialOrder Order, CompleteSpecialOrder Ordernew);
         int DeactivateSpecialOrder(int specialOrderID);
-
+        void UpdateSpecialOrderLine(List<SpecialOrderLine> specialOrderLines);
     }
 }

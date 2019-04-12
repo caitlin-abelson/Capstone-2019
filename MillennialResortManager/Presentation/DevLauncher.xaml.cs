@@ -29,7 +29,7 @@ namespace Presentation
     /// #BrowseShops
     /// #BrowseEmployees
     /// #BrowseSuppliers
-    /// #BrowseProducts
+    /// #BrowseItems
     /// #BrowseBuilding
     /// #BrowseOrder
     /// #BrowseEmployeeRole
@@ -48,13 +48,17 @@ namespace Presentation
     /// #BrowseRecipe
     /// #BrowseEvent
     /// #BrowseEventSponsor
+    /// #BrowseEventPerformance
     /// #BrowseSupplierOrders
     /// #BrowsePets
     /// #BrowseRoom
     /// #BrowseMaintenanceType
+    /// #BrowseMaintenanceWorkOrder
     /// #BrowseMember
     /// #Receiving
+    /// #BrowseOffering
     /// #Profile
+    /// #BrowseDepartment
     /// #FrontDesk
     /// 
     /// </summary>
@@ -79,20 +83,20 @@ namespace Presentation
         private List<Supplier> _suppliers;
         private List<Supplier> _currentSuppliers;
         private SupplierManager _supplierManager;
-        //Products
-        private List<Product> _allProducts;
-        private List<Product> _currentProducts;
-        private ProductManagerMSSQL _productManager;
-        private Product _selectedProduct;
+        //Items
+        private List<Item> _allItems;
+        private List<Item> _currentItems;
+        private ItemManager _itemManager;
+        private Item _selectedItem;
         //Buildings
         private List<Building> allBuildings;
         private List<Building> currentBuildings; // needed?
         private IBuildingManager buildingManager;
         //Orders
         private List<string> _searchCategories;
-        private UserManager _userManager;
+        //private UserManager _userManager;
         private InternalOrderManager _internalOrderManager;
-        private User _fullUser;
+       // private User _fullUser;
         private List<VMInternalOrder> _orders;
         private List<VMInternalOrder> _currentOrders;
         //Employee Roles
@@ -148,6 +152,9 @@ namespace Presentation
         //EventSponsor
         private EventSponsorManager _eventSponsManager;
         private List<EventSponsor> _eventSponsors;
+        //EventPerformance
+        private EventPerformanceManager _eventPerfManager;
+        private List<EventPerformance> _eventPerformances;
         //Event
         private EventManager _eventManager;
         //private EventTypeManager _eventTypeManager = new EventTypeManager();  Already in use 
@@ -198,7 +205,20 @@ namespace Presentation
         private List<HouseKeepingRequest> _allHouseKeepingRequests;
         private List<HouseKeepingRequest> _currentHouseKeepingRequests;
         private HouseKeepingRequestManagerMSSQL _houseKeepingRequestManager;
+        //ShuttleReservation
+        private IShuttleReservationManager _shuttleReservationManager;
+        private List<ShuttleReservation> _shuttleReservations;
+        private List<ShuttleReservation> _currentShuttleReservations;
+        private ShuttleReservation _shuttleReservation;
 
+        //Offering
+        private List<OfferingVM> _offeringVms;
+        private List<OfferingVM> _currentOfferingVms;
+        private OfferingManager _offeringManager;
+        //Departments
+        public List<Department> _departmentsList;
+        public List<Department> _currentDepartments;
+        IDepartmentTypeManager departmentManager;
         #endregion
 
         #region DevLauncher Code #DevLauncher
@@ -252,13 +272,13 @@ namespace Presentation
                 else if (_employee.EmployeeRoles.Count(x => x.RoleID == "Worker") > 0)
                 {
                     //This employee is not an Admin or a Manager so hide all admin/manager things within Maintenance Pages
-                    NavBarSubHeaderMaintenanceTypes.Visibility = Visibility.Collapsed;
+                    //NavBarSubHeaderMaintenanceTypes.Visibility = Visibility.Collapsed;
                 }
                 else
                 {
                     //This person has no assigned roles or his roles are messed up.
-                    NavBarSubHeaderMaintenanceTypes.Visibility = Visibility.Collapsed;
-                    NavBarSubHeaderMaintenanceWorkOrders.Visibility = Visibility.Collapsed;
+                    //NavBarSubHeaderMaintenanceTypes.Visibility = Visibility.Collapsed;
+                    //NavBarSubHeaderMaintenanceWorkOrders.Visibility = Visibility.Collapsed;
                 }
             }
             else if (_employee.DepartmentID == "Events")
@@ -281,6 +301,9 @@ namespace Presentation
                     NavBarSubHeaderPerformances.Visibility = Visibility.Collapsed;
                     NavBarSubHeaderSetupLists.Visibility = Visibility.Collapsed;
                     NavBarSubHeaderEvents.Visibility = Visibility.Collapsed;
+                    // Add in after showing
+                    //NavBarSubHeaderEventPerfList.Visibility = Visibility.Collapsed;
+                    //NavBarSubHeaderEventSponsList.Visibility = Visibility.Collapsed;
                 }
             }
             else if (_employee.DepartmentID == "ResortOperations")
@@ -306,9 +329,12 @@ namespace Presentation
                     NavBarSubHeaderGuests.Visibility = Visibility.Collapsed;
                     NavBarSubHeaderGuestVehicles.Visibility = Visibility.Collapsed;
                     NavBarSubHeaderPets.Visibility = Visibility.Collapsed;
-                    NavBarSubHeaderReservation.Visibility = Visibility.Collapsed;
-                    NavBarSubHeaderRooms.Visibility = Visibility.Collapsed;
+                    //NavBarSubHeaderReservation.Visibility = Visibility.Collapsed;
+                    //NavBarSubHeaderRooms.Visibility = Visibility.Collapsed;
                     NavBarSubHeaderMembers.Visibility = Visibility.Collapsed;
+                    NavBarSubHeaderShuttleVehicles.Visibility = Visibility.Collapsed;
+                    //NavBarSubHeaderFrontDesk.Visibility = Visibility.Collapsed;
+                    NavBarSubHeaderShuttleReservation.Visibility = Visibility.Collapsed;
                 }
             }
             else if (_employee.DepartmentID == "FoodService")
@@ -350,6 +376,8 @@ namespace Presentation
                     NavBarSubHeaderSupplierOrders.Visibility = Visibility.Collapsed;
                     NavBarSubHeaderOrders.Visibility = Visibility.Collapsed;
                     NavBarSubHeaderSponsors.Visibility = Visibility.Collapsed;
+                    NavBarSubHeaderReceiving.Visibility = Visibility.Collapsed;
+                    NavBarSubHeaderOfferings.Visibility = Visibility.Collapsed;
                 }
             }
             else
@@ -515,7 +543,7 @@ namespace Presentation
         private void NavBarSubHeaderProducts_Click(object sender, RoutedEventArgs e)
         {
             DisplayPage("BrowseProducts");
-            BrowseProductsDoOnStart();
+            BrowseItemsDoOnStart();
         }
 
         /// <summary>
@@ -701,6 +729,18 @@ namespace Presentation
         }
 
         /// <summary>
+        /// @Author: Phillip Hansen
+        /// Created 4/10/2019
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void NavBarSubHeaderEventPerfList_Click(object sender, RoutedEventArgs e)
+        {
+            DisplayPage("BrowseEventPerformancesList");
+            BrowseEventPerformancesListDoOnStart();
+        }
+
+        /// <summary>
         /// Author: Matt LaMarche
         /// Created : 3/13/2019
         /// This is what happens when the subheader button for Events is clicked from the navbar
@@ -833,6 +873,31 @@ namespace Presentation
         {
             DisplayPage("FrontDesk");
             frontDeskDoOnStart();
+        }
+
+
+        /// <summary>
+        /// Author: Jared Greenfield
+        /// Created : 03/28/2019
+        /// This is what happens when the subheader button for Offerings is clicked from the navbar
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void NavBarSubHeaderOfferings_Click(object sender, RoutedEventArgs e)
+        {
+            DisplayPage("BrowseOfferings");
+            BrowseOfferingDoOnStart();
+        }
+        private void NavBarSubHeaderShuttleReservation_OnClick(object sender, RoutedEventArgs e)
+        {
+            DisplayPage("ShuttleReservation");
+            BrowseShuttleReservationDoOnStart();
+        }
+
+        private void NavBarSubHeaderDepartment_Click(object sender, RoutedEventArgs e)
+        {
+            DisplayPage("Department");
+
         }
 
         /*--------------------------- Ending NavBar Code --------------------------------*/
@@ -2019,19 +2084,19 @@ namespace Presentation
         /*--------------------------- Ending BrowseSuppliers Code --------------------------------*/
         #endregion
 
-        #region Products Code
-        /*--------------------------- Starting BrowseProducts Code #BrowseProducts --------------------------------*/
+        #region Items Code
+        /*--------------------------- Starting BrowseItems Code #BrowseItems --------------------------------*/
         /// <summary>
         /// Author: Matt LaMarche
         /// Created : 3/13/2019
         /// 
         /// This is where you stick all the code you want to run in your Constructor/Window_Loaded statement
         /// </summary>
-        private void BrowseProductsDoOnStart()
+        private void BrowseItemsDoOnStart()
         {
-            _productManager = new ProductManagerMSSQL();
-            _selectedProduct = new Product();
-            populateProducts();
+            _itemManager = new ItemManager();
+            _selectedItem = new Item();
+            populateItems();
         }
 
         /// <summary>
@@ -2049,10 +2114,13 @@ namespace Presentation
         /// <param name="e"></param>
         private void dgProducts_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            var product = (Product)dgProducts.SelectedItem;
-            var createForm = new CreateProduct(product);
-            var productAdded = createForm.ShowDialog();
-            refreshProducts();
+            if (dgProducts.SelectedItem != null)
+            {
+                var item = (Item)dgProducts.SelectedItem;
+                var createForm = new CreateItem(item, _employee);
+                var productAdded = createForm.ShowDialog();
+                refreshItems();
+            }
         }
         /// <summary>
         /// Kevin Broskow
@@ -2065,17 +2133,17 @@ namespace Presentation
         /// Updated: yyyy/mm/dd 
         /// example: Fixed a problem when user inputs bad data
         /// </remarks>
-        private void populateProducts()
+        private void populateItems()
         {
             try
             {
-                _allProducts = _productManager.RetrieveAllProducts();
+                _allItems = _itemManager.RetrieveAllItems();
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
-            dgProducts.ItemsSource = _allProducts;
+            dgProducts.ItemsSource = _allItems;
         }
         /// <summary>
         /// Kevin Broskow
@@ -2088,18 +2156,18 @@ namespace Presentation
         /// Updated: yyyy/mm/dd 
         /// example: Fixed a problem when user inputs bad data
         /// </remarks>
-        private void refreshProducts()
+        private void refreshItems()
         {
             try
             {
-                _allProducts = _productManager.RetrieveAllProducts();
+                _allItems = _itemManager.RetrieveAllItems();
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
-            _currentProducts = _allProducts;
-            dgProducts.ItemsSource = _currentProducts;
+            _currentItems = _allItems;
+            dgProducts.ItemsSource = _currentItems;
         }
 
         /// <summary>
@@ -2107,19 +2175,19 @@ namespace Presentation
         /// Created: 2019/02/5
         /// 
         /// </summary>
-        /// Handler to deal with a user clicking on a add product button. Calls the createProduct window.
+        /// Handler to deal with a user clicking on a add item button. Calls the createItem window.
         /// <remarks>
-        /// Updater Name
-        /// Updated: yyyy/mm/dd 
-        /// example: Fixed a problem when user inputs bad data
+        /// Jared Greenfield
+        /// Updated: 2019/04/03
+        /// Converted to Items from Products
         /// </remarks>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void btnAddProduct_Click(object sender, RoutedEventArgs e)
         {
-            var createForm = new CreateProduct();
+            var createForm = new CreateItem();
             createForm.ShowDialog();
-            refreshProducts();
+            refreshItems();
         }
         /// <summary>
         /// Kevin Broskow
@@ -2138,16 +2206,16 @@ namespace Presentation
         {
             if (dgProducts.SelectedIndex != -1)
             {
-                _selectedProduct = (Product)dgProducts.SelectedItem;
+                _selectedItem = (Item)dgProducts.SelectedItem;
 
-                var createForm = new CreateProduct(_selectedProduct);
+                var createForm = new CreateItem(_selectedItem, _employee);
                 createForm.ShowDialog();
             }
             else
             {
-                MessageBox.Show("You must have a product selected.");
+                MessageBox.Show("You must have a item selected.");
             }
-            refreshProducts();
+            refreshItems();
         }
         /// <summary>
         /// Kevin Broskow
@@ -2164,47 +2232,47 @@ namespace Presentation
         /// <param name="e"></param>
         private void btnDeleteProduct_Click(object sender, RoutedEventArgs e)
         {
-            Product selectedProduct = (Product)dgProducts.SelectedItem;
+            Item selectedItem = (Item)dgProducts.SelectedItem;
             MessageBoxResult result;
             if (dgProducts.SelectedIndex != -1)
             {
-                if (selectedProduct.Active)
+                if (selectedItem.Active)
                 {
-                    result = MessageBox.Show("Are you sure you want to deactivate " + selectedProduct.Name, "Deactivating Item", MessageBoxButton.YesNo);
+                    result = MessageBox.Show("Are you sure you want to deactivate " + selectedItem.Name, "Deactivating Item", MessageBoxButton.YesNo);
                     if (result == MessageBoxResult.No)
                     {
                         return;
                     }
                     else
                     {
-                        _productManager.DeactivateProduct(_selectedProduct);
+                        _itemManager.DeactivateItem(selectedItem);
                     }
                 }
-                if (!selectedProduct.Active)
+                if (!selectedItem.Active)
                 {
-                    result = MessageBox.Show("Are you sure you want to purge " + selectedProduct.Name, "Purging Item", MessageBoxButton.YesNo);
+                    result = MessageBox.Show("Are you sure you want to purge " + selectedItem.Name, "Purging Item", MessageBoxButton.YesNo);
                     if (result == MessageBoxResult.No)
                     {
                         return;
                     }
                     else
                     {
-                        _productManager.DeleteProduct(_selectedProduct);
+                        _itemManager.DeleteItem(selectedItem);
                     }
                 }
             }
             else
             {
-                MessageBox.Show("You must have a product selected.");
+                MessageBox.Show("You must have a Item selected.");
             }
-            populateProducts();
+            populateItems();
         }
         /// <summary>
         /// Kevin Broskow
         /// Created: 2019/02/5
         /// 
         /// </summary>
-        /// Handler to deal with a user checking a box labled active to view only active products.
+        /// Handler to deal with a user checking a box labled active to view only active items.
         /// <remarks>
         /// Updater Name
         /// Updated: yyyy/mm/dd 
@@ -2216,14 +2284,14 @@ namespace Presentation
         {
             if ((bool)cbActive.IsChecked && (bool)cbDeactive.IsChecked)
             {
-                populateProducts();
+                populateItems();
             }
             else if ((bool)cbActive.IsChecked)
             {
                 try
                 {
-                    _currentProducts = _productManager.RetrieveActiveProducts();
-                    dgProducts.ItemsSource = _currentProducts;
+                    _currentItems = _itemManager.RetrieveActiveItems();
+                    dgProducts.ItemsSource = _currentItems;
                 }
                 catch (Exception ex)
                 {
@@ -2232,7 +2300,7 @@ namespace Presentation
             }
             else if (!(bool)cbActive.IsChecked)
             {
-                populateProducts();
+                populateItems();
             }
         }
         /// <summary>
@@ -2240,7 +2308,7 @@ namespace Presentation
         /// Created: 2019/02/5
         /// 
         /// </summary>
-        /// Handler to deal with a user checking a box labled deactive to view only deactive *should be inactive* products.
+        /// Handler to deal with a user checking a box labled deactive to view only deactive *should be inactive* items.
         /// <remarks>
         /// Updater Name
         /// Updated: yyyy/mm/dd 
@@ -2252,14 +2320,14 @@ namespace Presentation
         {
             if ((bool)cbActive.IsChecked && (bool)cbDeactive.IsChecked)
             {
-                populateProducts();
+                populateItems();
             }
             else if ((bool)cbDeactive.IsChecked)
             {
                 try
                 {
-                    _currentProducts = _productManager.RetrieveDeactiveProducts();
-                    dgProducts.ItemsSource = _currentProducts;
+                    _currentItems = _itemManager.RetrieveDeactiveItems();
+                    dgProducts.ItemsSource = _currentItems;
                 }
                 catch (Exception ex)
                 {
@@ -2268,7 +2336,7 @@ namespace Presentation
             }
             else if (!(bool)cbDeactive.IsChecked)
             {
-                populateProducts();
+                populateItems();
             }
         }
         /// <summary>
@@ -2290,12 +2358,12 @@ namespace Presentation
             {
                 if (txtSearchBox.Text.ToString() != "")
                 {
-                    _currentProducts = _allProducts.FindAll(b => b.Name.ToLower().Contains(txtSearchBox.Text.ToString().ToLower()));
-                    dgProducts.ItemsSource = _currentProducts;
+                    _currentItems = _allItems.FindAll(b => b.Name.ToLower().Contains(txtSearchBox.Text.ToString().ToLower()));
+                    dgProducts.ItemsSource = _currentItems;
                 }
                 else
                 {
-                    MessageBox.Show("You must search for a product");
+                    MessageBox.Show("You must search for an item.");
                 }
             }
             catch (Exception ex)
@@ -2318,7 +2386,7 @@ namespace Presentation
         /// <param name="e"></param>
         private void btnClear_Click(object sender, RoutedEventArgs e)
         {
-            populateProducts();
+            populateItems();
             this.txtSearchBox.Text = "";
             this.cbActive.IsChecked = false;
             this.cbDeactive.IsChecked = false;
@@ -2343,7 +2411,11 @@ namespace Presentation
                 (e.Column as DataGridTextColumn).Binding.StringFormat = "MM/dd/yyyy";
             }
             string headerName = e.Column.Header.ToString();
-            if (headerName == "ProductID")
+            if (headerName == "ItemID")
+            {
+                e.Cancel = true;
+            }
+            if (headerName == "OfferingID")
             {
                 e.Cancel = true;
             }
@@ -2379,7 +2451,7 @@ namespace Presentation
         }
 
 
-        /*--------------------------- Ending BrowseProducts Code --------------------------------*/
+        /*--------------------------- Ending BrowseItems Code --------------------------------*/
         #endregion
 
         #region Building Code
@@ -2551,9 +2623,9 @@ namespace Presentation
         private void BrowseOrderDoOnStart()
         {
             _searchCategories = new List<string>();
-            _userManager = new UserManager();
+            //_userManager = new UserManager();
             _internalOrderManager = new InternalOrderManager();
-            _fullUser = new User();
+            //_fullUser = new User();
             _orders = new List<VMInternalOrder>();
             dgInternalOrders.Visibility = Visibility.Visible;
             refreshGrid();
@@ -2615,12 +2687,17 @@ namespace Presentation
         /// Takes the order information from the grid(if applicable)
         /// and opens a new Detail Window for viewing the order information.
         /// </summary>
+        /// <remarks>
+        /// Updated By: Jared Greenfield
+        /// Updated Date: 2019-04-11
+        /// Fixed to call correct form
+        /// </remarks>
         private void DgInternalOrders_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             if (dgInternalOrders.SelectedItem != null)
             {
                 var order = (VMInternalOrder)dgInternalOrders.SelectedItem;
-                var viewOrderDetail = new TestWindow(order);
+                var viewOrderDetail = new InternalOrderDetail(order);
                 viewOrderDetail.ShowDialog();
             }
         }
@@ -2632,12 +2709,17 @@ namespace Presentation
         /// Takes the order information from the grid(if applicable)
         /// and opens a new Detail Window for viewing the order information.
         /// </summary>
+        /// <remarks>
+        /// Updated By: Jared Greenfield
+        /// Updated Date: 2019-04-11
+        /// Fixed to call correct form
+        /// </remarks>
         private void BtnViewDetail_Click(object sender, RoutedEventArgs e)
         {
             if (dgInternalOrders.SelectedItem != null)
             {
                 var order = (VMInternalOrder)dgInternalOrders.SelectedItem;
-                var viewOrderDetail = new TestWindow(order);
+                var viewOrderDetail = new InternalOrderDetail(order);
                 viewOrderDetail.ShowDialog();
             }
         }
@@ -2743,13 +2825,17 @@ namespace Presentation
             dgInternalOrders.ItemsSource = _orders;
         }
 
+        /// <remarks>
+        /// Updated By: Jared Greenfield
+        /// Updated Date: 2019-04-11
+        /// Fixed to call correct form and use Employee
+        /// </remarks>
         private void BtnAddNewOrder_Click(object sender, RoutedEventArgs e)
         {
 
             try
             {
-                _fullUser = _userManager.RetrieveFullUserByEmail(_fullUser.Email);
-                var addOrder = new TestWindow(_fullUser);
+                var addOrder = new InternalOrderDetail(_employee);
                 var result = addOrder.ShowDialog();
                 if (result == true)
                 {
@@ -3052,6 +3138,7 @@ namespace Presentation
                     _currentGuests = _guests;
                 }
                 dgGuests.ItemsSource = _currentGuests;
+                
             }
 
             catch (Exception ex)
@@ -3210,8 +3297,8 @@ namespace Presentation
         /// </summary>
         private void BrowsePerformanceDoOnStart()
         {
-            setupWindowPerformance();
             performanceManager = new PerformanceManager();
+            setupWindowPerformance();
         }
 
         private void dgPerformaces_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -4276,7 +4363,11 @@ namespace Presentation
             {
                 (e.Column as DataGridTextColumn).Binding.StringFormat = "MM/dd/yy";
             }
-
+            string headerName = e.Column.Header.ToString();
+            if (headerName == "SponsorID")
+            {
+                e.Cancel = true;
+            }
         }
 
         private void btnClearFiltersBrowseSponsor_Click(object sender, RoutedEventArgs e)
@@ -4713,7 +4804,7 @@ namespace Presentation
         {
             try
             {
-                _eventSponsors = _eventSponsManager.RetrieveAllEvents();
+                _eventSponsors = _eventSponsManager.RetrieveAllEventSponsors();
                 dgEventSponsor.ItemsSource = _eventSponsors;
             }
             catch (Exception ex)
@@ -4724,6 +4815,112 @@ namespace Presentation
 
 
         /*--------------------------- Ending BrowseEventSponsor Code --------------------------------*/
+        #endregion
+
+        #region Event Performance Code
+        /*--------------------------- Starting BrowseEventPerformance Code #BrowseEventPerformance --------------------------------*/
+        /// <summary>
+        /// @Author: Phillip Hansen
+        /// @Created : 4/10/2019
+        /// 
+        /// 
+        /// </summary>
+        private void BrowseEventPerformancesListDoOnStart()
+        {
+            _eventPerfManager = new EventPerformanceManager();
+            populateEvPerfList();
+            
+            dgEventPerformance.IsEnabled = true;
+        }
+
+       
+        /// <summary>
+        /// @Author: Phillip Hansen
+        /// 
+        /// Populates the data grid list with the complete table
+        /// </summary>
+        private void populateEvPerfList()
+        {
+            _eventPerformances = null;
+            dgEventPerformance.ItemsSource = null;
+            dgEventPerformance.Items.Refresh();
+
+            try
+            {
+                _eventPerformances = _eventPerfManager.RetrieveAllEventPerformances();
+                dgEventPerformance.ItemsSource = _eventPerformances;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message + "\nCould not retrieve Event Performance List.");
+            }
+        }
+
+        /// <summary>
+        /// @Author: Phillip Hansen
+        /// 
+        /// Changes the names of the header columns
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void dgEventPerformance_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
+        {
+            string headerName = e.Column.Header.ToString();
+
+            if (headerName == "EventID")
+            {
+                e.Column.Header = "Event ID";
+            }
+            else if (headerName == "PerformanceID")
+            {
+                e.Column.Header = "Performance ID";
+            }
+        }
+
+        /// <summary>
+        /// @Author: Phillip Hansen
+        /// 
+        /// Event listener when a record is double clicked
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void dgEventPerformance_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            if(dgEventPerformance.SelectedIndex > -1)
+            {
+                var selectedEvPerf = (EventPerformance)dgEventPerformance.SelectedItem;
+
+                if(selectedEvPerf == null)
+                {
+                    MessageBox.Show("No record selected!");
+                }
+            }
+            else
+            {
+                MessageBox.Show("No record selected!");
+            }
+        }
+
+        /// <summary>
+        /// @Author: Phillip Hansen
+        /// 
+        /// Button action for deleting a selected record
+        /// (Keep this?)
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnDeleteEventPerf_Click(object sender, RoutedEventArgs e)
+        {
+            EventPerformance selectedRecord = (EventPerformance)dgEventPerformance.SelectedItem;
+
+            if(dgEventPerformance.SelectedIndex > -1)
+            {
+                //Add delete method here
+            }
+        }
+
+
+        /*--------------------------- Ending BrowseEventPerformance Code --------------------------------*/
         #endregion
 
         #region Event Code
@@ -4890,6 +5087,7 @@ namespace Presentation
                     dgEvents.ItemsSource = _events;
                 }
             }
+            
         }
 
         /// <summary>
@@ -4903,7 +5101,6 @@ namespace Presentation
         private void BtnEventClearFilter_Click(object sender, RoutedEventArgs e)
         {
             txtEventSearchName.Text = "";
-
             populateEvents();
 
         }
@@ -4918,6 +5115,7 @@ namespace Presentation
         private void BtnCreateEvent_Click(object sender, RoutedEventArgs e)
         {
             _eventSponsManager = new EventSponsorManager();
+            _eventPerfManager = new EventPerformanceManager();
 
             //The Form requires the User's ID for a field in the record
             var addEventReq = new frmAddEditEvent(_employee);
@@ -4925,6 +5123,10 @@ namespace Presentation
             if (addEventReq._createdEventID != 0 && addEventReq._retrievedSponsor != null)
             {
                 _eventSponsManager.CreateEventSponsor(addEventReq._createdEventID, addEventReq._retrievedSponsor.SponsorID);
+            }
+            else if (addEventReq._createdEventID != 0 && addEventReq._retrievedPerf != null)
+            {
+                _eventPerfManager.CreateEventSponsor(addEventReq._createdEventID, addEventReq._retrievedPerf.ID);
             }
             if (result == true)
             {
@@ -5757,6 +5959,10 @@ namespace Presentation
 
         public void ViewSelectedRecordBrowseMembers()
         {
+            if (dgMember.SelectedItem == null)
+            {
+                return;
+            }
             var member = (Member)dgMember.SelectedItem;
             var viewMemberForm = new frmAccount(member);
             var result = viewMemberForm.ShowDialog();
@@ -6934,6 +7140,591 @@ namespace Presentation
             }
         }
 
+
+        #endregion
+
+        #region Offering
+        /*--------------------------- Starting BrowseOffering Code #BrowseOffering --------------------------------*/
+
+        /// <summary>
+        /// Author: Jared Greenfield
+        /// Created : 03/28/2019
+        /// 
+        /// This is where you stick all the code you want to run in your Constructor/Window_Loaded statement
+        /// </summary>
+        private void BrowseOfferingDoOnStart()
+        {
+            _offeringManager = new OfferingManager();
+            try
+            {
+                _offeringVms = _offeringManager.RetrieveAllOfferingViewModels();
+                _currentOfferingVms = _offeringVms;
+                List<string> offeringTypes = new List<string>();
+                offeringTypes = _offeringManager.RetrieveAllOfferingTypes();
+
+                cboOfferingType.Items.Clear();
+                foreach (var item in offeringTypes)
+                {
+                    cboOfferingType.Items.Add(item);
+                }
+                cboOfferingType.Items.Add("All");
+                cboOfferingType.SelectedItem = "All";
+            }
+            catch (Exception)
+            {
+            }
+            dgOfferings.ItemsSource = _offeringVms;
+            btnAddOffering.Visibility = Visibility.Collapsed;
+        }
+
+        /// <summary>
+        /// Author: Jared Greenfield
+        /// Created On: 03/27/2019
+        /// </summary>
+        private void NavBarSubHeadersOfferings_Click(object sender, RoutedEventArgs e)
+        {
+            DisplayPage("BrowseOfferingsPage");
+            BrowseOfferingDoOnStart();
+        }
+
+        /// <summary>
+        /// Author: Jared Greenfield
+        /// Created On: 03/28/2019
+        /// Filters the Offering Grid
+        /// </summary>
+        private void btnFilterOfferings_Click(object sender, RoutedEventArgs e)
+        {
+            _currentOfferingVms = _offeringVms;
+            if (cboOfferingType.SelectedItem.ToString() != "All")
+            {
+                _currentOfferingVms = _currentOfferingVms.Where(x => x.OfferingTypeID == cboOfferingType.SelectedItem.ToString()).ToList();
+            }
+            if (txtOfferingName.Text != "")
+            {
+                _currentOfferingVms = _currentOfferingVms.Where(x => x.OfferingName.ToUpper().Contains(txtOfferingName.Text.ToUpper())).ToList();
+            }
+            if (txtOfferingDescription.Text != "")
+            {
+                _currentOfferingVms = _currentOfferingVms.Where(x => x.Description.ToUpper().Contains(txtOfferingDescription.Text.ToUpper())).ToList();
+            }
+            _currentOfferingVms = _currentOfferingVms.Where(x => x.Active == chkOfferingActive.IsChecked).ToList();
+            dgOfferings.ItemsSource = _currentOfferingVms;
+        }
+
+        /// <summary>
+        /// Author: Jared Greenfield
+        /// Created On: 03/28/2019
+        /// Clears the filters for offerings
+        /// </summary>
+        private void BtnClearFiltersOfferings_Click(object sender, RoutedEventArgs e)
+        {
+            txtOfferingName.Text = "";
+            txtOfferingDescription.Text = "";
+            cboOfferingType.SelectedItem = "All";
+            chkOfferingActive.IsChecked = true;
+            dgOfferings.ItemsSource = _offeringVms;
+        }
+
+        /// <summary>
+        /// Author: Jared Greenfield
+        /// Created On: 03/28/2019
+        /// Makes the Offering datagrid human-readable
+        /// </summary>
+        private void DgOfferings_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
+        {
+            string header = e.Column.Header.ToString();
+            if (e.PropertyType == typeof(Decimal))
+            {
+                (e.Column as DataGridTextColumn).Binding.StringFormat = "c";
+            }
+            switch (header)
+            {
+                case "OfferingID":
+                    e.Column.Visibility = Visibility.Collapsed;
+                    break;
+                case "OfferingTypeID":
+                    e.Column.Header = "Offering Type";
+                    break;
+                case "Description":
+                    e.Column.Width = new DataGridLength(1, DataGridLengthUnitType.Star);
+                    break;
+                case "OfferingPrice":
+                    e.Column.Header = "Price";
+                    break;
+                case "OfferingActive":
+                    e.Column.Header = "Active";
+                    e.Column.DisplayIndex = 5;
+                    break;
+                case "OfferingName":
+                    e.Column.Header = "Offering Name";
+                    e.Column.DisplayIndex = 0;
+                    e.Column.Width = new DataGridLength(1, DataGridLengthUnitType.Star);
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        /// <summary>
+        /// Author: Jared Greenfield
+        /// Created On: 03/28/2019
+        /// Makes the Offering datagrid human-readable
+        /// </summary>
+        private void BtnViewOffering_Click(object sender, RoutedEventArgs e)
+        {
+            if (dgOfferings.SelectedItem != null)
+            {
+                var offering = _offeringManager.RetrieveOfferingByID(((OfferingVM)dgOfferings.SelectedItem).OfferingID);
+                var form = new frmOffering(CrudFunction.Retrieve, offering, _employee);
+                var result = form.ShowDialog();
+                BrowseOfferingDoOnStart();
+            }
+            else
+            {
+                MessageBox.Show("Select an Offering first.");
+            }
+        }
+
+        /// <summary>
+        /// Author: Jared Greenfield
+        /// Created On: 04/03/2019
+        /// Opens the details of an offering.
+        /// </summary>
+        private void DgOfferings_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            if (dgOfferings.SelectedItem != null)
+            {
+                var offering = _offeringManager.RetrieveOfferingByID(((OfferingVM)dgOfferings.SelectedItem).OfferingID);
+                var form = new frmOffering(CrudFunction.Retrieve, offering, _employee);
+                var result = form.ShowDialog();
+                BrowseOfferingDoOnStart();
+            }
+            else
+            {
+                MessageBox.Show("Select an Offering first.");
+            }
+        }
+        /// <summary>
+        /// Author: Jared Greenfield
+        /// Created On: 04/03/2019
+        /// Deletes / Deactivates a record. 
+        /// </summary>
+        private void BtnDeleteOffering_Click(object sender, RoutedEventArgs e)
+        {
+            if (dgOfferings.SelectedItem != null && btnDeleteOffering.Content.ToString() == "Delete Offering")
+            {
+                try
+                {
+                    _offeringManager.DeactivateOfferingByID(((OfferingVM)dgOfferings.SelectedItem).OfferingID);
+
+                }
+                catch (Exception)
+                {
+                    MessageBox.Show("This operation could not be completed.");
+                }
+                BrowseOfferingDoOnStart();
+            }
+            else if (dgOfferings.SelectedItem != null && btnDeleteOffering.Content.ToString() == "Purge Offering")
+            {
+                try
+                {
+                    _offeringManager.DeleteOfferingByID(((OfferingVM)dgOfferings.SelectedItem).OfferingID);
+
+                }
+                catch (Exception)
+                {
+                    MessageBox.Show("This operation could not be completed.");
+                }
+                BrowseOfferingDoOnStart();
+            }
+            else
+            {
+                MessageBox.Show("Select an Offering first.");
+            }
+        }
+        /// <summary>
+        /// Author: Jared Greenfield
+        /// Created On: 04/03/2019
+        /// Changes button text for different operations.
+        /// </summary>
+        private void DgOfferings_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if ((OfferingVM)dgOfferings.SelectedItem != null)
+            {
+                if (((OfferingVM)dgOfferings.SelectedItem).Active)
+                {
+                    btnDeleteOffering.Content = "Delete Offering";
+                }
+                else
+                {
+                    btnDeleteOffering.Content = "Purge Offering";
+                }
+            }
+
+
+        }
+
+
+        /*--------------------------- Ending BrowseOffering Code --------------------------------*/
+        #endregion
+
+        #region Department Code
+        //#BrowseDepartment
+        private void BrowseDepartmentDoOnStart()
+        {
+            departmentManager = new DepartmentTypeManager();
+            try
+            {
+                _departmentsList = departmentManager.RetrieveAllDepartments("All");
+                if (_currentDepartments == null)
+                {
+                    _currentDepartments = _departmentsList;
+                }
+                dgDepartment.ItemsSource = _currentDepartments;
+            }
+
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// Opens up the add window and updates the datagrid if role was created successfully
+        /// </summary>
+        private void btnAddDepartment_Click(object sender, RoutedEventArgs e)
+        {
+            var addRoles = new AddDepartment();
+            var result = addRoles.ShowDialog();
+            if (result == true)
+            {
+                try
+                {
+                    _currentDepartments = null;
+                    _departmentsList = departmentManager.RetrieveAllDepartments("All");
+                    if (_currentDepartments == null)
+                    {
+                        _currentDepartments = _departmentsList;
+                    }
+                    dgDepartment.ItemsSource = _currentDepartments;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Opens up the delete window and updates the datagrid if role was deleted successfully
+        /// NOTE : If you the role is assigned to an Employee the role cannot be deleted
+        /// </summary>
+        private void btnDeleteDepartment_Click(object sender, RoutedEventArgs e)
+        {
+            var deleteRoles = new DeleteDepartment();
+            var result = deleteRoles.ShowDialog();
+            if (result == true)
+            {
+                try
+                {
+                    _currentDepartments = null;
+                    _departmentsList = departmentManager.RetrieveAllDepartments("All");
+                    if (_currentDepartments == null)
+                    {
+                        _currentDepartments = _departmentsList;
+                    }
+                    dgDepartment.ItemsSource = _currentDepartments;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+            }
+        }
+
+
+        #endregion
+
+        #region Browse Shuttle Reservation
+        //#ShuttleReservation
+        private void BrowseShuttleReservationDoOnStart()
+        {
+            _shuttleReservation = new ShuttleReservation();
+            _shuttleReservationManager = new ShuttleReservationManager();
+            refreshShuttleReservation();
+        }
+
+
+
+        /// <summary>
+        /// Eduardo Colon
+        /// Created: 2019/03/20
+        /// 
+        /// method to refresh browse shuttlereservations.
+        /// </summary>
+        private void refreshShuttleReservation()
+        {
+            try
+            {
+                _shuttleReservations = _shuttleReservationManager.RetrieveAllShuttleReservations();
+
+                _currentShuttleReservations = _shuttleReservations;
+
+                dgShuttleReservation.ItemsSource = _currentShuttleReservations;
+                dgShuttleReservation.Items.Refresh();
+                filterShuttleReservations();
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message + Environment.NewLine + ex.StackTrace);
+            }
+        }
+
+
+
+
+
+        /// <summary>
+        /// Eduardo Colon
+        /// Created: 2019/03/20
+        /// 
+        /// //method to call the filter method
+        /// </summary>
+
+        private void BtnFilterShuttleReservation_Click(object sender, RoutedEventArgs e)
+        {
+            filterShuttleReservations();
+        }
+
+
+        /// <summary>
+        /// Eduardo Colon
+        /// Created: 2019/03/20
+        /// 
+        /// //method to filter the shuttleReservation list
+        /// </summary>
+        private void filterShuttleReservations()
+        {
+
+            IEnumerable<Guest> _currentGuestLists = _shuttleReservations.Select(s => s.Guest);
+            IEnumerable<ShuttleReservation> _currentLists = _shuttleReservations;
+            try
+            {
+
+
+                if (txtSearchShuttleReservation.Text.ToString() != "")
+                {
+
+                    if (txtSearchShuttleReservation.Text != "" && txtSearchShuttleReservation.Text != null)
+                    {
+                        _currentLists = _currentLists.Where(b => b.PickupLocation.ToLower().Contains(txtSearchShuttleReservation.Text.ToLower())).ToList();
+
+
+                    }
+                }
+
+                if (txtSearchLastNameShuttleReservation.Text.ToString() != "")
+                {
+
+                    if (txtSearchLastNameShuttleReservation.Text != "" && txtSearchLastNameShuttleReservation.Text != null)
+                    {
+
+                        _currentLists = _currentLists.Where(s => s.Guest.LastName.ToLower().Contains(txtSearchLastNameShuttleReservation.Text.ToLower()));
+
+                    }
+                }
+
+
+                if (dtpSearchDate.Text != null & dtpSearchDate.Text != "")
+                {
+                    //  DateTime date = TimeZone.Now;
+                    _currentLists = _currentLists.Where(d => d.PickupDateTime.ToString().Contains(dtpSearchDate.Text.ToLower())).ToList();
+                }
+
+
+                if (cbActiveShuttleReservation.IsChecked == true && cbDeactiveShuttleReservation.IsChecked == false)
+                {
+                    _currentLists = _currentLists.Where(b => b.Active == true);
+                }
+                else if (cbActiveShuttleReservation.IsChecked == false && cbDeactiveShuttleReservation.IsChecked == true)
+                {
+                    _currentLists = _currentLists.Where(b => b.Active == false);
+                }
+                else if (cbActiveShuttleReservation.IsChecked == false && cbDeactiveShuttleReservation.IsChecked == false)
+                {
+                    _currentLists = _currentLists.Where(b => b.Active == false && b.Active == true);
+                }
+
+                dgShuttleReservation.ItemsSource = null;
+
+                dgShuttleReservation.ItemsSource = _currentLists;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message + Environment.NewLine + ex.StackTrace);
+
+
+            }
+
+        }
+
+        /// <summary>
+        /// Eduardo Colon
+        /// Created: 2019/03/20
+        /// 
+        /// //method to clear the filters
+        /// </summary>
+        private void BtnClearSetupListShuttleReservation_Click(object sender, RoutedEventArgs e)
+        {
+            cbDeactiveShuttleReservation.IsChecked = true;
+            cbActiveShuttleReservation.IsChecked = true;
+            txtSearchShuttleReservation.Text = "";
+            txtSearchLastNameShuttleReservation.Text = "";
+            dtpSearchDate.Text = "";
+            _currentShuttleReservations = _shuttleReservations;
+
+            dgShuttleReservation.ItemsSource = _currentShuttleReservations;
+
+        }
+
+
+
+
+        /// <summary>
+        /// Eduardo Colon
+        /// Created: 2019/03/20
+        /// 
+        /// //method to cancel and exit a window
+        /// </summary>
+        private void BtnCancelShuttleReservation_Click(object sender, RoutedEventArgs e)
+        {
+            var result = MessageBox.Show("Are you sure you want to quit?", "Closing Application", MessageBoxButton.OKCancel, MessageBoxImage.Question);
+            if (result == MessageBoxResult.OK)
+            {
+                this.Close();
+            }
+        }
+
+
+
+
+        /// <summary>
+        /// Eduardo Colon
+        /// Created: 2019/03/20
+        /// 
+        /// //method to open the update  dialog
+        /// </summary>
+        private void BtnUpdateShuttleReservation_Click(object sender, RoutedEventArgs e)
+        {
+
+            if (dgShuttleReservation.SelectedItem != null)
+            {
+                _shuttleReservation = (ShuttleReservation)dgShuttleReservation.SelectedItem;
+
+
+                var assign = new ShuttleReservationDetail(_shuttleReservation);
+                assign.ShowDialog();
+            }
+            else
+            {
+
+                MessageBox.Show("You must select an item first");
+
+            }
+            refreshShuttleReservation();
+        }
+
+        /// <summary>
+        /// Eduardo Colon
+        /// Created: 2019/03/10
+        /// 
+        /// method to open the create shuttlereservation dialog.
+        /// </summary>
+        private void BtnAddShuttleReservation_Click(object sender, RoutedEventArgs e)
+        {
+
+
+            var detailForm = new ShuttleReservationDetail();
+
+            var result = detailForm.ShowDialog();// need to be added
+
+
+
+            if (result == true)
+            {
+
+                MessageBox.Show(result.ToString());
+            }
+            refreshShuttleReservation();
+
+        }
+        /// <summary>
+        /// Eduardo Colon
+        /// Created: 2019/03/10
+        /// 
+        /// //method to Deactivate shuttleReservation
+        /// </summary>
+        private void BtnDeactivateShuttleReservation_Click(object sender, RoutedEventArgs e)
+        {
+
+            if (dgShuttleReservation.SelectedItem != null)
+            {
+                ShuttleReservation current = (ShuttleReservation)dgShuttleReservation.SelectedItem;
+
+                try
+                {
+                    if (current.Active == true)
+                    {
+                        var result = MessageBox.Show("Are you sure that you want to cancel this shuttle reservation?", "cancel ShuttleReservation", MessageBoxButton.YesNo);
+                        if (result == MessageBoxResult.Yes)
+                        {
+                            _shuttleReservationManager.DeactivateShuttleReservation(current.ShuttleReservationID, current.Active);
+                        }
+                    }
+
+
+                }
+                catch (Exception ex)
+                {
+
+                    MessageBox.Show(ex.Message + Environment.NewLine + ex.StackTrace);
+                }
+
+
+
+            }
+            else
+            {
+
+                MessageBox.Show("You must select an item first");
+
+            }
+            refreshShuttleReservation();
+
+        }
+
+        /// <summary>
+        /// Eduardo Colon
+        /// Created: 2019/03/10
+        /// 
+        /// //method to filter active shuttle reservation
+        /// </summary>
+        private void CbDeactiveShuttleReservation_Click(object sender, RoutedEventArgs e)
+        {
+            filterShuttleReservations();
+        }
+
+        /// <summary>
+        /// Eduardo Colon
+        /// Created: 2019/03/10
+        /// 
+        /// //method to filter inactive shuttle reservation
+        /// </summary>
+        private void CbActiveShuttleReservation_Click(object sender, RoutedEventArgs e)
+        {
+            filterShuttleReservations();
+        }
 
         #endregion
 

@@ -11,7 +11,7 @@ namespace DataAccessLayer
 {
     public interface IAppointmentAccessor
     {
-        int InsertAppointment(Appointment appointment);
+        int InsertAppointmentByGuest(Appointment appointment);
         Appointment SelectAppointmentByID(int id);
         List<AppointmentType> SelectAppointmentTypes();
         List<AppointmentGuestViewModel> SelectGuestList();

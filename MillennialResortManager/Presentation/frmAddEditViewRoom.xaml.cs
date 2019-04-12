@@ -4,6 +4,9 @@
 /// 
 /// Handles the Controls and Displayed information for Adding, Editing and View room Details
 /// </summary>
+/// <remarks>
+/// 
+/// </remarks>
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,6 +30,8 @@ namespace Presentation
         private RoomManager _roomMgr;
         bool inputsGood = false;
         private EditMode _mode = EditMode.Add;
+
+        List<Room> roomsInBld;
         Room rm;
         Building bd;
         RoomType rt;
@@ -39,6 +44,12 @@ namespace Presentation
         /// 
         /// Constructor for the Window when adding a room
         /// </summary>
+        /// <remarks>
+        /// Danielle Russo
+        /// Updated 2019/04/11
+        /// 
+        /// Made txtRoomNumber uneditable
+        /// </remarks>
         public frmAddEditViewRoom(int employeeID = 100000)
         {
             _roomMgr = new RoomManager();
@@ -48,6 +59,9 @@ namespace Presentation
             EditMode _mode = EditMode.Add;
             this.employeeID = employeeID;
             InitializeComponent();
+
+
+            txtRoomNumber.IsEnabled = false;
 
         }
 
@@ -59,12 +73,43 @@ namespace Presentation
         /// <param name="mode">If the window sould be in View mode or Edit Mode</param>
         /// <param name="roomID">The ID of the Room to View or Edit</param>
         /// </summary>
+        /// <remarks>
+        /// Danielle Russo
+        /// Updated: 2019/04/12
+        /// 
+        /// Hides lblNumberOfRooms & iudNumberOfRooms
+        /// </remarks>
         public frmAddEditViewRoom(EditMode mode, int roomID)
         {
             _roomMgr = new RoomManager();
             this._mode = mode;
             this.roomID = roomID;
             InitializeComponent();
+
+            lblNumberOfRooms.Visibility = Visibility.Hidden;
+            iudNumberOfRooms.Visibility = Visibility.Hidden;
+        }
+
+        /// <summary>
+        /// Danielle Russo
+        /// Created: 2019/04/10
+        /// 
+        /// Sets up Add page with Building combo box populated with correct building
+        /// </summary>
+        /// <param name="buildingID"></param>
+        public frmAddEditViewRoom(string buildingID)
+        {
+            // temp
+            employeeID = 100000;
+
+            _roomMgr = new RoomManager();
+            EditMode _mode = EditMode.Add;
+            InitializeComponent();
+
+            cboBuilding.SelectedItem = buildingID;
+            cboRoomStatus.SelectedItem = "Available";
+            cboBuilding.IsEditable = false;
+            txtRoomNumber.IsEnabled = false;
         }
 
         /// <summary>
@@ -118,9 +163,9 @@ namespace Presentation
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
-                
+
             }
-            
+
         }
 
         /// <summary>
@@ -134,6 +179,12 @@ namespace Presentation
         /// Updated: 2019/04/04
         /// 
         /// Removed all references of Available or Active checkboxes
+        /// </remarks>
+        /// <remarks>
+        /// Danielle Russo
+        /// Updated: 2019/04/11
+        /// 
+        /// Add for-loop needed to add multiple rooms
         /// </remarks>
         private void BtnAddEdit_Click(object sender, RoutedEventArgs e)
         {
@@ -170,20 +221,38 @@ namespace Presentation
             }
             else if (_mode == EditMode.Add)
             {
+
                 CheckInputs();
+
                 if (inputsGood)
                 {
                     try
                     {
-                        bool created = _roomMgr.CreateRoom(rm, employeeID, (int)iudNumberOfRooms.Value);
-                        if (created == true)
+                        int roomsAdded = 0;
+                        bool created = false;
+
+                        for (int i = 0; i < iudNumberOfRooms.Value; i++)
                         {
-                            MessageBox.Show("Room Added");
+                            createNewRoom();
+                            created = _roomMgr.CreateRoom(rm, employeeID);
+                            roomsAdded++;
+                            roomsInBld = _roomMgr.RetrieveRoomListByBuildingID(rm.Building);
+                        }
+
+                        if (created == true && roomsAdded > 1)
+                        {
+                            MessageBox.Show(roomsAdded + " Rooms Added");
+                            this.Close();
+                        }
+                        else if (created == true && roomsAdded == 1)
+                        {
+                            MessageBox.Show(roomsAdded + "Room Added");
                             this.Close();
                         }
                         else
                         {
-                            MessageBox.Show("Room was not added");
+                            MessageBox.Show(roomsAdded + "Rooms Added");
+                            this.Close();
                         }
                     }
                     catch (Exception ex)
@@ -210,13 +279,35 @@ namespace Presentation
         /// Updated: 2019/04/05
         /// Removed Active and Available references
         /// </remarks>
+        /// <remarks>
+        /// Danielle Russo
+        /// Updated: 2019/04/10
+        /// Removed check for empty text for txtRoomNumber
+        /// Added verification to check if room number already exists in building
+        /// Removed the assignments of room properties from the else block and moved to createNewRoom() method
+        /// </remarks>
         private void CheckInputs()/* Add checks for Text box lengths */
         {
-
-            if (string.IsNullOrEmpty(txtRoomNumber.Text)) // Length in DB 15
+            if (!string.IsNullOrEmpty(txtRoomNumber.Text))
             {
-                MessageBox.Show("Please enter a Room Number");
-                inputsGood = false;
+                if (!int.TryParse(txtRoomNumber.Text, out int result))
+                {
+                    MessageBox.Show("Room number must be a number");
+                    inputsGood = false;
+                }
+                else
+                {
+                    List<int> listOfRoomNums = getRoomNumbers();
+
+                    foreach (int roomNumber in listOfRoomNums)
+                    {
+                        if (roomNumber == int.Parse(txtRoomNumber.Text))
+                        {
+                            MessageBox.Show("Room number already exists in this building");
+                            inputsGood = false;
+                        }
+                    }
+                }
             }
             else if (cboBuilding.SelectedItem == null)
             {
@@ -250,15 +341,54 @@ namespace Presentation
             }
             else
             {
-                rm.RoomNumber = txtRoomNumber.Text.Trim();
-                rm.Building = this.cboBuilding.SelectedItem.ToString();
-                rm.RoomType = this.cboRoomType.SelectedItem.ToString();
-                rm.Description = txtDescription.Text;
-                rm.Capacity = iudCapacity.Value.Value;
-                rm.Price = dudPrice.Value.Value;
-                rm.RoomStatus = this.cboRoomStatus.SelectedItem.ToString();
                 inputsGood = true;
             }
+        }
+
+        /// <summary>
+        /// Danielle Russo
+        /// Created: 2019/04/10
+        /// 
+        /// Creates a new room
+        /// </summary>
+        private void createNewRoom()
+        {
+            List<int> listOfRoomNums = getRoomNumbers();
+            rm = new Room()
+            {
+                RoomNumber = listOfRoomNums[listOfRoomNums.Count - 1] + 1,
+                Building = this.cboBuilding.SelectedItem.ToString(),
+                RoomType = this.cboRoomType.SelectedItem.ToString(),
+                Description = txtDescription.Text,
+                Capacity = iudCapacity.Value.Value,
+                Price = dudPrice.Value.Value,
+                RoomStatus = this.cboRoomStatus.SelectedItem.ToString()
+            };
+        }
+
+        /// <summary>
+        /// Danielle Russo
+        /// Created: 2019/04/10
+        /// 
+        /// Creates a new room
+        /// </summary>
+        /// <returns>A list of the room numbers in the building</returns>
+        private List<int> getRoomNumbers()
+        {
+            string buildingID = cboBuilding.SelectedItem.ToString();
+
+            roomsInBld = _roomMgr.RetrieveRoomListByBuildingID(buildingID);
+
+            List<int> listOfRoomNums = new List<int>();
+
+            for (int i = 0; i < roomsInBld.Count; i++)
+            {
+                listOfRoomNums.Add(roomsInBld[i].RoomNumber);
+            }
+
+            listOfRoomNums.Sort();
+
+            return listOfRoomNums;
         }
 
         /// <summary>
@@ -314,7 +444,7 @@ namespace Presentation
         /// </remarks>
         private void populateControls()
         {
-            txtRoomNumber.Text = rm.RoomNumber;
+            txtRoomNumber.Text = rm.RoomNumber.ToString();
             cboBuilding.SelectedItem = rm.Building;
             cboRoomType.SelectedItem = rm.RoomType;
             iudCapacity.Value = rm.Capacity;

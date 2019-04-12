@@ -28,7 +28,7 @@ namespace Presentation
     public partial class frmAddItemSupplierForItem : Window
     {
         private ItemSupplierManager _itemSupplierManager = new ItemSupplierManager();
-        private Product _item;
+        private Item _item;
         //private List<ItemSupplier> _itemSuppliers;
         private ItemSupplier _itemSupplier;
         private ItemSupplier _oldItemSupplier;
@@ -44,7 +44,7 @@ namespace Presentation
         }
 
         //Constructor if we are editing an item supplier
-        public frmAddItemSupplierForItem(Product item, ItemSupplier itemSupplier, EditMode editMode)
+        public frmAddItemSupplierForItem(Item item, ItemSupplier itemSupplier, EditMode editMode)
         {
             InitializeComponent();
             _item = item;
@@ -55,7 +55,7 @@ namespace Presentation
         }
 
         //Contructor If we are adding an item supplier
-        public frmAddItemSupplierForItem(Product item, EditMode editmode)
+        public frmAddItemSupplierForItem(Item item, EditMode editmode)
         {
             InitializeComponent();
             _item = item;
@@ -96,7 +96,7 @@ namespace Presentation
 
         public void LoadControls()
         {
-            lblItemID.Content = _item.ProductID;
+            lblItemID.Content = _item.ItemID;
             this.txtDescription.Text = _item.Description;
             this.txtDescription.IsEnabled = false;
             this.txtName.Text = _item.Name;
@@ -116,6 +116,7 @@ namespace Presentation
                 this.chkPrimarySupplier.Visibility = Visibility.Hidden;
                 this.lblUnitPrice.Visibility = Visibility.Hidden;
                 this.txtUnitPrice.Visibility = Visibility.Hidden;
+                this.txtSupplierItemID.Visibility = Visibility.Hidden;
                 
                 btnDeleteItemSupplier.Visibility = Visibility.Hidden;
                 btnDeactivateItemSupplier.Visibility = Visibility.Hidden;
@@ -134,6 +135,7 @@ namespace Presentation
                 txtSupplierDescription.Text = _itemSupplier.Description;
                 txtLeadTime.Text = _itemSupplier.LeadTimeDays.ToString();
                 txtUnitPrice.Text = FormatPrice(_itemSupplier.UnitPrice);
+                txtSupplierItemID.Text = _itemSupplier.ItemSupplierID.ToString();
                 chkPrimarySupplier.IsChecked = _itemSupplier.PrimarySupplier;
                 lblAddress.Visibility = Visibility.Visible;
                 txtAddress.Visibility = Visibility.Visible;
@@ -146,6 +148,7 @@ namespace Presentation
                 chkPrimarySupplier.Visibility = Visibility.Visible;
                 lblUnitPrice.Visibility = Visibility.Visible;
                 txtUnitPrice.Visibility = Visibility.Visible;
+                txtSupplierItemID.Visibility = Visibility.Visible;
                 btnAddItemSupplier.Visibility = Visibility.Visible;
                 btnAddItemSupplier.Content = "Update Supplier";
                 btnDeleteItemSupplier.Visibility = Visibility.Visible;
@@ -165,7 +168,7 @@ namespace Presentation
         {
             try
             {
-                _suppliers = _itemSupplierManager.RetrieveAllSuppliersForItemSupplierManagement(_item.ProductID);
+                _suppliers = _itemSupplierManager.RetrieveAllSuppliersForItemSupplierManagement(_item.ItemID);
                 foreach ( Supplier supplier in _suppliers)
                 {                   
                     cboSupplier.Items.Add(supplier.Name + " " + supplier.SupplierID);
@@ -236,6 +239,7 @@ namespace Presentation
             lblUnitPrice.Visibility = Visibility.Visible;
             txtUnitPrice.Visibility = Visibility.Visible;
             btnAddItemSupplier.Visibility = Visibility.Visible;
+            txtSupplierItemID.Visibility = Visibility.Visible;
         }
 
         private bool ValidateInput()
@@ -277,6 +281,13 @@ namespace Presentation
                 txtUnitPrice.Focus();
                 return false;
             }
+            int SupplierItemID =0;
+            if (!int.TryParse(txtSupplierItemID.Text, out SupplierItemID))
+            {
+                MessageBox.Show("Please enter a valid Supplier Item's ID");
+                txtSupplierItemID.Focus();
+                return false;
+            }
 
             return true;
         }
@@ -287,7 +298,7 @@ namespace Presentation
             {
                 return;
             }
-            _itemSupplier.ItemID = _item.ProductID;
+            _itemSupplier.ItemID = _item.ItemID;
 
             if (!(_supplier == null))
             {
@@ -298,7 +309,7 @@ namespace Presentation
             _itemSupplier.LeadTimeDays = int.Parse(txtLeadTime.Text);
             _itemSupplier.UnitPrice = decimal.Parse(txtUnitPrice.Text);
             _itemSupplier.PrimarySupplier = (bool)(chkPrimarySupplier.IsChecked);
-
+            _itemSupplier.ItemSupplierID = int.Parse(txtSupplierItemID.Text);
             if (_editMode == EditMode.Add)
             {
                 try
@@ -345,7 +356,7 @@ namespace Presentation
         {
             try
             {
-                _itemSupplier = _itemSupplierManager.RetrieveItemSupplier(_item.ProductID, _itemSupplier.SupplierID);
+                _itemSupplier = _itemSupplierManager.RetrieveItemSupplier(_item.ItemID, _itemSupplier.SupplierID);
             }
             catch (Exception ex)
             {

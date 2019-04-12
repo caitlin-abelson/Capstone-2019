@@ -65,3 +65,12 @@ INSERT INTO [dbo].[EventSponsor]
 		VALUES
 			(100000, 110000)
 GO
+
+print '' print '***Inserting a fake Performance record'
+GO
+INSERT INTO [dbo].[Performance]
+			([PerformanceDate],[Description],[PerformanceTitle],[Cancelled])
+		VALUES
+			('01-01-2020','Fake Performance Description','Performancers',0)
+GO
+
