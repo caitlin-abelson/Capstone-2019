@@ -441,6 +441,7 @@ namespace WpfPresentation
                 }
                 catch (Exception ex)
                 {
+                    btnEventAction1.Visibility = Visibility.Visible;
                     MessageBox.Show(ex.Message + "\nInsert for new event has failed.");
                 }
             }
