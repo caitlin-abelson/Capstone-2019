@@ -40,7 +40,7 @@ namespace Presentation
         private Offering _offering = null;
         private Recipe _oldRecipe;
         private Item _item;
-        private User _user;
+        private Employee _user;
         private bool _isItemChanged = false;
         private bool _isOfferingChanged = false;
         private Employee _employee;
@@ -52,56 +52,10 @@ namespace Presentation
         /// CREATE OPERATION
         /// A blank form for creating recipes.
         /// </summary>
-        public frmCreateRecipe(User user)
-        {
-            InitializeComponent();
-            _user = user;
-            SetupCreatePage();
-        }
-
-        /// <summary>
-        /// Jared Greenfield
-        /// Created: 2019/01/24
-        /// 
-        /// Edit / View OPERATION
-        /// A form detailing a recipe record.
-        /// </summary>
-        /// <param name="recipe">Recipe object for filling out form.</param>
-        public frmCreateRecipe(Recipe recipe, User user)
-        {
-            InitializeComponent();
-            _user = user;
-            _oldRecipe = recipe;
-            try
-            {
-                _item = _itemManager.RetrieveItemByRecipeID(recipe.RecipeID);
-                if (_item.OfferingID != null)
-                {
-                    _offering = _offeringManager.RetrieveOfferingByID((int)_item.OfferingID);
-                }
-                List<RecipeItemLineVM> recipeLines = _recipeManager.RetrieveRecipeLinesByID(_oldRecipe.RecipeID);
-                dgIngredientList.ItemsSource = recipeLines;
-                SetupViewPage();
-            }
-            catch (Exception)
-            {
-                MessageBox.Show("There was an error showing this recipe. Please try agin later.");
-                this.Close();
-            }
-
-        }
-
-        /// <summary>
-        /// Jared Greenfield
-        /// Created: 2019/01/24
-        /// 
-        /// CREATE OPERATION
-        /// A blank form for creating recipes.
-        /// </summary>
         public frmCreateRecipe(Employee user)
         {
             InitializeComponent();
-            _employee = user;
+            _user = user;
             SetupCreatePage();
         }
 
@@ -116,7 +70,7 @@ namespace Presentation
         public frmCreateRecipe(Recipe recipe, Employee user)
         {
             InitializeComponent();
-            _employee = user;
+            _user = user;
             _oldRecipe = recipe;
             try
             {
@@ -137,6 +91,7 @@ namespace Presentation
 
         }
 
+        
 
 
         /// <summary>
@@ -272,7 +227,7 @@ namespace Presentation
             btnAddIngredient.IsEnabled = true;
             chkPurchasable.IsEnabled = false;
             btnDeactivate.Visibility = Visibility.Visible;
-            if (_user.Roles.Contains("Manager"))
+            if (_user.EmployeeRoles.Find(x => x.RoleID == "Admin" || x.RoleID == "Manager") != null)
             {
                 if (_oldRecipe.Active == false)
                 {
@@ -536,7 +491,7 @@ namespace Presentation
                         if (chkPurchasable.IsChecked == true)
                         {
                             // Remove the 100000 when moving to production
-                            offering = new Offering("Item", _user.UserID, txtRecipeDescription.Text, Decimal.Parse(txtPrice.Text));
+                            offering = new Offering("Item", _user.EmployeeID, txtRecipeDescription.Text, Decimal.Parse(txtPrice.Text));
                         }
                         newItem = new Item(null, (bool)chkPurchasable.IsChecked, recipeID, cboType.SelectedItem.ToString(), txtRecipeDescription.Text, 0, txtRecipeName.Text, 0);
                         newItem.DateActive = DateTime.Now;
@@ -604,7 +559,7 @@ namespace Presentation
                             }
                             else // Happens when a recipe is newly promoted to an Offering
                             {
-                                Offering offering = new Offering("Item", _user.UserID, txtRecipeDescription.Text, Decimal.Parse(txtPrice.Text));
+                                Offering offering = new Offering("Item", _user.EmployeeID, txtRecipeDescription.Text, Decimal.Parse(txtPrice.Text));
                                 offeringID = _offeringManager.CreateOffering(offering);
                             }
                             if (_isItemChanged)

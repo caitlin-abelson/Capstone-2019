@@ -478,8 +478,8 @@
                         <ColumnDefinition MinWidth="110"/>
                         <ColumnDefinition MinWidth="110"/>
                     </Grid.ColumnDefinitions>
-                    <Button x:Name="btnAddProduct" MinWidth="110" Content="Add Product" Margin="5" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="3" Click="btnAddProduct_Click"/>
-                    <Button x:Name="btnReadProduct" MinWidth="110" Content="View Product" Margin="5" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="4" Click="btnReadProduct_Click"/>
+                    <Button x:Name="btnAddProduct" MinWidth="110" Content="Add Item" Margin="5" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="3" Click="btnAddProduct_Click"/>
+                    <Button x:Name="btnReadProduct" MinWidth="110" Content="View Item" Margin="5" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="4" Click="btnReadProduct_Click"/>
                     <Button x:Name="btnDeleteProduct" MinWidth="110" Content="Delete" Margin="5" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="5" Click="btnDeleteProduct_Click"/>
                 </Grid>
             </Grid>

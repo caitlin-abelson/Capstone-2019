@@ -2686,13 +2686,18 @@ namespace Presentation
         /// Takes the order information from the grid(if applicable)
         /// and opens a new Detail Window for viewing the order information.
         /// </summary>
+        /// <remarks>
+        /// Updated By: Jared Greenfield
+        /// Updated Date: 2019-04-11
+        /// Fixed to call correct form
+        /// </remarks>
         private void DgInternalOrders_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             if (dgInternalOrders.SelectedItem != null)
             {
                 var order = (VMInternalOrder)dgInternalOrders.SelectedItem;
-                //var viewOrderDetail = new TestWindow(order);
-                //viewOrderDetail.ShowDialog();
+                var viewOrderDetail = new InternalOrderDetail(order);
+                viewOrderDetail.ShowDialog();
             }
         }
 
@@ -2703,13 +2708,18 @@ namespace Presentation
         /// Takes the order information from the grid(if applicable)
         /// and opens a new Detail Window for viewing the order information.
         /// </summary>
+        /// <remarks>
+        /// Updated By: Jared Greenfield
+        /// Updated Date: 2019-04-11
+        /// Fixed to call correct form
+        /// </remarks>
         private void BtnViewDetail_Click(object sender, RoutedEventArgs e)
         {
             if (dgInternalOrders.SelectedItem != null)
             {
                 var order = (VMInternalOrder)dgInternalOrders.SelectedItem;
-                //var viewOrderDetail = new TestWindow(order);
-                //viewOrderDetail.ShowDialog();
+                var viewOrderDetail = new InternalOrderDetail(order);
+                viewOrderDetail.ShowDialog();
             }
         }
 
@@ -2814,18 +2824,22 @@ namespace Presentation
             dgInternalOrders.ItemsSource = _orders;
         }
 
+        /// <remarks>
+        /// Updated By: Jared Greenfield
+        /// Updated Date: 2019-04-11
+        /// Fixed to call correct form and use Employee
+        /// </remarks>
         private void BtnAddNewOrder_Click(object sender, RoutedEventArgs e)
         {
 
             try
             {
-                //_fullUser = _userManager.RetrieveFullUserByEmail(_fullUser.Email);
-                //var addOrder = new TestWindow(_fullUser);
-                //var result = addOrder.ShowDialog();
-                //if (result == true)
-                //{
-                //    refreshGrid();
-                //}
+                var addOrder = new InternalOrderDetail(_employee);
+                var result = addOrder.ShowDialog();
+                if (result == true)
+                {
+                    refreshGrid();
+                }
             }
             catch (Exception ex)
             {
