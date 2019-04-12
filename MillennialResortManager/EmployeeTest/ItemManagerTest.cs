@@ -31,6 +31,7 @@ namespace LogicLayerTest
             _itemManager = new ItemManager(_mock);
             _items = new List<Item>();
             _items = _itemManager.RetrieveAllItems();
+
         }
         private string createLongString(int length)
         {
@@ -42,6 +43,20 @@ namespace LogicLayerTest
             return longString;
         }
 
+        private void setItem(Item old, Item newItem)
+        {
+            newItem.Name = old.Name;
+            newItem.ItemType = old.ItemType;
+            newItem.ItemID = old.ItemID;
+            newItem.Description = old.Description;
+            newItem.CustomerPurchasable = old.CustomerPurchasable;
+            newItem.DateActive = old.DateActive;
+            newItem.Active = old.Active;
+            newItem.OnHandQty = old.OnHandQty;
+            newItem.RecipeID = old.RecipeID;
+            newItem.ReorderQty = old.ReorderQty;
+        }
+
         [TestMethod]
         public void TestRetrieveAllItems()
         {
@@ -51,6 +66,43 @@ namespace LogicLayerTest
             items = _itemManager.RetrieveAllItems();
             //Assert
             CollectionAssert.Equals(_items, items);
+        }
+
+        /// <summary>
+        /// Author: Kevin Broskow
+        /// Created : 2/11/2019
+        /// Here starts the RetrieveProduct Unit Tests
+        /// </summary>
+
+        [TestMethod]
+        public void TestRetrieveItemValidInput()
+        {
+            //Arrange
+            Item newItem = new Item();
+            //Act
+            newItem = _itemManager.RetrieveItem(_items[1].ItemID);
+            //Assert
+            Assert.AreEqual(newItem.ItemID, _items[1].ItemID);
+            Assert.AreEqual(newItem.ItemType, _items[1].ItemType);
+            Assert.AreEqual(newItem.RecipeID, _items[1].RecipeID);
+            Assert.AreEqual(newItem.CustomerPurchasable, _items[1].CustomerPurchasable);
+            Assert.AreEqual(newItem.Description, _items[1].Description);
+            Assert.AreEqual(newItem.OnHandQty, _items[1].OnHandQty);
+            Assert.AreEqual(newItem.Name, _items[1].Name);
+            Assert.AreEqual(newItem.ReorderQty, _items[1].ReorderQty);
+            Assert.AreEqual(newItem.DateActive, _items[1].DateActive);
+            Assert.AreEqual(newItem.Active, _items[1].Active);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void TestRetrieveProductInvalidInput()
+        {
+            //Arrange
+            Item newItem = new Item();
+            int invalidItemID = -1;
+            //Act
+            newItem = _itemManager.RetrieveItem(invalidItemID);
         }
 
         [TestMethod]
@@ -110,7 +162,7 @@ namespace LogicLayerTest
             // Update list of items
             _items = _itemManager.RetrieveAllItems();
             Assert.IsNotNull(_items.Find(x => x.ItemID == newItem.ItemID && x.OfferingID == newItem.OfferingID &&
-                x.CustomerPurchasable == newItem.CustomerPurchasable && x.RecipeID == newItem.RecipeID && x.ItemTypeID == newItem.ItemTypeID &&
+                x.CustomerPurchasable == newItem.CustomerPurchasable && x.RecipeID == newItem.RecipeID && x.ItemType == newItem.ItemType &&
                 x.Description == newItem.Description && x.OnHandQty == newItem.OnHandQty && x.Name == newItem.Name &&
                 x.ReorderQty == newItem.ReorderQty && x.DateActive == newItem.DateActive && x.Active == newItem.Active));
         }
@@ -226,7 +278,7 @@ namespace LogicLayerTest
             //Arrange
             Item oldItem = _items[0];
             Item newItem = _items[0];
-            newItem.ItemTypeID = null;
+            newItem.ItemType = null;
 
             //Act
             //Since the ItemType is null, this should throw an exception.
@@ -240,7 +292,7 @@ namespace LogicLayerTest
             //Arrange
             Item oldItem = _items[0];
             Item newItem = _items[0];
-            newItem.ItemTypeID = createLongString(1005);
+            newItem.ItemType = createLongString(1005);
 
             //Act
             //Since the ItemType is too long (greater than 1000 characters), this should throw an exception.
@@ -254,7 +306,7 @@ namespace LogicLayerTest
             //Arrange
             Item oldItem = _items[0];
             Item newItem = _items[0];
-            newItem.ItemTypeID = "";
+            newItem.ItemType = "";
 
             //Act
             //Since the ItemType is too short (0 characters ), this should throw an exception.
@@ -329,6 +381,44 @@ namespace LogicLayerTest
             //Act
             //Since the DateActive is too early (Before 1900), this should throw an exception.
             bool isUpdated = _itemManager.UpdateItem(oldItem, newItem);
+        }
+
+        /// <summary>
+        /// Author: Kevin Broskow
+        /// Created : 2/11/2019
+        /// Here starts the DeactivateItem Unit Tests
+        /// </summary>
+        [TestMethod]
+        public void TestDeactivateItemValid()
+        {
+            //Arrange
+            Item validItem = _items[0];
+            //Act
+            _itemManager.DeactivateItem(validItem);
+            //Assert
+            Assert.IsFalse(_itemManager.RetrieveItem(validItem.ItemID).Active);
+        }
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void TestDeactivateItemInvalid()
+        {
+            //Arrange
+            Item invalidItem = _items[0];
+            invalidItem.ItemID = -1;
+            //Act
+            _itemManager.DeactivateItem(invalidItem);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void TestDeleteItemValid()
+        {
+            //Arrange
+            Item invalidItem = _items[0];
+            //Act
+            _itemManager.DeleteItem(invalidItem);
+            //Assert
+
         }
     }
 }

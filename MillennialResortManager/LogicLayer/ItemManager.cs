@@ -52,7 +52,6 @@ namespace LogicLayer
             _itemAccessor = mock;
         }
 
-
         /// <summary>
         /// Jared Greenfield
         /// Created: 2018/01/23
@@ -223,6 +222,148 @@ namespace LogicLayer
             }
 
             return items;
+        }
+
+        /// <summary>
+        /// Kevin Broskow
+        /// Created: 2019/01/30
+        /// 
+        /// Used to retrieve a specific Item from the database
+        /// </summary>
+        ///
+        /// <remarks>
+        /// Jared Greenfield
+        /// Updated: 2019/04/03
+        /// Converted to Item from Product
+        /// </remarks>
+        /// <param name="itemID">The unique identifier for a item in the database</param>
+        /// <returns>Item</returns>
+        public Item RetrieveItem(int itemID)
+        {
+            Item allItem = null;
+            try
+            {
+                allItem = _itemAccessor.SelectItem(itemID);
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+
+
+            return allItem;
+        }
+
+        /// <summary>
+        /// Kevin Broskow
+        /// Created: 2019/01/23
+        /// 
+        /// Method used to deactivate a item
+        /// </summary>
+        ///
+        /// <remarks>
+        /// Jared Greenfield
+        /// Updated: 2019/04/03
+        /// Converted to Item from Product
+        /// </remarks>
+        /// <param name="selectedItem">The item to be deactivated in the database</param>
+        /// <returns>void</returns>
+        public void DeactivateItem(Item selectedItem)
+        {
+            try
+            {
+                _itemAccessor.DeactivateItem(selectedItem);
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
+
+        /// <summary>
+        /// Kevin Broskow
+        /// Created: 2019/01/23
+        /// 
+        /// Method used to delete a item from the database
+        /// </summary>
+        ///
+        /// <remarks>
+        /// Jared Greenfield
+        /// Updated: 2019/04/03
+        /// Converted to Item from Product
+        /// </remarks>
+        /// <param name="selecteditem">The item to be deleted from the database</param>
+        /// <returns>void</returns>
+        public void DeleteItem(Item selecteditem)
+        {
+            try
+            {
+                _itemAccessor.DeleteItem(selecteditem);
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
+
+        /// <summary>
+        /// Kevin Broskow
+        /// Created: 2019/01/30
+        /// 
+        /// Used to retrieve all active Item from the database
+        /// </summary>
+        /// 
+        /// <remarks>
+        /// Jared Greenfield
+        /// Updated: 2019/04/03
+        /// Converted to Item from Product
+        /// </remarks>
+        /// <returns>List<Item></returns>
+        public List<Item> RetrieveActiveItems()
+        {
+            List<Item> activeItems = new List<Item>();
+            try
+            {
+                activeItems = _itemAccessor.SelectActiveItems();
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            return activeItems;
+        }
+
+        /// <summary>
+        /// Kevin Broskow
+        /// Created: 2019/01/30
+        /// 
+        /// Used to retrieve all deactive Products from the database
+        /// </summary>
+        ///
+        /// <remarks>
+        /// Jared Greenfield
+        /// Updated: 2019/04/03
+        /// Converted to Item from Product
+        /// </remarks>
+        /// <returns>List<Item></returns>	
+        public List<Item> RetrieveDeactiveItems()
+        {
+            List<Item> deactiveItem = new List<Item>();
+            try
+            {
+                deactiveItem = _itemAccessor.SelectDeactiveItems();
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+
+            return deactiveItem;
         }
     }
 }

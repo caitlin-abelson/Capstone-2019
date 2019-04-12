@@ -7,7 +7,10 @@
         xmlns:local="clr-namespace:Presentation"
         mc:Ignorable="d"
         Title="AddItem" Height="410" Width="800">
-    <Grid>
+    <Window.Resources>
+        <ResourceDictionary Source="Stylesheet.xaml"/>
+    </Window.Resources>
+    <Grid Style="{StaticResource DefaultPage}">
         <Grid.RowDefinitions>
             <RowDefinition Height="50"></RowDefinition>
             <RowDefinition></RowDefinition>

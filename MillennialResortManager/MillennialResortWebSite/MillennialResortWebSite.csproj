@@ -34,7 +34,12 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+
     <IntermediateOutputPath>C:\Users\Kevin\AppData\Local\Temp\vs5400.tmp\Debug\</IntermediateOutputPath>
+
+    <IntermediateOutputPath>C:\Users\Jacob\AppData\Local\Temp\vs2D73.tmp\Debug\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\Jared\AppData\Local\Temp\vs832C.tmp\Debug\</IntermediateOutputPath>
+
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -44,7 +49,12 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+
     <IntermediateOutputPath>C:\Users\Kevin\AppData\Local\Temp\vs5400.tmp\Release\</IntermediateOutputPath>
+
+    <IntermediateOutputPath>C:\Users\Jacob\AppData\Local\Temp\vs2D73.tmp\Release\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\Jared\AppData\Local\Temp\vs832C.tmp\Release\</IntermediateOutputPath>
+
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
@@ -171,17 +181,26 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\BundleConfig2.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\FilterConfig2.cs" />
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\RouteConfig2.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\MyAccountController.cs" />
     <Compile Include="Controllers\ReservationController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201904112219347_AddedThePropertyFields.cs" />
+    <Compile Include="Migrations\201904112219347_AddedThePropertyFields.Designer.cs">
+      <DependentUpon>201904112219347_AddedThePropertyFields.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
@@ -307,6 +326,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\MyAccount\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -320,6 +340,11 @@
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.3.1.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201904112219347_AddedThePropertyFields.resx">
+      <DependentUpon>201904112219347_AddedThePropertyFields.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -21,7 +21,7 @@ namespace Presentation
     /// </summary>
     public partial class Departments : Window
     {
-        public List<Department> _departments;
+        public List<Department> _departmentsList;
         public List<Department> _currentDepartments;
         IDepartmentTypeManager departmentManager;
 
@@ -35,10 +35,10 @@ namespace Presentation
             departmentManager = new DepartmentTypeManager();
             try
             {
-                _departments = departmentManager.RetrieveAllDepartments("All");
+                _departmentsList = departmentManager.RetrieveAllDepartments("All");
                 if (_currentDepartments == null)
                 {
-                    _currentDepartments = _departments;
+                    _currentDepartments = _departmentsList;
                 }
                 dgDepartment.ItemsSource = _currentDepartments;
             }
@@ -61,10 +61,10 @@ namespace Presentation
                 try
                 {
                     _currentDepartments = null;
-                    _departments = departmentManager.RetrieveAllDepartments("All");
+                    _departmentsList = departmentManager.RetrieveAllDepartments("All");
                     if (_currentDepartments == null)
                     {
-                        _currentDepartments = _departments;
+                        _currentDepartments = _departmentsList;
                     }
                     dgDepartment.ItemsSource = _currentDepartments;
                 }
@@ -88,10 +88,10 @@ namespace Presentation
                 try
                 {
                     _currentDepartments = null;
-                    _departments = departmentManager.RetrieveAllDepartments("All");
+                    _departmentsList = departmentManager.RetrieveAllDepartments("All");
                     if (_currentDepartments == null)
                     {
-                        _currentDepartments = _departments;
+                        _currentDepartments = _departmentsList;
                     }
                     dgDepartment.ItemsSource = _currentDepartments;
                 }

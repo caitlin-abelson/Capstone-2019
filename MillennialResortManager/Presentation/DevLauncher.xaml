@@ -49,39 +49,43 @@
                         <MenuItem Header="Employee Roles"  x:Name="NavBarSubHeaderEmployeeRoles" x:Uid="NBEmployeeRoles" Click="NavBarSubHeaderEmployeeRoles_Click"/>
                         <MenuItem Header="Guest Types"  x:Name="NavBarSubHeaderGuestTypes" x:Uid="NBGuestTypes" Click="NavBarSubHeaderGuestTypes_Click"/>
                         <MenuItem Header="Room Types"  x:Name="NavBarSubHeaderRoomTypes" x:Uid="NBRoomTypes" Click="NavBarSubHeaderRoomTypes_Click"/>
+                        <MenuItem Header="Departments" x:Name="NavBarSubHeaderDepartment" x:Uid="NBDepartment" Click="NavBarSubHeaderDepartment_Click"/>
                     </MenuItem>
                     <MenuItem Header="_Events" x:Name="_NavBarHeaderEvents" Style="{StaticResource NavBarHeader}" >
                         <MenuItem Header="Performances" x:Name="NavBarSubHeaderPerformances" x:Uid="NBPerformances" Click="NavBarSubHeaderPerformances_Click" />
                         <MenuItem Header="Event Types" x:Name="NavBarSubHeaderEventTypes" x:Uid="NBEventTypes" Click="NavBarSubHeaderEventTypes_Click"/>
                         <MenuItem Header="Setup Lists" x:Name="NavBarSubHeaderSetupLists" x:Uid="NBSetupLists" Click="NavBarSubHeaderSetupLists_Click"/>
                         <MenuItem Header="Events" x:Name="NavBarSubHeaderEvents" x:Uid="NBEvents" Click="NavBarSubHeaderEvents_Click"/>
-                        <MenuItem Header="Event Sponsor List" x:Name="NavBarSubHeaderEventSponsList" x:Uid="NBEventSponsList" Click="NavBarSubHeaderEventSponsList_Click" />
+                        <!--<MenuItem Header="Event Sponsor List" x:Name="NavBarSubHeaderEventSponsList" x:Uid="NBEventSponsList" Click="NavBarSubHeaderEventSponsList_Click" />
+                        <MenuItem Header="Event Performance List" x:Name="NavBarSubHeaderEventPerfList" x:Uid="NBEventPerfList" Click="NavBarSubHeaderEventPerfList_Click" />-->
                     </MenuItem>
                     <MenuItem Header="_FoodService" x:Name="_NavBarHeaderFoodService" Style="{StaticResource NavBarHeader}" >
                         <MenuItem Header="Recipes" x:Name="NavBarSubHeaderRecipes" x:Uid="NBRecipes" Click="NavBarSubHeaderRecipes_Click"/>
                     </MenuItem>
-                    <MenuItem Header="_Maintenance" x:Name="_NavBarHeaderMaintenance" Style="{StaticResource NavBarHeader}" >
+                    <!--<MenuItem Header="_Maintenance" x:Name="_NavBarHeaderMaintenance" Style="{StaticResource NavBarHeader}" >
                         <MenuItem Header="MaintenanceTypes" x:Name="NavBarSubHeaderMaintenanceTypes" x:Uid="NBMaintenanceTypes" Click="NavBarSubHeaderMaintenanceTypes_Click"/>
                         <MenuItem Header="Maintenance Orders" x:Name="NavBarSubHeaderMaintenanceWorkOrders" x:Uid="NBMaintenanceWorkOrders" Click="NavBarSubHeaderMaintenanceWorkOrder_Click"/>
-                    </MenuItem>
+                    </MenuItem>-->
                     <MenuItem Header="_Ordering" x:Name="_NavBarHeaderOrdering" Style="{StaticResource NavBarHeader}" >
                         <MenuItem Header="Suppliers"  x:Name="NavBarSubHeaderSuppliers" x:Uid="NBSuppliers" Click="NavBarSubHeaderSuppliers_Click"/>
                         <MenuItem Header="Orders" x:Name="NavBarSubHeaderOrders" x:Uid="NBOrders" Click="NavBarSubHeaderOrders_Click" />
-                        <MenuItem Header="Products"  x:Name="NavBarSubHeaderProducts" x:Uid="NBProducts" Click="NavBarSubHeaderProducts_Click"/>
+                        <MenuItem Header="Items"  x:Name="NavBarSubHeaderProducts" x:Uid="NBProducts" Click="NavBarSubHeaderProducts_Click"/>
                         <MenuItem Header="Sponsors" x:Name="NavBarSubHeaderSponsors" x:Uid="NBSponsors" Click="NavBarSubHeaderSponsors_Click"/>
                         <MenuItem Header="SupplierOrders" x:Name="NavBarSubHeaderSupplierOrders" x:Uid="NBSupplierOrders" Click="NavBarSubHeaderSupplierOrders_Click"/>
                         <MenuItem Header="Receiving" x:Name="NavBarSubHeaderReceiving" x:Uid="NBReceiving" Click="NavBarSubHeaderReceiving_Click"/>
+                        <MenuItem Header="Offerings" x:Name="NavBarSubHeaderOfferings" x:Uid="NBOfferings" Click="NavBarSubHeadersOfferings_Click"/>
                     </MenuItem>
                     <MenuItem Header="_Resort Ops" x:Name="_NavBarHeaderResortOperations" Style="{StaticResource NavBarHeader}" >
                         <MenuItem Header="Appointment Types" x:Name="NavBarSubHeaderAppointmentTypes" x:Uid="NBAppointmentTypes" Click="NavBarSubHeaderAppointmentTypes_Click"/>
                         <MenuItem Header="Guests" x:Name="NavBarSubHeaderGuests" x:Uid="NBGuests" Click="NavBarSubHeaderGuests_Click"/>
-                        <MenuItem Header="Reservation" x:Name="NavBarSubHeaderReservation" x:Uid="NBReservation" Click="NavBarSubHeaderReservation_Click" />
+                        <!--<MenuItem Header="Reservation" x:Name="NavBarSubHeaderReservation" x:Uid="NBReservation" Click="NavBarSubHeaderReservation_Click" />-->
                         <MenuItem Header="Guest Vehicles" x:Name="NavBarSubHeaderGuestVehicles" x:Uid="NBGuestVehicles" Click="NavBarSubHeaderGuestVehicles_Click"/>
                         <MenuItem Header="Pets" x:Name="NavBarSubHeaderPets" x:Uid="NBPets" Click="NavBarSubHeaderPets_Click"/>
-                        <MenuItem Header="Rooms" x:Name="NavBarSubHeaderRooms" x:Uid="NBRooms" Click="NavBarSubHeaderRooms_Click"/>
+                        <!--<MenuItem Header="Rooms" x:Name="NavBarSubHeaderRooms" x:Uid="NBRooms" Click="NavBarSubHeaderRooms_Click"/>-->
                         <MenuItem Header="Members" x:Name="NavBarSubHeaderMembers" x:Uid="NBMembers" Click="NavBarSubHeaderMembers_Click"/>
                         <MenuItem Header="Shuttle Vehicles" x:Name="NavBarSubHeaderShuttleVehicles" x:Uid="NBShuttleVehicles" Click="NavBarSubHeaderManageShuttleVehicles_OnClick"/>
-                        <MenuItem Header="Front Desk" x:Name="NavBarSubHeaderFrontDesk" x:Uid="NBFrontDesk" Click="NavBarSubHeaderFrontDesk_OnClick"/>
+                        <!--<MenuItem Header="Front Desk" x:Name="NavBarSubHeaderFrontDesk" x:Uid="NBFrontDesk" Click="NavBarSubHeaderFrontDesk_OnClick"/>-->
+                        <MenuItem Header="Shuttle Reservation" x:Name="NavBarSubHeaderShuttleReservation" x:Uid="NBShuttleReservation" Click="NavBarSubHeaderShuttleReservation_OnClick"/>
                     </MenuItem>
                     <MenuItem Header="_Profile" x:Name="_NavBarHeaderProfile" Style="{StaticResource NavBarHeader}" >
                         <MenuItem Header="Employees"  x:Name="NavBarSubHeaderEmployee" x:Uid="NBEmployee" Click="NavBarSubHeaderEmployee_Click"/>
@@ -436,7 +440,7 @@
                     </Grid>
                 </Grid>
             </Grid>
-            <!-- Browse Product Page-->
+            <!-- Browse Item Page-->
             <!-- Updated: Gunardi Saputra -->
             <!-- Date: 03/19/2019 -->
             <Grid x:Name="BrowseProductsPage" Visibility="Hidden">
@@ -448,9 +452,9 @@
                 <Grid Grid.Row="0" Style="{StaticResource FilterBar}">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="20"></ColumnDefinition>
-                        <ColumnDefinition Width="50"></ColumnDefinition>
+                        <ColumnDefinition Width="100"></ColumnDefinition>
                         <ColumnDefinition Width="20"></ColumnDefinition>
-                        <ColumnDefinition Width="60"></ColumnDefinition>
+                        <ColumnDefinition Width="100"></ColumnDefinition>
                         <ColumnDefinition></ColumnDefinition>
                         <ColumnDefinition Width="125"></ColumnDefinition>
                         <ColumnDefinition Width="75"></ColumnDefinition>
@@ -459,10 +463,10 @@
                     <CheckBox x:Name="cbActive" HorizontalAlignment="Left"  VerticalAlignment="Center" Grid.Column="0" Click="cbActive_Click"/>
                     <Label x:Name="lblActive" HorizontalAlignment="Left" VerticalAlignment="Center" Content="Active" Grid.Column="1"/>
                     <CheckBox x:Name="cbDeactive" HorizontalAlignment="Left"  VerticalAlignment="Center" Grid.Column="2" Checked="cbDeactive_Checked"/>
-                    <Label x:Name="lblDeactive"  HorizontalAlignment="Left" VerticalAlignment="Center" Content="Deactive" Grid.Column="3"/>
+                    <Label x:Name="lblDeactive"  HorizontalAlignment="Left" VerticalAlignment="Center" Content="Inactive" Grid.Column="3"/>
                     <Button x:Name="btnSearch" Content="Filter" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="6" Width="60" Height="25" Click="btnSearch_Click"/>
                     <Button x:Name="btnClear" Content="Clear" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="7" Width="60" Height="25" Click="btnClear_Click"/>
-                    <TextBox x:Name="txtSearchBox" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="5" Width="120" Text="Search" GotFocus="txtSearchBox_GotFocus"/>
+                    <TextBox x:Name="txtSearchBox" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="5" Width="120" Text="Name Search" GotFocus="txtSearchBox_GotFocus"/>
                 </Grid>
                 <DataGrid x:Name="dgProducts" VerticalGridLinesBrush="{x:Null}" Grid.Row="1"  SelectionMode="Single" AlternatingRowBackground="#FF3DD8CA" RowBackground="LightGoldenrodYellow"  IsReadOnly="True" MouseDoubleClick="dgProducts_MouseDoubleClick" AutoGeneratingColumn="dgProducts_AutoGeneratingColumn" />
                 <Grid Grid.Row="2" Style="{StaticResource BottomBar}">
@@ -474,8 +478,8 @@
                         <ColumnDefinition MinWidth="110"/>
                         <ColumnDefinition MinWidth="110"/>
                     </Grid.ColumnDefinitions>
-                    <Button x:Name="btnAddProduct" MinWidth="110" Content="Add Product" Margin="5" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="3" Click="btnAddProduct_Click"/>
-                    <Button x:Name="btnReadProduct" MinWidth="110" Content="View Product" Margin="5" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="4" Click="btnReadProduct_Click"/>
+                    <Button x:Name="btnAddProduct" MinWidth="110" Content="Add Item" Margin="5" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="3" Click="btnAddProduct_Click"/>
+                    <Button x:Name="btnReadProduct" MinWidth="110" Content="View Item" Margin="5" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="4" Click="btnReadProduct_Click"/>
                     <Button x:Name="btnDeleteProduct" MinWidth="110" Content="Delete" Margin="5" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="5" Click="btnDeleteProduct_Click"/>
                 </Grid>
             </Grid>
@@ -589,10 +593,12 @@
                         <ColumnDefinition Width="100"/>
                         <ColumnDefinition Width="150"/>
                     </Grid.ColumnDefinitions>
-                    <Button x:Name="btnCancel" Grid.Column="0" Margin="5" Height="25" Content="Cancel" Click="BtnCancelEmployeeRole_Click" />
+                    <!--<Button x:Name="btnCancel" Grid.Column="0" Margin="5" Height="25" Content="Cancel" Click="BtnCancelEmployeeRole_Click" />-->
                     <Button x:Name="btnDeactivateEmployeeRole"  Grid.Column="6" Content="Deactivate/Delete" Margin="5" Height="25" Click="BtnDeactivateEmployeeRole_Click"/>
                     <Button x:Name="btnUpdateEmployeeRole" Grid.Column="5" Margin="5" Content="Read/Update" Height="25" Click="BtnUpdateEmployeeRole_Click" />
+                    <!--
                     <Button x:Name="btnAddEmployeeRole"  Grid.Column="4" Content="Add" Margin="5" Height="25" Click="BtnAddEmployeeRole_Click"/>
+                    -->
                 </Grid>
             </Grid>
             <!-- Browse Guest Types Page -->
@@ -606,7 +612,7 @@
                     <Label Content="Guest Types - Filters go here" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="26" FontWeight="Bold"></Label>
                 </Grid>
                 <Grid Grid.Row="1">
-                    <DataGrid x:Name="dgGuests"  />
+                    <DataGrid x:Name="dgGuests" IsReadOnly="True"  />
                 </Grid>
                 <Grid Grid.Row="2" Style="{StaticResource BottomBar}">
                     <Grid.ColumnDefinitions>
@@ -633,7 +639,7 @@
                     <Label Content="Room Types - Filters go here" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="26" FontWeight="Bold"></Label>
                 </Grid>
                 <Grid Grid.Row="1">
-                    <DataGrid x:Name="dgRooms"  />
+                    <DataGrid x:Name="dgRooms" IsReadOnly="True"  />
                 </Grid>
                 <Grid Grid.Row="2" Style="{StaticResource BottomBar}">
                     <Grid.ColumnDefinitions>
@@ -721,7 +727,7 @@
                 <Grid Grid.Row="1" Style="{StaticResource FilterBar}">
                     <Label>FILTERS TO BE ADDED</Label>
                 </Grid>
-                <DataGrid CanUserDeleteRows="True" x:Name="dgAppointmentTypes" Grid.Row="2"/>
+                <DataGrid CanUserDeleteRows="True" x:Name="dgAppointmentTypes" Grid.Row="2" IsReadOnly="True"/>
                 <Grid Grid.Row="3" Style="{StaticResource BottomBar}">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="100"></ColumnDefinition>
@@ -934,7 +940,7 @@
                     <Button Grid.Column="6" Content="Filter" x:Name="btnFilterBrowseSponsor" Width="60" Height="25" Margin="5" Click="btnFilterBrowseSponsor_Click"/>
                     <Button Grid.Column="7" Content="Clear" x:Name="btnClearFiltersBrowseSponsor" Width="60" Height="25" Margin="5" Click="btnClearFiltersBrowseSponsor_Click"/>
                 </Grid>
-                <DataGrid x:Name="dgSponsors" Grid.Row="2" VerticalGridLinesBrush="{x:Null}" SelectionMode="Single" AlternatingRowBackground="#FF3DD8CA" RowBackground="LightGoldenrodYellow" IsReadOnly="True" AutoGeneratingColumn="dgSponsors_AutoGeneratingColumn" MouseDoubleClick="dgSponsors_MouseDoubleClick" />
+                <DataGrid x:Name="dgSponsors" Grid.Row="2" VerticalGridLinesBrush="{x:Null}" SelectionMode="Single" IsReadOnly="True" AutoGeneratingColumn="dgSponsors_AutoGeneratingColumn" MouseDoubleClick="dgSponsors_MouseDoubleClick" />
                 <Grid Grid.Row="3" Style="{StaticResource BottomBar}">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="100"/>
@@ -1003,26 +1009,38 @@
             <Grid x:Name="BrowseEventSponsorsListPage" Visibility="Hidden">
                 <Grid.RowDefinitions>
                     <RowDefinition/>
+                    <RowDefinition Height="8*"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0" Style="{StaticResource FilterBar}">
+                    <Label HorizontalAlignment="Left" VerticalAlignment="Center" Content="Filters Here" Grid.Column="1"/>
+                </Grid>
+                <DataGrid x:Name="dgEventSponsor" Grid.Row="1" VerticalGridLinesBrush="{x:Null}" SelectionMode="Single" IsReadOnly="True" MouseDoubleClick="dgEventSponsor_MouseDoubleClick" AutoGeneratingColumn="dgEventSponsor_AutoGeneratingColumn" />
+                <Grid Grid.Row="2" Style="{StaticResource BottomBar}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="3*"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Button x:Name="btnDeleteEventSpons" Content="Delete" Grid.Column="1" Margin="5" Click="btnDeleteEventSpons_Click"/>
+                </Grid>
+            </Grid>
+            <!-- Browse Event Performances List Page-->
+            <Grid x:Name="BrowseEventPerformancesListPage" Visibility="Hidden">
+                <Grid.RowDefinitions>
                     <RowDefinition/>
                     <RowDefinition Height="8*"/>
                     <RowDefinition/>
                 </Grid.RowDefinitions>
-                <Grid Grid.Row="0">
-                    <Label Content="Browse Event Sponsors" VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="Bold" FontSize="16" />
+                <Grid Grid.Row="0" Style="{StaticResource FilterBar}">
+                    <Label Content="Browse Event Performances" VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="Bold" FontSize="16" />
                 </Grid>
-                <Grid Grid.Row="1" Style="{StaticResource FilterBar}">
-                    <Label HorizontalAlignment="Left" VerticalAlignment="Center" Content="Filters Here" Grid.Column="1"/>
-                </Grid>
-                <DataGrid x:Name="dgEventSponsor" Grid.Row="2" VerticalGridLinesBrush="{x:Null}" SelectionMode="Single" IsReadOnly="True" MouseDoubleClick="dgEventSponsor_MouseDoubleClick" AutoGeneratingColumn="dgEventSponsor_AutoGeneratingColumn" />
-                <Grid Grid.Row="3" Style="{StaticResource BottomBar}">
+                <DataGrid x:Name="dgEventPerformance" VerticalGridLinesBrush="{x:Null}" Grid.Row="1" SelectionMode="Single" IsReadOnly="True" MouseDoubleClick="dgEventPerformance_MouseDoubleClick" AutoGeneratingColumn="dgEventPerformance_AutoGeneratingColumn" />
+                <Grid Grid.Row="2" Style="{StaticResource BottomBar}">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="100"></ColumnDefinition>
-                        <ColumnDefinition></ColumnDefinition>
-                        <ColumnDefinition Width="70"></ColumnDefinition>
-                        <ColumnDefinition Width="100"></ColumnDefinition>
-                        <ColumnDefinition Width="70"></ColumnDefinition>
+                        <ColumnDefinition Width="3*"/>
+                        <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
-                    <Button x:Name="btnDeleteEventSpons" Content="Delete" Width="50" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="4" Click="btnDeleteEventSpons_Click"/>
+                    <Button x:Name="btnDeleteEventPerf" Content="Delete" Grid.Column="1" Margin="5" Click="btnDeleteEventPerf_Click"/>
                 </Grid>
             </Grid>
             <!-- Browse Events Page-->
@@ -1061,10 +1079,10 @@
                     <Label Grid.Column="2" HorizontalAlignment="Right" VerticalAlignment="Center">Show Cancelled Events:</Label>
                     <RadioButton x:Name="btnEventCancelled" Grid.Column="3" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5" Checked="BtnEventCancelled_Checked" />
                     <Label Grid.Column="4" HorizontalAlignment="Right" VerticalAlignment="Center">Search By Name: </Label>
-                    <TextBox x:Name="txtEventSearchName" Grid.Column="5" Height="20" />
+                    <TextBox x:Name="txtEventSearchName" Grid.Column="5" Height="20"/>
 
-                    <Button x:Name="btnEventFilter" Grid.Column="7" Width="120" Height="35" Content="Filter" Click="BtnEventFilter_Click" />
-                    <Button x:Name="btnEventClearFilter" Grid.Column="9" Width="120" Height="35" Content="Clear" />
+                    <Button x:Name="btnEventFilter" Grid.Column="7" Width="90" Height="35" Content="Filter" Click="BtnEventFilter_Click" HorizontalContentAlignment="Center"/>
+                    <Button x:Name="btnEventClearFilter" Grid.Column="9" Width="90" Height="35" Content="Clear" HorizontalContentAlignment="Center" Click="BtnEventClearFilter_Click"/>
                 </Grid>
                 <DataGrid Grid.Row="1" x:Name="dgEvents" SelectionMode="Single" IsReadOnly="True" MouseDoubleClick="dgEvents_MouseDoubleClick" AutoGeneratingColumn="DgEvents_AutoGeneratingColumn"/>
                 <Grid Grid.Row="2" Style="{StaticResource BottomBar}">
@@ -1163,7 +1181,7 @@
                                 <ColumnDefinition Width="100"/>
 
                             </Grid.ColumnDefinitions>
-                            <Button Grid.Column="0" x:Name="btnCancelBrowseSupplierOrders" Content="Cancel" Margin="5" Click="BtnCancelBrowseSupplierOrders_Click"/>
+                            <!--<Button Grid.Column="0" x:Name="btnCancelBrowseSupplierOrders" Content="Cancel" Margin="5" Click="BtnCancelBrowseSupplierOrders_Click"/>-->
                             <Button Grid.Column="2" x:Name="btnAddOrder" Content="Add Order" Margin="5" Click="BtnAddOrder_Click" />
                             <Button Grid.Column="3" x:Name="btnViewOrder" Content="View Order" Margin="5"/>
                             <Button Grid.Column="4" x:Name="btnDeleteOrder" Content="Delete Order" Margin="5" Click="BtnDeleteOrder_Click" />
@@ -1369,7 +1387,7 @@
                                 <ColumnDefinition Width="100"/>
                                 <ColumnDefinition Width="100"/>
                             </Grid.ColumnDefinitions>
-                            <Button x:Name="btnCancelBrowseMembers" Content="Cancel" Grid.Column="0" Margin="5"  Click="btnCancelBrowseMembers_Click"  />
+                            <!--<Button x:Name="btnCancelBrowseMembers" Content="Cancel" Grid.Column="0" Margin="5"  Click="btnCancelBrowseMembers_Click"  />-->
                             <Button x:Name="btnViewMember" Content="View" Margin="5" Grid.Column="2"/>
                             <Button x:Name="btnAddMember" Content="Add Member" Grid.Column="3"  Margin="5" Click="btnAddMember_Click"  />
                             <Button x:Name="btnDeleteBrowseMembers" Content="Delete" Grid.Column="4"  Margin="5" Click="btnDeactivateBrowseMembers_Click" />
@@ -1500,7 +1518,7 @@
                         <ColumnDefinition/>
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
-                    <Button Grid.Column="0" Content="Cancel" x:Name="btnCancelMaintenanceWorkOrder" Margin="5" Click="btnCancelMaintenanceWorkOrder_Click"/>
+                    <!--<Button Grid.Column="0" Content="Cancel" x:Name="btnCancelMaintenanceWorkOrder" Margin="5" Click="btnCancelMaintenanceWorkOrder_Click"/>-->
                     <Button Grid.Column="3" Content="Add" x:Name="btnAddMaintenanceWorkOrder" Margin="5" Click="btnAddMaintenanceWorkOrder_Click" />
                     <Button Grid.Column="4" Content="View" x:Name="btnViewMaintenanceWorkOrder" Margin="5" Click="btnViewMaintenanceWorkOrder_Click"/>
                     <Button Grid.Column="5" Content="Delete" x:Name="btnDeleteMaintenanceWorkOrder" Margin="5" Click="btnDeleteMaintenanceWorkOrder_Click"/>
@@ -1518,7 +1536,7 @@
                     <Label x:Name="lblReceiving" Content="Receiving Tickets:" VerticalAlignment="Center" HorizontalAlignment="Left"></Label>
                 </Grid>
                 <Grid Grid.Row="1">
-                    <DataGrid x:Name="dgReceiving" MouseDoubleClick="dgReceiving_MouseDoubleClick" AutoGeneratingColumn="dgReceiving_AutoGeneratingColumn" >
+                    <DataGrid x:Name="dgReceiving" MouseDoubleClick="dgReceiving_MouseDoubleClick" AutoGeneratingColumn="dgReceiving_AutoGeneratingColumn" IsReadOnly="True">
 
                     </DataGrid>
                 </Grid>
@@ -1529,7 +1547,7 @@
                         <ColumnDefinition></ColumnDefinition>
                         <ColumnDefinition></ColumnDefinition>
                     </Grid.ColumnDefinitions>
-                    <Button x:Name="Cancel" Click="Cancel_Click" Content="Cancel" Margin="10" Grid.Column="0"></Button>
+                    <!--<Button x:Name="Cancel" Click="Cancel_Click" Content="Cancel" Margin="10" Grid.Column="0"></Button>-->
                     <Button x:Name="Edit" Content="Edit" Margin="10" Grid.Column="3" Click="Edit_Click"></Button>
                     <Button x:Name="Complete" Content="Finish Ticket" Margin="10" Grid.Column="2" Click="Complete_Click" ></Button>
                 </Grid>
@@ -1578,11 +1596,184 @@
                     <Button x:Name="btnAddFrontDesk" Grid.Column="2" Content="Add New" Margin="10 15" Click="btnAddFrontDesk_Click"/>
                     <Button x:Name="btnUpdateFrontDesk" Grid.Column="3" Content="Edit" Margin="10 15" Click="btnUpdateFrontDesk_Click"/>
                     <Button x:Name="btnDelteFrontDesk" Grid.Column="4" Content="Delete" Margin="10 15" Click="btnDelteFrontDesk_Click"/>
-                    <Button x:Name="btnCancelFrontDesk" Grid.Column="5" Content="Cancel" Margin="10 15" Click="btnCancelFrontDesk_Click"/>
+                    <!--<Button x:Name="btnCancelFrontDesk" Grid.Column="5" Content="Cancel" Margin="10 15" Click="btnCancelFrontDesk_Click"/>-->
                 </Grid>
             </Grid>
+            <!-- Created By: Jared Greenfield-->
+            <!-- Added Date: 2019-04-10-->
+            <!-- Browse Offering Page-->
+            <Grid x:Name="BrowseOfferingsPage" Visibility="Hidden">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition Height="8*"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0" Style="{StaticResource FilterBar}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width=".5*"/>
+                        <ColumnDefinition Width="1.50*"/>
+                        <ColumnDefinition Width="1.50*"/>
+                        <ColumnDefinition Width="1.50*"/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width=".5*"/>
+                        <ColumnDefinition Width=".5*"/>
+                    </Grid.ColumnDefinitions>
+                    <CheckBox x:Name="chkOfferingActive" Grid.Column="0" Content="Active" IsChecked="True" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <Grid Grid.Column="1" Grid.ColumnSpan="3">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Grid Grid.Column="0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition Width="1.*"/>
+                            </Grid.ColumnDefinitions>
+                            <Label x:Name="lblOfferingType" Content="Type: " HorizontalAlignment="Center" VerticalAlignment="Center" />
+                            <ComboBox Grid.Column="1" x:Name="cboOfferingType" Margin="5" VerticalAlignment="Center" MinWidth="100"/>
+                        </Grid>
+                        <Grid Grid.Column="1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition Width="1.*"/>
+                            </Grid.ColumnDefinitions>
+                            <Label x:Name="lblOfferingName" Content="Name: " HorizontalAlignment="Center" VerticalAlignment="Center" />
+                            <TextBox Grid.Column="1" x:Name="txtOfferingName" Margin="5" VerticalAlignment="Center" MinWidth="100"/>
+                        </Grid>
+                        <Grid Grid.Column="2">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition Width="1.*"/>
+                            </Grid.ColumnDefinitions>
+                            <Label x:Name="lblOfferingDescription" Content="Description: " HorizontalAlignment="Center" VerticalAlignment="Center" />
+                            <TextBox Grid.Column="1" x:Name="txtOfferingDescription" Margin="5" VerticalAlignment="Center" MinWidth="100"/>
+                        </Grid>
+                    </Grid>
+                    <Button Grid.Column="5" Content="Filter" x:Name="btnFilterOfferings" Margin="5" Click="btnFilterOfferings_Click"/>
+                    <Button Grid.Column="6" Content="Clear" x:Name="btnClearFiltersOfferings" Margin="5" Click="BtnClearFiltersOfferings_Click" />
+                </Grid>
+                <DataGrid Grid.Row="1" x:Name="dgOfferings" VerticalGridLinesBrush="{x:Null}" SelectionMode="Single" AlternatingRowBackground="#FF3DD8CA" RowBackground="LightGoldenrodYellow" IsReadOnly="True" AutoGeneratingColumn="DgOfferings_AutoGeneratingColumn" MouseDoubleClick="DgOfferings_MouseDoubleClick" SelectionChanged="DgOfferings_SelectionChanged" />
+                <Grid Grid.Row="2" Style="{StaticResource BottomBar}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Button Grid.Column="3" Content="Add Offering" x:Name="btnAddOffering" Margin="5" />
+                    <Button Grid.Column="4" Content="View Offering" x:Name="btnViewOffering" Margin="5" Click="BtnViewOffering_Click" />
+                    <Button Grid.Column="5" Content="Delete" x:Name="btnDeleteOffering" Margin="5" Click="BtnDeleteOffering_Click" />
 
+                </Grid>
+            </Grid>
+            <!-- End Browse Offering Page-->
 
+            <!-- Browse Shuttle Reservation  -->
+            <Grid x:Name="BrowseShuttleReservationPage" Visibility="Hidden">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="50"></RowDefinition>
+                    <RowDefinition Height="50"></RowDefinition>
+                    <RowDefinition  ></RowDefinition>
+                    <RowDefinition Height="40" ></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0" Style="{StaticResource FilterBar}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="0"></ColumnDefinition>
+                        <ColumnDefinition Width="2"  ></ColumnDefinition>
+                        <ColumnDefinition Width="2"></ColumnDefinition>
+                        <ColumnDefinition Width="130"></ColumnDefinition>
+                        <ColumnDefinition Width="150"></ColumnDefinition>
+                        <ColumnDefinition Width="140"></ColumnDefinition>
+                        <ColumnDefinition Width="190"></ColumnDefinition>
+                        <ColumnDefinition Width="110"></ColumnDefinition>
+                        <ColumnDefinition Width="130"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Column="3" Content="Search Pickup Date:"  Padding="5" HorizontalAlignment="Right" VerticalContentAlignment="Center" />
+                    <DatePicker Name="dtpSearchDate"  Height="25"  Grid.Row="0" Width="140" Grid.Column="4"/>
+                    <Button x:Name="btnClearListShuttleReservation" VerticalAlignment="Center" Grid.Column="8" Content="Clear Filter" Margin="5" Height="25" Click="BtnClearSetupListShuttleReservation_Click" />
+                    <Label Grid.Column="5" Content="Search Pickup Location:"  Padding="5" HorizontalAlignment="Right" VerticalContentAlignment="Center" />
+                    <TextBox x:Name="txtSearchShuttleReservation" Grid.Column="6" Margin="5" Height="25" HorizontalContentAlignment="Left" Text=""    />
+                    <Button x:Name="btnFilterShuttleReservation"  Grid.Column="7" Margin="5" Height="25" Content="Filter" Click="BtnFilterShuttleReservation_Click" />
+                </Grid>
+                <Grid Grid.Row="1" Style="{StaticResource FilterBar}" >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="50"></ColumnDefinition>
+                        <ColumnDefinition Width="50"  ></ColumnDefinition>
+                        <ColumnDefinition Width="50"></ColumnDefinition>
+                        <ColumnDefinition Width="100"></ColumnDefinition>
+                        <ColumnDefinition Width="10"></ColumnDefinition>
+                        <ColumnDefinition Width="190"></ColumnDefinition>
+                        <ColumnDefinition Width="220"></ColumnDefinition>
+                        <ColumnDefinition Width="110"></ColumnDefinition>
+                        <ColumnDefinition Width="130"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <CheckBox x:Name="cbActiveShuttleReservation" HorizontalAlignment="Left"  VerticalAlignment="Center" Grid.Column="4" IsChecked="True" Click="CbActiveShuttleReservation_Click" />
+                    <Label x:Name="lblActiveShuttleReservation" HorizontalAlignment="Right" VerticalAlignment="Center" Content="Active" Grid.Column="3"/>
+                    <CheckBox x:Name="cbDeactiveShuttleReservation" IsChecked="True" HorizontalAlignment="Left"  VerticalAlignment="Center" Grid.Column="3" Click="CbDeactiveShuttleReservation_Click" />
+                    <Label x:Name="lblDeactiveShuttleReservation"  HorizontalAlignment="Left" VerticalAlignment="Center" Content="Inactive" Grid.Column="2"/>
+                    <Label Grid.Column="5" Content="Search Guest Last  Name:"  Padding="5" HorizontalAlignment="Right" VerticalContentAlignment="Center" />
+                    <TextBox x:Name="txtSearchLastNameShuttleReservation" Grid.Column="6" Margin="5" Height="25" HorizontalContentAlignment="Left" Text=""    />
+                </Grid>
+                <DataGrid Grid.Row="2" x:Name="dgShuttleReservation"  VerticalGridLinesBrush="{x:Null}" SelectionMode="Single"  AutoGenerateColumns="False"  IsReadOnly="True" Grid.ColumnSpan="2" Margin="0,0,0.2,0.4">
+                    <DataGrid.Columns>
+                        <!--<DataGridTextColumn Binding="{Binding ShuttleReservationID}" Header="Shuttle Reservation ID"></DataGridTextColumn>-->
+                        <!-- <DataGridTextColumn Binding="{Binding ShuttleReservation.GuestID}" Header="GuestID" Width="*"></DataGridTextColumn>
+                            <DataGridTextColumn Binding="{Binding ShuttleReservation.EmployeeID}" Header="EmployeeID" Width="*"></DataGridTextColumn>-->
+                        <DataGridTextColumn Binding="{Binding Guest.FirstName}" Header="Guest First Name"></DataGridTextColumn>
+                        <DataGridTextColumn Binding="{Binding Guest.LastName}" Header="Guest Last Name"></DataGridTextColumn>
+                        <DataGridTextColumn Binding="{Binding Guest.PhoneNumber}" Header="Guest Phone Number"></DataGridTextColumn>
+                        <DataGridTextColumn Binding="{Binding Employee.FirstName}" Header="Employee First Name"></DataGridTextColumn>
+                        <DataGridTextColumn Binding="{Binding Employee.LastName}" Header="Employee Last Name"></DataGridTextColumn>
+                        <DataGridTextColumn Binding="{Binding PickupLocation}" Header="Pickup Location"></DataGridTextColumn>
+                        <DataGridTextColumn Binding="{Binding DropoffDestination}" Header="Dropoff Location" ></DataGridTextColumn>
+                        <DataGridTextColumn Binding="{Binding PickupDateTime}" Header="Pickup Date Time" ></DataGridTextColumn>
+                        <DataGridTextColumn Binding="{Binding DropoffDateTime}" Header="Dropoff Date Time"></DataGridTextColumn>
+                        <DataGridCheckBoxColumn Binding="{Binding Active}" Header="Active" ></DataGridCheckBoxColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+                <Grid Grid.Row="3" Style="{StaticResource BottomBar}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="100"/>
+                        <ColumnDefinition />
+                        <ColumnDefinition Width="120"/>
+                        <ColumnDefinition Width="100"/>
+                        <ColumnDefinition Width="120"/>
+                        <ColumnDefinition Width="100"/>
+                        <ColumnDefinition Width="150"/>
+                    </Grid.ColumnDefinitions>
+                    <Button x:Name="btnDeactivateShuttleReservation" Grid.Row="3"  Grid.Column="6" Content="Cancel Reservation" Margin="5" Height="25" Click="BtnDeactivateShuttleReservation_Click"/>
+                    <Button x:Name="btnUpdateShuttleReservation" Grid.Column="5" Margin="5" Content="Read/Update" Height="25" Click="BtnUpdateShuttleReservation_Click" />
+                    <Button x:Name="btnAddShuttleReservation"  Grid.Column="4" Content="Add" Margin="5" Height="25" Click="BtnAddShuttleReservation_Click"/>
+                </Grid>
+            </Grid>
+            <!-- Browse Departments Page-->
+            <Grid x:Name="BrowseDepartmentPage" Visibility="Hidden">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="50"></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition Height="50"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0" Style="{StaticResource FilterBar}">
+                    <Label Content="Departments" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="26" FontWeight="Bold"></Label>
+                </Grid>
+                <DataGrid x:Name="dgDepartment" Grid.Row="1"/>
+                <Grid Grid.Row="2" Style="{StaticResource BottomBar}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Column="1">
+                       <!-- <Button x:Name="btnAddDepartment" Margin="5" Content="Add" Click="btnAddDepartment_Click"></Button>-->
+                    </Grid>
+                    <Grid Grid.Column="2">
+                        <Button x:Name="btnDeleteDepartment" Margin="5" Content="Delete" Click="btnDeleteDepartment_Click"></Button>
+                    </Grid>
+                </Grid>
+            </Grid>
             <!--Manage Vehicles Page-->
             <Grid x:Name="BrowseShuttleVehiclesPage" Visibility="Hidden">
                 <local:FrmBrowseShuttleVehicles/>

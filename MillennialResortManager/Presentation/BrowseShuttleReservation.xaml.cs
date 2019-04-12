@@ -104,7 +104,7 @@ namespace Presentation
         /// //method to call the filter method
         /// </summary>
 
-        private void BtnFilter_Click(object sender, RoutedEventArgs e)
+        private void BtnFilterShuttleReservation_Click(object sender, RoutedEventArgs e)
         {
             filterShuttleReservations();
         }
@@ -125,24 +125,24 @@ namespace Presentation
             {
                
                 
-                if (txtSearch.Text.ToString() != "")
+                if (txtSearchShuttleReservation.Text.ToString() != "")
                 {
                    
-                    if (txtSearch.Text != "" && txtSearch.Text != null)
+                    if (txtSearchShuttleReservation.Text != "" && txtSearchShuttleReservation.Text != null)
                     {
-                        _currentLists = _currentLists.Where(b => b.PickupLocation.ToLower().Contains(txtSearch.Text.ToLower())).ToList();
+                        _currentLists = _currentLists.Where(b => b.PickupLocation.ToLower().Contains(txtSearchShuttleReservation.Text.ToLower())).ToList();
 
                         
                     }
                 }
               
-                if (txtSearchLastName.Text.ToString() != "")
+                if (txtSearchLastNameShuttleReservation.Text.ToString() != "")
                 {
 
-                    if (txtSearchLastName.Text != "" && txtSearchLastName.Text != null)
+                    if (txtSearchLastNameShuttleReservation.Text != "" && txtSearchLastNameShuttleReservation.Text != null)
                     {
                         
-                        _currentLists = _currentLists.Where(s => s.Guest.LastName.ToLower().Contains(txtSearchLastName.Text.ToLower()));
+                        _currentLists = _currentLists.Where(s => s.Guest.LastName.ToLower().Contains(txtSearchLastNameShuttleReservation.Text.ToLower()));
                        
                     }
                 }
@@ -155,15 +155,15 @@ namespace Presentation
                 }
                     
                  
-                 if (cbActive.IsChecked == true && cbDeactive.IsChecked == false)
+                 if (cbActiveShuttleReservation.IsChecked == true && cbDeactiveShuttleReservation.IsChecked == false)
                 {
                     _currentLists = _currentLists.Where(b => b.Active == true);
                 }
-                else if (cbActive.IsChecked == false && cbDeactive.IsChecked == true)
+                else if (cbActiveShuttleReservation.IsChecked == false && cbDeactiveShuttleReservation.IsChecked == true)
                 {
                     _currentLists = _currentLists.Where(b => b.Active == false);
                 }
-                else if (cbActive.IsChecked == false && cbDeactive.IsChecked == false)
+                else if (cbActiveShuttleReservation.IsChecked == false && cbDeactiveShuttleReservation.IsChecked == false)
                 {
                     _currentLists = _currentLists.Where(b => b.Active == false && b.Active == true);
                 }
@@ -187,12 +187,12 @@ namespace Presentation
         /// 
         /// //method to clear the filters
         /// </summary>
-        private void BtnClearSetupList_Click(object sender, RoutedEventArgs e)
+        private void BtnClearSetupListShuttleReservation_Click(object sender, RoutedEventArgs e)
         {
-            cbDeactive.IsChecked = true;
-            cbActive.IsChecked = true;
-            txtSearch.Text = "";
-            txtSearchLastName.Text = "";
+            cbDeactiveShuttleReservation.IsChecked = true;
+            cbActiveShuttleReservation.IsChecked = true;
+            txtSearchShuttleReservation.Text = "";
+            txtSearchLastNameShuttleReservation.Text = "";
             dtpSearchDate.Text = "";
             _currentShuttleReservations = _shuttleReservations;
 
@@ -209,7 +209,7 @@ namespace Presentation
         /// 
         /// //method to cancel and exit a window
         /// </summary>
-        private void BtnCancel_Click(object sender, RoutedEventArgs e)
+        private void BtnCancelShuttleReservation_Click(object sender, RoutedEventArgs e)
         {
             var result = MessageBox.Show("Are you sure you want to quit?", "Closing Application", MessageBoxButton.OKCancel, MessageBoxImage.Question);
             if(result == MessageBoxResult.OK)
@@ -242,7 +242,7 @@ namespace Presentation
         /// 
         /// //method to open the update  dialog
         /// </summary>
-        private void BtnUpdate_Click(object sender, RoutedEventArgs e)
+        private void BtnUpdateShuttleReservation_Click(object sender, RoutedEventArgs e)
         {
 
             if (dgShuttleReservation.SelectedItem != null)
@@ -268,7 +268,7 @@ namespace Presentation
         /// 
         /// method to open the create shuttlereservation dialog.
         /// </summary>
-        private void BtnAdd_Click(object sender, RoutedEventArgs e)
+        private void BtnAddShuttleReservation_Click(object sender, RoutedEventArgs e)
         {
 
 
@@ -292,7 +292,7 @@ namespace Presentation
         /// 
         /// //method to Deactivate shuttleReservation
         /// </summary>
-        private void BtnDeactivate_Click(object sender, RoutedEventArgs e)
+        private void BtnDeactivateShuttleReservation_Click(object sender, RoutedEventArgs e)
         {
 
             if (dgShuttleReservation.SelectedItem != null)
@@ -337,7 +337,7 @@ namespace Presentation
         /// 
         /// //method to filter active shuttle reservation
         /// </summary>
-        private void CbDeactive_Click(object sender, RoutedEventArgs e)
+        private void CbDeactiveShuttleReservation_Click(object sender, RoutedEventArgs e)
         {
             filterShuttleReservations();
         }
@@ -348,7 +348,7 @@ namespace Presentation
         /// 
         /// //method to filter inactive shuttle reservation
         /// </summary>
-        private void CbActive_Click(object sender, RoutedEventArgs e)
+        private void CbActiveShuttleReservation_Click(object sender, RoutedEventArgs e)
         {
             filterShuttleReservations();
         }

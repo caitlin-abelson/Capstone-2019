@@ -523,6 +523,10 @@ namespace Presentation
                     Close();
                 }
             }
+            else
+            {
+                Close();
+            }
 
         }
 

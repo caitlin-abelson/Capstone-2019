@@ -166,7 +166,7 @@ namespace DataAccessLayer
                 {
                     cmd1.Parameters.AddWithValue("@OfferingID", item.OfferingID);
                 }
-                cmd1.Parameters.AddWithValue("@ItemTypeID", item.ItemTypeID);
+                cmd1.Parameters.AddWithValue("@ItemTypeID", item.ItemType);
                 if (item.RecipeID == null)
                 {
                     cmd1.Parameters.AddWithValue("@RecipeID", DBNull.Value);
@@ -371,15 +371,29 @@ namespace DataAccessLayer
             {
                 cmd1.Parameters.AddWithValue("@OldOfferingID", oldItem.OfferingID);
             }
-            cmd1.Parameters.AddWithValue("@OldItemTypeID", oldItem.ItemTypeID);
-            cmd1.Parameters.AddWithValue("@OldRecipeID", oldItem.RecipeID);
+            cmd1.Parameters.AddWithValue("@OldItemTypeID", oldItem.ItemType);
+            if (oldItem.RecipeID == null)
+            {
+                cmd1.Parameters.AddWithValue("@OldRecipeID", DBNull.Value);
+            }
+            else
+            {
+                cmd1.Parameters.AddWithValue("@OldRecipeID", oldItem.RecipeID);
+            }
             cmd1.Parameters.AddWithValue("@OldCustomerPurchasable", oldItem.CustomerPurchasable);
-            cmd1.Parameters.AddWithValue("@OldDescription", oldItem.Description);
+            if (oldItem.Description == null)
+            {
+                cmd1.Parameters.AddWithValue("@OldDescription", DBNull.Value);
+            }
+            else
+            {
+                cmd1.Parameters.AddWithValue("@OldDescription", oldItem.Description);
+            }
             cmd1.Parameters.AddWithValue("@OldOnHandQty", oldItem.OnHandQty);
             cmd1.Parameters.AddWithValue("@OldName", oldItem.Name);
             cmd1.Parameters.AddWithValue("@OldReorderQty", oldItem.ReorderQty);
-            cmd1.Parameters.AddWithValue("@OldDateActive", oldItem.DateActive);
-            cmd1.Parameters.AddWithValue("@oldActive", oldItem.Active);
+            cmd1.Parameters.AddWithValue("@OldActive", oldItem.Active);
+
 
             if (newItem.OfferingID == null)
             {
@@ -389,14 +403,27 @@ namespace DataAccessLayer
             {
                 cmd1.Parameters.AddWithValue("@NewOfferingID", newItem.OfferingID);
             }
-            cmd1.Parameters.AddWithValue("@NewItemTypeID", newItem.ItemTypeID);
-            cmd1.Parameters.AddWithValue("@NewRecipeID", newItem.RecipeID);
+            cmd1.Parameters.AddWithValue("@NewItemTypeID", newItem.ItemType);
+            if (newItem.RecipeID == null)
+            {
+                cmd1.Parameters.AddWithValue("@NewRecipeID", DBNull.Value);
+            }
+            else
+            {
+                cmd1.Parameters.AddWithValue("@NewRecipeID", newItem.RecipeID);
+            }
             cmd1.Parameters.AddWithValue("@NewCustomerPurchasable", newItem.CustomerPurchasable);
-            cmd1.Parameters.AddWithValue("@NewDescription", newItem.Description);
+            if (newItem.Description == null)
+            {
+                cmd1.Parameters.AddWithValue("@NewDescription", DBNull.Value);
+            }
+            else
+            {
+                cmd1.Parameters.AddWithValue("@NewDescription", newItem.Description);
+            }
             cmd1.Parameters.AddWithValue("@NewOnHandQty", newItem.OnHandQty);
             cmd1.Parameters.AddWithValue("@NewName", newItem.Name);
             cmd1.Parameters.AddWithValue("@NewReorderQty", newItem.ReorderQty);
-            cmd1.Parameters.AddWithValue("@NewDateActive", newItem.DateActive);
             cmd1.Parameters.AddWithValue("@NewActive", newItem.Active);
             try
             {
@@ -409,6 +436,314 @@ namespace DataAccessLayer
                 throw;
             }
             return result;
+        }
+
+        /// <summary>
+        /// Kevin Broskow
+        /// Created: 2019/01/30
+        /// 
+        /// Used to retrieve a specific Item from inventory
+        /// </summary>
+        ///
+        /// <remarks>
+        /// Jared Greenfield
+        /// Updated: 2019/04/03
+        /// Converted to Item from Product
+        /// </remarks>
+        /// <param name="itemID">ID of an item</param>
+        ///// <returns>Product</returns>
+        public Item SelectItem(int itemID)
+        {
+            Item item = new Item();
+            var cmdText = @"sp_select_item_by_itemid";
+            var conn = DBConnection.GetDbConnection();
+
+            var cmd = new SqlCommand(cmdText, conn);
+
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+
+            cmd.Parameters.AddWithValue("@ItemID", itemID);
+            try
+            {
+                conn.Open();
+                SqlDataReader reader = cmd.ExecuteReader();
+                while (reader.HasRows)
+                {
+                    item.ItemID = reader.GetInt32(0);
+                    item.ItemType = reader.GetString(1);
+                    if (reader.IsDBNull(2))
+                    {
+                        item.Description = null;
+                    }
+                    else
+                    {
+                        item.Description = reader.GetString(2);
+                    }
+                    item.OnHandQty = reader.GetInt32(3);
+                    item.Name = reader.GetString(4);
+                    item.ReorderQty = reader.GetInt32(5);
+                    item.DateActive = reader.GetDateTime(6);
+                    item.Active = reader.GetBoolean(7);
+                    item.CustomerPurchasable = reader.GetBoolean(8);
+                    if (reader.IsDBNull(9))
+                    {
+                        item.RecipeID = null;
+                    }
+                    else
+                    {
+                        item.RecipeID = reader.GetInt32(9);
+                    }
+                    if (reader.IsDBNull(10))
+                    {
+                        item.OfferingID = null;
+                    }
+                    else
+                    {
+                        item.OfferingID = reader.GetInt32(10);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return item;
+        }
+
+        /// <summary>
+        /// Kevin Broskow
+        /// Created: 2019/02/5
+        /// 
+        /// Deactivating a item in the database
+        /// </summary>
+        ///
+        /// <remarks>
+        /// Jared Greenfield
+        /// Updated: 2019/04/03
+        /// Converted to Item from Product
+        /// </remarks>
+        /// <param name="deactivatingItem">The item to be deactivated</param>
+        /// <returns>void</returns>
+        public void DeactivateItem(Item deactivatingItem)
+        {
+            var conn = DBConnection.GetDbConnection();
+            var cmdText = @"sp_deactivate_item";
+            SqlCommand cmd = new SqlCommand(cmdText, conn);
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@ItemID", deactivatingItem.ItemID);
+            try
+            {
+                conn.Open();
+                cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        /// <summary>
+        /// Kevin Broskow
+        /// Created: 2019/02/5
+        /// 
+        /// Purging a item from the database
+        /// </summary>
+        ///
+        /// <remarks>
+        /// Jared Greenfield
+        /// Updated: 2019/04/03
+        /// Converted to Item from Product
+        /// </remarks>
+        /// <param name="purgingItem">The item to be purged</param>
+        /// <returns>void</returns>
+        public void DeleteItem(Item purgingItem)
+        {
+            {
+                var conn = DBConnection.GetDbConnection();
+                var cmdText = @"sp_delete_item";
+                SqlCommand cmd = new SqlCommand(cmdText, conn);
+                cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@ItemID", purgingItem.ItemID);
+                try
+                {
+                    conn.Open();
+                    cmd.ExecuteNonQuery();
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Kevin Broskow
+        /// Created: 2019/02/5
+        /// 
+        /// Retrieves all active items in the database
+        /// </summary>
+        ///
+        /// <remarks>
+        /// Jared Greenfield
+        /// Updated: 2019/04/03
+        /// Converted to Item from Product
+        /// </remarks>
+        /// <returns>List<Item></returns>
+        public List<Item> SelectActiveItems()
+        {
+
+            {
+                List<Item> activeItems = new List<Item>();
+                var conn = DBConnection.GetDbConnection();
+                var cmdText = @"sp_select_all_active_items";
+
+                SqlCommand cmd = new SqlCommand(cmdText, conn);
+                cmd.CommandType = System.Data.CommandType.StoredProcedure;
+
+                try
+                {
+                    conn.Open();
+                    var reader = cmd.ExecuteReader();
+                    if (reader.HasRows)
+                    {
+                        while (reader.Read())
+                        {
+                            Item item = new Item();
+                            item.ItemID = reader.GetInt32(0);
+                            item.ItemType = reader.GetString(1);
+                            if (reader.IsDBNull(2))
+                            {
+                                item.Description = null;
+                            }
+                            else
+                            {
+                                item.Description = reader.GetString(2);
+                            }
+                            item.OnHandQty = reader.GetInt32(3);
+                            item.Name = reader.GetString(4);
+                            item.ReorderQty = reader.GetInt32(5);
+                            item.DateActive = reader.GetDateTime(6);
+                            item.Active = reader.GetBoolean(7);
+                            item.CustomerPurchasable = reader.GetBoolean(8);
+                            if (reader.IsDBNull(9))
+                            {
+                                item.RecipeID = null;
+                            }
+                            else
+                            {
+                                item.RecipeID = reader.GetInt32(9);
+                            }
+                            if (reader.IsDBNull(10))
+                            {
+                                item.OfferingID = null;
+                            }
+                            else
+                            {
+                                item.OfferingID = reader.GetInt32(10);
+                            }
+                            activeItems.Add(item);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+
+                    throw ex;
+                }
+                finally
+                {
+                    conn.Close();
+                }
+
+                return activeItems;
+            }
+        }
+
+        /// <summary>
+        /// Kevin Broskow
+        /// Created: 2019/02/5
+        /// 
+        /// Retrieves all deactive items in the database
+        /// </summary>
+        ///
+        /// <remarks>
+        /// Jared Greenfield
+        /// Updated: 2019/04/03
+        /// Converted to Item from Product
+        /// </remarks>
+        /// <returns>List<Item></returns>
+        public List<Item> SelectDeactiveItems()
+        {
+
+            {
+                List<Item> deactiveItems = new List<Item>();
+                var conn = DBConnection.GetDbConnection();
+                var cmdText = @"sp_select_all_deactivated_items";
+
+                SqlCommand cmd = new SqlCommand(cmdText, conn);
+                cmd.CommandType = System.Data.CommandType.StoredProcedure;
+
+                try
+                {
+                    conn.Open();
+                    var reader = cmd.ExecuteReader();
+                    if (reader.HasRows)
+                    {
+                        while (reader.Read())
+                        {
+                            Item item = new Item();
+                            item.ItemID = reader.GetInt32(0);
+                            item.ItemType = reader.GetString(1);
+                            if (reader.IsDBNull(2))
+                            {
+                                item.Description = null;
+                            }
+                            else
+                            {
+                                item.Description = reader.GetString(2);
+                            }
+                            item.OnHandQty = reader.GetInt32(3);
+                            item.Name = reader.GetString(4);
+                            item.ReorderQty = reader.GetInt32(5);
+                            item.DateActive = reader.GetDateTime(6);
+                            item.Active = reader.GetBoolean(7);
+                            item.CustomerPurchasable = reader.GetBoolean(8);
+                            if (reader.IsDBNull(9))
+                            {
+                                item.RecipeID = null;
+                            }
+                            else
+                            {
+                                item.RecipeID = reader.GetInt32(9);
+                            }
+                            if (reader.IsDBNull(10))
+                            {
+                                item.OfferingID = null;
+                            }
+                            else
+                            {
+                                item.OfferingID = reader.GetInt32(10);
+                            }
+                            deactiveItems.Add(item);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+
+                    throw ex;
+                }
+                finally
+                {
+                    conn.Close();
+                }
+
+                return deactiveItems;
+            }
         }
     }
 }

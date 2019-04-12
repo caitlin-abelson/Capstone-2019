@@ -25,7 +25,7 @@ namespace DataObjects
             OfferingID = offeringID;
             CustomerPurchasable = customerPurchasable;
             RecipeID = recipeID;
-            ItemTypeID = itemTypeID;
+            ItemType = itemTypeID;
             Description = description;
             OnHandQty = onHandQty;
             Name = name;
@@ -39,7 +39,7 @@ namespace DataObjects
             OfferingID = offeringID;
             CustomerPurchasable = customerPurchasable;
             RecipeID = recipeID;
-            ItemTypeID = itemTypeID;
+            ItemType = itemTypeID;
             Description = description;
             OnHandQty = onHandQty;
             Name = name;
@@ -50,7 +50,7 @@ namespace DataObjects
         public int? OfferingID { get; set; }
         public bool CustomerPurchasable { get; set; }
         public int? RecipeID { get; set; }
-        public string ItemTypeID { get; set; }
+        public string ItemType { get; set; }
         public string Description { get; set; }
         public int OnHandQty { get; set; }
         public string Name { get; set; }
@@ -61,7 +61,7 @@ namespace DataObjects
         public bool ValidateItemTypeID()
         {
             bool isValid = true;
-            if (ItemTypeID == null || ItemTypeID.Length > 15 || ItemTypeID.Length == 0)
+            if (ItemType == null || ItemType.Length > 15 || ItemType.Length == 0)
             {
                 isValid = false;
             }

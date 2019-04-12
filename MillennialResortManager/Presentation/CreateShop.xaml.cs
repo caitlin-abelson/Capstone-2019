@@ -66,7 +66,7 @@ namespace Presentation
             {
                 if ((String)this.btnSubmit.Content == "Submit")
                 {
-                    newShop.RoomID = Int32.Parse(this.cboRoomID.SelectedValue.ToString());
+                    newShop.RoomID =((Room)cboRoomID.SelectedValue).RoomID;
                     newShop.Name = this.txtName.Text;
                     newShop.Description = this.txtDescription.Text;
                     int shopID = _shopManager.InsertShop(newShop);
@@ -158,7 +158,7 @@ namespace Presentation
             }
             foreach (var room in roomIDs)
             {
-                cboRoomID.Items.Add(room.RoomID);
+                cboRoomID.Items.Add(room);
             }
         }
 

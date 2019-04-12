@@ -35,5 +35,14 @@ namespace DataObjects
         public int OfferingID { get; set; }
         public string RoomStatus { get; set; }
         public int ResortPropertyID { get; set; }
+
+        public override string ToString()
+        {
+            string thing = "";
+            thing += Building + " Room "+RoomNumber;
+            return thing;
+        }
     }
+
+    
 }
