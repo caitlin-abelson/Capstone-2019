@@ -3296,8 +3296,8 @@ namespace Presentation
         /// </summary>
         private void BrowsePerformanceDoOnStart()
         {
-            setupWindowPerformance();
             performanceManager = new PerformanceManager();
+            setupWindowPerformance();
         }
 
         private void dgPerformaces_SelectionChanged(object sender, SelectionChangedEventArgs e)

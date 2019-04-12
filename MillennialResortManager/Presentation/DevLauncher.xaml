@@ -1536,7 +1536,7 @@
                     <Label x:Name="lblReceiving" Content="Receiving Tickets:" VerticalAlignment="Center" HorizontalAlignment="Left"></Label>
                 </Grid>
                 <Grid Grid.Row="1">
-                    <DataGrid x:Name="dgReceiving" MouseDoubleClick="dgReceiving_MouseDoubleClick" AutoGeneratingColumn="dgReceiving_AutoGeneratingColumn" >
+                    <DataGrid x:Name="dgReceiving" MouseDoubleClick="dgReceiving_MouseDoubleClick" AutoGeneratingColumn="dgReceiving_AutoGeneratingColumn" IsReadOnly="True">
 
                     </DataGrid>
                 </Grid>
