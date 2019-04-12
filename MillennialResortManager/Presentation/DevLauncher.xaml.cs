@@ -278,7 +278,7 @@ namespace Presentation
                 {
                     //This person has no assigned roles or his roles are messed up.
                     //NavBarSubHeaderMaintenanceTypes.Visibility = Visibility.Collapsed;
-                    NavBarSubHeaderMaintenanceWorkOrders.Visibility = Visibility.Collapsed;
+                    //NavBarSubHeaderMaintenanceWorkOrders.Visibility = Visibility.Collapsed;
                 }
             }
             else if (_employee.DepartmentID == "Events")
@@ -4362,7 +4362,11 @@ namespace Presentation
             {
                 (e.Column as DataGridTextColumn).Binding.StringFormat = "MM/dd/yy";
             }
-
+            string headerName = e.Column.Header.ToString();
+            if (headerName == "SponsorID")
+            {
+                e.Cancel = true;
+            }
         }
 
         private void btnClearFiltersBrowseSponsor_Click(object sender, RoutedEventArgs e)

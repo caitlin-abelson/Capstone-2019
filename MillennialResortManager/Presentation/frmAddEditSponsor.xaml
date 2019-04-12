@@ -41,8 +41,8 @@
                     <ColumnDefinition MinWidth="120"/>
                 </Grid.ColumnDefinitions>
                 <Label x:Name="lblError" Grid.ColumnSpan="4" HorizontalAlignment="Center" VerticalAlignment="Top" Foreground="Red" />
-                <Label Grid.Column="1" Content="Sponsor ID: " HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="16" FontWeight="Bold" Margin="0,0,15,0" />
-                <TextBox x:Name="txtSponsorID" Grid.Column="2"  VerticalAlignment="Center" FontSize="16" FontWeight="Bold" Margin="0,0,15,0"/>
+                <!--<Label Grid.Column="1" Content="Sponsor ID: " HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="16" FontWeight="Bold" Margin="0,0,15,0" />
+                <TextBox x:Name="txtSponsorID" Grid.Column="2"  VerticalAlignment="Center" FontSize="16" FontWeight="Bold" Margin="0,0,15,0"/>-->
             </Grid>
 
             <Grid x:Name="grdGuests" Grid.Row="2">
