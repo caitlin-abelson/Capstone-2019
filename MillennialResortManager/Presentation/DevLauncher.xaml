@@ -506,7 +506,16 @@
                     <Button Grid.Column="3" Content="Filter" x:Name="btnFilter" Margin="5" Click="btnFilterBuilding_Click" />
                     <Button Grid.Column="4" Content="Clear" x:Name="btnClearFiltersBuilding" Margin="5" Click="btnClearFiltersBuilding_Click" />
                 </Grid>
-                <DataGrid Grid.Row="1" x:Name="dgBuildings"   VerticalGridLinesBrush="{x:Null}" SelectionMode="Single" AlternatingRowBackground="#FF3DD8CA" RowBackground="LightGoldenrodYellow" IsReadOnly="True" MouseDoubleClick="dgBuildings_MouseDoubleClick" />
+                <DataGrid Grid.Row="1" x:Name="dgBuildings"   VerticalGridLinesBrush="{x:Null}" SelectionMode="Single" 
+                          IsReadOnly="True" AutoGenerateColumns="False"
+                          ItemsSource="{Binding}" MouseDoubleClick="dgBuildings_MouseDoubleClick">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Building ID" Binding="{Binding BuildingID}"/>
+                        <DataGridTextColumn Header="Name" Binding="{Binding Name}"/>
+                        <DataGridTextColumn Header="Address" Binding="{Binding Address}"/>
+                        <DataGridTextColumn Header="Status" Binding="{Binding StatusID}"/>
+                    </DataGrid.Columns>
+                </DataGrid>
                 <Grid Grid.Row="2" Style="{StaticResource BottomBar}">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition/>
