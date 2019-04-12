@@ -29,6 +29,11 @@ namespace Presentation
         IMemberManager _memberManager;
         Reservation _existingReservation;
 
+        private List<Member> _currentMembers;
+        Member _selectedMember = new Member();
+
+
+
         /// <summary>
         /// Author: Matt LaMarche
         /// Created : 1/24/2019
@@ -49,7 +54,7 @@ namespace Presentation
             {
                 SetError(ex.Message);
             }
-            cboMembers.ItemsSource = _members;
+            //txtMembers.ItemsSource = _members;
             chkActive.Visibility = Visibility.Hidden;
             chkActive.IsChecked = true;
             _existingReservation = null;
@@ -76,7 +81,7 @@ namespace Presentation
             {
                 SetError(ex.Message);
             }
-            cboMembers.ItemsSource = _members;
+            //txtMembers.ItemsSource = _members;
             _existingReservation = existingReservation;
             populateFormReadOnly();
         }
@@ -88,16 +93,16 @@ namespace Presentation
         /// </summary>
         private void populateFormReadOnly()
         {
-            txtNumGuests.Text = ""+ _existingReservation.NumberOfGuests;
-            txtNumPets.Text = ""+_existingReservation.NumberOfPets;
+            txtNumGuests.Text = "" + _existingReservation.NumberOfGuests;
+            txtNumPets.Text = "" + _existingReservation.NumberOfPets;
             txtNotes.Text = _existingReservation.Notes;
             dtpArrivalDate.Text = _existingReservation.ArrivalDate.ToString("MM/dd/yyyy");
             dtpDepartureDate.Text = _existingReservation.DepartureDate.ToString("MM/dd/yyyy");
-            cboMembers.SelectedItem = _members.Find(x=>x.MemberID == _existingReservation.MemberID);
+            //txtMembers.SelectedItem = _members.Find(x=>x.MemberID == _existingReservation.MemberID);
             chkActive.IsChecked = _existingReservation.Active;
             setReadOnly();
             btnSave.Content = "Update";
-                    }
+        }
 
         /// <summary>
         /// Author: Matt LaMarche
@@ -111,7 +116,7 @@ namespace Presentation
             txtNotes.IsReadOnly = true;
             dtpArrivalDate.IsEnabled = false;
             dtpDepartureDate.IsEnabled = false;
-            cboMembers.IsEnabled = false;
+            txtMembers.IsEnabled = false;
             btnAddNewMember.Visibility = Visibility.Hidden;
             chkActive.Visibility = Visibility.Hidden;
         }
@@ -128,7 +133,7 @@ namespace Presentation
             txtNotes.IsReadOnly = false;
             dtpArrivalDate.IsEnabled = true;
             dtpDepartureDate.IsEnabled = true;
-            cboMembers.IsEnabled = true;
+            txtMembers.IsReadOnly = false;
             btnSave.Content = "Submit";
             chkActive.Visibility = Visibility.Visible;
             btnAddNewMember.Visibility = Visibility.Visible;
@@ -143,13 +148,14 @@ namespace Presentation
         {
             if (((string)btnSave.Content) == "Submit")
             {
+
                 if (!ValidateInput())
                 {
                     return;
                 }
                 Reservation newReservation = new Reservation
                 {
-                    MemberID = ((Member)cboMembers.SelectedItem).MemberID,      // Validated
+                    //MemberID = ((Member)txtMembers.SelectedItem).MemberID,      // Validated
                     NumberOfGuests = int.Parse(txtNumGuests.Text),              // Validated
                     NumberOfPets = int.Parse(txtNumPets.Text),                  // Validated
                     ArrivalDate = DateTime.Parse(dtpArrivalDate.Text),          // Validated
@@ -197,15 +203,15 @@ namespace Presentation
 
                 Close();
             }
-            else if(((string)btnSave.Content)=="Update")
+            else if (((string)btnSave.Content) == "Update")
             {
                 setEditable();
             }
             else
             {
-                MessageBox.Show(btnSave.Content.GetType() +" "+btnSave.Content);
+                MessageBox.Show(btnSave.Content.GetType() + " " + btnSave.Content);
             }
-            
+
         }
 
         /// <summary>
@@ -337,7 +343,12 @@ namespace Presentation
         {
             //Call IMemberManager.ValidateMember(MemberID)
             //throw new NotImplementedException();
-            if (!(cboMembers.SelectedIndex >= 0))
+            // if (!(txtMembers.SelectedIndex >= 0))
+            // {
+            // return false;
+            //}
+            //return true;
+            if (txtMembers.Text == null || txtMembers.Text == "")
             {
                 return false;
             }
@@ -401,10 +412,274 @@ namespace Presentation
         /// Created : 1/31/2019
         /// The function which runs when Add Member is clicked
         /// </summary>
+        /// <summary>
+        /// @Author: Phillip Hansen
+		/// Modification : Gunardi Saputra
+        /// Modified: 04/11/2019
+        /// Button grabs text from the text box, displays a window that:
+        /// 1) Opens a window with a grid for Members
+        /// 2) Grid is filtered with the input from the textbox and that only
+        /// 3) If the requested member exists, or is created if not, the member should be selected and make the fields valid
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnAddNewMember_Click(object sender, RoutedEventArgs e)
         {
-            //Launch the createNewMember window when it is done
-            MessageBox.Show("This feature is still in production");
+
+            if (txtMembers != null)
+            {
+                 FilterMembers();
+
+                var form = new ViewAccount(txtMembers.Text);
+                var result = form.ShowDialog();
+
+                if(result == true)
+                {
+                    var member = form._selectedMember;
+                    //populate fields on this form
+                }
+
+            }
+
+        }// end buttonAdd
+
+        /// <summary>
+        /// Author: Gunardi Saputra
+        /// Created: 04/11/2019
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void TxtMembers_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            BrowseMemberDoOnStart();
         }
+
+        /// <summary>
+        /// Author: Ramesh Adhikari
+        /// Created On: 02/22/2019
+        /// </summary>
+        private void dgMember_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
+        {
+
+
+            string headerName = e.Column.Header.ToString();
+
+            if (headerName == "FirstName")
+            {
+                e.Cancel = true;
+            }
+            if (headerName == "LastName")
+            {
+                e.Cancel = true;
+            }
+            if (headerName == "PhoneNumber")
+            {
+                e.Cancel = true;
+            }
+            if (headerName == "Email")
+            {
+                e.Cancel = true;
+            }
+            if (headerName == "Password")
+            {
+                e.Cancel = true;
+            }
+
+
+
+        }
+
+        /// <summary>
+        /// Author: Matt LaMarche
+        /// Modification: Gunardi Saputra
+        /// Created: 04/11/2019
+        /// </summary>
+        private void BrowseMemberDoOnStart()
+        {
+            _memberManager = new MemberManagerMSSQL();
+            _selectedMember = new Member();
+            populateMembers();
+            var window = new ViewAccount();
+            window.ShowDialog();
+        }
+
+        /// <summary>
+        /// Author: Ramesh Adhikari
+        /// Created On: 02/22/2019
+        /// When user clicks cancel reload the grids
+        /// </summary>
+        private void btnFilterBrowseMembers_Click(object sender, RoutedEventArgs e)
+        {
+            FilterMembers();
+        }
+
+
+        /// <summary>
+        /// Author: Ramesh Adhikari
+        /// Created On: 02/22/2019
+        /// Populate the members
+        /// </summary>
+        private void populateMembers()
+        {
+            try
+            {
+
+                _members = _memberManager.RetrieveAllMembers();
+
+                if (_currentMembers == null)
+                {
+                    _currentMembers = _members;
+                }
+                dgMember.ItemsSource = _currentMembers;
+
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+
+        /// <summary>
+        /// Author: Ramesh Adhikari
+        /// Created On: 02/22/2019
+        /// when click on add member a new empty form will displays
+        /// </summary>
+
+
+        /// <summary>
+        /// Author: Ramesh Adhikari
+        /// Created On: 02/22/2019
+        /// Filters search for the first name of the member and displays the result
+        /// </summary>
+        public void FilterMembers()
+        {
+            try
+            {
+                _currentMembers = _members;
+
+                if (txtMembers.Text.ToString() != "")
+                {
+                    _currentMembers = _currentMembers.FindAll(s => s.FirstName.ToLower().Contains(txtMembers.Text.ToString().ToLower()));
+
+                }
+
+
+                if (btnActive.IsChecked == true)
+                {
+                    _currentMembers = _currentMembers.FindAll(s => s.Active.Equals(btnInActive.IsChecked));
+
+                }
+                else if (btnInActive.IsChecked == true)
+                {
+                    _currentMembers = _currentMembers.FindAll(s => s.Active.Equals(btnActive.IsChecked));
+                }
+
+
+                //_currentMembers = _currentMembers.FindAll(s => s.Active.Equals(btnActive.IsChecked));
+
+
+
+
+
+                dgMember.ItemsSource = _currentMembers;
+
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// Author: Ramesh Adhikari
+        /// Created On: 02/22/2019
+        /// </summary>
+        /// 
+        private void btnClearBrowseMembers_Click(object sender, RoutedEventArgs e)
+        {
+            _currentMembers = _members;
+            dgMember.ItemsSource = _currentMembers;
+        }
+
+        private void btnAddMember_Click(object sender, RoutedEventArgs e)
+        {
+
+            var createMemberForm = new frmAccount();
+            var formResult = createMemberForm.ShowDialog();
+
+            if (formResult == true)
+            {
+
+                try
+                {
+                    _currentMembers = null;
+                    _members = _memberManager.RetrieveAllMembers();
+
+                    if (_currentMembers == null)
+                    {
+                        _currentMembers = _members;
+                    }
+                    dgMember.ItemsSource = _currentMembers;
+
+                }
+                catch (Exception ex)
+                {
+
+                    MessageBox.Show(ex.Message);
+                }
+            }
+
+        }
+
+        /// <summary>
+        /// Author: Gunardi Saputra
+        /// Created: 04/10/2019
+        /// Open the member browser directly
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void dgMember_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+
+            ViewSelectedRecord();
+
+        }
+
+        /// <summary>
+        /// Author: Gunardi Saputra
+        /// Created: 04/11/2019
+        /// Display data for selected member
+        /// </summary>
+        public void ViewSelectedRecord()
+        {
+            var member = (Member)dgMember.SelectedItem;
+            var viewMemberForm = new frmAccount(member);
+            var result = viewMemberForm.ShowDialog();
+            if (result == true)
+            {
+
+                try
+                {
+                    _currentMembers = null;
+                    _members = _memberManager.RetrieveAllMembers();
+
+                    if (_currentMembers == null)
+                    {
+                        _currentMembers = _members;
+                    }
+                    dgMember.ItemsSource = _currentMembers;
+
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+
+            }
+        }
+
     }
 }

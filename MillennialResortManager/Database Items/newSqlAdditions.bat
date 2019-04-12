@@ -7,6 +7,7 @@ rem This is the name you change. _____.sql Your file name goes in the blank. ex.
 sqlcmd -S localhost -E -i new_sql_additions/Eduardo.sql
 
 
+
 ECHO .
 ECHO If no errors appeared, your new additions were created without error.
 PAUSE

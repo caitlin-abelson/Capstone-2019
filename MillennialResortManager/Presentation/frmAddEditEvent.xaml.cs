@@ -589,5 +589,10 @@ namespace WpfPresentation
                 
             }
         }
+
+        private void TxtEventSponsor_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
     }
 }

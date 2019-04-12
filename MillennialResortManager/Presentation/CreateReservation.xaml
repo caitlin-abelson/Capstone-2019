@@ -41,7 +41,10 @@
                 </Grid.ColumnDefinitions>
                 <Label x:Name="lblError" Grid.ColumnSpan="4" HorizontalAlignment="Center" VerticalAlignment="Top" Foreground="Red" />
                 <Label Grid.Column="1" Content="Member: " HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="16" FontWeight="Bold" Margin="0,0,15,0" />
-                <ComboBox x:Name="cboMembers" Grid.Column="2" VerticalAlignment="Center" FontSize="16" Margin="0,0,15,0"/>
+                <TextBox x:Name="txtMembers" Grid.Column="2" VerticalAlignment="Center" FontSize="16" Margin="0,0,15,0"/>
+                
+                
+                
                 <Button x:Name="btnAddNewMember" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center" Content="Add Member" FontSize="16" FontWeight="Bold" Padding="5,1" MinWidth="120" Click="btnAddNewMember_Click"/>
             </Grid>
             <Grid x:Name="grdGuests" Grid.Row="2">
@@ -105,5 +108,94 @@
                 <Button Grid.Column="2" x:Name="btnCancel" Margin="8" Content="Cancel"  Click="btnCancel_Click" MaxWidth="150"/>
             </Grid>
         </Grid>
+
+        <!-- Browse Members Page-->
+        <!-- 
+                 Updated By: Caitlin Abelson
+                 Date: 2019-21-03
+            
+                 Made XAML more uniform to match button controls.
+                 Added view button.
+            -->
+        <Grid x:Name="BrowseMembersPage" Visibility="Hidden">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="200*"/>
+                <ColumnDefinition Width="53*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="55"></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition Height="55"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0" Grid.ColumnSpan="2" Style="{StaticResource FilterBar}">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="40" />
+                        <RowDefinition />
+                        <RowDefinition Height="40" />
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition Width="175"/>
+                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition Width="200"/>
+                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition Width="100"/>
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Column="0" Content="InActive" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                        <RadioButton x:Name="btnInActive" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="5" />
+                        <Label Grid.Column="1" Content="Active" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" />
+                        <RadioButton x:Name="btnActive" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="5" IsChecked="True" />
+                        <Label Grid.Column="4" Content="Member Name: " HorizontalAlignment="Right" VerticalContentAlignment="Center" />
+                        <TextBox x:Name="txtSearchBrowseMembers" Grid.Column="5"  HorizontalContentAlignment="Center" Text="" Margin="5"/>
+                        <Button x:Name="btnFilterBrowseMembers" Grid.Column="6" Margin="5" Content="Filter" Click="btnFilterBrowseMembers_Click" />
+                        <Button x:Name="btnClearBrowseMembers" Grid.Column="7" Margin="5" Content="Clear" Click="btnClearBrowseMembers_Click"  />
+                    </Grid>
+                </Grid>
+            </Grid>
+            <DataGrid  x:Name="dgMember" VerticalGridLinesBrush="{x:Null}" SelectionMode="Single"
+                     
+                   IsReadOnly="True" AutoGenerateColumns="False"  ItemsSource="{Binding}"
+                    Grid.ColumnSpan="2" Margin="0,50,0,5" Grid.RowSpan="2"  MouseDoubleClick="dgMember_MouseDoubleClick" >
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="First Name" Binding="{Binding FirstName}" Width="100"/>
+                    <DataGridTextColumn Header="Last Name" Binding="{Binding LastName}"  Width="100"/>
+                    <DataGridTextColumn Header="Phone Number" Binding="{Binding PhoneNumber}"  Width="100" />
+                    <DataGridTextColumn Header="Email" Binding="{Binding Email}" Width="*"/>
+                </DataGrid.Columns>
+            </DataGrid>
+            <Grid Grid.Row="2" Grid.ColumnSpan="2" Style="{StaticResource BottomBar}">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="40" />
+                        <RowDefinition />
+                        <RowDefinition Height="40" />
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition />
+                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition Width="100"/>
+                        </Grid.ColumnDefinitions>
+                        <Button x:Name="btnViewMember" Content="View" Margin="5" Grid.Column="2"/>
+                        <Button x:Name="btnAddMember" Content="Add Member" Grid.Column="3"  Margin="5" Click="btnAddMember_Click"  />
+
+                    </Grid>
+                </Grid>
+            </Grid>
+        </Grid>
+
+
+
+
+
+
+
     </Grid>
+
 </Window>
