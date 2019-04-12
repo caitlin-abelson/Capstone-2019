@@ -321,5 +321,27 @@ namespace DataAccessLayer
             return rows;
         }
 
+        /// <summary>
+        /// Kevin Broskow
+        /// Created: 04/11/2019
+        /// 
+        /// Update a line in a special order.
+        /// </summary>
+        public void UpdateSpecialOrderLine(List<SpecialOrderLine> specialOrderLines)
+        {
+            var conn = DBConnection.GetDbConnection();
+            var cmdText = "sp_update_special_order_lines";
+
+            var cmd = new SqlCommand(cmdText, conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            foreach (var line in specialOrderLines)
+            {
+                cmd.Parameters.AddWithValue("@SpecialOrderID", line.SpecialOrderID);
+                cmd.Parameters.AddWithValue("@ItemID", line.ItemID);
+                cmd.Parameters.AddWithValue("@QtyReceived", line.QtyReceived);
+                cmd.ExecuteNonQuery();
+            }
+            
+        }
     }
 }

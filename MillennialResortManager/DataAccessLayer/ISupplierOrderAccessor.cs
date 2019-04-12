@@ -29,5 +29,6 @@ namespace DataAccessLayer
         SupplierOrder RetrieveSupplierOrderByID(int supplierOrderID);
 
         void CompleteSupplierOrder(int supplierOrderID);
+        int SelectSupplierItemIDByItemAndSupplier(int itemID, int supplierID);
     }
 }

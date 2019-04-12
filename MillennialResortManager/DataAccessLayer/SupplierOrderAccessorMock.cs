@@ -307,5 +307,10 @@ namespace DataAccessLayer
         {
             throw new NotImplementedException();
         }
+
+        public int SelectSupplierItemIDByItemAndSupplier(int itemID, int supplierID)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

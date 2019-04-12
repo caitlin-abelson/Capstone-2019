@@ -163,7 +163,21 @@ namespace LogicLayer
             }
             return result;
         }
+        public int RetrieveSupplierItemID(int ItemID, int SupplierID)
+        {
+            int supplierItemID;
+            try
+            {
+                supplierItemID = _supplierOrderManager.SelectSupplierItemIDByItemAndSupplier(ItemID, SupplierID);
+            }
+            catch (Exception ex)
+            {
 
+                throw ex;
+            }
+            
+            return supplierItemID;
+        }
         public SupplierOrder RetrieveSupplierOrderByID(int supplierOrderID)
         {
             SupplierOrder order = new SupplierOrder();

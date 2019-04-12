@@ -172,6 +172,7 @@ namespace DataAccessLayer
                         itemSupplier.ItemType = reader["ItemTypeID"].ToString();
                         itemSupplier.OnHandQty = reader.GetInt32(reader.GetOrdinal("OnHandQuantity"));
                         itemSupplier.ReorderQty = reader.GetInt32(reader.GetOrdinal("ReOrderQuantity"));
+                        itemSupplier.SupplierItemID = reader.GetInt32(reader.GetOrdinal("SupplierItemID"));
                         itemSuppliers.Add(itemSupplier);
 
                     }
@@ -414,6 +415,39 @@ namespace DataAccessLayer
 
                 throw ex;
             }
+        }
+
+        /// <summary>
+        /// Kevin Broskow
+        /// Created 4/2/209
+        /// Returns supplierItemID for supplierOrders
+        /// </summary>
+        /// <returns>
+        /// void
+        /// </returns> 
+        public int SelectSupplierItemIDByItemAndSupplier(int itemID, int supplierID)
+        {
+            int supplierItemID;
+            var conn = DBConnection.GetDbConnection();
+            var cmdText = "sp_select_supplier_item_by_item_and_supplier";
+            var cmd = new SqlCommand(cmdText, conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            try
+            {
+                conn.Open();
+
+                supplierItemID = (int)cmd.ExecuteScalar();
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+
+
+            return supplierItemID;
+
         }
     }
 

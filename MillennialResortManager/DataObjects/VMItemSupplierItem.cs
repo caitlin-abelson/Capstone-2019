@@ -11,7 +11,7 @@ namespace DataObjects
     {
         public int ItemID { get; set; }
         public int SupplierID { get; set; }
-
+        public int SupplierItemID { get; set; }
         public bool PrimarySupplier { get; set; }
 
         public int LeadTimeDays { get; set; }

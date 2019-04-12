@@ -28,7 +28,7 @@ namespace Presentation
     {
         private SupplierOrderManager _supplierOrderManager = new SupplierOrderManager();
         private SupplierManager _supplierManager = new SupplierManager();
-        private ProductManagerMSSQL _itemManager = new ProductManagerMSSQL();
+        private ItemManager _itemManager = new ItemManager();
         private ItemSupplierManager _itemSupplierManager = new ItemSupplierManager();
         //private Product _item;
 
@@ -124,7 +124,7 @@ namespace Presentation
                 cboSupplierItems.Items.Clear();
                 foreach (VMItemSupplierItem itemSupplier in _itemSuppliers)
                 {
-                    cboSupplierItems.Items.Add(itemSupplier.ItemID + " " + itemSupplier.Description);
+                    cboSupplierItems.Items.Add(itemSupplier.ItemID + " " + itemSupplier.Description + " " + itemSupplier.SupplierItemID);
                 }
             }
             catch (Exception ex)
@@ -315,6 +315,7 @@ namespace Presentation
             this.txtUnitPrice.Text = _itemSupplier.UnitPrice.ToString("c");
 
             _supplierOrderLine.ItemID = _itemSupplier.ItemID;
+            _supplierOrderLine.SupplierItemID = _itemSupplier.SupplierItemID;
             _supplierOrderLine.UnitPrice = _itemSupplier.UnitPrice;
             _supplierOrderLine.Description = _itemSupplier.Description;
 
@@ -340,6 +341,7 @@ namespace Presentation
             _supplierOrderLine.ItemID = _itemSupplier.ItemID;
             _supplierOrderLine.UnitPrice = _itemSupplier.UnitPrice;
             _supplierOrderLine.Description = _itemSupplier.Description;
+            _supplierOrderLine.SupplierItemID = _itemSupplier.SupplierItemID;
 
             this.lblItemDescription.Visibility = Visibility.Visible;
             this.txtItemDescription.Visibility = Visibility.Visible;

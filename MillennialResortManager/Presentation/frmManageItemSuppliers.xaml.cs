@@ -26,7 +26,7 @@ namespace Presentation
     public partial class frmManageItemSuppliers : Window
     {
         private ItemSupplierManager _itemSupplierManager = new ItemSupplierManager();
-        private Product _item;
+        private Item _item;
         private List<ItemSupplier> _itemSuppliers;
         private ItemSupplier _itemSupplier;
 
@@ -34,7 +34,7 @@ namespace Presentation
         {
             InitializeComponent();
         }
-        public frmManageItemSuppliers(Product item)
+        public frmManageItemSuppliers(Item item)
         {
             _item = item;
             InitializeComponent();
@@ -47,11 +47,11 @@ namespace Presentation
             this.Close();
         }
 
-        private void LoadControls(Product item)
+        private void LoadControls(Item item)
         {
-            this.Title = "Item Supplier Management for Item# " + item.ProductID;
+            this.Title = "Item Supplier Management for Item# " + item.ItemID;
             this.txtTitle.Text = this.Title;
-            this.lblItemID.Content = item.ProductID;
+            this.lblItemID.Content = item.ItemID;
             this.txtDescription.Text = item.Description;
             this.txtName.Text = item.Name;
         }
@@ -59,7 +59,7 @@ namespace Presentation
         {
             try
             {
-                _itemSuppliers = _itemSupplierManager.RetrieveAllItemSuppliersByItemID(_item.ProductID);
+                _itemSuppliers = _itemSupplierManager.RetrieveAllItemSuppliersByItemID(_item.ItemID);
                 
             }
             catch (Exception ex)
