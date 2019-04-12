@@ -272,12 +272,12 @@ namespace Presentation
                 else if (_employee.EmployeeRoles.Count(x => x.RoleID == "Worker") > 0)
                 {
                     //This employee is not an Admin or a Manager so hide all admin/manager things within Maintenance Pages
-                    NavBarSubHeaderMaintenanceTypes.Visibility = Visibility.Collapsed;
+                    //NavBarSubHeaderMaintenanceTypes.Visibility = Visibility.Collapsed;
                 }
                 else
                 {
                     //This person has no assigned roles or his roles are messed up.
-                    NavBarSubHeaderMaintenanceTypes.Visibility = Visibility.Collapsed;
+                    //NavBarSubHeaderMaintenanceTypes.Visibility = Visibility.Collapsed;
                     NavBarSubHeaderMaintenanceWorkOrders.Visibility = Visibility.Collapsed;
                 }
             }
@@ -328,11 +328,11 @@ namespace Presentation
                     NavBarSubHeaderGuests.Visibility = Visibility.Collapsed;
                     NavBarSubHeaderGuestVehicles.Visibility = Visibility.Collapsed;
                     NavBarSubHeaderPets.Visibility = Visibility.Collapsed;
-                    NavBarSubHeaderReservation.Visibility = Visibility.Collapsed;
-                    NavBarSubHeaderRooms.Visibility = Visibility.Collapsed;
+                    //NavBarSubHeaderReservation.Visibility = Visibility.Collapsed;
+                    //NavBarSubHeaderRooms.Visibility = Visibility.Collapsed;
                     NavBarSubHeaderMembers.Visibility = Visibility.Collapsed;
                     NavBarSubHeaderShuttleVehicles.Visibility = Visibility.Collapsed;
-                    NavBarSubHeaderFrontDesk.Visibility = Visibility.Collapsed;
+                    //NavBarSubHeaderFrontDesk.Visibility = Visibility.Collapsed;
                     NavBarSubHeaderShuttleReservation.Visibility = Visibility.Collapsed;
                 }
             }

@@ -63,7 +63,7 @@
                         <MenuItem Header="Recipes" x:Name="NavBarSubHeaderRecipes" x:Uid="NBRecipes" Click="NavBarSubHeaderRecipes_Click"/>
                     </MenuItem>
                     <MenuItem Header="_Maintenance" x:Name="_NavBarHeaderMaintenance" Style="{StaticResource NavBarHeader}" >
-                        <MenuItem Header="MaintenanceTypes" x:Name="NavBarSubHeaderMaintenanceTypes" x:Uid="NBMaintenanceTypes" Click="NavBarSubHeaderMaintenanceTypes_Click"/>
+                        <!--<MenuItem Header="MaintenanceTypes" x:Name="NavBarSubHeaderMaintenanceTypes" x:Uid="NBMaintenanceTypes" Click="NavBarSubHeaderMaintenanceTypes_Click"/>-->
                         <MenuItem Header="Maintenance Orders" x:Name="NavBarSubHeaderMaintenanceWorkOrders" x:Uid="NBMaintenanceWorkOrders" Click="NavBarSubHeaderMaintenanceWorkOrder_Click"/>
                     </MenuItem>
                     <MenuItem Header="_Ordering" x:Name="_NavBarHeaderOrdering" Style="{StaticResource NavBarHeader}" >
@@ -78,13 +78,13 @@
                     <MenuItem Header="_Resort Ops" x:Name="_NavBarHeaderResortOperations" Style="{StaticResource NavBarHeader}" >
                         <MenuItem Header="Appointment Types" x:Name="NavBarSubHeaderAppointmentTypes" x:Uid="NBAppointmentTypes" Click="NavBarSubHeaderAppointmentTypes_Click"/>
                         <MenuItem Header="Guests" x:Name="NavBarSubHeaderGuests" x:Uid="NBGuests" Click="NavBarSubHeaderGuests_Click"/>
-                        <MenuItem Header="Reservation" x:Name="NavBarSubHeaderReservation" x:Uid="NBReservation" Click="NavBarSubHeaderReservation_Click" />
+                        <!--<MenuItem Header="Reservation" x:Name="NavBarSubHeaderReservation" x:Uid="NBReservation" Click="NavBarSubHeaderReservation_Click" />-->
                         <MenuItem Header="Guest Vehicles" x:Name="NavBarSubHeaderGuestVehicles" x:Uid="NBGuestVehicles" Click="NavBarSubHeaderGuestVehicles_Click"/>
                         <MenuItem Header="Pets" x:Name="NavBarSubHeaderPets" x:Uid="NBPets" Click="NavBarSubHeaderPets_Click"/>
-                        <MenuItem Header="Rooms" x:Name="NavBarSubHeaderRooms" x:Uid="NBRooms" Click="NavBarSubHeaderRooms_Click"/>
+                        <!--<MenuItem Header="Rooms" x:Name="NavBarSubHeaderRooms" x:Uid="NBRooms" Click="NavBarSubHeaderRooms_Click"/>-->
                         <MenuItem Header="Members" x:Name="NavBarSubHeaderMembers" x:Uid="NBMembers" Click="NavBarSubHeaderMembers_Click"/>
                         <MenuItem Header="Shuttle Vehicles" x:Name="NavBarSubHeaderShuttleVehicles" x:Uid="NBShuttleVehicles" Click="NavBarSubHeaderManageShuttleVehicles_OnClick"/>
-                        <MenuItem Header="Front Desk" x:Name="NavBarSubHeaderFrontDesk" x:Uid="NBFrontDesk" Click="NavBarSubHeaderFrontDesk_OnClick"/>
+                        <!--<MenuItem Header="Front Desk" x:Name="NavBarSubHeaderFrontDesk" x:Uid="NBFrontDesk" Click="NavBarSubHeaderFrontDesk_OnClick"/>-->
                         <MenuItem Header="Shuttle Reservation" x:Name="NavBarSubHeaderShuttleReservation" x:Uid="NBShuttleReservation" Click="NavBarSubHeaderShuttleReservation_OnClick"/>
                     </MenuItem>
                     <MenuItem Header="_Profile" x:Name="_NavBarHeaderProfile" Style="{StaticResource NavBarHeader}" >
@@ -593,7 +593,7 @@
                         <ColumnDefinition Width="100"/>
                         <ColumnDefinition Width="150"/>
                     </Grid.ColumnDefinitions>
-                    <Button x:Name="btnCancel" Grid.Column="0" Margin="5" Height="25" Content="Cancel" Click="BtnCancelEmployeeRole_Click" />
+                    <!--<Button x:Name="btnCancel" Grid.Column="0" Margin="5" Height="25" Content="Cancel" Click="BtnCancelEmployeeRole_Click" />-->
                     <Button x:Name="btnDeactivateEmployeeRole"  Grid.Column="6" Content="Deactivate/Delete" Margin="5" Height="25" Click="BtnDeactivateEmployeeRole_Click"/>
                     <Button x:Name="btnUpdateEmployeeRole" Grid.Column="5" Margin="5" Content="Read/Update" Height="25" Click="BtnUpdateEmployeeRole_Click" />
                     <!--
@@ -727,7 +727,7 @@
                 <Grid Grid.Row="1" Style="{StaticResource FilterBar}">
                     <Label>FILTERS TO BE ADDED</Label>
                 </Grid>
-                <DataGrid CanUserDeleteRows="True" x:Name="dgAppointmentTypes" Grid.Row="2"/>
+                <DataGrid CanUserDeleteRows="True" x:Name="dgAppointmentTypes" Grid.Row="2" IsReadOnly="True"/>
                 <Grid Grid.Row="3" Style="{StaticResource BottomBar}">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="100"></ColumnDefinition>
@@ -1009,91 +1009,38 @@
             <Grid x:Name="BrowseEventSponsorsListPage" Visibility="Hidden">
                 <Grid.RowDefinitions>
                     <RowDefinition/>
-                    <RowDefinition/>
                     <RowDefinition Height="8*"/>
                     <RowDefinition/>
                 </Grid.RowDefinitions>
-                <Grid Grid.Row="0">
-                    <Label Content="Browse Event Sponsors" VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="Bold" FontSize="16" />
-                </Grid>
-                <Grid Grid.Row="1" Style="{StaticResource FilterBar}">
+                <Grid Grid.Row="0" Style="{StaticResource FilterBar}">
                     <Label HorizontalAlignment="Left" VerticalAlignment="Center" Content="Filters Here" Grid.Column="1"/>
                 </Grid>
-                <DataGrid x:Name="dgEventSponsor" Grid.Row="2" VerticalGridLinesBrush="{x:Null}" SelectionMode="Single" IsReadOnly="True" MouseDoubleClick="dgEventSponsor_MouseDoubleClick" AutoGeneratingColumn="dgEventSponsor_AutoGeneratingColumn" />
-                <Grid Grid.Row="3" Style="{StaticResource BottomBar}">
+                <DataGrid x:Name="dgEventSponsor" Grid.Row="1" VerticalGridLinesBrush="{x:Null}" SelectionMode="Single" IsReadOnly="True" MouseDoubleClick="dgEventSponsor_MouseDoubleClick" AutoGeneratingColumn="dgEventSponsor_AutoGeneratingColumn" />
+                <Grid Grid.Row="2" Style="{StaticResource BottomBar}">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="100"></ColumnDefinition>
-                        <ColumnDefinition></ColumnDefinition>
-                        <ColumnDefinition Width="70"></ColumnDefinition>
-                        <ColumnDefinition Width="100"></ColumnDefinition>
-                        <ColumnDefinition Width="70"></ColumnDefinition>
+                        <ColumnDefinition Width="3*"/>
+                        <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
-                    <Button x:Name="btnDeleteEventSpons" Content="Delete" Width="50" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="4" Click="btnDeleteEventSpons_Click"/>
+                    <Button x:Name="btnDeleteEventSpons" Content="Delete" Grid.Column="1" Margin="5" Click="btnDeleteEventSpons_Click"/>
                 </Grid>
             </Grid>
             <!-- Browse Event Performances List Page-->
             <Grid x:Name="BrowseEventPerformancesListPage" Visibility="Hidden">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="30"></RowDefinition>
-                    <RowDefinition></RowDefinition>
-                    <RowDefinition Height="40"></RowDefinition>
+                    <RowDefinition/>
+                    <RowDefinition Height="8*"/>
+                    <RowDefinition/>
                 </Grid.RowDefinitions>
-                <Grid Grid.Row="0">
+                <Grid Grid.Row="0" Style="{StaticResource FilterBar}">
                     <Label Content="Browse Event Performances" VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="Bold" FontSize="16" />
                 </Grid>
-                <Grid Grid.Row="1">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="30"></RowDefinition>
-                        <RowDefinition Height="30"></RowDefinition>
-                        <RowDefinition></RowDefinition>
-                    </Grid.RowDefinitions>
-                    <Grid Grid.Row="0">
-                        <Label x:Name="lblListOfEventPerformances" Content="List Of Performed Events" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                    </Grid>
-                    <Grid Grid.Row="1">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="20"></ColumnDefinition>
-                            <ColumnDefinition Width="100"></ColumnDefinition>
-                            <ColumnDefinition></ColumnDefinition>
-                        </Grid.ColumnDefinitions>
-                        <Label HorizontalAlignment="Left" VerticalAlignment="Center" Content="Filters Here" Grid.Column="1"/>
-
-                    </Grid>
-                    <TabControl Grid.Row="2" x:Name="tabsetMainEventPerf">
-                        <TabItem Name="tabEventPerformance" Header="Event Performance">
-                            <Grid>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="40" />
-                                    <RowDefinition />
-                                    <RowDefinition Height="40" />
-                                </Grid.RowDefinitions>
-                                <Grid Grid.Row="0">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="100"/>
-                                        <ColumnDefinition />
-                                        <ColumnDefinition Width="120"/>
-                                        <ColumnDefinition Width="100"/>
-                                        <ColumnDefinition Width="200"/>
-                                        <ColumnDefinition Width="100"/>
-                                        <ColumnDefinition Width="100"/>
-                                    </Grid.ColumnDefinitions>
-                                </Grid>
-                                <Grid Grid.Row="1">
-                                    <DataGrid x:Name="dgEventPerformance" VerticalGridLinesBrush="{x:Null}" SelectionMode="Single" AlternatingRowBackground="#FF3DD8CA" RowBackground="LightGoldenrodYellow"  IsReadOnly="True" MouseDoubleClick="dgEventPerformance_MouseDoubleClick" AutoGeneratingColumn="dgEventPerformance_AutoGeneratingColumn" />
-                                </Grid>
-                            </Grid>
-                        </TabItem>
-                    </TabControl>
-                </Grid>
-                <Grid Grid.Row="2">
+                <DataGrid x:Name="dgEventPerformance" VerticalGridLinesBrush="{x:Null}" Grid.Row="1" SelectionMode="Single" IsReadOnly="True" MouseDoubleClick="dgEventPerformance_MouseDoubleClick" AutoGeneratingColumn="dgEventPerformance_AutoGeneratingColumn" />
+                <Grid Grid.Row="2" Style="{StaticResource BottomBar}">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="100"></ColumnDefinition>
-                        <ColumnDefinition></ColumnDefinition>
-                        <ColumnDefinition Width="70"></ColumnDefinition>
-                        <ColumnDefinition Width="100"></ColumnDefinition>
-                        <ColumnDefinition Width="70"></ColumnDefinition>
+                        <ColumnDefinition Width="3*"/>
+                        <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
-                    <Button x:Name="btnDeleteEventPerf" Content="Delete" Width="50" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="4" Click="btnDeleteEventPerf_Click"/>
+                    <Button x:Name="btnDeleteEventPerf" Content="Delete" Grid.Column="1" Margin="5" Click="btnDeleteEventPerf_Click"/>
                 </Grid>
             </Grid>
             <!-- Browse Events Page-->
@@ -1234,7 +1181,7 @@
                                 <ColumnDefinition Width="100"/>
 
                             </Grid.ColumnDefinitions>
-                            <Button Grid.Column="0" x:Name="btnCancelBrowseSupplierOrders" Content="Cancel" Margin="5" Click="BtnCancelBrowseSupplierOrders_Click"/>
+                            <!--<Button Grid.Column="0" x:Name="btnCancelBrowseSupplierOrders" Content="Cancel" Margin="5" Click="BtnCancelBrowseSupplierOrders_Click"/>-->
                             <Button Grid.Column="2" x:Name="btnAddOrder" Content="Add Order" Margin="5" Click="BtnAddOrder_Click" />
                             <Button Grid.Column="3" x:Name="btnViewOrder" Content="View Order" Margin="5"/>
                             <Button Grid.Column="4" x:Name="btnDeleteOrder" Content="Delete Order" Margin="5" Click="BtnDeleteOrder_Click" />
@@ -1440,7 +1387,7 @@
                                 <ColumnDefinition Width="100"/>
                                 <ColumnDefinition Width="100"/>
                             </Grid.ColumnDefinitions>
-                            <Button x:Name="btnCancelBrowseMembers" Content="Cancel" Grid.Column="0" Margin="5"  Click="btnCancelBrowseMembers_Click"  />
+                            <!--<Button x:Name="btnCancelBrowseMembers" Content="Cancel" Grid.Column="0" Margin="5"  Click="btnCancelBrowseMembers_Click"  />-->
                             <Button x:Name="btnViewMember" Content="View" Margin="5" Grid.Column="2"/>
                             <Button x:Name="btnAddMember" Content="Add Member" Grid.Column="3"  Margin="5" Click="btnAddMember_Click"  />
                             <Button x:Name="btnDeleteBrowseMembers" Content="Delete" Grid.Column="4"  Margin="5" Click="btnDeactivateBrowseMembers_Click" />
@@ -1571,7 +1518,7 @@
                         <ColumnDefinition/>
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
-                    <Button Grid.Column="0" Content="Cancel" x:Name="btnCancelMaintenanceWorkOrder" Margin="5" Click="btnCancelMaintenanceWorkOrder_Click"/>
+                    <!--<Button Grid.Column="0" Content="Cancel" x:Name="btnCancelMaintenanceWorkOrder" Margin="5" Click="btnCancelMaintenanceWorkOrder_Click"/>-->
                     <Button Grid.Column="3" Content="Add" x:Name="btnAddMaintenanceWorkOrder" Margin="5" Click="btnAddMaintenanceWorkOrder_Click" />
                     <Button Grid.Column="4" Content="View" x:Name="btnViewMaintenanceWorkOrder" Margin="5" Click="btnViewMaintenanceWorkOrder_Click"/>
                     <Button Grid.Column="5" Content="Delete" x:Name="btnDeleteMaintenanceWorkOrder" Margin="5" Click="btnDeleteMaintenanceWorkOrder_Click"/>
@@ -1600,7 +1547,7 @@
                         <ColumnDefinition></ColumnDefinition>
                         <ColumnDefinition></ColumnDefinition>
                     </Grid.ColumnDefinitions>
-                    <Button x:Name="Cancel" Click="Cancel_Click" Content="Cancel" Margin="10" Grid.Column="0"></Button>
+                    <!--<Button x:Name="Cancel" Click="Cancel_Click" Content="Cancel" Margin="10" Grid.Column="0"></Button>-->
                     <Button x:Name="Edit" Content="Edit" Margin="10" Grid.Column="3" Click="Edit_Click"></Button>
                     <Button x:Name="Complete" Content="Finish Ticket" Margin="10" Grid.Column="2" Click="Complete_Click" ></Button>
                 </Grid>
@@ -1649,7 +1596,7 @@
                     <Button x:Name="btnAddFrontDesk" Grid.Column="2" Content="Add New" Margin="10 15" Click="btnAddFrontDesk_Click"/>
                     <Button x:Name="btnUpdateFrontDesk" Grid.Column="3" Content="Edit" Margin="10 15" Click="btnUpdateFrontDesk_Click"/>
                     <Button x:Name="btnDelteFrontDesk" Grid.Column="4" Content="Delete" Margin="10 15" Click="btnDelteFrontDesk_Click"/>
-                    <Button x:Name="btnCancelFrontDesk" Grid.Column="5" Content="Cancel" Margin="10 15" Click="btnCancelFrontDesk_Click"/>
+                    <!--<Button x:Name="btnCancelFrontDesk" Grid.Column="5" Content="Cancel" Margin="10 15" Click="btnCancelFrontDesk_Click"/>-->
                 </Grid>
             </Grid>
             <!-- Created By: Jared Greenfield-->
