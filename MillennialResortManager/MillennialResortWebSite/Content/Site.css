@@ -246,6 +246,33 @@ header {
     }
 
 
+
+.jumbotronBackGroundRoomPage {
+    height: 350px;
+    background-repeat: no-repeat;
+    background-image: url(../Content/images/pier.jpg);
+    background-size: cover;
+    background-position: center center;
+}
+
+    .jumbotronBackGroundRoomPage h1 {
+        font-size: 55px;
+        font-family: 'Fugaz One', cursive;
+        text-shadow: 3px 3px #40798C;
+        color: #fff;
+    }
+
+    .jumbotronBackGroundRoomPage h2 {
+        font-size: 30px;
+        font-family: 'Fugaz One', cursive;
+        text-shadow: 3px 3px #40798C;
+        color: #fff;
+    }
+
+
+
+
+
 .carousel-inner {
     width: 500px;
     height: 300px;

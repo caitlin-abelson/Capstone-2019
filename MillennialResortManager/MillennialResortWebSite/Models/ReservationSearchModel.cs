@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace MillennialResortWebSite.Models
 {
@@ -21,9 +22,13 @@ namespace MillennialResortWebSite.Models
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MMM/yyyy}")]
         public DateTime endDate { get; set; }
 
-        [Required]
-        [Display(Name = "Number of Guests")]
+        //[Required]
+        //[Display(Name = "Number of Guests")]
         public int numberOfGuests { get; set; }
+
+        //   [Required]
+        //[Display(Name = "Number of Guests")]
+        //public IEnumerable<SelectListItem> numberOfGuests { get; set; }
 
     }
 

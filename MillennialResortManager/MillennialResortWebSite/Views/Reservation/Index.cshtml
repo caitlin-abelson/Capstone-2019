@@ -41,100 +41,123 @@
         <div class="container body-content">
             <div class="row">
                 @using (Html.BeginForm("Create", "Reservation"))
-                {
+                 {
                     @Html.AntiForgeryToken()
 
-                <div class="form-horizontal">
-                    <h2>Search Rooms</h2>
+                    <div class="form-horizontal">
+                        <h2>Search Rooms</h2>
 
-                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
 
-                    <div class="form-group">
+                        <div class="form-group">
 
-                        <div class="col-md-10">
-                            @Html.EditorFor(model => model.startDate, new { htmlAttributes = new { @class = "form-control", placeholder = "Start Date", @readonly = "true" } })
-                            @Html.ValidationMessageFor(model => model.startDate, "", new { @class = "text-danger" })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.startDate, new { htmlAttributes = new { @class = "form-control", placeholder = "Start Date", @readonly = "true" } })
+                                @Html.ValidationMessageFor(model => model.startDate, "", new { @class = "text-danger" })
+                            </div>
                         </div>
-                    </div>
 
 
-                    <div class="form-group">
+                        <div class="form-group">
 
-                        <div class="col-md-10">
-                            @Html.EditorFor(model => model.endDate, new { htmlAttributes = new { @class = "form-control", placeholder = "End Date", @readonly = "true" } })
-                            @Html.ValidationMessageFor(model => model.endDate, "", new { @class = "text-danger" })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.endDate, new { htmlAttributes = new { @class = "form-control", placeholder = "End Date", @readonly = "true" } })
+                                @Html.ValidationMessageFor(model => model.endDate, "", new { @class = "text-danger" })
+                            </div>
                         </div>
-                    </div>
 
 
-                    <div class="form-group">
-                        <div class="col-md-10">
-                            <select class="form-control Sleeps" name="guestCount">
-                                <option selected="">Number of Guests</option>
-                                <option value="2">2 Guests</option>
-                                <option value="3">3 Guests</option>
-                                <option value="4">4 Guests</option>
-                                <option value="5">5 Guests</option>
-                                <option value="6">6 Guests</option>
-                                <option value="7">7 Guests</option>
-                                <option value="8">8 Guests</option>
-                                <option value="9">9 Guests</option>
-                                <option value="10">10 Guests</option>
-                                <option value="11">11 Guests</option>
-                                <option value="12">12 Guests</option>
-                                <option value="13">13 Guests</option>
-                                <option value="14">14 Guests</option>
-                                <option value="15">15 Guests</option>
-                                <option value="16">16 Guests</option>
-                                <option value="17">17 Guests</option>
-                                <option value="18">18 Guests</option>
-                                <option value="19">19 Guests</option>
-                                <option value="20">20 Guests</option>
-                                <option value="25">25 Guests</option>
-                            </select>
+                        <div class="form-group">
+                            <div class="col-md-10">
+                                <select class="form-control" name="roomtype">
+                                    <option selected="">Property Types</option>
+                                    <option value="2">Bungalow Land</option>
+                                    <option value="3">Bungalow Overwater</option>
+                                    <option value="4">Beach House</option>
+                                    <option value="5">Royal Suite</option>
+                                    <option value="6">Hostel Hotel</option>
 
 
-                            @Html.ValidationMessageFor(model => model.numberOfGuests, "", new { @class = "text-danger" })
+                                </select>
 
+
+                                @*@Html.ValidationMessageFor(model => model.roomType, "", new { @class = "text-danger" })*@
+
+
+
+                            </div>
+                        </div>
+
+
+
+                        <div class="form-group">
+                            <div class="col-md-10">
+                                <select class="form-control Sleeps" name="guestCount">
+                                    <option selected="">Number of Guests</option>
+                                    <option value="2">2 Guests</option>
+                                    <option value="3">3 Guests</option>
+                                    <option value="4">4 Guests</option>
+                                    <option value="5">5 Guests</option>
+                                    <option value="6">6 Guests</option>
+                                    <option value="7">7 Guests</option>
+                                    <option value="8">8 Guests</option>
+                                    <option value="9">9 Guests</option>
+                                    <option value="10">10 Guests</option>
+                                    <option value="11">11 Guests</option>
+                                    <option value="12">12 Guests</option>
+                                    <option value="13">13 Guests</option>
+                                    <option value="14">14 Guests</option>
+                                    <option value="15">15 Guests</option>
+                                    <option value="16">16 Guests</option>
+                                    <option value="17">17 Guests</option>
+                                    <option value="18">18 Guests</option>
+                                    <option value="19">19 Guests</option>
+                                    <option value="20">20 Guests</option>
+                                    <option value="25">25 Guests</option>
+                                </select>
+
+
+                                @Html.ValidationMessageFor(model => model.numberOfGuests, "", new { @class = "text-danger" })
+
+
+
+                            </div>
 
 
                         </div>
-                    </div>
-
-                    <div class="form-group">
-                        <div class="col-md-10">
-                            <select class="form-control" name="roomtype">
-                                <option selected="">Property Types</option>
-                                <option value="2">Bungalow Land</option>
-                                <option value="3">Bungalow Overwater</option>
-                                <option value="4">Beach House</option>
-                                <option value="5">Royal Suite</option>
-                                <option value="6">Hostel Hotel</option>
 
 
-                            </select>
+                        <div class="form-group">
+                            <div class="col-md-10">
+                                <select class="form-control" name="pettype">
+                                    <option selected="">Pet Types</option>
+                                    <option value="2">Dog</option>
+                                    <option value="3">Cat</option>
+                                    <option value="4">Monkey</option>
+
+                                </select>
 
 
-                            @*@Html.ValidationMessageFor(model => model.roomType, "", new { @class = "text-danger" })*@
+                                @*@Html.ValidationMessageFor(model => model.roomType, "", new { @class = "text-danger" })*@
 
 
 
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="form-group">
-                        <div class="col-md-offset-2 col-md-10">
-                            <input type="submit" value="Search" id="centerButton" class="btn btn-default" />
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <input type="submit" value="Search" id="centerButton" class="btn btn-default" />
+                            </div>
                         </div>
+
+
+
                     </div>
-
-
-
-                </div>
-                }
+                 }
 
 
             </div>
         </div>
-    </div>R
+    </div>

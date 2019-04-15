@@ -187,12 +187,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
-    <Compile Include="App_Start\BundleConfig2.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
-    <Compile Include="App_Start\FilterConfig2.cs" />
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="App_Start\RouteConfig2.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AppointmentController.cs" />
@@ -228,9 +225,12 @@
     <Content Include="Content\images\eventSlider\market.jpg" />
     <Content Include="Content\images\eventSlider\redrocks.jpg" />
     <Content Include="Content\images\eventSlider\snorkelling-bali.jpg" />
+    <Content Include="Content\images\foodroom.jpg" />
     <Content Include="Content\images\helochoopper.jpg" />
     <Content Include="Content\images\island_fish.jpg" />
     <Content Include="Content\images\limbo.jpg" />
+    <Content Include="Content\images\pier.jpg" />
+    <Content Include="Content\images\Resort-Beachfrontjpg.jpg" />
     <Content Include="Content\images\resortDining.jpg" />
     <Content Include="Content\images\ropes.jpg" />
     <Content Include="Content\images\sing-along.jpg" />
@@ -333,6 +333,7 @@
     <Content Include="Views\Appointment\Index.cshtml" />
     <Content Include="Views\Appointment\Details.cshtml" />
     <Content Include="Views\Appointment\CreateSpa.cshtml" />
+    <Content Include="Views\Home\Rooms.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

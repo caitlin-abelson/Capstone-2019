@@ -26,5 +26,18 @@ namespace MillennialResortWebSite.Controllers
 
             return View();
         }
+
+        public ActionResult Rooms()
+        {
+            ViewBag.Message = "Rooms Page";
+
+            return View();
+        }
+
+
+
+
+
+
     }
 }

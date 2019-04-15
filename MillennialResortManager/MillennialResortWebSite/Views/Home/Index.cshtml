@@ -31,7 +31,7 @@
         <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>*@
 
 
-            @using (Html.BeginForm())
+            @using (Html.BeginForm("Index", "Reservation"))
             {
                 @Html.AntiForgeryToken()
 
@@ -86,7 +86,9 @@
                         </select>
 
                         @*@Html.DropDownListFor(model => model.numberOfGuests, Enumerable.Range(1, 25).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() }))*@
+
                         @Html.ValidationMessageFor(model => model.numberOfGuests, "", new { @class = "text-danger" })
+
                         @*@Html.EditorFor(model => model.numberOfGuests, new { htmlAttributes = new { @class = "form-control", placeholder = "Number Of Guests", @readonly = "true" } })
         @Html.ValidationMessageFor(model => model.numberOfGuests, "", new { @class = "text-danger" })*@
 
