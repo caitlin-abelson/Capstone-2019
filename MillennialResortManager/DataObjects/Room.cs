@@ -43,17 +43,6 @@ namespace DataObjects
         public int ResortPropertyID { get; set; }
 
 
-
-        //Craig Barkley 
-        public Room(string rmNumber, string bldg, string rmType, string descr, int cap, decimal price, bool active)
-        {
-            RoomNumber = rmNumber;
-            Building = bldg;
-            RoomType = rmType;
-            Description = descr;
-            Capacity = cap;
-            Price = price;
-            Active = active;
-        }
+       
     }
 }
