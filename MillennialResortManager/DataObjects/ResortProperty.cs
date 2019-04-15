@@ -1,4 +1,6 @@
-﻿namespace DataObjects
+﻿using System;
+
+namespace DataObjects
 {
     /// <summary>
     /// Francis Mingomba
@@ -6,6 +8,7 @@
     ///
     /// Resort Property object
     /// </summary>
+    [Serializable]
     public class ResortProperty
     {
         public int ResortPropertyId { get; set; }

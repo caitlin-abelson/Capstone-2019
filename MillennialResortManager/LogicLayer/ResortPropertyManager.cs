@@ -124,10 +124,13 @@ namespace LogicLayer
         /// Deletes Resort Property From database
         /// </summary>
         /// <param name="id"></param>
-        public void DeleteResortProperty(string id)
+        public void DeleteResortProperty(int id, Employee employee)
         {
             try
             {
+                if(!employee.HasRoles(out var errorStr, "Admin"))
+                    throw new ApplicationException(errorStr);
+
                 _resortPropertyAccessor.DeleteResortProperty(id);
             }
             catch (Exception)

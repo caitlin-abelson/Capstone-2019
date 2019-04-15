@@ -11,6 +11,7 @@ sqlcmd -S localhost -E -i new_sql_additions/2019-03-27_JaredGreenfield.sql
 sqlcmd -S localhost -E -i new_sql_additions/2019-04-05_CaitlinAbelson_SetupList.sql
 sqlcmd -S localhost -E -i new_sql_additions/2019-04-10_SQL_Dani.sql
 sqlcmd -S localhost -E -i new_sql_additions/room.sql
+sqlcmd -S localhost -E -i new_sql_additions/2019-04-15_Francis_Mingomba.sql
 
 
 ECHO .

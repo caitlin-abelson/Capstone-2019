@@ -19,6 +19,6 @@ namespace DataAccessLayer
 
         void UpdateResortProperty(ResortProperty oldResortProperty, ResortProperty newResortProperty);
 
-        void DeleteResortProperty(string id);
+        void DeleteResortProperty(int id);
     }
 }

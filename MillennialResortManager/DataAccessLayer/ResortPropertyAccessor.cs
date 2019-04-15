@@ -195,7 +195,7 @@ namespace DataAccessLayer
         /// Deletes resort property from database
         /// </summary>
         /// <param name="id">resort property id</param>
-        public void DeleteResortProperty(string id)
+        public void DeleteResortProperty(int id)
         {
             var conn = DBConnection.GetDbConnection();
 

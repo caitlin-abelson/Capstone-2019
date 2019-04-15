@@ -50,6 +50,8 @@
                         <MenuItem Header="Guest Types"  x:Name="NavBarSubHeaderGuestTypes" x:Uid="NBGuestTypes" Click="NavBarSubHeaderGuestTypes_Click"/>
                         <MenuItem Header="Room Types"  x:Name="NavBarSubHeaderRoomTypes" x:Uid="NBRoomTypes" Click="NavBarSubHeaderRoomTypes_Click"/>
                         <MenuItem Header="Departments" x:Name="NavBarSubHeaderDepartment" x:Uid="NBDepartment" Click="NavBarSubHeaderDepartment_Click"/>
+			            <MenuItem Header="Resort Property"  x:Name="NavBarSubHeaderResortProperty" x:Uid="NBResortProperty" Click="NavBarSubHeaderResortProperty_Click"/>
+                        <MenuItem Header="Resort Property Type"  x:Name="NavBarSubHeaderResortPropertyType" x:Uid="NBResortPropertyType" Click="NavBarSubHeaderResortPropertyType_OnClick"/>
                     </MenuItem>
                     <MenuItem Header="_Events" x:Name="_NavBarHeaderEvents" Style="{StaticResource NavBarHeader}" >
                         <MenuItem Header="Performances" x:Name="NavBarSubHeaderPerformances" x:Uid="NBPerformances" Click="NavBarSubHeaderPerformances_Click" />
@@ -1789,6 +1791,18 @@
                 <local:FrmBrowseShuttleVehicles/>
             </Grid>
             <!--End of Browse Vehicles-->
+
+            <!--Resort Property Page-->
+            <Grid x:Name="ResortPropertiesPage" Visibility="Hidden">
+                <local:FrmManageResortProperty/>
+            </Grid>
+            <!--End of Resort Property Page-->
+
+            <!--Resort Property Type Page-->
+            <Grid x:Name="ResortPropertyTypePage" Visibility="Hidden">
+                <local:FrmResortPropertyType/>
+            </Grid>
+            <!--End of Resort Property Page-->	    
         </Grid>
     </Grid>
 </Window>

@@ -851,30 +851,12 @@ namespace Presentation
             DisplayPage("Receiving");
             BrowseReceivingDoOnStart();
         }
-        /**
-        * Created By Francis Mingomba
-        * Date: 3/16/2019
-        */
-        private void NavBarSubHeaderManageShuttleVehicles_OnClick(object sender, RoutedEventArgs e)
-        {
-
-            DisplayPage("BrowseShuttleVehiclesPage");
-
-            foreach (UserControl item in this.BrowseShuttleVehiclesPage.Children)
-            {
-                if (item.GetType() != typeof(FrmBrowseShuttleVehicles)) continue;
-
-                FrmBrowseShuttleVehicles instance = (FrmBrowseShuttleVehicles)item;
-                instance.setupForm(_employee);
-            }
-        }
 
         private void NavBarSubHeaderFrontDesk_OnClick(object sender, RoutedEventArgs e)
         {
             DisplayPage("FrontDesk");
             frontDeskDoOnStart();
         }
-
 
         /// <summary>
         /// Author: Jared Greenfield
@@ -7741,5 +7723,80 @@ namespace Presentation
 
         #endregion
 
+        #region Resort Property Admin
+
+        /// <summary>
+        /// Francis Mingomba
+        /// Created: 2019/04/15
+        ///
+        /// Page Link to Resort Properties Page
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void NavBarSubHeaderResortProperty_Click(object sender, RoutedEventArgs e)
+        {
+            DisplayPage("ResortPropertiesPage");
+
+            foreach (UserControl item in this.ResortPropertiesPage.Children)
+            {
+                if (item.GetType() != typeof(FrmManageResortProperty)) continue;
+
+                FrmManageResortProperty instance = (FrmManageResortProperty)item;
+                instance.SetupForm(_employee);
+            }
+        }
+
+        #endregion
+
+        #region Resort Property Type Admin
+
+        /// <summary>
+        /// Francis Mingomba
+        /// Created: 2019/04/03
+        ///
+        /// Page Link to Resort Property Type
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void NavBarSubHeaderResortPropertyType_OnClick(object sender, RoutedEventArgs e)
+        {
+            DisplayPage("ResortPropertyTypePage");
+
+            foreach (UserControl item in this.ResortPropertyTypePage.Children)
+            {
+                if (item.GetType() != typeof(FrmResortPropertyType)) continue;
+
+                FrmResortPropertyType instance = (FrmResortPropertyType)item;
+                instance.SetupForm(_employee);
+            }
+        }
+
+        #endregion
+
+        #region Shuttle Vehicle (Resort Vehicle) Code
+
+        /// <summary>
+        /// Francis Mingomba
+        /// Created: 2019/04/03
+        ///
+        /// Page Link to Browse Shuttle Vehicles Page
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void NavBarSubHeaderManageShuttleVehicles_OnClick(object sender, RoutedEventArgs e)
+        {
+
+            DisplayPage("BrowseShuttleVehiclesPage");
+
+            foreach (UserControl item in this.BrowseShuttleVehiclesPage.Children)
+            {
+                if (item.GetType() != typeof(FrmBrowseShuttleVehicles)) continue;
+
+                FrmBrowseShuttleVehicles instance = (FrmBrowseShuttleVehicles)item;
+                instance.setupForm(_employee);
+            }
+        }
+
+        #endregion
     }
 }
