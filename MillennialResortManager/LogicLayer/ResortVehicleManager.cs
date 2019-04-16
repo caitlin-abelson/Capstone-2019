@@ -85,12 +85,16 @@ namespace LogicLayer
         /// <param name="employee">employee performing operation</param>
         public void DeactivateVehicle(ResortVehicle resortVehicle, Employee employee = null)
         {
+            if (!employee.HasRoles(out string errorStr, "Admin"))
+                throw new ApplicationException(errorStr);
+
             // make sure vehicle is not active
             if (!resortVehicle.Active)
                 throw new ApplicationException("Vehicle already inactive");
 
-            if(!employee.HasRoles(out string errorStr, "Admin"))
-                throw new ApplicationException(errorStr);
+            // make sure vehicle is not in use
+            if(resortVehicle.ResortVehicleStatusId == ResortVehicleStatusEnum.InUse.ToString())
+                throw new ApplicationException("Vehicle currently in use");
 
             try
             {
