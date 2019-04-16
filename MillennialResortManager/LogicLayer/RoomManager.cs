@@ -196,6 +196,21 @@ namespace LogicLayer
             return roomList;
         }
 
+        public List<Room> RetrieveRooms()
+        {
+            List<Room> roomList = null;
+            try
+            {
+                roomList = _roomAccessor.SelectRooms();
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            return roomList;
+        }
+
         /// <summary>
         /// Wes Richardson
         /// Created: 2019/02/14

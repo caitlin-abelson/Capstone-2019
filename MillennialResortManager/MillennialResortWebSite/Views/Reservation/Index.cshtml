@@ -41,7 +41,7 @@
         <div class="container body-content">
             <div class="row">
                 @using (Html.BeginForm("Create", "Reservation"))
-                 {
+                {
                     @Html.AntiForgeryToken()
 
                     <div class="form-horizontal">
@@ -155,8 +155,10 @@
 
 
                     </div>
-                 }
+                }
 
+
+                <div>@Html.Partial("reservationPartial")</div>
 
             </div>
         </div>

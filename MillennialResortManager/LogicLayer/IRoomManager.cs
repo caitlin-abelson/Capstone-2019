@@ -22,5 +22,7 @@ namespace LogicLayer
         /// Updated to accomidate the number of rooms to be added
         /// </summary>
         List<Room> RetrieveRoomListByBuildingID(string buildingID);
+
+        List<Room> RetrieveRooms();
     }
 }

@@ -31,7 +31,7 @@
         <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>*@
 
 
-            @using (Html.BeginForm("Index", "Reservation"))
+            @using (Html.BeginForm("Index", "Rooms"))
             {
                 @Html.AntiForgeryToken()
 
@@ -103,7 +103,7 @@
                     </div>
                 </div>
 
-                <p><a class="" href=""><i>View All Properties</i></a></p>
+                <p>@Html.ActionLink("View all Properties", "Index", "Rooms")</p>
 
             </div>
             }
