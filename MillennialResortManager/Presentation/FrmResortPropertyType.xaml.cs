@@ -70,7 +70,7 @@ namespace Presentation
 
                 if (Save(resortProperty, out string errorStr))
                 {
-                    MessageBox.Show("Resort Property TypeSaved Successfully");
+                    MessageBox.Show("Resort Property Type saved successfully");
 
                     RefreshFormAtCurrentIndex();
 

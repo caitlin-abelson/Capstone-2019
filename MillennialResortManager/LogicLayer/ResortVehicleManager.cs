@@ -13,14 +13,17 @@ namespace LogicLayer
     /// </summary>
     public class ResortVehicleManager : IResortVehicleManager
     {
-        readonly IResortVehicleAccessor _resortVehicleAccessor;
+        private readonly IResortVehicleAccessor _resortVehicleAccessor;
         private readonly IResortPropertyAccessor _resortPropertyAccessor;
+        private readonly IResortVehicleStatusAccessor _resortVehicleStatusAccessor;
 
         public ResortVehicleManager(IResortVehicleAccessor resortVehicleAccessor
-                                    , IResortPropertyAccessor resortPropertyAccessor = null)
+                                    , IResortPropertyAccessor resortPropertyAccessor = null
+                                    , IResortVehicleStatusAccessor resortVehicleStatusAccessor = null)
         {
             _resortVehicleAccessor = resortVehicleAccessor;
             _resortPropertyAccessor = resortPropertyAccessor ?? new ResortPropertyAccessor();
+            _resortVehicleStatusAccessor = resortVehicleStatusAccessor ?? new ResortVehicleStatusAccessor();
         }
 
         public ResortVehicleManager() : this(new ResortVehicleAccessor()) { }
@@ -220,6 +223,25 @@ namespace LogicLayer
             try
             {
                 return _resortPropertyAccessor.RetrieveResortProperties();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Francis Mingomba
+        /// Created: 2019/04/15
+        ///
+        /// Returns a collection of resort vehicle statuses
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<ResortVehicleStatus> RetrieveResortVehicleStatuses()
+        {
+            try
+            {
+                return _resortVehicleStatusAccessor.RetrieveResortVehicleStatuses();
             }
             catch (Exception)
             {
