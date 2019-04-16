@@ -61,7 +61,7 @@ namespace DataAccessLayer
             cmd.Parameters.AddWithValue("@EmergencyLastName", newGuest.EmergencyLastName);
             cmd.Parameters.AddWithValue("@EmergencyPhoneNumber", newGuest.EmergencyPhoneNumber);
             cmd.Parameters.AddWithValue("@EmergencyRelation", newGuest.EmergencyRelation);
-            
+
             try
             {
                 conn.Open();
@@ -287,7 +287,7 @@ namespace DataAccessLayer
             cmd.Parameters.AddWithValue("@EmergencyLastName", newGuest.EmergencyLastName);
             cmd.Parameters.AddWithValue("@EmergencyPhoneNumber", newGuest.EmergencyPhoneNumber);
             cmd.Parameters.AddWithValue("@EmergencyRelation", newGuest.EmergencyRelation);
-            cmd.Parameters.AddWithValue("@CheckedIn", newGuest.CheckedIn);
+            // cmd.Parameters.AddWithValue("@CheckedIn", newGuest.CheckedIn);
 
             cmd.Parameters.AddWithValue("@OldMemberID", oldGuest.MemberID);
             cmd.Parameters.AddWithValue("@OldGuestTypeID", oldGuest.GuestTypeID);
@@ -302,7 +302,7 @@ namespace DataAccessLayer
             cmd.Parameters.AddWithValue("@OldEmergencyLastName", oldGuest.EmergencyLastName);
             cmd.Parameters.AddWithValue("@OldEmergencyPhoneNumber", oldGuest.EmergencyPhoneNumber);
             cmd.Parameters.AddWithValue("@OldEmergencyRelation", oldGuest.EmergencyRelation);
-            cmd.Parameters.AddWithValue("@OldCheckedIn", oldGuest.CheckedIn);
+            // cmd.Parameters.AddWithValue("@OldCheckedIn", oldGuest.CheckedIn);
 
             try
             {
@@ -575,7 +575,7 @@ namespace DataAccessLayer
                 conn.Close();
             }
         }
-        
+
         /// <summary>
         /// Alisa Roehr
         /// Created: 2019/02/22
@@ -818,6 +818,66 @@ namespace DataAccessLayer
             }
 
             return guests;
+        }
+
+        /// <summary>
+        /// Author: Caitlin Abelson
+        /// Date: 2019/04/12
+        /// 
+        /// Uses the VMGuest class and reads all of the guests and their associated members
+        /// first and last names.
+        /// </summary>
+        /// <returns></returns>
+        public List<VMGuest> SelectAllVMGuests()
+        {
+            List<VMGuest> vmGuest = new List<VMGuest>();
+
+            var conn = DBConnection.GetDbConnection();
+            var cmdText = @"sp_select_guest_member";
+            var cmd = new SqlCommand(cmdText, conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            try
+            {
+                conn.Open();
+                SqlDataReader reader = cmd.ExecuteReader();
+
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        VMGuest guest = new VMGuest();
+                        guest.GuestID = reader.GetInt32(0);
+                        guest.MemberID = reader.GetInt32(1);
+                        guest.GuestTypeID = reader.GetString(2);
+                        guest.FirstName = reader.GetString(3);
+                        guest.LastName = reader.GetString(4);
+                        guest.PhoneNumber = reader.GetString(5);
+                        guest.Email = reader.GetString(6);
+                        guest.Minor = reader.GetBoolean(7);
+                        guest.Active = reader.GetBoolean(8);
+                        guest.ReceiveTexts = reader.GetBoolean(9);
+                        guest.EmergencyFirstName = reader.GetString(10);
+                        guest.EmergencyLastName = reader.GetString(11);
+                        guest.EmergencyPhoneNumber = reader.GetString(12);
+                        guest.EmergencyRelation = reader.GetString(13);
+                        guest.CheckedIn = reader.GetBoolean(14);
+                        guest.MemberFirstName = reader.GetString(15);
+                        guest.MemberLastName = reader.GetString(16);
+                        vmGuest.Add(guest);
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            return vmGuest;
         }
     }
 }

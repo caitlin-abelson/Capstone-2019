@@ -10,19 +10,169 @@ namespace DataAccessLayer
     public class GuestAccessorMock : IGuestAccessor
     {
         private List<Guest> _guests;
+        private List<VMGuest> _vmGuests;
+
         /// <summary>
         /// Author: Alisa Roehr
         /// Created : 2019/02/12
         /// This constructor sets up all of the dummy data that will be used
+        /// 
+        /// Updated By: Caitlin Abelson
+        /// Date: 2019/04/13
+        /// 
+        /// Added VMGuest dummy data so that the mock could return list of VMGuest.
         /// </summary>
         public GuestAccessorMock()
         {
             _guests = new List<Guest>();
-            _guests.Add(new Guest() { GuestID = 100000, MemberID = 100000, GuestTypeID = "Adult", FirstName = "Bill", LastName = "Smith", PhoneNumber = "3192860018", Minor = false, Active = true, Email = "abc@def.com", ReceiveTexts = true , EmergencyFirstName = "Albion", EmergencyLastName = "Bumblebee", EmergencyPhoneNumber = "3192885567", EmergencyRelation = "Brother-in-law"});
-            _guests.Add(new Guest() { GuestID = 100001, MemberID = 100000, GuestTypeID = "Adult", FirstName = "Bob", LastName = "Smith", PhoneNumber = "3192860018", Minor = false, Active = true, Email = "abc@def.com", ReceiveTexts = true, EmergencyFirstName = "Albion", EmergencyLastName = "Bumblebee", EmergencyPhoneNumber = "3192885567", EmergencyRelation = "Brother-in-law"});
-            _guests.Add(new Guest() { GuestID = 100002, MemberID = 100000, GuestTypeID = "Adult", FirstName = "Joe", LastName = "Smith", PhoneNumber = "3192860018", Minor = false, Active = true, Email = "abc@def.com", ReceiveTexts = true, EmergencyFirstName = "Albion", EmergencyLastName = "Bumblebee", EmergencyPhoneNumber = "3192885567", EmergencyRelation = "Brother-in-law" });
-            _guests.Add(new Guest() { GuestID = 100003, MemberID = 100000, GuestTypeID = "Adult", FirstName = "John", LastName = "Smith", PhoneNumber = "3192860018", Minor = false, Active = true, Email = "abc@def.com", ReceiveTexts = true, EmergencyFirstName = "Albion", EmergencyLastName = "Bumblebee", EmergencyPhoneNumber = "3192885567", EmergencyRelation = "Brother-in-law"});
-            _guests.Add(new Guest() { GuestID = 100004, MemberID = 100000, GuestTypeID = "Adult", FirstName = "Jacob", LastName = "Smith", PhoneNumber = "3192860018", Minor = false, Active = true, Email = "abc@def.com", ReceiveTexts = true, EmergencyFirstName = "Albion", EmergencyLastName = "Bumblebee", EmergencyPhoneNumber = "3192885567", EmergencyRelation = "Brother-in-law"});
+            _guests.Add(new Guest()
+            {
+                GuestID = 100000,
+                MemberID = 100000,
+                GuestTypeID = "Adult",
+                FirstName = "Bill",
+                LastName = "Smith",
+                PhoneNumber = "3192860018",
+                Minor = false,
+                Active = true,
+                Email = "abc@def.com",
+                ReceiveTexts = true,
+                EmergencyFirstName = "Albion",
+                EmergencyLastName = "Bumblebee",
+                EmergencyPhoneNumber = "3192885567",
+                EmergencyRelation = "Brother-in-law"
+            });
+            _guests.Add(new Guest()
+            {
+                GuestID = 100001,
+                MemberID = 100000,
+                GuestTypeID = "Adult",
+                FirstName = "Bob",
+                LastName = "Smith",
+                PhoneNumber = "3192860018",
+                Minor = false,
+                Active = true,
+                Email = "abc@def.com",
+                ReceiveTexts = true,
+                EmergencyFirstName = "Albion",
+                EmergencyLastName = "Bumblebee",
+                EmergencyPhoneNumber = "3192885567",
+                EmergencyRelation = "Brother-in-law"
+            });
+            _guests.Add(new Guest()
+            {
+                GuestID = 100002,
+                MemberID = 100000,
+                GuestTypeID = "Adult",
+                FirstName = "Joe",
+                LastName = "Smith",
+                PhoneNumber = "3192860018",
+                Minor = false,
+                Active = true,
+                Email = "abc@def.com",
+                ReceiveTexts = true,
+                EmergencyFirstName = "Albion",
+                EmergencyLastName = "Bumblebee",
+                EmergencyPhoneNumber = "3192885567",
+                EmergencyRelation = "Brother-in-law"
+            });
+            _guests.Add(new Guest()
+            {
+                GuestID = 100003,
+                MemberID = 100000,
+                GuestTypeID = "Adult",
+                FirstName = "John",
+                LastName = "Smith",
+                PhoneNumber = "3192860018",
+                Minor = false,
+                Active = true,
+                Email = "abc@def.com",
+                ReceiveTexts = true,
+                EmergencyFirstName = "Albion",
+                EmergencyLastName = "Bumblebee",
+                EmergencyPhoneNumber = "3192885567",
+                EmergencyRelation = "Brother-in-law"
+            });
+            _guests.Add(new Guest()
+            {
+                GuestID = 100004,
+                MemberID = 100000,
+                GuestTypeID = "Adult",
+                FirstName = "Jacob",
+                LastName = "Smith",
+                PhoneNumber = "3192860018",
+                Minor = false,
+                Active = true,
+                Email = "abc@def.com",
+                ReceiveTexts = true,
+                EmergencyFirstName = "Albion",
+                EmergencyLastName = "Bumblebee",
+                EmergencyPhoneNumber = "3192885567",
+                EmergencyRelation = "Brother-in-law"
+            });
+
+            _vmGuests = new List<VMGuest>();
+            _vmGuests.Add(new VMGuest()
+            {
+                GuestID = 100000,
+                MemberID = 100000,
+                GuestTypeID = "Adult",
+                FirstName = "Bill",
+                LastName = "Smith",
+                PhoneNumber = "3192860018",
+                Minor = false,
+                Active = true,
+                Email = "abc@def.com",
+                MemberFirstName = "Joe",
+                MemberLastName = "Blow",
+                ReceiveTexts = true,
+                EmergencyFirstName = "Albion",
+                EmergencyLastName = "Bumblebee",
+                EmergencyPhoneNumber = "3192885567",
+                EmergencyRelation = "Brother-in-law"
+            });
+
+            _vmGuests.Add(new VMGuest()
+            {
+                GuestID = 100001,
+                MemberID = 100000,
+                GuestTypeID = "Adult",
+                FirstName = "Will",
+                LastName = "Smith",
+                PhoneNumber = "3192860018",
+                Minor = false,
+                Active = true,
+                Email = "abc@def.com",
+                MemberFirstName = "Joe",
+                MemberLastName = "Blow",
+                ReceiveTexts = true,
+                EmergencyFirstName = "Albion",
+                EmergencyLastName = "Bumblebee",
+                EmergencyPhoneNumber = "3192885567",
+                EmergencyRelation = "Brother-in-law"
+            });
+
+            _vmGuests.Add(new VMGuest()
+            {
+                GuestID = 100003,
+                MemberID = 100001,
+                GuestTypeID = "Adult",
+                FirstName = "Bob",
+                LastName = "Johnson",
+                PhoneNumber = "3192860018",
+                Minor = false,
+                Active = true,
+                Email = "abc@def.com",
+                MemberFirstName = "Joe",
+                MemberLastName = "Schmo",
+                ReceiveTexts = true,
+                EmergencyFirstName = "Albion",
+                EmergencyLastName = "Bumblebee",
+                EmergencyPhoneNumber = "3192885567",
+                EmergencyRelation = "Brother-in-law"
+            });
+
+
         }
         /// <summary>
         /// Author: Alisa Roehr
@@ -77,11 +227,11 @@ namespace DataAccessLayer
         public List<Guest> RetrieveGuestsSearchedByName(string searchLast, string searchFirst)
         {
             List<Guest> g = new List<Guest>();
-            if(searchFirst == null && searchLast == null)
+            if (searchFirst == null && searchLast == null)
             {
                 g = _guests;
             }
-            else if(searchFirst == null)
+            else if (searchFirst == null)
             {
                 g = _guests.FindAll(x => x.LastName == searchLast);
                 if (g == null)
@@ -89,7 +239,7 @@ namespace DataAccessLayer
                     throw new ArgumentException("Last name did not match any Guest in our System");
                 }
             }
-            else if(searchLast == null)
+            else if (searchLast == null)
             {
                 g = _guests.FindAll(x => x.FirstName == searchFirst);
                 if (g == null)
@@ -100,7 +250,7 @@ namespace DataAccessLayer
             else
             {
                 g = _guests.FindAll(x => x.LastName == searchLast && x.FirstName == searchFirst);
-                if(g == null)
+                if (g == null)
                 {
                     throw new ArgumentException("Name did not match any Guest in our System");
                 }
@@ -161,9 +311,9 @@ namespace DataAccessLayer
         public void DeactivateGuest(int guestID)
         {
             bool foundGuest = false;
-            foreach(var gues in _guests)
+            foreach (var gues in _guests)
             {
-                if(gues.GuestID == guestID)
+                if (gues.GuestID == guestID)
                 {
                     gues.Active = false;
                     foundGuest = true;
@@ -346,7 +496,7 @@ namespace DataAccessLayer
         }
 
 
-        public List<Guest> SelectGuestNamesAndIds() { return null;  }
+        public List<Guest> SelectGuestNamesAndIds() { return null; }
         public Guest RetrieveGuestInfo(int guestID)
         {
             throw new NotImplementedException();
@@ -354,6 +504,18 @@ namespace DataAccessLayer
         public List<Guest> RetrieveAllGuestInfo()
         {
             throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// Author: Caitlin Abelson
+        /// Date: 2019/04/13
+        /// 
+        /// Returns the list of mock VMGuests.
+        /// </summary>
+        /// <returns></returns>
+        public List<VMGuest> SelectAllVMGuests()
+        {
+            return _vmGuests;
         }
     }
 }

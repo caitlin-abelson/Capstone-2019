@@ -8,6 +8,12 @@ namespace LogicLayer
     /// Created: 2019/02/14
     /// 
     /// The IGuestManager interface that has all CRUD methods for Guests for the Logic Layer
+    /// 
+    /// Updated By: Caitlin Abelson
+    /// Date: 2019/04/12
+    /// 
+    /// Added the VMGuest List method in order to pull all of the Guests and 
+    /// their associated Members from the VMGuest class.
     /// </summary>
     public interface IGuestManager
     {
@@ -25,5 +31,8 @@ namespace LogicLayer
         List<Guest> RetrieveGuestNamesAndIds();
         List<Guest> RetrieveAllGuestInfo(); //eduardo colon 2019-03-20
         Guest RetrieveGuestInfo(int guestID); //eduardo colon 2019-03-20
+
+        // Added by Caitlin Abelson 2019/04/12
+        List<VMGuest> SelectAllVMGuests();
     }
 }
