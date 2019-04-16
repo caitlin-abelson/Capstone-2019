@@ -13,7 +13,7 @@ GO
 
 ALTER PROCEDURE [dbo].[sp_delete_resort_property_type_by_id] 
 	(
-		@ResortPropertyTypeId		[INT]
+		@ResortPropertyTypeId		[nvarchar](20)
 	)
 AS
 	BEGIN
