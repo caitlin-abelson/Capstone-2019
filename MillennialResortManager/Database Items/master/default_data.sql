@@ -60,10 +60,11 @@ INSERT INTO [RoomType]
     [RoomTypeID], [Description] 
 )	
 VALUES
-    ('Double', 'Double beds'),
-    ('Queen', 'Single Queen'),
-    ('King', 'Single King'),
-	('Shop', 'Shop')
+    ('Bungalow Land', 'Queen Size Beds.'),
+    ('Bungalow Sea', 'Queen Size Beds'),
+    ('Beach House', 'Sleeps 10 to 20 guests.'),
+	('Royal Suite', 'Kings and Queens, Sleep 2 - 5 guests.'),
+	('Hostel Hut', 'Single Size Beds Sleeps 20 or more.')
 GO
 
 INSERT INTO [Employee]

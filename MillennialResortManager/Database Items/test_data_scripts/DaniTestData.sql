@@ -95,20 +95,30 @@ GO
 INSERT INTO [dbo].[Room]
 		([RoomNumber], [BuildingID], [RoomTypeID], [Description], [Capacity], [ResortPropertyID], [OfferingID], [RoomStatusID])
 	VALUES
-		(101, 'Hotel 101', 'Double', 'Double beds', 4, 100007, 100000, 'Available'),
-		(102, 'Hotel 101', 'King', 'Single king', 2, 100008, 100001, 'Occupied'),
-		(101, 'Hotel 102', 'Double', 'Double beds', 4, 100009, 100002, 'Available'),
-		(102, 'Hotel 102', 'King', 'Single king', 2, 100010, 100003, 'Occupied'),
-		(101, 'Guest Bld 101', 'Double', 'Double beds', 4, 100011, 100004, 'Available'),
-		(102, 'Guest Bld 101', 'King', 'Single king', 2, 100012, 100005, 'Occupied'),
-		(101, 'Shopping Center 101', 'Double', 'Double beds', 4, 100013, 100006, 'Available'),
-		(102, 'Shopping Center 101', 'King', 'Single king', 2, 100014, 100007, 'Occupied'),
-		(101, 'Food Center 101', 'Double', 'Double beds', 4, 100015, 100008, 'Available'),
-		(102, 'Food Center 101', 'King', 'Single king', 2, 100016, 100009, 'Occupied'),
-		(101, 'Welcome Center', 'Double', 'Double beds', 4, 100017, 100010, 'Available'),
-		(102, 'Welcome Center', 'King', 'Single king', 2, 100018, 100011, 'Occupied'),
-		(101, 'GenBld01', 'Double', 'Double beds', 4, 100019, 100012, 'Available'),
-		(102, 'GenBld01', 'King', 'Single king', 2, 100020, 100013, 'Occupied')
+		(101, 'North Shore', 'Beach House', 'Sleeps 10 to 20 guests.', 20, 100007, 100000, 'Available'),
+		(102, 'East Shore', 'Beach House', 'Sleeps 10 to 20 guests.', 20, 100008, 100001, 'Occupied'),
+		(103, 'West Shore', 'Beach House', 'Sleeps 10 to 20 guests.', 20, 100009, 100002, 'Available'),
+		(104, 'South Shore', 'Beach House', 'Sleeps 10 to 20 guests.', 20, 100010, 100003, 'Occupied'),
+		(105, 'North Shore', 'Bungalow Land', 'Queen Size Beds.', 2, 100011, 100004, 'Available'),
+		(106, 'East Shore', 'Bungalow Land', 'Queen Size Beds.', 2, 100012, 100005, 'Occupied'),
+		(107, 'West Shore', 'Bungalow Land', 'Queen Size Beds.', 2, 100013, 100006, 'Available'),
+		(108, 'South Shore', 'Bungalow Land', 'Queen Size Beds.', 2, 100014, 100007, 'Occupied'),
+		(109, 'North Shore', 'Bungalow Sea', 'Queen Size Beds', 2, 100015, 100008, 'Available'),
+		(110, 'East Shore', 'Bungalow Sea', 'Queen Size Beds', 2, 100016, 100009, 'Occupied'),
+		(111, 'West Shore', 'Bungalow Sea', 'Queen Size Beds', 2, 100017, 100010, 'Available'),
+		(112, 'North Shore', 'Royal Suite', 'Kings and Queens, Sleep 2 - 5 guests.', 5, 100018, 100011, 'Occupied'),
+		(113, 'East Shore', 'Royal Suite', 'Kings and Queens, Sleep 2 - 5 guests.', 5, 100019, 100012, 'Available'),
+		(114, 'South Shore', 'Hostel Hut', 'Single Size Beds Sleeps 20 or more.', 20, 100020, 100013, 'Occupied'),
+		(115, 'Guest Bld 101', 'Bungalow Land', 'Queen Size Beds.', 4, 100011, 100004, 'Available'),
+		(116, 'Guest Bld 101', 'Bungalow Land', 'Queen Size Beds.', 2, 100012, 100005, 'Occupied'),
+		(117, 'Shopping Center 101', 'Bungalow Land', 'Queen Size Beds.', 4, 100013, 100006, 'Available'),
+		(118, 'Shopping Center 101', 'Bungalow Land', 'Queen Size Beds.', 2, 100014, 100007, 'Occupied'),
+		(119, 'Food Center 101', 'Bungalow Sea', 'Queen Size Beds', 4, 100015, 100008, 'Available'),
+		(120, 'Food Center 101', 'Bungalow Sea', 'Queen Size Beds', 2, 100016, 100009, 'Occupied'),
+		(121, 'Welcome Center', 'Bungalow Sea', 'Queen Size Beds', 4, 100017, 100010, 'Available'),
+		(122, 'Welcome Center', 'Royal Suite', 'Kings and Queens, Sleep 2 - 5 guests.', 2, 100018, 100011, 'Occupied'),
+		(123, 'GenBld01', 'Royal Suite', 'Kings and Queens, Sleep 2 - 5 guests.', 4, 100019, 100012, 'Available'),
+		(124, 'GenBld01', 'Hostel Hut', 'Single Size Beds Sleeps 20 or more.', 2, 100020, 100013, 'Occupied')
 GO
 
 

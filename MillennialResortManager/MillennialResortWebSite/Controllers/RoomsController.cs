@@ -21,7 +21,11 @@ namespace MillennialResortWebSite.Controllers
         {
             roomManager = new RoomManager();
             rooms = roomManager.RetrieveRoomList();
-            
+
+            int hour = DateTime.Now.Hour;
+            ViewBag.Greeting = hour < 12 ? "Good Morning" : "Good Afternoon";
+
+
             return View(rooms);
         }
     }
