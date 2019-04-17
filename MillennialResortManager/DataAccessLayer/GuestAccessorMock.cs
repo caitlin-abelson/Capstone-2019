@@ -517,5 +517,10 @@ namespace DataAccessLayer
         {
             return _vmGuests;
         }
+
+        public Guest RetriveGuestByEmail(string email)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

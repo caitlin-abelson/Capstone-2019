@@ -451,5 +451,23 @@ namespace LogicLayer
             }
             return vmGuest;
         }
+
+        /// <summary>
+        /// Austin Berquam
+        /// Created: 2019/04/17
+        /// 
+        /// method to retrieve guest info by email
+        /// </summary>
+        public Guest RetrieveGuestByEmail(string email)
+        {
+            try
+            {
+                return _guestAccessor.RetriveGuestByEmail(email);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
     }
 }
