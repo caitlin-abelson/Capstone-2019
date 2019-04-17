@@ -164,6 +164,17 @@ namespace DataAccessLayer
         }
 
         /// <summary>
+        /// Author: Wes Richardson
+        /// Created: 2019/04/18
+        /// </summary>
+        /// <param name="guestID"></param>
+        /// <returns>A Mock Reservation</returns>
+        public Reservation RetrieveReservationByGuestID(int guestID)
+        {
+            return _reservations.Find(x => x.MemberID == guestID);
+        }
+
+        /// <summary>
         /// Author: Matt LaMarche
         /// Created : 2/08/2019
         /// A simple validate methid which will return true if we have a valid Member whise MemberID matches the MemberID provided

@@ -1,4 +1,6 @@
 /*Start Wes Richardson 2019-03-01*/
+USE [MillennialResort_DB]
+GO
 
 print '' print '*** Department Test Data' 
 GO
@@ -113,7 +115,7 @@ GO
  *
  * Insert Appointment Test Data
  */
-/* print '' print '*** Appointment Test Data' 
+print '' print '*** Appointment Test Data' 
 GO
 INSERT INTO [dbo].[Appointment]
 		([AppointmentTypeID], [GuestID], [StartDate], [EndDate], [Description])
@@ -122,6 +124,20 @@ INSERT INTO [dbo].[Appointment]
 		('Pet Grooming', 100001, '20200320 14:00', '20200320 15:00', 'Pet Grooming'),
 		('Sand Castle', 100000, '20200320 13:00', '20200320 14:00', 'Sand Castle Building'),
 		('Whale Watching', 100000, '20200320 14:00', '20200320 15:00', 'Whale Watching')
-GO */
+GO
+
+/*
+ * Author: Wes Richardson
+ * Created 2019-03-07
+ *
+ * Insert Reservation Test Data
+ */
+print '' print '*** Reservation Test Data' 
+GO
+INSERT INTO [dbo].[Reservation]
+		([MemberID], [NumberOfGuests], [NumberOfPets], [ArrivalDate], [DepartureDate])
+	VALUES
+		('100000', 2, 1, '20200320', '20200328')
+GO
 
 /* End Wes Richardson */
