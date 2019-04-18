@@ -13,7 +13,7 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Stylesheet.xaml"/>
             </ResourceDictionary.MergedDictionaries>
-            <window:GridLength x:Key="LhsWidth">93</window:GridLength>
+            <window:GridLength x:Key="LhsWidth"><![CDATA[132]]></window:GridLength>
         </ResourceDictionary>
 
     </Window.Resources>
@@ -244,7 +244,7 @@
             <!--Purchase Date-->
             <Grid Margin="0 10 10 0">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="100"/>
+                    <ColumnDefinition Width="132"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
 

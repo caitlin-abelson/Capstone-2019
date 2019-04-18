@@ -192,7 +192,7 @@ namespace DataAccessLayer
         ///
         /// Deletes Resort Property Type from database
         /// </summary>
-        /// <param name="id">Resort Propoerty Type Id</param>
+        /// <param name="id">Resort Property Type Id</param>
         public void DeleteResortPropertyType(string id)
         {
             var conn = DBConnection.GetDbConnection();

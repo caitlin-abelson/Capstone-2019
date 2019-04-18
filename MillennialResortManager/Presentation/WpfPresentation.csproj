@@ -146,6 +146,9 @@
     <Compile Include="frmEventSponsorMain.xaml.cs">
       <DependentUpon>frmEventSponsorMain.xaml</DependentUpon>
     </Compile>
+    <Compile Include="FrmManageResortProperty.xaml.cs">
+      <DependentUpon>FrmManageResortProperty.xaml</DependentUpon>
+    </Compile>
     <Compile Include="FrmManageShuttleVehicle.xaml.cs">
       <DependentUpon>FrmManageShuttleVehicle.xaml</DependentUpon>
     </Compile>
@@ -159,6 +162,9 @@
     <Compile Include="frmCreateRecipe.xaml.cs" />
     <Compile Include="frmOffering.xaml.cs">
       <DependentUpon>frmOffering.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="FrmResortPropertyType.xaml.cs">
+      <DependentUpon>FrmResortPropertyType.xaml</DependentUpon>
     </Compile>
     <Compile Include="frmSelectRecipeItem.xaml.cs" />
     <Compile Include="frmAddEditViewAppointment.xaml.cs">
@@ -461,6 +467,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="FrmManageResortProperty.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="FrmManageShuttleVehicle.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -480,6 +490,10 @@
     <Page Include="frmPetMain.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="FrmResortPropertyType.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="frmRoomManagment.xaml">
       <Generator>MSBuild:Compile</Generator>
