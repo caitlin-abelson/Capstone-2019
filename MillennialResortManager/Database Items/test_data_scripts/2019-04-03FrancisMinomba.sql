@@ -19,8 +19,9 @@ EXEC sp_create_resort_vehicle_status 'Decomissioned', 'Vehicle dead'            
 EXEC sp_create_resort_vehicle_status 'Available'    , 'Vehicle available for use'    ;
 
 -- print '' print 'inserting into ResortProperty'
--- EXEC sp_create_resort_property 'TYPE A' ;
--- EXEC sp_create_resort_property 'TYPE B' ;
+EXEC sp_create_resort_property 'Vehicle' ;
+EXEC sp_create_resort_property 'Building' ;
+EXEC sp_create_resort_property 'Room' ;
 
 print '' print '*** Inserting sample resort vehicles'
 EXEC sp_create_vehicle 'Dodge'  , 'Charger', 2015, 'IA 523', 50000, 5, 'Gray', '2015-05-05', 'A car', 1, '', 1, 'Available', 100000 ;
