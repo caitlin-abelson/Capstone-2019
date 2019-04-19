@@ -47,6 +47,8 @@
 	</IntermediateOutputPath>
     <IntermediateOutputPath>C:\Users\nh229u26\AppData\Local\Temp\vs18EC.tmp\Debug\</IntermediateOutputPath>
     <IntermediateOutputPath>C:\Users\carzu\AppData\Local\Temp\vs4D60.tmp\Debug\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\owner\AppData\Local\Temp\vsB3A7.tmp\Debug\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\carzu\AppData\Local\Temp\vsAFCF.tmp\Debug\</IntermediateOutputPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -68,6 +70,8 @@
     <IntermediateOutputPath>C:\Users\Wes\AppData\Local\Temp\vs26D5.tmp\Release\</IntermediateOutputPath>
     <IntermediateOutputPath>C:\Users\nh229u26\AppData\Local\Temp\vs18EC.tmp\Release\</IntermediateOutputPath>
     <IntermediateOutputPath>C:\Users\carzu\AppData\Local\Temp\vs4D60.tmp\Release\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\owner\AppData\Local\Temp\vsB3A7.tmp\Release\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\carzu\AppData\Local\Temp\vsAFCF.tmp\Release\</IntermediateOutputPath>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
