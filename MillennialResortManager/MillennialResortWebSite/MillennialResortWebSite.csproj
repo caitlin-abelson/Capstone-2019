@@ -52,6 +52,7 @@
 	C:\Users\Wes\AppData\Local\Temp\vs26D5.tmp\Debug\
 	</IntermediateOutputPath>
     <IntermediateOutputPath>C:\Users\nh229u26\AppData\Local\Temp\vs18EC.tmp\Debug\</IntermediateOutputPath>
+<<<<<<< HEAD
     <IntermediateOutputPath>C:\Users\carzu\AppData\Local\Temp\vs4D60.tmp\Debug\</IntermediateOutputPath>
     <IntermediateOutputPath>C:\Users\owner\AppData\Local\Temp\vsB3A7.tmp\Debug\</IntermediateOutputPath>
 
@@ -61,6 +62,9 @@
 
 
     <IntermediateOutputPath>C:\Users\Eric\AppData\Local\Temp\vs29C1.tmp\Debug\</IntermediateOutputPath>
+=======
+    <IntermediateOutputPath>C:\Users\nh229u17\AppData\Local\Temp\vsD921.tmp\Debug\</IntermediateOutputPath>
+>>>>>>> dev
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -83,6 +87,7 @@
     <IntermediateOutputPath>C:\Users\Wes\AppData\Local\Temp\vs26D5.tmp\Release\</IntermediateOutputPath>
     <IntermediateOutputPath>C:\Users\Eric\AppData\Local\Temp\vs7245.tmp\Release\</IntermediateOutputPath>
     <IntermediateOutputPath>C:\Users\nh229u26\AppData\Local\Temp\vs18EC.tmp\Release\</IntermediateOutputPath>
+<<<<<<< HEAD
     <IntermediateOutputPath>C:\Users\carzu\AppData\Local\Temp\vs4D60.tmp\Release\</IntermediateOutputPath>
     <IntermediateOutputPath>C:\Users\owner\AppData\Local\Temp\vsB3A7.tmp\Release\</IntermediateOutputPath>
     <IntermediateOutputPath>C:\Users\rphan\AppData\Local\Temp\vsAAAA.tmp\Release\</IntermediateOutputPath>
@@ -90,6 +95,9 @@
     <IntermediateOutputPath>C:\Users\Muyo\AppData\Local\Temp\vs5A29.tmp\Release\</IntermediateOutputPath>
 
     <IntermediateOutputPath>C:\Users\Eric\AppData\Local\Temp\vs29C1.tmp\Release\</IntermediateOutputPath>
+=======
+    <IntermediateOutputPath>C:\Users\nh229u17\AppData\Local\Temp\vsD921.tmp\Release\</IntermediateOutputPath>
+>>>>>>> dev
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
@@ -255,6 +263,15 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\images\hotel\01-RIVUE.jpg" />
+    <Content Include="Content\images\hotel\02-RIVUE.jpg" />
+    <Content Include="Content\images\hotel\03-RIVUE.jpg" />
+    <Content Include="Content\images\hotel\05-Waterfront-Balcony.jpg" />
+    <Content Include="Content\images\hotel\06-SUITE-tower-entrance.jpg" />
+    <Content Include="Content\images\hotel\07-TheConservatory.jpg" />
+    <Content Include="Content\images\hotel\down1interior-1-edit.jpg" />
+    <Content Include="Content\images\hotel\Pool-01.jpg" />
+    <Content Include="Content\images\hotel\RIVUE-West-Wheel-with-Red-Roses.JPG" />
     <Content Include="Content\images\beach-family.jpg" />
     <Content Include="Content\images\beach-familyTwo.jpg" />
     <Content Include="Content\images\beach-resorts.jpg" />
@@ -281,6 +298,13 @@
     <Content Include="Content\images\sing-along.jpg" />
     <Content Include="Content\images\Spa.jpg" />
     <Content Include="Content\images\WhaleWatching.jpg" />
+    <Content Include="Content\images\The new\05.jpg" />
+    <Content Include="Content\images\The new\06.jpg" />
+    <Content Include="Content\images\The new\12.jpg" />
+    <Content Include="Content\images\The new\13.jpg" />
+    <Content Include="Content\images\The new\15.jpg" />
+    <Content Include="Content\images\The new\16.jpg" />
+    <Content Include="Content\images\The new\17.jpg" />
     <Content Include="Content\themes\base\accordion.css" />
     <Content Include="Content\themes\base\all.css" />
     <Content Include="Content\themes\base\autocomplete.css" />
@@ -322,6 +346,14 @@
     <Content Include="Content\themes\base\tabs.css" />
     <Content Include="Content\themes\base\theme.css" />
     <Content Include="Content\themes\base\tooltip.css" />
+    <Content Include="Content\images\wedding\10-22-11-331.jpg" />
+    <Content Include="Content\images\wedding\286A7461.JPG" />
+    <Content Include="Content\images\wedding\368.JPG" />
+    <Content Include="Content\images\wedding\380.JPG" />
+    <Content Include="Content\images\wedding\386.JPG" />
+    <Content Include="Content\images\wedding\dhar_0853.JPG" />
+    <Content Include="Content\images\wedding\dhar_1251.JPG" />
+    <Content Include="Content\images\wedding\wedding-brides2LG.jpg" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
