@@ -13,7 +13,8 @@ namespace DataAccessLayer
         private List<BrowseSponsor> _browseSponsor;
         private List<int> _allSponsors;
         private List<string> _states;
-        private List<string> _statusID;
+        // Remove statusID
+        //private List<string> _statusID; 
 
         /// <summary>
         /// Author: Gunardi Saputra
@@ -24,9 +25,9 @@ namespace DataAccessLayer
         public SponsorAccessorMock()
         {
             _sponsor = new List<Sponsor>();
-            _sponsor.Add(new Sponsor() { SponsorID = 100000, Name = "ABC", Address = "123 Strong", City = "Marion", State = "IA", PhoneNumber = "13196661234", Email = "john@abc.com", ContactFirstName = "John", ContactLastName = "Smith", StatusID = "New", DateAdded = new DateTime(2019, 01, 19), Active = true });
-            _sponsor.Add(new Sponsor() { SponsorID = 100001, Name = "DEF", Address = "234 Great", City = "Hiawatha", State = "IA", PhoneNumber = "13196661235", Email = "jane@def.com", ContactFirstName = "Jane", ContactLastName = "Lee", StatusID = "New", DateAdded = new DateTime(2019, 01, 10), Active = true });
-            _sponsor.Add(new Sponsor() { SponsorID = 100002, Name = "GHI", Address = "345 Awesome", City = "Cedar Rapids", State = "IA", PhoneNumber = "13196661236", Email = "adam@ghi.com", ContactFirstName = "Adam", ContactLastName = "Now", StatusID = "New", DateAdded = new DateTime(2019, 02, 11), Active = true });
+            _sponsor.Add(new Sponsor() { SponsorID = 100000, Name = "ABC", Address = "123 Strong", City = "Marion", State = "IA", PhoneNumber = "13196661234", Email = "john@abc.com", ContactFirstName = "John", ContactLastName = "Smith",  DateAdded = new DateTime(2019, 01, 19), Active = true });
+            _sponsor.Add(new Sponsor() { SponsorID = 100001, Name = "DEF", Address = "234 Great", City = "Hiawatha", State = "IA", PhoneNumber = "13196661235", Email = "jane@def.com", ContactFirstName = "Jane", ContactLastName = "Lee", DateAdded = new DateTime(2019, 01, 10), Active = true });
+            _sponsor.Add(new Sponsor() { SponsorID = 100002, Name = "GHI", Address = "345 Awesome", City = "Cedar Rapids", State = "IA", PhoneNumber = "13196661236", Email = "adam@ghi.com", ContactFirstName = "Adam", ContactLastName = "Now", DateAdded = new DateTime(2019, 02, 11), Active = true });
             _browseSponsor = new List<BrowseSponsor>();
             _allSponsors = new List<int>();
             foreach (var eSponsor in _sponsor)
@@ -142,15 +143,18 @@ namespace DataAccessLayer
 
         /// <summary>
         /// Author: Gunardi Saputra
-        /// Created Date: 2019/02/28
+        /// Created Date: 02/28/2019
         /// 
         /// Select sposor status for mock accessor
+        /// 
+        /// Updated: 04/19/2019
+        /// Remove SelectAllSponsorStatus()
         /// </summary>
         /// <returns></returns>
-        public List<string> SelectAllSponsorStatus()
-        {
-            return _statusID;
-        }
+        //public List<string> SelectAllSponsorStatus()
+        //{
+        //    return _statusID;
+        //}
 
         /// <summary>
         /// Author: Gunardi Saputra
@@ -166,9 +170,12 @@ namespace DataAccessLayer
 
         /// <summary>
         /// Author: Gunardi Saputra
-        /// Created Date: 2019/02/28
+        /// Created Date: 02/28/2019
         /// 
         /// Update sponsor for mock accessor
+        /// 
+        /// Updated: 04/19/2019
+        /// Remove StatusID
         /// </summary>
         /// <param name="oldSponsor"></param>
         /// <param name="newSponsor"></param>
@@ -189,7 +196,7 @@ namespace DataAccessLayer
                     eSponsor.Email = newSponsor.Email;
                     eSponsor.ContactFirstName = newSponsor.ContactFirstName;
                     eSponsor.ContactLastName = newSponsor.ContactLastName;
-                    eSponsor.StatusID = newSponsor.StatusID;
+                    //eSponsor.StatusID = newSponsor.StatusID;
                     eSponsor.DateAdded = newSponsor.DateAdded;
                     eSponsor.Active = newSponsor.Active;
                 }

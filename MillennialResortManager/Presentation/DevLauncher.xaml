@@ -17,8 +17,8 @@
     <Window.Resources>
         <ResourceDictionary Source="Stylesheet.xaml"/>
     </Window.Resources>
-    
-    
+
+
     <Grid x:Name="MainWindow">
         <Grid.RowDefinitions>
             <RowDefinition Height="40"/>
@@ -104,7 +104,7 @@
             <Grid x:Name="LandingPage" Visibility="Visible" Style="{StaticResource LandingPage }">
                 <Label Content="Content Goes Here" Grid.Column="0" Grid.ColumnSpan="2" FontSize="72" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                 <Image Source="../MillennialResortWebSite/Content/images/beachPool.jpg"/>
-                
+
             </Grid>
             <!-- Browse Reservation Page-->
             <!-- Updated: Gunardi Saputra -->
@@ -722,7 +722,7 @@
                     </Grid>
                 </Grid>
             </Grid>
-            
+
             <!-- Browse Appointment Types Page-->
             <!--Modified by Phil Hansen on 8/22/2019, changed layout and performences-->
             <Grid x:Name="BrowseAppointmentTypesPage" Visibility="Hidden">
@@ -935,25 +935,25 @@
                     <Button x:Name="btnClearSetup"  Grid.Column="7" Content="Clear" Margin="5" Click="btnClearSetup_Click" />
                 </Grid>
                 <DataGrid Grid.Row="1" x:Name="dgSetups" SelectionMode="Single"  IsReadOnly="True" AutoGenerateColumns="False" ItemsSource="{Binding}" MouseDoubleClick="dgSetups_MouseDoubleClick" >
-                        <DataGrid.Columns>
-                            <DataGridTextColumn Header="Event" Binding="{Binding EventTitle}"/>
-                            <DataGridTextColumn Header="DateEntered" Binding="{Binding DateEntered}"/>
-                            <DataGridTextColumn Header="DateRequired" Binding="{Binding DateRequired}"/>
-                            <DataGridTextColumn Header="Comments" Binding="{Binding Comments}"/>
-                        </DataGrid.Columns>
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Event" Binding="{Binding EventTitle}"/>
+                        <DataGridTextColumn Header="DateEntered" Binding="{Binding DateEntered}"/>
+                        <DataGridTextColumn Header="DateRequired" Binding="{Binding DateRequired}"/>
+                        <DataGridTextColumn Header="Comments" Binding="{Binding Comments}"/>
+                    </DataGrid.Columns>
 
-                    </DataGrid>
+                </DataGrid>
                 <Grid Grid.Row="2" Style="{StaticResource BottomBar}">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="100"/>
-                            <ColumnDefinition />
-                            <ColumnDefinition Width="100"/>
-                            <ColumnDefinition Width="100"/>
-                            <ColumnDefinition Width="100"/>
-                        </Grid.ColumnDefinitions>
-                        <Button x:Name="btnBrowseSetupList" Grid.Column="2" Content="View Setup List" Margin="5" Click="btnBrowseSetupList_Click"/>
-                        <Button x:Name="btnAddSetup" Grid.Column="3" Content="Add Setup" Margin="5" Click="btnAddSetup_Click"/>
-                        <Button x:Name="btnDeleteSetup"  Grid.Column="4" Content="Delete" Margin="5" Click="BtnDeleteSetup_Click"  />
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="100"/>
+                        <ColumnDefinition />
+                        <ColumnDefinition Width="100"/>
+                        <ColumnDefinition Width="100"/>
+                        <ColumnDefinition Width="100"/>
+                    </Grid.ColumnDefinitions>
+                    <Button x:Name="btnBrowseSetupList" Grid.Column="2" Content="View Setup List" Margin="5" Click="btnBrowseSetupList_Click"/>
+                    <Button x:Name="btnAddSetup" Grid.Column="3" Content="Add Setup" Margin="5" Click="btnAddSetup_Click"/>
+                    <Button x:Name="btnDeleteSetup"  Grid.Column="4" Content="Delete" Margin="5" Click="BtnDeleteSetup_Click"  />
 
                 </Grid>
 
@@ -962,42 +962,45 @@
             <!--Modified by Phil Hansen on 8/22/2019, changed layout and performences-->
             <Grid x:Name="BrowseSponsorPage" Visibility="Hidden">
                 <Grid.RowDefinitions>
-                    <RowDefinition/>
+                    <RowDefinition Height="0"/>
                     <RowDefinition/>
                     <RowDefinition Height="8*"/>
                     <RowDefinition/>
                 </Grid.RowDefinitions>
-                <Grid Grid.Row="0">
+                <!--<Grid Grid.Row="0">
                     <Label Content="Browse Sponsors" VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="Bold" FontSize="16" />
-                </Grid>
+                </Grid>-->
+
+                <!--Modified by Gunardi Saputra on 4/19/2019, adjust the balance and reposition-->
                 <Grid Grid.Row="1" Style="{StaticResource FilterBar}">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="60"></ColumnDefinition>
-                        <ColumnDefinition Width="80"></ColumnDefinition>
-                        <ColumnDefinition Width="60"></ColumnDefinition>
-                        <ColumnDefinition Width="80"></ColumnDefinition>
-                        <ColumnDefinition></ColumnDefinition>
-                        <ColumnDefinition Width="75"></ColumnDefinition>
-                        <ColumnDefinition Width="100"></ColumnDefinition>
-                        <ColumnDefinition Width="100"></ColumnDefinition>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
-                    <Label x:Name="lblSearch" Grid.Column="0" Content="Search: " HorizontalAlignment="Center" VerticalAlignment="Center" />
-                    <TextBox Grid.Column="1" x:Name="txtSearchBrowseSponsor" VerticalAlignment="Center" />
-                    <Button Grid.Column="6" Content="Filter" x:Name="btnFilterBrowseSponsor" Width="60" Height="25" Margin="5" Click="btnFilterBrowseSponsor_Click"/>
-                    <Button Grid.Column="7" Content="Clear" x:Name="btnClearFiltersBrowseSponsor" Width="60" Height="25" Margin="5" Click="btnClearFiltersBrowseSponsor_Click"/>
+                    <Label x:Name="lblSearch" Grid.Column="2" Content="Sponsor Name: " HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    <TextBox Grid.Column="3" x:Name="txtSearchBrowseSponsor" VerticalAlignment="Center" />
+                    <Button Grid.Column="4" Content="Filter" x:Name="btnFilterBrowseSponsor" Height="25" Margin="5" Click="btnFilterBrowseSponsor_Click"/>
+                    <Button Grid.Column="5" Content="Clear" x:Name="btnClearFiltersBrowseSponsor" Height="25" Margin="5" Click="btnClearFiltersBrowseSponsor_Click"/>
                 </Grid>
                 <DataGrid x:Name="dgSponsors" Grid.Row="2" VerticalGridLinesBrush="{x:Null}" SelectionMode="Single" IsReadOnly="True" AutoGeneratingColumn="dgSponsors_AutoGeneratingColumn" MouseDoubleClick="dgSponsors_MouseDoubleClick" />
+
+                <!--Modified by Gunardi Saputra on 4/19/2019, adjust the balance and reposition, eliminate view button-->
                 <Grid Grid.Row="3" Style="{StaticResource BottomBar}">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="100"/>
                         <ColumnDefinition/>
-                        <ColumnDefinition Width="100"/>
-                        <ColumnDefinition Width="100"/>
-                        <ColumnDefinition Width="100"/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
-                    <Button x:Name="btnAddSponsor" Grid.Column="2" Content="Add" Width="80" Margin="5" Click="btnAddSponsor_Click" />
-                    <Button x:Name="btnReadSponsor" Grid.Column="3" Content="View" Width="80" Margin="5" Click="btnReadSponsor_Click" />
-                    <Button x:Name="btnDeleteBrowseSponsor" Grid.Column="4" Content="Delete" Width="80" Margin="5" Click="btnDeleteBrowseSponsor_Click"/>
+                    <Button x:Name="btnAddSponsor" Grid.Column="4" Content="Add"  Margin="5" Click="btnAddSponsor_Click" />
+                    <!--<Button x:Name="btnReadSponsor" Grid.Column="3" Content="View" Width="80" Margin="5" Click="btnReadSponsor_Click" />-->
+                    <Button x:Name="btnDeleteBrowseSponsor" Grid.Column="5" Content="Delete" Margin="5" Click="btnDeleteBrowseSponsor_Click"/>
                 </Grid>
             </Grid>
             <!-- Browse Recipe Page -->
@@ -1120,11 +1123,11 @@
                         <ColumnDefinition Width="5"/>
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
-                    <Label Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center">Un-Cancelled Events: </Label>
+                    <Label Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center">Un-Cancelled Events:</Label>
                     <RadioButton x:Name="btnEventUncancelled" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5" Checked="BtnEventUncancelled_Checked" />
                     <Label Grid.Column="2" HorizontalAlignment="Right" VerticalAlignment="Center">Cancelled Events:</Label>
                     <RadioButton x:Name="btnEventCancelled" Grid.Column="3" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5" Checked="BtnEventCancelled_Checked" />
-                    <Label Grid.Column="4" HorizontalAlignment="Right" VerticalAlignment="Center">Search Title: </Label>
+                    <Label Grid.Column="4" HorizontalAlignment="Right" VerticalAlignment="Center">Search Title:</Label>
                     <TextBox x:Name="txtEventSearchName" Grid.Column="5" Height="20"/>
 
                     <Button x:Name="btnEventFilter" Grid.Column="7" Width="90" Height="35" Content="Filter" Click="BtnEventFilter_Click" HorizontalContentAlignment="Center"/>
@@ -1388,20 +1391,29 @@
                         </Grid.RowDefinitions>
                         <Grid Grid.Row="0">
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="100"/>
+                                <!--<ColumnDefinition Width="100"/>
                                 <ColumnDefinition Width="100"/>
                                 <ColumnDefinition Width="100"/>
                                 <ColumnDefinition Width="175"/>
-                                <ColumnDefinition Width="100"/>
-                                <ColumnDefinition Width="200"/>
-                                <ColumnDefinition Width="100"/>
-                                <ColumnDefinition Width="100"/>
+                                <ColumnDefinition Width="125"/>
+                                <ColumnDefinition Width="225"/>
+                                <ColumnDefinition Width="75"/>
+                                <ColumnDefinition Width="100"/>-->
+
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
                             </Grid.ColumnDefinitions>
                             <Label Grid.Column="0" Content="InActive" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
                             <RadioButton x:Name="btnInActive" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="5" />
                             <Label Grid.Column="1" Content="Active" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" />
                             <RadioButton x:Name="btnActive" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="5" IsChecked="True" />
-                            <Label Grid.Column="4" Content="Member Name: " HorizontalAlignment="Right" VerticalContentAlignment="Center" />
+                            <Label Grid.Column="4" Content="Member Name: " MinWidth="120" HorizontalAlignment="Right" VerticalContentAlignment="Center" />
                             <TextBox x:Name="txtSearchBrowseMembers" Grid.Column="5"  HorizontalContentAlignment="Center" Text="" Margin="5"/>
                             <Button x:Name="btnFilterBrowseMembers" Grid.Column="6" Margin="5" Content="Filter" Click="btnFilterBrowseMembers_Click" />
                             <Button x:Name="btnClearBrowseMembers" Grid.Column="7" Margin="5" Content="Clear" Click="btnClearBrowseMembers_Click"  />
@@ -1428,15 +1440,15 @@
                         </Grid.RowDefinitions>
                         <Grid Grid.Row="0">
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="100"/>
+                                <ColumnDefinition Width="25"/>
                                 <ColumnDefinition />
-                                <ColumnDefinition Width="100"/>
-                                <ColumnDefinition Width="100"/>
-                                <ColumnDefinition Width="100"/>
+                                <ColumnDefinition Width="125"/>
+                                <ColumnDefinition Width="125"/>
+                                <ColumnDefinition Width="125"/>
                             </Grid.ColumnDefinitions>
                             <!--<Button x:Name="btnCancelBrowseMembers" Content="Cancel" Grid.Column="0" Margin="5"  Click="btnCancelBrowseMembers_Click"  />-->
-                            <Button x:Name="btnViewMember" Content="View" Margin="5" Grid.Column="2"/>
-                            <Button x:Name="btnAddMember" Content="Add Member" Grid.Column="3"  Margin="5" Click="btnAddMember_Click"  />
+                            <Button x:Name="btnAddMember" Content="Add Member" Grid.Column="2"  Margin="5" Click="btnAddMember_Click"  />
+                            <Button x:Name="btnViewMember" Content="View" Margin="5" Grid.Column="3"/>
                             <Button x:Name="btnDeleteBrowseMembers" Content="Delete" Grid.Column="4"  Margin="5" Click="btnDeactivateBrowseMembers_Click" />
 
                         </Grid>
@@ -1518,7 +1530,7 @@
                     <Button x:Name="btnSaveProfile" Grid.Column="3" Margin="7" Content="Sumbit" Click="btnSaveProfile_Click"/>
                 </Grid>
             </Grid>
-            
+
             <!-- Maintenance Work Order-->
             <Grid x:Name="MaintenanceWorkOrderPage" Visibility="Hidden">
                 <Grid.RowDefinitions>
@@ -1600,7 +1612,7 @@
                 </Grid>
 
             </Grid>
-            
+
             <!-- Front Desk Page -->
             <Grid x:Name="FrontDeskPage" Visibility="Hidden">
                 <Grid.RowDefinitions>
@@ -1814,7 +1826,7 @@
                         <ColumnDefinition></ColumnDefinition>
                     </Grid.ColumnDefinitions>
                     <Grid Grid.Column="1">
-                       <!-- <Button x:Name="btnAddDepartment" Margin="5" Content="Add" Click="btnAddDepartment_Click"></Button>-->
+                        <!-- <Button x:Name="btnAddDepartment" Margin="5" Content="Add" Click="btnAddDepartment_Click"></Button>-->
                     </Grid>
                     <Grid Grid.Column="2">
                         <Button x:Name="btnDeleteDepartment" Margin="5" Content="Delete" Click="btnDeleteDepartment_Click"></Button>

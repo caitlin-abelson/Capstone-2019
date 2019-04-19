@@ -50,7 +50,7 @@ namespace UnitTests
             newSponsor.Email = oldSponsor.Email;
             newSponsor.ContactFirstName = oldSponsor.ContactFirstName;
             newSponsor.ContactLastName = oldSponsor.ContactLastName;
-            newSponsor.StatusID = oldSponsor.StatusID;
+            //newSponsor.StatusID = oldSponsor.StatusID;
             newSponsor.DateAdded = oldSponsor.DateAdded;
             newSponsor.Active = oldSponsor.Active;
         }
@@ -91,7 +91,7 @@ namespace UnitTests
                 Email = "adam@abc.com",
                 ContactFirstName = "Adam",
                 ContactLastName = "Smith",
-                StatusID = "New",
+                //StatusID = "New",
                 DateAdded = DateTime.Now,
                 Active = true
             };
@@ -110,7 +110,7 @@ namespace UnitTests
                                                 x.Email == newSponsor.Email &&
                                                 x.ContactFirstName == newSponsor.ContactFirstName &&
                                                 x.ContactLastName == newSponsor.ContactLastName &&
-                                                x.StatusID == newSponsor.StatusID &&
+                                                //x.StatusID == newSponsor.StatusID &&
                                                 x.DateAdded.Day == newSponsor.DateAdded.Day &&
                                                 x.Active == newSponsor.Active));
         }
@@ -132,7 +132,7 @@ namespace UnitTests
                 Email = "adam@abc.com",
                 ContactFirstName = "Adam",
                 ContactLastName = "Smith",
-                StatusID = "New",
+                //StatusID = "New",
                 DateAdded = DateTime.Now,
                 Active = true
             };
@@ -161,7 +161,7 @@ namespace UnitTests
                 Email = "adam@abc.com",
                 ContactFirstName = "Adam",
                 ContactLastName = "Smith",
-                StatusID = "New",
+                //StatusID = "New",
                 DateAdded = DateTime.Now,
                 Active = true
             };
@@ -188,7 +188,7 @@ namespace UnitTests
                 Email = "adam@abc.com",
                 ContactFirstName = "Adam",
                 ContactLastName = "Smith",
-                StatusID = "New",
+                //StatusID = "New",
                 DateAdded = DateTime.Now,
                 Active = true
             };
@@ -215,7 +215,7 @@ namespace UnitTests
                 Email = "adam@abc.com",
                 ContactFirstName = "Adam",
                 ContactLastName = "Smith",
-                StatusID = "New",
+                //StatusID = "New",
                 DateAdded = DateTime.Now,
                 Active = true
             };
@@ -241,7 +241,7 @@ namespace UnitTests
                 Email = "adam@abc.com",
                 ContactFirstName = "Adam",
                 ContactLastName = "123",
-                StatusID = "New",
+                //StatusID = "New",
                 DateAdded = DateTime.Now,
                 Active = true
             };
