@@ -120,7 +120,8 @@ INSERT INTO [dbo].[RoomStatus]
 	([RoomStatusID],[Description])
 	VALUES
 	('Available', 'Available'),
-	('Occupied', 'Occupied')
+	('Occupied', 'Occupied'),
+	('UNASSIGNED', "The status is currently unknown after an update of status values.")
 GO
 
 INSERT INTO [dbo].[BuildingStatus]

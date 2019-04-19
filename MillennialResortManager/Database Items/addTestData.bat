@@ -6,14 +6,7 @@ rem 2019-03-22
 rem This is the name you change. _____.sql Your file name goes in the blank.
 
 REM   sqlcmd -S localhost -E -i test_data_scripts/2019-04-10_TEST_Dani.sql
-sqlcmd -S localhost -E -i test_data_scripts/JacobMillerSampleData.sql
-sqlcmd -S localhost -E -i test_data_scripts/DaniTestData.sql
-
-
-sqlcmd -S localhost -E -i test_data_scripts/2019-03-29Wes_Richardson_TestData.sql
-
-sqlcmd -S localhost -E -i test_data_scripts/austinB.sql
-sqlcmd -S localhost -E -i test_data_scripts/2019-04-03FrancisMinomba.sql
+sqlcmd -S localhost -E -i test_data_scripts/Example.sql
 
 
 ECHO .

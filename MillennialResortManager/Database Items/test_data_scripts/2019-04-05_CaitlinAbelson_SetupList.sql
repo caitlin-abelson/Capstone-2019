@@ -85,36 +85,12 @@ INSERT INTO [dbo].[Event]
 				'2020-01-02','2020-01-04',0,500,'Beach',0,0,1,100,0)
 GO
 
-
-
-
-/*
-Author: Caitlin Abelson
-Created Date: 2/25/19
-
-Creating the table for Setup
-*/
-print '' print '*** Creating Setup Table'
-GO
-CREATE TABLE [dbo].[Setup] (
-	[SetupID]			[int] IDENTITY(100000, 1) 	  NOT NULL,
-	[EventID]			[int]						  NOT NULL,
-	[DateEntered]		[date]					  	  NOT NULL,
-	[DateRequired]		[date]					 	  NOT NULL,
-	[Comments]			[nvarchar](1000)			  NULL,
-
-	CONSTRAINT [pk_SetupID] PRIMARY KEY([SetupID] ASC),
-)
-GO
-
 /*
 Author: Caitlin Abelson
 Created Date: 2/25/19
 
 Creating the Foreign Key constraint for Setup
 */
-print '' print '*** Adding Foreign Key for Setup'
-
 ALTER TABLE [dbo].[Setup] WITH NOCHECK
 	ADD CONSTRAINT [fk_EventID] FOREIGN KEY ([EventID])
 	REFERENCES [dbo].[Event]([EventID])
@@ -135,8 +111,6 @@ to be completed as well as other instruction to make those be complete.
 Comments are for those working on the setup that might have to state why it 
 couldn't be completed or to state they did something different. 
 */
-print '' print '*** Creating SetupList Table'
-GO
 CREATE TABLE [dbo].[SetupList] (
 	[SetupListID]		[int] IDENTITY(100000, 1) 	  NOT NULL,
 	[SetupID]			[int]						  NOT NULL,
