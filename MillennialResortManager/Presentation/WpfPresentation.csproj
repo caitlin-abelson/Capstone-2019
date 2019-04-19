@@ -72,7 +72,6 @@
     </ApplicationDefinition>
     <Compile Include="AddDepartment.xaml.cs" />
     <Compile Include="AddGuestType.xaml.cs" />
-    <Compile Include="AddItem.xaml.cs" />
     <Compile Include="AddLuggage.xaml.cs" />
     <Compile Include="AddPerformance.xaml.cs" />
     <Compile Include="AddSpecialOrder.xaml.cs" />
@@ -111,6 +110,7 @@
       <DependentUpon>BrowseShop.xaml</DependentUpon>
     </Compile>
     <Compile Include="BrowseShuttleReservation.xaml.cs" />
+    <Compile Include="BrowseSpecialOrder.xaml.cs" />
     <Compile Include="BrowseSponsor.xaml.cs" />
     <Compile Include="BrowseSupplier.xaml.cs">
       <DependentUpon>BrowseSupplier.xaml</DependentUpon>
@@ -185,6 +185,7 @@
     <Compile Include="InspectionDetail.xaml.cs">
       <DependentUpon>InspectionDetail.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Items.xaml.cs" />
     <Compile Include="OrderRecieving.xaml.cs" />
     <Compile Include="Read_BrowseOrder.xaml.cs" />
     <Compile Include="RoomTypes.xaml.cs" />
@@ -202,10 +203,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="AddGuestType.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="AddItem.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -292,6 +289,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="BrowseShuttleReservation.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="BrowseSpecialOrder.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -532,6 +533,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="InternalOrderDetail.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Items.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
