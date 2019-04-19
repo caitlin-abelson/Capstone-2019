@@ -92,11 +92,13 @@
     </ApplicationDefinition>
     <Compile Include="AddDepartment.xaml.cs" />
     <Compile Include="AddGuestType.xaml.cs" />
-    <Compile Include="AddItem.xaml.cs" />
     <Compile Include="AddLuggage.xaml.cs" />
     <Compile Include="AddPerformance.xaml.cs" />
     <Compile Include="AddSpecialOrder.xaml.cs" />
     <Compile Include="BrowseAppointmentType.xaml.cs" />
+    <Compile Include="BrowseAvailableRooms.xaml.cs">
+      <DependentUpon>BrowseAvailableRooms.xaml</DependentUpon>
+    </Compile>
     <Compile Include="BrowseBuilding.xaml.cs">
       <DependentUpon>BrowseBuilding.xaml</DependentUpon>
     </Compile>
@@ -131,6 +133,7 @@
       <DependentUpon>BrowseShop.xaml</DependentUpon>
     </Compile>
     <Compile Include="BrowseShuttleReservation.xaml.cs" />
+    <Compile Include="BrowseSpecialOrder.xaml.cs" />
     <Compile Include="BrowseSponsor.xaml.cs" />
     <Compile Include="BrowseSupplier.xaml.cs">
       <DependentUpon>BrowseSupplier.xaml</DependentUpon>
@@ -201,6 +204,9 @@
       <DependentUpon>frmSelectGuestForAppointment.xaml</DependentUpon>
     </Compile>
     <Compile Include="FrontDeskTemplate.xaml.cs" />
+    <Compile Include="GuestMemberRoomDetail.xaml.cs">
+      <DependentUpon>GuestMemberRoomDetail.xaml</DependentUpon>
+    </Compile>
     <Compile Include="GuestTypes.xaml.cs" />
     <Compile Include="GuestVehicleDetail.xaml.cs">
       <DependentUpon>GuestVehicleDetail.xaml</DependentUpon>
@@ -209,6 +215,7 @@
       <DependentUpon>InspectionDetail.xaml</DependentUpon>
     </Compile>
     <Compile Include="MillennialResort_DBDataSet.Designer.cs" />
+    <Compile Include="Items.xaml.cs" />
     <Compile Include="OrderRecieving.xaml.cs" />
     <Compile Include="PickSheetReport.xaml.cs">
       <DependentUpon>PickSheetReport.xaml</DependentUpon>
@@ -233,10 +240,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="AddItem.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="AddLuggage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -250,6 +253,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="BrowseAppointmentType.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="BrowseAvailableRooms.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -320,6 +327,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="BrowseShuttleReservation.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="BrowseSpecialOrder.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -551,6 +562,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="GuestMemberRoomDetail.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="GuestTypes.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -564,6 +579,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="InternalOrderDetail.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Items.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

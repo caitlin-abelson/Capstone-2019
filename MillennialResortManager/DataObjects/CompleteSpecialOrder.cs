@@ -17,10 +17,10 @@ namespace DataObjects
         public int SpecialOrderID { get; set; }
         public int EmployeeID { get; set; }
         public string Description { get; set; }
-        public bool OrderComplete { get; set; }
         public DateTime DateOrdered { get; set; }
-        public int SupplierID { get; set; }
-       
+        public string Supplier { get; set; }
+        public string Authorized { get; set; }
+
 
         /// <summary>
         /// Carlos Arzu
@@ -74,6 +74,25 @@ namespace DataObjects
             bool isValid = true;
 
             if (!ValidateDescription() || !ValidateDate())
+            {
+                isValid = false;
+            }
+
+            return isValid;
+        }
+
+        /// <summary>
+        /// Carlos Arzu
+        /// Created: 2019/02/20
+        /// 
+        /// Validates the Supplier entered by user.
+        ///
+        /// </summary>
+        public bool ValidateSupplier()
+        {
+            bool isValid = true;
+
+            if (Description == null || Description == "" || Description.Length > 1000)
             {
                 isValid = false;
             }

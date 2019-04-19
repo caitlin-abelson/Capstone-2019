@@ -56,14 +56,13 @@ namespace UnitTests
                 SpecialOrderID = 100008,
                 EmployeeID = 100005,
                 Description = "Escape Pod for Groom",
-                OrderComplete = false,
                 DateOrdered = DateTime.Now,
-                SupplierID = 100021
+                Supplier = "Backscratcher"
             };
 
             SpecialOrderLine orderline = new SpecialOrderLine()
             {
-                ItemID = 100013,
+                NameID = "Short Relief",
                 Description = "Darts to sleep the Bride",
                 OrderQty = 40,
                 QtyReceived = 0
@@ -71,7 +70,7 @@ namespace UnitTests
 
 
             //Act
-            _supplierOrderManager.CreateSpecialOrder(order,orderline);
+            _supplierOrderManager.CreateSpecialOrder(order);
 
             //Assert
             _compsupplierOrder = _supplierOrderManager.retrieveAllOrders();
@@ -79,11 +78,11 @@ namespace UnitTests
 
             Assert.IsNotNull(_compsupplierOrder.Find(o => o.SpecialOrderID == order.SpecialOrderID
               && o.EmployeeID == order.EmployeeID && o.Description == order.Description
-              && o.OrderComplete == order.OrderComplete && o.DateOrdered == order.DateOrdered
-              && o.SupplierID == order.SupplierID));
-            Assert.IsNotNull(_supplierOrderLine.Find(l => l.ItemID == orderline.ItemID
+              && o.DateOrdered == order.DateOrdered
+              && o.Supplier == order.Supplier));
+            /*Assert.IsNotNull(_supplierOrderLine.Find(l => l.NameID == orderline.NameID
               && l.Description == orderline.Description && l.OrderQty == orderline.OrderQty
-              && l.QtyReceived == orderline.QtyReceived));
+              && l.QtyReceived == orderline.QtyReceived));*/
 
         }
 
@@ -96,20 +95,19 @@ namespace UnitTests
                 SpecialOrderID = 100008,
                 EmployeeID = 100005,
                 Description = null,
-                OrderComplete = false,
                 DateOrdered = DateTime.Now,
-                SupplierID = 100021
+                Supplier = "Leap"
             };
 
             SpecialOrderLine orderline = new SpecialOrderLine()
             {
-                ItemID = 100013,
+                NameID = "You get nothing",
                 Description = null,
                 OrderQty = 40,
                 QtyReceived = 0
             };
 
-             _supplierOrderManager.CreateSpecialOrder(order, orderline);
+             _supplierOrderManager.CreateSpecialOrder(order);
 
         }
 
@@ -122,20 +120,20 @@ namespace UnitTests
                 SpecialOrderID = 100008,
                 EmployeeID = 100005,
                 Description = "",
-                OrderComplete = false,
                 DateOrdered = DateTime.Now,
-                SupplierID = 100021
+                Supplier = "ShopFever"
             };
 
             SpecialOrderLine orderline = new SpecialOrderLine()
             {
-                ItemID = 100013,
+                NameID = "Job",
                 Description = "",
                 OrderQty = 40,
                 QtyReceived = 0
             };
 
-             _supplierOrderManager.CreateSpecialOrder(order, orderline);
+             _supplierOrderManager.CreateSpecialOrder(order);
+             _supplierOrderManager.CreateSpecialOrderLine(orderline);
 
         }
 
@@ -148,20 +146,20 @@ namespace UnitTests
                 SpecialOrderID = 100008,
                 EmployeeID = 100005,
                 Description = createStringLength(1001),
-                OrderComplete = false,
                 DateOrdered = DateTime.Now,
-                SupplierID = 100021
+                Supplier = "Fish n Dip"
             };
 
             SpecialOrderLine orderline = new SpecialOrderLine()
             {
-                ItemID = 100013,
+                NameID = "Paint",
                 Description = createStringLength(1001),
                 OrderQty = 40,
                 QtyReceived = 0
             };
 
-            _supplierOrderManager.CreateSpecialOrder(order, orderline);
+            _supplierOrderManager.CreateSpecialOrder(order);
+            _supplierOrderManager.CreateSpecialOrderLine(orderline);
 
         }
 
@@ -175,7 +173,7 @@ namespace UnitTests
             Assert.IsNotNull(_compsupplierOrder);
         }
 
-        //Retrieve Order Lines By SupplierID Tests
+        //Retrieve Order Lines By Supplier Tests
         [TestMethod()]
         public void RetrieveOrderLinesBySupplierIDTest()
         {
@@ -195,21 +193,21 @@ namespace UnitTests
                 SpecialOrderID = 100008,
                 EmployeeID = 100005,
                 Description = createStringLength(1001),
-                OrderComplete = false,
                 DateOrdered = DateTime.Now,
-                SupplierID = 100021
+                Supplier = "Rigga meter"
             };
 
             SpecialOrderLine orderline = new SpecialOrderLine()
             {
-                ItemID = 100013,
+                NameID = "Paint",
                 Description = createStringLength(1001),
                 OrderQty = -1,
                 QtyReceived = 0
             };
-          
 
-            _supplierOrderManager.CreateSpecialOrder(order, orderline); 
+
+            _supplierOrderManager.CreateSpecialOrder(order);
+            _supplierOrderManager.CreateSpecialOrderLine(orderline);
 
         }
 
@@ -222,20 +220,20 @@ namespace UnitTests
                 SpecialOrderID = 100008,
                 EmployeeID = 100005,
                 Description = "Mighty tests",
-                OrderComplete = false,
                 DateOrdered = DateTime.Now,
-                SupplierID = 100021
+                Supplier = "SuperMax"
             };
 
             SpecialOrderLine orderline = new SpecialOrderLine()
             {
-                ItemID = 100013,
+                NameID = "Pole",
                 Description = createStringLength(1001),
                 OrderQty = 10,
                 QtyReceived = -10
             };
-          
-            _supplierOrderManager.CreateSpecialOrder(order, orderline);
+
+            _supplierOrderManager.CreateSpecialOrder(order);
+            _supplierOrderManager.CreateSpecialOrderLine(orderline);
 
         }
 
@@ -249,20 +247,20 @@ namespace UnitTests
                 SpecialOrderID = 100008,
                 EmployeeID = 100005,
                 Description = "Mighty tests",
-                OrderComplete = false,
                 DateOrdered = DateTime.Now.AddDays(-1),
-                SupplierID = 100021
+                Supplier = "Too much"
             };
 
             SpecialOrderLine orderline = new SpecialOrderLine()
             {
-                ItemID = 100013,
+                NameID = "Paviment",
                 Description = createStringLength(1001),
                 OrderQty = 10,
                 QtyReceived = -10
             };
 
-            _supplierOrderManager.CreateSpecialOrder(order, orderline);
+            _supplierOrderManager.CreateSpecialOrder(order);
+            _supplierOrderManager.CreateSpecialOrderLine(orderline);
 
         }
 

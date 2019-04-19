@@ -73,6 +73,8 @@
     <Compile Include="MaintenanceType.cs" />
     <Compile Include="MaintenanceWorkOrder.cs" />
     <Compile Include="Member.cs" />
+    <Compile Include="MemberTab.cs" />
+    <Compile Include="MemberTabLine.cs" />
     <Compile Include="Offering.cs" />
     <Compile Include="OfferingVM.cs" />
     <Compile Include="Performance.cs" />
@@ -91,6 +93,7 @@
     <Compile Include="ResortVehicleStatus.cs" />
     <Compile Include="Role.cs" />
     <Compile Include="Room.cs" />
+    <Compile Include="RoomReservation.cs" />
     <Compile Include="RoomReservationModel.cs" />
     <Compile Include="RoomType.cs" />
     <Compile Include="Setup.CS" />
@@ -114,6 +117,7 @@
     <Compile Include="VMInternalOrder.cs" />
     <Compile Include="VMInternalOrderLine.cs" />
     <Compile Include="VMItemSupplierItem.cs" />
+    <Compile Include="VMRoomRoomReservation.cs" />
     <Compile Include="VMSetup.cs" />
     <Compile Include="VMSetupList.cs" />
   </ItemGroup>

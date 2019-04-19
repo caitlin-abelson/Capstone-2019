@@ -420,6 +420,11 @@ namespace DataAccessLayer
         /// Author: Wes Richardson
         /// Created: 2019/04/18
         /// </summary>
+        /// <remarks>
+        /// James Heim
+        /// 2019-04-19
+        /// Added a check if Notes is null before assigning it.
+        /// </remarks>
         /// <param name="guestID"></param>
         /// <returns>A Reservation</returns>
         public Reservation RetrieveReservationByGuestID(int guestID)
@@ -452,9 +457,19 @@ namespace DataAccessLayer
                         NumberOfPets = reader.GetInt32(3),
                         ArrivalDate = reader.GetDateTime(4),
                         DepartureDate = reader.GetDateTime(5),
-                        Notes = reader.GetString(6),
                         Active = true
                     };
+
+                    // Notes can be nullable.
+                    if (reader.IsDBNull(6))
+                    {
+                        resv.Notes = "";
+                    }
+                    else
+                    {
+                        resv.Notes = reader.GetString(6);
+                    }
+
                 }
             }
             catch (Exception up)
