@@ -31,18 +31,7 @@ namespace MillennialResortWebSite.Controllers
             return View(rooms);
         }
 
-
-
-        public ActionResult SearchRoomAvailability()
-        {
-            reservationManager = new ReservationManagerMSSQL();
-            reservation = reservationManager.RetrieveAllReservations();
-
-            return View(reservation);
-        }
-
-
-
+        
 
     }
 }

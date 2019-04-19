@@ -340,7 +340,6 @@
     <Content Include="Views\Appointment\CreateSpa.cshtml" />
     <Content Include="Views\Home\Rooms.cshtml" />
     <Content Include="Views\Rooms\Index.cshtml" />
-    <Content Include="Views\Rooms\SearchRoomAvailability.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
