@@ -56,9 +56,12 @@ namespace LogicLayer
         }
         /// <summary>
         /// Author: Gunardi Saputra
-        /// Created Date: 2019/02/20
+        /// Created Date: 02/20/2019
         /// 
         /// Method to see if everything is valid.
+        /// 
+        /// Modified by Gunardi Saputra
+        /// Dated: 04/19/2019
         /// </summary>
         /// <param name="newSponsor"></param>
         public bool isValid(Sponsor newSponsor)
@@ -66,7 +69,7 @@ namespace LogicLayer
             if (validateName(newSponsor.Name)
                 && validateAddress(newSponsor.Address)
                 && validateCity(newSponsor.City)
-                && validateStatusID(newSponsor.StatusID)
+                //&& validateStatusID(newSponsor.StatusID)
                 && validateState(newSponsor.State)
                 && validatePhoneNumber(newSponsor.PhoneNumber)
                 && validateEmail(newSponsor.Email)
@@ -198,19 +201,23 @@ namespace LogicLayer
 
         /// <summary>
         /// Author: Gunardi Saputra
-        /// Created Date: 2019/02/20
+        /// Created Date: 02/20/2019
         /// 
         /// Validation for StatusID
+        /// 
+        /// Modified by Gunardi Saputra
+        /// Date: 04/19/2019
+        /// remove validateStatusID
         /// </summary>
         /// <param name="statusID"></param>
-        public bool validateStatusID(string statusID)
-        {
-            if (statusID == null || statusID =="" )
-            {
-                return false;
-            }
-            return true;
-        }
+        //public bool validateStatusID(string statusID)
+        //{
+        //    if (statusID == null || statusID =="" )
+        //    {
+        //        return false;
+        //    }
+        //    return true;
+        //}
         /// <summary>
         /// Author: Gunardi Saputra
         /// Created Date: 2019/02/20
@@ -354,42 +361,49 @@ namespace LogicLayer
         /// </summary>
         public List<string> RetrieveAllStates()
         {
-            List<string> allStates = null;
+            //List<string> allStates = null;
+            List<string> states = new List<string>();
+            states.Add("IA");
+            states.Add("CA");
+            states.Add("OR");
 
-            try
-            {
-                allStates = _sponsorAccessor.SelectAllStates();
-            }
-            catch (Exception)
-            {
-                throw;
-            }
+            
+            //try
+            //{
+            //    allStates = _sponsorAccessor.SelectAllStates();
+            //}
+            //catch (Exception)
+            //{
+            //    throw;
+            //}
 
-            return allStates;
+            return states;
         }
 
         /// <summary>
         /// Author: Gunardi Saputra
-        /// Created Date: 2019/02/20
+        /// Created Date: 02/20/2019
         /// 
         /// The SelectAllSponsorStatus method returns sponsorStatus 
         /// from the SponsorAccessor
+        /// 
+        /// Updated by Gunardi Saputra on 04/19/2019
         /// </summary>
-        public List<string> RetrieveAllSponsorStatus()
-        {
-            List<string> statusID = null;
+        //public List<string> RetrieveAllSponsorStatus()
+        //{
+        //    List<string> statusID = null;
 
-            try
-            {
-                statusID = _sponsorAccessor.SelectAllSponsorStatus();
-            }
-            catch (Exception)
-            {
-                throw;
-            }
+        //    try
+        //    {
+        //        statusID = _sponsorAccessor.SelectAllSponsorStatus();
+        //    }
+        //    catch (Exception)
+        //    {
+        //        throw;
+        //    }
 
-            return statusID;
-        }
+        //    return statusID;
+        //}
 
 
         /// <summary>

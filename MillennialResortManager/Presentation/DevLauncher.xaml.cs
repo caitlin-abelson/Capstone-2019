@@ -3305,6 +3305,24 @@ namespace Presentation
             dgPerformaces.SelectedItem = null;
         }
 
+        /// <summary>
+        /// @Author: Phillip Hansen
+        /// @Created 4/18/2019
+        /// 
+        /// Method used to alter column header names
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void DgPerformaces_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
+        {
+            string headerName = e.Column.Header.ToString();
+
+            if(headerName == "ID")
+            {
+                e.Cancel = true;
+            }
+        }
+
         private void openView(int performanceID)
         {
             var frmView = new ViewPerformance(performanceID, performanceManager);
@@ -4355,7 +4373,12 @@ namespace Presentation
             populateSponsors();
         }
 
-
+        /// <summary>
+        /// Author: Gunardi Saputra
+        /// Create: 03/03/2019
+        /// 
+        /// Refresh all sponsors data
+        /// </summary>
         private void refreshAllSponsors()
         {
             try
@@ -4370,16 +4393,41 @@ namespace Presentation
             _currentSponsors = _allSponsors;
         }
 
+
+
+        /// <summary>
+        /// Author: Gunardi Saputra
+        /// Create: 03/03/2019
+        /// 
+        /// Populate all sponsors data on data grid
+        /// 
+        /// </summary>
         private void populateSponsors()
         {
             dgSponsors.ItemsSource = _currentSponsors;
         }
 
+
+        /// <summary>
+        /// Author: Gunardi Saputra
+        /// Create: 03/03/2019
+        /// 
+        /// Cancel button method will close the active window
+        /// 
+        /// </summary>
         private void btnCancelBrowseSponsor_Click(object sender, RoutedEventArgs e)
         {
             Close();
         }
 
+
+        /// <summary>
+        /// Author: Gunardi Saputra
+        /// Create: 03/03/2019
+        /// 
+        /// It Will call all the methods for creating a new sponsor.
+        /// 
+        /// </summary>
         private void btnAddSponsor_Click(object sender, RoutedEventArgs e)
         {
             var createSponsor = new FrmSponsor();
@@ -4388,6 +4436,13 @@ namespace Presentation
             populateSponsors();
         }
 
+        /// <summary>
+        /// Author: Gunardi Saputra
+        /// Create: 03/03/2019
+        /// 
+        /// It will delete a selected sponsor
+        /// 
+        /// </summary>
         private void btnDeleteBrowseSponsor_Click(object sender, RoutedEventArgs e)
         {
             if (dgSponsors.SelectedIndex != -1)
@@ -4406,6 +4461,14 @@ namespace Presentation
             }
         }
 
+
+        /// <summary>
+        /// Author: Gunardi Saputra
+        /// Create: 03/03/2019
+        /// 
+        /// Auto generated column contents.
+        /// 
+        /// </summary>
         private void dgSponsors_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
         {
             if (e.PropertyType == typeof(DateTime))
@@ -4419,25 +4482,47 @@ namespace Presentation
             }
         }
 
+        /// <summary>
+        /// Author: Gunardi Saputra
+        /// Create: 03/03/2019
+        /// 
+        /// Clear the search text box
+        /// 
+        /// Updated by: Gunardi Saputra
+        /// Date: 04/19/2019
+        /// 
+        /// Change the name from txtSearch to txtSearchBrowseSponsor
+        /// </summary>
         private void btnClearFiltersBrowseSponsor_Click(object sender, RoutedEventArgs e)
         {
-            txtSearch.Text = "";
+            txtSearchBrowseSponsor.Text = "";
             filterSponsors();
         }
 
+        /// <summary>
+        /// Author: Gunardi Saputra
+        /// Create: 03/03/2019
+        /// 
+        /// Display the data found from search text box
+        /// 
+        /// Updated by: Gunardi Saputra
+        /// Date: 04/19/2019
+        /// 
+        /// Change the name from txtSearch to txtSearchBrowseSponsor
+        /// </summary>
         private void filterSponsors()
         {
             string searchTerm = null;
 
             try
             {
-                searchTerm = (txtSearch.Text).ToLower().ToString();
+                searchTerm = (txtSearchBrowseSponsor.Text).ToLower().ToString();
                 _currentSponsors = _allSponsors.FindAll(m => m.Name.ToLower().Contains(searchTerm));
 
 
-                if (txtSearch.Text.ToString() != "")
+                if (txtSearchBrowseSponsor.Text.ToString() != "")
                 {
-                    _currentSponsors = _currentSponsors.FindAll(m => m.Name.ToLower().Contains(txtSearch.Text.ToString().ToLower()));
+                    _currentSponsors = _currentSponsors.FindAll(m => m.Name.ToLower().Contains(txtSearchBrowseSponsor.Text.ToString().ToLower()));
                 }
 
                 dgSponsors.ItemsSource = _currentSponsors;
@@ -4448,12 +4533,27 @@ namespace Presentation
             }
         }
 
+        /// <summary>
+        /// Author: Gunardi Saputra
+        /// Create: 03/03/2019
+        /// 
+        /// Call filterSponsor method
+        /// 
+        /// </summary>
         private void btnFilterBrowseSponsor_Click(object sender, RoutedEventArgs e)
         {
             filterSponsors();
         }
 
-
+        /// <summary>
+        /// @Author: Gunardi Saputra
+        /// Created: 03/03/2019
+        /// 
+        /// Retrieve  a sponsor data in a window form
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
 
 
         private void dgSponsors_MouseDoubleClick(object sender, MouseButtonEventArgs e)
@@ -5008,7 +5108,7 @@ namespace Presentation
 
                 if (_selectedEvent == null)
                 {
-                    MessageBox.Show("No Event Selected!");
+                    MessageBox.Show("No event selected!");
                 }
                 else
                 {
@@ -5077,18 +5177,26 @@ namespace Presentation
         {
             _selectedEvent = (Event)dgEvents.SelectedItem;
 
-            try
+            if(dgEvents.SelectedIndex > -1)
             {
-                _eventManager.UpdatEventToUncancel(_selectedEvent);
+                try
+                {
+                    _eventManager.UpdatEventToUncancel(_selectedEvent);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message + "\nCould not update event to un-cancelled!");
+                }
+                finally
+                {
+                    populateEvents();
+                }
             }
-            catch (Exception ex)
+            else
             {
-                MessageBox.Show(ex.Message + "\nCould not update event to un-cancelled!");
+                MessageBox.Show("A record from the list must be selected!");
             }
-            finally
-            {
-                populateEvents();
-            }
+            
         }
 
         /// <summary>
@@ -5275,7 +5383,11 @@ namespace Presentation
         private void DgEvents_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
         {
             string headerName = e.Column.Header.ToString();
-
+            
+            if (e.PropertyType == typeof(DateTime))
+            {
+                (e.Column as DataGridTextColumn).Binding.StringFormat = "MM/dd/yyyy";
+            }
             if (headerName == "EventID")
             {
                 e.Cancel = true;
@@ -5390,7 +5502,7 @@ namespace Presentation
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message + "\nCould not retrieve the list of Events.");
+                MessageBox.Show(ex.Message + "\nCould not retrieve the list of events.");
             }
 
         }
@@ -5604,6 +5716,7 @@ namespace Presentation
         {
             _petManager = new PetManager();
             petTypeManager = new PetTypeManager();
+            populatePets();
 
         }
 
@@ -5621,8 +5734,10 @@ namespace Presentation
         private void DgPets_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
         {
             string headerName = e.Column.Header.ToString();
-            // if(headerName == "PetID") { e.Cancel = true; }
-            // if (headerName == "EmployeeID") { e.Cancel = true; 
+
+            if (headerName == "PetID") { e.Cancel = true; }
+
+            if (headerName == "GuestID") { e.Cancel = true; }
 
 
         }

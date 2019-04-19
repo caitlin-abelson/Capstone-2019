@@ -47,6 +47,11 @@ namespace LogicLayer
         /// 
         /// check if guest is valid or not
         /// </summary>
+        /// <remarks>
+        /// Alisa Roehr
+        /// Updated: 2019/04/16 
+        /// fix: made it so that other extentions can be used for email.
+        /// </remarks>
         /// <param name="_guest"> guest that is being tested for validation</param>
         /// <returns>whether the guest information is valid</returns>
         public bool isValid(Guest _guest)
@@ -72,7 +77,7 @@ namespace LogicLayer
             {
                 return false;  // for phone number
             }
-            else if (_guest.Email.Length > 250 || _guest.Email == null || _guest.Email.Length == 0 || !_guest.Email.Contains("@") || !_guest.Email.Contains(".") || !(_guest.Email.Contains("com") || _guest.Email.Contains("edu") || _guest.Email.Contains("gov")))
+            else if (_guest.Email.Length > 250 || _guest.Email == null || _guest.Email.Length == 0 || !_guest.Email.Contains("@") || !_guest.Email.Contains(".") )
             {
                 return false;  // for email, need greater email validation
             }
