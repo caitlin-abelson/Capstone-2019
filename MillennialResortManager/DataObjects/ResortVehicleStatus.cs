@@ -1,4 +1,6 @@
-﻿namespace DataObjects
+﻿using System;
+
+namespace DataObjects
 {
     /// <summary>
     /// Francis Mingomba
@@ -11,5 +13,12 @@
         public string Id { get; set; }
 
         public string Description { get; set; }
+    }
+
+    public enum ResortVehicleStatusEnum
+    {
+        InUse,
+        Available,
+        Decommissioned
     }
 }

@@ -19,6 +19,6 @@ namespace LogicLayer
 
         void UpdateResortPropertyType(ResortPropertyType old, ResortPropertyType newResortPropertyType);
 
-        void DeleteResortPropertyType(string id);
+        void DeleteResortPropertyType(string id, Employee employee);
     }
 }

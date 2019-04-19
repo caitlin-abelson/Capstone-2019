@@ -43,6 +43,7 @@
     <IntermediateOutputPath>C:\Users\nh229u05\AppData\Local\Temp\vs2C67.tmp\Debug\</IntermediateOutputPath>
     <IntermediateOutputPath>C:\Users\berqu\AppData\Local\Temp\vs58F.tmp\Debug\</IntermediateOutputPath>
     <IntermediateOutputPath>C:\Users\Wes\AppData\Local\Temp\vs26D5.tmp\Debug\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\berqu\AppData\Local\Temp\vsEA3F.tmp\Debug\</IntermediateOutputPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -61,6 +62,7 @@
     <IntermediateOutputPath>C:\Users\nh229u05\AppData\Local\Temp\vs2C67.tmp\Release\</IntermediateOutputPath>
     <IntermediateOutputPath>C:\Users\berqu\AppData\Local\Temp\vs58F.tmp\Release\</IntermediateOutputPath>
     <IntermediateOutputPath>C:\Users\Wes\AppData\Local\Temp\vs26D5.tmp\Release\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\berqu\AppData\Local\Temp\vsEA3F.tmp\Release\</IntermediateOutputPath>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
@@ -346,10 +348,11 @@
     <Content Include="Views\Appointment\Massage.cshtml" />
     <Content Include="Views\Appointment\WhaleWatching.cshtml" />
     <Content Include="Views\Appointment\SandcastleBuilding.cshtml" />
+    <Content Include="Views\MyAccount\Index.cshtml" />
+    <Content Include="Views\MyAccount\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\MyAccount\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

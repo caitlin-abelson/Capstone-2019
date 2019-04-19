@@ -879,5 +879,53 @@ namespace DataAccessLayer
 
             return vmGuest;
         }
+
+        public Guest RetriveGuestByEmail(string email)
+        {
+            Guest guest = null;
+
+            var conn = DBConnection.GetDbConnection();
+            var cmdText = @"sp_retrieve_guests_by_email";
+            var cmd = new SqlCommand(cmdText, conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.AddWithValue("@Email", email);
+
+            try
+            {
+                conn.Open();
+                var reader = cmd.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    reader.Read();
+                    guest = new Guest()
+                    {
+                        GuestID = reader.GetInt32(0),
+                        MemberID = reader.GetInt32(1),
+                        GuestTypeID = reader.GetString(2),
+                        FirstName = reader.GetString(3),
+                        LastName = reader.GetString(4),
+                        PhoneNumber = reader.GetString(5),
+                        Email = reader.GetString(6),
+                        Minor = reader.GetBoolean(7),
+                        Active = reader.GetBoolean(8),
+                        ReceiveTexts = reader.GetBoolean(9),
+                        EmergencyFirstName = reader.GetString(10),
+                        EmergencyLastName = reader.GetString(11),
+                        EmergencyPhoneNumber = reader.GetString(12),
+                        EmergencyRelation = reader.GetString(13)
+                    };
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return guest;
+        }
     }
 }

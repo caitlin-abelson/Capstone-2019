@@ -34,5 +34,6 @@ namespace LogicLayer
 
         // Added by Caitlin Abelson 2019/04/12
         List<VMGuest> SelectAllVMGuests();
+        Guest RetrieveGuestByEmail(string email);
     }
 }

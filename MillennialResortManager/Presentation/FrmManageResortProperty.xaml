@@ -1,0 +1,140 @@
+﻿<UserControl x:Class="Presentation.FrmManageResortProperty"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Presentation"
+        mc:Ignorable="d"
+        Height="450" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="36"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="36"/>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="10"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="36"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="10"/>
+        </Grid.ColumnDefinitions>
+
+        <!--Left Hand Side-->
+        <Grid x:Name="Lhs" Column="1" Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="36"/>
+                <RowDefinition Height="10"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <!--Filter-->
+            <Grid Row="0" HorizontalAlignment="Right">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="50"/>
+                    <ColumnDefinition Width="150"/>
+                </Grid.ColumnDefinitions>
+
+                <Label Content="Filter:" Grid.Column="0" 
+                       HorizontalAlignment="Right" 
+                       VerticalAlignment="Center" 
+                       FontSize="15"/>
+                <TextBox Grid.Column="1" Name="txtFilter" TextChanged="TxtFilter_OnTextChanged"/>
+            </Grid>
+            <!--End of Filter-->
+
+            <!--DataGrid-->
+            <DataGrid Grid.Row="2" Name="dtgResortProperties" CanUserAddRows="False" 
+                      IsReadOnly="True" AutoGenerateColumns="False" MouseLeftButtonUp="DtgResortProperties_MouseLeftButtonUp"
+                      >
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Resort Property" Binding="{Binding ResortPropertyId}" />
+                    <DataGridTextColumn Header="Resort Property Type" Binding="{Binding ResortPropertyTypeId}" />
+                    <DataGridTemplateColumn>
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Content="Delete" Name="btnDelete" Width="150" Click="BtnDelete_OnClick"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+            <!--End of DataGrid-->
+        </Grid>
+        <!--End of Left Hand Side-->
+
+        <!--Right Hand Side-->
+        <Grid x:Name="Rhs" Column="3" Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="30"/>
+                <ColumnDefinition Width="5"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="5"/>
+                <ColumnDefinition Width="30"/>
+            </Grid.ColumnDefinitions>
+
+            <!--Left Arrow-->
+            <Button Name="btnPrevious" 
+                    Content="&lt;&lt;"
+                    Height="36"
+                    VerticalAlignment="Center"
+                    Grid.Column="0"
+                    Click="BtnPrevious_OnClick"/>
+            <!--End of Left Arrow-->
+
+            <!--Form-->
+            <Grid Column="2" VerticalAlignment="Center" x:Name="resortPropertyForm">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="36"/>
+                    <RowDefinition Height="10"/>
+                    <RowDefinition Height="36"/>
+                    <RowDefinition Height="10"/>
+                    <RowDefinition Height="36"/>
+                </Grid.RowDefinitions>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="120"/>
+                    <ColumnDefinition Width="150"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <!--Resort Property-->
+                <Label Content="Resort Property" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Right"/>
+                <TextBox Grid.Column="2" Grid.Row="0" Name="txtResortProperty" IsReadOnly="True" Text="{Binding ResortPropertyId}"/>
+                <!--End of Resort Property-->
+
+                <!--Resort Property Type-->
+                <Label Content="Resort Property Type" Grid.Column="1" Grid.Row="2" HorizontalAlignment="Right"/>
+                <ComboBox Grid.Column="2" Grid.Row="2" Name="cmbResortPropertyType" SelectedItem="{Binding ResortPropertyTypeId}"/>
+                <!--End of Resort Property Type-->
+
+                <!--Control Buttons-->
+                <StackPanel Grid.ColumnSpan="4" Grid.Row="4" Grid.Column="0"
+                            Orientation="Horizontal"
+                            HorizontalAlignment="Center">
+                    <Button Content="New" Width="120" Height="35" Name="btnAdd" Margin="0 0 30 0" Click="BtnNew_OnClick"/>
+                    <Button Content="Save" Width="120" Height="35" Name="btnSave" Click="BtnSave_OnClick"/>
+                </StackPanel>
+                <!--End of Control Buttons-->
+            </Grid>
+            <!--End of Form-->
+
+            <!--Right Arrow-->
+            <Button Name="btnNext"
+                    Content="&gt;&gt;"
+                    Height="36"
+                    VerticalAlignment="Center"
+                    Grid.Column="4"
+                    Click="BtnNext_OnClick"/>
+            <!--End of Right Arrow-->
+
+
+
+
+        </Grid>
+        <!--End of Right Hand Side-->
+
+    </Grid>
+</UserControl>
