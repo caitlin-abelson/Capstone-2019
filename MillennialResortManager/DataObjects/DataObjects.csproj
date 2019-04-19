@@ -49,6 +49,7 @@
     <Compile Include="BuildingVM.cs" />
     <Compile Include="CompleteSpecialOrder.cs" />
     <Compile Include="Department.cs" />
+    <Compile Include="EMailer.cs" />
     <Compile Include="Employee.cs" />
     <Compile Include="EmpRoles.cs" />
     <Compile Include="Enumerations.cs" />

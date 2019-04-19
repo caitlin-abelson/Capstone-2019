@@ -1,4 +1,4 @@
-﻿@model MillennialResortWebSite.Models.ReservationSearchModel
+﻿@model MillennialResortWebSite.Models.HomeViewModelsMixer
 
 @{
     ViewBag.Title = "Home Page";
@@ -28,7 +28,7 @@
         <div class="container body-content">
             <h1>Welcome to Millennial Resorts</h1>
             @*<p class="lead">Stay with Millennial Resorts, bring your pets, enjoy events with us and throughout the local area. </p>
-        <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>*@
+                <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>*@
 
 
             @using (Html.BeginForm("Index", "Reservation"))
@@ -44,8 +44,11 @@
                 <div class="form-group">
 
                     <div class="col-md-10">
-                        @Html.EditorFor(model => model.startDate, new { htmlAttributes = new { @class = "form-control", placeholder = "Start Date", @readonly = "true" } })
-                        @Html.ValidationMessageFor(model => model.startDate, "", new { @class = "text-danger" })
+                        @*   @Html.EditorFor(model => model.startDate, new { htmlAttributes = new { @class = "form-control", placeholder = "Start Date", @readonly = "true" } })
+                @Html.ValidationMessageFor(model => model.startDate, "", new { @class = "text-danger" }) *@
+
+                        @Html.EditorFor(model => model.Reservations.FirstOrDefault().startDate, new { htmlAttributes = new { @class = "form-control", placeholder = "Start Date", @readonly = "true" } })
+                        @Html.ValidationMessageFor(model => model.Reservations.FirstOrDefault().startDate, "", new { @class = "text-danger" })
                     </div>
                 </div>
 
@@ -53,50 +56,55 @@
                 <div class="form-group">
 
                     <div class="col-md-10">
-                        @Html.EditorFor(model => model.endDate, new { htmlAttributes = new { @class = "form-control", placeholder = "End Date", @readonly = "true" } })
-                        @Html.ValidationMessageFor(model => model.endDate, "", new { @class = "text-danger" })
+                        @* @Html.EditorFor(model => model.endDate, new { htmlAttributes = new { @class = "form-control", placeholder = "End Date", @readonly = "true" } })
+                @Html.ValidationMessageFor(model => model.endDate, "", new { @class = "text-danger" }) *@
+
+                        @Html.EditorFor(model => model.Reservations.FirstOrDefault().endDate, new { htmlAttributes = new { @class = "form-control", placeholder = "End Date", @readonly = "true" } })
+                        @Html.ValidationMessageFor(model => model.Reservations.FirstOrDefault().endDate, "", new { @class = "text-danger" })
                     </div>
                 </div>
 
 
                 <div class="form-group">
                     <div class="col-md-10">
-                        <select class="form-control Sleeps" name="booking-roomtype"> 
-                        <option selected="">Guests</option>
-                        <option value="2">2 Guests</option>
-                        <option value="3">3 Guests</option>
-                        <option value="4">4 Guests</option>
-                        <option value="5">5 Guests</option>
-                        <option value="6">6 Guests</option>
-                        <option value="7">7 Guests</option>
-                        <option value="8">8 Guests</option>
-                        <option value="9">9 Guests</option>
-                        <option value="10">10 Guests</option>
-                        <option value="11">11 Guests</option>
-                        <option value="12">12 Guests</option>
-                        <option value="13">13 Guests</option>
-                        <option value="14">14 Guests</option>
-                        <option value="15">15 Guests</option>
-                        <option value="16">16 Guests</option>
-                        <option value="17">17 Guests</option>
-                        <option value="18">18 Guests</option>
-                        <option value="19">19 Guests</option>
-                        <option value="20">20 Guests</option>
-                        <option value="25">25 Guests</option>
+                        <select class="form-control Sleeps" name="booking-roomtype">
+                            <option selected="">Guests</option>
+                            <option value="2">2 Guests</option>
+                            <option value="3">3 Guests</option>
+                            <option value="4">4 Guests</option>
+                            <option value="5">5 Guests</option>
+                            <option value="6">6 Guests</option>
+                            <option value="7">7 Guests</option>
+                            <option value="8">8 Guests</option>
+                            <option value="9">9 Guests</option>
+                            <option value="10">10 Guests</option>
+                            <option value="11">11 Guests</option>
+                            <option value="12">12 Guests</option>
+                            <option value="13">13 Guests</option>
+                            <option value="14">14 Guests</option>
+                            <option value="15">15 Guests</option>
+                            <option value="16">16 Guests</option>
+                            <option value="17">17 Guests</option>
+                            <option value="18">18 Guests</option>
+                            <option value="19">19 Guests</option>
+                            <option value="20">20 Guests</option>
+                            <option value="25">25 Guests</option>
                         </select>
 
                         @*@Html.DropDownListFor(model => model.numberOfGuests, Enumerable.Range(1, 25).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() }))*@
 
-                        @Html.ValidationMessageFor(model => model.numberOfGuests, "", new { @class = "text-danger" })
+                        @* @Html.ValidationMessageFor(model => model.numberOfGuests, "", new { @class = "text-danger" }) *@
+
+                        @Html.ValidationMessageFor(model => model.Reservations.FirstOrDefault().numberOfGuests, "", new { @class = "text-danger" })
 
                         @*@Html.EditorFor(model => model.numberOfGuests, new { htmlAttributes = new { @class = "form-control", placeholder = "Number Of Guests", @readonly = "true" } })
-        @Html.ValidationMessageFor(model => model.numberOfGuests, "", new { @class = "text-danger" })*@
+                @Html.ValidationMessageFor(model => model.numberOfGuests, "", new { @class = "text-danger" })*@
 
 
                     </div>
                 </div>
 
-               
+
                 <div class="form-group">
                     <div class="col-md-offset-2 col-md-10">
                         <input type="submit" value="Search" id="centerButton" class="btn btn-default" />
@@ -112,7 +120,7 @@
 
         </div>
 
-       
+
     </div>
     <div class="container body-content">
         <div class="row">
@@ -133,7 +141,8 @@
             <div class="col-md-4">
                 <h2>BEST BEACHES</h2>
                 <p>
-                Every Millennial Resorts sits directly on a stunning beach or land, on many of the most gorgeous islands in a region famous for its exquisite azure waters with the best luxury all-inclusive experience. Make Millennial Resorts your next vacation destination.</p>
+                    Every Millennial Resorts sits directly on a stunning beach or land, on many of the most gorgeous islands in a region famous for its exquisite azure waters with the best luxury all-inclusive experience. Make Millennial Resorts your next vacation destination.
+                </p>
                 <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
             </div>
         </div>
@@ -264,27 +273,30 @@
 
             <h2>Millennial Resorts Club - Become a Legend</h2>
 
-            <form method="post" action="#">
-                <fieldset>
-                    <legend>Subscribe to our newsletter and receive Legendary offers</legend>
-                    <div class="mailingList">
-
-                        <input type="text" name="firstName" value="" placeholder="First Name" required />
+            <div class="form-inline">
+                @using (Html.BeginForm("MailingList", "Home"))
+                {
+                    @Html.AntiForgeryToken()
+                    <div class="form-group">
+                        @Html.TextBoxFor(model => model.MailingList.FirstName, new { @class = "form-control", placeholder = "First Name" })
+                        <br />
+                        @Html.ValidationMessageFor(model => model.MailingList.FirstName, "", new { @class = "text-danger" })
                     </div>
-                    <div class="mailingList">
-
-                        <input type="text" name="lastName" value="" placeholder="Last Name" required />
+                    <div class="form-group">
+                        @Html.TextBoxFor(model => model.MailingList.LastName, new { @class = "form-control", placeholder = "Last Name" })
+                        <br />
+                        @Html.ValidationMessageFor(model => model.MailingList.LastName, "", new { @class = "text-danger" })
                     </div>
-                    <div class="mailingList">
-
-                        <input type="text" name="email" value="" placeholder="Email Address" required />
+                    <div class="form-group">
+                        @Html.TextBoxFor(model => model.MailingList.Email, new { @class = "form-control", placeholder = "Email" })
+                        <br />
+                        @Html.ValidationMessageFor(model => model.MailingList.Email, "", new { @class = "text-danger" })
                     </div>
-                    <div class="mailingList">
-                        <label>&nbsp;</label>
-                        <input type="submit" value="Submit" class="submit" />
+                    <div class="form-group">
+                        <input type="submit" value="Submit" class="btn btn-default" />
                     </div>
-                </fieldset>
-            </form>
+                }
+            </div>
 
         </div>
 

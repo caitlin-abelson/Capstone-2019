@@ -7,6 +7,7 @@ using System.Web.Mvc;
 
 namespace MillennialResortWebSite.Models
 {
+
     public class ReservationSearchModel
     {
 
@@ -32,8 +33,7 @@ namespace MillennialResortWebSite.Models
 
     }
 
-  
-  
+
 
 
 }
