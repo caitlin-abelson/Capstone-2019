@@ -7,6 +7,7 @@
 /// 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,6 +20,7 @@ namespace DataObjects
         public string Name { get; set; }
         public string Address { get; set; }
         public string Description { get; set; }
+        [DisplayName("Current Status")]
         public string StatusID { get; set; }
         public int ResortPropertyID { get; set; }
     }
