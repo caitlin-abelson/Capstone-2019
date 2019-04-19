@@ -148,9 +148,91 @@ namespace DataAccessLayer
             return buildings;
         }
 
-        public int SelectBuildingByID(int BuildingID)
+        /// <summary>
+        /// James Heim
+        /// Created 2019-04-17
+        /// 
+        /// Select a building object by the specified Building ID.
+        /// </summary>
+        /// <param name="buildingID"></param>
+        /// <returns></returns>
+        public Building SelectBuildingByID(string buildingID)
         {
-            throw new NotImplementedException();
+            Building building = null;
+
+            var conn = DBConnection.GetDbConnection();
+            var cmdText = @"sp_select_building_by_id";
+            var cmd = new SqlCommand(cmdText, conn);
+            cmd.Parameters.AddWithValue("@BuildingID", buildingID);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            try
+            {
+                conn.Open();
+
+                var reader = cmd.ExecuteReader();
+
+                if (reader.HasRows)
+                {
+                    reader.Read();
+
+                    building = new Building()
+                    {
+                        BuildingID = reader.GetString(0),
+
+                        StatusID = reader.GetString(4),
+                        ResortPropertyID = reader.GetInt32(5)
+
+                    };
+
+                    // Nullables:
+                    // Name.
+                    if (reader.IsDBNull(1))
+                    {
+                        building.Name = null;
+                    }
+                    else
+                    {
+                        building.Name = reader.GetString(1);
+                    }
+
+                    // Address.
+                    if (reader.IsDBNull(2))
+                    {
+                        building.Address = null;
+                    }
+                    else
+                    {
+                        building.Address = reader.GetString(2);
+                    }
+
+                    // Description
+                    if (reader.IsDBNull(3))
+                    {
+                        building.Description = null;
+                    }
+                    else
+                    {
+                        building.Description = reader.GetString(3);
+                    }
+
+
+
+
+
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            return building;
         }
 
         /// <summary>

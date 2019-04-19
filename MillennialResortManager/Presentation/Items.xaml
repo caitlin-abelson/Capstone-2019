@@ -1,0 +1,51 @@
+﻿<Window x:Class="Presentation.Items"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+        xmlns:local="clr-namespace:Presentation"
+        mc:Ignorable="d"
+        Title="Items" Height="450" Width="800">
+    <Grid Margin="0,0,-6,0">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition Width="375"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+            <RowDefinition Height="300"></RowDefinition>
+            <RowDefinition Height="50"></RowDefinition>
+        </Grid.RowDefinitions>
+        <TextBox x:Name ="ItemName_TxtBox" Grid.Column="0" Grid.Row= "1" HorizontalAlignment="Left" Height="23" Margin="200,87,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" />
+        <Label Content="Name of Item" Grid.Column="0"  Grid.Row= "1" HorizontalAlignment="Left" Margin="66,81,0,0" VerticalAlignment="Top"/>
+        <Label Content="Description" Grid.Column="0"  Grid.Row= "1" HorizontalAlignment="Left" Margin="66,149,0,0" VerticalAlignment="Top"/>
+        <Label Content="Quantity " Grid.Column="1" Grid.Row= "1"  HorizontalAlignment="Left"  VerticalAlignment="Top" Margin="63,75,0,0"/>
+        <xctk:DoubleUpDown 
+            x:Name="QtyReceived_Count"
+            Minimum="0"
+            DefaultValue="0"
+            Watermark = "0"
+            Value="{Binding Increment, ElementName=_doubleUpDown}"
+            AllowInputSpecialValues="None"
+            VerticalAlignment="Center"
+            HorizontalAlignment="Stretch"
+            Height="32" Width ="50" Grid.Column="1"  Grid.Row= "1" RenderTransformOrigin="1.463,1.417" Margin="224,167,101,101"/>
+        <Label Content="Quantity Items Received" Grid.Column="1"  Grid.Row= "1" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="63,167,0,0"/>
+        <xctk:DoubleUpDown 
+            x:Name="QtyItems_Count"
+            Minimum="1"
+            Value="{Binding Increment, ElementName=_doubleUpDown}"
+            AllowInputSpecialValues="None"
+            VerticalAlignment="Center"
+            HorizontalAlignment="Stretch"
+            Height="32" Width ="50" Grid.Column="1" Grid.Row= "1" Margin="224,75,101,193"  />
+        <Button x:Name="EditSaveItem_Btn" Content="Save" Grid.Column="1" HorizontalAlignment="Left" Margin="91.2,19.6,0,0" Grid.Row="2" VerticalAlignment="Top" Width="75" Click="EditSaveItem_Btn_Click"/>
+        <Button  x:Name="Cancel_Btn" Content="Cancel" Grid.Column="1" HorizontalAlignment="Left" Margin="293,20,0,0" Grid.Row="2" VerticalAlignment="Top" Width="75" Click="Cancel_Btn_Click"/>
+        <TextBox x:Name ="ItemDescription_TxtBox" HorizontalAlignment="Left"  Height="98" Margin="200,153,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="164"/>
+        <Label Content="Special Order ID" Grid.Column="0"  Grid.Row= "1" HorizontalAlignment="Left" Margin="66,26,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name ="SpecialOrderId_TxtBox" Grid.Column="0" Grid.Row= "1" HorizontalAlignment="Left" Height="23" Margin="200,29,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" />
+        <Button x:Name="DeleteItem_Btn" Content="Delete" Grid.Column="1" HorizontalAlignment="Left" Margin="192.2,19.6,0,0" Grid.Row="2" VerticalAlignment="Top" Width="75" Click="DeleteItem_Btn_Click" />
+
+    </Grid>
+</Window>

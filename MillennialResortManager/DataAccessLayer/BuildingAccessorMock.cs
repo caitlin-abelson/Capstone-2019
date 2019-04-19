@@ -84,7 +84,7 @@ namespace DataAccessLayer
             throw new NotImplementedException();
         }
 
-        public int SelectBuildingByID(int buildingID)
+        public Building SelectBuildingByID(string buildingID)
         {
             throw new NotImplementedException();
         }
