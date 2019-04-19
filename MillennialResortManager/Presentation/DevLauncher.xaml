@@ -844,7 +844,6 @@
                     <Button x:Name="btnActivateGuest" Grid.Column="1" Margin="5" Content="Deactivate" Click="btnActivateGuest_Click" />
                     <Button x:Name="btnAddGuest"  Grid.Column="3" Margin="5" Content="Add" Click="btnAddGuest_Click" />
                     <Button x:Name="btnViewGuest"  Grid.Column="4" Margin="5" Content="View" Click="btnViewGuest_Click" />
-                    <Button x:Name="btnDeleteGuest"  Grid.Column="5" Margin="5" Content="Delete" Click="btnDeleteGuest_Click" />
 
                 </Grid>
             </Grid>

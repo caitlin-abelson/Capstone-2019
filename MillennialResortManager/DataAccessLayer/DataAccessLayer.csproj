@@ -86,6 +86,7 @@
     <Compile Include="IMaintenanceTypeAccessor.cs" />
     <Compile Include="IMaintenanceWorkOrderAccessor.cs" />
     <Compile Include="IMemberAccessor.cs" />
+    <Compile Include="IMemberTabAccessor.cs" />
     <Compile Include="InspectionAccessor.cs" />
     <Compile Include="InternalOrderAccessor.cs" />
     <Compile Include="InternalOrderAccessorMock.cs" />
@@ -102,6 +103,7 @@
     <Compile Include="IResortVehicleStatusAccessor.cs" />
     <Compile Include="IRoleAccessor.cs" />
     <Compile Include="IRoomAccessor.cs" />
+    <Compile Include="IRoomReservationAccessor.cs" />
     <Compile Include="ISetupAccessor.cs" />
     <Compile Include="ISetupListAccessor.cs" />
     <Compile Include="IShopAccessor.cs" />
@@ -126,6 +128,7 @@
     <Compile Include="MemberAccessorMock.cs" />
     <Compile Include="MemberAccessorMSSQL.cs" />
     <Compile Include="BuildingAccessorMock.cs" />
+    <Compile Include="MemberTabAccessor.cs" />
     <Compile Include="MockDepartmentAccessor.cs" />
     <Compile Include="MockEmpRolesAccessor.cs" />
     <Compile Include="MockEventAccessor.cs" />
@@ -156,6 +159,7 @@
     <Compile Include="RoleAccessor.cs" />
     <Compile Include="RoleAccessorMock.cs" />
     <Compile Include="RoomAccessor.cs" />
+    <Compile Include="RoomReservationAccessor.cs" />
     <Compile Include="SetupAccessor.cs" />
     <Compile Include="SetupListAccessor.cs" />
     <Compile Include="SetupListAccessorMock.cs" />

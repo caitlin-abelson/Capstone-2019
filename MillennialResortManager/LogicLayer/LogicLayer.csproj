@@ -79,6 +79,7 @@
     <Compile Include="IMaintenanceTypeManager.cs" />
     <Compile Include="IMaintenanceWorkOrderManager.cs" />
     <Compile Include="IMemberManager.cs" />
+    <Compile Include="IMemberTabManager.cs" />
     <Compile Include="InspectionManager.cs" />
     <Compile Include="InternalOrderManager.cs" />
     <Compile Include="IOfferingManager.cs" />
@@ -94,6 +95,7 @@
     <Compile Include="IResortVehicleStatusManager.cs" />
     <Compile Include="IRoleManager.cs" />
     <Compile Include="IRoomManager.cs" />
+    <Compile Include="IRoomReservationManager.cs" />
     <Compile Include="ISetupListManager.cs" />
     <Compile Include="ISetupManager.cs" />
     <Compile Include="IShopManager.cs" />
@@ -113,6 +115,7 @@
     <Compile Include="MaintenanceTypeManagerMSSQl.cs" />
     <Compile Include="MaintenanceWorkOrderManagerMSSQL.cs" />
     <Compile Include="MemberManagerMSSQL.cs" />
+    <Compile Include="MemberTabManager.cs" />
     <Compile Include="OfferingManager.cs" />
     <Compile Include="MemberValidator.cs" />
     <Compile Include="PerformanceManager.cs" />
@@ -128,6 +131,7 @@
     <Compile Include="ResortVehicleStatusManager.cs" />
     <Compile Include="RoleManager.cs" />
     <Compile Include="RoomManager.cs" />
+    <Compile Include="RoomReservationManager.cs" />
     <Compile Include="RoomTypeManager.cs" />
     <Compile Include="RoomVerifier.cs" />
     <Compile Include="SetupListManager.cs" />

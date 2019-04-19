@@ -3659,21 +3659,24 @@ namespace Presentation
         {
             Guest chosenGuest = new Guest();
 
-            chosenGuest = _guestManager.ReadGuestByGuestID(((VMGuest)dgGuestsList.SelectedItem).GuestID);
-
-            try
+            if (dgGuestsList.SelectedItem != null)
             {
+                chosenGuest = _guestManager.ReadGuestByGuestID(((VMGuest)dgGuestsList.SelectedItem).GuestID);
 
-                var readGuest = new frmAddEditGuest(chosenGuest);
-                readGuest.ShowDialog();
+                try
+                {
 
-                refreshGuests();
-                populateGuests();
+                    var guestMemberRoomForm = new GuestMemberRoomDetail(chosenGuest);
+                    guestMemberRoomForm.ShowDialog();
 
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Viewing Guest Failed!");
+                    refreshGuests();
+                    populateGuests();
+
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Viewing Guest Failed!");
+                }
             }
         }
 
@@ -3798,46 +3801,7 @@ namespace Presentation
             }
         }
 
-        /// <summary>
-        /// Alisa Roehr
-        /// Created: 2019/03/01
-        /// 
-        /// for deleting guests.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void btnDeleteGuest_Click(object sender, RoutedEventArgs e)
-        {
-            Guest guest = new Guest();
-            try
-            {
-                if (dgGuestsList.SelectedItem != null)
-                {
-                    guest = _guestManager.ReadGuestByGuestID(((VMGuest)dgGuestsList.SelectedItem).GuestID);
-                    if (guest.Active == false)
-                    {
-                        var result = MessageBox.Show("Are you sure you want to delete this guest?", "This guest will no longer be in the system.", MessageBoxButton.YesNo, MessageBoxImage.Warning);
-
-                        if (result == MessageBoxResult.Yes)
-                        {
-                            _guestManager.DeleteGuest(guest.GuestID);
-                            MessageBox.Show("The guest has been purged.");
-                        }
-                    }
-                    else
-                    {
-                        MessageBox.Show("Guest must be deactivated to be deleted.");
-                    }
-                    refreshGuests();
-                    populateGuests();
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Deleting Guest Failed!");
-            }
-
-        }
+  
 
         /// <summary>
         /// Alisa Roehr
@@ -3895,21 +3859,24 @@ namespace Presentation
         {
             Guest chosenGuest = new Guest();
 
-            chosenGuest = _guestManager.ReadGuestByGuestID(((VMGuest)dgGuestsList.SelectedItem).GuestID);
-
-            try
+            if (dgGuestsList.SelectedItem != null)
             {
+                chosenGuest = _guestManager.ReadGuestByGuestID(((VMGuest)dgGuestsList.SelectedItem).GuestID);
 
-                var readGuest = new frmAddEditGuest(chosenGuest);
-                readGuest.ShowDialog();
+                try
+                {
 
-                refreshGuests();
-                populateGuests();
+                    var guestMemberRoomForm = new GuestMemberRoomDetail(chosenGuest);
+                    guestMemberRoomForm.ShowDialog();
 
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Viewing Guest Failed!");
+                    refreshGuests();
+                    populateGuests();
+
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Viewing Guest Failed!");
+                }
             }
         }
 
@@ -3942,12 +3909,12 @@ namespace Presentation
                     if (_selectedGuest.Active)
                     {
                         btnActivateGuest.Content = "Deactivate";
-                        btnDeleteGuest.IsEnabled = false;
+                        
                     }
                     else
                     {
                         btnActivateGuest.Content = "Activate";
-                        btnDeleteGuest.IsEnabled = true;
+                        
                     }
                     if (_selectedGuest.CheckedIn)
                     {
@@ -3960,7 +3927,7 @@ namespace Presentation
                 }
                 else
                 {
-                    btnDeleteGuest.IsEnabled = false;
+                    
                     btnCheckGuest.IsEnabled = false;
                     btnActivateGuest.IsEnabled = false;
                 }
