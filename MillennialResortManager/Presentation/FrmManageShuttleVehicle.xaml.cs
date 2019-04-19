@@ -240,6 +240,22 @@ namespace Presentation
             return result;
         }
 
+        private IEnumerable<ResortVehicleStatus> GetResortVehicleStatuses()
+        {
+            IEnumerable<ResortVehicleStatus> resortVehicleStatuses = null;
+
+            try
+            {
+                resortVehicleStatuses = ((ResortVehicleManager)_resortVehicleManager).RetrieveResortVehicleStatuses();
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show($"Error occured trying to check vehicle statuses\n{e.Message}\n");
+            }
+
+            return resortVehicleStatuses;
+        }
+
         #endregion
 
         #region Core Logic
@@ -265,7 +281,7 @@ namespace Presentation
                         Active = _resortVehicle?.Active ?? true,
                         DeactivationDate = _resortVehicle?.DeactivationDate,
                         Available = _resortVehicle?.Available ?? true,
-                        ResortVehicleStatusId = _resortVehicle?.ResortVehicleStatusId ?? ResortVehicleStatuses.Available.ToString(),
+                        ResortVehicleStatusId = _resortVehicle?.ResortVehicleStatusId ?? ResortVehicleStatusEnum.Available.ToString(),
                         ResortPropertyId = int.Parse(cmbResortProperty.Text)
                     };
 
@@ -425,15 +441,43 @@ namespace Presentation
             }
 
             // ...description
-            if (txtDescription.Text.Length == 0)
+            if (string.IsNullOrEmpty(txtDescription.Text))
             {
                 _errorText += "Description required\n";
                 txtDescription.BorderBrush = Brushes.Red;
                 result = false;
             }
 
+            // ...resort property (use null propagation to check for null or empty list)
+            if (_resortProperties?.Any() == false)
+            {
+                _errorText +=
+                    $"No Resort Properties in database, please add resort property in resort property admin form\n";
+                result = false;
+            }
+            else if(string.IsNullOrEmpty(cmbResortProperty.Text))
+            {
+                _errorText += "Resort Property selection required\n";
+                result = false;
+            }
+            else if (!int.TryParse(cmbResortProperty.Text, out _))
+            {
+                _errorText += "Invalid Resort Property\n";
+                result = false;
+            }
+
+            // ... resort vehicle status (use null propagation to check for null or empty list)
+            var resortVehicleStatuses = GetResortVehicleStatuses();
+            if (resortVehicleStatuses?.Any() == false)
+            {
+                _errorText += $"No Vehicle Status In database, please add vehicle status in vehicle status form\n";
+                result = false;
+            }
+
             return result;
         }
+
+
 
         #endregion
 
@@ -497,12 +541,5 @@ namespace Presentation
         }
 
         #endregion
-    }
-
-    enum ResortVehicleStatuses
-    {
-        NotAvailable,
-        Available,
-        Decommissioned
     }
 }

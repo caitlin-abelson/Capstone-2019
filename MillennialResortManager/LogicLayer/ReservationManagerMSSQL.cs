@@ -181,6 +181,31 @@ namespace LogicLayer
         }
 
         /// <summary>
+        /// Author: Wes Richardson
+        /// Created: 2019/04/18
+        /// </summary>
+        /// <param name="guestID"></param>
+        /// <returns>A Reservation</returns>
+        public Reservation RetrieveReservationByGuestID(int guestID)
+        {
+            Reservation resv = null;
+            try
+            {
+                resv = _reservationAccessor.RetrieveReservationByGuestID(guestID);
+                if (resv == null)
+                {
+                    throw new ApplicationException("No Reservations Found");
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            return resv;
+        }
+
+        /// <summary>
         /// Author: Matt LaMarche
         /// Created : 2/07/2019
         /// A simple validate method to confirm 

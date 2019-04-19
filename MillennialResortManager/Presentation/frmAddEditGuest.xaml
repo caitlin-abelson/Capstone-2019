@@ -37,12 +37,23 @@
                     <RowDefinition Height="40"/>
                     <RowDefinition Height="35"/>
                 </Grid.RowDefinitions>
-                <TextBox x:Name="txtMemberId" Grid.Row="2" Margin="15 3"/>
-                <Label Grid.Row="3" Content="ID of Member who is staying with guest" HorizontalContentAlignment="Center" VerticalAlignment="Top"/>
+                <!-- 
+                Updated By: Caitlin Abelson
+                Date: 2019/04/10
+                
+                Made MemberID into a combobox that was a drop down of names 
+                -->
+
+
+                <ComboBox x:Name="cbxMemberName" Grid.Row="4" Margin="15 3"/>
+                <Label Grid.Row="5" Content="Name of Member associated with guest" HorizontalContentAlignment="Center" VerticalAlignment="Top"/>
+
+
+
                 <TextBox x:Name="txtFirstName" Grid.Row="0" Margin="15 3"/>
                 <Label Grid.Row="1" Content="First Name" HorizontalContentAlignment="Center" VerticalAlignment="Top"/>
-                <TextBox x:Name="txtPhoneNumber" Grid.Row="4" Margin="15 3"/>
-                <Label Grid.Row="5" Content="Phone Number, aka 3192860018" HorizontalContentAlignment="Center" VerticalAlignment="Center"/>
+                <TextBox x:Name="txtPhoneNumber" Grid.Row="2" Margin="15 3"/>
+                <Label Grid.Row="3" Content="Phone Number, i.e. 13192860018" HorizontalContentAlignment="Center" VerticalAlignment="Center"/>
                 <CheckBox x:Name="chkMinor" Grid.Row="6" HorizontalAlignment="Center" VerticalAlignment="Bottom"/>
                 <Label Grid.Row="7" Content="Is a minor?" HorizontalContentAlignment="Center" VerticalAlignment="Top"/>
                 <TextBox x:Name="txtEmerFirst" Grid.Row="8" Margin="15 3"/>
@@ -64,7 +75,7 @@
                         <RowDefinition Height="60"/>
                         <RowDefinition />
                     </Grid.RowDefinitions>
-                    
+
                 </Grid>
                 <Grid Grid.Column="1">
                     <Grid.RowDefinitions>
@@ -75,7 +86,7 @@
                         <RowDefinition Height="60"/>
                         <RowDefinition />
                     </Grid.RowDefinitions>
-                    
+
                 </Grid>
             </Grid>
             <Grid Grid.Column="2" >

@@ -37,7 +37,7 @@ namespace LogicLayer
 
             try
             {
-                this.MeetsValidationCriteria(resortPropertyType, GetResortVehicleValidationCriteria());
+                this.MeetsValidationCriteria(resortPropertyType, GetValidationCriteria());
 
                 resortPropertyTypeId = _resortPropertyTypeAccessor.AddResortPropertyType(resortPropertyType);
             }
@@ -108,7 +108,7 @@ namespace LogicLayer
         {
             try
             {
-                this.MeetsValidationCriteria(newResortPropertyType, GetResortVehicleValidationCriteria());
+                this.MeetsValidationCriteria(newResortPropertyType, GetValidationCriteria());
 
                 _resortPropertyTypeAccessor.UpdateResortPropertyType(old, newResortPropertyType);
             }
@@ -125,10 +125,13 @@ namespace LogicLayer
         /// Deletes Resort Property Type in database
         /// </summary>
         /// <param name="id">Resort Property Type Id</param>
-        public void DeleteResortPropertyType(string id)
+        public void DeleteResortPropertyType(string id, Employee employee)
         {
             try
             {
+                if (!employee.HasRoles(out string errorStr, "Admin"))
+                    throw new ApplicationException(errorStr);
+
                 _resortPropertyTypeAccessor.DeleteResortPropertyType(id);
             }
             catch (Exception)
@@ -144,7 +147,7 @@ namespace LogicLayer
         /// Validation Rules for Resort Property Type
         /// </summary>
         /// <returns>Dictionary containing validation rules</returns>
-        private Dictionary<string, ValidationCriteria> GetResortVehicleValidationCriteria()
+        public Dictionary<string, ValidationCriteria> GetValidationCriteria()
         {
             return new Dictionary<string, ValidationCriteria>
             {

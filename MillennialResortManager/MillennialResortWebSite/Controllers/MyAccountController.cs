@@ -3,37 +3,93 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using DataObjects;
+using LogicLayer;
+using MillennialResortWebSite.Models;
 
 namespace MillennialResortWebSite.Controllers
 {
     public class MyAccountController : Controller
     {
+        IGuestManager _guestManager = new GuestManager();
+
+
         // GET: MyAccount
         public ActionResult Index()
         {
+            try
+            {
+                Guest guest = new Guest();
+
+                string email = User.Identity.Name;
+                guest = _guestManager.RetrieveGuestByEmail(email);
+
+                return View(guest);
+            }
+            catch
+            {
+                RedirectToAction("Index", "Home");
+            }
             return View();
+            
         }
 
 
         // GET: MyAccount/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult Edit(string id)
         {
+            try
+            {
+                Guest guest = new Guest();
+
+                string email = User.Identity.Name;
+
+                guest = _guestManager.RetrieveGuestByEmail(email);
+
+                return View(guest);
+            }
+            catch
+            {
+                RedirectToAction("Index", "Home");
+            }
             return View();
         }
 
         // POST: MyAccount/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(string id, Guest newGuest)
         {
-            try
+            if (ModelState.IsValid)
             {
-                // TODO: Add update logic here
+                try
+                {
+                    string email = User.Identity.Name;
+                    Guest oldGuest = _guestManager.RetrieveGuestByEmail(email);
+                    Guest guest = new Guest(
+                        guestId: oldGuest.GuestID,
+                        memberID: oldGuest.MemberID,
+                        fName: newGuest.FirstName,
+                        lName: newGuest.LastName,
+                        mail: newGuest.Email,
+                        phoneNumber: newGuest.PhoneNumber,
+                        emergencyFName: newGuest.EmergencyFirstName,
+                        emergencyLName: newGuest.EmergencyLastName,
+                        emergencyPhone: newGuest.EmergencyPhoneNumber,
+                        emergencyRelation: newGuest.EmergencyRelation,
+                        texts: newGuest.ReceiveTexts
+                        );
+                    _guestManager.EditGuest(guest, oldGuest);
 
-                return RedirectToAction("Index");
+                    return RedirectToAction("Index");
+                }
+                catch
+                {
+                    return View();
+                }
             }
-            catch
+            else
             {
-                return View();
+                return View(newGuest);
             }
         }
 

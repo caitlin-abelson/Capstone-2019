@@ -21,7 +21,7 @@ namespace DataObjects
         public DateTime DepartureDate { get; set; }
         public string Notes { get; set; }
         public bool Active { get; set; }
-
+        
         public bool ValidateDepartureDate()
         {
             if (DepartureDate == null)

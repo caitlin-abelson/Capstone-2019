@@ -13,6 +13,6 @@ namespace LogicLayer
 
         void UpdateResortProperty(ResortProperty oldResortProperty, ResortProperty newResortProperty);
 
-        void DeleteResortProperty(string id);
+        void DeleteResortProperty(int id, Employee employee = null);
     }
 }

@@ -13,14 +13,17 @@ namespace LogicLayer
     /// </summary>
     public class ResortVehicleManager : IResortVehicleManager
     {
-        readonly IResortVehicleAccessor _resortVehicleAccessor;
+        private readonly IResortVehicleAccessor _resortVehicleAccessor;
         private readonly IResortPropertyAccessor _resortPropertyAccessor;
+        private readonly IResortVehicleStatusAccessor _resortVehicleStatusAccessor;
 
         public ResortVehicleManager(IResortVehicleAccessor resortVehicleAccessor
-                                    , IResortPropertyAccessor resortPropertyAccessor = null)
+                                    , IResortPropertyAccessor resortPropertyAccessor = null
+                                    , IResortVehicleStatusAccessor resortVehicleStatusAccessor = null)
         {
             _resortVehicleAccessor = resortVehicleAccessor;
             _resortPropertyAccessor = resortPropertyAccessor ?? new ResortPropertyAccessor();
+            _resortVehicleStatusAccessor = resortVehicleStatusAccessor ?? new ResortVehicleStatusAccessor();
         }
 
         public ResortVehicleManager() : this(new ResortVehicleAccessor()) { }
@@ -82,12 +85,16 @@ namespace LogicLayer
         /// <param name="employee">employee performing operation</param>
         public void DeactivateVehicle(ResortVehicle resortVehicle, Employee employee = null)
         {
+            if (!employee.HasRoles(out string errorStr, "Admin"))
+                throw new ApplicationException(errorStr);
+
             // make sure vehicle is not active
             if (!resortVehicle.Active)
                 throw new ApplicationException("Vehicle already inactive");
 
-            if(!employee.HasRoles(out string errorStr, "Admin"))
-                throw new ApplicationException(errorStr);
+            // make sure vehicle is not in use
+            if(resortVehicle.ResortVehicleStatusId == ResortVehicleStatusEnum.InUse.ToString())
+                throw new ApplicationException("Vehicle currently in use");
 
             try
             {
@@ -220,6 +227,25 @@ namespace LogicLayer
             try
             {
                 return _resortPropertyAccessor.RetrieveResortProperties();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Francis Mingomba
+        /// Created: 2019/04/15
+        ///
+        /// Returns a collection of resort vehicle statuses
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<ResortVehicleStatus> RetrieveResortVehicleStatuses()
+        {
+            try
+            {
+                return _resortVehicleStatusAccessor.RetrieveResortVehicleStatuses();
             }
             catch (Exception)
             {

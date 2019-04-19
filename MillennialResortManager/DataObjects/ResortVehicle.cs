@@ -41,6 +41,7 @@ namespace DataObjects
         public string ActiveStr => Active ? "Active" : "Inactive";
         public string AvailableStr => Available ? "Available" : "Not Available";
         public string ResortPropertyStr { get; set; }
+
         #endregion
     }
 }

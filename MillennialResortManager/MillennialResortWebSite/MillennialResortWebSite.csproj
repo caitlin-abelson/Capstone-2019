@@ -42,7 +42,8 @@
     <IntermediateOutputPath>C:\Users\nh229u09\AppData\Local\Temp\vs3D8C.tmp\Debug\</IntermediateOutputPath>
     <IntermediateOutputPath>C:\Users\nh229u05\AppData\Local\Temp\vs2C67.tmp\Debug\</IntermediateOutputPath>
     <IntermediateOutputPath>C:\Users\berqu\AppData\Local\Temp\vs58F.tmp\Debug\</IntermediateOutputPath>
-    <IntermediateOutputPath>C:\Users\Craig\AppData\Local\Temp\vs9CDF.tmp\Debug\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\Wes\AppData\Local\Temp\vs26D5.tmp\Debug\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\berqu\AppData\Local\Temp\vsEA3F.tmp\Debug\</IntermediateOutputPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -60,7 +61,8 @@
     <IntermediateOutputPath>C:\Users\nh229u09\AppData\Local\Temp\vs3D8C.tmp\Release\</IntermediateOutputPath>
     <IntermediateOutputPath>C:\Users\nh229u05\AppData\Local\Temp\vs2C67.tmp\Release\</IntermediateOutputPath>
     <IntermediateOutputPath>C:\Users\berqu\AppData\Local\Temp\vs58F.tmp\Release\</IntermediateOutputPath>
-    <IntermediateOutputPath>C:\Users\Craig\AppData\Local\Temp\vs9CDF.tmp\Release\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\Wes\AppData\Local\Temp\vs26D5.tmp\Release\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\berqu\AppData\Local\Temp\vsEA3F.tmp\Release\</IntermediateOutputPath>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
@@ -192,6 +194,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AmenitiesController.cs" />
     <Compile Include="Controllers\AppointmentController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -207,6 +210,7 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\CreateAppointmentViewModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\ReservationSearchModel.cs" />
@@ -233,12 +237,17 @@
     <Content Include="Content\images\island_fish.jpg" />
     <Content Include="Content\images\jade-Mountain.jpg" />
     <Content Include="Content\images\limbo.jpg" />
+    <Content Include="Content\images\Massage.jpg" />
     <Content Include="Content\images\pier.jpg" />
     <Content Include="Content\images\Resort-Beachfront.jpg" />
     <Content Include="Content\images\Resort-Beachfrontjpg.jpg" />
     <Content Include="Content\images\resortDining.jpg" />
+    <Content Include="Content\images\Resv Problem.JPG" />
     <Content Include="Content\images\ropes.jpg" />
+    <Content Include="Content\images\SandCastle.jpg" />
     <Content Include="Content\images\sing-along.jpg" />
+    <Content Include="Content\images\Spa.jpg" />
+    <Content Include="Content\images\WhaleWatching.jpg" />
     <Content Include="Content\themes\base\accordion.css" />
     <Content Include="Content\themes\base\all.css" />
     <Content Include="Content\themes\base\autocomplete.css" />
@@ -337,13 +346,21 @@
     <Content Include="Views\Reservation\Index.cshtml" />
     <Content Include="Views\Appointment\Index.cshtml" />
     <Content Include="Views\Appointment\Details.cshtml" />
-    <Content Include="Views\Appointment\CreateSpa.cshtml" />
     <Content Include="Views\Home\Rooms.cshtml" />
+
     <Content Include="Views\Rooms\Index.cshtml" />
+    <Content Include="Views\Appointment\Error.cshtml" />
+    <Content Include="Views\Appointment\Spa.cshtml" />
+    <Content Include="Views\Amenities\Index.cshtml" />
+    <Content Include="Views\Appointment\Massage.cshtml" />
+    <Content Include="Views\Appointment\WhaleWatching.cshtml" />
+    <Content Include="Views\Appointment\SandcastleBuilding.cshtml" />
+    <Content Include="Views\MyAccount\Index.cshtml" />
+    <Content Include="Views\MyAccount\Edit.cshtml" />
+
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\MyAccount\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

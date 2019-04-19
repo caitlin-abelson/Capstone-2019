@@ -8,9 +8,6 @@
 
 <h2>Index</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
 <table class="table">
     <tr>
         <th>
@@ -38,11 +35,10 @@
         @Html.DisplayFor(modelItem => item.EndDate)
     </td>
     <td>
-        @Html.ActionLink("Details", "Details", new { id = item.AppointmentID }) |
-        @Html.ActionLink("Edit", "Edit", new { id = item.AppointmentID }) |
-        @Html.ActionLink("Delete", "Delete", new { id = item.AppointmentID })
+        @Html.ActionLink("Details", "Details", new { id = item.AppointmentID })
     </td>
 </tr>
 }
 
 </table>
+<div class="text-danger">@ViewBag.errorMessage</div>

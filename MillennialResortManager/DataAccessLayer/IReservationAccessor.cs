@@ -22,5 +22,6 @@ namespace DataAccessLayer
         void DeactivateReservation(int ReservationID);
         void PurgeReservation(int ReservationID);
         bool ValidateMember(int memberID);
+        Reservation RetrieveReservationByGuestID(int guestID);
     }
 }

@@ -128,8 +128,14 @@ namespace Presentation
         private List<AppointmentType> _currentAppointmentType;
         private IAppointmentTypeManager _appointmentTypeManager;
         //Guests
-        private List<Guest> _guestsBrowseGuests;
-        private List<Guest> _guestsSearched;
+        /// <summary>
+        /// Updated By: Caitlin Abelson
+        /// Date: 2019/04/16
+        /// 
+        /// The list of the guests needs to be from the VMGuest class and not from the Guest class.
+        /// </summary>
+        private List<VMGuest> _guestsBrowseGuests;
+        private List<VMGuest> _guestsSearched;
         private GuestManager _guestManager;
         //GuestVehicles
         private List<VMGuestVehicle> _vehicles;
@@ -851,30 +857,12 @@ namespace Presentation
             DisplayPage("Receiving");
             BrowseReceivingDoOnStart();
         }
-        /**
-        * Created By Francis Mingomba
-        * Date: 3/16/2019
-        */
-        private void NavBarSubHeaderManageShuttleVehicles_OnClick(object sender, RoutedEventArgs e)
-        {
-
-            DisplayPage("BrowseShuttleVehiclesPage");
-
-            foreach (UserControl item in this.BrowseShuttleVehiclesPage.Children)
-            {
-                if (item.GetType() != typeof(FrmBrowseShuttleVehicles)) continue;
-
-                FrmBrowseShuttleVehicles instance = (FrmBrowseShuttleVehicles)item;
-                instance.setupForm(_employee);
-            }
-        }
 
         private void NavBarSubHeaderFrontDesk_OnClick(object sender, RoutedEventArgs e)
         {
             DisplayPage("FrontDesk");
             frontDeskDoOnStart();
         }
-
 
         /// <summary>
         /// Author: Jared Greenfield
@@ -3565,27 +3553,73 @@ namespace Presentation
         /// Created : 3/13/2019
         /// 
         /// This is where you stick all the code you want to run in your Constructor/Window_Loaded statement
+        /// 
+        /// Updated By: Caitiln Abelson
+        /// Date: 2019/04/11
+        /// 
+        /// Made sure that datagrid name was correctly called in order for it to show.
+        /// Added new helper methods to refresh and populate the datagrid.
+        /// Implemented the new VMGuest class so that the appropriate datagrid information would 
+        /// be presented when the datagrid was populated and refreshed.
+        /// 
         /// </summary>
         private void BrowseGuestDoOnStart()
         {
-            _guestsBrowseGuests = new List<Guest>();
-            _guestsSearched = new List<Guest>();
+            _guestsBrowseGuests = new List<VMGuest>();
+            _guestsSearched = new List<VMGuest>();
             _guestManager = new GuestManager();
 
+            refreshGuests();
+            populateGuests();
 
+            // Hiding these buttons for now until Jamie does his Check in Guest function.
+            btnActivateGuest.Visibility = Visibility.Hidden;
+            btnCheckGuest.Visibility = Visibility.Hidden;
+        }
+
+
+        /// <summary>
+        /// Created by: Caitlin Abelson
+        /// Date: 2019/04/10
+        /// 
+        /// Used to populate the datagrid.
+        /// </summary>
+        private void populateGuests()
+        {
             try
             {
-                _guestsBrowseGuests = _guestManager.ReadAllGuests();
-                if (dgGuestsList.ItemsSource == null)
+                _guestsBrowseGuests = _guestManager.SelectAllVMGuests();
+                if (_guestsSearched == null)
                 {
-                    dgGuestsList.ItemsSource = _guests;
+                    _guestsSearched = _guestsBrowseGuests;
                 }
+                dgGuestsList.ItemsSource = _guestsSearched;
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
         }
+
+        /// <summary>
+        /// Created By: Caitlin Abelson
+        /// Date: 2019/04/10
+        /// 
+        /// Used to refresh the guests in the datagrid.
+        /// </summary>
+        private void refreshGuests()
+        {
+            try
+            {
+                _guestsBrowseGuests = _guestManager.SelectAllVMGuests();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            _guestsSearched = _guestsBrowseGuests;
+        }
+
 
         /// <summary>
         /// Alisa Roehr
@@ -3595,21 +3629,29 @@ namespace Presentation
         /// </summary>
         /// <remarks>
         /// 
+        /// Updated by: Caitlin Abelson
+        /// Date: 2019/04/15
+        /// 
+        /// Selected Guest needs to be one from the VMGuest.
+        /// Also used the helper methods to then refresh the datagrid once any updates are made.
         /// </remarks>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void dgGuestsList_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
+            Guest chosenGuest = new Guest();
+
+            chosenGuest = _guestManager.ReadGuestByGuestID(((VMGuest)dgGuestsList.SelectedItem).GuestID);
+
             try
             {
-                if (dgGuestsList.SelectedItem != null && ((Guest)dgGuests.SelectedItem).Active != false)
-                {
-                    var selectedGuest = (Guest)dgGuestsList.SelectedItem;
-                    var detail = new frmAddEditGuest(selectedGuest);
-                    var result = detail.ShowDialog();
-                    _guestsBrowseGuests = _guestManager.ReadAllGuests();
-                    dgGuestsList.ItemsSource = _guests;
-                }
+
+                var readGuest = new frmAddEditGuest(chosenGuest);
+                readGuest.ShowDialog();
+
+                refreshGuests();
+                populateGuests();
+
             }
             catch (Exception ex)
             {
@@ -3617,31 +3659,28 @@ namespace Presentation
             }
         }
 
+
+
+
         /// <summary>
         /// Alisa Roehr
         /// Created: 2019/02/01
         /// 
         /// for creating a new guest. 
-        /// </summary>
-        /// <remarks>
         /// 
-        /// </remarks>
+        /// Updated By: Caitlin Abelson
+        /// Date: 2019/04/10
+        /// 
+        /// Used the new helper method of updating the datagrid in order to populate it once
+        /// a new guest has been made.
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void btnAddGuest_Click(object sender, RoutedEventArgs e)
         {
             var detail = new frmAddEditGuest();
             detail.ShowDialog();
-            try
-            {
-                _guestsBrowseGuests = _guestManager.ReadAllGuests();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-            
-            dgGuestsList.ItemsSource = _guestsBrowseGuests;
+            refreshGuests();
+            populateGuests();
         }
 
         /// <summary>
@@ -3649,38 +3688,62 @@ namespace Presentation
         /// Created: 2019/02/05
         /// 
         /// for searching for guests.
-        /// </summary>
-        /// <remarks>
         /// 
-        /// </remarks>
+        /// Updated By: Caitlin Abelson
+        /// Date: 2019/04/15
+        /// 
+        /// Added the member fields to the search functions so users can now search by guest and member name.
+        /// Expanded how a user can search
+        ///     i.e. by first name only, by last name only, by both first and last name, etc.
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void BtnGuestSearch_Click(object sender, RoutedEventArgs e)
         {
-            /* try
-             {
-                 string searchFirst = txtGuestFirst.Text.ToString();
-                 string searchLast = txtGuestLast.Text.ToString();
-                 searchFirst.Trim();
-                 searchLast.Trim();
 
-                 searchFirst.ToLower();
-                 searchLast.ToLower();
+            string searchGuestFirst = txtGuestFirst.Text.ToString();
+            string searchGuestLast = txtGuestLast.Text.ToString();
+            string searchMemberFirst = txtMemberFirst.Text.ToString();
+            string searchMemberLast = txtMemberLast.Text.ToString();
 
-                 _guestsSearched = _guestManager.RetrieveGuestsSearched(searchLast, searchFirst);
-                 dgGuests.ItemsSource = _guestsSearched;
-             }
-             catch (Exception ex)
-             {
-                 MessageBox.Show(ex.Message, "Searching Guests Failed!");
-             }*/
-            string searchFirst = txtGuestFirst.Text.ToString();
-            string searchLast = txtGuestLast.Text.ToString();
-            searchFirst.Trim();
-            searchLast.Trim();
-            _guestsSearched = _guestsBrowseGuests.FindAll(g => g.FirstName.ToLower().Contains(searchFirst)
-                && g.LastName.ToLower().Contains(searchLast));
-            dgGuestsList.ItemsSource = _guestsSearched;
+            searchGuestFirst.Trim();
+            searchGuestLast.Trim();
+            searchMemberFirst.Trim();
+            searchMemberLast.Trim();
+
+            if (searchGuestFirst != null && searchGuestFirst != "" && searchGuestLast == null || searchGuestLast == "" &&
+                searchMemberFirst == null || searchMemberFirst == "" && searchMemberLast == null || searchMemberLast == "")
+            {
+                _guestsSearched = _guestsBrowseGuests.FindAll(g => g.FirstName.ToLower().Contains(searchGuestFirst));
+            }
+            if (searchGuestFirst == null || searchGuestFirst == "" && searchGuestLast != null && searchGuestLast != "" &&
+                searchMemberFirst == null || searchMemberFirst == "" && searchMemberLast == null || searchMemberLast == "")
+            {
+                _guestsSearched = _guestsBrowseGuests.FindAll(g => g.LastName.ToLower().Contains(searchGuestLast));
+            }
+            if (searchGuestFirst == null || searchGuestFirst == "" && searchGuestLast == null || searchGuestLast == "" &&
+                searchMemberFirst != null && searchMemberFirst != "" && searchMemberLast == null || searchMemberLast == "")
+            {
+                _guestsSearched = _guestsBrowseGuests.FindAll(g => g.MemberFirstName.ToLower().Contains(searchMemberFirst));
+            }
+            if (searchGuestFirst == null || searchGuestFirst == "" && searchGuestLast == null || searchGuestLast == "" &&
+                searchMemberFirst == null || searchMemberFirst == "" && searchMemberLast != null && searchMemberLast != "")
+            {
+                _guestsSearched = _guestsBrowseGuests.FindAll(g => g.MemberLastName.ToLower().Contains(searchMemberLast));
+            }
+            if ((searchGuestFirst != null && searchGuestFirst != "" && searchGuestLast != null && searchGuestLast != "") &&
+                searchMemberFirst == null || searchMemberFirst == "" && searchMemberLast == null || searchMemberLast == "")
+            {
+                _guestsSearched = _guestsBrowseGuests.FindAll(g => g.FirstName.ToLower().Contains(searchGuestFirst)
+                && g.LastName.ToLower().Contains(searchGuestLast));
+            }
+            if (searchGuestFirst == null || searchGuestFirst == "" && searchGuestLast == null || searchGuestLast == "" &&
+                (searchMemberFirst != null && searchMemberFirst != "" && searchMemberLast != null && searchMemberLast != ""))
+            {
+                _guestsSearched = _guestsBrowseGuests.FindAll(g => g.MemberFirstName.ToLower().Contains(searchMemberFirst)
+                && g.MemberLastName.ToLower().Contains(searchMemberLast));
+            }
+
+            populateGuests();
         }
 
         /// <summary>
@@ -3693,11 +3756,12 @@ namespace Presentation
         /// <param name="e"></param>
         private void btnActivateGuest_Click(object sender, RoutedEventArgs e)
         {
+            Guest guest = new Guest();
             try
             {
                 if (dgGuestsList.SelectedItem != null)
                 {
-                    Guest guest = _guestManager.ReadGuestByGuestID(((Guest)dgGuestsList.SelectedItem).GuestID);
+                    guest = _guestManager.ReadGuestByGuestID(((VMGuest)dgGuestsList.SelectedItem).GuestID);
                     if (guest.Active == true)
                     {
                         _guestManager.DeactivateGuest(guest.GuestID);
@@ -3706,8 +3770,8 @@ namespace Presentation
                     {
                         _guestManager.ReactivateGuest(guest.GuestID);
                     }
-                    _guestsBrowseGuests = _guestManager.ReadAllGuests();
-                    dgGuestsList.ItemsSource = _guestsBrowseGuests;
+                    refreshGuests();
+                    populateGuests();
                 }
             }
             catch (Exception ex)
@@ -3726,11 +3790,12 @@ namespace Presentation
         /// <param name="e"></param>
         private void btnDeleteGuest_Click(object sender, RoutedEventArgs e)
         {
+            Guest guest = new Guest();
             try
             {
                 if (dgGuestsList.SelectedItem != null)
                 {
-                    Guest guest = _guestManager.ReadGuestByGuestID(((Guest)dgGuestsList.SelectedItem).GuestID);
+                    guest = _guestManager.ReadGuestByGuestID(((VMGuest)dgGuestsList.SelectedItem).GuestID);
                     if (guest.Active == false)
                     {
                         var result = MessageBox.Show("Are you sure you want to delete this guest?", "This guest will no longer be in the system.", MessageBoxButton.YesNo, MessageBoxImage.Warning);
@@ -3745,8 +3810,8 @@ namespace Presentation
                     {
                         MessageBox.Show("Guest must be deactivated to be deleted.");
                     }
-                    _guestsBrowseGuests = _guestManager.ReadAllGuests();
-                    dgGuestsList.ItemsSource = _guests;
+                    refreshGuests();
+                    populateGuests();
                 }
             }
             catch (Exception ex)
@@ -3762,25 +3827,32 @@ namespace Presentation
         /// 
         /// for checking in and out guests.
         /// </summary>
+        /// 
+        /// Updated By: Caitlin Abelson
+        /// Date: 2019/04/15
+        /// 
+        /// Fixed the method so that it implements the VMGuest class and the correct datagrid.
+        /// Also used the helper methods for refreshing and populating the datagrid.
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void btnCheckGuest_Click(object sender, RoutedEventArgs e)
         {
+            Guest chosenGuest = new Guest();
             try
             {
                 if (dgGuestsList.SelectedItem != null)
                 {
-                    Guest guest = _guestManager.ReadGuestByGuestID(((Guest)dgGuestsList.SelectedItem).GuestID);
-                    if (guest.CheckedIn == false)
+                    chosenGuest = _guestManager.ReadGuestByGuestID(((VMGuest)dgGuestsList.SelectedItem).GuestID);
+                    if (chosenGuest.CheckedIn == false)
                     {
-                        _guestManager.CheckInGuest(guest.GuestID);
+                        _guestManager.CheckInGuest(chosenGuest.GuestID);
                     }
-                    else if (guest.CheckedIn == true)
+                    else if (chosenGuest.CheckedIn == true)
                     {
-                        _guestManager.CheckOutGuest(guest.GuestID);
+                        _guestManager.CheckOutGuest(chosenGuest.GuestID);
                     }
-                    _guestsBrowseGuests = _guestManager.ReadAllGuests();
-                    dgGuestsList.ItemsSource = _guestsBrowseGuests;
+                    refreshGuests();
+                    populateGuests();
                 }
             }
             catch (Exception ex)
@@ -3803,16 +3875,19 @@ namespace Presentation
         /// <param name="e"></param>
         private void btnViewGuest_Click(object sender, RoutedEventArgs e)
         {
+            Guest chosenGuest = new Guest();
+
+            chosenGuest = _guestManager.ReadGuestByGuestID(((VMGuest)dgGuestsList.SelectedItem).GuestID);
+
             try
             {
-                if (dgGuestsList.SelectedItem != null && ((Guest)dgGuestsList.SelectedItem).Active != false)
-                {
-                    var selectedGuest = (Guest)dgGuestsList.SelectedItem;
-                    var detail = new frmAddEditGuest(selectedGuest);
-                    var result = detail.ShowDialog();
-                    _guestsBrowseGuests = _guestManager.ReadAllGuests();
-                    dgGuestsList.ItemsSource = _guestsBrowseGuests;
-                }
+
+                var readGuest = new frmAddEditGuest(chosenGuest);
+                readGuest.ShowDialog();
+
+                refreshGuests();
+                populateGuests();
+
             }
             catch (Exception ex)
             {
@@ -3883,6 +3958,12 @@ namespace Presentation
         /// Created: 2019/03/08
         /// 
         /// for clearing the filters.
+        /// 
+        /// Updated By: Caitlin Abelson
+        /// Date: 2019/04/15
+        /// 
+        /// Used the existing helper methods to refresh and populate the datagrid again with the original list of Guests.
+        /// Also added the Member text boxes so that they can be cleared as well.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -3890,10 +3971,11 @@ namespace Presentation
         {
             txtGuestFirst.Text = "";
             txtGuestLast.Text = "";
-            _guestsBrowseGuests = _guestManager.ReadAllGuests();
-            dgGuestsList.ItemsSource = null;
-            dgGuestsList.ItemsSource = _guestsBrowseGuests;
-            _guestsSearched = _guestsBrowseGuests;
+            txtMemberFirst.Text = "";
+            txtMemberLast.Text = "";
+
+            refreshGuests();
+            populateGuests();
         }
 
         /*--------------------------- Ending BrowseGuest Code --------------------------------*/
@@ -7741,5 +7823,80 @@ namespace Presentation
 
         #endregion
 
+        #region Resort Property Admin
+
+        /// <summary>
+        /// Francis Mingomba
+        /// Created: 2019/04/15
+        ///
+        /// Page Link to Resort Properties Page
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void NavBarSubHeaderResortProperty_Click(object sender, RoutedEventArgs e)
+        {
+            DisplayPage("ResortPropertiesPage");
+
+            foreach (UserControl item in this.ResortPropertiesPage.Children)
+            {
+                if (item.GetType() != typeof(FrmManageResortProperty)) continue;
+
+                FrmManageResortProperty instance = (FrmManageResortProperty)item;
+                instance.SetupForm(_employee);
+            }
+        }
+
+        #endregion
+
+        #region Resort Property Type Admin
+
+        /// <summary>
+        /// Francis Mingomba
+        /// Created: 2019/04/03
+        ///
+        /// Page Link to Resort Property Type
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void NavBarSubHeaderResortPropertyType_OnClick(object sender, RoutedEventArgs e)
+        {
+            DisplayPage("ResortPropertyTypePage");
+
+            foreach (UserControl item in this.ResortPropertyTypePage.Children)
+            {
+                if (item.GetType() != typeof(FrmResortPropertyType)) continue;
+
+                FrmResortPropertyType instance = (FrmResortPropertyType)item;
+                instance.SetupForm(_employee);
+            }
+        }
+
+        #endregion
+
+        #region Shuttle Vehicle (Resort Vehicle) Code
+
+        /// <summary>
+        /// Francis Mingomba
+        /// Created: 2019/04/03
+        ///
+        /// Page Link to Browse Shuttle Vehicles Page
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void NavBarSubHeaderManageShuttleVehicles_OnClick(object sender, RoutedEventArgs e)
+        {
+
+            DisplayPage("BrowseShuttleVehiclesPage");
+
+            foreach (UserControl item in this.BrowseShuttleVehiclesPage.Children)
+            {
+                if (item.GetType() != typeof(FrmBrowseShuttleVehicles)) continue;
+
+                FrmBrowseShuttleVehicles instance = (FrmBrowseShuttleVehicles)item;
+                instance.setupForm(_employee);
+            }
+        }
+
+        #endregion
     }
 }
