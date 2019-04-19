@@ -7,83 +7,63 @@
 
 
 <div class="content">
-    <br />
-    <br />
+    <div class="jumbotron jumbotronBackGroundReservationPage">
+        <div class="container body-content">
+            <h1>@ViewBag.Greeting, Explore Paradise!</h1>
+            <h2>Stay with Us!</h2>
 
-
+        </div>
+    </div>
 
     <div class="container body-content">
-        <div class="row">
+        <div class="container body-content">
 
-            <table class="table">
-                <tr>
-                    @*<th>
-                            @Html.DisplayNameFor(model => model.RoomNumber)
-                        </th>*@
-                    @*<th>
-                            @Html.DisplayNameFor(model => model.Building)
-                        </th>*@
-                    <th>
-                        @Html.DisplayNameFor(model => model.RoomType)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Description)
-                    </th>
-                    @*<th>
-                        @Html.DisplayNameFor(model => model.Capacity)
-                    </th>*@
-                    <th>
-                        @Html.DisplayNameFor(model => model.Price)
-                    </th>
-                    @*<th>
-                            @Html.DisplayNameFor(model => model.OfferingID)
-                        </th>*@
-                    @*<th>
-                            @Html.DisplayNameFor(model => model.RoomStatus)
-                        </th>*@
-                    @*<th>
-                            @Html.DisplayNameFor(model => model.ResortPropertyID)
-                        </th>*@
-                    <th></th>
-                </tr>
+           
 
-                @foreach (var item in Model)
-                {
-                    <tr>
-                        @*<td>
-                                @Html.DisplayFor(modelItem => item.RoomNumber)
-                            </td>*@
-                        @*<td>
-                                @Html.DisplayFor(modelItem => item.Building)
-                            </td>*@
-                        <td>
-                            @Html.DisplayFor(modelItem => item.RoomType)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Description)
-                        </td>
-                        @*<td>
+            <div class="row">
+
+                <table class="table">
+                   
+
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            @*<td>
+                            @Html.DisplayFor(modelItem => item.RoomNumber)
+                        </td>*@
+                            @*<td>
+                            @Html.DisplayFor(modelItem => item.Building)
+                        </td>*@
+                            <td>
+                                @Html.DisplayFor(modelItem => item.RoomType)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Description)
+                            </td>
+                            @*<td>
                             @Html.DisplayFor(modelItem => item.Capacity)
                         </td>*@
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Price)
-                        </td>
-                        @*<td>
-                                @Html.DisplayFor(modelItem => item.OfferingID)
-                            </td>*@
-                        @*<td>
-                                @Html.DisplayFor(modelItem => item.RoomStatus)
-                            </td>*@
-                        @*<td>
-                                @Html.DisplayFor(modelItem => item.ResortPropertyID)
-                            </td>*@
-                        @*<td>
-                                @Html.ActionLink("Details", "Details", new { id=item.RoomID })
-                            </td>*@
-                    </tr>
-                }
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Price)
+                            </td>
+                            @*<td>
+                            @Html.DisplayFor(modelItem => item.OfferingID)
+                        </td>*@
+                            @*<td>
+                            @Html.DisplayFor(modelItem => item.RoomStatus)
+                        </td>*@
+                            @*<td>
+                            @Html.DisplayFor(modelItem => item.ResortPropertyID)
+                        </td>*@
+                            @*<td>
+                            @Html.ActionLink("Details", "Details", new { id=item.RoomID })
+                        </td>*@
+                        </tr>
+                    }
 
-            </table>
+                </table>
+            </div>
         </div>
     </div>
 </div>
+

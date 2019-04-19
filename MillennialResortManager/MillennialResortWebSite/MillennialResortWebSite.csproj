@@ -221,6 +221,7 @@
     <Content Include="Content\images\beach-family.jpg" />
     <Content Include="Content\images\beach-familyTwo.jpg" />
     <Content Include="Content\images\beach-resorts.jpg" />
+    <Content Include="Content\images\beachHouse.jpg" />
     <Content Include="Content\images\beachPool.jpg" />
     <Content Include="Content\images\eventSlider\hawaii-surfboards.jpg" />
     <Content Include="Content\images\eventSlider\market.jpg" />
@@ -228,9 +229,12 @@
     <Content Include="Content\images\eventSlider\snorkelling-bali.jpg" />
     <Content Include="Content\images\foodroom.jpg" />
     <Content Include="Content\images\helochoopper.jpg" />
+    <Content Include="Content\images\HotelHostel.jpg" />
     <Content Include="Content\images\island_fish.jpg" />
+    <Content Include="Content\images\jade-Mountain.jpg" />
     <Content Include="Content\images\limbo.jpg" />
     <Content Include="Content\images\pier.jpg" />
+    <Content Include="Content\images\Resort-Beachfront.jpg" />
     <Content Include="Content\images\Resort-Beachfrontjpg.jpg" />
     <Content Include="Content\images\resortDining.jpg" />
     <Content Include="Content\images\ropes.jpg" />
@@ -336,6 +340,7 @@
     <Content Include="Views\Appointment\CreateSpa.cshtml" />
     <Content Include="Views\Home\Rooms.cshtml" />
     <Content Include="Views\Rooms\Index.cshtml" />
+    <Content Include="Views\Rooms\SearchRoomAvailability.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

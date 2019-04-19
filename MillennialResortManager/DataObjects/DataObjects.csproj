@@ -89,6 +89,7 @@
     <Compile Include="ResortVehicleStatus.cs" />
     <Compile Include="Role.cs" />
     <Compile Include="Room.cs" />
+    <Compile Include="RoomReservationModel.cs" />
     <Compile Include="RoomType.cs" />
     <Compile Include="Setup.CS" />
     <Compile Include="SetupList.cs" />

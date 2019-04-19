@@ -12,7 +12,9 @@ namespace MillennialResortWebSite.Controllers
     {
 
         IRoomManager roomManager;
+        IReservationManager reservationManager;
 
+        IEnumerable<Reservation> reservation;
         IEnumerable<Room> rooms;
 
 
@@ -28,5 +30,19 @@ namespace MillennialResortWebSite.Controllers
 
             return View(rooms);
         }
+
+
+
+        public ActionResult SearchRoomAvailability()
+        {
+            reservationManager = new ReservationManagerMSSQL();
+            reservation = reservationManager.RetrieveAllReservations();
+
+            return View(reservation);
+        }
+
+
+
+
     }
 }
