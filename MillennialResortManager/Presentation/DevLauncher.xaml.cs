@@ -3323,6 +3323,24 @@ namespace Presentation
             dgPerformaces.SelectedItem = null;
         }
 
+        /// <summary>
+        /// @Author: Phillip Hansen
+        /// @Created 4/18/2019
+        /// 
+        /// Method used to alter column header names
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void DgPerformaces_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
+        {
+            string headerName = e.Column.Header.ToString();
+
+            if(headerName == "ID")
+            {
+                e.Cancel = true;
+            }
+        }
+
         private void openView(int performanceID)
         {
             var frmView = new ViewPerformance(performanceID, performanceManager);
@@ -5059,7 +5077,7 @@ namespace Presentation
 
                 if (_selectedEvent == null)
                 {
-                    MessageBox.Show("No Event Selected!");
+                    MessageBox.Show("No event selected!");
                 }
                 else
                 {
@@ -5128,18 +5146,26 @@ namespace Presentation
         {
             _selectedEvent = (Event)dgEvents.SelectedItem;
 
-            try
+            if(dgEvents.SelectedIndex > -1)
             {
-                _eventManager.UpdatEventToUncancel(_selectedEvent);
+                try
+                {
+                    _eventManager.UpdatEventToUncancel(_selectedEvent);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message + "\nCould not update event to un-cancelled!");
+                }
+                finally
+                {
+                    populateEvents();
+                }
             }
-            catch (Exception ex)
+            else
             {
-                MessageBox.Show(ex.Message + "\nCould not update event to un-cancelled!");
+                MessageBox.Show("A record from the list must be selected!");
             }
-            finally
-            {
-                populateEvents();
-            }
+            
         }
 
         /// <summary>
@@ -5326,7 +5352,11 @@ namespace Presentation
         private void DgEvents_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
         {
             string headerName = e.Column.Header.ToString();
-
+            
+            if (e.PropertyType == typeof(DateTime))
+            {
+                (e.Column as DataGridTextColumn).Binding.StringFormat = "MM/dd/yyyy";
+            }
             if (headerName == "EventID")
             {
                 e.Cancel = true;
@@ -5441,7 +5471,7 @@ namespace Presentation
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message + "\nCould not retrieve the list of Events.");
+                MessageBox.Show(ex.Message + "\nCould not retrieve the list of events.");
             }
 
         }
@@ -5655,6 +5685,7 @@ namespace Presentation
         {
             _petManager = new PetManager();
             petTypeManager = new PetTypeManager();
+            populatePets();
 
         }
 
@@ -5672,8 +5703,10 @@ namespace Presentation
         private void DgPets_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
         {
             string headerName = e.Column.Header.ToString();
-            // if(headerName == "PetID") { e.Cancel = true; }
-            // if (headerName == "EmployeeID") { e.Cancel = true; 
+
+            if (headerName == "PetID") { e.Cancel = true; }
+
+            if (headerName == "GuestID") { e.Cancel = true; }
 
 
         }
@@ -7841,5 +7874,6 @@ namespace Presentation
 
         #endregion
 
+        
     }
 }
