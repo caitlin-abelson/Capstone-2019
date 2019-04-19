@@ -43,8 +43,11 @@
     <IntermediateOutputPath>C:\Users\nh229u05\AppData\Local\Temp\vs2C67.tmp\Debug\</IntermediateOutputPath>
     <IntermediateOutputPath>C:\Users\berqu\AppData\Local\Temp\vs58F.tmp\Debug\</IntermediateOutputPath>
     <IntermediateOutputPath>C:\Users\Wes\AppData\Local\Temp\vs26D5.tmp\Debug\</IntermediateOutputPath>
+<<<<<<< HEAD
+    <IntermediateOutputPath>C:\Users\Craig\AppData\Local\Temp\vsCCD1.tmp\Debug\</IntermediateOutputPath>
+=======
     <IntermediateOutputPath>C:\Users\Craig\AppData\Local\Temp\vsD886.tmp\Debug\</IntermediateOutputPath>
-
+>>>>>>> dev
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
