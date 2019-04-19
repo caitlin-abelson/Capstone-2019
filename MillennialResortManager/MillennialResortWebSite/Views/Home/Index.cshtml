@@ -15,7 +15,8 @@
                 dateFormat: "dd/M/yy",
                 changeMonth: true,
                 changeYear: true,
-                yearRange: "-60:+0"
+                yearRange: "-60:+0",
+                minDate: 0
             });
 
         });
@@ -31,7 +32,7 @@
         <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>*@
 
 
-            @using (Html.BeginForm("Index", "Reservation"))
+            @using (Html.BeginForm("Index", "Rooms"))
             {
                 @Html.AntiForgeryToken()
 
@@ -103,7 +104,7 @@
                     </div>
                 </div>
 
-                <p><a class="" href=""><i>View All Properties</i></a></p>
+                <p>@Html.ActionLink("View all Properties", "Index", "Rooms")</p>
 
             </div>
             }
@@ -115,18 +116,18 @@
        
     </div>
     <div class="container body-content">
-        <div class="row">
+        <div class="row title textTime">
             <div class="col-md-4">
                 <h2>ACOMMODATIONS</h2>
                 <p>
-                    Each room in the Millennial Resorts & Spa is inspired by music and memories. As you enter through the hand-carved door, each room reflects a global heritage, with distressed hardwood floors, Moroccan rugs, mahogany furniture and brightly-colored mosaic tiles.
+                    Each room in the Millennial Resorts & Spa is inspired by music and memories. As you enter through the hand-carved door, each room reflects a global heritage, with distressed hardwood floors, Moroccan rugs, mahogany furniture.
                 </p>
                 <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
             </div>
             <div class="col-md-4">
                 <h2>RESORT AMENITIES</h2>
                 <p>
-                    Our luxury rooms and suites are designed to meet your every need. Natural Mystic Spa is just what you need. Choose from a menu of exhilarating excursions to feed your explorative soul. Whether snorkeling in the warm waters or lounging by our pools, you will be in pure paradise bliss.
+                    Our luxury rooms and suites are designed to meet your every need. Natural Mystic Spa is just what you need. Choose from a menu of exhilarating excursions to feed your explorative soul. Snorkel in the warm waters and lounge by our pools.
                 </p>
                 <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
             </div>
@@ -138,11 +139,11 @@
             </div>
         </div>
 
-        <div class="row">
+        <div class="row title textTime">
             <div class="col-md-4">
                 <h2>ROYAL SUITE</h2>
                 <p>
-                    This Legend is a two-room, luxurious suite designed with the King in mind, featuring a King size bed, private desk, wide plank floors and a separate living room with a 42" flat-screen TV. Relaxing on your private balcony is one way to appreciate a panoramic oceanfront view.
+                    This Legend is a two-room, luxurious suite designed with the King in mind, featuring a King size bed, private desk, wide plank floors and a separate living room with a 42" flat-screen TV. Relax on your private balcony is one way to enjoy the oceanfront view.
                 </p>
                 <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
             </div>
@@ -150,7 +151,7 @@
                 <h2>BEACH HOUSE</h2>
                 <p>
 
-                    This gorgeous vacation home offers luxurious amenities including a spectacular infinity pool with extravagant patio and deck area, five en-suite bedrooms, upgraded modern kitchen and access to the Resort & Spa. The Beach House combines comfort and style making an ideal island vacation.
+                    This vacation home offers luxurious amenities including an infinity pool with extravagant patio and deck area, five en-suite bedrooms, upgraded modern kitchen and access to the Resort & Spa. The Beach House is perfect for the ideal island vacation.
 
                 </p>
                 <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
@@ -173,7 +174,7 @@
                     <div class="card">
                         <img class="card-img-top" src="~/Content/images/helochoopper.jpg" alt="Card image cap">
                         <div class="card-body">
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                            <p class="card-text">Enjoy the best views the islands have to offer, while Capitan Ron tells tales of pirating and the sea.</p>
                         </div>
                     </div>
                 </div>
@@ -182,7 +183,7 @@
                     <div class="card">
                         <img class="card-img-top" src="~/Content/images/island_fish.jpg" alt="Card image cap">
                         <div class="card-body">
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                            <p class="card-text">Swim with Sharks? Sure why not, I mean what could possibly go wrong, you have insurance, right?.</p>
                         </div>
                     </div>
                 </div>
@@ -191,7 +192,7 @@
                     <div class="card">
                         <img class="card-img-top" src="~/Content/images/limbo.jpg" alt="Card image cap">
                         <div class="card-body">
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                            <p class="card-text">Get limbo with Jimbo at the beach. Enjoy smores, sore backs, and unintentional fire walking.</p>
                         </div>
                     </div>
                 </div>
@@ -202,7 +203,7 @@
                     <div class="card">
                         <img class="card-img-top" src="~/Content/images/ropes.jpg" alt="Card image cap">
                         <div class="card-body">
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                            <p class="card-text">Glide to new heights, while you sail from the volcano's throat to the sandy beach below.</p>
                         </div>
                     </div>
                 </div>
@@ -218,7 +219,7 @@
                     <div class="card">
                         <img class="card-img-top" src="~/Content/images/sing-along.jpg" alt="Card image cap">
                         <div class="card-body">
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                            <p class="card-text">Rage with guitar Gary, and sing along to sponge bob camp fire hits. There will be smores' too.</p>
                         </div>
                     </div>
                 </div>
@@ -231,30 +232,38 @@
     <div class="jumbotron jumbotronEvents">
         <div class="container">
             <h2>Resort Events</h2>
-            <div id="myCarousel" class="carousel slide" data-ride="carousel">
+            <div class="col-sm-6">
+                <div id="myCarousel" class="carousel slide" data-ride="carousel">
 
-                <!-- Wrapper for slides -->
-                <div class="carousel-inner">
+                    <!-- Wrapper for slides -->
+                    <div class="carousel-inner">
 
-                    <div class="item active">
-                        <img src="~/Content/images/eventSlider/hawaii-surfboards.jpg" alt="Surf Boards">
+                        <div class="item active">
+                            <img src="~/Content/images/eventSlider/hawaii-surfboards.jpg" alt="Surf Boards">
+                        </div>
+
+                        <div class="item">
+                            <img src="~/Content/images/eventSlider/market.jpg" alt="Market">
+                        </div>
+
+                        <div class="item">
+                            <img src="~/Content/images/eventSlider/redrocks.jpg" alt="Concert">
+                        </div>
+
+                        <div class="item">
+                            <img src="~/Content/images/eventSlider/snorkelling-bali.jpg" alt="Snorkeling">
+                        </div>
                     </div>
 
-                    <div class="item">
-                        <img src="~/Content/images/eventSlider/market.jpg" alt="Market">
-                    </div>
+                    <!-- Left and right controls -->
 
-                    <div class="item">
-                        <img src="~/Content/images/eventSlider/redrocks.jpg" alt="Concert">
-                    </div>
-
-                    <div class="item">
-                        <img src="~/Content/images/eventSlider/snorkelling-bali.jpg" alt="Snorkeling">
-                    </div>
                 </div>
+            </div>
 
-                <!-- Left and right controls -->
-
+            <div class="col-sm-6">
+                <div class="eventsText">
+                    <h1>Surf, Swim, Music Festivals, Bike, Hike, Markets and More!</h1>
+                </div>
             </div>
         </div>
     </div>

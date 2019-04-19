@@ -353,6 +353,9 @@ namespace DataAccessLayer
             return roomList;
         }
 
+
+
+        
         /// <summary>
         /// Wes Richardson
         /// Created: 2019/02/12
@@ -477,5 +480,60 @@ namespace DataAccessLayer
 
             return rooms;
         }
+
+
+
+        public List<Room> SelectRooms()
+        {
+            List<Room> roomList = new List<Room>();
+            var conn = DBConnection.GetDbConnection();
+            var cmdText = @"sp_select_rooms";
+            var cmd = new SqlCommand(cmdText, conn);
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+
+            try
+            {
+                conn.Open();
+
+                var reader = cmd.ExecuteReader();
+
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        var rm = new Room()
+                        {
+                            RoomID = reader.GetInt32(0),
+                            RoomNumber = reader.GetInt32(1),
+                            Building = reader.GetString(2),
+                            RoomType = reader.GetString(3),
+                            Description = reader.GetString(4),
+                            RoomStatus = reader.GetString(5),
+                            Capacity = reader.GetInt32(6),
+                            ResortPropertyID = reader.GetInt32(7),
+                            OfferingID = reader.GetInt32(8)
+                        };
+                        roomList.Add(rm);
+                    }
+                }
+                else
+                {
+                    throw new ApplicationException("Data not found");
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw new ApplicationException("Database access error", ex);
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+
+            return roomList;
+        }
+
     }
 }

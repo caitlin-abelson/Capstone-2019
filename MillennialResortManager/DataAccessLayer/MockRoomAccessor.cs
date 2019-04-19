@@ -350,5 +350,10 @@ namespace DataAccessLayer
         {
             throw new NotImplementedException();
         }
+
+        public List<Room> SelectRooms()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

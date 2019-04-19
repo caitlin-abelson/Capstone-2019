@@ -41,6 +41,7 @@ namespace DataObjects
         public int OfferingID { get; set; }
         public string RoomStatus { get; set; }
         public int ResortPropertyID { get; set; }
+        
 
 
        

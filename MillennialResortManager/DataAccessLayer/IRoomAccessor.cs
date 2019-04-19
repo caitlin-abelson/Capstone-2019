@@ -23,6 +23,7 @@ namespace DataAccessLayer
         List<string> SelectBuildings();
         Room SelectRoomByID(int roomID);
         List<Room> SelectRoomList();
+        List<Room> SelectRooms();
         List<string> SelectRoomTypes();
         int UpdateRoom(Room room);
         int DeleteRoom(Room room);

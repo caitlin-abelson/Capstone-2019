@@ -4,7 +4,7 @@ rem Runs a developer written test script.
 rem 2019-02-08
 
 rem sqlcmd -S localhost -E -i developer_insert_script.sql
-sqlcmd -S localhost -E -i developer_insert_script.sql
+sqlcmd -S localhost -E -i Craig.sql
 
 rem sqlcmd -S localhost -E -i test_data.sql
 sqlcmd -S localhost -E -i test_data.sql
