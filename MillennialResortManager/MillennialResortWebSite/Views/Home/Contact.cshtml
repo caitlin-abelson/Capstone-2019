@@ -1,20 +1,82 @@
-﻿@{
-    ViewBag.Title = "Contact";
+﻿@model MillennialResortWebSite.Models.ContactViewModel
+
+@{
+    ViewBag.Title = "Contact Us";
 }
 
-<div class="container body-content">
-    <h2>@ViewBag.Title.</h2>
-    <h3>@ViewBag.Message</h3>
 
-    <address>
-        One Microsoft Way<br />
-        Redmond, WA 98052-6399<br />
-        <abbr title="Phone">Phone:</abbr>
-        425.555.0100
-    </address>
+<div class="container-fluid body-content" id="contactPageBody">
+    <div class="container body-content">
 
-    <address>
-        <strong>Support:</strong>   <a href="mailto:Support@example.com">Support@example.com</a><br />
-        <strong>Marketing:</strong> <a href="mailto:Marketing@example.com">Marketing@example.com</a>
-    </address>
+        <p>Please fill out this form, and one of our support team members will reach out via Email sometime within the next 2-3 days.</p>
+        <div class="form-inline contactPageForm">
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+                <fieldset>
+                    <legend>Contact Us:</legend>
+                    <div class="form-group">
+                        <div id="fNameDiv">
+                            @Html.LabelFor(model => model.FirstName)
+                            @Html.TextBoxFor(model => model.FirstName, new { @class = "form-control", @id = "fNameTxtBox" })
+                            <br />
+                            @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div id="selSubDiv">
+                            @Html.LabelFor(model => model.SelectedSubject)
+
+                            @Html.DropDownListFor(model => model.SelectedSubject, new SelectList(Model.Subjects, "Value", "Text"), htmlAttributes: new { @class = "form-control" })
+                            <br />
+                            <p class="text-danger">@ViewBag.DropdownError</p>
+                        </div>
+                    </div>
+                    <br />
+
+                    <div class="form-group">
+                        <div id="lNameDiv">
+                            @Html.LabelFor(model => model.LastName)
+                            @Html.TextBoxFor(model => model.LastName, new { @class = "form-control", @id = "lNameTxtBox" })
+                            <br />
+                            @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div id="descDiv">
+                            @Html.TextAreaFor(model => model.Description, 10, 50, new { @class = "form-control", @id = "descTxtArea", placeholder = "Tell us a little about your issue.", })
+                            <br />
+                            @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <br />
+
+                    <div class="form-group">
+                        <div id="emailDiv">
+                            @Html.LabelFor(model => model.Email)
+                            @Html.TextBoxFor(model => model.Email, new { @class = "form-control", @id = "emailTxtBox" })
+                            <br />
+                            @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div id="submitDiv">
+                            <input type="submit" value="Submit" id="contactFrmSbmtBtn" class="btn btn-default" />
+                        </div>
+                    </div>
+                </fieldset>
+
+            }
+        </div><br />
+
+        <address>
+            Rest & Relaxation Way<br /><br />
+            Panama City Beach, Florida 32401<br /><br />
+            Phone: 425.555.0100<br /><br />
+            <strong>Support:</strong>   <a href="mailto:millennialcontact107@gmail.com">millennialcontact107@gmail.com</a>
+        </address>
     </div>
+</div>

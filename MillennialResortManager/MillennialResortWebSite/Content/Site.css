@@ -355,7 +355,41 @@ header {
 
 
 
+/* Contact Page CSS*/
 
+#contactPageBody {
+    background-color: #FFF1D0;
+}
+
+.contactPageForm {
+    background-color: #FFF1D0;
+    width: 90%;
+    margin: auto;
+}
+
+#descDiv {
+    margin-left: 105px;  
+}
+
+#descTxtArea {
+    resize: none;
+}
+
+#emailTxtBox {
+    margin-left: 31px;
+}
+
+#contactFrmSbmtBtn {
+}
+
+.contactPageForm label {
+    text-decoration: underline;
+    
+}
+
+#contactPageBody address {
+    font-style: italic;
+}
 
 
 

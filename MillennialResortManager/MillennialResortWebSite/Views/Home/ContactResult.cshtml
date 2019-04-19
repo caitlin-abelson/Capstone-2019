@@ -1,0 +1,33 @@
+﻿
+@{
+    ViewBag.Title = ViewBag.FormSubmitResult;
+}
+
+@if (ViewBag.ResultStatus == "Success")
+{
+    <h1>@ViewBag.FormSubmitResult</h1>
+    <br />
+    <p>Your Email has been sent. A member of support will get back to you prompty.</p>
+}
+
+@if (ViewBag.ResultStatus == "Error")
+{
+    <h1>@ViewBag.FormSubmitResult</h1>
+    <br />
+    <p>The Email entered was not a valid gmail address. Please go back to the contact page, and try again.</p>
+}
+
+@if (ViewBag.ResultStatus == "SignupSuccess")
+{
+    <h1>@ViewBag.FormSubmitResult</h1>
+    <br />
+    <p>Thank you for signing up to recieve our newsletter. Please check your inbox for a confirmation letter.</p>
+}
+
+@if (ViewBag.ResultStatus == "SignupError")
+{
+    <h1>@ViewBag.FormSubmitResult</h1>
+    <br />
+    <p>The Email entered was not a valid gmail address. Please go back to the contact page, and try again.</p>
+}
+

@@ -42,12 +42,16 @@
     <IntermediateOutputPath>C:\Users\nh229u09\AppData\Local\Temp\vs3D8C.tmp\Debug\</IntermediateOutputPath>
     <IntermediateOutputPath>C:\Users\nh229u05\AppData\Local\Temp\vs2C67.tmp\Debug\</IntermediateOutputPath>
     <IntermediateOutputPath>C:\Users\berqu\AppData\Local\Temp\vs58F.tmp\Debug\</IntermediateOutputPath>
+
     <IntermediateOutputPath>
 	C:\Users\Wes\AppData\Local\Temp\vs26D5.tmp\Debug\
 	</IntermediateOutputPath>
     <IntermediateOutputPath>C:\Users\nh229u26\AppData\Local\Temp\vs18EC.tmp\Debug\</IntermediateOutputPath>
     <IntermediateOutputPath>C:\Users\owner\AppData\Local\Temp\vsB3A7.tmp\Debug\</IntermediateOutputPath>
     <IntermediateOutputPath>C:\Users\rphan\AppData\Local\Temp\vsAAAA.tmp\Debug\</IntermediateOutputPath>
+
+    <IntermediateOutputPath>C:\Users\Muyo\AppData\Local\Temp\vs5A29.tmp\Debug\</IntermediateOutputPath>
+
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -66,10 +70,14 @@
     <IntermediateOutputPath>C:\Users\nh229u09\AppData\Local\Temp\vs3D8C.tmp\Release\</IntermediateOutputPath>
     <IntermediateOutputPath>C:\Users\nh229u05\AppData\Local\Temp\vs2C67.tmp\Release\</IntermediateOutputPath>
     <IntermediateOutputPath>C:\Users\berqu\AppData\Local\Temp\vs58F.tmp\Release\</IntermediateOutputPath>
+
     <IntermediateOutputPath>C:\Users\Wes\AppData\Local\Temp\vs26D5.tmp\Release\</IntermediateOutputPath>
     <IntermediateOutputPath>C:\Users\nh229u26\AppData\Local\Temp\vs18EC.tmp\Release\</IntermediateOutputPath>
     <IntermediateOutputPath>C:\Users\owner\AppData\Local\Temp\vsB3A7.tmp\Release\</IntermediateOutputPath>
     <IntermediateOutputPath>C:\Users\rphan\AppData\Local\Temp\vsAAAA.tmp\Release\</IntermediateOutputPath>
+
+    <IntermediateOutputPath>C:\Users\Muyo\AppData\Local\Temp\vs5A29.tmp\Release\</IntermediateOutputPath>
+
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
@@ -219,7 +227,11 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+
     <Compile Include="Models\CreateAppointmentViewModel.cs" />
+
+    <Compile Include="Models\HomeViewModels.cs" />
+
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\ReservationSearchModel.cs" />
@@ -365,8 +377,12 @@
     <Content Include="Views\Appointment\SandcastleBuilding.cshtml" />
     <Content Include="Views\MyAccount\Index.cshtml" />
     <Content Include="Views\MyAccount\Edit.cshtml" />
+
     <Content Include="Views\Building\Index.cshtml" />
     <Content Include="Views\Event\Index.cshtml" />
+
+    <Content Include="Views\Home\ContactResult.cshtml" />
+
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
