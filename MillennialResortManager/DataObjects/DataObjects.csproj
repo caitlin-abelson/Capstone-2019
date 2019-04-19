@@ -78,6 +78,8 @@
     <Compile Include="Performance.cs" />
     <Compile Include="Pet.cs" />
     <Compile Include="PetType.cs" />
+    <Compile Include="PickOrder.cs" />
+    <Compile Include="PickSheet.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReceivingTicket.cs" />
     <Compile Include="Recipe.cs" />
