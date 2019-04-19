@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace LogicLayer
 {
     /// <summary>
-    /// Author: Dalton Cleveland
+    /// Author: Gunardi Daputra
     /// Created : 1/24/2019
     /// ISponsorManager is an interface meant to be the standard for interacting
     /// with Sponsors in a storage medium
@@ -19,7 +19,9 @@ namespace LogicLayer
         bool UpdateSponsor(Sponsor oldSponsor, Sponsor newSponsor);
         Sponsor SelectSponsor(int sponsorID);
         List<Sponsor> SelectAllSponsors();
-        List<string> RetrieveAllSponsorStatus();
+        // Updated by Gunardi Saputra on 04/19/2019
+        // remove statusID
+        //List<string> RetrieveAllSponsorStatus();
         List<string> RetrieveAllStates();
         List<BrowseSponsor> SelectAllVMSponsors();
         void DeleteSponsor(int sponsorID, bool isActive);//run
