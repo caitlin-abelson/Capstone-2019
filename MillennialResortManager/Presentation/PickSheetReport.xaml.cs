@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using LogicLayer;
 
 namespace Presentation
 {
@@ -34,27 +35,16 @@ namespace Presentation
         {
             if (!_isReportViewerLoaded)
             {
-                Microsoft.Reporting.WinForms.ReportDataSource reportDataSource1 = new Microsoft.Reporting.WinForms.ReportDataSource();
-                MillennialResort_DBDataSet dataset = new MillennialResort_DBDataSet();
-                
-                dataset.BeginInit();
+                Microsoft.Reporting.WinForms.ReportDataSource reportDataSource1 = new Microsoft.Reporting.WinForms.ReportDataSource();                
+                PickManager _pickManager = new PickManager();
 
-                reportDataSource1.Name = "DataSet1"; //Name of the report dataset in our .RDLC file
-                reportDataSource1.Value = dataset.sp_select_picksheet_by_picksheetid;
+                reportDataSource1.Name = "DataSet1"; //Name of the report dataset in our .RDLC file               
+                reportDataSource1.Value = _pickManager.Select_PickSheet_By_PickSheetID(_picksheetID);
                 _reportViewer.LocalReport.DataSources.Add(reportDataSource1);
-
-               
-                _reportViewer.LocalReport.ReportEmbeddedResource = "Presentation.PickSheet.rdlc";
                 
-                //_reportViewer.LocalReport.ReportPath = @"C:\Users\Eric\Desktop\Git_419\Capstone-2019\MillennialResortManager\Presentation\PickSheet.rdlc";        
-                dataset.EndInit();
-
-                //fill data into The DataSet          
-
-                MillennialResort_DBDataSetTableAdapters.sp_select_picksheet_by_picksheetidTableAdapter pickSheetDataTableAdaptor = new MillennialResort_DBDataSetTableAdapters.sp_select_picksheet_by_picksheetidTableAdapter();
-
-                pickSheetDataTableAdaptor.ClearBeforeFill = true;
-                pickSheetDataTableAdaptor.Fill(dataTable: dataset.sp_select_picksheet_by_picksheetid, PickSheetID: _picksheetID);
+               
+                _reportViewer.LocalReport.ReportEmbeddedResource = "Presentation.PickSheet.rdlc";              
+               
 
                 _reportViewer.RefreshReport();
 

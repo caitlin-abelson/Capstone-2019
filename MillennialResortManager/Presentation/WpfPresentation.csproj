@@ -214,7 +214,6 @@
     <Compile Include="InspectionDetail.xaml.cs">
       <DependentUpon>InspectionDetail.xaml</DependentUpon>
     </Compile>
-    <Compile Include="MillennialResort_DBDataSet.Designer.cs" />
     <Compile Include="Items.xaml.cs" />
     <Compile Include="OrderRecieving.xaml.cs" />
     <Compile Include="PickSheetReport.xaml.cs">
@@ -702,13 +701,6 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <None Include="MillennialResort_DBDataSet.xsc">
-      <DependentUpon>MillennialResort_DBDataSet.xsd</DependentUpon>
-    </None>
-    <None Include="MillennialResort_DBDataSet.xsd" />
-    <None Include="MillennialResort_DBDataSet.xss">
-      <DependentUpon>MillennialResort_DBDataSet.xsd</DependentUpon>
-    </None>
     <None Include="packages.config" />
     <EmbeddedResource Include="PickSheet.rdlc" />
     <None Include="Properties\Settings.settings">
