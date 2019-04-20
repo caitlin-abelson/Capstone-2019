@@ -527,7 +527,7 @@
         <Top>0.05556in</Top>
         <Left>0.08in</Left>
         <Height>0.5in</Height>
-        <Width>7.90542in</Width>
+        <Width>7.90541in</Width>
         <Style>
           <Border>
             <Style>None</Style>
@@ -581,7 +581,7 @@
             <Paragraph>
               <TextRuns>
                 <TextRun>
-                  <Value>="Pick Sheet Date " &amp; FormatDateTime(First(Fields!PickSheetDate.Value, "DataSet1"), DateFormat.ShortDate) &amp; " " &amp;  FormatDateTime(First(Fields!PickSheetDate.Value, "DataSet1"), DateFormat.ShortTime)</Value>
+                  <Value>="Pick Sheet Date " &amp; FormatDateTime(First(Fields!OrderReceivedDate.Value, "DataSet1"), DateFormat.ShortDate) &amp; " " &amp;  FormatDateTime(First(Fields!OrderReceivedDate.Value, "DataSet1"), DateFormat.ShortTime)</Value>
                   <Style />
                 </TextRun>
               </TextRuns>
