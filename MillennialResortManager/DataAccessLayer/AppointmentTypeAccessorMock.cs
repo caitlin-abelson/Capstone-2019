@@ -77,5 +77,27 @@ namespace DataAccessLayer
         {
             return appointmentType;
         }
+
+        public AppointmentType RetrievAppointmentTypeById(string id)
+        {
+            AppointmentType apptType = null;
+            foreach (var type in appointmentType)
+            {
+                if (type.AppointmentTypeID == id)
+                {
+                    apptType = new AppointmentType()
+                    {
+                        AppointmentTypeID = type.AppointmentTypeID,
+                        Description = type.Description
+                    };
+                }
+            }
+            if (apptType == null)
+            {
+                throw new Exception("Appointment Type not found.");
+            }
+            return apptType;
+
+        }
     }
 }

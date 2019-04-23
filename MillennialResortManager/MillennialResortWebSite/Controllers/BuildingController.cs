@@ -18,5 +18,16 @@ namespace MillennialResortWebSite.Controllers
 
             return View(buildings);
         }
+
+        public ActionResult Details(string id)
+        {
+            if (id == null)
+            {
+                return RedirectToAction("Index");
+            }
+
+            Building building = buildingAccessor.SelectBuildingByID(id);
+            return View(building);
+        }
     }
 }

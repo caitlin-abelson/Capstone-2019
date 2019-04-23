@@ -1,52 +1,36 @@
-﻿
+﻿@model IEnumerable<DataObjects.AppointmentType>
+
 @{
-    ViewBag.Title = "Millennial Resort Amenities";
+    ViewBag.Title = "Index";
 }
 
-<div style="text-align:center">
-    <h2>Amenities</h2>
-</div>
+<h2>Our Amenities</h2>
 
-<div style="text-align:center">
-    <h4>World Class Spa</h4>
-    Our world class Spa will refresh your body and spirit. With mineral baths to steam rooms you will find what you need to feel
-    totally relaxed
-    <br />
-        <img src="~/Content/images/Spa.jpg" alt="Spa" height="300" width="300" />
-    <br />
-        @Html.ActionLink("Add a Trip to the Spa with your Reservation", "Spa", "Appointment")
-    <br />
-</div>
+<table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.AppointmentTypeID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th></th>
+        </tr>
 
-<div style="text-align:center">
-    <h4>Massages</h4>
-    Our profensional trained Masseuses with leave you feeling relaxed and carefree.
-    <br />
-        <img src="~/Content/images/Massage.jpg" width="300" height="300" />
-    <br />
-        @Html.ActionLink("Add a Massage with your Reservation", "Massage", "Appointment")
-    <br />
-</div>
 
-<div style="text-align:center">
-    <h4>Whale Watching</h4>
-    Whether you're looking for a romantic outing or a uinque way to enjoy the evening sunset for a family cruise our Whale Watching Cruise is
-    sure to please
-    <br />
-        <img src="~/Content/images/WhaleWatching.jpg" alt="Whale" height="300" width="300" />
-    <br />
-        @Html.ActionLink("Add a Whale Watching Cruise with your Reservation", "WhaleWatching", "Appointment")
-    <br />
-</div>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.AppointmentTypeID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.ActionLink("Schedule an appointment", "Create", new { id = item.AppointmentTypeID })
+            </td>
+        </tr>
+    }
 
-<div style="text-align:center">
-    <h4>Sandcastle Building</h4>
-    The one hour lesson is for creative types and bigger families who want to have a go at serious sandcastle! Full toolkit included. Sandcastle Lessons are available to everyone!
-    You don't need any artistic ability-you just need to be able to have fun!
-    <br />
-        <img src="~/Content/images/SandCastle.jpg" alt="SandcastleBuilding" height="300" width="300" />
-    <br />
-        @Html.ActionLink("Add Sand Castle Building class with your Reservation", "SandcastleBuilding", "Appointment")
-    <br />
-</div>
-
+</table>

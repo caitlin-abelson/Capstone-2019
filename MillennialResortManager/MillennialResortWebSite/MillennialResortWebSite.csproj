@@ -52,8 +52,7 @@
     <IntermediateOutputPath>C:\Users\Muyo\AppData\Local\Temp\vs5A29.tmp\Debug\</IntermediateOutputPath>
     <IntermediateOutputPath>C:\Users\Eric\AppData\Local\Temp\vs29C1.tmp\Debug\</IntermediateOutputPath>
     <IntermediateOutputPath>C:\Users\Craig\AppData\Local\Temp\vs2457.tmp\Debug\</IntermediateOutputPath>
-    <IntermediateOutputPath>C:\Users\Craig\AppData\Local\Temp\vsD886.tmp\Debug\</IntermediateOutputPath>
-
+    <IntermediateOutputPath>C:\Users\berqu\AppData\Local\Temp\vs7CF4.tmp\Debug\</IntermediateOutputPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -81,7 +80,7 @@
     <IntermediateOutputPath>C:\Users\Muyo\AppData\Local\Temp\vs5A29.tmp\Release\</IntermediateOutputPath>
     <IntermediateOutputPath>C:\Users\Eric\AppData\Local\Temp\vs29C1.tmp\Release\</IntermediateOutputPath>
     <IntermediateOutputPath>C:\Users\Craig\AppData\Local\Temp\vs2457.tmp\Release\</IntermediateOutputPath>
-    <IntermediateOutputPath>C:\Users\Craig\AppData\Local\Temp\vsCCD1.tmp\Release\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\berqu\AppData\Local\Temp\vs7CF4.tmp\Release\</IntermediateOutputPath>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
@@ -232,6 +231,7 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\AppointmentModel.cs" />
     <Compile Include="Models\CreateAppointmentViewModel.cs" />
     <Compile Include="Models\HomeViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -418,6 +418,9 @@
     <Content Include="Views\Event\Index.cshtml" />
     <Content Include="Views\Home\ContactResult.cshtml" />
     <Content Include="Views\DeveloperPage\Index.cshtml" />
+    <Content Include="Views\Building\Details.cshtml" />
+    <Content Include="Views\Amenities\Create.cshtml" />
+    <Content Include="Views\Amenities\Success.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
