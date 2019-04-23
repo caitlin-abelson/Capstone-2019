@@ -44,9 +44,7 @@
     <IntermediateOutputPath>C:\Users\berqu\AppData\Local\Temp\vs58F.tmp\Debug\</IntermediateOutputPath>
     <IntermediateOutputPath>C:\Users\Wes\AppData\Local\Temp\vs26D5.tmp\Debug\</IntermediateOutputPath>
     <IntermediateOutputPath>C:\Users\Eric\AppData\Local\Temp\vs7245.tmp\Debug\</IntermediateOutputPath>
-    <IntermediateOutputPath>
-	C:\Users\Wes\AppData\Local\Temp\vs26D5.tmp\Debug\
-	</IntermediateOutputPath>
+    <IntermediateOutputPath>:\Users\Wes\AppData\Local\Temp\vs26D5.tmp\Debug\	</IntermediateOutputPath>
     <IntermediateOutputPath>C:\Users\nh229u26\AppData\Local\Temp\vs18EC.tmp\Debug\</IntermediateOutputPath>
     <IntermediateOutputPath>C:\Users\carzu\AppData\Local\Temp\vs4D60.tmp\Debug\</IntermediateOutputPath>
     <IntermediateOutputPath>C:\Users\owner\AppData\Local\Temp\vsB3A7.tmp\Debug\</IntermediateOutputPath>
@@ -54,6 +52,8 @@
     <IntermediateOutputPath>C:\Users\Muyo\AppData\Local\Temp\vs5A29.tmp\Debug\</IntermediateOutputPath>
     <IntermediateOutputPath>C:\Users\Eric\AppData\Local\Temp\vs29C1.tmp\Debug\</IntermediateOutputPath>
     <IntermediateOutputPath>C:\Users\Craig\AppData\Local\Temp\vs2457.tmp\Debug\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\Craig\AppData\Local\Temp\vsD886.tmp\Debug\</IntermediateOutputPath>
+
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -81,6 +81,7 @@
     <IntermediateOutputPath>C:\Users\Muyo\AppData\Local\Temp\vs5A29.tmp\Release\</IntermediateOutputPath>
     <IntermediateOutputPath>C:\Users\Eric\AppData\Local\Temp\vs29C1.tmp\Release\</IntermediateOutputPath>
     <IntermediateOutputPath>C:\Users\Craig\AppData\Local\Temp\vs2457.tmp\Release\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\Craig\AppData\Local\Temp\vsCCD1.tmp\Release\</IntermediateOutputPath>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
@@ -215,6 +216,7 @@
     <Compile Include="Controllers\AmenitiesController.cs" />
     <Compile Include="Controllers\AppointmentController.cs" />
     <Compile Include="Controllers\BuildingController.cs" />
+    <Compile Include="Controllers\DeveloperPageController.cs" />
     <Compile Include="Controllers\EventController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -252,11 +254,22 @@
     <Content Include="Content\images\hotel\down1interior-1-edit.jpg" />
     <Content Include="Content\images\hotel\Pool-01.jpg" />
     <Content Include="Content\images\hotel\RIVUE-West-Wheel-with-Red-Roses.JPG" />
+    <Content Include="Content\images\backgroundDevPage.jpg" />
     <Content Include="Content\images\beach-family.jpg" />
     <Content Include="Content\images\beach-familyTwo.jpg" />
     <Content Include="Content\images\beach-resorts.jpg" />
     <Content Include="Content\images\beachHouse.jpg" />
     <Content Include="Content\images\beachPool.jpg" />
+    <Content Include="Content\images\devPics\a-flames.gif" />
+    <Content Include="Content\images\devPics\barraazul.gif" />
+    <Content Include="Content\images\devPics\constrct.gif" />
+    <Content Include="Content\images\devPics\CRAIGB_small.png" />
+    <Content Include="Content\images\devPics\dollarspindownd.gif" />
+    <Content Include="Content\images\devPics\fish.gif" />
+    <Content Include="Content\images\devPics\giphy.gif" />
+    <Content Include="Content\images\devPics\kity_cat2.gif" />
+    <Content Include="Content\images\devPics\usaflag1.gif" />
+    <Content Include="Content\images\devPics\welcome2site_flames.gif" />
     <Content Include="Content\images\eventSlider\hawaii-surfboards.jpg" />
     <Content Include="Content\images\eventSlider\market.jpg" />
     <Content Include="Content\images\eventSlider\redrocks.jpg" />
@@ -404,6 +417,7 @@
     <Content Include="Views\Building\Index.cshtml" />
     <Content Include="Views\Event\Index.cshtml" />
     <Content Include="Views\Home\ContactResult.cshtml" />
+    <Content Include="Views\DeveloperPage\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

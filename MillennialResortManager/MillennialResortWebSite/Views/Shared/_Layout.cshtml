@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title</title>
     <link href="https://fonts.googleapis.com/css?family=Fugaz+One" rel="stylesheet">
+
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
   
@@ -168,7 +169,7 @@
 
                             <ul class="latest-posts">
                                 <li>
-                                    <a href="/">Pets</a>
+                                    @*<a href="/">Pets</a>*@ @Html.ActionLink("Pets", "Index", "DeveloperPage")
                                 </li>
                                 <li>
                                     <a href="/content/rooms.aspx">Pet Policy</a>
