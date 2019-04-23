@@ -73,7 +73,7 @@ namespace LogicLayer
             {
                 return false; // for last name
             }
-            else if (_guest.PhoneNumber.Length > 11 || _guest.PhoneNumber == null || _guest.PhoneNumber.Length == 0 || int.TryParse(_guest.PhoneNumber, out aNumber))
+            else if (_guest.PhoneNumber.Length > 11 || _guest.PhoneNumber == null || _guest.PhoneNumber.Length == 0)
             {
                 return false;  // for phone number
             }
