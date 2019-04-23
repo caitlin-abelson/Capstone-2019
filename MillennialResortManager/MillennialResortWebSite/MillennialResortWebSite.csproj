@@ -53,7 +53,7 @@
     <IntermediateOutputPath>C:\Users\rphan\AppData\Local\Temp\vsAAAA.tmp\Debug\</IntermediateOutputPath>
     <IntermediateOutputPath>C:\Users\Muyo\AppData\Local\Temp\vs5A29.tmp\Debug\</IntermediateOutputPath>
     <IntermediateOutputPath>C:\Users\Eric\AppData\Local\Temp\vs29C1.tmp\Debug\</IntermediateOutputPath>
-    <IntermediateOutputPath>C:\Users\Eric\AppData\Local\Temp\vs295D.tmp\Debug\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\Craig\AppData\Local\Temp\vs2457.tmp\Debug\</IntermediateOutputPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -80,7 +80,7 @@
     <IntermediateOutputPath>C:\Users\rphan\AppData\Local\Temp\vsAAAA.tmp\Release\</IntermediateOutputPath>
     <IntermediateOutputPath>C:\Users\Muyo\AppData\Local\Temp\vs5A29.tmp\Release\</IntermediateOutputPath>
     <IntermediateOutputPath>C:\Users\Eric\AppData\Local\Temp\vs29C1.tmp\Release\</IntermediateOutputPath>
-    <IntermediateOutputPath>C:\Users\Eric\AppData\Local\Temp\vs295D.tmp\Release\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\Craig\AppData\Local\Temp\vs2457.tmp\Release\</IntermediateOutputPath>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
