@@ -232,8 +232,15 @@
     <Content Include="Content\images\beach-resorts.jpg" />
     <Content Include="Content\images\beachHouse.jpg" />
     <Content Include="Content\images\beachPool.jpg" />
+    <Content Include="Content\images\devPics\a-flames.gif" />
+    <Content Include="Content\images\devPics\barraazul.gif" />
+    <Content Include="Content\images\devPics\constrct.gif" />
     <Content Include="Content\images\devPics\CRAIGB_small.png" />
+    <Content Include="Content\images\devPics\dollarspindownd.gif" />
+    <Content Include="Content\images\devPics\fish.gif" />
     <Content Include="Content\images\devPics\giphy.gif" />
+    <Content Include="Content\images\devPics\kity_cat2.gif" />
+    <Content Include="Content\images\devPics\usaflag1.gif" />
     <Content Include="Content\images\devPics\welcome2site_flames.gif" />
     <Content Include="Content\images\eventSlider\hawaii-surfboards.jpg" />
     <Content Include="Content\images\eventSlider\market.jpg" />

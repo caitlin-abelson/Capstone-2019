@@ -279,7 +279,7 @@ header {
     }
 
 
-
+   
 
 .carousel-inner {
     width: 500px;
@@ -481,3 +481,14 @@ header {
     .devSection img {
         float: right;
     }
+
+.devPageh1 {
+    font-size: 55px;
+    font-family: 'Fugaz One', cursive;
+    text-shadow: 3px 3px #40798C;
+    color: #fff;
+}
+
+marquee {
+    background-color:chartreuse;
+}
