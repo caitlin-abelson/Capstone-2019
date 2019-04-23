@@ -28,7 +28,7 @@ namespace DataAccessLayer
 
             var conn = DBConnection.GetDbConnection();
 
-            var cmdText = @"sp_insert_appointment";
+            var cmdText = @"sp_insert_appointment_by_guest";
 
             var cmd = new SqlCommand(cmdText, conn);
 
@@ -39,6 +39,7 @@ namespace DataAccessLayer
             cmd.Parameters.AddWithValue("@StartDate", appointment.StartDate);
             cmd.Parameters.AddWithValue("@EndDate", appointment.EndDate);
             cmd.Parameters.AddWithValue("@Description", appointment.Description);
+            cmd.Parameters.AddWithValue("@ServiceComponentID", appointment.AppointmentType);
 
             try
             {
