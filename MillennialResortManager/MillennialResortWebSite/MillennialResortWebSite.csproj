@@ -52,7 +52,8 @@
     <IntermediateOutputPath>C:\Users\Muyo\AppData\Local\Temp\vs5A29.tmp\Debug\</IntermediateOutputPath>
     <IntermediateOutputPath>C:\Users\Eric\AppData\Local\Temp\vs29C1.tmp\Debug\</IntermediateOutputPath>
     <IntermediateOutputPath>C:\Users\Craig\AppData\Local\Temp\vs2457.tmp\Debug\</IntermediateOutputPath>
-    <IntermediateOutputPath>C:\Users\Jared\AppData\Local\Temp\vsA422.tmp\Debug\</IntermediateOutputPath>
+
+    <IntermediateOutputPath>C:\Users\Craig\AppData\Local\Temp\vs7E93.tmp\Debug\</IntermediateOutputPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -80,7 +81,11 @@
     <IntermediateOutputPath>C:\Users\Muyo\AppData\Local\Temp\vs5A29.tmp\Release\</IntermediateOutputPath>
     <IntermediateOutputPath>C:\Users\Eric\AppData\Local\Temp\vs29C1.tmp\Release\</IntermediateOutputPath>
     <IntermediateOutputPath>C:\Users\Craig\AppData\Local\Temp\vs2457.tmp\Release\</IntermediateOutputPath>
+<<<<<<< HEAD
     <IntermediateOutputPath>C:\Users\Jared\AppData\Local\Temp\vsA422.tmp\Release\</IntermediateOutputPath>
+=======
+    <IntermediateOutputPath>C:\Users\Craig\AppData\Local\Temp\vs7E93.tmp\Release\</IntermediateOutputPath>
+>>>>>>> origin/master
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
@@ -245,6 +250,7 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\images\devPics\ecolon.jpg" />
     <Content Include="Content\images\hotel\01-RIVUE.jpg" />
     <Content Include="Content\images\hotel\02-RIVUE.jpg" />
     <Content Include="Content\images\hotel\03-RIVUE.jpg" />

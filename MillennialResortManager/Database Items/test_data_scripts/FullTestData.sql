@@ -237,7 +237,12 @@ VALUES
 	("Room", 100000, "Ocean View 2 Queen", 250),
 	("Room", 100000, "Garbage View Single", 65),
 	("Event", 100000, "Comedic Act", 25),
-	("Event", 100000, "Magician", 15)
+	("Event", 100000, "Magician", 15),
+	("Room", 100000, "Ocean View 2 Queen", 250),
+	("Room", 100000, "Ocean View 2 Queen", 350),
+	("Room", 100000, "Ocean View 2 Queen", 450),
+	("Room", 100000, "Ocean View 2 Queen", 850),
+	("Room", 100000, "Ocean View 2 Queen", 150)
 GO
 
 INSERT INTO [dbo].[RoomStatus]
@@ -255,7 +260,41 @@ INSERT INTO [dbo].[Building]
 		('Shopping Center 101', 'The Coral Reef', '1202 Try n Save Drive', 'Shopping Center', 'Available', 100003),
 		('Food Center 101', 'Trout Hatch', '808 Turtle Pond Parkway', 'Food Court', 'Undergoing Maintanance', 100004),
 		('Welcome Center', 'Canopy Center', '1986 Tsunami Trail', 'Main Guest Center', 'Available', 100005),
-		('GenBld01', 'Sea Cow Storage', '812 South Padre', 'Storage', 'Available', 100006)
+		('GenBld01', 'Sea Cow Storage', '812 South Padre', 'Storage', 'Available', 100006),
+
+		
+		('North Shore1', 'Beach House', '101 Beach Road Way', 'Guest Hotel Rooms', 'Available', 100006),
+		('North Shore2', 'Bungalow Land', '102 Beach Road Way', 'Guest Hotel Rooms', 'Available', 100006),
+		('North Shore3', 'Bungalow Sea', '103 Beach Road Way', 'Guest Hotel Rooms', 'Available', 100006),
+		('North Shore4', 'Royal Suite', '104 Beach Road Way', 'Guest Hotel Rooms', 'Available', 100006),
+		('East Shore1', 'Beach House', '105 Beach Road Way', 'Guest Hotel Rooms', 'Available', 100006),
+		('East Shore2', 'Bungalow Land', '106 Beach Road Way', 'Guest Hotel Rooms', 'Available', 100006),
+		('East Shore3', 'Bungalow Sea', '107 Beach Road Way', 'Guest Hotel Rooms', 'Available', 100006),
+		('East Shore4', 'Royal Suite', '108 Beach Road Way', 'Guest Hotel Rooms', 'Available', 100006),
+		('West Shore1', 'Beach House', '109 Beach Road Way', 'Guest Hotel Rooms', 'Available', 100006),
+		('West Shore2', 'Bungalow Land', '110 Beach Road Way', 'Guest Hotel Rooms', 'Available', 100006),
+		('West Shore3', 'Bungalow Sea', '111 Beach Road Way', 'Guest Hotel Rooms', 'Available', 100006),
+		('West Shore4', 'Royal Suite', '112 Beach Road Way', 'Guest Hotel Rooms', 'Available', 100006),
+		('South Shore1', 'Beach House', '109 Beach Road Way', 'Guest Hotel Rooms', 'Available', 100006),
+		('South Shore2', 'Bungalow Land', '110 Beach Road Way', 'Guest Hotel Rooms', 'Available', 100006),
+		('South Shore3', 'Bungalow Sea', '111 Beach Road Way', 'Guest Hotel Rooms', 'Available', 100006),
+		('South Shore4', 'Royal Suite', '112 Beach Road Way', 'Guest Hotel Rooms', 'Available', 100006),
+		('East Shore5', 'Hostel Hut', '113 Beach Road Way', 'Guest Hotel Rooms', 'Available', 100006),
+		('South Shore5', 'Hostel Hut', '114 Beach Road Way', 'Guest Hotel Rooms', 'Available', 100006)
+
+
+
+
+
+
+
+
+
+
+
+
+
+		
 GO
 
 INSERT INTO [dbo].[RoomType]
@@ -267,7 +306,24 @@ VALUES
 ('Family','Two Queen beds',1),
 ('King','King bed and a bath tub',1),
 ('Fishing Suite','King bed and a fish tank',1),
-('Presidential Suite','Penthouse Suite',1)
+('Presidential Suite','Penthouse Suite',1),
+
+('Bungalow Land', 'Queen Size Beds.',1),
+('Bungalow Sea', 'Queen Size Beds',1),
+('Beach House', 'Sleeps 10 to 20 guests.',1),
+('Royal Suite', 'Kings and Queens, Sleep 2 - 5 guests.',1),
+('Hostel Hut', 'Single Size Beds Sleeps 20 or more.',1),
+('Recreation Center', 'Video Games, Slots, Billiards, Water Park.',1),
+('Water Park.', 'Includes wave pool and bar.',1),
+('Shopping Center', 'Local Market Tourists',1),
+('Food Town', 'Five Star Restuarant',1),
+('Welcome Wagon', 'Gift Store and Information.',1),
+('Annex', 'Big Empty Reception Hall.',1)
+
+
+
+
+
 GO
 
 INSERT INTO [dbo].[Room]
@@ -287,6 +343,27 @@ INSERT INTO [dbo].[Room]
 		(112, 'Welcome Center', 'King', 'Single king', 2, 100008, 100001, 'Occupied'),
 		(114, 'GenBld01', 'Double', 'Double beds', 4, 100009, 100002, 'Available'),
 		(113, 'GenBld01', 'King', 'Single king', 2, 100002, 100000, 'Occupied')
+
+    	-- (114, 'North Shore1', 'Beach House', 'Sleeps 10 to 20 guests.', 20, 100001, 100012, 'Available'),
+		-- (115, 'East Shore1', 'Beach House', 'Sleeps 10 to 20 guests.', 20, 100001, 100012, 'Occupied'),
+		-- (116, 'West Shore1', 'Beach House', 'Sleeps 10 to 20 guests.', 20, 100001, 100012, 'Available'),
+		-- (117, 'South Shore1', 'Beach House', 'Sleeps 10 to 20 guests.', 20, 100001, 100012, 'Occupied'),
+		-- (118, 'North Shore2', 'Bungalow Land', 'Queen Size Beds.', 2, 100001, 100013, 'Available'),
+		-- (119, 'East Shore2', 'Bungalow Land', 'Queen Size Beds.', 2, 100001, 100013, 'Occupied'),
+		-- (120, 'West Shore2', 'Bungalow Land', 'Queen Size Beds.', 2, 100001, 100013, 'Available'),
+		-- (121, 'South Shore2', 'Bungalow Land', 'Queen Size Beds.', 2, 100001, 100013, 'Occupied'),
+		-- (122, 'North Shore3', 'Bungalow Sea', 'Queen Size Beds', 2, 100001, 100014, 'Available'),
+		-- (123, 'East Shore3', 'Bungalow Sea', 'Queen Size Beds', 2, 100001, 100014, 'Occupied'),
+		-- (124, 'West Shore3', 'Bungalow Sea', 'Queen Size Beds', 2, 100001, 100014, 'Available'),
+		-- (125, 'South Shore3', 'Bungalow Sea', 'Queen Size Beds.', 2, 100001, 100014, 'Occupied'),
+		-- (126, 'North Shore4', 'Royal Suite', 'Kings and Queens, Sleep 2 - 5 guests.', 2, 100001, 100015, 'Available'),
+		-- (127, 'East Shore4', 'Royal Suite', 'Kings and Queens, Sleep 2 - 5 guests.', 2, 100001, 100015, 'Occupied'),
+		-- (128, 'West Shore4', 'Royal Suite', 'Kings and Queens, Sleep 2 - 5 guests.', 2, 100001, 100015, 'Available'),
+		-- (129, 'South Shore4', 'Royal Suite', 'Kings and Queens, Sleep 2 - 5 guests.', 2, 100001, 100015, 'Occupied'),
+		-- (130, 'East Shore5', 'Hostel Hut', 'Single Size Beds Sleeps 20 or more.', 5, 100001, 100016, 'Occupied'),
+		-- (131, 'South Shore5', 'Hostel Hut', 'Single Size Beds Sleeps 20 or more.', 20, 100001, 100016, 'Occupied')
+
+		
 GO
  INSERT INTO [dbo].[Shop]
 		([RoomID], [Name], [Description], [Active])
