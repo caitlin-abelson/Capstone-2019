@@ -285,7 +285,48 @@ header {
     }
 
 
-   
+
+.jumbotronBackGroundRegistrationPage {
+    height: 250px;
+    background-repeat: no-repeat;
+    background-image: url('../Content/images/beach-familyTwo.jpg');
+    background-size: cover;
+    background-position: center center;
+}
+.jumbotronBackGroundRegistrationPage h1 {
+    font-size: 55px;
+    font-family: 'Fugaz One', cursive;
+    text-shadow: 3px 3px #40798C;
+    color: #fff;
+}
+
+
+.RegistrationPage {
+    /*background-color: #40798C;*/
+    /*background-image: linear-gradient(to right, rgba(255,0,0,0), #40798C);*/
+    border-radius: 10px;
+    background-color: rgba( 64, 121, 140, 0.4);
+    border: solid teal 3px;
+    box-shadow: 3px 3px 6px #888888;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    
+}
+    .RegistrationPage h1 {
+        font-size: 55px;
+        font-family: 'Fugaz One', cursive;
+        text-shadow: 3px 3px #40798C;
+        color: #fff;
+    }
+
+    .RegistrationPage h2 {
+        font-size: 30px;
+        font-family: 'Fugaz One', cursive;
+        text-shadow: 3px 3px #40798C;
+        color: #fff;
+    }
+
+
 
 .carousel-inner {
     width: 500px;

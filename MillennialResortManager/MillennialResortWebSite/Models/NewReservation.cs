@@ -1,23 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
-using System.Web.Mvc;
 
 namespace MillennialResortWebSite.Models
 {
-
-    public class ReservationSearchModel
+    public class NewReservation
     {
-
+        
         [Required]
         [Display(Name = "Start Date")]
+        [DataType(DataType.Date)]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MMM/yyyy}")]
         public DateTime ArrivalDate { get; set; }
 
         [Required]
         [Display(Name = "End Date")]
+        [DataType(DataType.Date)]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MMM/yyyy}")]
         public DateTime DepartureDate { get; set; }
 
@@ -33,16 +34,6 @@ namespace MillennialResortWebSite.Models
         [Display(Name = "Room Type")]
         public string roomType { get; set; }
 
-
-
-
-
-
-
+        public string Notes { get; set; }
     }
-
-
-
-
 }
-

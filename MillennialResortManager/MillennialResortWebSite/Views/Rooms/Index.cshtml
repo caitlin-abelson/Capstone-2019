@@ -95,6 +95,7 @@
                             <div class="col-md-10">
                                 <select class="form-control Sleeps" name="petNum">
                                     <option selected="">Pets</option>
+                                    <option value="0">No Pets</option>
                                     <option value="1">1 Pet</option>
                                     <option value="2">2 Pets</option>
                                     <option value="3">3 Pets</option>
@@ -164,7 +165,9 @@
                             <td>
                                 <p>$  @Html.DisplayFor(modelItem => item.Price)</p>
                             </td>
-
+                            <td>
+                                @Html.ActionLink("Reserve Now!", "Create", new { id = item.RoomID })
+                            </td>
                         </tr>
                         }
 

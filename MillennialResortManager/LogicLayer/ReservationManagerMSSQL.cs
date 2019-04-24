@@ -43,8 +43,9 @@ namespace LogicLayer
         /// Passes along a Reservation object to our ReservationAccessorMSSQL to be stored in our database
         /// </summary>
         /// <param name="newReservation">Contains the information for the Reservation which will be added to our system</param>
-        public void AddReservation(Reservation newReservation)
+        public bool AddReservation(Reservation newReservation)
         {
+            bool worked = false;
             try
             {
                 //Double Check the Reservation is Valid
@@ -53,11 +54,13 @@ namespace LogicLayer
                     throw new ArgumentException("Data for this Reservation is not valid");
                 }
                 _reservationAccessor.CreateReservation(newReservation);
+                worked = true;
             }
             catch (Exception)
             {
                 throw;
             }
+            return worked;
         }
 
         /// <summary>
