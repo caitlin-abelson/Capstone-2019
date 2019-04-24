@@ -57,10 +57,10 @@ namespace LogicLayer
         public bool isValid(Guest _guest)
         {
             int aNumber;
-            //if ( /*_guest.MemberID.ToString().Length > 11 ||*/ _guest.MemberID == null || _guest.MemberID == 0)
-            //{
-            //    return false ;// for member id
-            //}
+            if ( _guest.MemberID.ToString().Length > 11 || _guest.MemberID == null || _guest.MemberID == 0)
+            {
+                return false;// for member id
+            }
             if (_guest.GuestTypeID.Length > 25 || _guest.GuestTypeID == null || _guest.GuestTypeID.Length == 0)
             {
                 return false; // for guest type
