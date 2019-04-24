@@ -252,7 +252,18 @@ namespace DataAccessLayer
         /// Updated: 2019/04/05
         /// Removed Active and Available parameters
         /// </remarks>
-        public int UpdateRoom(Room room)
+        /// <remarks>
+        /// Danielle Russo
+        /// Updated: 2019/04/11
+        /// Added OfferingID  and RoomStatusID parameters
+        /// </remarks>
+        /// <remarks>
+        /// Danielle Russo
+        /// Updated: 2019/04/11
+        /// Added updatedRoom parameter
+        /// Updated all parameters
+        /// </remarks>
+        public int UpdateRoom(Room selectedRoom, Room updatedRoom)
         {
             int rows = 0;
             var conn = DBConnection.GetDbConnection();
@@ -260,13 +271,24 @@ namespace DataAccessLayer
             var cmd = new SqlCommand(cmdText, conn);
             cmd.CommandType = System.Data.CommandType.StoredProcedure;
 
-            cmd.Parameters.AddWithValue("@RoomID", room.RoomID);
-            cmd.Parameters.AddWithValue("@RoomNumber", room.RoomNumber);
-            cmd.Parameters.AddWithValue("@BuildingID", room.Building);
-            cmd.Parameters.AddWithValue("@RoomTypeID", room.RoomType);
-            cmd.Parameters.AddWithValue("@Description", room.Description);
-            cmd.Parameters.AddWithValue("@Price", room.Price);
-            cmd.Parameters.AddWithValue("@Capacity", room.Capacity);
+            cmd.Parameters.AddWithValue("@RoomID", selectedRoom.RoomID);
+            cmd.Parameters.AddWithValue("@OfferingID", selectedRoom.OfferingID);
+
+            cmd.Parameters.AddWithValue("@OldRoomNumber", selectedRoom.RoomNumber);
+            cmd.Parameters.AddWithValue("@OldBuildingID", selectedRoom.Building);
+            cmd.Parameters.AddWithValue("@OldDescription", selectedRoom.Description);
+            cmd.Parameters.AddWithValue("@OldRoomTypeID", selectedRoom.RoomType);
+            cmd.Parameters.AddWithValue("@OldRoomStatusID", selectedRoom.RoomStatus);
+            cmd.Parameters.AddWithValue("@OldPrice", selectedRoom.Price);
+            cmd.Parameters.AddWithValue("@OldCapacity", selectedRoom.Capacity);
+
+            cmd.Parameters.AddWithValue("@NewRoomNumber", updatedRoom.RoomNumber);
+            cmd.Parameters.AddWithValue("@NewBuildingID", updatedRoom.Building);
+            cmd.Parameters.AddWithValue("@NewDescription", updatedRoom.Description);
+            cmd.Parameters.AddWithValue("@NewRoomTypeID", updatedRoom.RoomType);
+            cmd.Parameters.AddWithValue("@NewRoomStatusID", updatedRoom.RoomStatus);
+            cmd.Parameters.AddWithValue("@NewPrice", updatedRoom.Price);
+            cmd.Parameters.AddWithValue("@NewCapacity", updatedRoom.Capacity);
 
             try
             {
@@ -353,9 +375,6 @@ namespace DataAccessLayer
             return roomList;
         }
 
-
-
-        
         /// <summary>
         /// Wes Richardson
         /// Created: 2019/02/12
@@ -432,6 +451,12 @@ namespace DataAccessLayer
         /// Created: 2019/04/10
         /// 
         /// </summary>
+        /// <remarks>
+        /// Danielle Russo
+        /// Updated: 2019/04/11
+        /// 
+        /// Added Offering ID field
+        /// </remarks>
         /// <returns>A list of Rooms in a selected building</returns>
         public List<Room> SelectRoomsByBuildingID(string buildingId)
         {
@@ -460,9 +485,10 @@ namespace DataAccessLayer
                             RoomType = reader.GetString(2),
                             Description = reader.GetString(3),
                             Capacity = reader.GetInt32(4),
-                            Price = (decimal)reader.GetSqlMoney(5),
-                            ResortPropertyID = reader.GetInt32(6),
-                            RoomStatus = reader.GetString(7),
+                            OfferingID = reader.GetInt32(5),
+                            Price = (decimal)reader.GetSqlMoney(6),
+                            ResortPropertyID = reader.GetInt32(7),
+                            RoomStatus = reader.GetString(8),
                             Building = buildingId
                         });
                     }
@@ -480,60 +506,5 @@ namespace DataAccessLayer
 
             return rooms;
         }
-
-
-
-        public List<Room> SelectRooms()
-        {
-            List<Room> roomList = new List<Room>();
-            var conn = DBConnection.GetDbConnection();
-            var cmdText = @"sp_select_rooms";
-            var cmd = new SqlCommand(cmdText, conn);
-            cmd.CommandType = System.Data.CommandType.StoredProcedure;
-
-            try
-            {
-                conn.Open();
-
-                var reader = cmd.ExecuteReader();
-
-                if (reader.HasRows)
-                {
-                    while (reader.Read())
-                    {
-                        var rm = new Room()
-                        {
-                            RoomID = reader.GetInt32(0),
-                            RoomNumber = reader.GetInt32(1),
-                            Building = reader.GetString(2),
-                            RoomType = reader.GetString(3),
-                            Description = reader.GetString(4),
-                            RoomStatus = reader.GetString(5),
-                            Capacity = reader.GetInt32(6),
-                            ResortPropertyID = reader.GetInt32(7),
-                            OfferingID = reader.GetInt32(8)
-                        };
-                        roomList.Add(rm);
-                    }
-                }
-                else
-                {
-                    throw new ApplicationException("Data not found");
-                }
-            }
-            catch (Exception ex)
-            {
-
-                throw new ApplicationException("Database access error", ex);
-            }
-            finally
-            {
-                conn.Close();
-            }
-
-
-            return roomList;
-        }
-
     }
 }

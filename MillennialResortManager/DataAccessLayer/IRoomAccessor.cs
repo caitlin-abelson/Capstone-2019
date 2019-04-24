@@ -23,9 +23,14 @@ namespace DataAccessLayer
         List<string> SelectBuildings();
         Room SelectRoomByID(int roomID);
         List<Room> SelectRoomList();
-        List<Room> SelectRooms();
         List<string> SelectRoomTypes();
-        int UpdateRoom(Room room);
+        /// <summary>
+        /// Danielle Russo
+        /// Updated: 2019/04/15
+        /// 
+        /// Updated to add the newRoom info
+        /// </summary>
+        int UpdateRoom(Room selectedRoom, Room newRoom);
         int DeleteRoom(Room room);
         int DeleteRoomByID(int roomID);
         List<string> SelectRoomStatusList();

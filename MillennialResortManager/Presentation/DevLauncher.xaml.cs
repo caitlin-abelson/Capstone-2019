@@ -2453,7 +2453,8 @@ namespace Presentation
         private void BrowseBuildingDoOnStart()
         {
             buildingManager = new BuildingManager();
-            try{
+            try
+            {
                 allBuildings = buildingManager.RetrieveAllBuildings();
             }
             catch (Exception ex)
@@ -2498,15 +2499,20 @@ namespace Presentation
         /// </summary>
         ///
         /// <remarks>
-        /// Updater Name
-        /// Updated: yyyy/mm/dd
+        /// Dani Russo
+        /// Updated: 2019/04/18
         /// 
+        /// Checks for null to prevent crashing
         /// </remarks>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void dgBuildings_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            selectBuilding();
+            if ((Building)dgBuildings.SelectedItem != null)
+            {
+                selectBuilding();
+            }
+
         }
 
         private void btnFilterBuilding_Click(object sender, RoutedEventArgs e)
@@ -2572,11 +2578,36 @@ namespace Presentation
             }
         }
 
+        /// <summary>
+        /// Danielle Russo
+        /// Created: 2019/01/31
+        /// 
+        /// User double clicks a line in the dgBuildings data grid.
+        /// </summary>
+        ///
+        /// <remarks>
+        /// Dani Russo
+        /// Updated: 2019/04/18
+        /// 
+        /// Checks for null to prevent crashing
+        /// </remarks>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnSelect_Click(object sender, RoutedEventArgs e)
         {
-            selectBuilding();
+            if ((Building)dgBuildings.SelectedItem != null)
+            {
+                selectBuilding();
+            }
         }
 
+        /// <summary>
+        /// Danielle Russo
+        /// Created: 2019/01/31
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void selectBuilding()
         {
             Building selectedBuilding = (Building)dgBuildings.SelectedItem;
