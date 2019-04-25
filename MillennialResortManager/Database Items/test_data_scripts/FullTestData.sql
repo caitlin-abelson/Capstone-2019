@@ -395,14 +395,10 @@ INSERT INTO [dbo].[Inspection]
 		(100006, 'Elevator' ,'2018-08-12', 'Pass', "", "", "")
 GO
 
-EXEC sp_create_resort_property_type 'TYPE A' ;
-EXEC sp_create_resort_property_type 'TYPE B' ;
-EXEC sp_create_resort_vehicle_status 'Not Available', 'Vehicle currently checked out';
+EXEC sp_create_resort_vehicle_status 'In Use', 'Vehicle currently checked out';
 EXEC sp_create_resort_vehicle_status 'Decomissioned', 'Vehicle dead'                 ;
 EXEC sp_create_resort_vehicle_status 'Available'    , 'Vehicle available for use'    ;
 
-EXEC sp_create_resort_property 'TYPE A' ;
-EXEC sp_create_resort_property 'TYPE B' ;
 EXEC sp_create_vehicle 'Dodge'  , 'Charger', 2015, 'IA 523', 50000, 5, 'Gray', '2015-05-05', 'A car', 1, '', 1, 'Available', 100000 ;
 EXEC sp_create_vehicle 'Audi'   , 'A4'     , 2017, 'IA 523', 50000, 5, 'Gray', '2010-05-05', 'A car', 1, '', 1, 'Available', 100000 ;
 EXEC sp_create_vehicle 'Toyota' , 'Camry'  , 2018, 'IA 523', 50000, 5, 'Gray', '2012-05-05', 'A car', 1, '', 1, 'Available', 100000 ;
