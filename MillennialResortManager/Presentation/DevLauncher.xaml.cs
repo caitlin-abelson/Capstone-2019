@@ -7898,5 +7898,31 @@ namespace Presentation
         }
 
         #endregion
+
+        #region Vehicle Checkout
+
+        /// <summary>
+        /// Francis Mingomba
+        /// Created: 2019/04/25
+        ///
+        /// Page Link for Resort Vehicle Checkout
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void NavBarSubHeaderVehicleCheckout_OnClick(object sender, RoutedEventArgs e)
+        {
+            DisplayPage("ResortVehicleCheckoutPage");
+
+            foreach (UserControl item in this.ResortVehicleCheckoutPage.Children)
+            {
+                if (item.GetType() != typeof(FrmResortVehicleCheckout)) continue;
+
+                FrmResortVehicleCheckout instance = (FrmResortVehicleCheckout)item;
+                instance.SetupForm(_employee);
+            }
+        }
+
+        #endregion
+
     }
 }

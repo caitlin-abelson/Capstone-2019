@@ -13,7 +13,7 @@ namespace Presentation
     ///     Created: 2019/04/19
     ///     Interaction logic for FrmResortVehicleCheckout.xaml
     /// </summary>
-    public partial class FrmResortVehicleCheckout : Window
+    public partial class FrmResortVehicleCheckout : UserControl
     {
         private readonly IResortVehicleCheckoutManager _resortVehicleCheckoutManager;
         private List<ResortVehicle> _availableResortVehicles;
@@ -32,8 +32,6 @@ namespace Presentation
             _resortVehicleCheckoutManager = resortVehicleCheckoutManager;
 
             InitializeComponent();
-
-            SetupForm(employee); //TODO: REMOVE ME WHEN YOU HOOK ME UP TO DEV LAUNCHER
         }
 
         #region Form Setup
@@ -66,10 +64,11 @@ namespace Presentation
         #region Core Logic
 
         /// <summary>
-        ///     Francis Mingomba
-        ///     Created: 2019/04/19
-        ///     Used by Vehicle Checkout Form to Refresh
-        ///     datagrids.
+        /// Francis Mingomba
+        /// Created: 2019/04/19
+        ///
+        /// Used by Vehicle Checkout Form to Refresh
+        /// datagrids.
         /// </summary>
         public void RefreshDataGrids()
         {
@@ -127,9 +126,7 @@ namespace Presentation
                 MessageBox.Show($"Failed to check out vehicle\n{e.Message}\n{e.StackTrace}");
             }
 
-            RefreshAvailableVehiclesDataGrid();
-
-            RefreshCheckedOutVehiclesDataGrid();
+            RefreshDataGrids();
 
             MessageBox.Show("Success");
         }
@@ -162,9 +159,7 @@ namespace Presentation
             {
                 _resortVehicleCheckoutManager.CheckInVehicle(checkInVehicle.VehicleCheckoutId);
 
-                RefreshAvailableVehiclesDataGrid();
-
-                RefreshCheckedOutVehiclesDataGrid();
+                RefreshDataGrids();
 
                 MessageBox.Show("Success");
             }
@@ -188,8 +183,7 @@ namespace Presentation
             }
             catch (Exception e)
             {
-                //TODO: REMOVE STACK TRACE WHEN DONE
-                MessageBox.Show($"Failure to retrieve available vehicles.\n{e.Message}\n{e.StackTrace}");
+                MessageBox.Show($"Failure to retrieve available vehicles.");
             }
 
             return available;
@@ -203,17 +197,13 @@ namespace Presentation
             {
                 checkedOut = _resortVehicleCheckoutManager.RetrieveCurrentlyCheckedOutVehicles();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 MessageBox.Show("Failure to retrieve checked out vehicles.");
             }
 
             return checkedOut;
         }
-
-        #endregion
-
-        #region Helper Functions
 
         #endregion
     }
