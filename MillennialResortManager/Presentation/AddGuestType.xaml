@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Presentation"
         mc:Ignorable="d"
-        Title="AddGuestType" Height="400" Width="300">
+        Title="AddGuestType" Height="300" Width="400">
     <Window.Resources>
         <ResourceDictionary Source="Stylesheet.xaml"/>
     </Window.Resources>
@@ -17,6 +17,7 @@
             <RowDefinition></RowDefinition>
             <RowDefinition Height="50"></RowDefinition>
         </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions></Grid.ColumnDefinitions>
         <Grid Grid.Row="0">
             <Label Content="Create New Guest Type" VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="bold" FontSize="16"></Label>
         </Grid>
@@ -25,19 +26,23 @@
         </Grid>
         <Grid Grid.Row="2">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition Width="120"></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
             <Grid Grid.Column="0">
-                <Label Content="Guest Type" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                <Label Content="Guest Type:" VerticalAlignment="Center" HorizontalAlignment="Center"/>
             </Grid>
             <Grid Grid.Column="1">
                 <TextBox x:Name="txtGuestTypeID" Margin="5 10 20 10"/>
             </Grid>
         </Grid>
         <Grid Grid.Row="3">
-            <Label Content="Description: "/>
-            <TextBox x:Name="txtDescription" Margin="20 30 20 20" />
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="120" />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Label Content="Description: " VerticalAlignment="Center"/>
+            <TextBox x:Name="txtDescription" Grid.Column="1" Margin="10" />
         </Grid>
         <Grid Grid.Row="4">
             <Button x:Name="btnCreate" Content="Create" Margin="50 10" Click="btnCreate_Click"></Button>
