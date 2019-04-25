@@ -3602,7 +3602,8 @@ namespace Presentation
         /// Created : 3/13/2019
         /// 
         /// This is where you stick all the code you want to run in your Constructor/Window_Loaded statement
-        /// 
+        /// </summary>
+        /// <remarks>
         /// Updated By: Caitiln Abelson
         /// Date: 2019/04/11
         /// 
@@ -3610,8 +3611,7 @@ namespace Presentation
         /// Added new helper methods to refresh and populate the datagrid.
         /// Implemented the new VMGuest class so that the appropriate datagrid information would 
         /// be presented when the datagrid was populated and refreshed.
-        /// 
-        /// </summary>
+        /// </remarks>
         private void BrowseGuestDoOnStart()
         {
             _guestsBrowseGuests = new List<VMGuest>();
@@ -3677,7 +3677,6 @@ namespace Presentation
         /// for loading the guest details
         /// </summary>
         /// <remarks>
-        /// 
         /// Updated by: Caitlin Abelson
         /// Date: 2019/04/15
         /// 
@@ -3740,13 +3739,15 @@ namespace Presentation
         /// Created: 2019/02/05
         /// 
         /// for searching for guests.
-        /// 
+        /// </summary>
+        /// <remarks>
         /// Updated By: Caitlin Abelson
         /// Date: 2019/04/15
         /// 
         /// Added the member fields to the search functions so users can now search by guest and member name.
         /// Expanded how a user can search
         ///     i.e. by first name only, by last name only, by both first and last name, etc.
+        /// </remarks>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void BtnGuestSearch_Click(object sender, RoutedEventArgs e)
@@ -3832,7 +3833,7 @@ namespace Presentation
             }
         }
 
-  
+
 
         /// <summary>
         /// Alisa Roehr
@@ -3840,12 +3841,13 @@ namespace Presentation
         /// 
         /// for checking in and out guests.
         /// </summary>
-        /// 
+        /// <remarks>
         /// Updated By: Caitlin Abelson
         /// Date: 2019/04/15
         /// 
         /// Fixed the method so that it implements the VMGuest class and the correct datagrid.
         /// Also used the helper methods for refreshing and populating the datagrid.
+        /// </remarks>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void btnCheckGuest_Click(object sender, RoutedEventArgs e)
