@@ -45,11 +45,10 @@
                 <div class="form-group">
 
                     <div class="col-md-10">
-                        @*   @Html.EditorFor(model => model.startDate, new { htmlAttributes = new { @class = "form-control", placeholder = "Start Date", @readonly = "true" } })
-                @Html.ValidationMessageFor(model => model.startDate, "", new { @class = "text-danger" }) *@
+                      
 
-                        @Html.EditorFor(model => model.Reservations.FirstOrDefault().startDate, new { htmlAttributes = new { @class = "form-control", placeholder = "Start Date", @readonly = "true" } })
-                        @Html.ValidationMessageFor(model => model.Reservations.FirstOrDefault().startDate, "", new { @class = "text-danger" })
+                        @Html.EditorFor(model => model.Reservation.FirstOrDefault().ArrivalDate, new { htmlAttributes = new { @class = "form-control", placeholder = "Start Date", @readonly = "true" } })
+                        @Html.ValidationMessageFor(model => model.Reservation.FirstOrDefault().ArrivalDate, "", new { @class = "text-danger" })
                     </div>
                 </div>
 
@@ -57,11 +56,10 @@
                 <div class="form-group">
 
                     <div class="col-md-10">
-                        @* @Html.EditorFor(model => model.endDate, new { htmlAttributes = new { @class = "form-control", placeholder = "End Date", @readonly = "true" } })
-                @Html.ValidationMessageFor(model => model.endDate, "", new { @class = "text-danger" }) *@
+                    
 
-                        @Html.EditorFor(model => model.Reservations.FirstOrDefault().endDate, new { htmlAttributes = new { @class = "form-control", placeholder = "End Date", @readonly = "true" } })
-                        @Html.ValidationMessageFor(model => model.Reservations.FirstOrDefault().endDate, "", new { @class = "text-danger" })
+                        @Html.EditorFor(model => model.Reservation.FirstOrDefault().DepartureDate, new { htmlAttributes = new { @class = "form-control", placeholder = "End Date", @readonly = "true" } })
+                        @Html.ValidationMessageFor(model => model.Reservation.FirstOrDefault().DepartureDate, "", new { @class = "text-danger" })
                     </div>
                 </div>
 
@@ -96,10 +94,10 @@
 
                         @* @Html.ValidationMessageFor(model => model.numberOfGuests, "", new { @class = "text-danger" }) *@
 
-                        @Html.ValidationMessageFor(model => model.Reservations.FirstOrDefault().numberOfGuests, "", new { @class = "text-danger" })
+                        @Html.ValidationMessageFor(model => model.Reservation.FirstOrDefault().numberOfGuests, "", new { @class = "text-danger" })
 
                         @*@Html.EditorFor(model => model.numberOfGuests, new { htmlAttributes = new { @class = "form-control", placeholder = "Number Of Guests", @readonly = "true" } })
-                @Html.ValidationMessageFor(model => model.numberOfGuests, "", new { @class = "text-danger" })*@
+                          @Html.ValidationMessageFor(model => model.numberOfGuests, "", new { @class = "text-danger" })*@
 
 
                     </div>

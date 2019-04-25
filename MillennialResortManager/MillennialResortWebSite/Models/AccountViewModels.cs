@@ -110,16 +110,20 @@ namespace MillennialResortWebSite.Models
         public string Address { get; set; }
 
         [Required]
+        [Display(Name = "First Name")]
         public string EmergencyFirstName { get; set; }
 
 
         [Required]
+        [Display(Name = "Last Name")]
         public string EmergencyLastName { get; set; }
 
         [Required]
+        [Display(Name = "Phone Number")]
         public string EmergencyPhoneNumber { get; set; }
 
         [Required]
+        [Display(Name = "Relation")]
         public string Relation { get; set; }
 
         [Required]

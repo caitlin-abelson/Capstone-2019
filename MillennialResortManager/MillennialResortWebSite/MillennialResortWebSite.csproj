@@ -236,6 +236,7 @@
     <Compile Include="Models\HomeViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\NewReservation.cs" />
     <Compile Include="Models\ReservationSearchModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -422,6 +423,7 @@
     <Content Include="Views\Building\Details.cshtml" />
     <Content Include="Views\Amenities\Create.cshtml" />
     <Content Include="Views\Amenities\Success.cshtml" />
+    <Content Include="Views\Rooms\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

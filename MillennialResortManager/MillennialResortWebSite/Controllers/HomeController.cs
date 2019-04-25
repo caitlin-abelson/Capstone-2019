@@ -14,7 +14,13 @@ namespace MillennialResortWebSite.Controllers
         public ActionResult Index()
         {
             HomeViewModelsMixer homeViewModelsMixer = new HomeViewModelsMixer();
-            homeViewModelsMixer.Reservations = new List<ReservationSearchModel>();
+
+           // homeViewModelsMixer.Reservations = new List<ReservationSearchModel>();
+
+            homeViewModelsMixer.Reservation = new List<NewReservation>();
+
+           // homeViewModelsMixer.Rooms = new List<Room>();
+
             homeViewModelsMixer.MailingList = new IndexPageMailingListViewModel();
 
             return View(homeViewModelsMixer);
