@@ -167,6 +167,11 @@ namespace DataAccessLayer
 
             return rows;
         }
+
+        public AppointmentType RetrievAppointmentTypeById(string id)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
 

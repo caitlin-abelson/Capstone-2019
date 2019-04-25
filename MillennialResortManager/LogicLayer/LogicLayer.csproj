@@ -31,6 +31,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.11.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -79,12 +82,14 @@
     <Compile Include="IMaintenanceTypeManager.cs" />
     <Compile Include="IMaintenanceWorkOrderManager.cs" />
     <Compile Include="IMemberManager.cs" />
+    <Compile Include="IMemberTabManager.cs" />
     <Compile Include="InspectionManager.cs" />
     <Compile Include="InternalOrderManager.cs" />
     <Compile Include="IOfferingManager.cs" />
     <Compile Include="IPerformanceManager.cs" />
     <Compile Include="IPetManager.cs" />
     <Compile Include="IPetTypeManager.cs" />
+    <Compile Include="IPickManager.cs" />
     <Compile Include="IReceivingManager.cs" />
     <Compile Include="IRecipeManager.cs" />
     <Compile Include="IReservationManager.cs" />
@@ -94,6 +99,7 @@
     <Compile Include="IResortVehicleStatusManager.cs" />
     <Compile Include="IRoleManager.cs" />
     <Compile Include="IRoomManager.cs" />
+    <Compile Include="IRoomReservationManager.cs" />
     <Compile Include="ISetupListManager.cs" />
     <Compile Include="ISetupManager.cs" />
     <Compile Include="IShopManager.cs" />
@@ -113,21 +119,25 @@
     <Compile Include="MaintenanceTypeManagerMSSQl.cs" />
     <Compile Include="MaintenanceWorkOrderManagerMSSQL.cs" />
     <Compile Include="MemberManagerMSSQL.cs" />
+    <Compile Include="MemberTabManager.cs" />
     <Compile Include="OfferingManager.cs" />
     <Compile Include="MemberValidator.cs" />
     <Compile Include="PerformanceManager.cs" />
     <Compile Include="PetManager.cs" />
     <Compile Include="PetTypeManager.cs" />
+    <Compile Include="PickManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReceivingTicketManager.cs" />
     <Compile Include="RecipeManager.cs" />
     <Compile Include="ReservationManagerMSSQL.cs" />
     <Compile Include="ResortPropertyManager.cs" />
     <Compile Include="ResortPropertyTypeManager.cs" />
+    <Compile Include="ResortVehicleCheckoutDecorator.cs" />
     <Compile Include="ResortVehicleCheckoutManager.cs" />
     <Compile Include="ResortVehicleStatusManager.cs" />
     <Compile Include="RoleManager.cs" />
     <Compile Include="RoomManager.cs" />
+    <Compile Include="RoomReservationManager.cs" />
     <Compile Include="RoomTypeManager.cs" />
     <Compile Include="RoomVerifier.cs" />
     <Compile Include="SetupListManager.cs" />
@@ -157,6 +167,9 @@
       <Project>{9b36dc60-da48-44a9-9bc6-1f4d6daa2816}</Project>
       <Name>ExceptionLoggerLogic</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

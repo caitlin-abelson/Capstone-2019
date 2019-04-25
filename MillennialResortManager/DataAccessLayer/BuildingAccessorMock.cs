@@ -84,9 +84,30 @@ namespace DataAccessLayer
             throw new NotImplementedException();
         }
 
-        public int SelectBuildingByID(int buildingID)
+        public Building SelectBuildingByID(string buildingID)
         {
-            throw new NotImplementedException();
+            Building building = null;
+            foreach (var bld in buildings)
+            {
+                if (bld.BuildingID == buildingID)
+                {
+                    building = new Building()
+                    {
+                        BuildingID = bld.BuildingID,
+                        Name = bld.Name,
+                        Address = bld.Address,
+                        Description = bld.Description,
+                        StatusID = bld.StatusID,
+                        ResortPropertyID = bld.ResortPropertyID
+                    };
+                }
+
+                if (building == null)
+                {
+                    throw new ArgumentException("Building not found.");
+                }
+            }
+            return building;
         }
 
         public int UpdateBuilding(Building oldBuilding, Building updatedBuilding)

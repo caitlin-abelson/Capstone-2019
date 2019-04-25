@@ -14,7 +14,7 @@ namespace LogicLayer
     /// </summary>
     public interface IReservationManager
     {
-        void AddReservation(Reservation newReservation);
+        bool AddReservation(Reservation newReservation);
         void EditReservation(Reservation oldReservation, Reservation newReservation);
         Reservation RetrieveReservation(int ReservationID);
         List<Reservation> RetrieveAllReservations();

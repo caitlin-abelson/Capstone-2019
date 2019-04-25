@@ -18,7 +18,9 @@ namespace DataAccessLayer
         Sponsor SelectSponsor(int SponsorID);
         List<Sponsor> SelectAllSponsors();
         List<string> SelectAllStates();
-        List<string> SelectAllSponsorStatus();
+        // Updated by Gunardi Saputra on 04/19/2019 
+        // Remove sponsor status
+        //List<string> SelectAllSponsorStatus();
 
         List<BrowseSponsor> SelectAllVMSponsors();
         int UpdateSponsor(Sponsor oldSponsor, Sponsor newSponsor);

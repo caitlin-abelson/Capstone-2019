@@ -14,7 +14,7 @@ print '' print 'BEGIN FRANCIS MINGOMBA INSERT'
 -- EXEC sp_create_resort_property_type 'TYPE B' ;
 
 print '' print 'inserting into ResortVehicleStatus'
-EXEC sp_create_resort_vehicle_status 'Not Available', 'Vehicle currently checked out';
+EXEC sp_create_resort_vehicle_status 'In Use', 'Vehicle currently checked out';
 EXEC sp_create_resort_vehicle_status 'Decomissioned', 'Vehicle dead'                 ;
 EXEC sp_create_resort_vehicle_status 'Available'    , 'Vehicle available for use'    ;
 

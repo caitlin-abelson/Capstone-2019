@@ -39,7 +39,6 @@ namespace LogicLayer
                 throw;
             }
 
-            CheckRoomNumber();
             CheckBuilding();
             CheckRoomType();
             CheckDescription();
@@ -49,31 +48,7 @@ namespace LogicLayer
             return roomIsGood;
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <remarks>
-        /// Danielle Russo
-        /// Updated: 2019/04/10
-        /// 
-        /// Updated to check if room number is used in same building
-        /// </remarks>
-        public static void CheckRoomNumber()
-        {
-            List<Room> roomsInBld = _roomAccessor.SelectRoomsByBuildingID(roomToCheck.Building);
-            for (int i = 0; i < roomsInBld.Count; i++)
-            {
-                if (roomToCheck.RoomNumber == roomsInBld[i].RoomNumber)
-                {
-                    roomIsGood = false;
-                    throw new ApplicationException("Room number already exists in this building.");
-                }
-                else
-                {
-                    roomIsGood = true;
-                }
-            }
-        }
+
         // matches a room in the list
         public static void CheckBuilding()
         {

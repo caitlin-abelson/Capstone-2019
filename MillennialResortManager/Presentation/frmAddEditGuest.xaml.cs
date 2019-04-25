@@ -240,13 +240,18 @@ namespace Presentation
         /// Created: 2019/01/25
         /// 
         /// Used for validating form information. 
-        /// 
+        /// </summary>
+        /// <remarks>
         /// Updated By: Caitlin Abelson
         /// Date: 2019/04/10 
         /// 
         /// Changed the memberID to a combobox so the only validation is a member
         /// needs to be selected in order to be associated with a guest.
         /// 
+        /// Alisa Roehr
+        /// Updated: 2019/04/16 
+        /// fix: made it so that other extentions can be used for email.
+        /// </remarks>
         /// <returns>bool for if validates out</returns>
         private bool ValidateInfo()
         {
@@ -281,7 +286,7 @@ namespace Presentation
                 MessageBox.Show("Fill out phone number correctly");
                 return false;  // for phone number
             }
-            else if (txtEmail.Text.ToString().Length > 250 || txtEmail.Text == null || txtEmail.Text.ToString().Length == 0 || !txtEmail.Text.Contains("@") || !txtEmail.Text.Contains(".") || !(txtEmail.Text.EndsWith("com") || txtEmail.Text.EndsWith("edu") || txtEmail.Text.EndsWith("gov")))
+            else if (txtEmail.Text.ToString().Length > 250 || txtEmail.Text == null || txtEmail.Text.ToString().Length == 0 || !txtEmail.Text.Contains("@") || !txtEmail.Text.Contains("."))
             {
                 MessageBox.Show("Fill out email correctly");
                 return false;  // for email, need greater email validation

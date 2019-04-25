@@ -13,13 +13,18 @@ namespace LogicLayer
         /// 
         /// Interface
         /// </summary
-        bool CreateSpecialOrder(CompleteSpecialOrder SpecialOrder, SpecialOrderLine SpecialOrderLine);
+        bool CreateSpecialOrder(CompleteSpecialOrder SpecialOrder);
+        bool CreateSpecialOrderLine(SpecialOrderLine SpecialOrderLine);
         List<SpecialOrderLine> RetrieveOrderLinesByID(int orderID);
         List<CompleteSpecialOrder> retrieveAllOrders();
         List<int> employeeID();
-        List<int> listOfitemID();
         bool isValid(CompleteSpecialOrder SpecialOrder);
         bool EditSpecialOrder(CompleteSpecialOrder Order, CompleteSpecialOrder Ordernew);
+        bool EditSpecialOrderLine(SpecialOrderLine Order, SpecialOrderLine Ordernew);
         bool DeactivateSpecialOrder(int specialOrderID);
-            }
+        bool DeleteItem(int ID, string ItemName);
+        int retrieveSpecialOrderID(CompleteSpecialOrder selected);
+        bool AuthenticatedBy(int ID, string username);
+    }
+
 }

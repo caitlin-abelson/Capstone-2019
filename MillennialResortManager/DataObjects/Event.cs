@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,18 +19,30 @@ namespace DataObjects
         /// Creates the Event Request Object
         /// </summary>
         public int EventID { get; set; }
+        [DisplayName("Event Title")]
         public string EventTitle { get; set; }
+        [DisplayName("Event Price")]
         public decimal Price { get; set; }
         public int OfferingID { get; set; }
         //public string OfferingName { get; set; }
         public int EmployeeID { get; set; }
         public string EmployeeName { get; set; }
+
+        [DisplayName("Type of Event")]
         public string EventTypeID { get; set; }
         public string Description { get; set; }
+
+        [DisplayName("Start Date")]
         public DateTime EventStartDate { get; set; }
+
+        [DisplayName("End Date")]
         public DateTime EventEndDate { get; set; }
         public bool KidsAllowed { get; set; }
+
+        [DisplayName("Total Number of Guests")]
         public int NumGuests { get; set; }
+
+        [DisplayName("Remaining Tickets")]
         public int? SeatsRemaining { get; set; }
         public string Location { get; set; }
         public bool Sponsored { get; set; }

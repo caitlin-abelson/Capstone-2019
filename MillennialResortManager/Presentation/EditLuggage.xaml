@@ -20,8 +20,8 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
         <Label Grid.Column="0" Grid.Row="0" Content="Status:" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-        <Button x:Name="btnSave" Grid.Column="0" Grid.Row="1" Content="Save" Margin="10" Click="btnSave_Click"/>
+        <Button x:Name="btnSave" Grid.Column="1" Grid.Row="1" Content="Save" Margin="56 10" Click="btnSave_Click"/>
         <ComboBox x:Name="cboStatus" Grid.Column="1" Grid.Row="0" Margin="10" VerticalContentAlignment="Center"/>
-        <Button x:Name="btnCancel" Grid.Column="1" Grid.Row="1" Content="Cancel" Margin="56 10" Click="btnCancel_Click"/>
+        <Button x:Name="btnCancel" Grid.Column="0" Grid.Row="1" Content="Cancel" Margin="10" Click="btnCancel_Click"/>
     </Grid>
 </Window>

@@ -150,15 +150,21 @@ namespace LogicLayer
         /// <param name="room">A room to update</param>
         /// <returns>A bool teling if the room was updated</returns>
         /// </summary>
-        public bool UpdateRoom(Room room)
+        /// <remarks>
+        /// Dani Russo
+        /// Updated 2019/04/15
+        /// 
+        /// Updated to take in newRoom
+        /// </remarks>
+        public bool UpdateRoom(Room selectedRoom, Room newRoom)
         {
             bool results = false;
             int rows = 0;
 
             try
             {
-                RoomVerifier.VerifyRoom(room, _roomAccessor);
-                rows = _roomAccessor.UpdateRoom(room);
+                RoomVerifier.VerifyRoom(newRoom, _roomAccessor);
+                rows = _roomAccessor.UpdateRoom(selectedRoom, newRoom);
             }
             catch (Exception)
             {

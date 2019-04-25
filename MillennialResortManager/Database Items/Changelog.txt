@@ -42,3 +42,8 @@ Updated Table
 Other small fixes to make DB run
 Moved Test Data from scripts to seperate files
 	
+Jared Greenfield 2019-04-23
+-Added Picksheet, Special Order, Membertab and TabLine, and updates to building sps.
+
+-MemberTabLine (Added Date, GuestID, ShopID), EmployeeId Nullable 
+-GuestRoomAssignment(Added Checkin and Checkout Date)

@@ -8,6 +8,7 @@ namespace DataObjects
     ///
     /// Resort Vehicle Checkout Data Object
     /// </summary>
+    [Serializable]
     public class ResortVehicleCheckout
     {
         public int VehicleCheckoutId { get; set; }

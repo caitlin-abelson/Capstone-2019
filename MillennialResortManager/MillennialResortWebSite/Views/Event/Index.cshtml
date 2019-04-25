@@ -1,0 +1,94 @@
+﻿@model IEnumerable<DataObjects.Event>
+
+@{
+    ViewBag.Title = "Current Events";
+}
+
+
+<div class="content">
+    <div class="jumbotron jumbotronBackGroundEventPage">
+        <div class="container body-content">
+            <h1 class="pull-right" style="color:cyan">Reserve your seat now!</h1>
+
+        </div>
+    </div>
+
+    <div class="container body-content1">
+
+        <table class="table roomPortal">
+
+            <h1 class="pull-left" style="color:dodgerblue;    font-family: 'Fugaz One', cursive; text-shadow: 3px 3px 3px #48ddf2; ">Welcome to out Events Page!</h1>
+
+            @foreach (var item in Model)
+            {
+            <tr>
+                <td>
+                    <img class="card-img-top" src="~/Content/images/Seaplane.jpg" alt="Card image cap">
+                </td>
+
+                <th>
+                    @Html.DisplayNameFor(model => model.EventTitle)
+                </th>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EventTitle)
+                </td>
+
+
+                <th>
+                    @Html.DisplayNameFor(model => model.Description)
+                </th>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+
+
+
+                <th>
+                    @Html.DisplayNameFor(model => model.Price)
+                </th>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price)
+                </td>
+
+
+                <th>
+                    @Html.DisplayNameFor(model => model.EventTypeID)
+                </th>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EventTypeID)
+                </td>
+
+                <th>
+                    @Html.DisplayNameFor(model => model.Location)
+                </th>
+
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Location)
+                </td>
+
+                <th>
+                    @Html.DisplayNameFor(model => model.EventStartDate)
+                </th>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EventStartDate)
+                </td>
+                @*<td>
+            @Html.DisplayFor(modelItem => item.EventEndDate)
+        </td>*@
+                @*<td>
+            @Html.DisplayFor(modelItem => item.NumGuests)
+        </td>*@
+                @*<td>
+            @Html.DisplayFor(modelItem => item.SeatsRemaining)
+        </td>*@
+                <td>
+                    @Html.ActionLink("Buy Ticket", "TicketOrder")
+                </td>
+            </tr>
+            }
+
+        </table>
+
+    </div>
+</div>

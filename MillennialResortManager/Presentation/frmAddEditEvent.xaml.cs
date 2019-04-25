@@ -330,27 +330,22 @@ namespace WpfPresentation
                 if (txtEventTitle.Text == null || txtEventTitle.Text.Length < 1 || txtEventTitle.Text.Length > 50)
                 {
                     MessageBox.Show("Event Title must be between 1 and 50 characters!");
-                    return;
                 }
                 else if (!int.TryParse(txtReqNumGuest.Text, out int aNumber) || (!decimal.TryParse(txtEventPrice.Text, out decimal bNumber)) || (!int.TryParse(txtSeatsRemaining.Text, out aNumber))/*(!int.TryParse(txtEvent//SponsorID.Text, out aNumber))*/)
                 {
                     MessageBox.Show("Numbers only!");
-                    return;
                 }
                 else if (int.Parse(txtSeatsRemaining.Text) > int.Parse(txtReqNumGuest.Text))
                 {
                     MessageBox.Show("Seats Remaining must be less or equal to the Number of Guests allowed!");
-                    return;
                 }
                 else if (dateEventEnd.SelectedDate < dateEventStart.SelectedDate)
                 {
                     MessageBox.Show("The date selection must start before it ends!");
-                    return;
                 }
                 else if (dateEventStart.SelectedDate < DateTime.Now)
                 {
                     MessageBox.Show("The date selection must be after today!");
-                    return;
                 }
 
                 //Data is captured once there are no errors
@@ -406,7 +401,7 @@ namespace WpfPresentation
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message + "\nCould not capture the event.");
+                MessageBox.Show(ex.Message + "\nCreating the event failed.");
             }
 
         }
@@ -431,7 +426,6 @@ namespace WpfPresentation
 
                 //Hides the Delete button when creating a new event
                 this.btnDeleteEvent.Visibility = Visibility.Hidden;
-                this.btnEventAction1.Visibility = Visibility.Hidden;
                 this.btnEventAction2.Visibility = Visibility.Hidden;
 
                 try
@@ -441,8 +435,7 @@ namespace WpfPresentation
                 }
                 catch (Exception ex)
                 {
-                    btnEventAction1.Visibility = Visibility.Visible;
-                    MessageBox.Show(ex.Message + "\nInsert for new event has failed.");
+                    MessageBox.Show(ex.Message + "\nCould not create the event.");
                 }
             }
             if (this.btnEventAction1.Content.ToString() == "Save")
@@ -461,7 +454,7 @@ namespace WpfPresentation
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ex.Message + "\nUpdate for new event has failed.");
+                    MessageBox.Show(ex.Message + "\nUpdating the event failed.");
                 }
             }
         }

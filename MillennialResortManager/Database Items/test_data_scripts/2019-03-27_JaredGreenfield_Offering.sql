@@ -120,25 +120,25 @@ VALUES
 	("Room")
 GO
 
-print '' print 'Inserting BuildingStatusID'
-GO
-INSERT INTO [BuildingStatus]
-(
-	[BuildingStatusID], [Description]
-)
-VALUES
-	("Active", "It works I guess.")
-GO
+-- print '' print 'Inserting BuildingStatusID'
+-- GO
+-- INSERT INTO [BuildingStatus]
+-- (
+-- 	[BuildingStatusID], [Description]
+-- )
+-- VALUES
+-- 	("Active", "It works I guess.")
+-- GO
 
 print '' print 'Inserting Building'
 GO
-INSERT INTO [Building]
-(
-	[BuildingID], [Address], [BuildingName], [Description], [BuildingStatusID], [ResortPropertyID]
-)
-VALUES
-	("Big Dave's Fire Shack", "300 On Da Beach Ave", "Fire Shack", "It's a shack on fire.", "Active", 100000)
-GO
+-- INSERT INTO [Building]
+-- (
+-- 	[BuildingID], [Address], [BuildingName], [Description], [BuildingStatusID], [ResortPropertyID]
+-- )
+-- VALUES
+-- 	("Big Dave's Fire Shack", "300 On Da Beach Ave", "Fire Shack", "It's a shack on fire.", "Active", 100000)
+-- GO
 
 print '' print 'Inserting RoomStatus'
 GO

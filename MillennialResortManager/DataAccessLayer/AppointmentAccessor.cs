@@ -45,21 +45,15 @@ namespace DataAccessLayer
             {
                 conn.Open();
                 rows = cmd.ExecuteNonQuery();
-                if(rows < 100000)
-                {
-                    throw new ApplicationException("Appointment Not Created");
-                }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-
-                throw new ApplicationException("Database access error " + ex.Message);
+                throw;
             }
             finally
             {
                 conn.Close();
             }
-
             return rows;
         }
 

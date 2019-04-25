@@ -35,8 +35,27 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.ReportViewer.Common, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.Winforms.150.900.148\lib\net40\Microsoft.ReportViewer.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.DataVisualization, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.Winforms.150.900.148\lib\net40\Microsoft.ReportViewer.DataVisualization.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.Design, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.Winforms.150.900.148\lib\net40\Microsoft.ReportViewer.Design.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.ProcessingObjectModel, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.Winforms.150.900.148\lib\net40\Microsoft.ReportViewer.ProcessingObjectModel.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.WinForms, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.Winforms.150.900.148\lib\net40\Microsoft.ReportViewer.WinForms.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.SqlServer.Types, Version=14.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.SqlServer.Types.14.0.314.76\lib\net40\Microsoft.SqlServer.Types.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -49,6 +68,7 @@
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
+    <Reference Include="WindowsFormsIntegration" />
     <Reference Include="Xceed.Wpf.AvalonDock, Version=3.5.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
       <HintPath>..\packages\Extended.Wpf.Toolkit.3.5.0\lib\net40\Xceed.Wpf.AvalonDock.dll</HintPath>
     </Reference>
@@ -72,11 +92,13 @@
     </ApplicationDefinition>
     <Compile Include="AddDepartment.xaml.cs" />
     <Compile Include="AddGuestType.xaml.cs" />
-    <Compile Include="AddItem.xaml.cs" />
     <Compile Include="AddLuggage.xaml.cs" />
     <Compile Include="AddPerformance.xaml.cs" />
     <Compile Include="AddSpecialOrder.xaml.cs" />
     <Compile Include="BrowseAppointmentType.xaml.cs" />
+    <Compile Include="BrowseAvailableRooms.xaml.cs">
+      <DependentUpon>BrowseAvailableRooms.xaml</DependentUpon>
+    </Compile>
     <Compile Include="BrowseBuilding.xaml.cs">
       <DependentUpon>BrowseBuilding.xaml</DependentUpon>
     </Compile>
@@ -111,6 +133,7 @@
       <DependentUpon>BrowseShop.xaml</DependentUpon>
     </Compile>
     <Compile Include="BrowseShuttleReservation.xaml.cs" />
+    <Compile Include="BrowseSpecialOrder.xaml.cs" />
     <Compile Include="BrowseSponsor.xaml.cs" />
     <Compile Include="BrowseSupplier.xaml.cs">
       <DependentUpon>BrowseSupplier.xaml</DependentUpon>
@@ -140,6 +163,12 @@
     <Compile Include="FrmBrowseShuttleVehicles.xaml.cs">
       <DependentUpon>FrmBrowseShuttleVehicles.xaml</DependentUpon>
     </Compile>
+    <Compile Include="FrmCheckoutPrompt.xaml.cs">
+      <DependentUpon>FrmCheckoutPrompt.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="FrmCheckoutPromptTwo.xaml.cs">
+      <DependentUpon>FrmCheckoutPromptTwo.xaml</DependentUpon>
+    </Compile>
     <Compile Include="frmEventPerformanceMain.xaml.cs">
       <DependentUpon>frmEventPerformanceMain.xaml</DependentUpon>
     </Compile>
@@ -163,8 +192,14 @@
     <Compile Include="frmOffering.xaml.cs">
       <DependentUpon>frmOffering.xaml</DependentUpon>
     </Compile>
+    <Compile Include="frmPickOrders.xaml.cs">
+      <DependentUpon>frmPickOrders.xaml</DependentUpon>
+    </Compile>
     <Compile Include="FrmResortPropertyType.xaml.cs">
       <DependentUpon>FrmResortPropertyType.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="FrmResortVehicleCheckout.xaml.cs">
+      <DependentUpon>FrmResortVehicleCheckout.xaml</DependentUpon>
     </Compile>
     <Compile Include="frmSelectRecipeItem.xaml.cs" />
     <Compile Include="frmAddEditViewAppointment.xaml.cs">
@@ -178,6 +213,9 @@
       <DependentUpon>frmSelectGuestForAppointment.xaml</DependentUpon>
     </Compile>
     <Compile Include="FrontDeskTemplate.xaml.cs" />
+    <Compile Include="GuestMemberRoomDetail.xaml.cs">
+      <DependentUpon>GuestMemberRoomDetail.xaml</DependentUpon>
+    </Compile>
     <Compile Include="GuestTypes.xaml.cs" />
     <Compile Include="GuestVehicleDetail.xaml.cs">
       <DependentUpon>GuestVehicleDetail.xaml</DependentUpon>
@@ -185,7 +223,11 @@
     <Compile Include="InspectionDetail.xaml.cs">
       <DependentUpon>InspectionDetail.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Items.xaml.cs" />
     <Compile Include="OrderRecieving.xaml.cs" />
+    <Compile Include="PickSheetReport.xaml.cs">
+      <DependentUpon>PickSheetReport.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Read_BrowseOrder.xaml.cs" />
     <Compile Include="RoomTypes.xaml.cs" />
     <Compile Include="SetupDetail.xaml.cs">
@@ -195,6 +237,7 @@
       <DependentUpon>SetupListDetail.xaml</DependentUpon>
     </Compile>
     <Compile Include="ShuttleReservationDetail.xaml.cs" />
+    <Compile Include="SqlServerTypes\Loader.cs" />
     <Compile Include="viewAccount.xaml.cs" />
     <Compile Include="ViewPerformance.xaml.cs" />
     <Page Include="AddDepartment.xaml">
@@ -202,10 +245,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="AddGuestType.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="AddItem.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -222,6 +261,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="BrowseAppointmentType.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="BrowseAvailableRooms.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -292,6 +335,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="BrowseShuttleReservation.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="BrowseSpecialOrder.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -439,6 +486,14 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="FrmCheckoutPrompt.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="FrmCheckoutPromptTwo.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="frmConfirmAction.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -491,7 +546,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="frmPickOrders.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="FrmResortPropertyType.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="FrmResortVehicleCheckout.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -519,6 +582,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="GuestMemberRoomDetail.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="GuestTypes.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -532,6 +599,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="InternalOrderDetail.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Items.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -595,6 +666,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="PickSheetReport.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Read_BrowseOrder.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -648,6 +723,7 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="packages.config" />
+    <EmbeddedResource Include="PickSheet.rdlc" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -684,6 +760,21 @@
     <Resource Include="Resources\pet6.jpg" />
     <Resource Include="Resources\pet7.jpg" />
     <Resource Include="Resources\pet8.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="SqlServerTypes\readme.htm" />
+    <Content Include="SqlServerTypes\x64\msvcr120.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SqlServerTypes\x64\SqlServerSpatial140.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SqlServerTypes\x86\msvcr120.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SqlServerTypes\x86\SqlServerSpatial140.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

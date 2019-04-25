@@ -5,37 +5,50 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Presentation"
         mc:Ignorable="d"
-        Title="Add Performance" Height="500" Width="500" Loaded="Window_Loaded">
+        Title="Add Performance" Height="300" Width="500" Loaded="Window_Loaded">
     <Window.Resources>
         <ResourceDictionary Source="Stylesheet.xaml"/>
     </Window.Resources>
     <Grid Style="{StaticResource DefaultPage}">
         <Grid.RowDefinitions>
-            <RowDefinition Height="60"/>
-            <RowDefinition Height="80"/>
-            <RowDefinition Height="50"/>
+            <RowDefinition Height=".8*"/>
+            <RowDefinition Height=".6*"/>
             <RowDefinition/>
-            <RowDefinition Height="50"/>
+            <RowDefinition Height=".6*"/>
         </Grid.RowDefinitions>
         <Grid Grid.Row="0">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
+                <ColumnDefinition Width=".7*"/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            <Label Grid.Column="0" Content="Performance Name:" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="24" Margin="10"/>
-            <TextBox x:Name="txtPerformanceName" Grid.Column="1" Height="30" Margin="10" VerticalContentAlignment="Center" HorizontalContentAlignment="Left"/>
+            <Label Grid.Column="0" Content="Performance Name:" VerticalContentAlignment="Center" HorizontalContentAlignment="Right" Margin="10"/>
+            <TextBox x:Name="txtPerformanceName" Grid.Column="1" Height="30" Margin="10" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
         </Grid>
-        <DatePicker x:Name="dtpDate" Grid.Row="1" Margin="100 10"/>
-        <Label Grid.Row="2" Content="Description:" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="24"/>
-        <TextBox x:Name="txtDescription" Grid.Row="3" Margin="10"/>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width=".7*" />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Label Content="Performance Date: " VerticalAlignment="Center" HorizontalAlignment="Right" />
+            <DatePicker x:Name="dtpDate" Grid.Column="1" Width="200" HorizontalAlignment="Center" Height="25" />
+        </Grid>
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width=".7*" />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Label Content="Description:" VerticalContentAlignment="Center" HorizontalContentAlignment="Right"/>
+            <TextBox x:Name="txtDescription" Grid.Column="1" Width="240" HorizontalAlignment="Left" Margin="10"/>
+        </Grid>
+        
         <Grid Grid.Row="4">
             <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="100"/>
                 <ColumnDefinition/>
                 <ColumnDefinition Width="100"/>
-                <ColumnDefinition Width="100"/>
             </Grid.ColumnDefinitions>
-            <Button x:Name="btnAdd" Grid.Column="1" Content="Add" Margin="10" Click="btnAdd_Click"/>
-            <Button x:Name="btnCancel" Grid.Column="2" Content="Cancel" Margin="10" Click="btnCancel_Click"/>
+            <Button x:Name="btnAdd" Grid.Column="2" Content="Add" Margin="10" Click="btnAdd_Click"/>
+            <Button x:Name="btnCancel" Grid.Column="0" Content="Cancel" Margin="10" Click="btnCancel_Click"/>
         </Grid>
     </Grid>
 </Window>

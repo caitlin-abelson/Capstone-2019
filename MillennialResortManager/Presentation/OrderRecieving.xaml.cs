@@ -141,24 +141,24 @@ namespace Presentation
                 {
                     dgOrderRecieving.SelectedIndex = i;
                     SpecialOrderLine temp = (SpecialOrderLine)dgOrderRecieving.SelectedItem;
-                    var _tempLine = specialOrderLines.Find(x => x.ItemID == temp.ItemID);
-                    _tempLine.QtyReceived = temp.QtyReceived;
-                    if (_tempLine.OrderQty != temp.QtyReceived)
+                 //   var _tempLine = specialOrderLines.Find(x => x.ItemID == temp.ItemID);
+                    //_tempLine.QtyReceived = temp.QtyReceived;
+                 //   if (_tempLine.OrderQty != temp.QtyReceived)
                     {
                         orderComplete = false;
                     }
-                    specialOrderLines.Find(x => x.ItemID == temp.ItemID).QtyReceived = temp.QtyReceived;
+                  //  specialOrderLines.Find(x => x.ItemID == temp.ItemID).QtyReceived = temp.QtyReceived;
                 }
 
                 try
                 {
                     if (orderComplete)
                     {
-                        _specialOrder.OrderComplete = orderComplete;
+                     //   _specialOrder.OrderComplete = orderComplete;
 
                         _specialManager.EditSpecialOrder(_specialOrder, _specialOrder);
                     }
-                    _specialManager.UpdateSpecialOrderLine(specialOrderLines);
+                    //_specialManager.UpdateSpecialOrderLine(specialOrderLines);
 
                     _receivingManager.createReceivingTicket(ticket);
 
