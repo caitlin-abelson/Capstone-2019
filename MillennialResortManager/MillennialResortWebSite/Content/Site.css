@@ -21,6 +21,12 @@ body {
      padding-right: 15px;
     */
 }
+
+.body-content1 {
+    padding-left: 15px;
+     padding-right: 15px;
+    
+}
 /* Override the default bootstrap behavior where horizontal description lists will truncate terms that are too long to fit in the left column */
 .dl-horizontal dt {
     white-space: normal;
@@ -280,6 +286,52 @@ header {
 
 
 
+.jumbotronBackGroundRegistrationPage {
+    height: 250px;
+    background-repeat: no-repeat;
+    background-image: url('../Content/images/beach-familyTwo.jpg');
+    background-size: cover;
+    background-position: center center;
+}
+.jumbotronBackGroundRegistrationPage h1 {
+    font-size: 55px;
+    font-family: 'Fugaz One', cursive;
+    text-shadow: 3px 3px #40798C;
+    color: #fff;
+}
+
+
+.RegistrationPage {
+    /*background-color: #40798C;*/
+    /*background-image: linear-gradient(to right, rgba(255,0,0,0), #40798C);*/
+    border-radius: 10px;
+    background-color: rgba( 64, 121, 140, 0.4);
+    border: solid teal 3px;
+    box-shadow: 3px 3px 6px #888888;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    
+}
+    .RegistrationPage h1 {
+        font-size: 55px;
+        font-family: 'Fugaz One', cursive;
+        text-shadow: 3px 3px #40798C;
+        color: #fff;
+    }
+
+    .RegistrationPage h2 {
+        font-size: 30px;
+        font-family: 'Fugaz One', cursive;
+        text-shadow: 3px 3px #40798C;
+        color: #fff;
+    }
+
+.resForm {
+    margin: auto;
+    width: 50%;
+   
+    
+}
 
 .carousel-inner {
     width: 500px;
@@ -349,13 +401,94 @@ header {
     width: 100%;
 }
 
+
+
 #centerButton input[type="submit"] {
     text-align:center;
 }
 
 
+.roomTable {
+    margin-top:15px;
+}
+
+.roomPortal td{
+
+    height:250px;
+}
 
 
+.roomPrice  {
+    
+    background-color:aqua;
+}
+
+
+
+
+.planTripRoomspage {
+    float: left;
+    border-radius: 10px;
+    background-color: rgba(255, 255, 255, 0.5);
+    text-align: center;
+    padding: 35px;
+    /*margin-right: 40px;*/
+    border: solid teal 3px;
+    box-shadow: 3px 3px 6px #888888;
+    margin-top: 15px;
+}
+
+    .planTripRoomspage h2 {
+        font-family: 'Fugaz One', cursive;
+        margin-top: -10px;
+        color: #0B2027;
+        padding-bottom: 10px;
+    }
+
+    .planTripRoomspage p {
+        padding-top: 15px;
+        margin-bottom: -10px;
+    }
+
+    .planTripRoomspage .col-md-10 {
+        width: 100%;
+    }
+
+/* Contact Page CSS*/
+
+#contactPageBody {
+    background-color: #FFF1D0;
+}
+
+.contactPageForm {
+    background-color: #FFF1D0;
+    width: 90%;
+    margin: auto;
+}
+
+#descDiv {
+    margin-left: 105px;  
+}
+
+#descTxtArea {
+    resize: none;
+}
+
+#emailTxtBox {
+    margin-left: 31px;
+}
+
+#contactFrmSbmtBtn {
+}
+
+.contactPageForm label {
+    text-decoration: underline;
+    
+}
+
+#contactPageBody address {
+    font-style: italic;
+}
 
 
 
@@ -447,11 +580,9 @@ header {
 
 
 
-
-
-
-
-
+.section{
+    z-index: 4;
+}
 
 
 
@@ -463,3 +594,53 @@ header {
         /*modual css setting for partials and for chat windows and dialog boxes*/
    
    
+.devPage {
+    background-color: dodgerblue;
+   margin-left: 15px;
+   margin-right:15px;
+    color: azure;
+    font-size: 24px;
+    font-weight:400;
+}
+
+
+
+  .devPage section {
+      margin: 10px;
+      height: 275px;
+  }
+
+
+    .devSection img {
+        float: right;
+    }
+
+/*.devSection2 img {
+    float: left;
+}*/
+
+
+.devImg {
+    margin: 5px;
+}
+
+
+.devSection2  {
+    float: right;
+    height: 200px;
+    width:85%;
+    padding:35px;
+}
+
+
+
+.devPageh1 {
+    font-size: 55px;
+    font-family: 'Fugaz One', cursive;
+    text-shadow: 3px 3px #40798C;
+    color: #fff;
+}
+
+marquee {
+    background-color:chartreuse;
+}

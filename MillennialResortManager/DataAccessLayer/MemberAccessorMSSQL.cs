@@ -210,8 +210,7 @@ namespace DataAccessLayer
                         LastName = reader.GetString(2),
                         PhoneNumber = reader.GetString(3),
                         Email = reader.GetString(4),
-                        Password = reader.GetString(5),
-                        Active = reader.GetBoolean(6)
+                        Active = reader.GetBoolean(5)
 
 
                     };

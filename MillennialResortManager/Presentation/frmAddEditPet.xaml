@@ -1,5 +1,6 @@
 ﻿<!--Window for Creating Pet-->
 <!--Made by Craig Barkley, Created 2/10/2019-->
+<!--Modified 4/18/2019 By Phillip, modified layout-->
     
     <Window x:Class="Presentation.frmAddEditPet"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -47,7 +48,8 @@
             <TextBox x:Name="txtGuestID" Grid.Column="1" Grid.Row="3" Width="120" VerticalAlignment="Center" HorizontalAlignment="Left" MaxLength="6"/>
             <TextBox x:Name="txtPetID" Grid.Column="1" Grid.Row="4" Width="120" VerticalAlignment="Center" HorizontalAlignment="Left" IsEnabled="False"/>
 
-            <Button x:Name="btnPetAction" Grid.Column="0" Grid.Row="5" Width="100" Height="25" Content="Action" Click="BtnPetAction_Click" HorizontalAlignment="Right"  />
+            <Button x:Name="btnPetCancel" Grid.Column="0" Grid.Row="5" Width="100" Height="25" Content="Cancel" Click="BtnPetCancel_Click" />
+            
 
         </Grid>
         <!--Middle of Window-->
@@ -82,7 +84,7 @@
 
             <Button x:Name="btnImageUpload" Grid.Column="2" Grid.Row="1" Content="Upload Image" Click="BtnImageUpload_Click"/>
             <Image x:Name="imgPet" Grid.Column="2" Grid.Row="2" />
-            <Button x:Name="btnPetCancel" Grid.Column="2" Grid.Row="3" Width="100" Height="25" Content="Cancel" Click="BtnPetCancel_Click" />
+            <Button x:Name="btnPetAction" Grid.Column="0" Grid.Row="3" Width="100" Height="25" Content="Action" Click="BtnPetAction_Click" HorizontalAlignment="Right"  />
         </Grid>
     </Grid>
 </Window>

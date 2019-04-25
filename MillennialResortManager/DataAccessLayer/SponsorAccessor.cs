@@ -25,9 +25,12 @@ namespace DataAccessLayer
 
         /// <summary>
         /// Author: Gunardi Saputra
-        /// Created Date: 2019/03/06
+        /// Created Date: 03/06/2019
         /// 
         /// The InsertSponsor method is for inserting a new sponsor into our records.
+        /// 
+        /// Updated: 04/19/2019
+        /// Remove statusID
         /// </summary>
         /// <param name="newSpsonsor"></param>
         /// <returns></returns>
@@ -56,7 +59,6 @@ namespace DataAccessLayer
             cmd.Parameters.AddWithValue("@Email", newSponsor.Email);
             cmd.Parameters.AddWithValue("@ContactFirstName", newSponsor.ContactFirstName);
             cmd.Parameters.AddWithValue("@ContactLastName", newSponsor.ContactLastName);
-            cmd.Parameters.AddWithValue("@StatusID", newSponsor.StatusID);
             //cmd.Parameters.AddWithValue("@DateAdded", newSponsor.DateAdded);
             //cmd.Parameters.AddWithValue("@Active", newSponsor.Active);
 
@@ -77,37 +79,49 @@ namespace DataAccessLayer
             }
         }
 
-       
-        public List<string> SelectAllSponsorStatus()
-        {
-            List<string> sponsorStatus = new List<string>();
-            var conn = DBConnection.GetDbConnection();
-            var cmd = new SqlCommand("sp_retrieve_all_statusid", conn);
-            cmd.CommandType = CommandType.StoredProcedure;
 
-            try
-            {
-                conn.Open();
-                var r = cmd.ExecuteReader();
-                if (r.HasRows)
-                {
-                    while (r.Read())
-                    {
-                        sponsorStatus.Add(r.GetString(0));
-                    }
-                }
-                r.Close();
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-            finally
-            {
-                conn.Close();
-            }
-            return sponsorStatus;
-        }
+        /// <summary>
+        /// Author: Gunardi Saputra
+        /// Created Date: 03/06/2019
+        /// 
+        /// The SelectAllSponsorStatus() 
+        /// 
+        /// Updated: 04/19/2019
+        /// Remove statusID
+        /// </summary>
+        /// <param name="newSpsonsor"></param>
+        /// <returns></returns>
+
+        //public List<string> SelectAllSponsorStatus()
+        //{
+        //    List<string> sponsorStatus = new List<string>();
+        //    var conn = DBConnection.GetDbConnection();
+        //    var cmd = new SqlCommand("sp_retrieve_all_statusid", conn);
+        //    cmd.CommandType = CommandType.StoredProcedure;
+
+        //    try
+        //    {
+        //        conn.Open();
+        //        var r = cmd.ExecuteReader();
+        //        if (r.HasRows)
+        //        {
+        //            while (r.Read())
+        //            {
+        //                sponsorStatus.Add(r.GetString(0));
+        //            }
+        //        }
+        //        r.Close();
+        //    }
+        //    catch (Exception)
+        //    {
+        //        throw;
+        //    }
+        //    finally
+        //    {
+        //        conn.Close();
+        //    }
+        //    return sponsorStatus;
+        //}
 
         public List<string> SelectAllStates()
         {
@@ -287,6 +301,9 @@ namespace DataAccessLayer
         /// Created Date: 2019/03/05
         /// 
         /// The UpdateSponsor updates a sponsor's information
+        /// 
+        /// Updated: 04/19/2019
+        /// Remove statusID
         /// </summary>
         /// <param name="newSponsor"></param>
         /// <param name="oldSponsor"></param>
@@ -316,7 +333,7 @@ namespace DataAccessLayer
             cmd.Parameters.AddWithValue("@oldEmail", oldSponsor.Email);
             cmd.Parameters.AddWithValue("@oldContactFirstName", oldSponsor.ContactFirstName);
             cmd.Parameters.AddWithValue("@oldContactLastName", oldSponsor.ContactLastName);
-            cmd.Parameters.AddWithValue("@oldStatusID", oldSponsor.StatusID);
+            //cmd.Parameters.AddWithValue("@oldStatusID", oldSponsor.StatusID);
             cmd.Parameters.AddWithValue("@oldDateAdded", oldSponsor.DateAdded);
             cmd.Parameters.AddWithValue("@oldActive", oldSponsor.Active);
 
@@ -328,7 +345,7 @@ namespace DataAccessLayer
             cmd.Parameters.AddWithValue("@Email", newSponsor.Email);
             cmd.Parameters.AddWithValue("@ContactFirstName", newSponsor.ContactFirstName);
             cmd.Parameters.AddWithValue("@ContactLastName", newSponsor.ContactLastName);
-            cmd.Parameters.AddWithValue("@StatusID", newSponsor.StatusID);
+            //cmd.Parameters.AddWithValue("@StatusID", newSponsor.StatusID);
             cmd.Parameters.AddWithValue("@DateAdded", newSponsor.DateAdded);
             cmd.Parameters.AddWithValue("@Active", newSponsor.Active);
 
@@ -351,6 +368,17 @@ namespace DataAccessLayer
             }
             return rowsAffected;
         }
+
+
+        /// <summary>
+        /// Author: Gunardi Saputra
+        /// Created Date: 2019/03/05
+        /// 
+        /// The SelectSponsor retrieve a sponsor's information
+        /// 
+        /// Updated: 04/19/2019
+        /// Remove statusID
+        /// </summary>
 
         public Sponsor SelectSponsor(int SponsorID)
         {
@@ -389,9 +417,9 @@ namespace DataAccessLayer
                         sponsor.Email = reader.GetString(6);
                         sponsor.ContactFirstName = reader.GetString(7);
                         sponsor.ContactLastName= reader.GetString(8);
-                        sponsor.StatusID = reader.GetString(9);
-                        sponsor.DateAdded = reader.GetDateTime(10);
-                        sponsor.Active = reader.GetBoolean(11);
+                        //sponsor.StatusID = reader.GetString(9);
+                        sponsor.DateAdded = reader.GetDateTime(9);
+                        sponsor.Active = reader.GetBoolean(10);
                         break;
                     }
                 }
@@ -407,6 +435,16 @@ namespace DataAccessLayer
             return sponsor;
         }
 
+
+        /// <summary>
+        /// Author: Gunardi Saputra
+        /// Created Date: 2019/03/05
+        /// 
+        /// The SelectAllVMSponsor retrieve view model sponsor's information
+        /// 
+        /// Updated: 04/19/2019
+        /// Remove statusID
+        /// </summary>
         public List<BrowseSponsor> SelectAllVMSponsors()
         {
             List<BrowseSponsor> sponsors= new List<BrowseSponsor>();
@@ -440,9 +478,9 @@ namespace DataAccessLayer
                         sponsor.Email = reader.GetString(6);
                         sponsor.ContactFirstName= reader.GetString(7);
                         sponsor.ContactLastName= reader.GetString(8);
-                        sponsor.StatusID= reader.GetString(9);
-                        sponsor.DateAdded = reader.GetDateTime(10);
-                        sponsor.Active = reader.GetBoolean(11);
+                        //sponsor.StatusID= reader.GetString(9);
+                        sponsor.DateAdded = reader.GetDateTime(9);
+                        sponsor.Active = reader.GetBoolean(10);
                         sponsors.Add(sponsor);
                     }
                 }

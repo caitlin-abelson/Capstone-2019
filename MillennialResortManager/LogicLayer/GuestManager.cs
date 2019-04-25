@@ -47,15 +47,20 @@ namespace LogicLayer
         /// 
         /// check if guest is valid or not
         /// </summary>
+        /// <remarks>
+        /// Alisa Roehr
+        /// Updated: 2019/04/16 
+        /// fix: made it so that other extentions can be used for email.
+        /// </remarks>
         /// <param name="_guest"> guest that is being tested for validation</param>
         /// <returns>whether the guest information is valid</returns>
         public bool isValid(Guest _guest)
         {
             int aNumber;
-            //if ( /*_guest.MemberID.ToString().Length > 11 ||*/ _guest.MemberID == null || _guest.MemberID == 0)
-            //{
-            //    return false ;// for member id
-            //}
+            if ( _guest.MemberID.ToString().Length > 11 || _guest.MemberID == null || _guest.MemberID == 0)
+            {
+                return false;// for member id
+            }
             if (_guest.GuestTypeID.Length > 25 || _guest.GuestTypeID == null || _guest.GuestTypeID.Length == 0)
             {
                 return false; // for guest type
@@ -68,11 +73,11 @@ namespace LogicLayer
             {
                 return false; // for last name
             }
-            else if (_guest.PhoneNumber.Length > 11 || _guest.PhoneNumber == null || _guest.PhoneNumber.Length == 0 || int.TryParse(_guest.PhoneNumber, out aNumber))
+            else if (_guest.PhoneNumber.Length > 11 || _guest.PhoneNumber == null || _guest.PhoneNumber.Length == 0)
             {
                 return false;  // for phone number
             }
-            else if (_guest.Email.Length > 250 || _guest.Email == null || _guest.Email.Length == 0 || !_guest.Email.Contains("@") || !_guest.Email.Contains(".") || !(_guest.Email.Contains("com") || _guest.Email.Contains("edu") || _guest.Email.Contains("gov")))
+            else if (_guest.Email.Length > 250 || _guest.Email == null || _guest.Email.Length == 0 || !_guest.Email.Contains("@") || !_guest.Email.Contains(".") )
             {
                 return false;  // for email, need greater email validation
             }

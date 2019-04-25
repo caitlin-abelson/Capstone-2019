@@ -40,7 +40,7 @@ namespace LogicLayer
         bool CreateBuilding(Building newBuilding);
 
         List<Building> RetrieveAllBuildings();
-        Building RetrieveBuilding(Building selectedBuilding);
+        Building RetrieveBuilding(string buildingID);
         bool UpdateBuilding(Building oldBuilding, Building updatedBuilding);
         List<string> RetrieveAllBuildingStatus();
     }

@@ -1,0 +1,46 @@
+Reason - Retrieves a count of EmployeeID
+/* Author: Carlos Arzu Created Date: 1/26/19 */
+CREATE PROCEDURE [dbo].[sp_retrieve_List_of_EmployeeID]
+
+AS
+	BEGIN
+		SELECT [EmployeeID]
+			
+		FROM [dbo].[EmployeeRole]
+	    			
+		RETURN @@ROWCOUNT
+		
+	END
+GO
+
+Reason- Resort Property Types should never be altered in the context of our program
+
+
+-- Created By: Francis Mingomba
+-- Created On : 2019-04-03
+CREATE PROCEDURE [dbo].[sp_delete_resort_property_type_by_id]
+	(
+		@ResortPropertyTypeId		[int]
+	)
+AS
+	BEGIN
+		DELETE
+		FROM	[ResortPropertyType]
+		WHERE	[ResortPropertyTypeId] = @ResortPropertyTypeId
+
+		RETURN @@ROWCOUNT
+	END
+GO
+ALTER PROCEDURE [dbo].[sp_delete_resort_property_type_by_id] 
+	(
+		@ResortPropertyTypeId		[nvarchar](20)
+	)
+AS
+	BEGIN
+		DELETE
+		FROM	[ResortPropertyType]
+		WHERE	[ResortPropertyTypeId] = @ResortPropertyTypeId
+
+		RETURN @@ROWCOUNT
+	END
+GO

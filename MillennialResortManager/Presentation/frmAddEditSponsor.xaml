@@ -100,8 +100,8 @@
                     <ColumnDefinition Width="3*" MinWidth="120"/>
                     <ColumnDefinition MinWidth="120"/>
                 </Grid.ColumnDefinitions>
-                <ComboBox x:Name="cboStatusID" Grid.Column="2"  VerticalAlignment="Center" FontSize="16" FontWeight="Bold" Margin="0,0,15,0" MinWidth="120"/>
-                <Label Grid.Column="1" Content="Status ID:" HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="16" FontWeight="Bold" Margin="0,0,15,0" />
+                <!--<ComboBox x:Name="cboStatusID" Grid.Column="2"  VerticalAlignment="Center" FontSize="16" FontWeight="Bold" Margin="0,0,15,0" MinWidth="120"/>-->
+                <!--<Label Grid.Column="1" Content="Status ID:" HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="16" FontWeight="Bold" Margin="0,0,15,0" />-->
             </Grid>
 
             

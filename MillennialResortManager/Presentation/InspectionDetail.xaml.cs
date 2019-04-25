@@ -56,7 +56,25 @@ namespace Presentation
 
         public InspectionDetail(Inspection selectedInspection)
         {
+            InitializeComponent();
+
             this.selectedInspection = selectedInspection;
+            setupEditable();
+            setupInspection();
+            this.Title = "Inspection";
+            this.btnPrimaryAction.Content = "Save";
+            this.btnSecondaryAction.Content = "Cancel";
+        }
+
+        private void setupInspection()
+        {
+            txtAffiliation.Text = selectedInspection.ResortInspectionAffiliation;
+            txtFixNotes.Text = selectedInspection.InspectionFixNotes;
+            txtInspectionName.Text = selectedInspection.Name;
+            txtProblemNotes.Text = selectedInspection.InspectionProblemNotes;
+            txtRating.Text = selectedInspection.Rating;
+            txtResortPropertyID.Text = selectedInspection.ResortPropertyID.ToString();
+            dtpkrDateInspected.SelectedDate = selectedInspection.DateInspected;
         }
 
         /// <summary>

@@ -119,7 +119,7 @@ namespace DataAccessLayer
         /// </summary>
         /// <param name="room"></param>
         /// <returns>The numbers of rows affected in the Mock Data</returns>
-        public int UpdateRoom(Room room)
+        public int UpdateRoom(Room room, Room updatedRoom)
         {
             int rowAffected = 0;
             for (int i = 0; i < roomList.Count; i++)
@@ -347,11 +347,6 @@ namespace DataAccessLayer
         }
 
         public List<Room> SelectRoomsByBuildingID(string buildingId)
-        {
-            throw new NotImplementedException();
-        }
-
-        public List<Room> SelectRooms()
         {
             throw new NotImplementedException();
         }

@@ -5,7 +5,10 @@
 /// Handles the Controls and Displayed information for Adding, Editing and View room Details
 /// </summary>
 /// <remarks>
+/// Dani Russo
+/// Updated: 2019/04/15
 /// 
+/// Added newRoom variable
 /// </remarks>
 using System;
 using System.Collections.Generic;
@@ -32,7 +35,8 @@ namespace Presentation
         private EditMode _mode = EditMode.Add;
 
         List<Room> roomsInBld;
-        Room rm;
+        Room selectedRoom;
+        Room newRoom;
         Building bd;
         RoomType rt;
         int roomID;
@@ -53,7 +57,6 @@ namespace Presentation
         public frmAddEditViewRoom(int employeeID = 100000)
         {
             _roomMgr = new RoomManager();
-            rm = new Room();
             bd = new Building();
             rt = new RoomType();
             EditMode _mode = EditMode.Add;
@@ -124,7 +127,7 @@ namespace Presentation
             {
                 try
                 {
-                    rm = _roomMgr.RetreieveRoomByID(roomID);
+                    selectedRoom = _roomMgr.RetreieveRoomByID(roomID);
                     populateControls();
                     setupViewMode();
                 }
@@ -139,7 +142,7 @@ namespace Presentation
             {
                 try
                 {
-                    rm = _roomMgr.RetreieveRoomByID(roomID);
+                    selectedRoom = _roomMgr.RetreieveRoomByID(roomID);
                     populateControls();
                     setupEditMode();
                 }
@@ -200,7 +203,8 @@ namespace Presentation
                 {
                     try
                     {
-                        bool updated = _roomMgr.UpdateRoom(rm);
+                        createNewRoom();
+                        bool updated = _roomMgr.UpdateRoom(selectedRoom, newRoom);
                         if (updated == true)
                         {
                             MessageBox.Show("Room Updated");
@@ -234,9 +238,9 @@ namespace Presentation
                         for (int i = 0; i < iudNumberOfRooms.Value; i++)
                         {
                             createNewRoom();
-                            created = _roomMgr.CreateRoom(rm, employeeID);
+                            created = _roomMgr.CreateRoom(newRoom, employeeID);
                             roomsAdded++;
-                            roomsInBld = _roomMgr.RetrieveRoomListByBuildingID(rm.Building);
+                            roomsInBld = _roomMgr.RetrieveRoomListByBuildingID(newRoom.Building);
                         }
 
                         if (created == true && roomsAdded > 1)
@@ -246,7 +250,7 @@ namespace Presentation
                         }
                         else if (created == true && roomsAdded == 1)
                         {
-                            MessageBox.Show(roomsAdded + "Room Added");
+                            MessageBox.Show(roomsAdded + " Room Added");
                             this.Close();
                         }
                         else
@@ -297,16 +301,23 @@ namespace Presentation
                 }
                 else
                 {
-                    List<int> listOfRoomNums = getRoomNumbers();
-
-                    foreach (int roomNumber in listOfRoomNums)
+                    // if window is in add mode cheeck the room number
+                    if (_mode == EditMode.Add)
                     {
-                        if (roomNumber == int.Parse(txtRoomNumber.Text))
+                        List<int> listOfRoomNums = getRoomNumbers();
+
+                        foreach (int roomNumber in listOfRoomNums)
                         {
-                            MessageBox.Show("Room number already exists in this building");
-                            inputsGood = false;
+                            if (roomNumber == int.Parse(txtRoomNumber.Text))
+                            {
+                                MessageBox.Show("Room number already exists in this building");
+                                inputsGood = false;
+                            }
                         }
                     }
+
+                    inputsGood = true;
+
                 }
             }
             else if (cboBuilding.SelectedItem == null)
@@ -351,19 +362,42 @@ namespace Presentation
         /// 
         /// Creates a new room
         /// </summary>
+        /// <remarks>
+        /// Danielle Russo
+        /// Updated: 2019/04/24
+        /// 
+        /// Added if/else statment to account for a building with no rooms
+        /// </remarks>
         private void createNewRoom()
         {
             List<int> listOfRoomNums = getRoomNumbers();
-            rm = new Room()
+            if (listOfRoomNums.Count == 0)
             {
-                RoomNumber = listOfRoomNums[listOfRoomNums.Count - 1] + 1,
-                Building = this.cboBuilding.SelectedItem.ToString(),
-                RoomType = this.cboRoomType.SelectedItem.ToString(),
-                Description = txtDescription.Text,
-                Capacity = iudCapacity.Value.Value,
-                Price = dudPrice.Value.Value,
-                RoomStatus = this.cboRoomStatus.SelectedItem.ToString()
-            };
+                newRoom = new Room()
+                {
+                    RoomNumber = 100,
+                    Building = this.cboBuilding.SelectedItem.ToString(),
+                    RoomType = this.cboRoomType.SelectedItem.ToString(),
+                    Description = txtDescription.Text,
+                    Capacity = iudCapacity.Value.Value,
+                    Price = dudPrice.Value.Value,
+                    RoomStatus = this.cboRoomStatus.SelectedItem.ToString()
+                };
+            }
+            else
+            {
+                newRoom = new Room()
+                {
+                    RoomNumber = listOfRoomNums[listOfRoomNums.Count - 1] + 1,
+                    Building = this.cboBuilding.SelectedItem.ToString(),
+                    RoomType = this.cboRoomType.SelectedItem.ToString(),
+                    Description = txtDescription.Text,
+                    Capacity = iudCapacity.Value.Value,
+                    Price = dudPrice.Value.Value,
+                    RoomStatus = this.cboRoomStatus.SelectedItem.ToString()
+                };
+            }
+            
         }
 
         /// <summary>
@@ -444,13 +478,13 @@ namespace Presentation
         /// </remarks>
         private void populateControls()
         {
-            txtRoomNumber.Text = rm.RoomNumber.ToString();
-            cboBuilding.SelectedItem = rm.Building;
-            cboRoomType.SelectedItem = rm.RoomType;
-            iudCapacity.Value = rm.Capacity;
-            txtDescription.Text = rm.Description;
-            dudPrice.Value = rm.Price;
-            cboRoomStatus.SelectedItem = rm.RoomStatus;
+            txtRoomNumber.Text = selectedRoom.RoomNumber.ToString();
+            cboBuilding.SelectedItem = selectedRoom.Building;
+            cboRoomType.SelectedItem = selectedRoom.RoomType;
+            iudCapacity.Value = selectedRoom.Capacity;
+            txtDescription.Text = selectedRoom.Description;
+            dudPrice.Value = selectedRoom.Price;
+            cboRoomStatus.SelectedItem = selectedRoom.RoomStatus;
         }
 
         /// <summary>

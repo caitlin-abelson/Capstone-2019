@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title</title>
     <link href="https://fonts.googleapis.com/css?family=Fugaz+One" rel="stylesheet">
+
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
   
@@ -57,7 +58,7 @@
                             <li>@Html.ActionLink("My Account", "Index", "MyAccount")</li>
                         }
                         <li>@Html.ActionLink("Events", "Index", "Event")</li>
-                        <li>@Html.ActionLink("Amenities", "Index", "Appointment")</li>
+                        <li>@Html.ActionLink("Amenities", "Index", "Amenities")</li>
                         <li>@Html.ActionLink("Rooms", "Rooms", "Home")</li>
                         <li>@Html.ActionLink("Buildings", "Index", "Building")</li>
                         <li>@Html.ActionLink("About", "About", "Home")</li>
@@ -168,7 +169,7 @@
 
                             <ul class="latest-posts">
                                 <li>
-                                    <a href="/">Pets</a>
+                                    @*<a href="/">Pets</a>*@ @Html.ActionLink("Pets", "Index", "DeveloperPage")
                                 </li>
                                 <li>
                                     <a href="/content/rooms.aspx">Pet Policy</a>

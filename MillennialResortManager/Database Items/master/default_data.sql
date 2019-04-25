@@ -55,21 +55,21 @@ INSERT INTO [dbo].[Role]
 	('Worker', 'Gets stuff in, moves stuff out')
 	GO
 	
-INSERT INTO [dbo].[RoomType]
-([RoomTypeID],[Description],[Active]
-)	
-VALUES
-    ('Bungalow Land', 'Queen Size Beds.',1),
-    ('Bungalow Sea', 'Queen Size Beds',1),
-    ('Beach House', 'Sleeps 10 to 20 guests.',1),
-	('Royal Suite', 'Kings and Queens, Sleep 2 - 5 guests.',1),
-	('Hostel Hut', 'Single Size Beds Sleeps 20 or more.',1),
-	('Recreation Center', 'Video Games, Slots, Billiards, Water Park.',1),
-	('Water Park.', 'Includes wave pool and bar.',1),
-	('Shopping Center', 'Local Market Tourists',1),
-	('Food Town', 'Five Star Restuarant',1),
-	('Welcome Wagon', 'Gift Store and Information.',1),
-	('Annex', 'Big Empty Reception Hall.',1)
+-- INSERT INTO [dbo].[RoomType]
+-- ([RoomTypeID],[Description],[Active]
+-- )	
+-- VALUES
+--     ('Bungalow Land', 'Queen Size Beds.',1),
+--     ('Bungalow Sea', 'Queen Size Beds',1),
+--     ('Beach House', 'Sleeps 10 to 20 guests.',1),
+-- 	('Royal Suite', 'Kings and Queens, Sleep 2 - 5 guests.',1),
+-- 	('Hostel Hut', 'Single Size Beds Sleeps 20 or more.',1),
+-- 	('Recreation Center', 'Video Games, Slots, Billiards, Water Park.',1),
+-- 	('Water Park.', 'Includes wave pool and bar.',1),
+-- 	('Shopping Center', 'Local Market Tourists',1),
+-- 	('Food Town', 'Five Star Restuarant',1),
+-- 	('Welcome Wagon', 'Gift Store and Information.',1),
+-- 	('Annex', 'Big Empty Reception Hall.',1)
 
 	
 	
@@ -79,7 +79,7 @@ VALUES
 	
 	
 	
-GO
+-- GO
 
 INSERT INTO [Employee]
 (
@@ -120,7 +120,8 @@ INSERT INTO [dbo].[RoomStatus]
 	([RoomStatusID],[Description])
 	VALUES
 	('Available', 'Available'),
-	('Occupied', 'Occupied')
+	('Occupied', 'Occupied'),
+	('UNASSIGNED', "The status is currently unknown after an update of status values.")
 GO
 
 INSERT INTO [dbo].[BuildingStatus]
