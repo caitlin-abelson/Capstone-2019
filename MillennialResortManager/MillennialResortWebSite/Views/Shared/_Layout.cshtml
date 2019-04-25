@@ -16,7 +16,7 @@
 
     <div class="top-container">
         <div class="mobileHide"> @Html.Partial("_LoginPartial")</div>
-
+       
     </div>
     @*<marquee>
             <p>Welcome to Millenial Resorts! Enjoy the endless summer at anyone of our resorts located globally, accross the Millenial Verse.</p>
@@ -52,21 +52,22 @@
 
                     <ul class="nav navbar-nav">
 
-                        <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                        <li class="headText">@Html.ActionLink("Home", "Index", "Home")</li>
                         @if (Request.IsAuthenticated)
                         {
                             <li>@Html.ActionLink("My Account", "Index", "MyAccount")</li>
                         }
-                        <li>@Html.ActionLink("Events", "Index", "Event")</li>
-                        <li>@Html.ActionLink("Amenities", "Index", "Amenities")</li>
-                        <li>@Html.ActionLink("Rooms", "Rooms", "Home")</li>
-                        <li>@Html.ActionLink("Buildings", "Index", "Building")</li>
-                        <li>@Html.ActionLink("About", "About", "Home")</li>
-                        <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                        <li class="headText">@Html.ActionLink("Events", "Index", "Event")</li>
+                        <li class="headText">@Html.ActionLink("Amenities", "Index", "Amenities")</li>
+                        <li class="headText">@Html.ActionLink("Rooms", "Rooms", "Home")</li>
+                        <li class="headText">@Html.ActionLink("Buildings", "Index", "Building")</li>
+
 
                     </ul>
                     @*@Html.ActionLink("MILLENIAL RESORTS", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })*@
                     <div class="mobileShow">@Html.Partial("_LoginPartial")</div>
+
+                    
 
                 </div>
 

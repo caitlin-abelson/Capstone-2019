@@ -122,8 +122,13 @@ li a {
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 /*/
 .loginRegister {
-    margin-right: 200px;
+    margin-right: 100px;
 }
+.loginRegister2 {
+    margin-left: 100px;
+}
+
+
 /* This with header div */
 .clearfix {
     clear: both;
@@ -508,28 +513,32 @@ header {
 
 
 
-@media(min-wodth:768px) {
+@media only screen and (max-width: 768px) {
 
-
-
-    .navbar-display {
+    /*.navbar-display {
         display: inline-block !important;
-    }
+    }*/
+    /*.navbar-collapse.collapse {
+        display: inline-block !important;
+    }*/
 }
 
 
+
+
+/*Switches thead login registration anchor from visible / hidden*/
 @media only screen and (max-width: 768px) {
     .mobileHide {
-        /*visibility: hidden;*/
         display: none;
     }
-
-    .navbar-nav {
-        margin: 0px;
+    /*.navbar-nav {
+        margin: -10px;
+    }*/
+    .loginRegister2 {
+        margin-left: -15px;
     }
 
 }
-
 @media only screen and (min-width: 768px) {
 
     .navbar-default {
@@ -539,19 +548,16 @@ header {
         background-repeat: no-repeat;
         background-position: center;
     }
-
     .mobileShow {
         display: none;
     }
 }
 
+
+
 @media only screen and (max-width: 992px) {
     .eventsText h1 {
-       
-        margin: 2px 10px 10px 10px;
-        
-       
-        
+        margin: 2px 10px 10px 10px;       
         float: none;
     }
     
@@ -562,12 +568,6 @@ header {
         .col-md-offset-2 {
             margin: 0;
         }
-
-
-
-
-
-
     }
 
 
