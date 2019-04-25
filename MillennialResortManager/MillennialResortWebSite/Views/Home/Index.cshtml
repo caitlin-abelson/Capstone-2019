@@ -23,295 +23,299 @@
     </script>
 
 }
-<div class="content">
+    <div class="content">
 
-    <div class="jumbotron jumbotronBackGround">
-        <div class="container body-content">
-            <h1>Welcome to Millennial Resorts</h1>
-            @*<p class="lead">Stay with Millennial Resorts, bring your pets, enjoy events with us and throughout the local area. </p>
+        <div class="jumbotron jumbotronBackGround">
+            <div class="container body-content">
+                <h1>Welcome to Millennial Resorts</h1>
+                @*<p class="lead">Stay with Millennial Resorts, bring your pets, enjoy events with us and throughout the local area. </p>
                 <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>*@
 
 
-            @using (Html.BeginForm("Index", "Rooms"))
-            {
-                @Html.AntiForgeryToken()
-
-            <div class="form-horizontal planTripHomepage">
-                <h2>Plan Your Vacation</h2>
-
-                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-
-
-                <div class="form-group">
-
-                    <div class="col-md-10">
-                      
-
-                        @Html.EditorFor(model => model.Reservation.FirstOrDefault().ArrivalDate, new { htmlAttributes = new { @class = "form-control", placeholder = "Start Date", @readonly = "true" } })
-                        @Html.ValidationMessageFor(model => model.Reservation.FirstOrDefault().ArrivalDate, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-
-
-                <div class="form-group">
-
-                    <div class="col-md-10">
-                    
-
-                        @Html.EditorFor(model => model.Reservation.FirstOrDefault().DepartureDate, new { htmlAttributes = new { @class = "form-control", placeholder = "End Date", @readonly = "true" } })
-                        @Html.ValidationMessageFor(model => model.Reservation.FirstOrDefault().DepartureDate, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-
-
-                <div class="form-group">
-                    <div class="col-md-10">
-                        <select class="form-control Sleeps" name="booking-roomtype">
-                            <option selected="">Guests</option>
-                            <option value="2">2 Guests</option>
-                            <option value="3">3 Guests</option>
-                            <option value="4">4 Guests</option>
-                            <option value="5">5 Guests</option>
-                            <option value="6">6 Guests</option>
-                            <option value="7">7 Guests</option>
-                            <option value="8">8 Guests</option>
-                            <option value="9">9 Guests</option>
-                            <option value="10">10 Guests</option>
-                            <option value="11">11 Guests</option>
-                            <option value="12">12 Guests</option>
-                            <option value="13">13 Guests</option>
-                            <option value="14">14 Guests</option>
-                            <option value="15">15 Guests</option>
-                            <option value="16">16 Guests</option>
-                            <option value="17">17 Guests</option>
-                            <option value="18">18 Guests</option>
-                            <option value="19">19 Guests</option>
-                            <option value="20">20 Guests</option>
-                            <option value="25">25 Guests</option>
-                        </select>
-
-                        @*@Html.DropDownListFor(model => model.numberOfGuests, Enumerable.Range(1, 25).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() }))*@
-
-                        @* @Html.ValidationMessageFor(model => model.numberOfGuests, "", new { @class = "text-danger" }) *@
-
-                        @Html.ValidationMessageFor(model => model.Reservation.FirstOrDefault().numberOfGuests, "", new { @class = "text-danger" })
-
-                        @*@Html.EditorFor(model => model.numberOfGuests, new { htmlAttributes = new { @class = "form-control", placeholder = "Number Of Guests", @readonly = "true" } })
-                          @Html.ValidationMessageFor(model => model.numberOfGuests, "", new { @class = "text-danger" })*@
-
-
-                    </div>
-                </div>
-
-
-                <div class="form-group">
-                    <div class="col-md-offset-2 col-md-10">
-                        <input type="submit" value="Search" id="centerButton" class="btn btn-default" />
-                    </div>
-                </div>
-
-                <p>@Html.ActionLink("View all Properties", "Index", "Rooms")</p>
-
-            </div>
-            }
-
-
-
-        </div>
-
-
-    </div>
-    <div class="container body-content">
-        <div class="row title textTime">
-            <div class="col-md-4">
-                <h2>ACOMMODATIONS</h2>
-                <p>
-                    Each room in the Millennial Resorts & Spa is inspired by music and memories. As you enter through the hand-carved door, each room reflects a global heritage, with distressed hardwood floors, Moroccan rugs, mahogany furniture.
-                </p>
-                <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
-            </div>
-            <div class="col-md-4">
-                <h2>RESORT AMENITIES</h2>
-                <p>
-                    Our luxury rooms and suites are designed to meet your every need. Natural Mystic Spa is just what you need. Choose from a menu of exhilarating excursions to feed your explorative soul. Snorkel in the warm waters and lounge by our pools.
-                </p>
-                <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
-            </div>
-            <div class="col-md-4">
-                <h2>BEST BEACHES</h2>
-                <p>
-                    Every Millennial Resorts sits directly on a stunning beach or land, on many of the most gorgeous islands in a region famous for its exquisite azure waters with the best luxury all-inclusive experience. Make Millennial Resorts your next vacation destination.
-                </p>
-                <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
-            </div>
-        </div>
-
-        <div class="row title textTime">
-            <div class="col-md-4">
-                <h2>ROYAL SUITE</h2>
-                <p>
-                    This Legend is a two-room, luxurious suite designed with the King in mind, featuring a King size bed, private desk, wide plank floors and a separate living room with a 42" flat-screen TV. Relax on your private balcony is one way to enjoy the oceanfront view.
-                </p>
-                <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
-            </div>
-            <div class="col-md-4">
-                <h2>BEACH HOUSE</h2>
-                <p>
-
-                    This vacation home offers luxurious amenities including an infinity pool with extravagant patio and deck area, five en-suite bedrooms, upgraded modern kitchen and access to the Resort & Spa. The Beach House is perfect for the ideal island vacation.
-
-                </p>
-                <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
-            </div>
-            <div class="col-md-4">
-                <h2>HOSTEL HUT</h2>
-                <p>This romantic One Love suite offers couples a customized King size bed, large separate dining area, couple's shower with two rainfall showerheads, bidet, double sinks and a balcony with breathtaking ocean view. Love is truly defined in this elegant suite  .</p>
-                <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
-            </div>
-        </div>
-    </div>
-
-
-    <div class="jumbotron jumbotronHighlights">
-        <div class="container body-content">
-            <h1>RESORT HIGHLIGHTS</h1>
-            <div class="row">
-
-                <div class="col-md-4 col-sm-6">
-                    <div class="card">
-                        <img class="card-img-top" src="~/Content/images/helochoopper.jpg" alt="Card image cap">
-                        <div class="card-body">
-                            <p class="card-text">Enjoy the best views the islands have to offer, while Capitan Ron tells tales of pirating and the sea.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-4 col-sm-6">
-                    <div class="card">
-                        <img class="card-img-top" src="~/Content/images/island_fish.jpg" alt="Card image cap">
-                        <div class="card-body">
-                            <p class="card-text">Swim with Sharks? Sure why not, I mean what could possibly go wrong, you have insurance, right?.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-4 col-sm-6">
-                    <div class="card">
-                        <img class="card-img-top" src="~/Content/images/limbo.jpg" alt="Card image cap">
-                        <div class="card-body">
-                            <p class="card-text">Get limbo with Jimbo at the beach. Enjoy smores, sore backs, and unintentional fire walking.</p>
-                        </div>
-                    </div>
-                </div>
-
-
-
-                <div class="col-md-4 col-sm-6">
-                    <div class="card">
-                        <img class="card-img-top" src="~/Content/images/ropes.jpg" alt="Card image cap">
-                        <div class="card-body">
-                            <p class="card-text">Glide to new heights, while you sail from the volcano's throat to the sandy beach below.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 col-sm-6">
-                    <div class="card">
-                        <img class="card-img-top" src="~/Content/images/resortDining.jpg" alt="Card image cap">
-                        <div class="card-body">
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 col-sm-6">
-                    <div class="card">
-                        <img class="card-img-top" src="~/Content/images/sing-along.jpg" alt="Card image cap">
-                        <div class="card-body">
-                            <p class="card-text">Rage with guitar Gary, and sing along to sponge bob camp fire hits. There will be smores' too.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-
-        </div>
-    </div>
-
-    <div class="jumbotron jumbotronEvents">
-        <div class="container">
-            <h2>Resort Events</h2>
-            <div class="col-sm-6">
-                <div id="myCarousel" class="carousel slide" data-ride="carousel">
-
-                    <!-- Wrapper for slides -->
-                    <div class="carousel-inner">
-
-                        <div class="item active">
-                            <img src="~/Content/images/eventSlider/hawaii-surfboards.jpg" alt="Surf Boards">
-                        </div>
-
-                        <div class="item">
-                            <img src="~/Content/images/eventSlider/market.jpg" alt="Market">
-                        </div>
-
-                        <div class="item">
-                            <img src="~/Content/images/eventSlider/redrocks.jpg" alt="Concert">
-                        </div>
-
-                        <div class="item">
-                            <img src="~/Content/images/eventSlider/snorkelling-bali.jpg" alt="Snorkeling">
-                        </div>
-                    </div>
-
-                    <!-- Left and right controls -->
-
-                </div>
-            </div>
-
-            <div class="col-sm-6">
-                <div class="eventsText">
-                    <h1>Surf, Swim, Music Festivals, Bike, Hike, Markets and More!</h1>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="jumbotron jumbotronMailingList">
-        <div class="container body-content">
-
-            <h2>Millennial Resorts Club - Become a Legend</h2>
-
-            <div class="form-inline">
-                @using (Html.BeginForm("MailingList", "Home"))
+                @using (Html.BeginForm("Index", "Rooms"))
                 {
                     @Html.AntiForgeryToken()
-                    <div class="form-group">
-                        @Html.TextBoxFor(model => model.MailingList.FirstName, new { @class = "form-control", placeholder = "First Name" })
-                        <br />
-                        @Html.ValidationMessageFor(model => model.MailingList.FirstName, "", new { @class = "text-danger" })
-                    </div>
-                    <div class="form-group">
-                        @Html.TextBoxFor(model => model.MailingList.LastName, new { @class = "form-control", placeholder = "Last Name" })
-                        <br />
-                        @Html.ValidationMessageFor(model => model.MailingList.LastName, "", new { @class = "text-danger" })
-                    </div>
-                    <div class="form-group">
-                        @Html.TextBoxFor(model => model.MailingList.Email, new { @class = "form-control", placeholder = "Email" })
-                        <br />
-                        @Html.ValidationMessageFor(model => model.MailingList.Email, "", new { @class = "text-danger" })
-                    </div>
-                    <div class="form-group">
-                        <input type="submit" value="Submit" class="btn btn-default" />
+
+                    <div class="form-horizontal planTripHomepage">
+                        <h2>Plan Your Vacation</h2>
+
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+
+                        <div class="form-group">
+
+                            <div class="col-md-10">
+
+
+                                @Html.EditorFor(model => model.Reservation.FirstOrDefault().ArrivalDate, new { htmlAttributes = new { @class = "form-control", placeholder = "Start Date", @readonly = "true" } })
+                                @Html.ValidationMessageFor(model => model.Reservation.FirstOrDefault().ArrivalDate, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <div class="col-md-10">
+
+
+                                @Html.EditorFor(model => model.Reservation.FirstOrDefault().DepartureDate, new { htmlAttributes = new { @class = "form-control", placeholder = "End Date", @readonly = "true" } })
+                                @Html.ValidationMessageFor(model => model.Reservation.FirstOrDefault().DepartureDate, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            <div class="col-md-10">
+                                <select class="form-control Sleeps" name="booking-roomtype">
+                                    <option selected="">Guests</option>
+                                    <option value="2">2 Guests</option>
+                                    <option value="3">3 Guests</option>
+                                    <option value="4">4 Guests</option>
+                                    <option value="5">5 Guests</option>
+                                    <option value="6">6 Guests</option>
+                                    <option value="7">7 Guests</option>
+                                    <option value="8">8 Guests</option>
+                                    <option value="9">9 Guests</option>
+                                    <option value="10">10 Guests</option>
+                                    <option value="11">11 Guests</option>
+                                    <option value="12">12 Guests</option>
+                                    <option value="13">13 Guests</option>
+                                    <option value="14">14 Guests</option>
+                                    <option value="15">15 Guests</option>
+                                    <option value="16">16 Guests</option>
+                                    <option value="17">17 Guests</option>
+                                    <option value="18">18 Guests</option>
+                                    <option value="19">19 Guests</option>
+                                    <option value="20">20 Guests</option>
+                                    <option value="25">25 Guests</option>
+                                </select>
+
+                                @*@Html.DropDownListFor(model => model.numberOfGuests, Enumerable.Range(1, 25).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() }))*@
+
+                                @* @Html.ValidationMessageFor(model => model.numberOfGuests, "", new { @class = "text-danger" }) *@
+
+                                @Html.ValidationMessageFor(model => model.Reservation.FirstOrDefault().numberOfGuests, "", new { @class = "text-danger" })
+
+                                @*@Html.EditorFor(model => model.numberOfGuests, new { htmlAttributes = new { @class = "form-control", placeholder = "Number Of Guests", @readonly = "true" } })
+                                @Html.ValidationMessageFor(model => model.numberOfGuests, "", new { @class = "text-danger" })*@
+
+
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <input type="submit" value="Search" id="centerButton" class="btn btn-default" />
+                            </div>
+                        </div>
+
+                        <p>@Html.ActionLink("View all Properties", "Index", "Rooms")</p>
+
                     </div>
                 }
+
+
+
+            </div>
+
+
+        </div>
+        <div class="container body-content">
+            <div class="row title textTime">
+                <div class="col-md-4">
+                    <h2>ACOMMODATIONS</h2>
+                    <p>
+                        Each room in the Millennial Resorts & Spa is inspired by music and memories. As you enter through the hand-carved door, each room reflects a global heritage, with distressed hardwood floors, Moroccan rugs, mahogany furniture.
+                    </p>
+                    <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
+                </div>
+                <div class="col-md-4">
+                    <h2>RESORT AMENITIES</h2>
+                    <p>
+                        Our luxury rooms and suites are designed to meet your every need. Natural Mystic Spa is just what you need. Choose from a menu of exhilarating excursions to feed your explorative soul. Snorkel in the warm waters and lounge by our pools.
+                    </p>
+                    <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
+                </div>
+                <div class="col-md-4">
+                    <h2>BEST BEACHES</h2>
+                    <p>
+                        Every Millennial Resorts sits directly on a stunning beach or land, on many of the most gorgeous islands in a region famous for its exquisite azure waters with the best luxury all-inclusive experience. Make Millennial Resorts your next vacation destination.
+                    </p>
+                    <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
+                </div>
+            </div>
+
+            <div class="row title textTime">
+                <div class="col-md-4">
+                    <h2>ROYAL SUITE</h2>
+                    <p>
+                        This Legend is a two-room, luxurious suite designed with the King in mind, featuring a King size bed, private desk, wide plank floors and a separate living room with a 42" flat-screen TV. Relax on your private balcony is one way to enjoy the oceanfront view.
+                    </p>
+                    <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
+                </div>
+                <div class="col-md-4">
+                    <h2>BEACH HOUSE</h2>
+                    <p>
+
+                        This vacation home offers luxurious amenities including an infinity pool with extravagant patio and deck area, five en-suite bedrooms, upgraded modern kitchen and access to the Resort & Spa. The Beach House is perfect for the ideal island vacation.
+
+                    </p>
+                    <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
+                </div>
+                <div class="col-md-4">
+                    <h2>HOSTEL HUT</h2>
+                    <p>This romantic One Love suite offers couples a customized King size bed, large separate dining area, couple's shower with two rainfall showerheads, bidet, double sinks and a balcony with breathtaking ocean view. Love is truly defined in this elegant suite  .</p>
+                    <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
+                </div>
+            </div>
+            <h1 style="float:right">@Html.ActionLink("Make A Reservation Now", "Index", "Rooms")</h1>
+        </div>
+
+       
+
+        <div class="jumbotron jumbotronHighlights">
+            <div class="container body-content">
+                <h1>RESORT HIGHLIGHTS</h1>
+                <div class="row">
+
+                    <div class="col-md-4 col-sm-6">
+                        <div class="card">
+                            <img class="card-img-top" src="~/Content/images/helochoopper.jpg" alt="Card image cap">
+                            <div class="card-body">
+                                <p class="card-text">Enjoy the best views the islands have to offer, while Capitan Ron tells tales of pirating and the sea.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4 col-sm-6">
+                        <div class="card">
+                            <img class="card-img-top" src="~/Content/images/island_fish.jpg" alt="Card image cap">
+                            <div class="card-body">
+                                <p class="card-text">Swim with Sharks? Sure why not, I mean what could possibly go wrong, you have insurance, right?.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4 col-sm-6">
+                        <div class="card">
+                            <img class="card-img-top" src="~/Content/images/limbo.jpg" alt="Card image cap">
+                            <div class="card-body">
+                                <p class="card-text">Get limbo with Jimbo at the beach. Enjoy smores, sore backs, and unintentional fire walking.</p>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                    <div class="col-md-4 col-sm-6">
+                        <div class="card">
+                            <img class="card-img-top" src="~/Content/images/ropes.jpg" alt="Card image cap">
+                            <div class="card-body">
+                                <p class="card-text">Glide to new heights, while you sail from the volcano's throat to the sandy beach below.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-6">
+                        <div class="card">
+                            <img class="card-img-top" src="~/Content/images/resortDining.jpg" alt="Card image cap">
+                            <div class="card-body">
+                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-6">
+                        <div class="card">
+                            <img class="card-img-top" src="~/Content/images/sing-along.jpg" alt="Card image cap">
+                            <div class="card-body">
+                                <p class="card-text">Rage with guitar Gary, and sing along to sponge bob camp fire hits. There will be smores' too.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <p>@Html.ActionLink("Make A Reservation Now", "Index", "Rooms")</p>
+            </div>
+        </div>
+
+        <div class="jumbotron jumbotronEvents">
+            <div class="container">
+                <h2>Resort Events</h2>
+                <div class="col-sm-6">
+                    <div id="myCarousel" class="carousel slide" data-ride="carousel">
+
+                        <!-- Wrapper for slides -->
+                        <div class="carousel-inner">
+
+                            <div class="item active">
+                                <img src="~/Content/images/eventSlider/hawaii-surfboards.jpg" alt="Surf Boards">
+                            </div>
+
+                            <div class="item">
+                                <img src="~/Content/images/eventSlider/market.jpg" alt="Market">
+                            </div>
+
+                            <div class="item">
+                                <img src="~/Content/images/eventSlider/redrocks.jpg" alt="Concert">
+                            </div>
+
+                            <div class="item">
+                                <img src="~/Content/images/eventSlider/snorkelling-bali.jpg" alt="Snorkeling">
+                            </div>
+                        </div>
+
+                        <!-- Left and right controls -->
+
+                    </div>
+                </div>
+
+                <div class="col-sm-6">
+                    <div class="eventsText">
+                        <h1>Surf, Swim, Music Festivals, Bike, Hike, Markets and More!</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="jumbotron jumbotronMailingList">
+            <div class="container body-content">
+
+                <h2>Millennial Resorts Club - Become a Legend</h2>
+
+                <div class="form-inline">
+                    @using (Html.BeginForm("MailingList", "Home"))
+                    {
+                        @Html.AntiForgeryToken()
+                        <div class="form-group">
+                            @Html.TextBoxFor(model => model.MailingList.FirstName, new { @class = "form-control", placeholder = "First Name" })
+                            <br />
+                            @Html.ValidationMessageFor(model => model.MailingList.FirstName, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="form-group">
+                            @Html.TextBoxFor(model => model.MailingList.LastName, new { @class = "form-control", placeholder = "Last Name" })
+                            <br />
+                            @Html.ValidationMessageFor(model => model.MailingList.LastName, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="form-group">
+                            @Html.TextBoxFor(model => model.MailingList.Email, new { @class = "form-control", placeholder = "Email" })
+                            <br />
+                            @Html.ValidationMessageFor(model => model.MailingList.Email, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" value="Submit" class="btn btn-default" />
+                        </div>
+                    }
+                </div>
+
             </div>
 
         </div>
 
+
+
+
+
+
     </div>
-
-
-
-
-
-
-</div>
