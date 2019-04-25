@@ -52,15 +52,15 @@
 
                     <ul class="nav navbar-nav">
 
-                        <li class="headText">@Html.ActionLink("Home", "Index", "Home")</li>
+                        <li>@Html.ActionLink("Home", "Index", "Home")</li>
                         @if (Request.IsAuthenticated)
                         {
                             <li>@Html.ActionLink("My Account", "Index", "MyAccount")</li>
                         }
-                        <li class="headText">@Html.ActionLink("Events", "Index", "Event")</li>
-                        <li class="headText">@Html.ActionLink("Amenities", "Index", "Amenities")</li>
-                        <li class="headText">@Html.ActionLink("Rooms", "Rooms", "Home")</li>
-                        <li class="headText">@Html.ActionLink("Buildings", "Index", "Building")</li>
+                        <li>@Html.ActionLink("Events", "Index", "Event")</li>
+                        <li>@Html.ActionLink("Amenities", "Index", "Amenities")</li>
+                        <li>@Html.ActionLink("Rooms", "Rooms", "Home")</li>
+                        <li>@Html.ActionLink("Buildings", "Index", "Building")</li>
 
 
                     </ul>

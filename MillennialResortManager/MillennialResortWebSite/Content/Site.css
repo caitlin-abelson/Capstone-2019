@@ -193,6 +193,7 @@ header {
     background-image: url(../Content/images/beach-family.jpg);
     background-size: cover;
     background-position: center center;
+    
 }
 
     .jumbotronBackGround h1 {
@@ -275,6 +276,7 @@ header {
     background-position: center center;
 }
 
+
     .jumbotronBackGroundRoomPage h1 {
         font-size: 55px;
         font-family: 'Fugaz One', cursive;
@@ -289,7 +291,12 @@ header {
         color: #fff;
     }
 
-
+.jumbotronBackGroundRoomPage2 {
+    background-repeat: no-repeat;
+    background-image: url(../Content/images/pier.jpg);
+    background-size: cover;
+    background-position: center center;
+}
 
 .jumbotronBackGroundRegistrationPage {
     height: 250px;
@@ -500,10 +507,10 @@ header {
 
 
 
-
-
-
-
+/*.navbar-display {
+       margin: auto;
+       width: 50%;
+    }*/
 
 
 
@@ -569,6 +576,16 @@ header {
             margin: 0;
         }
     }
+
+
+
+
+@media only screen and (max-width: 415px) {
+
+    .jumbotronBackGround h1 {
+        display: none;
+    }
+}
 
 
 .dropdown-backdrop {
