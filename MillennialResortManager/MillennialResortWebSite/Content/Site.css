@@ -267,6 +267,73 @@ header {
     }
 
 
+.jumbotronBackGroundEventPage {
+    height: 300px;
+    background-repeat: no-repeat;
+    background-image: url(../Content/images/MainStage.jpg);
+    background-size: cover;
+    background-position: center center;
+}
+    .jumbotronBackGroundEventPage h1 {
+        font-size: 55px;
+        font-family: 'Fugaz One', cursive;
+        text-shadow: 3px 3px #40798C;
+        color: #fff;
+    }
+
+    .jumbotronBackGroundEventPage h2 {
+        font-size: 30px;
+        font-family: 'Fugaz One', cursive;
+        text-shadow: 3px 3px #40798C;
+        color: #fff;
+    }
+
+.jumbotronBackGroundBuildingPage {
+    height: 300px;
+    background-repeat: no-repeat;
+    background-image: url(../Content/images/venue.jpg);
+    background-size: cover;
+    background-position: center center;
+}
+    .jumbotronBackGroundBuildingPage h1 {
+        font-size: 55px;
+        font-family: 'Fugaz One', cursive;
+        text-shadow: 3px 3px #40798C;
+        color: #fff;
+    }
+
+    .jumbotronBackGroundBuildingPage h2 {
+        font-size: 30px;
+        font-family: 'Fugaz One', cursive;
+        text-shadow: 3px 3px #40798C;
+        color: #fff;
+    }
+
+
+.jumbotronBackGroundAppointmentPage {
+    height: 300px;
+    background-repeat: no-repeat;
+    background-image: url(../Content/images/calm-beach.jpg);
+    background-size: cover;
+    background-position: center center;
+}
+
+    .jumbotronBackGroundAppointmentPage h1 {
+        font-size: 55px;
+        font-family: 'Fugaz One', cursive;
+        text-shadow: 3px 3px #40798C;
+        color: #fff;
+    }
+
+.jumbotronBackGroundAppointmentPage h2 {
+    font-size: 30px;
+    font-family: 'Fugaz One', cursive;
+    text-shadow: 3px 3px #40798C;
+    color: #fff;
+}
+
+
+
 
 .jumbotronBackGroundRoomPage {
     height: 350px;
