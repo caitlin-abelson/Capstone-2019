@@ -326,7 +326,12 @@ header {
         color: #fff;
     }
 
-
+.resForm {
+    margin: auto;
+    width: 50%;
+   
+    
+}
 
 .carousel-inner {
     width: 500px;

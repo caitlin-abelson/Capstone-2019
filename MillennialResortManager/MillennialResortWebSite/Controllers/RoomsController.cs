@@ -13,24 +13,35 @@ namespace MillennialResortWebSite.Controllers
     public class RoomsController : Controller
     {
         IRoomManager roomManager = new RoomManager();
+
         IReservationManager reservationManager = new ReservationManagerMSSQL();
 
-        IEnumerable<Reservation> reservation;
+        //IEnumerable<Reservation> reservation;
+
         IEnumerable<Room> rooms;
 
         IGuestManager _guestManager = new GuestManager();
+
+
+
         // GET: Rooms
         public ActionResult Index()
         {
             roomManager = new RoomManager();
+
             rooms = roomManager.RetrieveRoomList();
 
             int hour = DateTime.Now.Hour;
-            ViewBag.Greeting = hour < 12 ? "Good Morning" : "Good Afternoon";
 
+            ViewBag.Greeting = hour < 12 ? "Good Morning" : "Good Afternoon";
 
             return View(rooms);
         }
+
+
+
+
+
         [Authorize]
         public ActionResult Create(int id)
         {
@@ -58,6 +69,11 @@ namespace MillennialResortWebSite.Controllers
                 return RedirectToAction("Login", "Account");
             }
 
+
+
+
+
+
             NewReservation res = new NewReservation()
             {
                 ArrivalDate = DateTime.Now,
@@ -71,7 +87,17 @@ namespace MillennialResortWebSite.Controllers
             return View(res);
         }
 
-        // POST: Amenitites/Create
+
+
+
+
+
+
+
+
+
+
+        // POST: Reservaion/Create
         [HttpPost]
         public ActionResult Create(NewReservation reservation)
         {
