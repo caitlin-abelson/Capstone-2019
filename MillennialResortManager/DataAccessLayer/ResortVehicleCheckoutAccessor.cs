@@ -32,10 +32,9 @@ namespace DataAccessLayer
 
             var cmd = new SqlCommand(cmdText, conn) { CommandType = CommandType.StoredProcedure };
 
-            cmd.Parameters.AddWithValue("@VehicleCheckoutId", resortVehicleCheckout.VehicleCheckoutId);
             cmd.Parameters.AddWithValue("@EmployeeId", resortVehicleCheckout.EmployeeId);
-            cmd.Parameters.AddWithValue("@DateCheckedOut	", resortVehicleCheckout.DateCheckedOut);
-            cmd.Parameters.AddWithValue("@DateReturned", resortVehicleCheckout.DateReturned);
+            cmd.Parameters.AddWithValue("@DateCheckedOut", resortVehicleCheckout.DateCheckedOut);
+            cmd.Parameters.AddWithValue("@DateReturned", (object)resortVehicleCheckout.DateReturned ?? DBNull.Value);
             cmd.Parameters.AddWithValue("@DateExpectedBack", resortVehicleCheckout.DateExpectedBack);
             cmd.Parameters.AddWithValue("@Returned", resortVehicleCheckout.Returned);
             cmd.Parameters.AddWithValue("@ResortVehicleId", resortVehicleCheckout.ResortVehicleId);
@@ -89,7 +88,7 @@ namespace DataAccessLayer
                         VehicleCheckoutId = reader.GetInt32(0),
                         EmployeeId = reader.GetInt32(1),
                         DateCheckedOut = reader.GetDateTime(2),
-                        DateReturned = reader.GetDateTime(3),
+                        DateReturned = reader.IsDBNull(3) ? (DateTime?)null : reader.GetDateTime(3),
                         DateExpectedBack = reader.GetDateTime(4),
                         Returned = reader.GetBoolean(5),
                         ResortVehicleId = reader.GetInt32(6)
@@ -142,7 +141,7 @@ namespace DataAccessLayer
                             VehicleCheckoutId = reader.GetInt32(0),
                             EmployeeId = reader.GetInt32(1),
                             DateCheckedOut = reader.GetDateTime(2),
-                            DateReturned = reader.GetDateTime(3),
+                            DateReturned = reader.IsDBNull(3) ? (DateTime?)null : reader.GetDateTime(3),
                             DateExpectedBack = reader.GetDateTime(4),
                             Returned = reader.GetBoolean(5),
                             ResortVehicleId = reader.GetInt32(6)
@@ -150,10 +149,6 @@ namespace DataAccessLayer
                         });
 
                     }
-                }
-                else
-                {
-                    throw new ApplicationException("Vehicle Checkout record not found.");
                 }
 
                 reader.Close();
@@ -185,15 +180,15 @@ namespace DataAccessLayer
             cmd.Parameters.AddWithValue("@VehicleCheckoutId", old.VehicleCheckoutId);
 
             cmd.Parameters.AddWithValue("@OldEmployeeId", old.EmployeeId);
-            cmd.Parameters.AddWithValue("@OldDateCheckedOut	", old.DateCheckedOut);
-            cmd.Parameters.AddWithValue("@OldDateReturned", old.DateReturned);
+            cmd.Parameters.AddWithValue("@OldDateCheckedOut", old.DateCheckedOut);
+            cmd.Parameters.AddWithValue("@OldDateReturned", (object)old.DateReturned ?? DBNull.Value);
             cmd.Parameters.AddWithValue("@OldDateExpectedBack", old.DateExpectedBack);
             cmd.Parameters.AddWithValue("@OldReturned", old.Returned);
             cmd.Parameters.AddWithValue("@OldResortVehicleId", old.ResortVehicleId);
 
             cmd.Parameters.AddWithValue("@NewEmployeeId", newResortVehicleCheckOut.EmployeeId);
-            cmd.Parameters.AddWithValue("@NewDateCheckedOut	", newResortVehicleCheckOut.DateCheckedOut);
-            cmd.Parameters.AddWithValue("@NewDateReturned", newResortVehicleCheckOut.DateReturned);
+            cmd.Parameters.AddWithValue("@NewDateCheckedOut", newResortVehicleCheckOut.DateCheckedOut);
+            cmd.Parameters.AddWithValue("@NewDateReturned", (object)newResortVehicleCheckOut.DateReturned ?? DBNull.Value);
             cmd.Parameters.AddWithValue("@NewDateExpectedBack", newResortVehicleCheckOut.DateExpectedBack);
             cmd.Parameters.AddWithValue("@NewReturned", newResortVehicleCheckOut.Returned);
             cmd.Parameters.AddWithValue("@NewResortVehicleId", newResortVehicleCheckOut.ResortVehicleId);

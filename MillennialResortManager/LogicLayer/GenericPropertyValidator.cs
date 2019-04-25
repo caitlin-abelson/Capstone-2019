@@ -18,9 +18,9 @@ namespace LogicLayer
     ///                      DateTime null validation
     ///                      TODO: nullable int, double/float
     ///
-    /// Usage: (1) Add 'this.MeetsValidationCriteria(myDataObject, GetResortVehicleValidationCriteria());'
+    /// Usage: (1) Add 'this.MeetsValidationCriteria(myDataObject, GetValidationCriteria());'
     ///            in function of choice to validate data object. <see cref="ResortPropertyManager"/> #Line 39
-    ///        (2) Add GetResortVehicleValidationCriteria() getter function which defines validation rules
+    ///        (2) Add GetValidationCriteria() getter function which defines validation rules
     ///            see <see cref="ResortPropertyManager"/> #Line 146
     /// </summary>
     public static class GenericPropertyValidator

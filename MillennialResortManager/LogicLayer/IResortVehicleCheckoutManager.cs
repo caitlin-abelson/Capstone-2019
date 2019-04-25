@@ -20,5 +20,13 @@ namespace LogicLayer
         void UpdateVehicleCheckouts(ResortVehicleCheckout old, ResortVehicleCheckout newResortVehicleCheckOut);
 
         void DeleteVehicleCheckout(int vehicleCheckoutId);
+
+        IEnumerable<ResortVehicle> RetrieveAvailableResortVehicles();
+
+        IEnumerable<ResortVehicleCheckoutDecorator> RetrieveCurrentlyCheckedOutVehicles();
+
+        void CheckoutVehicle(ResortVehicleCheckout vehicleCheckout);
+
+        void CheckInVehicle(int vehicleCheckoutId);
     }
 }
