@@ -70,7 +70,8 @@ namespace Presentation
         }
         private void btnAddFrontDesk_Click(object sender, RoutedEventArgs e)
         {
-            if (tabBellHopService.IsSelected) {
+            if (tabBellHopService.IsSelected)
+            {
                 var frmAdd = new AddLuggage(luggageManager, guestManager);
                 if (frmAdd.ShowDialog() == true)
                 {
@@ -95,7 +96,8 @@ namespace Presentation
 
         private void btnUpdateFrontDesk_Click(object sender, RoutedEventArgs e)
         {
-            if (tabBellHopService.IsSelected) {
+            if (tabBellHopService.IsSelected)
+            {
                 try
                 {
                     DataGridRow row = (DataGridRow)dgLuggage.ItemContainerGenerator.ContainerFromIndex(dgLuggage.SelectedIndex);
@@ -145,7 +147,8 @@ namespace Presentation
 
         private void btnDelteFrontDesk_Click(object sender, RoutedEventArgs e)
         {
-            if (tabBellHopService.IsSelected) {
+            if (tabBellHopService.IsSelected)
+            {
                 try
                 {
                     DataGridRow row = (DataGridRow)dgLuggage.ItemContainerGenerator.ContainerFromIndex(dgLuggage.SelectedIndex);

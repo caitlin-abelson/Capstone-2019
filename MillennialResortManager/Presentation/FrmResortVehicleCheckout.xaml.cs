@@ -20,8 +20,11 @@ namespace Presentation
         private List<ResortVehicleCheckoutDecorator> _currentlyCheckedOutResortVehicles;
         private Employee _employee;
 
-        public FrmResortVehicleCheckout() : this(null, new ResortVehicleCheckoutManager())
+        public FrmResortVehicleCheckout()
         {
+			_employee = null;
+			_resortVehicleCheckoutManager = new ResortVehicleCheckoutManager();
+			InitializeComponent();
         }
 
         public FrmResortVehicleCheckout(Employee employee = null

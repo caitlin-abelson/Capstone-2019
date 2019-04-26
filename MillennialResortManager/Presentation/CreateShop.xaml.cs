@@ -64,9 +64,9 @@ namespace Presentation
             }
             try
             {
-                if ((String)this.btnSubmit.Content == "Submit")
+                if ((string)this.btnSubmit.Content == "Submit")
                 {
-                    newShop.RoomID =((Room)cboRoomID.SelectedValue).RoomID;
+                    newShop.RoomID = (int)cboRoomID.SelectedValue;
                     newShop.Name = this.txtName.Text;
                     newShop.Description = this.txtDescription.Text;
                     int shopID = _shopManager.InsertShop(newShop);
@@ -148,15 +148,20 @@ namespace Presentation
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             List<Room> roomIDs = new List<Room>();
+            List<int> roomNums = new List<int>();
             try
             {
                 roomIDs = _roomManager.RetrieveRoomList();
+                foreach (var room in roomIDs)
+                {
+                    roomNums.Add(room.RoomID);
+                }
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Error: " + ex.Message);
             }
-            foreach (var room in roomIDs)
+            foreach (var room in roomNums)
             {
                 cboRoomID.Items.Add(room);
             }

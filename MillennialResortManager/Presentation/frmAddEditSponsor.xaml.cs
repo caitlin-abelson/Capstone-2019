@@ -50,7 +50,7 @@ namespace Presentation
             }
             chkActive.Visibility = Visibility.Hidden;
             //txtSponsorID.Visibility = Visibility.Hidden;
-            dtpDateAdded.Visibility = Visibility.Hidden;
+            //dtpDateAdded.Visibility = Visibility.Hidden;
             chkActive.IsChecked = true;
             _existingSponsor = null;
         }
@@ -95,7 +95,7 @@ namespace Presentation
             txtContactFirstName.Text = "" + _existingSponsor.ContactFirstName;
             txtContactLastName.Text = "" + _existingSponsor.ContactLastName;
             //cboStatusID.SelectedItem = "" + _existingSponsor.StatusID;
-            dtpDateAdded.Text = _existingSponsor.DateAdded.ToString("MM/dd/yyyy");
+            dtpDateAdded.SelectedDate = _existingSponsor.DateAdded;
             chkActive.IsChecked = _existingSponsor.Active;
             setReadOnly();
             btnSave.Content = "Update";
@@ -166,16 +166,16 @@ namespace Presentation
         /// </summary>
         private void setEditable()
         {
-            txtName.IsReadOnly = !true;
-            txtAddress.IsReadOnly = !true;
-            txtCity.IsReadOnly = !true;
+            txtName.IsReadOnly = false;
+            txtAddress.IsReadOnly = false;
+            txtCity.IsReadOnly = false;
             cboState.IsEnabled = true;
-            txtPhoneNumber.IsReadOnly = !true;
-            txtEmail.IsReadOnly = !true;
-            txtContactFirstName.IsReadOnly = !true;
-            txtContactLastName.IsReadOnly = !true;
+            txtPhoneNumber.IsReadOnly = false;
+            txtEmail.IsReadOnly = false;
+            txtContactFirstName.IsReadOnly = false;
+            txtContactLastName.IsReadOnly = false;
             //cboStatusID.IsEnabled = !false;
-            dtpDateAdded.IsEnabled = !false;
+            dtpDateAdded.IsEnabled = true;
 
             btnSave.Content = "Submit";
             chkActive.Visibility = Visibility.Visible;
@@ -194,9 +194,10 @@ namespace Presentation
         /// </summary>
         private void btnSave_Click(object sender, RoutedEventArgs e)
         {
+            
+            //if (((string)btnSave.Content) == "Update" || ((string)btnSave.Content) == "Submit")
 
-
-            if (((string)btnSave.Content) == "Submit" || ((string)btnSave.Content) == "Save")
+            if (((string)btnSave.Content) == "Submit" )
             {
                 if (!ValidateInput())
                 {
@@ -215,6 +216,70 @@ namespace Presentation
                     ContactLastName = txtContactLastName.Text,
                     //StatusID = (string)cboStatusID.SelectedItem,
                     DateAdded = DateTime.Parse(dtpDateAdded.Text)
+                };
+                try
+                {
+                    if (_existingSponsor == null)
+                    {
+
+                        _sponsorManager.InsertSponsor(newSponsor);
+                        SetError("");
+                        MessageBox.Show("Sponsor Was Created Successfully: " +
+                        "\nSponsorID: " + newSponsor.SponsorID +
+                        "\nName: " + newSponsor.Name +
+                        "\nDateAdded: " + newSponsor.DateAdded.ToString("MM/dd/yyyy") +
+                        "\nAddress: " + newSponsor.Address);
+                    }
+                    else
+                    {
+                        newSponsor.Active = (bool)chkActive.IsChecked;
+                        if (_sponsorManager.UpdateSponsor(_existingSponsor, newSponsor))
+                        {
+
+                            SetError("");
+                            MessageBox.Show("Sponsor Updated Successfully: " +
+                            "\nOld SponsorID: " + _existingSponsor.SponsorID +
+                            "\nOld Name: " + _existingSponsor.Name +
+                            "\nOld DateAdded: " + _existingSponsor.DateAdded.ToString("MM/dd/yyyy") +
+                            "\nOld Address: " + _existingSponsor.Address +
+
+                            "\nNew SponsorID: " + newSponsor.SponsorID +
+                            "\nNew Name: " + newSponsor.Name +
+                            "\nNew DateAdded: " + newSponsor.DateAdded.ToString("MM/dd/yyyy") +
+                            "\nNew Address: " + newSponsor.Address);
+                        }
+                        else
+                        {
+                            MessageBox.Show("Failed to Update Sponsor");
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    SetError(ex.Message);
+                }
+
+                Close();
+            }
+            else if(((string)btnSave.Content) == "Save"){
+
+                if (!ValidateInput())
+                {
+                    return;
+                }
+                Sponsor newSponsor = new Sponsor
+                {
+                    //SponsorID = int.Parse(txtSponsorID.Text),
+                    Name = txtName.Text,
+                    Address = txtAddress.Text,
+                    City = txtCity.Text,
+                    State = (string)cboState.SelectedItem,
+                    PhoneNumber = txtPhoneNumber.Text,
+                    Email = txtEmail.Text,
+                    ContactFirstName = txtContactFirstName.Text,
+                    ContactLastName = txtContactLastName.Text,
+                    //StatusID = (string)cboStatusID.SelectedItem,
+                    //DateAdded = DateTime.Parse(dtpDateAdded.Text)
                 };
                 try
                 {
@@ -408,7 +473,7 @@ namespace Presentation
             }
             // Address no more than 50 characters long
 
-            if (txtAddress.Text.Length >= 2 && txtAddress.Text.Length <= 50)
+            if (txtAddress.Text.Length >= 7 && txtAddress.Text.Length < 50)
             {
                 return true;
             }

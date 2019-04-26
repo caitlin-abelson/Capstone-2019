@@ -11,15 +11,15 @@
     </Window.Resources>
     <Grid Style="{StaticResource DefaultPage}">
         <Grid.RowDefinitions>
-            <RowDefinition Height="40"></RowDefinition>
-            <RowDefinition Height="40"></RowDefinition>
-            <RowDefinition Height="50"></RowDefinition>
+            <RowDefinition Height=".5*"></RowDefinition>
+            <RowDefinition Height=".3*"></RowDefinition>
+            <RowDefinition Height=".5*"></RowDefinition>
             <RowDefinition></RowDefinition>
-            <RowDefinition Height="50"></RowDefinition>
+            <RowDefinition Height=".5*"></RowDefinition>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions></Grid.ColumnDefinitions>
         <Grid Grid.Row="0">
-            <Label Content="Create New Guest Type" VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="bold" FontSize="16"></Label>
+            <Label Content="Create New Guest Type" VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="bold" FontSize="22"></Label>
         </Grid>
         <Grid Grid.Row="1">
             <Label Content="Please enter in the following fields" VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="Bold"/>

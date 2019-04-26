@@ -176,7 +176,7 @@ namespace LogicLayer
                 data = sha256hash.ComputeHash(Encoding.UTF8.GetBytes(source));
             }
 
-            // now, we just need to build the result string with a String Builder
+            // now, we just need to build the result string with a string Builder
             var s = new StringBuilder();
 
             // loop through the bytes creating hex digits
@@ -185,7 +185,7 @@ namespace LogicLayer
                 s.Append(data[i].ToString("x2"));       //x2 - formating string will take byte char and give the hexidecimal string 
             }
 
-            // conver String Builder to a string
+            // conver string Builder to a string
             result = s.ToString();
 
             return result;

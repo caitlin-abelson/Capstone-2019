@@ -17,15 +17,31 @@ namespace LogicLayer
     {
         private readonly IResortVehicleCheckoutAccessor _resortVehicleCheckoutAccessor;
         private readonly IResortVehicleAccessor _resortVehicleAccessor;
+		AppData.DataStoreType daotype;
 
         public ResortVehicleCheckoutManager(IResortVehicleCheckoutAccessor resortVehicleCheckoutAccessor = null
                                             , IResortVehicleAccessor resortVehicleAccessor = null)
         {
-            _resortVehicleCheckoutAccessor = resortVehicleCheckoutAccessor;
-            _resortVehicleAccessor = resortVehicleAccessor;
+			daotype = AppData.DataStoreType.msssql;
+
+			switch (daotype)
+			{
+				case AppData.DataStoreType.mock:
+					throw new NotImplementedException();
+					break;
+				case AppData.DataStoreType.msssql:
+				default:
+					_resortVehicleCheckoutAccessor = new ResortVehicleCheckoutAccessor();
+					_resortVehicleAccessor = new ResortVehicleAccessor();
+					break;
+			}
         }
 
-        public ResortVehicleCheckoutManager() : this(new ResortVehicleCheckoutAccessor(), new ResortVehicleAccessor()){ }
+        public ResortVehicleCheckoutManager()
+		{
+			_resortVehicleCheckoutAccessor = new ResortVehicleCheckoutAccessor();
+			_resortVehicleAccessor = new ResortVehicleAccessor();
+		}
 
         /// <summary>
         /// Francis Mingomba

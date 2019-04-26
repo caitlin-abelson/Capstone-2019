@@ -16,6 +16,7 @@ namespace LogicLayer
         List<VMItemSupplierItem> RetrieveAllItemSuppliersBySupplierID(int supplierID);
 
         List<SupplierOrder> RetrieveAllSupplierOrders();
+        List<SupplierOrder> RetrieveAllGeneratedOrders();
 
         List<SupplierOrderLine> RetrieveAllSupplierOrderLinesBySupplierOrderID(int supplierOrderID);
 

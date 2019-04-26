@@ -24,6 +24,8 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>
+    </DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -163,6 +165,9 @@
     <Compile Include="FrmBrowseShuttleVehicles.xaml.cs">
       <DependentUpon>FrmBrowseShuttleVehicles.xaml</DependentUpon>
     </Compile>
+    <Compile Include="frmInbox.xaml.cs">
+      <DependentUpon>frmInbox.xaml</DependentUpon>
+    </Compile>
     <Compile Include="FrmCheckoutPrompt.xaml.cs">
       <DependentUpon>FrmCheckoutPrompt.xaml</DependentUpon>
     </Compile>
@@ -227,6 +232,12 @@
       <DependentUpon>InspectionDetail.xaml</DependentUpon>
     </Compile>
     <Compile Include="Items.xaml.cs" />
+    <Compile Include="MemberTabDetail.xaml.cs">
+      <DependentUpon>MemberTabDetail.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MemberTabList.xaml.cs">
+      <DependentUpon>MemberTabList.xaml</DependentUpon>
+    </Compile>
     <Compile Include="OrderRecieving.xaml.cs" />
     <Compile Include="PickSheetReport.xaml.cs">
       <DependentUpon>PickSheetReport.xaml</DependentUpon>
@@ -513,6 +524,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="frmInbox.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="frmEventPerformanceMain.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -665,6 +680,14 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="MemberTabDetail.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MemberTabList.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="OrderRecieving.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -741,7 +764,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DataAccessLayer\DataAccessLayer.csproj">
-      <Project>{cce8f374-3775-4b7b-aef6-89c330c61d27}</Project>
+      <Project>{CCE8F374-3775-4B7B-AEF6-89C330C61D27}</Project>
       <Name>DataAccessLayer</Name>
     </ProjectReference>
     <ProjectReference Include="..\DataObjects\DataObjects.csproj">
@@ -769,6 +792,7 @@
     <Resource Include="Resources\pet8.jpg" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Resources\MillenialResortDesktop.jpg" />
     <Content Include="SqlServerTypes\readme.htm" />
     <Content Include="SqlServerTypes\x64\msvcr120.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

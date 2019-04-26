@@ -5,51 +5,41 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Presentation"
         mc:Ignorable="d"
-        Title="Create Employee Role" Height="450" Width="800" WindowStartupLocation="CenterScreen">
+        Title="Create Employee Role" Height="300" Width="400" WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <ResourceDictionary Source="Stylesheet.xaml"/>
     </Window.Resources>
     <Grid Style="{StaticResource DefaultEduardoPage}">
         <Grid.RowDefinitions>
-            <RowDefinition Height="80"></RowDefinition>
+            <RowDefinition Height=".5*"></RowDefinition>
             <RowDefinition></RowDefinition>
-            <RowDefinition Height="50"></RowDefinition>
+            <RowDefinition Height=".5*"></RowDefinition>
         </Grid.RowDefinitions>
         <Grid Grid.Row="0">
-            <Label Name="lblNewRole" Padding="5" HorizontalAlignment="Center" VerticalContentAlignment="Center"  FontSize="15px"  Content="New Employee Roles" />
+            <Label Name="lblNewRole" Padding="5" HorizontalAlignment="Center" VerticalContentAlignment="Center"  FontSize="24"  Content="New Employee Roles" />
         </Grid>
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="200" ></ColumnDefinition>
-                <ColumnDefinition Width="400" ></ColumnDefinition>
-                <ColumnDefinition Width="200"  ></ColumnDefinition>
+                <ColumnDefinition Width=".4*" ></ColumnDefinition>
+                <ColumnDefinition ></ColumnDefinition>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition  Height="40" />
+                <RowDefinition Height=".6*" />
                 <RowDefinition />
-                <RowDefinition  Height="50"/>
-                <RowDefinition/>
-                <RowDefinition Height="50"/>
             </Grid.RowDefinitions>
-            <TextBox x:Name="txtRoleID" Grid.Column="1" Width="260" HorizontalContentAlignment="Left" Margin="3 3 -33 3" VerticalAlignment="Center"  Height="25"   />
-            <Label Grid.Column="0" Grid.Row="0" Width="100" Grid.ColumnSpan="1" Content="Role Name"  FontSize="16px"  Margin="3  3 -290 3"  HorizontalContentAlignment="Left" VerticalContentAlignment="Center"/>
-            <Border Padding="3" Margin="2 14 3 3" VerticalAlignment="Center" Width="400"  Height="170" Grid.Row="1" Grid.RowSpan="3" Grid.Column="1"  BorderBrush="{StaticResource DarkBlue}" BorderThickness="2">
-                <TextBox x:Name="txtDescription"  IsEnabled="True" Grid.Column="2" Grid.RowSpan="3" Margin="0" SpellCheck.IsEnabled="True" TextWrapping="Wrap"/>
-            </Border>
-            <Label Grid.Row="4" Grid.Column="1" Margin="10" FontSize="15px" VerticalAlignment="Top" Content="Description" HorizontalContentAlignment="Center"/>
+            <Label  Width="100"  Content="Role Name"   HorizontalContentAlignment="Left" VerticalContentAlignment="Center"/>
+            <TextBox x:Name="txtRoleID" Grid.Column="1" Width="260" HorizontalContentAlignment="Left"  VerticalAlignment="Center"  Height="25"   />
+            <Label Grid.Row="1"  Margin="10"  VerticalAlignment="Center" Content="Description" HorizontalContentAlignment="Center"/>
+            <TextBox x:Name="txtDescription" Grid.Column="2" Grid.Row="1" SpellCheck.IsEnabled="True" Margin="10" TextWrapping="Wrap"/>
         </Grid>
         <Grid Grid.Row="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="100"/>
-                <ColumnDefinition Width="100" />
+                <ColumnDefinition />
                 <ColumnDefinition Width="120"/>
-                <ColumnDefinition Width="100"/>
-                <ColumnDefinition Width="120"/>
-                <ColumnDefinition Width="100"/>
-                <ColumnDefinition Width="100"/>
             </Grid.ColumnDefinitions>
-            <Button x:Name="btnCancel" Grid.Column="2" Margin="5" Height="25" Content="Cancel" Click="BtnCancel_Click" />
-            <Button x:Name="btnSave"  Grid.Column="4" Content="Save" Margin="5" Height="25" Click="BtnSave_Click"/>
+            <Button x:Name="btnCancel" Margin="5" Height="25" Content="Cancel" Click="BtnCancel_Click" />
+            <Button x:Name="btnSave"  Grid.Column="2" Content="Save" Margin="5" Height="25" Click="BtnSave_Click"/>
         </Grid>
     </Grid>
 </Window>

@@ -12,7 +12,7 @@ namespace DataObjects
 
         public int SupplierID { get; set; }
 
-        public String SupplierName { get; set; }
+        public string SupplierName { get; set; }
         public int EmployeeID { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }

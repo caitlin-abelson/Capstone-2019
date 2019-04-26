@@ -15,8 +15,8 @@ namespace DataObjects
     public class AppointmentGuestViewModel
     {
         public int GuestID { get; set; }
-        public String FirstName { get; set; }
-        public String LastName { get; set; }
-        public String Email { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string Email { get; set; }
     }
 }

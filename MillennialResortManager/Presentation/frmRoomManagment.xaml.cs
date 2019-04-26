@@ -115,9 +115,10 @@ namespace Presentation
         }
 
         private void BtnAddRoom_Click(object sender, RoutedEventArgs e)
-        {
+        {/*
             var roomForm = new frmAddEditViewRoom();
             var results = roomForm.ShowDialog();
+            */
         }
 
         private void BtnDeleteRoom_Click(object sender, RoutedEventArgs e)

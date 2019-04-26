@@ -13,7 +13,6 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using DataObjects;
 using LogicLayer;
-using DataAccessLayer;
 
 namespace Presentation
 {
@@ -29,12 +28,9 @@ namespace Presentation
         private CompleteSpecialOrder _selected;
         private SpecialOrderManagerMSSQL _specialOrderLogic = new SpecialOrderManagerMSSQL();
         private SpecialOrderManagerMSSQL _specialOrderLogicID = new SpecialOrderManagerMSSQL();
-        private ISpecialOrderAccessor _specialOrderAccessor;
         BrowseSpecialOrder refreshBrowse = new BrowseSpecialOrder();
 
        
-
-
 
         /// <summary>
         /// Carlos Arzu

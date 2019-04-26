@@ -19,5 +19,7 @@ namespace DataAccessLayer
         int InsertInspection(Inspection newInspection);
 
         List<Inspection> SelectAllInspectionsByResortPropertyID(int resortProperyId);
+
+        int UpdateInspection(Inspection oldInspection, Inspection newInspection);
     }
 }
