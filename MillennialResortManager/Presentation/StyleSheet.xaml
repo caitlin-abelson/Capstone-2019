@@ -314,6 +314,13 @@
         <Setter Property="VerticalContentAlignment" Value="Center"/>
     </Style>
     
+    <!-- TextBlock Default -->
+    <Style TargetType="TextBlock">
+        <Setter Property="Background" Value="{StaticResource Cream}"/>
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="Foreground" Value="{StaticResource DarkBlue}"/>
+    </Style>
     <!-- DatePicker Default -->
     <Style TargetType="DatePicker">
         <Setter Property="Background" Value="{StaticResource Cream}"/>
@@ -329,7 +336,8 @@
     <Style TargetType="CheckBox">
         <Setter Property="Background" Value="{StaticResource Cream}"/>
         <Setter Property="Foreground" Value="{StaticResource DarkBlue}"/>
-        
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="FontWeight" Value="Bold"/>
     </Style>
     
     
@@ -417,7 +425,7 @@
     </Style>
     <!-- Profile page -->
     <Style TargetType="Grid" x:Key="ProfilePage">
-        <Setter Property="Background" Value="{StaticResource Blue}"/>
+        <Setter Property="Background" Value="{StaticResource Teal}"/>
         <Style.Resources>
             <Style TargetType="Label">
                 <Setter Property="Foreground" Value="{StaticResource DarkBlue}"/>

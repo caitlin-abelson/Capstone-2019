@@ -253,7 +253,11 @@ namespace Presentation
                 MessageBox.Show(ex.Message + Environment.NewLine + ex.StackTrace);
             }
 
-            cboGuestLast.ItemsSource = _guestInfo.Select(g => g.LastName);
+            if (_guestInfo != null)
+            {
+                cboGuestLast.ItemsSource = _guestInfo.Select(g => g.LastName);
+            }
+            
             
             updateGuestFirstName();
             updateGuestPhoneNumber();

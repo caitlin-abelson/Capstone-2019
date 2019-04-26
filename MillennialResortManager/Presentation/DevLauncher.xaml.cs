@@ -2898,8 +2898,17 @@ namespace Presentation
 
         private void DgRole_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            //   var role = (Role)dgRole.SelectedItem;
-            //  var detailForm = new UpdateEmployeeRole(role); 
+            if (dgRole.SelectedItem != null)
+            {
+                _selectedRole = (Role)dgRole.SelectedItem;
+                var assign = new CreateEmployeeRole(_selectedRole);
+                assign.ShowDialog();
+            }
+            else
+            {
+                MessageBox.Show("You must select an item first");
+            }
+            refreshRolesEmployeeRole();
 
         }
 

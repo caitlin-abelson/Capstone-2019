@@ -33,9 +33,7 @@
             </Grid.RowDefinitions>
             <TextBox x:Name="txtRoleID" Grid.Column="1" Width="260" HorizontalContentAlignment="Left" Margin="3 3 -33 3" VerticalAlignment="Center"  Height="25"   />
             <Label Grid.Column="0" Grid.Row="0" Width="100" Grid.ColumnSpan="1" Content="Role Name"  FontSize="16px"  Margin="3  3 -290 3"  HorizontalContentAlignment="Left" VerticalContentAlignment="Center"/>
-            <Border Padding="3" Margin="2 14 3 3" VerticalAlignment="Center" Width="400"  Height="170" Grid.Row="1" Grid.RowSpan="3" Grid.Column="1"  BorderBrush="{StaticResource DarkBlue}" BorderThickness="2">
-                <TextBox x:Name="txtDescription"  IsEnabled="True" Grid.Column="2" Grid.RowSpan="3" Margin="0" SpellCheck.IsEnabled="True" TextWrapping="Wrap"/>
-            </Border>
+            <TextBox x:Name="txtDescription"  IsEnabled="True" Grid.RowSpan="4" VerticalAlignment="Center" Width="400" Grid.Column="1" Margin=" 0 60 0 0" Height="170" SpellCheck.IsEnabled="True" TextWrapping="Wrap"/>
             <Label Grid.Row="4" Grid.Column="1" Margin="10" FontSize="15px" VerticalAlignment="Top" Content="Description" HorizontalContentAlignment="Center"/>
         </Grid>
         <Grid Grid.Row="2">
