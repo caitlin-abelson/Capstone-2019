@@ -18,7 +18,7 @@ namespace DataObjects
     {
         public int ShopID { get; set; }
         public int RoomID { get; set; }
-        public String RoomNumber { get; set; }
+        public int RoomNumber { get; set; }
         public String BuildingID { get; set; }
         public String Name { get; set; }
         public String Description { get; set; }

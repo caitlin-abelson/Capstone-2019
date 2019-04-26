@@ -50,7 +50,7 @@ namespace DataAccessLayer
             cmd.CommandType = CommandType.StoredProcedure;
 
             // parameters
-            //cmd.Parameters.AddWithValue("@SponsorID", newSponsor.SponsorID);
+            cmd.Parameters.AddWithValue("@SponsorID", newSponsor.SponsorID);
             cmd.Parameters.AddWithValue("@Name", newSponsor.Name);
             cmd.Parameters.AddWithValue("@Address", newSponsor.Address);
             cmd.Parameters.AddWithValue("@City", newSponsor.City);

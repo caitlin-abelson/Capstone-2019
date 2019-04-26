@@ -309,7 +309,7 @@ namespace DataAccessLayer
                             Name = reader.GetString(2),
                             Description = reader.GetString(3),
                             Active = reader.GetBoolean(4),
-                            RoomNumber = reader.GetString(5),
+                            RoomNumber = reader.GetInt32(5),
                             BuildingID = reader.GetString(6)
                         };
                         shops.Add(shop);
