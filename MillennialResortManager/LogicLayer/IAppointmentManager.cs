@@ -11,7 +11,7 @@ namespace LogicLayer
 {
     public interface IAppointmentManager
     {
-        bool CreateAppointment(Appointment appointment);
+        bool CreateAppointmentByGuest(Appointment appointment);
         Appointment RetrieveAppointmentByID(int id);
         List<AppointmentType> RetrieveAppointmentTypes();
         List<AppointmentGuestViewModel> RetrieveGuestList();

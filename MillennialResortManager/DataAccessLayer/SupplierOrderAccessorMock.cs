@@ -117,7 +117,6 @@ namespace DataAccessLayer
                 OnHandQty = 6,
                 OfferingID = 0,
                 PrimarySupplier = false,
-                ProductID = 0,
                 RecipeID = 0,
                 UnitPrice = 0.10M,
                 ReorderQty = 2
@@ -138,7 +137,6 @@ namespace DataAccessLayer
                 OnHandQty = 50,
                 OfferingID = 0,
                 PrimarySupplier = false,
-                ProductID = 0,
                 RecipeID = 0,
                 UnitPrice = 0.45M,
                 ReorderQty = 2
@@ -159,7 +157,6 @@ namespace DataAccessLayer
                 OnHandQty = 500,
                 OfferingID = 0,
                 PrimarySupplier = false,
-                ProductID = 0,
                 RecipeID = 0,
                 UnitPrice = 0.50M,
                 ReorderQty = 2
@@ -180,7 +177,6 @@ namespace DataAccessLayer
                 OnHandQty = 1,
                 OfferingID = 0,
                 PrimarySupplier = false,
-                ProductID = 0,
                 RecipeID = 0,
                 UnitPrice = 15.00M,
                 ReorderQty = 1
@@ -201,7 +197,6 @@ namespace DataAccessLayer
                 OnHandQty = 400,
                 OfferingID = 0,
                 PrimarySupplier = false,
-                ProductID = 0,
                 RecipeID = 0,
                 UnitPrice = 5.00M,
                 ReorderQty = 100
@@ -222,7 +217,6 @@ namespace DataAccessLayer
                 OnHandQty = 400,
                 OfferingID = 0,
                 PrimarySupplier = false,
-                ProductID = 0,
                 RecipeID = 0,
                 UnitPrice = 5.00M,
                 ReorderQty = 100
@@ -296,6 +290,26 @@ namespace DataAccessLayer
             {
                 return 0;
             }
+        }
+
+        public SupplierOrder RetrieveSupplierOrderByID(int supplierOrderID)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void CompleteSupplierOrder(int supplierOrderID)
+        {
+            throw new NotImplementedException();
+        }
+
+        public int SelectSupplierItemIDByItemAndSupplier(int itemID, int supplierID)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<SupplierOrder> SelectAllGeneratedOrders()
+        {
+            throw new NotImplementedException();
         }
     }
 }

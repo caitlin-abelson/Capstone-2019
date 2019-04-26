@@ -54,5 +54,10 @@ namespace DataAccessLayer
             var index = _members.FindIndex(x => x.MemberID == member.MemberID);
             _members.RemoveAt(index);
         }
+
+        public int SelectMemberByEmail(string email)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

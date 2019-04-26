@@ -32,6 +32,7 @@ namespace DataObjects
         public string DepartmentID { get; set; }
         public bool Active { get; set; }
         public List<Role> EmployeeRoles { get; set; }
+
         public Employee()
         {
             EmployeeRoles = new List<Role>();

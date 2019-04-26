@@ -119,7 +119,7 @@ namespace DataAccessLayer
         /// </summary>
         /// <param name="room"></param>
         /// <returns>The numbers of rows affected in the Mock Data</returns>
-        public int UpdateRoom(Room room)
+        public int UpdateRoom(Room room, Room updatedRoom)
         {
             int rowAffected = 0;
             for (int i = 0; i < roomList.Count; i++)
@@ -173,6 +173,11 @@ namespace DataAccessLayer
         /// 
         /// </summary>
         /// <returns>A list of Room Status</returns>
+        /// <remarks>
+        /// Danielle Russo
+        /// Updated: 2019/04/05
+        /// Removed Active and Available
+        /// </remarks>
         public List<string> SelectRoomStatusList()
         {
             return roomStatusList;
@@ -184,14 +189,12 @@ namespace DataAccessLayer
             Room room0 = new Room
             {
                 RoomID = nextRoomID,
-                RoomNumber = "101",
+                RoomNumber = 101,
                 Building = "Test Building 1",
                 RoomType = "Test Room Type 1",
                 Description = "Test Room " + nextRoomID,
                 Capacity = 2,
-                Available = true,
                 Price = 200.00M,
-                Active = true,
                 OfferingID = nextofferingID,
                 RoomStatus = "Ready",
                 ResortPropertyID = 100003
@@ -202,14 +205,12 @@ namespace DataAccessLayer
             Room room1 = new Room
             {
                 RoomID = nextRoomID,
-                RoomNumber = "101",
+                RoomNumber = 101,
                 Building = "Test Building 2",
                 RoomType = "Test Room Type 2",
                 Description = "Test Room " + nextRoomID,
                 Capacity = 2,
-                Available = true,
                 Price = 200.00M,
-                Active = false,
                 OfferingID = nextofferingID,
                 RoomStatus = "Ready",
                 ResortPropertyID = 100003
@@ -220,14 +221,12 @@ namespace DataAccessLayer
             Room room2 = new Room
             {
                 RoomID = nextRoomID,
-                RoomNumber = "101",
+                RoomNumber = 101,
                 Building = "Test Building 3",
                 RoomType = "Test Room Type 3",
                 Description = "Test Room " + nextRoomID,
                 Capacity = 2,
-                Available = true,
                 Price = 200.00M,
-                Active = true,
                 OfferingID = nextofferingID,
                 RoomStatus = "Occupied",
                 ResortPropertyID = 100003
@@ -237,14 +236,12 @@ namespace DataAccessLayer
             Room room3 = new Room
             {
                 RoomID = nextRoomID,
-                RoomNumber = "101",
+                RoomNumber = 101,
                 Building = "Test Building 4",
                 RoomType = "Test Room Type 4",
                 Description = "Test Room " + nextRoomID,
                 Capacity = 2,
-                Available = true,
                 Price = 200.00M,
-                Active = true,
                 OfferingID = nextofferingID,
                 RoomStatus = "Needs Cleaning",
                 ResortPropertyID = 100003
@@ -255,14 +252,12 @@ namespace DataAccessLayer
             Room room4 = new Room
             {
                 RoomID = nextRoomID,
-                RoomNumber = "102",
+                RoomNumber = 102,
                 Building = "Test Building 1",
                 RoomType = "Test Room Type 1",
                 Description = "Test Room " + nextRoomID,
                 Capacity = 2,
-                Available = true,
                 Price = 200.00M,
-                Active = true,
                 OfferingID = nextofferingID,
                 RoomStatus = "Murder Scene",
                 ResortPropertyID = 100003
@@ -273,14 +268,12 @@ namespace DataAccessLayer
             Room room5 = new Room
             {
                 RoomID = nextRoomID,
-                RoomNumber = "103",
+                RoomNumber = 103,
                 Building = "Test Building 3",
                 RoomType = "Test Room Type 2",
                 Description = "Test Room " + nextRoomID,
                 Capacity = 2,
-                Available = false,
                 Price = 200.00M,
-                Active = true,
                 OfferingID = nextofferingID,
                 RoomStatus = "Needs Fumigation",
                 ResortPropertyID = 100003
@@ -291,14 +284,12 @@ namespace DataAccessLayer
             Room room6 = new Room
             {
                 RoomID = nextRoomID,
-                RoomNumber = "104",
+                RoomNumber = 104,
                 Building = "Test Building 4",
                 RoomType = "Test Room Type 2",
                 Description = "Test Room " + nextRoomID,
                 Capacity = 2,
-                Available = true,
                 Price = 200.00M,
-                Active = true,
                 OfferingID = nextofferingID,
                 RoomStatus = "Needs Inspection",
                 ResortPropertyID = 100003
@@ -309,14 +300,12 @@ namespace DataAccessLayer
             Room room7 = new Room
             {
                 RoomID = nextRoomID,
-                RoomNumber = "101",
+                RoomNumber = 101,
                 Building = "Test Building 3",
                 RoomType = "Test Room Type 3",
                 Description = "Test Room " + nextRoomID,
                 Capacity = 2,
-                Available = true,
                 Price = 200.00M,
-                Active = true,
                 OfferingID = nextofferingID,
                 RoomStatus = "Jim Quote Needed",
                 ResortPropertyID = 100003
@@ -355,6 +344,11 @@ namespace DataAccessLayer
             roomStatusList.Add("Needs Fumigation");
             roomStatusList.Add("Needs Inspection");
             roomStatusList.Add("Jim Quote Needed");
+        }
+
+        public List<Room> SelectRoomsByBuildingID(string buildingId)
+        {
+            throw new NotImplementedException();
         }
     }
 }

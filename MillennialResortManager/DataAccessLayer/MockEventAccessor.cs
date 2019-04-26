@@ -10,7 +10,7 @@ namespace DataAccessLayer
     public class MockEventAccessor : IEventAccessor
     {
         /// <summary>
-        /// @Author Phillip Hansen
+        /// @Author: Phillip Hansen
         /// 
         /// A fake Event Accessor for testing methods used in the real Event Accessor class
         /// </summary>
@@ -19,21 +19,21 @@ namespace DataAccessLayer
         private List<Event> _events;
 
         /// <summary>
-        /// @Author Phillip Hansen
+        /// @Author: Phillip Hansen
         /// 
         /// Creates a list of mock events
         /// </summary>
         public MockEventAccessor()
         {
             _events = new List<Event>();
-            _events.Add(new Event() { EventID = 111000, EventTitle = "TestEvent1", OfferingID = 100001,  EmployeeID = 100001, EventTypeID = "Beach Party", Description = "Testing", EventStartDate = DateTime.Now.AddDays(1).Date, EventEndDate = DateTime.Now.AddDays(2).Date, NumGuests = 100, SeatsRemaining = 50, KidsAllowed = false, Location = "TestLobby", Sponsored = false, Approved = false, PublicEvent = false });
-            _events.Add(new Event() { EventID = 111000, EventTitle = "TestEvent1", OfferingID = 100001, EmployeeID = 100001, EventTypeID = "Beach Party", Description = "Testing", EventStartDate = DateTime.Now.AddDays(3).Date, EventEndDate = DateTime.Now.AddDays(4).Date, NumGuests = 100, SeatsRemaining = 50, KidsAllowed = false, Location = "TestLobby", Sponsored = false, Approved = false, PublicEvent = false });
-            _events.Add(new Event() { EventID = 111000, EventTitle = "TestEvent1", OfferingID = 100001, EmployeeID = 100001, EventTypeID = "Beach Party", Description = "Testing", EventStartDate = DateTime.Now.AddDays(5).Date, EventEndDate = DateTime.Now.AddDays(6).Date, NumGuests = 100, SeatsRemaining = 50, KidsAllowed = false, Location = "TestLobby", Sponsored = false, Approved = false, PublicEvent = false });
-            _events.Add(new Event() { EventID = 111000, EventTitle = "TestEvent1", OfferingID = 100001, EmployeeID = 100001, EventTypeID = "Beach Party", Description = "Testing", EventStartDate = DateTime.Now.AddDays(7).Date, EventEndDate = DateTime.Now.AddDays(8).Date, NumGuests = 100, SeatsRemaining = 50, KidsAllowed = false, Location = "TestLobby", Sponsored = false, Approved = false, PublicEvent = false });
+            _events.Add(new Event() { EventID = 111000, EventTitle = "TestEvent1", Price = 100.50M,  EmployeeID = 100001, EventTypeID = "Beach Party", Description = "Testing", EventStartDate = DateTime.Now.AddDays(1).Date, EventEndDate = DateTime.Now.AddDays(2).Date, NumGuests = 100, SeatsRemaining = 50, KidsAllowed = false, Location = "TestLobby", Sponsored = false, Approved = false, PublicEvent = false });
+            _events.Add(new Event() { EventID = 111000, EventTitle = "TestEvent1", Price = 100.50M, EmployeeID = 100001, EventTypeID = "Beach Party", Description = "Testing", EventStartDate = DateTime.Now.AddDays(3).Date, EventEndDate = DateTime.Now.AddDays(4).Date, NumGuests = 100, SeatsRemaining = 50, KidsAllowed = false, Location = "TestLobby", Sponsored = false, Approved = false, PublicEvent = false });
+            _events.Add(new Event() { EventID = 111000, EventTitle = "TestEvent1", Price = 100.50M, EmployeeID = 100001, EventTypeID = "Beach Party", Description = "Testing", EventStartDate = DateTime.Now.AddDays(5).Date, EventEndDate = DateTime.Now.AddDays(6).Date, NumGuests = 100, SeatsRemaining = 50, KidsAllowed = false, Location = "TestLobby", Sponsored = false, Approved = false, PublicEvent = false });
+            _events.Add(new Event() { EventID = 111000, EventTitle = "TestEvent1", Price = 100.50M, EmployeeID = 100001, EventTypeID = "Beach Party", Description = "Testing", EventStartDate = DateTime.Now.AddDays(7).Date, EventEndDate = DateTime.Now.AddDays(8).Date, NumGuests = 100, SeatsRemaining = 50, KidsAllowed = false, Location = "TestLobby", Sponsored = false, Approved = false, PublicEvent = false });
         }
 
         /// <summary>
-        /// @Author Phillip Hansen
+        /// @Author: Phillip Hansen
         /// 
         /// Deletes an Event by an ID
         /// </summary>
@@ -63,18 +63,25 @@ namespace DataAccessLayer
         }
 
         /// <summary>
-        /// @Author Phillip Hansen
+        /// @Author: Phillip Hansen
         /// 
         /// Adds a new event to the event list
         /// </summary>
         /// <param name="newEvent"></param>
-        public void insertEvent(Event newEvent)
+        public int insertEvent(Event newEvent)
         {
             _events.Add(newEvent);
+
+            return newEvent.EventID;
+        }
+
+        public List<Event> selectAllCancelledEvents()
+        {
+            throw new NotImplementedException();
         }
 
         /// <summary>
-        /// @Author Phillip Hansen
+        /// @Author: Phillip Hansen
         /// 
         /// Retrieves all events
         /// </summary>
@@ -85,7 +92,7 @@ namespace DataAccessLayer
         }
 
         /// <summary>
-        /// @Author Phillip Hansen
+        /// @Author: Phillip Hansen
         /// 
         /// Selects a specific event by an Event ID
         /// </summary>
@@ -104,7 +111,7 @@ namespace DataAccessLayer
         }
 
         /// <summary>
-        /// @Author Phillip Hansen
+        /// @Author: Phillip Hansen
         /// 
         /// Updates an event from old to new
         /// </summary>
@@ -117,7 +124,7 @@ namespace DataAccessLayer
                 if(_event.EventID == oldEvent.EventID)
                 {
                     _event.EventTitle = newEvent.EventTitle;
-                    _event.OfferingID = newEvent.OfferingID;
+                    _event.Price = newEvent.Price;
                     _event.EmployeeID = newEvent.EmployeeID;
                     _event.EmployeeName = newEvent.EmployeeName;
                     _event.EventTypeID = newEvent.EventTypeID;
@@ -132,6 +139,16 @@ namespace DataAccessLayer
                     _event.Approved = newEvent.Approved;
                 }
             }
+        }
+
+        public void updateEventToCancelled(Event cancelEvent)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void updateEventToUncancelled(Event uncancelEvent)
+        {
+            throw new NotImplementedException();
         }
     }
 }

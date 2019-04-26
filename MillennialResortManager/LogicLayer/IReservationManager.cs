@@ -14,11 +14,12 @@ namespace LogicLayer
     /// </summary>
     public interface IReservationManager
     {
-        void AddReservation(Reservation newReservation);
+        bool AddReservation(Reservation newReservation);
         void EditReservation(Reservation oldReservation, Reservation newReservation);
         Reservation RetrieveReservation(int ReservationID);
         List<Reservation> RetrieveAllReservations();
         List<VMBrowseReservation> RetrieveAllVMReservations();
         void DeleteReservation(int ReservationID, bool isActive);
+        Reservation RetrieveReservationByGuestID(int guestID);
     }
 }

@@ -1,0 +1,44 @@
+﻿@model IEnumerable<DataObjects.Appointment>
+
+@{
+                /**/
+
+                ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            Type
+        </th>
+        <th>
+            Start Time
+        </th>
+        <th>
+            End TIme
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.AppointmentType)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.StartDate)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.EndDate)
+    </td>
+    <td>
+        @Html.ActionLink("Details", "Details", new { id = item.AppointmentID })
+    </td>
+</tr>
+}
+
+</table>
+<div class="text-danger">@ViewBag.errorMessage</div>

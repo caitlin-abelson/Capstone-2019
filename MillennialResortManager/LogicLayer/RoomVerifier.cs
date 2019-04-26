@@ -39,7 +39,6 @@ namespace LogicLayer
                 throw;
             }
 
-            CheckRoomNumber();
             CheckBuilding();
             CheckRoomType();
             CheckDescription();
@@ -48,19 +47,8 @@ namespace LogicLayer
             CheckRoomStatusID();
             return roomIsGood;
         }
-        // string 15 char
-        public static void CheckRoomNumber()
-        {
-            if (roomToCheck.RoomNumber.Length <= 15 && roomToCheck.RoomNumber != "")
-            {
-                roomIsGood = true;
-            }
-            else
-            {
-                roomIsGood = false;
-                throw new ApplicationException("Room number should be 1 to 15 characters in length.");
-            }
-        }
+
+
         // matches a room in the list
         public static void CheckBuilding()
         {

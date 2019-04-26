@@ -9,7 +9,7 @@ namespace UnitTests
 {
 
     /// <summary>
-    /// @Author Phillip Hansen
+    /// @Author: Phillip Hansen
     /// @Created 2/15/2019
     /// 
     /// Test Class for the Event data object
@@ -35,7 +35,7 @@ namespace UnitTests
         }
 
         /// <summary>
-        /// @Author Phillip Hansen
+        /// @Author: Phillip Hansen
         /// 
         /// All tests for creating a new event data object
         /// </summary>
@@ -47,7 +47,7 @@ namespace UnitTests
             {
                 EventID = 121000,
                 EventTitle = "CreateEventTest",
-                OfferingID = 100000,
+                Price = 100.50M,
                 EmployeeID = 100000,
                 EventTypeID = "Concert Event",
                 Description = "This is a test",
@@ -71,7 +71,7 @@ namespace UnitTests
             Assert.IsNotNull(_events.Find(x => 
                         x.EventID == newEvent.EventID 
                     && x.EventTitle == newEvent.EventTitle 
-                    && x.OfferingID == newEvent.OfferingID
+                    && x.Price == newEvent.Price
                     && x.EmployeeID == newEvent.EmployeeID
                     && x.EventTypeID == newEvent.EventTypeID 
                     && x.Description == newEvent.Description
@@ -97,7 +97,7 @@ namespace UnitTests
                 EventID = 121000,
                 EventTitle = null,
                 EmployeeID = 100000,
-                OfferingID = 100000,
+                Price = 100.50M,
                 EventTypeID = "Concert Event",
                 Description = "This is a test",
                 EventStartDate = DateTime.Now.AddDays(1).Date,
@@ -123,7 +123,7 @@ namespace UnitTests
             {
                 EventID = 121000,
                 EventTitle = createString(51),
-                OfferingID = 100000,
+                Price = 100.50M,
                 EmployeeID = 100000,
                 EventTypeID = "Concert Event",
                 Description = "This is a test",
@@ -150,7 +150,7 @@ namespace UnitTests
             {
                 EventID = 121000,
                 EventTitle = "CreateEventTest",
-                OfferingID = 100000,
+                Price = 100.50M,
                 EmployeeID = 100000,
                 EventTypeID = null,
                 Description = "This is a test",
@@ -177,7 +177,7 @@ namespace UnitTests
             {
                 EventID = 121000,
                 EventTitle = "CreateEventTest",
-                OfferingID = 100000,
+                Price = 100.50M,
                 EmployeeID = 100000,
                 EventTypeID = createString(16),
                 Description = "This is a test",
@@ -204,7 +204,7 @@ namespace UnitTests
             {
                 EventID = 121000,
                 EventTitle = "CreateEventTest",
-                OfferingID = 100000,
+                Price = 100.50M,
                 EmployeeID = 100000,
                 EventTypeID = "Concert Event",
                 Description = createString(1001),
@@ -231,7 +231,7 @@ namespace UnitTests
             {
                 EventID = 121000,
                 EventTitle = "CreateEventTest",
-                OfferingID = 100000,
+                Price = 100.50M,
                 EmployeeID = 100000,
                 EventTypeID = "Concert Event",
                 Description = "This is a test",
@@ -258,7 +258,7 @@ namespace UnitTests
             {
                 EventID = 121000,
                 EventTitle = "CreateEventTest",
-                OfferingID = 100000,
+                Price = 100.50M,
                 EmployeeID = 100000,
                 EventTypeID = "Concert Event",
                 Description = "This is a test",
@@ -284,7 +284,7 @@ namespace UnitTests
             {
                 EventID = 121000,
                 EventTitle = "CreateEventTest",
-                OfferingID = 100000,
+                Price = 100.50M,
                 EmployeeID = 100000,
                 EventTypeID = "Concert Event",
                 Description = "This is a test",
@@ -310,7 +310,7 @@ namespace UnitTests
             {
                 EventID = 121000,
                 EventTitle = "CreateEventTest",
-                OfferingID = 100000,
+                Price = 100.50M,
                 EmployeeID = 100000,
                 EventTypeID = "Concert Event",
                 Description = "This is a test",
@@ -336,7 +336,7 @@ namespace UnitTests
             {
                 EventID = 121000,
                 EventTitle = "CreateEventTest",
-                OfferingID = 100000,
+                Price = 100.50M,
                 EmployeeID = 100000,
                 EventTypeID = "Concert Event",
                 Description = "This is a test",
@@ -355,7 +355,7 @@ namespace UnitTests
         }
 
         /// <summary>
-        /// @Author Phillip Hansen
+        /// @Author: Phillip Hansen
         /// 
         /// Tests for retrieving all events
         /// </summary>
@@ -370,7 +370,7 @@ namespace UnitTests
         }
 
         /// <summary>
-        /// @Author Phillip Hansen
+        /// @Author: Phillip Hansen
         /// 
         /// Tests for updating an event object
         /// </summary>
@@ -528,7 +528,7 @@ namespace UnitTests
         }
 
         /// <summary>
-        /// @Author Phillip Hansen
+        /// @Author: Phillip Hansen
         /// 
         /// Test for deleting a room by the ID
         /// </summary>
@@ -552,7 +552,7 @@ namespace UnitTests
         private void setEvent(Event oldEvent, Event newEvent)
         {
             newEvent.EventTitle = oldEvent.EventTitle;
-            newEvent.OfferingID = oldEvent.OfferingID;
+            newEvent.Price = oldEvent.Price;
             newEvent.EmployeeID = oldEvent.EmployeeID;
             newEvent.EventTypeID = oldEvent.EventTypeID;
             newEvent.Description = oldEvent.Description;

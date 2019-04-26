@@ -157,7 +157,8 @@ namespace DataAccessLayer
                         string name = reader.GetString(1);
                         DateTime date = reader.GetDateTime(2);
                         string desc = reader.GetString(3);
-                        performances.Add(new Performance(ID, name, date, desc));
+                        Performance p = new Performance(ID, name, date, desc);
+                        performances.Add(p);
                     }
                 }
             }

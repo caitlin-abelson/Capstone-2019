@@ -15,12 +15,13 @@ namespace DataObjects
     public class SpecialOrderLine
     {
 
-        public int ItemID { get; set; }
+        public string NameID { get; set; }
         public int SpecialOrderID { get; set; }
         public string Description { get; set; }
         public int OrderQty { get; set; }
         public int QtyReceived { get; set; }
 
+        
         /// <summary>
         /// Carlos Arzu
         /// Created: 2019/02/20

@@ -123,6 +123,32 @@ namespace LogicLayer
 
         }
 
+
+
+        /// <summary>
+        /// Richard Carroll
+        /// 4/26/19
+        /// Gets list of Generated Supplier Orders from the SupplierOrder table
+        /// </summary>
+        /// <returns>
+        /// List of SupplierOrders
+        /// </returns>
+        public List<SupplierOrder> RetrieveAllGeneratedOrders()
+        {
+            List<SupplierOrder> _supplierOrders;
+            try
+            {
+                _supplierOrders = _supplierOrderManager.SelectAllSupplierOrders();
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return _supplierOrders;
+
+        }
+
         public int UpdateSupplierOrder(SupplierOrder supplierOrder, List<SupplierOrderLine> supplierOrderLines)
         {
             int result;
@@ -162,6 +188,48 @@ namespace LogicLayer
                 throw ex;
             }
             return result;
+        }
+        public int RetrieveSupplierItemID(int ItemID, int SupplierID)
+        {
+            int supplierItemID;
+            try
+            {
+                supplierItemID = _supplierOrderManager.SelectSupplierItemIDByItemAndSupplier(ItemID, SupplierID);
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            
+            return supplierItemID;
+        }
+        public SupplierOrder RetrieveSupplierOrderByID(int supplierOrderID)
+        {
+            SupplierOrder order = new SupplierOrder();
+            try
+            {
+                order = _supplierOrderManager.RetrieveSupplierOrderByID(supplierOrderID);
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            return order;
+        }
+
+        public void CompleteSupplierOrder(int supplierOrderID)
+        {
+            try
+            {
+                _supplierOrderManager.CompleteSupplierOrder(supplierOrderID);
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
         }
     }
 }

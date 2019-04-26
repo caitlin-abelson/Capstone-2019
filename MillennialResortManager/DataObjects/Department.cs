@@ -6,16 +6,16 @@ using System.Threading.Tasks;
 
 namespace DataObjects
 {
-    /// <summary>
-    /// Austin Berquam
-    /// Created: 2019/02/06
-    /// 
-    /// Department class is used to store the Department table
-    /// </summary>
-    public class Department : IMessagable
-    {
-        public string DepartmentID { get; set; }
-        public string Description { get; set; }
+	/// <summary>
+	/// Austin Berquam
+	/// Created: 2019/02/06
+	/// 
+	/// Department class is used to store the Department table
+	/// </summary>
+	public class Department : IMessagable
+	{
+		public string DepartmentID { get; set; }
+		public string Description { get; set; }
 
 		/// <summary>
 		/// All available aliases that can be used by this department
@@ -39,5 +39,17 @@ namespace DataObjects
 				return DepartmentID;
 			}
 		}
+
+		/// <summary>
+		/// Alisa Roehr
+		/// Created: 2019/04/05
+		/// </summary>
+		/// <returns></returns>
+		public override string ToString()
+		{
+			return DepartmentID;
+		}
+
 	}
+
 }

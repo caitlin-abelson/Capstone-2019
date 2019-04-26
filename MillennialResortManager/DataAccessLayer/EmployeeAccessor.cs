@@ -500,7 +500,7 @@ namespace DataAccessLayer
                 }
                 else
                 {
-                    throw new ApplicationException("User not found.");      // only be possible if user was deleted while this is executed
+                    // No roles found
                 }
 
             }
@@ -561,7 +561,7 @@ namespace DataAccessLayer
                 }
                 else
                 {
-                    throw new ApplicationException("No Roles found for this user.");      // only be possible if user was deleted while this is executed
+
                 }
 
             }
@@ -574,6 +574,163 @@ namespace DataAccessLayer
                 conn.Close();
             }
             return roles;
+        }
+
+        /// <summary>
+        /// Alisa Roehr
+        /// Created: 2019/03/29
+        ///
+        /// connect to database to insert an employeeRole into the EmployeeRole crosstable.
+        /// </summary>
+        /// <param name="employeeID"></param>
+        /// <param name="role"></param>
+        public void InsertEmployeeRole(int employeeID, Role role)
+        {
+            var conn = DBConnection.GetDbConnection();
+            var cmdText = @"sp_insert_employee_role";
+            var cmd = new SqlCommand(cmdText, conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.AddWithValue("@EmployeeID", employeeID);
+            cmd.Parameters.AddWithValue("@RoleID", role.RoleID);
+
+            try
+            {
+                conn.Open();
+
+                cmd.ExecuteNonQuery();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                conn.Close();
+            }
+        }
+
+        /// <summary>
+        /// Alisa Roehr
+        /// Created: 2019/03/29
+        ///
+        /// connect to database to delete an employeeRole into the EmployeeRole crosstable.
+        /// </summary>
+        /// <param name="employeeID"></param>
+        /// <param name="role"></param>
+        public void DeleteEmployeeRole(int employeeID, Role role)
+        {
+            var conn = DBConnection.GetDbConnection();
+            var cmdText = @"sp_delete_employee_role";
+            var cmd = new SqlCommand(cmdText, conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.AddWithValue("@EmployeeID", employeeID);
+            cmd.Parameters.AddWithValue("@RoleID", role.RoleID);
+
+            try
+            {
+                conn.Open();
+
+                cmd.ExecuteNonQuery();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                conn.Close();
+            }
+        }
+        /// <summary>
+        /// Eduardo Colon
+        /// Created: 2019/03/20
+        /// 
+        /// method to retrieve all employeeinfo by employeeid
+        /// </summary>
+        public Employee RetrieveEmployeeInfo(int employeeID)
+        {
+            Employee employee = new Employee();
+
+            var conn = DBConnection.GetDbConnection();
+            var cmdText = @"sp_retrieve_employee_info_by_id";
+            var cmd = new SqlCommand(cmdText, conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.AddWithValue("@EmployeeID", employeeID);
+
+            try
+            {
+                conn.Open();
+
+                SqlDataReader reader = cmd.ExecuteReader();
+
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        employee.EmployeeID = reader.GetInt32(0);
+                        employee.FirstName = reader.GetString(1);
+                        employee.LastName = reader.GetString(2);
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            return employee;
+        }
+
+        /// <summary>
+        /// Eduardo Colon
+        /// Created: 2019/03/20
+        /// 
+        /// method to retrieve all employeeinfo
+        /// </summary>
+        public List<Employee> RetrieveAllEmployeeInfo()
+        {
+            var employees = new List<Employee>();
+
+            var conn = DBConnection.GetDbConnection();
+            var cmdText = @"sp_retrieve_employee_info";
+            var cmd = new SqlCommand(cmdText, conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            try
+            {
+                conn.Open();
+
+                SqlDataReader reader = cmd.ExecuteReader();
+
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        var employee = new Employee();
+                        employee.EmployeeID = reader.GetInt32(0);
+                        employee.FirstName = reader.GetString(1);
+                        employee.LastName = reader.GetString(2);
+                        employees.Add(employee);
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            return employees;
         }
     }
 }

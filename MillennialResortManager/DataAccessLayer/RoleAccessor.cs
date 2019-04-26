@@ -25,7 +25,7 @@ namespace DataAccessLayer
             List<Role> roles = new List<Role>();
             var conn = DBConnection.GetDbConnection();
 
-            var cmdText = @"sp_retrieve_all_roles";
+            var cmdText = @"sp_retrieve_roles";
 
             var cmd = new SqlCommand(cmdText, conn);
 

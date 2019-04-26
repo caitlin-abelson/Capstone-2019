@@ -11,6 +11,7 @@
 ///</remarks>
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -30,44 +31,89 @@ namespace DataObjects
 	/// </remarks>
 	/// </summary>
 	public class Guest : ISender
-    {
+	{
 
-        public int GuestID { get; set; }
-        public int MemberID { get; set; }
-        public string GuestTypeID { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public string PhoneNumber { get; set; }
-        public string Email { get; set; }
-        public bool Minor { get; set; }
-        public bool Active { get; set; }
-        public bool ReceiveTexts { get; set; }
-        public string EmergencyFirstName { get; set; }
-        public string EmergencyLastName { get; set; }
-        public string EmergencyPhoneNumber { get; set; }
-        public string EmergencyRelation { get; set; }
-        public bool CheckedIn { get; set; }
+		public int GuestID { get; set; }
+		public int MemberID { get; set; }
 
-        /*
-        // Need constructor with all inputs b/c setters are private
-        public Guest(int guestID, int memberID, string guestType, string firstName,
-                string lastName, string phoneNumber, bool minor)
-        {
-            GuestID = guestID;
-            MemberID = memberID;
-            GuestTypeID = guestType;
-            FirstName = firstName;
-            LastName = lastName;
-            PhoneNumber = phoneNumber;
-            Minor = minor;
-            Active = true;
-        }*/
+		[DisplayName("Guest Type")]
+		public string GuestTypeID { get; set; }
+
+		[DisplayName("First Name")]
+		public string FirstName { get; set; }
+
+		[DisplayName("Last Name")]
+		public string LastName { get; set; }
+
+		[DisplayName("Phone Number")]
+		public string PhoneNumber { get; set; }
+
+		public string Email { get; set; }
+		public bool Minor { get; set; }
+		public bool Active { get; set; }
+
+		[DisplayName("Receive Texts?")]
+		public bool ReceiveTexts { get; set; }
+
+		[DisplayName("First Name")]
+		public string EmergencyFirstName { get; set; }
+
+		[DisplayName("Last Name")]
+		public string EmergencyLastName { get; set; }
+
+		[DisplayName("Phone Number")]
+		public string EmergencyPhoneNumber { get; set; }
+
+		[DisplayName("Relation")]
+		public string EmergencyRelation { get; set; }
+		public bool CheckedIn { get; set; }
+
+
+		public Guest(int memberID, string fName,
+				string lName, string phoneNumber, string mail, bool texts, string emergencyFName,
+				string emergencyLName, string emergencyPhone, string emergencyRelation)
+		{
+			MemberID = memberID;
+			GuestTypeID = "Basic guest";
+			FirstName = fName;
+			LastName = lName;
+			PhoneNumber = phoneNumber;
+			Email = mail;
+			ReceiveTexts = texts;
+			EmergencyFirstName = emergencyFName;
+			EmergencyLastName = emergencyLName;
+			EmergencyPhoneNumber = emergencyPhone;
+			EmergencyRelation = emergencyRelation;
+			Minor = false;
+			Active = true;
+			CheckedIn = false;
+		}
+
+		public Guest(int guestId, int memberID, string fName,
+				string lName, string phoneNumber, string mail, bool texts, string emergencyFName,
+				string emergencyLName, string emergencyPhone, string emergencyRelation)
+		{
+			GuestID = guestId;
+			MemberID = memberID;
+			GuestTypeID = "Basic guest";
+			FirstName = fName;
+			LastName = lName;
+			PhoneNumber = phoneNumber;
+			Email = mail;
+			ReceiveTexts = texts;
+			EmergencyFirstName = emergencyFName;
+			EmergencyLastName = emergencyLName;
+			EmergencyPhoneNumber = emergencyPhone;
+			EmergencyRelation = emergencyRelation;
+			Minor = false;
+			Active = true;
+		}
 
 		public List<string> Aliases
 		{
 			get
 			{
-				return new string[] { GuestTypeID , "Guest" }.ToList();
+				return new string[] { GuestTypeID, "Guest" }.ToList();
 			}
 		}
 
@@ -77,6 +123,11 @@ namespace DataObjects
 			{
 				return Email;
 			}
+		}
+
+		public Guest()
+		{
+			CheckedIn = false;
 		}
 	}
 }

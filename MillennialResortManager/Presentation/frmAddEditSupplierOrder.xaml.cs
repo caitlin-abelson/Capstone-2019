@@ -28,7 +28,7 @@ namespace Presentation
     {
         private SupplierOrderManager _supplierOrderManager = new SupplierOrderManager();
         private SupplierManager _supplierManager = new SupplierManager();
-        private ProductManagerMSSQL _itemManager = new ProductManagerMSSQL();
+        private ItemManager _itemManager = new ItemManager();
         private ItemSupplierManager _itemSupplierManager = new ItemSupplierManager();
         //private Product _item;
 
@@ -124,7 +124,7 @@ namespace Presentation
                 cboSupplierItems.Items.Clear();
                 foreach (VMItemSupplierItem itemSupplier in _itemSuppliers)
                 {
-                    cboSupplierItems.Items.Add(itemSupplier.ItemID + " " + itemSupplier.Description);
+                    cboSupplierItems.Items.Add(itemSupplier.ItemID + " " + itemSupplier.Description + " " + itemSupplier.SupplierItemID);
                 }
             }
             catch (Exception ex)
@@ -315,6 +315,7 @@ namespace Presentation
             this.txtUnitPrice.Text = _itemSupplier.UnitPrice.ToString("c");
 
             _supplierOrderLine.ItemID = _itemSupplier.ItemID;
+            _supplierOrderLine.SupplierItemID = _itemSupplier.SupplierItemID;
             _supplierOrderLine.UnitPrice = _itemSupplier.UnitPrice;
             _supplierOrderLine.Description = _itemSupplier.Description;
 
@@ -340,6 +341,7 @@ namespace Presentation
             _supplierOrderLine.ItemID = _itemSupplier.ItemID;
             _supplierOrderLine.UnitPrice = _itemSupplier.UnitPrice;
             _supplierOrderLine.Description = _itemSupplier.Description;
+            _supplierOrderLine.SupplierItemID = _itemSupplier.SupplierItemID;
 
             this.lblItemDescription.Visibility = Visibility.Visible;
             this.txtItemDescription.Visibility = Visibility.Visible;
@@ -521,78 +523,95 @@ namespace Presentation
                     Close();
                 }
             }
+            else
+            {
+                Close();
+            }
 
         }
 
         /// <summary>
         /// Eric Bostwick
         /// 2/27/2019
-        /// Sets the local item variable based upon the selection from
-        /// the item combo box
+        /// Sets the local item variable based upon the selection from the item combo box
+        /// Updated: 2/24/19
+        /// Author: Jacob Miller
+        /// Changed code to prevent user from submitting empty form
         /// </summary>
         private void BtnAddOrder_Click(object sender, RoutedEventArgs e)
         {
-            string message = "";
-
-            if (_editMode == EditMode.Add)
+            try
             {
-                message = "Do You Really Want to Submit this Order?";
-            }
-            if (_editMode == EditMode.Edit)
-            {
-                message = "This Will Update the Order, Is This what you want to do?";
-            }
+                string message = "";
 
-            MessageBoxResult mbresult;
-
-            mbresult = MessageBox.Show(message, "Add/Edit Orders", MessageBoxButton.YesNo);
-
-            if (mbresult == MessageBoxResult.No)
-            {
-                return;
-            }
-
-            int result;
-
-            if (_editMode == EditMode.Add)
-            {
-                _supplierOrder.Description = this.txtDescription.Text;
-
-                try
+                if (_editMode == EditMode.Add)
                 {
-                    result = _supplierOrderManager.CreateSupplierOrder(_supplierOrder, _supplierOrderLines);
-                    if (1 <= result)
+                    message = "Do You Really Want to Submit this Order?";
+                }
+                if (_editMode == EditMode.Edit)
+                {
+                    message = "This Will Update the Order, Is This what you want to do?";
+                }
+
+                MessageBoxResult mbresult;
+
+                mbresult = MessageBox.Show(message, "Add/Edit Orders", MessageBoxButton.YesNo);
+
+                if (mbresult == MessageBoxResult.No)
+                {
+                    return;
+                }
+
+                int result;
+
+                if (_editMode == EditMode.Add)
+                {
+                    _supplierOrder.Description = this.txtDescription.Text;
+
+                    try
                     {
-                        MessageBox.Show("Order Added");
-                        DialogResult = true;
-                        Close();
-                    }
+                        result = _supplierOrderManager.CreateSupplierOrder(_supplierOrder, _supplierOrderLines);
+                        if (1 <= result)
+                        {
+                            MessageBox.Show("Order Added");
+                            DialogResult = true;
+                            Close();
+                        }
 
+                    }
+                    catch (Exception)
+                    {
+                        throw;
+                    }
                 }
-                catch (Exception ex)
+                if (_editMode == EditMode.Edit)
                 {
-                    MessageBox.Show(ex.Message);
+                    _supplierOrder.Description = this.txtDescription.Text;
+
+                    try
+                    {
+                        result = _supplierOrderManager.UpdateSupplierOrder(_supplierOrder, _supplierOrderLines);
+                        if (1 <= result)
+                        {
+                            MessageBox.Show("Order Updated");
+                            DialogResult = true;
+                            Close();
+                        }
+
+                    }
+                    catch (Exception)
+                    {
+                        throw;
+                    }
                 }
             }
-            if (_editMode == EditMode.Edit)
+            catch (System.Data.SqlClient.SqlException)
             {
-                _supplierOrder.Description = this.txtDescription.Text;
-
-                try
-                {
-                    result = _supplierOrderManager.UpdateSupplierOrder(_supplierOrder, _supplierOrderLines);
-                    if (1 <= result)
-                    {
-                        MessageBox.Show("Order Updated");
-                        DialogResult = true;
-                        Close();
-                    }
-
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message);
-                }
+                MessageBox.Show("Insertion failed:\nTried to insert nulls into database.");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
             }
         }
 

@@ -53,5 +53,30 @@ namespace DataObjects
 				return Email;
 			}
 		}
-	}
+
+        public Member(string fName, string lName, string number, string mail)
+        {
+            FirstName = fName;
+            LastName = lName;
+            PhoneNumber = number;
+            Email = mail;
+            Password = "invalid";
+            Active = false;
+        }
+
+        public Member(int id, string fName, string lName, string number, string mail, string pass, bool active)
+        {
+            MemberID = id;
+            FirstName = fName;
+            LastName = lName;
+            PhoneNumber = number;
+            Email = mail;
+            Password = pass;
+            Active = active;
+        }
+
+        public Member()
+        {
+        }
+    }
 }

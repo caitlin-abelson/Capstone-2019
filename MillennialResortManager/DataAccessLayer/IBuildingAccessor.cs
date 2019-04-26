@@ -34,7 +34,7 @@ namespace DataAccessLayer
         /// <exception cref="SQLException">Insert Fails (example of exception tag)</exception>
         /// <returns>Rows created</returns>
         int InsertBuilding(Building newBuilding);
-        int SelectBuildingByID(int buildingID);
+        Building SelectBuildingByID(string buildingID);
         List<Building> SelectAllBuildings();
 
         /// <summary>

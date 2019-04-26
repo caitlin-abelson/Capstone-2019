@@ -17,7 +17,7 @@ using DataObjects;
 namespace Presentation
 {
     /// <summary>
-    /// @Author Phillip Hansen
+    /// @Author: Phillip Hansen
     /// @Created 2/12/2019
     /// 
     /// Interaction logic for frmEventDeleteConfirmation.xaml
@@ -39,7 +39,7 @@ namespace Presentation
         }
 
         /// <summary>
-        /// @Author Phillip Hansen
+        /// @Author: Phillip Hansen
         /// 
         /// When the DeleteConfirmation window is loaded
         /// </summary>
@@ -55,7 +55,7 @@ namespace Presentation
         }
 
         /// <summary>
-        /// @Author Phillip Hansen
+        /// @Author: Phillip Hansen
         /// 
         /// When the 'Cancel' button is clicked
         /// </summary>
@@ -67,7 +67,7 @@ namespace Presentation
         }
 
         /// <summary>
-        /// @Author Phillip Hansen
+        /// @Author: Phillip Hansen
         /// 
         /// When the 'Confirm' button is clicked, and should delete and pass the event into the 'manager' logic to allow purge
         /// </summary>

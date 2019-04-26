@@ -47,36 +47,41 @@ namespace LogicLayer
         /// 
         /// check if guest is valid or not
         /// </summary>
+        /// <remarks>
+        /// Alisa Roehr
+        /// Updated: 2019/04/16 
+        /// fix: made it so that other extentions can be used for email.
+        /// </remarks>
         /// <param name="_guest"> guest that is being tested for validation</param>
         /// <returns>whether the guest information is valid</returns>
         public bool isValid(Guest _guest)
         {
             int aNumber;
-            if ( /*_guest.MemberID.ToString().Length > 11 ||*/ _guest.MemberID == null || _guest.MemberID == 0)
+            if ( _guest.MemberID.ToString().Length > 11 || _guest.MemberID == null || _guest.MemberID == 0)
             {
-                return false ;// for member id
+                return false;// for member id
             }
-            else if(_guest.GuestTypeID.Length > 25 || _guest.GuestTypeID == null || _guest.GuestTypeID.Length == 0)
+            if (_guest.GuestTypeID.Length > 25 || _guest.GuestTypeID == null || _guest.GuestTypeID.Length == 0)
             {
                 return false; // for guest type
             }
-            else if (_guest.FirstName.Length > 50 || _guest.FirstName == null || _guest.FirstName.Length == 0 || _guest.FirstName.Any(c => char.IsDigit(c))) 
+            else if (_guest.FirstName.Length > 50 || _guest.FirstName == null || _guest.FirstName.Length == 0 || _guest.FirstName.Any(c => char.IsDigit(c)))
             {
                 return false; // for first name
             }
-            else if (_guest.LastName.Length > 100 || _guest.LastName == null || _guest.LastName.Length == 0 || _guest.LastName.Any(c => char.IsDigit(c))) 
+            else if (_guest.LastName.Length > 100 || _guest.LastName == null || _guest.LastName.Length == 0 || _guest.LastName.Any(c => char.IsDigit(c)))
             {
                 return false; // for last name
             }
-            else if (_guest.PhoneNumber.Length > 11 || _guest.PhoneNumber == null || _guest.PhoneNumber.Length == 0 || int.TryParse(_guest.PhoneNumber, out aNumber))
+            else if (_guest.PhoneNumber.Length > 11 || _guest.PhoneNumber == null || _guest.PhoneNumber.Length == 0)
             {
                 return false;  // for phone number
             }
-            else if (_guest.Email.Length > 250 || _guest.Email == null || _guest.Email.Length == 0 || !_guest.Email.Contains("@") || !_guest.Email.Contains(".") || !(_guest.Email.Contains("com") || _guest.Email.Contains("edu") || _guest.Email.Contains("gov")))
+            else if (_guest.Email.Length > 250 || _guest.Email == null || _guest.Email.Length == 0 || !_guest.Email.Contains("@") || !_guest.Email.Contains(".") )
             {
                 return false;  // for email, need greater email validation
             }
-            else if (_guest.Minor == null) 
+            else if (_guest.Minor == null)
             {
                 return false; // for minor
             }
@@ -84,23 +89,23 @@ namespace LogicLayer
             {
                 return false; // for active
             }
-            else if (_guest.ReceiveTexts == null) 
+            else if (_guest.ReceiveTexts == null)
             {
                 return false; // for ReceiveTexts
             }
-            else if (_guest.EmergencyFirstName.Length > 50 || _guest.EmergencyFirstName == null || _guest.EmergencyFirstName.Length == 0 || _guest.EmergencyFirstName.Any(c => char.IsDigit(c))) 
+            else if (_guest.EmergencyFirstName.Length > 50 || _guest.EmergencyFirstName == null || _guest.EmergencyFirstName.Length == 0 || _guest.EmergencyFirstName.Any(c => char.IsDigit(c)))
             {
                 return false; // for EmergencyFirstName
             }
-            else if (_guest.EmergencyLastName.Length > 100 || _guest.EmergencyLastName == null || _guest.EmergencyLastName.Length == 0 || _guest.EmergencyLastName.Any(c => char.IsDigit(c))) 
+            else if (_guest.EmergencyLastName.Length > 100 || _guest.EmergencyLastName == null || _guest.EmergencyLastName.Length == 0 || _guest.EmergencyLastName.Any(c => char.IsDigit(c)))
             {
                 return false; // for EmergencyLastName
             }
-            else if (_guest.EmergencyPhoneNumber.Length > 11 || _guest.EmergencyPhoneNumber == null || _guest.EmergencyPhoneNumber.Length < 7 || int.TryParse(_guest.EmergencyPhoneNumber, out aNumber)) 
+            else if (_guest.EmergencyPhoneNumber.Length > 11 || _guest.EmergencyPhoneNumber == null || _guest.EmergencyPhoneNumber.Length < 7 || int.TryParse(_guest.EmergencyPhoneNumber, out aNumber))
             {
                 return false; // for EmergencyPhoneNumber, need to test for if integer
             }
-            else if (_guest.EmergencyRelation.Length > 25 || _guest.EmergencyRelation == null || _guest.EmergencyRelation.Length == 0) 
+            else if (_guest.EmergencyRelation.Length > 25 || _guest.EmergencyRelation == null || _guest.EmergencyRelation.Length == 0)
             {
                 return false; // for EmergencyRelation
             }
@@ -186,7 +191,7 @@ namespace LogicLayer
             {
                 throw new ArgumentException("Guest is not filled out correctly.");
             }
-            
+
             bool result = false;
 
             try
@@ -391,6 +396,83 @@ namespace LogicLayer
             }
 
             return guests;
+        }
+
+        /// <summary>
+        /// Eduardo Colon
+        /// Created: 2019/03/20
+        /// 
+        /// method to retrieve all guestinfo
+        /// </summary>
+        public List<Guest> RetrieveAllGuestInfo()
+        {
+            var guests = new List<Guest>();
+            try
+            {
+                guests = _guestAccessor.RetrieveAllGuestInfo();
+            }
+            catch
+            {
+                throw;
+            }
+            return guests;
+        }
+        /// <summary>
+        /// Eduardo Colon
+        /// Created: 2019/03/20
+        /// 
+        /// method to retrieve all guestinfo by guestid
+        /// </summary>
+        public Guest RetrieveGuestInfo(int guestID)
+        {
+            Guest guest = new Guest();
+
+
+
+            try
+            {
+
+                guest = _guestAccessor.RetrieveGuestInfo(guestID);
+
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+
+            return guest;
+        }
+
+        public List<VMGuest> SelectAllVMGuests()
+        {
+            List<VMGuest> vmGuest = new List<VMGuest>();
+            try
+            {
+                vmGuest = _guestAccessor.SelectAllVMGuests();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            return vmGuest;
+        }
+
+        /// <summary>
+        /// Austin Berquam
+        /// Created: 2019/04/17
+        /// 
+        /// method to retrieve guest info by email
+        /// </summary>
+        public Guest RetrieveGuestByEmail(string email)
+        {
+            try
+            {
+                return _guestAccessor.RetriveGuestByEmail(email);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
     }
 }

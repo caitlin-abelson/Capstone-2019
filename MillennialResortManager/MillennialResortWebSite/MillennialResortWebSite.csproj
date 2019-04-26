@@ -34,6 +34,29 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <IntermediateOutputPath>C:\Users\owner\AppData\Local\Temp\vsE5EF.tmp\Debug\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\nh229u14\AppData\Local\Temp\vsA63E.tmp\Debug\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\Kevin\AppData\Local\Temp\vs5400.tmp\Debug\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\Jacob\AppData\Local\Temp\vs2D73.tmp\Debug\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\Jared\AppData\Local\Temp\vs832C.tmp\Debug\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\nh229u09\AppData\Local\Temp\vs3D8C.tmp\Debug\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\nh229u05\AppData\Local\Temp\vs2C67.tmp\Debug\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\berqu\AppData\Local\Temp\vs58F.tmp\Debug\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\Wes\AppData\Local\Temp\vs26D5.tmp\Debug\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\Eric\AppData\Local\Temp\vs7245.tmp\Debug\</IntermediateOutputPath>
+    <IntermediateOutputPath>:\Users\Wes\AppData\Local\Temp\vs26D5.tmp\Debug\	</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\nh229u26\AppData\Local\Temp\vs18EC.tmp\Debug\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\carzu\AppData\Local\Temp\vs4D60.tmp\Debug\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\owner\AppData\Local\Temp\vsB3A7.tmp\Debug\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\rphan\AppData\Local\Temp\vsAAAA.tmp\Debug\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\Muyo\AppData\Local\Temp\vs5A29.tmp\Debug\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\Eric\AppData\Local\Temp\vs29C1.tmp\Debug\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\Craig\AppData\Local\Temp\vs2457.tmp\Debug\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\nh229u09\AppData\Local\Temp\vs9052.tmp\Debug\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\nh229u08\AppData\Local\Temp\vs22CE.tmp\Debug\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\nh229u05\AppData\Local\Temp\vs6AA6.tmp\Debug\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\nh229u18\AppData\Local\Temp\vs49C3.tmp\Debug\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\nh229u22\AppData\Local\Temp\vs32D2.tmp\Debug\</IntermediateOutputPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -43,6 +66,28 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <IntermediateOutputPath>C:\Users\Craig\AppData\Local\Temp\vsD886.tmp\Release\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\owner\AppData\Local\Temp\vsE5EF.tmp\Release\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\nh229u14\AppData\Local\Temp\vsA63E.tmp\Release\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\Kevin\AppData\Local\Temp\vs5400.tmp\Release\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\Jacob\AppData\Local\Temp\vs2D73.tmp\Release\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\Jared\AppData\Local\Temp\vs832C.tmp\Release\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\nh229u09\AppData\Local\Temp\vs3D8C.tmp\Release\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\nh229u05\AppData\Local\Temp\vs2C67.tmp\Release\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\berqu\AppData\Local\Temp\vs58F.tmp\Release\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\Wes\AppData\Local\Temp\vs26D5.tmp\Release\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\Eric\AppData\Local\Temp\vs7245.tmp\Release\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\nh229u26\AppData\Local\Temp\vs18EC.tmp\Release\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\carzu\AppData\Local\Temp\vs4D60.tmp\Release\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\owner\AppData\Local\Temp\vsB3A7.tmp\Release\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\rphan\AppData\Local\Temp\vsAAAA.tmp\Release\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\Muyo\AppData\Local\Temp\vs5A29.tmp\Release\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\Eric\AppData\Local\Temp\vs29C1.tmp\Release\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\Craig\AppData\Local\Temp\vs2457.tmp\Release\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\nh229u09\AppData\Local\Temp\vs9052.tmp\Release\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\nh229u08\AppData\Local\Temp\vs22CE.tmp\Release\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\nh229u18\AppData\Local\Temp\vs49C3.tmp\Release\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\nh229u22\AppData\Local\Temp\vs32D2.tmp\Release\</IntermediateOutputPath>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
@@ -174,14 +219,34 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AmenitiesController.cs" />
+    <Compile Include="Controllers\AppointmentController.cs" />
+    <Compile Include="Controllers\BuildingController.cs" />
+    <Compile Include="Controllers\DeveloperPageController.cs" />
+    <Compile Include="Controllers\ErrorController.cs" />
+    <Compile Include="Controllers\EventController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\MyAccountController.cs" />
+    <Compile Include="Controllers\ReservationController.cs" />
+    <Compile Include="Controllers\RoomsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201904112219347_AddedThePropertyFields.cs" />
+    <Compile Include="Migrations\201904112219347_AddedThePropertyFields.Designer.cs">
+      <DependentUpon>201904112219347_AddedThePropertyFields.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\AppointmentModel.cs" />
+    <Compile Include="Models\CreateAppointmentViewModel.cs" />
+    <Compile Include="Models\ErrorViewModel.cs" />
+    <Compile Include="Models\HomeViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\NewReservation.cs" />
+    <Compile Include="Models\ReservationSearchModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -190,15 +255,120 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\images\activities.jpg" />
+    <Content Include="Content\images\bungaloLand.jpg" />
+    <Content Include="Content\images\bunglalowWater.jpg" />
+    <Content Include="Content\images\calm-beach.jpg" />
+    <Content Include="Content\images\devPics\ecolon.jpg" />
+    <Content Include="Content\images\hero--xl.jpg" />
+    <Content Include="Content\images\hotel\01-RIVUE.jpg" />
+    <Content Include="Content\images\hotel\02-RIVUE.jpg" />
+    <Content Include="Content\images\hotel\03-RIVUE.jpg" />
+    <Content Include="Content\images\hotel\05-Waterfront-Balcony.jpg" />
+    <Content Include="Content\images\hotel\06-SUITE-tower-entrance.jpg" />
+    <Content Include="Content\images\hotel\07-TheConservatory.jpg" />
+    <Content Include="Content\images\hotel\down1interior-1-edit.jpg" />
+    <Content Include="Content\images\hotel\Pool-01.jpg" />
+    <Content Include="Content\images\hotel\RIVUE-West-Wheel-with-Red-Roses.JPG" />
+    <Content Include="Content\images\backgroundDevPage.jpg" />
     <Content Include="Content\images\beach-family.jpg" />
     <Content Include="Content\images\beach-familyTwo.jpg" />
     <Content Include="Content\images\beach-resorts.jpg" />
+    <Content Include="Content\images\beachHouse.jpg" />
     <Content Include="Content\images\beachPool.jpg" />
+    <Content Include="Content\images\devPics\a-flames.gif" />
+    <Content Include="Content\images\devPics\barraazul.gif" />
+    <Content Include="Content\images\devPics\constrct.gif" />
+    <Content Include="Content\images\devPics\CRAIGB_small.png" />
+    <Content Include="Content\images\devPics\dollarspindownd.gif" />
+    <Content Include="Content\images\devPics\fish.gif" />
+    <Content Include="Content\images\devPics\giphy.gif" />
+    <Content Include="Content\images\devPics\kity_cat2.gif" />
+    <Content Include="Content\images\devPics\usaflag1.gif" />
+    <Content Include="Content\images\devPics\welcome2site_flames.gif" />
     <Content Include="Content\images\eventSlider\hawaii-surfboards.jpg" />
     <Content Include="Content\images\eventSlider\market.jpg" />
     <Content Include="Content\images\eventSlider\redrocks.jpg" />
     <Content Include="Content\images\eventSlider\snorkelling-bali.jpg" />
+    <Content Include="Content\images\foodroom.jpg" />
+    <Content Include="Content\images\helochoopper.jpg" />
+    <Content Include="Content\images\HotelHostel.jpg" />
+    <Content Include="Content\images\island_fish.jpg" />
+    <Content Include="Content\images\jade-Mountain.jpg" />
+    <Content Include="Content\images\limbo.jpg" />
+    <Content Include="Content\images\MainStage.jpg" />
+    <Content Include="Content\images\Message.jpg" />
+    <Content Include="Content\images\pier.jpg" />
+    <Content Include="Content\images\resort-activities.jpg" />
+    <Content Include="Content\images\Resort-Beachfront.jpg" />
+    <Content Include="Content\images\Resort-Beachfrontjpg.jpg" />
     <Content Include="Content\images\resortDining.jpg" />
+    <Content Include="Content\images\Resv Problem.JPG" />
+    <Content Include="Content\images\ropes.jpg" />
+    <Content Include="Content\images\SandCastle.jpg" />
+    <Content Include="Content\images\Seaplane.jpg" />
+    <Content Include="Content\images\sing-along.jpg" />
+    <Content Include="Content\images\sovenue.png" />
+    <Content Include="Content\images\Spa.jpg" />
+    <Content Include="Content\images\spa22.jpg" />
+    <Content Include="Content\images\venue.jpg" />
+    <Content Include="Content\images\WhaleWatching.jpg" />
+    <Content Include="Content\images\The new\05.jpg" />
+    <Content Include="Content\images\The new\06.jpg" />
+    <Content Include="Content\images\The new\12.jpg" />
+    <Content Include="Content\images\The new\13.jpg" />
+    <Content Include="Content\images\The new\15.jpg" />
+    <Content Include="Content\images\The new\16.jpg" />
+    <Content Include="Content\images\The new\17.jpg" />
+    <Content Include="Content\themes\base\accordion.css" />
+    <Content Include="Content\themes\base\all.css" />
+    <Content Include="Content\themes\base\autocomplete.css" />
+    <Content Include="Content\themes\base\base.css" />
+    <Content Include="Content\themes\base\button.css" />
+    <Content Include="Content\themes\base\core.css" />
+    <Content Include="Content\themes\base\datepicker.css" />
+    <Content Include="Content\themes\base\dialog.css" />
+    <Content Include="Content\themes\base\draggable.css" />
+    <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
+    <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_75_dadada_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_75_e6e6e6_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_95_fef1ec_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
+    <Content Include="Content\themes\base\images\ui-icons_222222_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_2e83ff_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_444444_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_454545_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_555555_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_777620_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_777777_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_888888_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_cc0000_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_ffffff_256x240.png" />
+    <Content Include="Content\themes\base\jquery-ui.css" />
+    <Content Include="Content\themes\base\jquery-ui.min.css" />
+    <Content Include="Content\themes\base\menu.css" />
+    <Content Include="Content\themes\base\progressbar.css" />
+    <Content Include="Content\themes\base\resizable.css" />
+    <Content Include="Content\themes\base\selectable.css" />
+    <Content Include="Content\themes\base\selectmenu.css" />
+    <Content Include="Content\themes\base\slider.css" />
+    <Content Include="Content\themes\base\sortable.css" />
+    <Content Include="Content\themes\base\spinner.css" />
+    <Content Include="Content\themes\base\tabs.css" />
+    <Content Include="Content\themes\base\theme.css" />
+    <Content Include="Content\themes\base\tooltip.css" />
+    <Content Include="Content\images\wedding\10-22-11-331.jpg" />
+    <Content Include="Content\images\wedding\286A7461.JPG" />
+    <Content Include="Content\images\wedding\368.JPG" />
+    <Content Include="Content\images\wedding\380.JPG" />
+    <Content Include="Content\images\wedding\386.JPG" />
+    <Content Include="Content\images\wedding\dhar_0853.JPG" />
+    <Content Include="Content\images\wedding\dhar_1251.JPG" />
+    <Content Include="Content\images\wedding\wedding-brides2LG.jpg" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -211,6 +381,8 @@
     <Content Include="Scripts\jquery-3.3.1.slim.js" />
     <Content Include="Scripts\jquery-3.3.1.slim.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery-ui-1.12.1.js" />
+    <Content Include="Scripts\jquery-ui-1.12.1.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
@@ -251,6 +423,28 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\Reservation\Index.cshtml" />
+    <Content Include="Views\Appointment\Index.cshtml" />
+    <Content Include="Views\Appointment\Details.cshtml" />
+    <Content Include="Views\Home\Rooms.cshtml" />
+    <Content Include="Views\Rooms\Index.cshtml" />
+    <Content Include="Views\Appointment\Error.cshtml" />
+    <Content Include="Views\Appointment\Spa.cshtml" />
+    <Content Include="Views\Amenities\Index.cshtml" />
+    <Content Include="Views\Appointment\Massage.cshtml" />
+    <Content Include="Views\Appointment\WhaleWatching.cshtml" />
+    <Content Include="Views\Appointment\SandcastleBuilding.cshtml" />
+    <Content Include="Views\MyAccount\Index.cshtml" />
+    <Content Include="Views\MyAccount\Edit.cshtml" />
+    <Content Include="Views\Building\Index.cshtml" />
+    <Content Include="Views\Event\Index.cshtml" />
+    <Content Include="Views\Home\ContactResult.cshtml" />
+    <Content Include="Views\DeveloperPage\Index.cshtml" />
+    <Content Include="Views\Building\Details.cshtml" />
+    <Content Include="Views\Amenities\Create.cshtml" />
+    <Content Include="Views\Amenities\Success.cshtml" />
+    <Content Include="Views\Rooms\Create.cshtml" />
+    <Content Include="Views\Error\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -267,6 +461,23 @@
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.3.1.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DataAccessLayer\DataAccessLayer.csproj">
+      <Project>{cce8f374-3775-4b7b-aef6-89c330c61d27}</Project>
+      <Name>DataAccessLayer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DataObjects\DataObjects.csproj">
+      <Project>{8cdc4843-eeba-4e27-bb76-c179fb0cae70}</Project>
+      <Name>DataObjects</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LogicLayer\LogicLayer.csproj">
+      <Project>{0e18f616-f9a8-4ceb-8bf3-7a75a99a3457}</Project>
+      <Name>LogicLayer</Name>
+    </ProjectReference>
+    <EmbeddedResource Include="Migrations\201904112219347_AddedThePropertyFields.resx">
+      <DependentUpon>201904112219347_AddedThePropertyFields.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

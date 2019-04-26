@@ -18,7 +18,7 @@ using EventManager = LogicLayer.EventManager;
 namespace WpfPresentation
 {
     /// <summary>
-    /// @Author Phillip Hansen
+    /// @Author: Phillip Hansen
     /// 
     /// Test window for showing all Event Requests
     /// 
@@ -41,7 +41,7 @@ namespace WpfPresentation
         
         
         /// <summary>
-        /// @Author Phillip Hansen
+        /// @Author: Phillip Hansen
         /// 
         /// When an event record is selected
         /// </summary>
@@ -75,7 +75,7 @@ namespace WpfPresentation
         }
 
         /// <summary>
-        /// @Author Phillip Hansen
+        /// @Author: Phillip Hansen
         /// 
         /// Code for when the 'create' button is clicked
         /// </summary>
@@ -93,7 +93,7 @@ namespace WpfPresentation
         }
 
         /// <summary>
-        /// @Author Phillip Hansen
+        /// @Author: Phillip Hansen
         /// 
         /// Changes the titles for the columns in the event datagrid to be human-readable
         /// </summary>
@@ -162,7 +162,7 @@ namespace WpfPresentation
         }
 
         /// <summary>
-        /// @Author Phillip Hansen
+        /// @Author: Phillip Hansen
         /// 
         /// Method for populating the events
         /// </summary>
@@ -180,7 +180,7 @@ namespace WpfPresentation
         }
 
         /// <summary>
-        /// @Author Phillip Hansen
+        /// @Author: Phillip Hansen
         /// 
         /// Closes the window if the 'cancel' button is clicked
         /// </summary>

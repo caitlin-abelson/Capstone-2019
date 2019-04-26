@@ -61,7 +61,7 @@ namespace DataAccessLayer
             cmd.Parameters.AddWithValue("@EmergencyLastName", newGuest.EmergencyLastName);
             cmd.Parameters.AddWithValue("@EmergencyPhoneNumber", newGuest.EmergencyPhoneNumber);
             cmd.Parameters.AddWithValue("@EmergencyRelation", newGuest.EmergencyRelation);
-            
+
             try
             {
                 conn.Open();
@@ -287,7 +287,7 @@ namespace DataAccessLayer
             cmd.Parameters.AddWithValue("@EmergencyLastName", newGuest.EmergencyLastName);
             cmd.Parameters.AddWithValue("@EmergencyPhoneNumber", newGuest.EmergencyPhoneNumber);
             cmd.Parameters.AddWithValue("@EmergencyRelation", newGuest.EmergencyRelation);
-            cmd.Parameters.AddWithValue("@CheckedIn", newGuest.CheckedIn);
+            // cmd.Parameters.AddWithValue("@CheckedIn", newGuest.CheckedIn);
 
             cmd.Parameters.AddWithValue("@OldMemberID", oldGuest.MemberID);
             cmd.Parameters.AddWithValue("@OldGuestTypeID", oldGuest.GuestTypeID);
@@ -302,7 +302,7 @@ namespace DataAccessLayer
             cmd.Parameters.AddWithValue("@OldEmergencyLastName", oldGuest.EmergencyLastName);
             cmd.Parameters.AddWithValue("@OldEmergencyPhoneNumber", oldGuest.EmergencyPhoneNumber);
             cmd.Parameters.AddWithValue("@OldEmergencyRelation", oldGuest.EmergencyRelation);
-            cmd.Parameters.AddWithValue("@OldCheckedIn", oldGuest.CheckedIn);
+            // cmd.Parameters.AddWithValue("@OldCheckedIn", oldGuest.CheckedIn);
 
             try
             {
@@ -575,7 +575,7 @@ namespace DataAccessLayer
                 conn.Close();
             }
         }
-        
+
         /// <summary>
         /// Alisa Roehr
         /// Created: 2019/02/22
@@ -726,6 +726,206 @@ namespace DataAccessLayer
             {
                 return true;
             }
+        }
+
+        /// <summary>
+        /// Eduardo Colon
+        /// Created: 2019/03/20
+        /// 
+        /// method to retrieve all guestinfo by guestid
+        /// </summary>
+        public Guest RetrieveGuestInfo(int guestID)
+        {
+            Guest guest = new Guest();
+
+            var conn = DBConnection.GetDbConnection();
+            var cmdText = @"sp_retrieve_guest_info_by_id";
+            var cmd = new SqlCommand(cmdText, conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.AddWithValue("@GuestID", guestID);
+
+            try
+            {
+                conn.Open();
+
+                SqlDataReader reader = cmd.ExecuteReader();
+
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        guest.GuestID = reader.GetInt32(0);
+                        guest.FirstName = reader.GetString(1);
+                        guest.LastName = reader.GetString(2);
+                        guest.PhoneNumber = reader.GetString(3);
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            return guest;
+        }
+
+        /// <summary>
+        /// Eduardo Colon
+        /// Created: 2019/03/20
+        /// 
+        /// method to retrieve all guestinfo
+        /// </summary>
+        public List<Guest> RetrieveAllGuestInfo()
+        {
+            var guests = new List<Guest>();
+
+            var conn = DBConnection.GetDbConnection();
+            var cmdText = @"sp_retrieve_guest_info";
+            var cmd = new SqlCommand(cmdText, conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            try
+            {
+                conn.Open();
+
+                SqlDataReader reader = cmd.ExecuteReader();
+
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        var guest = new Guest();
+                        guest.GuestID = reader.GetInt32(0);
+                        guest.FirstName = reader.GetString(1);
+                        guest.LastName = reader.GetString(2);
+                        guest.PhoneNumber = reader.GetString(3);
+                        guests.Add(guest);
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            return guests;
+        }
+
+        /// <summary>
+        /// Author: Caitlin Abelson
+        /// Date: 2019/04/12
+        /// 
+        /// Uses the VMGuest class and reads all of the guests and their associated members
+        /// first and last names.
+        /// </summary>
+        /// <returns></returns>
+        public List<VMGuest> SelectAllVMGuests()
+        {
+            List<VMGuest> vmGuest = new List<VMGuest>();
+
+            var conn = DBConnection.GetDbConnection();
+            var cmdText = @"sp_select_guest_member";
+            var cmd = new SqlCommand(cmdText, conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            try
+            {
+                conn.Open();
+                SqlDataReader reader = cmd.ExecuteReader();
+
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        VMGuest guest = new VMGuest();
+                        guest.GuestID = reader.GetInt32(0);
+                        guest.MemberID = reader.GetInt32(1);
+                        guest.GuestTypeID = reader.GetString(2);
+                        guest.FirstName = reader.GetString(3);
+                        guest.LastName = reader.GetString(4);
+                        guest.PhoneNumber = reader.GetString(5);
+                        guest.Email = reader.GetString(6);
+                        guest.Minor = reader.GetBoolean(7);
+                        guest.Active = reader.GetBoolean(8);
+                        guest.ReceiveTexts = reader.GetBoolean(9);
+                        guest.EmergencyFirstName = reader.GetString(10);
+                        guest.EmergencyLastName = reader.GetString(11);
+                        guest.EmergencyPhoneNumber = reader.GetString(12);
+                        guest.EmergencyRelation = reader.GetString(13);
+                        guest.CheckedIn = reader.GetBoolean(14);
+                        guest.MemberFirstName = reader.GetString(15);
+                        guest.MemberLastName = reader.GetString(16);
+                        vmGuest.Add(guest);
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            return vmGuest;
+        }
+
+        public Guest RetriveGuestByEmail(string email)
+        {
+            Guest guest = null;
+
+            var conn = DBConnection.GetDbConnection();
+            var cmdText = @"sp_retrieve_guests_by_email";
+            var cmd = new SqlCommand(cmdText, conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.AddWithValue("@Email", email);
+
+            try
+            {
+                conn.Open();
+                var reader = cmd.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    reader.Read();
+                    guest = new Guest()
+                    {
+                        GuestID = reader.GetInt32(0),
+                        MemberID = reader.GetInt32(1),
+                        GuestTypeID = reader.GetString(2),
+                        FirstName = reader.GetString(3),
+                        LastName = reader.GetString(4),
+                        PhoneNumber = reader.GetString(5),
+                        Email = reader.GetString(6),
+                        Minor = reader.GetBoolean(7),
+                        Active = reader.GetBoolean(8),
+                        ReceiveTexts = reader.GetBoolean(9),
+                        EmergencyFirstName = reader.GetString(10),
+                        EmergencyLastName = reader.GetString(11),
+                        EmergencyPhoneNumber = reader.GetString(12),
+                        EmergencyRelation = reader.GetString(13)
+                    };
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return guest;
         }
     }
 }

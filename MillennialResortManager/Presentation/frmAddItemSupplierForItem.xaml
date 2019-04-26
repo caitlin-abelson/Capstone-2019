@@ -6,7 +6,11 @@
         xmlns:local="clr-namespace:Presentation"
         mc:Ignorable="d"
         Title="Add Supplier To Item" Height="480" Width="640">
-    <Grid>
+
+    <Window.Resources>
+        <ResourceDictionary Source="Stylesheet.xaml"/>
+    </Window.Resources>
+    <Grid Style="{StaticResource DefaultPage}">
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
             <ColumnDefinition/>
@@ -47,6 +51,12 @@
             <StackPanel x:Name="stpName" Orientation="Horizontal" HorizontalAlignment="Right">
                 <Label Content="Name" VerticalAlignment="Top" Margin="8"></Label>
                 <TextBox x:Name="txtName" MinWidth="200" Margin="8" VerticalAlignment="Top" HorizontalAlignment="Left" FontSize="12" Text="Name" TextWrapping="Wrap" Height="40" />
+            </StackPanel>
+        </Grid>
+        <Grid Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="2" Grid.RowSpan="1">
+            <StackPanel x:Name="stpSupplierItemID" Orientation="Horizontal" HorizontalAlignment="Right">
+                <Label Content="Supplier Item's ID" VerticalAlignment="Top" Margin="8"></Label>
+                <TextBox x:Name="txtSupplierItemID" Margin="8" VerticalAlignment="Top" HorizontalAlignment="Left" FontSize="12" TextWrapping="Wrap" Height="40" MinWidth="150"></TextBox>
             </StackPanel>
         </Grid>
         <Grid Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" >

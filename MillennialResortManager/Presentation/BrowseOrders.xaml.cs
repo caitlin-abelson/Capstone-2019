@@ -31,10 +31,10 @@ namespace Presentation
         private List<string> _searchCategories = new List<string>();
         private UserManager _userManager = new UserManager();
         private InternalOrderManager _internalOrderManager = new InternalOrderManager();
-        private User _fullUser = new User();
+        private Employee _fullUser;
         private List<VMInternalOrder> _orders = new List<VMInternalOrder>();
         private List<VMInternalOrder> _currentOrders;
-        public BrowseOrders(User fullUser)
+        public BrowseOrders(Employee fullUser)
         {
             InitializeComponent();
             _fullUser = fullUser;
@@ -113,7 +113,7 @@ namespace Presentation
             if (dgInternalOrders.SelectedItem != null)
             {
                 var order = (VMInternalOrder)dgInternalOrders.SelectedItem;
-                var viewOrderDetail = new TestWindow(order);
+                var viewOrderDetail = new InternalOrderDetail(order);
                 viewOrderDetail.ShowDialog();
             }
         }
@@ -130,7 +130,7 @@ namespace Presentation
             if (dgInternalOrders.SelectedItem != null)
             {
                 var order = (VMInternalOrder)dgInternalOrders.SelectedItem;
-                var viewOrderDetail = new TestWindow(order);
+                var viewOrderDetail = new InternalOrderDetail(order);
                 viewOrderDetail.ShowDialog();
             }
         }
@@ -236,13 +236,17 @@ namespace Presentation
             dgInternalOrders.ItemsSource = _orders;
         }
 
+        /// <remarks>
+        /// Updated By: Jared Greenfield
+        /// Updated Date: 2019-04-11
+        /// Fixed to call correct form and use Employee
+        /// </remarks>
         private void BtnAddNewOrder_Click(object sender, RoutedEventArgs e)
         {
 
             try
             {
-                _fullUser = _userManager.RetrieveFullUserByEmail(_fullUser.Email);
-                var addOrder = new TestWindow(_fullUser);
+                var addOrder = new InternalOrderDetail(_fullUser);
                 var result = addOrder.ShowDialog();
                 if (result == true)
                 {

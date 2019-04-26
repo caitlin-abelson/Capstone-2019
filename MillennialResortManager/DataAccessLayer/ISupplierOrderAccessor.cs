@@ -19,11 +19,17 @@ namespace DataAccessLayer
         List<VMItemSupplierItem> SelectItemSuppliersBySupplierID(int supplierID);
 
         List<SupplierOrder> SelectAllSupplierOrders();
+        List<SupplierOrder> SelectAllGeneratedOrders();
 
         List<SupplierOrderLine> SelectSupplierOrderLinesBySupplierOrderID(int supplierOrderID);
 
         int UpdateSupplierOrder(SupplierOrder supplierOrder, List<SupplierOrderLine> supplierOrderLines);
 
         int DeleteSupplierOrder(int supplierOrderID);
+
+        SupplierOrder RetrieveSupplierOrderByID(int supplierOrderID);
+
+        void CompleteSupplierOrder(int supplierOrderID);
+        int SelectSupplierItemIDByItemAndSupplier(int itemID, int supplierID);
     }
 }

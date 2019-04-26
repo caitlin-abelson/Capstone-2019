@@ -24,11 +24,11 @@ namespace DataAccessLayer
         public EmployeeAccessorMock()
         {
             _employee = new List<Employee>();
-            _employee.Add(new Employee() { EmployeeID = 100000, FirstName = "Harry", LastName = "Jingles", PhoneNumber = "13195554657", Email = "harry.jingles@company.com", DepartmentID = "Events", Active = true });
-            _employee.Add(new Employee() { EmployeeID = 100001, FirstName = "Jack", LastName = "Parsh", PhoneNumber = "13195554652", Email = "jack.parsh@company.com", DepartmentID = "Kitchen", Active = true });
-            _employee.Add(new Employee() { EmployeeID = 100002, FirstName = "Jane", LastName = "Doob", PhoneNumber = "13195554658", Email = "jane.doob@company.com", DepartmentID = "Catering", Active = true });
-            _employee.Add(new Employee() { EmployeeID = 100003, FirstName = "Barb", LastName = "Marsh", PhoneNumber = "13195554637", Email = "barb.marsh@company.com", DepartmentID = "Grooming", Active = true });
-            _employee.Add(new Employee() { EmployeeID = 100004, FirstName = "Toby", LastName = "Fish", PhoneNumber = "13195554677", Email = "toby.fish@company.com", DepartmentID = "Talent", Active = true });
+            _employee.Add(new Employee() { EmployeeID = 100000, FirstName = "Harry", LastName = "Jingles", PhoneNumber = "1319555465", Email = "harry.jingles@company.com", DepartmentID = "Events", Active = true });
+            _employee.Add(new Employee() { EmployeeID = 100001, FirstName = "Jack", LastName = "Parsh", PhoneNumber = "1319555465", Email = "jack.parsh@company.com", DepartmentID = "Kitchen", Active = true });
+            _employee.Add(new Employee() { EmployeeID = 100002, FirstName = "Jane", LastName = "Doob", PhoneNumber = "1319555465", Email = "jane.doob@company.com", DepartmentID = "Catering", Active = true });
+            _employee.Add(new Employee() { EmployeeID = 100003, FirstName = "Barb", LastName = "Marsh", PhoneNumber = "1319555463", Email = "barb.marsh@company.com", DepartmentID = "Grooming", Active = true });
+            _employee.Add(new Employee() { EmployeeID = 100004, FirstName = "Toby", LastName = "Fish", PhoneNumber = "1319555467", Email = "toby.fish@company.com", DepartmentID = "Talent", Active = true });
 
             _roles = new List<Role>();
             _roles.Add(new Role() { RoleID = "Admin", Description = "Overworked and under paid" });//0
@@ -251,6 +251,33 @@ namespace DataAccessLayer
                 throw new ApplicationException("No Roles found for this user");
             }
             return r;
+        }
+
+        public void InsertEmployeeRole(int employeeID, Role role)
+        {
+            try
+            {
+                _employee.Find(x => x.EmployeeID == employeeID).EmployeeRoles.Add(role);
+            }
+            catch (Exception)
+            {
+                throw new ApplicationException("No Roles found for this user");
+            }
+        }
+
+        public void DeleteEmployeeRole(int employeeID, Role role)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<Employee> RetrieveAllEmployeeInfo()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Employee RetrieveEmployeeInfo(int employeeID)
+        {
+            throw new NotImplementedException();
         }
     }
 }

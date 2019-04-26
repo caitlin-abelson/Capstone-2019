@@ -5,10 +5,13 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using DataObjects;
+using LogicLayer;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using MillennialResortWebSite.Models;
+
 
 namespace MillennialResortWebSite.Controllers
 {
@@ -18,9 +21,13 @@ namespace MillennialResortWebSite.Controllers
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
 
+        IMemberManager _memberManager;
+        IGuestManager _guestManager;
+
         public AccountController()
         {
         }
+
 
         public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
         {
@@ -150,34 +157,46 @@ namespace MillennialResortWebSite.Controllers
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
             /// <summary>
-            /// Author: Ramesh Adhikari
-            /// Created On: 03/27/2019
+            /// Author: Austin Berquam
+            /// Created On: 04/12/2019
             /// </summary>
             if (ModelState.IsValid)
             {
-                var member = new ApplicationUser
-                {
-                    FirstName = model.FirstName,
-                    LastName = model.LastName,
-                    UserName = model.Email,
-                    Email = model.Email,
-                    PhoneNumber = model.PhoneNumber
-                };
                 try
                 {
-                    //FirstName = model.FirstName,
-                    // LastName = model.LastName,
-                    // UserName = model.Email,
-                    //Email = model.Email,
-                    // PhoneNumber = model.PhoneNumber
+                    //Creates the member
+                    _memberManager = new MemberManagerMSSQL();
+                    Member newMember = new Member(
+                        fName: model.FirstName,
+                        lName: model.LastName,
+                        mail: model.Email,
+                        number: model.PhoneNumber
+                        );
+                    _memberManager.CreateMember(newMember);
+                    int memberID = 0;
+                    memberID = _memberManager.RetrieveMemberByEmail(model.Email);
 
+                    //Creates the guest
+                    _guestManager = new GuestManager();
+                    Guest newGuest = new Guest(
+                        memberID: memberID,
+                        fName: model.FirstName,
+                        lName: model.LastName,
+                        mail: model.Email,
+                        phoneNumber: model.PhoneNumber,
+                        emergencyFName: model.EmergencyFirstName,
+                        emergencyLName: model.EmergencyLastName,
+                        emergencyPhone: model.EmergencyPhoneNumber,
+                        emergencyRelation: model.Relation,
+                        texts: model.RecieveTexts
+                        );
+                    _guestManager.CreateGuest(newGuest);
                 }
-                catch (Exception)
+                catch (Exception up)
                 {
-
-                    throw;
+                    throw up;
                 }
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var user = new ApplicationUser { UserName = model.Email, Email = model.Email, PhoneNumber = model.PhoneNumber, FirstName=model.FirstName, LastName=model.LastName };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {

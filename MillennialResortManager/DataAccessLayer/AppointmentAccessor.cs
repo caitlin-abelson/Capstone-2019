@@ -22,13 +22,13 @@ namespace DataAccessLayer
         /// 
         /// Inserts a new appointment into the database
         /// </summary>
-        public int InsertAppointment(Appointment appointment)
+        public int InsertAppointmentByGuest(Appointment appointment)
         {
             int rows = 0;
 
             var conn = DBConnection.GetDbConnection();
 
-            var cmdText = @"sp_insert_appointment";
+            var cmdText = @"sp_insert_appointment_by_guest";
 
             var cmd = new SqlCommand(cmdText, conn);
 
@@ -39,22 +39,21 @@ namespace DataAccessLayer
             cmd.Parameters.AddWithValue("@StartDate", appointment.StartDate);
             cmd.Parameters.AddWithValue("@EndDate", appointment.EndDate);
             cmd.Parameters.AddWithValue("@Description", appointment.Description);
+            cmd.Parameters.AddWithValue("@ServiceComponentID", appointment.AppointmentType);
 
             try
             {
                 conn.Open();
                 rows = cmd.ExecuteNonQuery();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-
-                throw new ApplicationException("Database access error", ex);
+                throw;
             }
             finally
             {
                 conn.Close();
             }
-
             return rows;
         }
 
@@ -87,6 +86,7 @@ namespace DataAccessLayer
 
                 if (reader.HasRows)
                 {
+                    reader.Read();
                     appointment = new Appointment()
                     {
                         AppointmentID = id,
@@ -134,6 +134,7 @@ namespace DataAccessLayer
             var cmd = new SqlCommand(cmdText, conn);
 
             cmd.CommandType = System.Data.CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@GuestID", guestID);
 
             try
             {

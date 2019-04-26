@@ -31,6 +31,7 @@ namespace DataAccessLayer
         {
             throw new NotImplementedException();
         }
+
         /// <summary>
         /// Kevin Broskow
         /// Created: 2019/01/23
@@ -44,7 +45,7 @@ namespace DataAccessLayer
         /// example: Fixed a problem when user inputs bad data
         /// </remarks>
         /// <returns>List<string> That contains all of the ItemTypeIDs</returns>	
-        public List<string> RetrieveAllItemTypes()
+        public List<string> RetrieveAllItemTypesString()
         {
             List<string> itemTypes = new List<string>();
             var conn = DBConnection.GetDbConnection();
@@ -77,11 +78,6 @@ namespace DataAccessLayer
             return itemTypes;
         }
 
-        public List<string> RetrieveAllItemTypesString()
-        {
-            throw new NotImplementedException();
-        }
-
         public ItemType RetrieveItemType()
         {
             throw new NotImplementedException();
@@ -92,7 +88,7 @@ namespace DataAccessLayer
             throw new NotImplementedException();
         }
 
-        List<ItemType> IItemTypeAccessor.RetrieveAllItemTypes()
+        public List<ItemType> RetrieveAllItemTypes()
         {
             List<ItemType> itemTypes = new List<ItemType>();
 

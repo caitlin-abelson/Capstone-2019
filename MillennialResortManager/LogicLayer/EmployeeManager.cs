@@ -107,7 +107,7 @@ namespace LogicLayer
         /// <returns></returns>
         public bool validatePhoneNumber(string phoneNumber)
         {
-            if (phoneNumber.Length != 11)
+            if (phoneNumber.Length >= 11)
             {
                 return false;
             }
@@ -401,5 +401,136 @@ namespace LogicLayer
             return result;
         }
 
+        /// <summary>
+        /// Alisa Roehr
+        /// Created: 2019/04/05
+        /// 
+        /// get an employee id when first created.
+        /// </summary>
+        /// <param name="email"></param>
+        /// <returns></returns>
+        public Employee RetrieveEmployeeIDByEmail(string email)
+        {
+            Employee employee = new Employee();
+            try
+            {
+                employee = _employeeAccessor.RetrieveEmployeeByEmail(email);
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException(ex.Message, ex);  // ex as the inner exception, we we are preserving the inner exception
+            }
+            return employee;
+        }
+
+
+
+        /// <summary>
+        /// Alisa Roehr
+        /// Created: 2019/04/01
+        /// 
+        /// add a role to an employee.
+        /// </summary>
+        /// <param name="employeeID"></param>
+        /// <param name="role"></param>
+        public void AddEmployeeRole(int employeeID, Role role)
+        {
+            try
+            {
+                _employeeAccessor.InsertEmployeeRole(employeeID, role);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Alisa Roehr
+        /// Created: 2019/04/01
+        /// 
+        /// remove a role from an employee
+        /// </summary>
+        /// <param name="employeeID"></param>
+        /// <param name="role"></param>
+        public void RemoveEmployeeRole(int employeeID, Role role)
+        {
+            try
+            {
+                _employeeAccessor.DeleteEmployeeRole(employeeID, role);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Alisa Roehr
+        /// Created: 2019/04/01
+        /// 
+        /// get all the roles from the employee.
+        /// </summary>
+        /// <param name="EmployeeID"></param>
+        /// <returns></returns>
+        public List<Role> SelectEmployeeRoles(int EmployeeID)
+        {
+            List<Role> roles;
+            try
+            {
+                roles = _employeeAccessor.RetrieveEmployeeRoles(EmployeeID);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            return roles;
+        }
+
+        /// <summary>
+        /// Eduardo Colon
+        /// Created: 2019/03/20
+        /// 
+        /// method to retrieve all employeeinfo 
+        /// </summary>
+        public List<Employee> RetrieveAllEmployeeInfo()
+        {
+            var employees = new List<Employee>();
+            try
+            {
+                employees = _employeeAccessor.RetrieveAllEmployeeInfo();
+            }
+            catch
+            {
+                throw;
+            }
+            return employees;
+        }
+
+        /// <summary>
+        /// Eduardo Colon
+        /// Created: 2019/03/20
+        /// 
+        /// method to retrieve all employeeinfo by employeeid
+        /// </summary>
+        public Employee RetrieveEmployeeInfo(int employeeID)
+        {
+            Employee employee = new Employee();
+
+
+
+            try
+            {
+
+                employee = _employeeAccessor.RetrieveEmployeeInfo(employeeID);
+
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+
+            return employee;
+        }
     }
 }

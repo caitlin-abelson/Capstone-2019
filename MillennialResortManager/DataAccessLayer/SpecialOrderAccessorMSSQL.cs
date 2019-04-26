@@ -18,7 +18,7 @@ namespace DataAccessLayer
         /// 
         /// Creates the new Special order, with the data provided by user.
         /// </summary
-        public int InsertSpecialOrder(CompleteSpecialOrder newSpecialOrder, SpecialOrderLine newSpecialOrderline)
+        public int InsertSpecialOrder(CompleteSpecialOrder newSpecialOrder)
         {
             int row = 0;
            
@@ -30,28 +30,49 @@ namespace DataAccessLayer
                         cmd1.CommandType = CommandType.StoredProcedure;
                         cmd1.Parameters.AddWithValue("@EmployeeID", newSpecialOrder.EmployeeID);
                         cmd1.Parameters.AddWithValue("@Description", newSpecialOrder.Description);
-                        cmd1.Parameters.AddWithValue("@OrderComplete", newSpecialOrder.OrderComplete);
                         cmd1.Parameters.AddWithValue("@DateOrdered", newSpecialOrder.DateOrdered);
-                        cmd1.Parameters.AddWithValue("@SupplierID", newSpecialOrder.SupplierID);
-                var order = cmd1.ExecuteScalar();
+                        cmd1.Parameters.AddWithValue("@Supplier", newSpecialOrder.Supplier);
+                        row += cmd1.ExecuteNonQuery();
                 conn.Close();
 
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+            return row;
+        }
+
+        /// <summary>
+        /// Carlos Arzu
+        /// Created: 2019/01/31
+        /// 
+        /// Creates the new Special order Line, with the data provided by user.
+        /// </summary
+        public int InsertSpecialOrderLine(SpecialOrderLine newSpecialOrderline)
+        {
+            int row = 0;
+
+            try
+            {
+                var conn = DBConnection.GetDbConnection();
+               
                 conn.Open();
-                        
-                        int SpecialOrderID = Convert.ToInt32(order);
 
-                        var cmd2 = new SqlCommand("sp_create_specialOrderLine", conn);
-                        cmd2.CommandType = CommandType.StoredProcedure;
-                        cmd2.Parameters.AddWithValue("@ItemID", newSpecialOrderline.ItemID);
-                        cmd2.Parameters.AddWithValue("@SpecialOrderID", SpecialOrderID);
-                        cmd2.Parameters.AddWithValue("@Description", newSpecialOrder.Description);
-                        cmd2.Parameters.AddWithValue("@OrderQty", newSpecialOrderline.OrderQty);
-                        cmd2.Parameters.AddWithValue("@QtyReceived", newSpecialOrderline.QtyReceived);
-                        row += cmd2.ExecuteNonQuery();
+                var cmd = new SqlCommand("sp_create_specialOrderLine", conn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@NameID", newSpecialOrderline.NameID);
+                cmd.Parameters.AddWithValue("@SpecialOrderID", newSpecialOrderline.SpecialOrderID);
+                cmd.Parameters.AddWithValue("@Description", newSpecialOrderline.Description);
+                cmd.Parameters.AddWithValue("@OrderQty", newSpecialOrderline.OrderQty);
+                cmd.Parameters.AddWithValue("@QtyReceived", newSpecialOrderline.QtyReceived);
+                row += cmd.ExecuteNonQuery();
 
 
                 conn.Close();
-                  
+
             }
             catch (Exception)
             {
@@ -69,18 +90,13 @@ namespace DataAccessLayer
         /// 
         /// Retrieves the list of Special orders
         /// </summary
-        public List<CompleteSpecialOrder> RetrieveSpecialOrder()
+        public List<CompleteSpecialOrder> SelectSpecialOrder()
         {
             List<CompleteSpecialOrder> list = new List<CompleteSpecialOrder>();
             var conn = DBConnection.GetDbConnection();
             var cmd = new SqlCommand("sp_retrieve_all_special_order", conn);
             cmd.CommandType = CommandType.StoredProcedure;
 
-            SqlDataAdapter sqldata = new SqlDataAdapter(cmd);
-            DataTable datatable = new DataTable();
-            sqldata.Fill(datatable);
-
-            
             try
             {
                 conn.Open();
@@ -89,17 +105,15 @@ namespace DataAccessLayer
                 {
                     while (reader.Read())
                     {
-                         list.Add(new CompleteSpecialOrder()
-
-                         {
-                             SpecialOrderID = reader.GetInt32(0),
-                             EmployeeID = reader.GetInt32(1),
-                             Description = reader.GetString(2),
-                             OrderComplete = reader.GetBoolean(3),
-                             DateOrdered = reader.GetDateTime(4),
-                             SupplierID = reader.GetInt32(5) 
+                        list.Add(new CompleteSpecialOrder()
+                        {
+                            SpecialOrderID = reader.GetInt32(0),
+                            EmployeeID = reader.GetInt32(1),
+                            Description = reader.GetString(2),
+                            DateOrdered = reader.GetDateTime(3),
+                            Supplier = reader.GetString(4),
+                            Authorized = reader.GetString(5)
                          });
-
                     }
                 }
             }catch (Exception)
@@ -114,48 +128,16 @@ namespace DataAccessLayer
             return list;
         }
 
+       
+
+
         /// <summary>
         /// Carlos Arzu
         /// Created: 2019/01/31
         /// 
         /// Retrieves the ItemId needed for every form.
-        /// 
         /// </summary
-        public List<int> retrieveitemID()
-        {
-            var conn = DBConnection.GetDbConnection();
-            var cmd = new SqlCommand("sp_retrieve_List_of_Item_ID", conn);
-            cmd.CommandType = CommandType.StoredProcedure;
-            List<int> itemid = new List<int>();
-
-            try
-            {
-              conn.Open();
-              var reader = cmd.ExecuteReader();
-                if (reader.HasRows)
-                {                while (reader.Read())
-                                    {
-                                      itemid.Add(reader.GetInt32(0));
-                                    }
-                }
-            }
-            catch (Exception)
-            {
-
-                throw;
-            }
-
-            return itemid;
-        }
-
-        /// <summary>
-        /// Carlos Arzu
-        /// Created: 2019/01/31
-        /// 
-        /// Class that manages data from Presentation Layer to Data Access layer,
-        /// and Data Access Layer to Presentation Layer.
-        /// </summary
-        public List<SpecialOrderLine> retrieveSpecialOrderLinebySpecialID(int orderID)
+        public List<SpecialOrderLine> SelectSpecialOrderLinebySpecialID(int orderID)
         {
 
             var conn = DBConnection.GetDbConnection();
@@ -173,10 +155,11 @@ namespace DataAccessLayer
                     while (reader.Read())
                     {
                         var items = new SpecialOrderLine();
-                        items.ItemID = reader.GetInt32(0);
-                        items.Description = reader.GetString(1);
-                        items.OrderQty = reader.GetInt32(2);
-                        items.QtyReceived = reader.GetInt32(3);
+                        items.NameID = reader.GetString(0);
+                        items.SpecialOrderID = reader.GetInt32(1);
+                        items.Description = reader.GetString(2);
+                        items.OrderQty = reader.GetInt32(3);
+                        items.QtyReceived = reader.GetInt32(4);
                         order.Add(items);
                     }
                 }
@@ -191,7 +174,57 @@ namespace DataAccessLayer
         }
 
 
+        
 
+        // <summary>
+        /// Carlos Arzu
+        /// Created: 2019/01/31
+        /// 
+        /// Retrieves the ItemId needed for every form.
+        /// </summary
+        public int retrieveSpecialOrderIDbyDetails(CompleteSpecialOrder selected)
+        {
+
+            List<int> ID = new List<int>();
+            int max = 0;
+
+            try
+            {
+                var conn = DBConnection.GetDbConnection();
+
+                conn.Open();
+                var cmd = new SqlCommand("sp_retrieve_last_specialOrderID_created", conn);
+                cmd.CommandType = CommandType.StoredProcedure;
+            
+                cmd.Parameters.AddWithValue("@EmployeeID", selected.EmployeeID);
+                cmd.Parameters.AddWithValue("@Description", selected.Description);
+                cmd.Parameters.AddWithValue("@DateOrdered", selected.DateOrdered);
+                cmd.Parameters.AddWithValue("@Supplier", selected.Supplier);
+
+                var reader = cmd.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        ID.Add(reader.GetInt32(0));
+                    }
+                }
+            
+
+                conn.Close();
+
+                max = ID.Max();
+                
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+            return max;
+        
+        }
 
         /// <summary>
         /// Carlos Arzu
@@ -227,8 +260,7 @@ namespace DataAccessLayer
             }
             catch (Exception ex)
             {
-
-                //MessageBox.Show(ex.Message, "Unable to retrieve Employees ID");
+                throw ex;
             }
             finally
             {
@@ -261,13 +293,55 @@ namespace DataAccessLayer
 
             cmd.Parameters.AddWithValue("@EmployeeID", Ordernew.EmployeeID);
             cmd.Parameters.AddWithValue("@Description", Ordernew.Description);
-            cmd.Parameters.AddWithValue("@OrderComplete", Ordernew.OrderComplete);
-            cmd.Parameters.AddWithValue("@SupplierID", Ordernew.SupplierID);
+            cmd.Parameters.AddWithValue("@Supplier", Ordernew.Supplier);
 
             cmd.Parameters.AddWithValue("@OldEmployeeID", Order.EmployeeID);
             cmd.Parameters.AddWithValue("@OldDescription", Order.Description);
-            cmd.Parameters.AddWithValue("@OldOrderComplete", Order.OrderComplete);
-            cmd.Parameters.AddWithValue("@OldSupplierID", Order.SupplierID);
+            cmd.Parameters.AddWithValue("@OldSupplier", Order.Supplier);
+
+
+            try
+            {
+                conn.Open();
+                rows = cmd.ExecuteNonQuery();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return rows;
+        }
+
+        /// <summary>
+        /// Carlos Arzu
+        /// Created: 2019/04/05
+        /// 
+        /// With the input user provided for updating, the special order line will be updated.
+        /// </summary
+        public int UpdateOrderLine(SpecialOrderLine Order, SpecialOrderLine Ordernew)
+        {
+            int rows = 0;
+
+            var conn = DBConnection.GetDbConnection();
+            var cmdText = "sp_update_SpecialOrderLine";
+            var cmd = new SqlCommand(cmdText, conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.AddWithValue("@SpecialOrderID", Order.SpecialOrderID);
+
+            cmd.Parameters.AddWithValue("@NameID", Ordernew.NameID);
+            cmd.Parameters.AddWithValue("@Description", Ordernew.Description);
+            cmd.Parameters.AddWithValue("@OrderQty", Ordernew.OrderQty);
+            cmd.Parameters.AddWithValue("@QtyReceived", Ordernew.QtyReceived);
+
+            cmd.Parameters.AddWithValue("@OldNameID", Order.NameID);
+            cmd.Parameters.AddWithValue("@OldDescription", Order.Description);
+            cmd.Parameters.AddWithValue("@OldOrderQty", Order.OrderQty);
+            cmd.Parameters.AddWithValue("@OldQtyReceived", Order.QtyReceived);
 
 
             try
@@ -320,6 +394,76 @@ namespace DataAccessLayer
             }
             return rows;
         }
+
+        /// <summary>
+        /// Carlos Arzu
+        /// Created: 2019/04/06
+        /// 
+        /// Deletes a record from the DB.
+        /// </summary
+        public int DeleteItemFromOrder(int ID, string ItemName)
+        {
+            int rows = 0;
+
+            var conn = DBConnection.GetDbConnection();
+            var cmdText = "sp_delete_Item_from_SpecialOrder";
+            var cmd = new SqlCommand(cmdText, conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.AddWithValue("@SpecialOrderID", ID);
+            cmd.Parameters.AddWithValue("@NameID", ItemName);
+            
+            try
+            {
+                conn.Open();
+                rows = cmd.ExecuteNonQuery();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return rows;
+        }
+
+        /// <summary>
+        /// Carlos Arzu
+        /// Created: 2019/04/10
+        /// 
+        /// Adding the username who authorized this order.
+        /// </summary
+        public int insertAuthenticateBy(int SpecialOrderID, string Authorized)
+        {
+            int rows = 0;
+
+            var conn = DBConnection.GetDbConnection();
+            var cmdText = "sp_update_AuthenticatedBy";
+            var cmd = new SqlCommand(cmdText, conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.AddWithValue("@SpecialOrderID", SpecialOrderID);
+
+            cmd.Parameters.AddWithValue("@Authorized", Authorized);
+
+            try
+            {
+                conn.Open();
+                rows = cmd.ExecuteNonQuery();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return rows;
+        }
+            
 
     }
 }

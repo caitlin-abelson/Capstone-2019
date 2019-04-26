@@ -21,13 +21,16 @@ namespace Presentation
     /// </summary>
     public partial class AddSpecialOrder : Window
     {
-
+        private int ID;
         private List<SpecialOrderLine> _OrderLine = new List<SpecialOrderLine>();
         private CompleteSpecialOrder _completespecialOrder;
         private SpecialOrderLine _specialOrderLine;
         private CompleteSpecialOrder _selected;
         private SpecialOrderManagerMSSQL _specialOrderLogic = new SpecialOrderManagerMSSQL();
         private SpecialOrderManagerMSSQL _specialOrderLogicID = new SpecialOrderManagerMSSQL();
+        BrowseSpecialOrder refreshBrowse = new BrowseSpecialOrder();
+
+       
 
         /// <summary>
         /// Carlos Arzu
@@ -42,10 +45,13 @@ namespace Presentation
             InputDateOrdered.Text = DateTime.Now.Date.ToShortDateString();
             setAddUpdate();
             btnAddOrder.Content = "Add";
-            Btn_AddItem.Content = "Add";
-            lbl_AddItem.Content = "Add Item";
+            AddItemBtn.Content = "Add";
+            AddItemBtn.IsEnabled = false;
+            this.SpecialOrderID.Visibility = Visibility.Hidden;
+            this.labelSpecialOrderId.Visibility = Visibility.Hidden;
+            ID = 0;
 
-        }              
+        }
 
         /// <summary>
         /// Carlos Arzu
@@ -59,80 +65,93 @@ namespace Presentation
         {
             InitializeComponent();
             _selected = selected;
+            AddItemBtn.Content = "Add Items";
+            btnAddOrder.Content = "Edit";
             setReadOnly();
             setDetails();
 
         }
-		
+
         private void btnAddOrder_Click(object sender, RoutedEventArgs e)
         {
-           
+
             if (btnAddOrder.Content == "Add")
             {
-                
-                    try
+                try
+                {
+                    if (InputUser())
                     {
-                            
-                            InputUser();
-                        
                         try
                         {
 
-                            if (true == _specialOrderLogic.CreateSpecialOrder(_completespecialOrder, _specialOrderLine))
+                            if (true == _specialOrderLogic.CreateSpecialOrder(_completespecialOrder))
                             {
 
-                                MessageBox.Show("New Item Added Succesfully");
+                                MessageBox.Show("New Order Added Succesfully");
+                                ID = _specialOrderLogic.retrieveSpecialOrderID(_completespecialOrder);
+                                Items order = new Items(ID);
+                                order.Show();
+                                this.Close();
+                                refreshBrowse.updateList();
                             }
-
 
                         }
                         catch (Exception ex)
                         {
-                            MessageBox.Show(ex.Message, "Unable to add New Item to Data Base");
+                            MessageBox.Show(ex.Message, "Unable to add New Order to Data Base");
                         }
 
-                        this.Close();
-                    }
-                    catch (NullReferenceException ex)
-                    {
-                        MessageBox.Show("Processor Usage" + ex.Message);
-                    }
-              
-              
+                    } 
+
+                }
+                catch (NullReferenceException ex)
+                {
+                    MessageBox.Show("Processor Usage" + ex.Message);
+                }
+
+            }
+            else if (btnAddOrder.Content == "Edit")
+            {
+                setAddUpdate();
+                btnAddOrder.Content = "Save";
+
             }
             else if (btnAddOrder.Content == "Save")
-           
             {
-                   InputUser();
+                if (InputUser())
+                {
 
                     try
                     {
                         _specialOrderLogic.EditSpecialOrder(_selected, _completespecialOrder);
                         this.DialogResult = true;
+                        MessageBox.Show("Update was Successful");
+                        refreshBrowse.updateList();
                     }
                     catch (Exception ex)
                     {
                         MessageBox.Show(ex.Message, "Update Failed!");
                     }
-                   
+                    
+                } 
             }
-         
         }
+
+
         /// <summary>
         /// Carlos Arzu
         /// Created: 2019/01/30
         /// 
         /// Input from the user when creating a new order.
         /// </summary>
-        public void InputUser()
+        public bool InputUser()
         {
-            AddItem order = new AddItem();
+            bool result = false;
             SpecialOrderID.IsEnabled = false;
             try
             {
                 if (TestDataOrder())
                 {
-
                     _completespecialOrder = new CompleteSpecialOrder()
                     {
 
@@ -140,28 +159,19 @@ namespace Presentation
 
                         EmployeeID = Int32.Parse(InputEmployeeID.Text),
                         Description = InputDescription.Text,
-                        OrderComplete = (bool)OrderComplete.IsChecked,
                         DateOrdered = DateTime.Parse(InputDateOrdered.Text),
-                        SupplierID = Int32.Parse(InputSupplierID.Text)
-
+                        Supplier = InputSupplierID.Text,
+                        //Authorized = InputAuthorized.Text
                     };
 
-                    _specialOrderLine = new SpecialOrderLine()
-                    {
-
-                        Description = InputDescription.Text
-                        /*ItemID = Int32.Parse(order.InputItemID.Text),
-                        OrderQty = Int32.Parse(order.QuantityNeed.Text),
-                        QtyReceived = Int32.Parse(order.InputQTYRec.Text)*/
-
-
-                    };
+                    result = true;
                 }
             }
-            catch(NullReferenceException ex)
+            catch (NullReferenceException ex)
             {
                 MessageBox.Show("Processor Usage" + ex.Message);
             }
+            return result;
         }
 
         /// <summary>
@@ -173,33 +183,10 @@ namespace Presentation
         /// </summary>
         private void btnCancel_Click(object sender, RoutedEventArgs e)
         {
-           this.Close();
+            this.Close();
         }
 
-        /*private void btnAddOrder_Click(object sender, RoutedEventArgs e)
-        {
-           
-            InputUser();
-            
-            try
-            {
 
-                if (true == _specialOrderLogic.CreateSpecialOrder(_completespecialOrder, _specialOrderLine))
-                {
-
-                    MessageBox.Show("New Item Added Succesfully");
-                }
-
-
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Unable to add New Item to Data Base");
-            }
-        
-            this.Close();
-
-        }*/
 
         /// <summary>
         /// Carlos Arzu
@@ -210,11 +197,17 @@ namespace Presentation
         /// </summary>
         public void InputEmployeeID_Loaded(object sender, RoutedEventArgs e)
         {
-            
+            try
+            {
+                var comboBox = sender as ComboBox;
+                comboBox.ItemsSource = _specialOrderLogic.employeeID();
 
-            var comboBox = sender as ComboBox;
-            comboBox.ItemsSource = _specialOrderLogic.employeeID();
-           
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(" Employee ID could not be retrieved.");
+            };
+
         }
 
         /// <summary>
@@ -233,36 +226,7 @@ namespace Presentation
 
         }
 
-        /// <summary>
-        /// Carlos Arzu
-        /// Created: 2019/02/16
-        /// 
-        /// Filling Combo box the Supplier ID .
-        ///
-        /// </summary>
-        private void InputItemID_Loaded(object sender, RoutedEventArgs e)
-        {
-           
-            var comboBox = sender as ComboBox;
-            comboBox.ItemsSource = _specialOrderLogic.listOfitemID();
-         
-
-        }
-
-        /// <summary>
-        /// Carlos Arzu
-        /// Created: 2019/02/16
-        /// 
-        /// Filling Combo box the Supplier ID .
-        ///
-        /// </summary>
-        private void InputSupplierID_Loaded(object sender, RoutedEventArgs e)
-        {
-            var comboBox = sender as ComboBox;
-            comboBox.ItemsSource = _specialOrderLogic.employeeID();
-
-        }
-
+        
         /// <summary>
         /// Carlos Arzu
         /// Created: 2019/02/16
@@ -276,9 +240,9 @@ namespace Presentation
             SpecialOrderID.IsReadOnly = true;
             InputEmployeeID.IsEnabled = false;
             InputDescription.IsEnabled = false;
-            OrderComplete.IsEnabled = false;
             InputDateOrdered.IsEnabled = false;
             InputSupplierID.IsEnabled = false;
+            InputAuthorized.IsReadOnly = true;
 
         }
 
@@ -296,9 +260,9 @@ namespace Presentation
             SpecialOrderID.IsReadOnly = true;
             InputEmployeeID.IsEnabled = true;
             InputDescription.IsEnabled = true;
-            OrderComplete.IsEnabled = true;
             InputDateOrdered.IsEnabled = false;
             InputSupplierID.IsEnabled = true;
+            InputAuthorized.IsReadOnly = true;
         }
 
         /// <summary>
@@ -315,14 +279,11 @@ namespace Presentation
             SpecialOrderID.Text = _selected.SpecialOrderID.ToString();
             InputEmployeeID.SelectedItem = _selected.EmployeeID;
             InputDescription.Text = _selected.Description;
-            OrderComplete.IsChecked = _selected.OrderComplete;
             InputDateOrdered.Text = _selected.DateOrdered.ToShortDateString();
-            InputSupplierID.SelectedItem = _selected.SupplierID;
-            InputSupplierID.Text = _selected.SupplierID.ToString();
-            /* InputItemID.Text = _selected.ItemID.ToString();
-             InputQTYRec.Text = _selected.QtyReceived.ToString();
-             QuantityUpDown.Text = _specialOrderLine.OrderQty.ToString(); */
-            
+            InputSupplierID.Text = _selected.Supplier;
+            InputAuthorized.Text = _selected.Authorized;
+
+
 
         }
 
@@ -344,7 +305,7 @@ namespace Presentation
             }
             else if (InputSupplierID.Text == "" || InputSupplierID.Text == null)
             {
-                MessageBox.Show("SupplierID must be filled in, please try again");
+                MessageBox.Show("Supplier must be filled in, please try again");
                 valid = false;
             }
             else if (InputDescription.Text == "" || InputDescription.Text == null || InputDescription.Text.Length > 1000)
@@ -352,67 +313,104 @@ namespace Presentation
                 MessageBox.Show("Invalid Entry for Description, please try again");
                 valid = false;
             }
-            
-            
+
+
             return valid;
         }
-              
-        /// <summary>
-        /// Carlos Arzu
-        /// Created: 2019/02/20
-        /// 
-        /// Sets up the Order form ready to edit.
-        ///
-        /// </summary>
-        private void ButtonEdit_Click(object sender, RoutedEventArgs e)
+
+        private void AddItemBtn_Click(object sender, RoutedEventArgs e)
         {
-            setAddUpdate();
-            btnAddOrder.Content = "Save";
-        }
-
-        private void Btn_AddItem_Click(object sender, RoutedEventArgs e)
-        {
-
-
-            if (Btn_AddItem.Content == "Add")
+            
+            if (AddItemBtn.Content == "Add")
             {
 
-                AddItem();
+                Items order = new Items();
+                order.ShowDialog();
+
 
 
             }
-            else if (Btn_AddItem.Content == "Browse")
+            else if (AddItemBtn.Content == "Add Items")
 
             {
-                
-                try
-                {
-                    _specialOrderLogic.EditSpecialOrder(_selected, _completespecialOrder);
-                    this.DialogResult = true;
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message, "Update Failed!");
-                }
+
+                int ID = Int32.Parse(SpecialOrderID.Text);
+                Items order = new Items(ID);
+                order.ShowDialog();
+                updateList();
 
             }
-                       
+
+        }
+
+
+        private void GridItems_Load(object sender, RoutedEventArgs e)
+        {
+
+            if (btnAddOrder.Content == "Add")
+            {
+
+
+
+            }
+            else if (btnAddOrder.Content == "Edit")
+            {
+                updateList();
+            }
         }
 
         /// <summary>
         /// Carlos Arzu
-        /// Created: 2019/02/20
+        /// Created: 2019/04/01
         /// 
-        /// Calls the add item form to add items.
+        /// Click on item, pop up new window with details of item.
         ///
         /// </summary>
-        private void AddItem()
+        private void GridItems_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
+            // pop up a detail window
+            var selected = (SpecialOrderLine)GridItems.SelectedItem;
+            var detailA = new Items(selected);
+            detailA.ShowDialog();
 
-            //int orderId = Int32.Parse(SpecialOrderID.Text);
-            AddItem order = new AddItem();
-
-            order.Show();
         }
+
+        /// <summary>
+        /// Carlos Arzu
+        /// Created: 2019/04/15
+        /// 
+        /// Click on button, to authorize order.
+        ///
+        /// </summary>
+        private void AuthorizationBtn_Click(object sender, RoutedEventArgs e)
+        {
+            int ID = Int32.Parse(SpecialOrderID.Text);
+           
+            // string email = _employee.getEmail();
+            //_specialOrderLogic.AuthenticatedBy(ID, email);
+          
+        }
+
+
+        /// <summary>
+        /// Carlos Arzu
+        /// Created: 2019/04/15
+        /// 
+        /// Load DataGrid.
+        ///
+        /// </summary>
+        public void updateList()
+        {
+            try
+            {
+                int iD = Int32.Parse(SpecialOrderID.Text);
+                GridItems.ItemsSource = _specialOrderLogic.RetrieveOrderLinesByID(iD);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(" Can't retrieve data grid");
+            }
+        }
+
     }
 }

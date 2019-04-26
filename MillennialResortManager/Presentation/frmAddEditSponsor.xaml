@@ -2,7 +2,10 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="CreateSponsor" Height="550" Width="800" MinWidth="600" Loaded="Window_Loaded">
-    <Grid>
+    <Window.Resources>
+        <ResourceDictionary Source="Stylesheet.xaml"/>
+    </Window.Resources>
+    <Grid Style="{StaticResource DefaultPage}">
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
             <ColumnDefinition Width="7*"/>
@@ -38,8 +41,8 @@
                     <ColumnDefinition MinWidth="120"/>
                 </Grid.ColumnDefinitions>
                 <Label x:Name="lblError" Grid.ColumnSpan="4" HorizontalAlignment="Center" VerticalAlignment="Top" Foreground="Red" />
-                <Label Grid.Column="1" Content="Sponsor ID: " HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="16" FontWeight="Bold" Margin="0,0,15,0" />
-                <TextBox x:Name="txtSponsorID" Grid.Column="2"  VerticalAlignment="Center" FontSize="16" FontWeight="Bold" Margin="0,0,15,0"/>
+                <!--<Label Grid.Column="1" Content="Sponsor ID: " HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="16" FontWeight="Bold" Margin="0,0,15,0" />
+                <TextBox x:Name="txtSponsorID" Grid.Column="2"  VerticalAlignment="Center" FontSize="16" FontWeight="Bold" Margin="0,0,15,0"/>-->
             </Grid>
 
             <Grid x:Name="grdGuests" Grid.Row="2">
@@ -97,8 +100,8 @@
                     <ColumnDefinition Width="3*" MinWidth="120"/>
                     <ColumnDefinition MinWidth="120"/>
                 </Grid.ColumnDefinitions>
-                <ComboBox x:Name="cboStatusID" Grid.Column="2"  VerticalAlignment="Center" FontSize="16" FontWeight="Bold" Margin="0,0,15,0" MinWidth="120"/>
-                <Label Grid.Column="1" Content="Status ID:" HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="16" FontWeight="Bold" Margin="0,0,15,0" />
+                <!--<ComboBox x:Name="cboStatusID" Grid.Column="2"  VerticalAlignment="Center" FontSize="16" FontWeight="Bold" Margin="0,0,15,0" MinWidth="120"/>-->
+                <!--<Label Grid.Column="1" Content="Status ID:" HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="16" FontWeight="Bold" Margin="0,0,15,0" />-->
             </Grid>
 
             
@@ -194,7 +197,7 @@
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
                 <Button Grid.Column="1" x:Name="btnSave" Margin="10 10 10 10" Content="Save" FontSize="16" FontWeight="Bold" Click="btnSave_Click" MaxWidth="150"/>
-                <Button Grid.Column="2" x:Name="btnCancel" Margin="10 10 10 10" Content="Cancel" Background="LightGray" FontSize="16" FontWeight="Bold" Click="btnCancel_Click" MaxWidth="150"/>
+                <Button Grid.Column="2" x:Name="btnCancel" Margin="10 10 10 10" Content="Cancel" FontSize="16" FontWeight="Bold" Click="btnCancel_Click" MaxWidth="150"/>
             </Grid>
 
 

@@ -1,0 +1,50 @@
+﻿@model IEnumerable<DataObjects.AppointmentType>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+
+
+<div class="content">
+    <div class="jumbotron jumbotronBackGroundAppointmentPage">
+        <div class="container body-content">
+            <h1>Make An Appointment Today!</h1>
+
+        </div>
+    </div>
+
+    <div class="container body-content1">
+        <table class="table roomPortal">
+            <h1 class="pull-left" style="color:#40798C;    font-family: 'Fugaz One', cursive; text-shadow: 2px 2px 3px #2296a7; ">Schedule Tranquilty Today!</h1>
+            
+
+
+            @foreach (var item in Model)
+            {
+            <tr>
+                <td>
+                    <img class="card-img-top" src="~/Content/images/Message.jpg" alt="Card image cap">
+                </td>
+                <th>
+                    @Html.DisplayNameFor(model => model.AppointmentTypeID)
+                </th>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AppointmentTypeID)
+                </td>
+
+                <th>
+                    @Html.DisplayNameFor(model => model.Description)
+                </th>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    @Html.ActionLink("Schedule an appointment", "Create", new { id = item.AppointmentTypeID })
+                </td>
+            </tr>
+            }
+
+        </table>
+    </div>
+</div>

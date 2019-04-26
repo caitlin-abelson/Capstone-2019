@@ -17,7 +17,10 @@ namespace DataObjects
         public string Email { get; set; }
         public string ContactFirstName { get; set; }
         public string ContactLastName { get; set; }
-        public string StatusID { get; set; }
+        
+        // Updated by Gunardi Saputra on 04/19/2019
+        // Remove statusID
+        //public string StatusID { get; set; }
         public DateTime DateAdded { get; set; }
         public bool Active { get; set; }
     }

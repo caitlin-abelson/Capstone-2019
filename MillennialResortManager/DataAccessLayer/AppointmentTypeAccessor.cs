@@ -60,7 +60,7 @@ namespace DataAccessLayer
             var appoinmentTypes = new List<string>();
 
             var conn = DBConnection.GetDbConnection();
-            var cmd = new SqlCommand("sp_appointment_type_by_id", conn);
+            var cmd = new SqlCommand("sp_retrieve_appointment_types", conn);
             cmd.CommandType = CommandType.StoredProcedure;
 
             try
@@ -166,6 +166,11 @@ namespace DataAccessLayer
             }
 
             return rows;
+        }
+
+        public AppointmentType RetrievAppointmentTypeById(string id)
+        {
+            throw new NotImplementedException();
         }
     }
 }

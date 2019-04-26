@@ -12,133 +12,287 @@ using System.Windows.Media;
 namespace Presentation
 {
     /// <summary>
-    /// Interaction logic for frmManageShuttleVehicle.xaml
+    /// Francis Mingomba
+    /// Created: 2019/04/03
+    ///
+    /// Manage Shuttle Vehicle Class
     /// </summary>
     public partial class FrmManageShuttleVehicle : Window
     {
-        private readonly IVehicleManager _vehicleManager;
-        private User _user;
+        private readonly IResortVehicleManager _resortVehicleManager;
+        private readonly Employee _employee;
         private readonly bool _isEditMode;
-        private Vehicle _vehicle;
+        private ResortVehicle _resortVehicle;
         private readonly object _callingWindow;
+        private string _errorText;
 
-        public FrmManageShuttleVehicle() : this(null, new User(), new Vehicle()) { }
+        // combo box members
+        private List<ResortProperty> _resortProperties;
+        List<string> _comboBoxColors = new List<string>() { "Red", "Green", "Black", "Blue" };
 
         /// <summary>
-        /// Created by : Francis Mingomba
+        /// Francis Mingomba
+        /// Created: 2019/04/03
         /// 
         /// </summary>
-        /// <param name="callingWindow">Ref to Invoking Form</param>
-        /// <param name="user">current user</param>
-        /// <param name="vehicle">Vehicle passed in (optional)</param>
+        /// <param name="callingWindow">Ref to class invoking form</param>
+        /// <param name="employee">current employee</param>
+        /// <param name="resortVehicle">Vehicle passed in (optional)</param>
         /// <param name="editMode">enable/disable editMode (optional)</param>
-        public FrmManageShuttleVehicle(object callingWindow, User user, Vehicle vehicle = null, bool editMode = false)
+        public FrmManageShuttleVehicle(object callingWindow, Employee employee, ResortVehicle resortVehicle = null, bool editMode = false)
         {
-            _vehicleManager = new VehicleManager();
+            _resortVehicleManager = new ResortVehicleManager();
             _callingWindow = callingWindow;
-            _user = user;
+
+            _resortVehicle = resortVehicle;
+            _employee = employee;
 
             _isEditMode = editMode;
-            _vehicle = vehicle;
 
             InitializeComponent();
 
-            setupWindow();
+            SetupWindow();
         }
 
-        private void setupWindow()
+        public FrmManageShuttleVehicle() : this(callingWindow: null, employee: new Employee(), resortVehicle: new ResortVehicle()) { }
+
+        #region Form Setup and Management Logic
+
+        private void SetupWindow()
         {
-            // local function to disable fields
-            void DisableFields()
-            {
-                txtMake.IsReadOnly = true;
-                txtModel.IsReadOnly = true;
-                btnActivate.IsEnabled = false;
-                txtYearOfManufacture.IsReadOnly = true;
-                txtLicense.IsReadOnly = true;
-                txtMileage.IsReadOnly = true;
-                txtVin.IsReadOnly = true;
-                txtCapacity.IsReadOnly = true;
-                cmbColor.IsEnabled = false;
-                cmbTxtColor.IsReadOnly = true;
-                txtPurchaseDate.IsEnabled = false;
-                txtDescription.IsReadOnly = true;
-                btnSave.IsEnabled = false;
-            }
+            EnumerateComboBoxes();
 
-            // ... populate combo box
-            var colors = new List<string>() { "Red", "Green", "Black", "Blue" };
-            cmbTxtColor.Text = "<<Add color here>>";
-            foreach (var color in colors)
-                cmbColor.Items.Add(color);
-
-            // ... Setting up visibility privileges for textfields
+            // ... Setting up visibility based on view mode (editMode, viewMode)
             if (!_isEditMode)  // ... view mode active
             {
                 DisableFields();
+
                 this.Title = "View Shuttle Vehicle";
             }
-            else // ... either create or edit mode
+            else // ... edit mode active (user can either create or edit)
             {
-                this.Title = _vehicle == null ? "Create Shuttle Vehicle" : "Edit Shuttle Vehicle";
+                this.Title = _resortVehicle == null ? "Create Shuttle Vehicle" : "Edit Shuttle Vehicle";
             }
 
             // ... Populate fields
-            if (_vehicle != null)
+            PopulateAllFields();
+        }
+
+        private void PopulateAllFields()
+        {
+            // if _resortVehicle is null (create),
+            // return and do not populate fields
+            if (_resortVehicle == null)
+                return;
+
+            txtMake.Text = _resortVehicle.Make;
+            txtModel.Text = _resortVehicle.Model;
+            txtYear.Text = _resortVehicle.Year < 0 ? "" : _resortVehicle.Year.ToString();
+            txtLicense.Text = _resortVehicle.License;
+            txtMileage.Text = _resortVehicle.Mileage < 0 ? "" : _resortVehicle.Mileage.ToString();
+            txtCapacity.Text = _resortVehicle.Capacity < 0 ? "" : _resortVehicle.Capacity.ToString();
+
+            txtPurchaseDate.SelectedDate = _resortVehicle.PurchaseDate;
+            txtDescription.Text = _resortVehicle.Description;
+            tbStatus.Text = _resortVehicle.ResortVehicleStatusId;
+
+            // if color is not in combo box, add it
+            if (_comboBoxColors.SingleOrDefault(x => x.Equals(_resortVehicle.Color)) == null)
+                cmbColor.Items.Add(_resortVehicle.Color);
+            cmbColor.SelectedItem = _resortVehicle.Color;
+
+            // Select Resort Property
+            cmbResortProperty.SelectedItem = _resortVehicle.ResortPropertyId.ToString();
+
+            // override view mode (edit mode, view mode)
+            // and display deactivation date grid with
+            // all other fields disabled.
+            if (!_resortVehicle.Active)
             {
-                txtMake.Text = _vehicle.Make;
-                txtModel.Text = _vehicle.Model;
-                txtYearOfManufacture.Text = _vehicle.YearOfManufacture < 0 ? "" : _vehicle.YearOfManufacture.ToString();
-                txtLicense.Text = _vehicle.License;
-                txtMileage.Text = _vehicle.Mileage < 0 ? "" : _vehicle.Mileage.ToString();
-                txtVin.Text = _vehicle.Vin;
-                txtCapacity.Text = _vehicle.Capacity < 0 ? "" : _vehicle.Capacity.ToString();
-
-                txtPurchaseDate.SelectedDate = _vehicle.PurchaseDate;
-                txtDescription.Text = _vehicle.Description;
-                tbActive.Text = _vehicle.ActiveStr;
-
-                // if color is not in combo box, add it
-                if (colors.SingleOrDefault(x => x.Equals(_vehicle.Color)) == null)
-                    cmbColor.Items.Add(_vehicle.Color);
-                cmbColor.SelectedItem = _vehicle.Color;
-
-                // If vehicle is not active. Display deactivation date grid and disable fields
-                if (!_vehicle.Active)
-                {
-                    gridDeactivationDate.Visibility = Visibility.Visible;
-                    DisableFields();
-                    btnActivate.IsEnabled = _isEditMode; // Activate only in edit mode
-                    txtDeactivationDate.Text = _vehicle.DeactivationDate?.ToShortDateString();
-                }
+                gridDeactivationDate.Visibility = Visibility.Visible;
+                DisableFields();
+                btnActivate.IsEnabled = _isEditMode; // Activate only in edit mode
+                txtDeactivationDate.Text = _resortVehicle.DeactivationDate?.ToShortDateString();
             }
         }
 
-        private string _errorText;
+        private void DisableFields()
+        {
+            txtMake.IsReadOnly = true;
+            txtModel.IsReadOnly = true;
+            btnActivate.IsEnabled = false;
+            txtYear.IsReadOnly = true;
+            txtLicense.IsReadOnly = true;
+            txtMileage.IsReadOnly = true;
+            txtCapacity.IsReadOnly = true;
+            cmbColor.IsEnabled = false;
+            cmbTxtColor.IsReadOnly = true;
+            txtPurchaseDate.IsEnabled = false;
+            txtDescription.IsReadOnly = true;
+            btnSave.IsEnabled = false;
+        }
+
+        private void EnumerateComboBoxes()
+        {
+            // ... populate color combo box
+            cmbTxtColor.Text = "<<Add color here>>";
+            PopulateComboBox(_comboBoxColors, cmbColor);
+
+            // ... populate resort property id combo box
+            List<string> resortPropertyList = GetResortPropertiesStr();
+            PopulateComboBox(resortPropertyList, cmbResortProperty);
+        }
+
+        private static void PopulateComboBox(IEnumerable<string> items, ItemsControl cmb)
+        {
+            foreach (var item in items)
+                cmb.Items.Add(item);
+        }
+
+        private void ClearFields()
+        {
+            txtMake.Text = "";
+            txtModel.Text = "";
+            txtYear.Text = "";
+            txtLicense.Text = "";
+            txtMileage.Text = "";
+            txtCapacity.Text = "";
+            cmbColor.SelectedIndex = -1;
+            cmbResortProperty.SelectedIndex = -1;
+            txtPurchaseDate.SelectedDate = DateTime.Now;
+            txtDescription.Text = "";
+        }
+
+        private void EnableFields()
+        {
+            txtMake.IsReadOnly = false;
+            txtModel.IsReadOnly = false;
+            txtYear.IsReadOnly = false;
+            txtLicense.IsReadOnly = false;
+            txtMileage.IsReadOnly = false;
+            txtCapacity.IsReadOnly = false;
+            cmbColor.IsEnabled = true;
+            cmbTxtColor.IsReadOnly = false;
+            txtPurchaseDate.IsEnabled = true;
+            txtDescription.IsReadOnly = false;
+            btnSave.IsEnabled = true;
+        }
+
+        #endregion
+
+        #region External Resource Facing Functions
+
+        private List<string> GetResortPropertiesStr()
+        {
+            ResortVehicleManager instance = (ResortVehicleManager)_resortVehicleManager;
+
+            List<string> resortPropertyList = new List<string>();
+
+            try
+            {
+                _resortProperties = instance.RetrieveResortProperties().ToList();
+
+                resortPropertyList = _resortProperties.Select(x => x.ResortPropertyId.ToString()).ToList();
+            }
+            catch (Exception e)
+            {
+                // Disable form if database call fails.
+                MessageBox.Show("Failure to retrieve resort properties\nDisabling form ..." + e.InnerException?.Message);
+
+                DisableFields();
+            }
+
+            return resortPropertyList;
+        }
+
+        private bool Save(ResortVehicle resortVehicle)
+        {
+            bool result = false;
+            try
+            {
+                if (resortVehicle.Id == 0) // a vehicle is being created.
+                {
+                    _resortVehicleManager.AddVehicle(resortVehicle);
+                    result = true;
+                    ClearFields();
+                }
+                else // vehicle is being updated
+                {
+                    _resortVehicleManager.UpdateVehicle(_resortVehicle, resortVehicle);
+
+                    // ... synchronize _vehicle (old vehicle) with new database copy
+                    _resortVehicle = resortVehicle;
+                    result = true;
+                }
+
+                var caller = (FrmBrowseShuttleVehicles)_callingWindow;
+
+                // ... update calling window
+                // register calling forms here for live updates
+                caller.RefreshShuttleVehiclesDatagrid();
+            }
+            catch (Exception ex)
+            {
+                var errorStr = _resortVehicle == null ? "Error Adding Vehicle\n" : "Error Updating Vehicle\n";
+
+                MessageBox.Show(errorStr + ex.Message);
+            }
+            return result;
+        }
+
+        private IEnumerable<ResortVehicleStatus> GetResortVehicleStatuses()
+        {
+            IEnumerable<ResortVehicleStatus> resortVehicleStatuses = null;
+
+            try
+            {
+                resortVehicleStatuses = ((ResortVehicleManager)_resortVehicleManager).RetrieveResortVehicleStatuses();
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show($"Error occured trying to check vehicle statuses\n{e.Message}\n");
+            }
+
+            return resortVehicleStatuses;
+        }
+
+        #endregion
+
+        #region Core Logic
+
         private void BtnSave_Click(object sender, RoutedEventArgs e)
         {
-            if (validateFields())
+            if (ValidateFields())
             {
-                var vehicle = new Vehicle
+                try
                 {
-                    Id = _vehicle?.Id ?? 0,
-                    Make = txtMake.Text,
-                    Model = txtModel.Text,
-                    YearOfManufacture = int.Parse(txtYearOfManufacture.Text),
-                    License = txtLicense.Text,
-                    Mileage = int.Parse(txtMileage.Text),
-                    Vin = txtVin.Text,
-                    Capacity = int.Parse(txtCapacity.Text),
-                    Color = cmbColor.Text,
-                    PurchaseDate = txtPurchaseDate.SelectedDate,
-                    Description = txtDescription.Text,
-                    Active = _vehicle?.Active ?? true,
-                    DeactivationDate = _vehicle?.DeactivationDate
-                };
+                    var vehicle = new ResortVehicle
+                    {
+                        Id = _resortVehicle?.Id ?? 0,
+                        Make = txtMake.Text,
+                        Model = txtModel.Text,
+                        Year = int.Parse(txtYear.Text),
+                        License = txtLicense.Text,
+                        Mileage = int.Parse(txtMileage.Text),
+                        Capacity = int.Parse(txtCapacity.Text),
+                        Color = cmbColor.Text,
+                        PurchaseDate = txtPurchaseDate.SelectedDate,
+                        Description = txtDescription.Text,
+                        Active = _resortVehicle?.Active ?? true,
+                        DeactivationDate = _resortVehicle?.DeactivationDate,
+                        Available = _resortVehicle?.Available ?? true,
+                        ResortVehicleStatusId = _resortVehicle?.ResortVehicleStatusId ?? ResortVehicleStatusEnum.Available.ToString(),
+                        ResortPropertyId = int.Parse(cmbResortProperty.Text)
+                    };
 
-                if (save(vehicle))
+                    if (Save(vehicle))
+                    {
+                        MessageBox.Show(vehicle.Id == 0 ? "Added Successfully" : "Updated Successfully");
+                    }
+                }
+                catch (Exception ex)
                 {
-                    MessageBox.Show(vehicle.Id == 0 ? "Added Successfully" : "Updated Successfully");
+                    MessageBox.Show(ex.Message);
                 }
             }
             else
@@ -152,15 +306,15 @@ namespace Presentation
         {
             try
             {
-                _vehicleManager.ActivateVehicle(_vehicle);
+                _resortVehicleManager.ActivateVehicle(_resortVehicle, _employee);
 
                 // ... synchronize _vehicle (old vehicle) with new database copy
-                _vehicle = _vehicleManager.RetrieveVehicleById(_vehicle.Id);
+                _resortVehicle = _resortVehicleManager.RetrieveVehicleById(_resortVehicle.Id);
 
                 var caller = (FrmBrowseShuttleVehicles)_callingWindow;
                 caller.RefreshShuttleVehiclesDatagrid();
 
-                tbActive.Text = _vehicle.ActiveStr;
+                tbStatus.Text = _resortVehicle.ResortVehicleStatusId;
 
                 EnableFields();
 
@@ -176,41 +330,7 @@ namespace Presentation
 
         }
 
-        private bool save(Vehicle vehicle)
-        {
-            bool result = false;
-            try
-            {
-                if (vehicle.Id == 0) // a vehicle is being created.
-                {
-                    _vehicleManager.AddVehicle(vehicle);
-                    result = true;
-                    clearFields();
-                }
-                else
-                {
-                    _vehicleManager.UpdateVehicle(_vehicle, vehicle);
-
-                    // ... synchronize _vehicle (old vehicle) with new database copy
-                    _vehicle = vehicle;
-                    result = true;
-                }
-
-                var caller = (FrmBrowseShuttleVehicles)_callingWindow;
-
-                // ... update calling window
-                // register calling forms here for live updates
-                caller.RefreshShuttleVehiclesDatagrid();
-            }
-            catch (Exception ex)
-            {
-                var errorStr = _vehicle == null ? "Error Adding Vehicle\n" : "Error Updating Vehicle\n";
-                MessageBox.Show(errorStr + ex.Message);
-            }
-            return result;
-        }
-
-        private bool validateFields()
+        private bool ValidateFields()
         {
             bool result = true;
 
@@ -231,22 +351,22 @@ namespace Presentation
             }
 
             // ... year
-            if (txtYearOfManufacture.Text.Length == 0)
+            if (txtYear.Text.Length == 0)
             {
-                _errorText += "YearOfManufacture field cannot be empty\n";
-                txtYearOfManufacture.BorderBrush = Brushes.Red;
+                _errorText += "Year field cannot be empty\n";
+                txtYear.BorderBrush = Brushes.Red;
                 result = false;
             }
-            else if (!int.TryParse(txtYearOfManufacture.Text, out var n))
+            else if (!int.TryParse(txtYear.Text, out var n))
             {
-                _errorText += "YearOfManufacture must be a number\n";
-                txtYearOfManufacture.BorderBrush = Brushes.Red;
+                _errorText += "Year must be a number\n";
+                txtYear.BorderBrush = Brushes.Red;
                 result = false;
             }
             else if (n < 0)
             {
-                _errorText += "Invalid YearOfManufacture\n";
-                txtYearOfManufacture.BorderBrush = Brushes.Red;
+                _errorText += "Invalid Year\n";
+                txtYear.BorderBrush = Brushes.Red;
                 result = false;
             }
 
@@ -281,27 +401,6 @@ namespace Presentation
             {
                 _errorText += "Mileage cannot be negative\n";
                 txtMileage.BorderBrush = Brushes.Red;
-                result = false;
-            }
-
-            // ... vin
-            Regex regNoSpecialChar = new Regex("^[a-zA-Z0-9]*$");
-            if (txtVin.Text.Length == 0)
-            {
-                _errorText += "VIN field cannot be empty\n";
-                txtVin.BorderBrush = Brushes.Red;
-                result = false;
-            }
-            else if (txtVin.Text.Length != 17)
-            {
-                _errorText += "VIN should be 17 characters in length \n";
-                txtVin.BorderBrush = Brushes.Red;
-                result = false;
-            }
-            else if (!regNoSpecialChar.IsMatch(txtVin.Text))
-            {
-                _errorText = "Invalid Characters for VIN\n";
-                txtVin.BorderBrush = Brushes.Red;
                 result = false;
             }
 
@@ -342,52 +441,48 @@ namespace Presentation
             }
 
             // ...description
-            if (txtDescription.Text.Length == 0)
+            if (string.IsNullOrEmpty(txtDescription.Text))
             {
                 _errorText += "Description required\n";
                 txtDescription.BorderBrush = Brushes.Red;
                 result = false;
             }
 
+            // ...resort property (use null propagation to check for null or empty list)
+            if (_resortProperties?.Any() == false)
+            {
+                _errorText +=
+                    $"No Resort Properties in database, please add resort property in resort property admin form\n";
+                result = false;
+            }
+            else if(string.IsNullOrEmpty(cmbResortProperty.Text))
+            {
+                _errorText += "Resort Property selection required\n";
+                result = false;
+            }
+            else if (!int.TryParse(cmbResortProperty.Text, out _))
+            {
+                _errorText += "Invalid Resort Property\n";
+                result = false;
+            }
+
+            // ... resort vehicle status (use null propagation to check for null or empty list)
+            var resortVehicleStatuses = GetResortVehicleStatuses();
+            if (resortVehicleStatuses?.Any() == false)
+            {
+                _errorText += $"No Vehicle Status In database, please add vehicle status in vehicle status form\n";
+                result = false;
+            }
+
             return result;
         }
 
-        private void clearFields()
-        {
-            txtMake.Text = "";
-            txtModel.Text = "";
-            txtYearOfManufacture.Text = "";
-            txtLicense.Text = "";
-            txtMileage.Text = "";
-            txtVin.Text = "";
-            txtCapacity.Text = "";
-            cmbColor.SelectedIndex = -1;
-            txtPurchaseDate.SelectedDate = DateTime.Now;
-            txtDescription.Text = "";
-        }
 
-        void EnableFields()
-        {
-            txtMake.IsReadOnly = false;
-            txtModel.IsReadOnly = false;
-            txtYearOfManufacture.IsReadOnly = false;
-            txtLicense.IsReadOnly = false;
-            txtMileage.IsReadOnly = false;
-            txtVin.IsReadOnly = false;
-            txtCapacity.IsReadOnly = false;
-            cmbColor.IsEnabled = true;
-            cmbTxtColor.IsReadOnly = false;
-            txtPurchaseDate.IsEnabled = true;
-            txtDescription.IsReadOnly = false;
-            btnSave.IsEnabled = true;
-        }
 
-        private void BtnCancel_Click(object sender, RoutedEventArgs e)
-        {
-            this.Close();
-        }
+        #endregion
 
-        #region TextBox EventHandlers
+        #region Helper Event Handlers
+
         private void NumberValidationTextBox(object sender, TextCompositionEventArgs e)
         {
             Regex regex = new Regex("[^0-9]+");
@@ -415,11 +510,6 @@ namespace Presentation
             txtModel.ClearValue(Border.BorderBrushProperty);
         }
 
-        private void TxtVin_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            txtVin.ClearValue(Border.BorderBrushProperty);
-        }
-
         private void TxtMake_TextChanged(object sender, TextChangedEventArgs e)
         {
             txtMake.ClearValue(Border.BorderBrushProperty);
@@ -427,7 +517,7 @@ namespace Presentation
 
         private void TxtYear_OnTextChanged(object sender, TextChangedEventArgs e)
         {
-            txtYearOfManufacture.ClearValue(Border.BorderBrushProperty);
+            txtYear.ClearValue(Border.BorderBrushProperty);
         }
 
         private void TxtDescription_TextChanged(object sender, TextChangedEventArgs e)
@@ -443,6 +533,11 @@ namespace Presentation
         private void TxtPurchaseDate_OnSelectedDateChanged(object sender, SelectionChangedEventArgs e)
         {
             txtPurchaseDate.ClearValue(Border.BorderBrushProperty);
+        }
+
+        private void BtnCancel_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
         }
 
         #endregion

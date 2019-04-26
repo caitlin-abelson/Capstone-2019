@@ -22,11 +22,12 @@ namespace Presentation
     public partial class EmployeeDetail : Window
     {
         private List<Department> _departments;
+        private List<Role> _roles;
         EmployeeManager _employeeManager;
         DepartmentManager _departmentManager;
+        RoleManager _roleManager;
         private Employee _newEmployee;
         private Employee _oldEmployee;
-
 
         // commented out the create constructor in order to test the update and read constructor
 
@@ -36,21 +37,29 @@ namespace Presentation
         /// 
         /// This is the constructor for creating an employee
         /// </summary>
+        /// <remarks>
+        /// Alisa Roehr
+        /// Updated: 2019/04/05
+        /// added employee role. 
+        /// </remarks>
         public EmployeeDetail()
         {
             InitializeComponent();
             _departmentManager = new DepartmentManager();
             _employeeManager = new EmployeeManager();
+            _roleManager = new RoleManager();
 
             try
             {
                 _departments = _departmentManager.GetAllDepartments();
+                _roles = _roleManager.RetrieveAllRoles();
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
             cbxDepartment.ItemsSource = _departments;
+            cbxEmployeeRole.ItemsSource = _roles;
             chkActive.IsChecked = true;
             chkActive.Visibility = Visibility.Hidden;
             lblActive.Visibility = Visibility.Hidden;
@@ -63,23 +72,39 @@ namespace Presentation
         /// 
         /// This is the constructor for reading and updating 
         /// </summary>
+        /// <remarks>
+        /// Alisa Roehr
+        /// Updated: 2019/04/05
+        /// added employee role. 
+        /// </remarks>
         /// <param name="oldEmployee"></param>
         public EmployeeDetail(Employee oldEmployee)
         {
             InitializeComponent();
             _departmentManager = new DepartmentManager();
             _employeeManager = new EmployeeManager();
+            _roleManager = new RoleManager();
 
             try
             {
                 _departments = _departmentManager.GetAllDepartments();
+                _roles = _roleManager.RetrieveAllRoles();
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
             cbxDepartment.ItemsSource = _departments;
+            cbxEmployeeRole.ItemsSource = _roles;
             _oldEmployee = oldEmployee;
+            try
+            {
+                _oldEmployee = _employeeManager.RetrieveEmployeeIDByEmail(_oldEmployee.Email);
+            }
+            catch (Exception)
+            {
+
+            }
             populateReadOnly();
             readOnlyForm();
         }
@@ -91,6 +116,11 @@ namespace Presentation
         /// This method establishes what information is read only when someone is reading information about 
         /// and employee.
         /// </summary>
+        /// <remarks>
+        /// Alisa Roehr
+        /// Updated: 2019/04/05
+        /// added employee role. 
+        /// </remarks>
         private void readOnlyForm()
         {
             txtFirstName.Text = _oldEmployee.FirstName;
@@ -105,6 +135,7 @@ namespace Presentation
             txtPhone.IsReadOnly = true;
             txtEmail.IsReadOnly = true;
             cbxDepartment.IsEnabled = false;
+            cbxEmployeeRole.IsEnabled = false;
             chkActive.Visibility = Visibility.Hidden;
             lblActive.Visibility = Visibility.Hidden;
         }
@@ -116,6 +147,11 @@ namespace Presentation
         /// This sets up the information that can be edited on the form when the user
         /// clicks update
         /// </summary>
+        /// <remarks>
+        /// Alisa Roehr
+        /// Updated: 2019/04/05
+        /// added employee role. 
+        /// </remarks>
         private void editableForm()
         {
             txtFirstName.IsReadOnly = false;
@@ -123,6 +159,7 @@ namespace Presentation
             txtPhone.IsReadOnly = false;
             txtEmail.IsReadOnly = false;
             cbxDepartment.IsEnabled = true;
+            cbxEmployeeRole.IsEnabled = true;
             btnSave.Content = "Submit";
         }
 
@@ -132,13 +169,21 @@ namespace Presentation
         /// 
         /// This method fills in all of the information for the employee that was chosen in browse.
         /// </summary>
+        /// <remarks>
+        /// Alisa Roehr
+        /// Updated: 2019/04/05
+        /// added employee role. 
+        /// </remarks>
         private void populateReadOnly()
         {
             txtFirstName.Text = _oldEmployee.FirstName;
             txtLastName.Text = _oldEmployee.LastName;
             txtPhone.Text = _oldEmployee.PhoneNumber;
             txtEmail.Text = _oldEmployee.Email;
-            cbxDepartment.SelectedItem = _departments.Find(d => d.DepartmentID ==_oldEmployee.DepartmentID);
+            cbxDepartment.SelectedItem = _departments.Find(d => d.DepartmentID == _oldEmployee.DepartmentID);
+            List<Role> roles = _oldEmployee.EmployeeRoles;
+            Role role = roles[0];
+            cbxEmployeeRole.SelectedItem = _roles.Find(r => r.RoleID == role.RoleID);
             chkActive.IsChecked = _oldEmployee.Active;
             readOnlyForm();
             btnSave.Content = "Update";
@@ -161,6 +206,8 @@ namespace Presentation
                     return;
                 }
 
+
+
                 _newEmployee = new Employee()
                 {
                     FirstName = txtFirstName.Text,
@@ -169,13 +216,16 @@ namespace Presentation
                     PhoneNumber = txtPhone.Text,
                     DepartmentID = cbxDepartment.SelectedItem.ToString()
                 };
-
+                Role role = new Role();
+                role.RoleID = cbxEmployeeRole.SelectedItem.ToString();
+                _newEmployee.EmployeeRoles.Add(role);
                 try
                 {
-                    if(_oldEmployee == null)
-                    {            
+                    if (_oldEmployee == null)
+                    {
                         _employeeManager.InsertEmployee(_newEmployee);
-
+                        Employee employeeExtra = _employeeManager.RetrieveEmployeeIDByEmail(_newEmployee.Email);
+                        _employeeManager.AddEmployeeRole(employeeExtra.EmployeeID, _newEmployee.EmployeeRoles[0]);
                         MessageBox.Show("Employee Created: " +
                             "\nFirst Name: " + _newEmployee.FirstName +
                             "\nLast Name: " + _newEmployee.LastName +
@@ -188,6 +238,8 @@ namespace Presentation
                         _newEmployee.Active = (bool)chkActive.IsChecked;
                         _employeeManager.UpdateEmployee(_newEmployee, _oldEmployee);
                         SetError("");
+                        _employeeManager.RemoveEmployeeRole(_oldEmployee.EmployeeID, _oldEmployee.EmployeeRoles[0]);
+                        _employeeManager.AddEmployeeRole(_oldEmployee.EmployeeID, _newEmployee.EmployeeRoles[0]);
                         MessageBox.Show("Employee update successful: " +
                             "\nNew First Name: " + _newEmployee.FirstName +
                             "\nNew Last Name: " + _newEmployee.LastName +
@@ -303,7 +355,7 @@ namespace Presentation
 
             // If FirstName is greater than 50 characters, then the method returns false
             return false;
-            
+
         }
 
         /// <summary>
@@ -328,7 +380,7 @@ namespace Presentation
 
             // If LastName is greater than 100 characters, then the method returns false
             return false;
-            
+
         }
 
         /// <summary>
@@ -352,7 +404,7 @@ namespace Presentation
             if (txtEmail.Text.Length >= 1 && txtEmail.Text.Length <= 250 && txtEmail.Text.Contains("."))
             {
                 // Email must contain an @ and a .com in order to be an email
-                if(txtEmail.Text.Contains("@"))
+                if (txtEmail.Text.Contains("@"))
                 {
                     if (txtEmail.Text.Contains("com"))
                     {
@@ -371,7 +423,7 @@ namespace Presentation
 
             // If Email is greater than 250 characters, then the method returns false
             return validExtension;
-            
+
         }
 
         /// <summary>
@@ -389,14 +441,14 @@ namespace Presentation
                 return false;
             }
             // Phone must be no more than 11 characters long
-            if (txtPhone.Text.Length == 11)
+            if (txtPhone.Text.Length <= 11)
             {
                 return true;
             }
 
             // If Phone is greater than 100 characters, then the method returns false
             return false;
-            
+
         }
 
         /// <summary>
@@ -410,7 +462,7 @@ namespace Presentation
         private bool ValidateDepartmentID()
         {
             // The method will return false if nothing was selected.
-            if (cbxDepartment.SelectedItem == null)
+            if (cbxDepartment.SelectedItem == null || cbxEmployeeRole.SelectedItem == null)
             {
                 return false;
             }

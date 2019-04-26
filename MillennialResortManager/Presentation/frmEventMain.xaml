@@ -1,4 +1,4 @@
-﻿<!--@Author Phillip Hansen-->
+﻿<!--@Author: Phillip Hansen-->
     <!--Window for all functionality for Event Requests-->
 <Window x:Class="WpfPresentation.frmEventMain"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"

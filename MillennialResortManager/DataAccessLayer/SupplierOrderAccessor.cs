@@ -129,6 +129,61 @@ namespace DataAccessLayer
             return supplierOrders;
         }
 
+
+        public List<SupplierOrder> SelectAllGeneratedOrders()
+        {
+            /// <summary>
+            /// Richard Carroll
+            /// Created 4/26/2019
+            /// Gets list of All Generated SupplierOrders from SupplierOrder table
+            /// </summary>
+            /// <returns>
+            /// List of SupplierOrder Objects
+            /// </returns>            
+
+            List<SupplierOrder> supplierOrders = new List<SupplierOrder>();
+            var conn = DBConnection.GetDbConnection();
+            var cmdText = @"sp_select_all_generated_orders";
+            var cmd = new SqlCommand(cmdText, conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            try
+            {
+                conn.Open();
+                var reader = cmd.ExecuteReader();
+
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        SupplierOrder supplierOrder = new SupplierOrder();
+
+                        supplierOrder.SupplierOrderID = reader.GetInt32(reader.GetOrdinal("SupplierOrderID"));
+                        supplierOrder.DateOrdered = reader.GetDateTime(reader.GetOrdinal("DateOrdered"));
+                        supplierOrder.Description = reader["Description"].ToString();
+                        supplierOrder.EmployeeID = reader.GetInt32(reader.GetOrdinal("EmployeeID"));
+                        supplierOrder.FirstName = reader["FirstName"].ToString();
+                        supplierOrder.LastName = reader["LastName"].ToString();
+                        supplierOrder.OrderComplete = reader.GetBoolean(reader.GetOrdinal("OrderComplete"));
+                        supplierOrder.SupplierID = reader.GetInt32(reader.GetOrdinal("SupplierID"));
+                        supplierOrder.SupplierName = reader["SupplierName"].ToString();
+                        supplierOrders.Add(supplierOrder);
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+
+            return supplierOrders;
+        }
+
         public List<VMItemSupplierItem> SelectItemSuppliersBySupplierID(int supplierID)
         {
 
@@ -172,6 +227,7 @@ namespace DataAccessLayer
                         itemSupplier.ItemType = reader["ItemTypeID"].ToString();
                         itemSupplier.OnHandQty = reader.GetInt32(reader.GetOrdinal("OnHandQuantity"));
                         itemSupplier.ReorderQty = reader.GetInt32(reader.GetOrdinal("ReOrderQuantity"));
+                        itemSupplier.SupplierItemID = reader.GetInt32(reader.GetOrdinal("SupplierItemID"));
                         itemSuppliers.Add(itemSupplier);
 
                     }
@@ -251,6 +307,7 @@ namespace DataAccessLayer
             var cmdText1 = "sp_delete_supplier_order_lines";
             var cmdText2 = "sp_update_supplier_order";
             var cmdText3 = "sp_insert_supplier_order_line";
+            var cmdText4 = "sp_update_supplier_order_line";
 
             try
             {
@@ -276,6 +333,8 @@ namespace DataAccessLayer
                         {
                             var cmd3 = new SqlCommand(cmdText3, conn);
                             cmd3.CommandType = CommandType.StoredProcedure;
+                            var cmd4 = new SqlCommand(cmdText4, conn);
+                            cmd4.CommandType = CommandType.StoredProcedure;
                             line.SupplierOrderID = supplierOrder.SupplierOrderID;
                             cmd3.Parameters.AddWithValue("@SupplierOrderID", line.SupplierOrderID);
                             cmd3.Parameters.AddWithValue("@ItemID", line.ItemID);
@@ -283,6 +342,11 @@ namespace DataAccessLayer
                             cmd3.Parameters.AddWithValue("@OrderQty", line.OrderQty);
                             cmd3.Parameters.AddWithValue("@UnitPrice", line.UnitPrice);
                             rowsAffected += cmd3.ExecuteNonQuery();
+
+                            cmd4.Parameters.AddWithValue("@SupplierOrderID", line.SupplierOrderID);
+                            cmd4.Parameters.AddWithValue("@ItemID", line.ItemID);
+                            cmd4.Parameters.AddWithValue("@QtyReceived", line.QtyReceived);
+                            cmd4.ExecuteNonQuery();
                         }
 
                     }
@@ -335,6 +399,110 @@ namespace DataAccessLayer
             }
 
             return rowsAffected;
+        }
+
+        /// <summary>
+        /// Kevin Broskow
+        /// Created 4/2/209
+        /// Gets a specific supplierOrder by id
+        /// </summary>
+        /// <returns>
+        /// SupplierOrder object
+        /// </returns>  
+        public SupplierOrder RetrieveSupplierOrderByID(int supplierOrderID)
+        {
+            SupplierOrder order = null;
+
+            var conn = DBConnection.GetDbConnection();
+            var cmdText = @"sp_select_supplier_order_by_id";
+
+            SqlCommand cmd = new SqlCommand(cmdText, conn);
+
+            cmd.Parameters.AddWithValue("@SupplierOrderID", supplierOrderID);
+            try
+            {
+                conn.Open();
+
+                var reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    order.EmployeeID = reader.GetInt32(0);
+                    order.Description = reader.GetString(1);
+                    order.OrderComplete = reader.GetBoolean(2);
+                    order.DateOrdered = reader.GetDateTime(3);
+                    order.SupplierID = reader.GetInt32(4);
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+
+            return order;
+        }
+
+        /// <summary>
+        /// Kevin Broskow
+        /// Created 4/2/209
+        /// Completes a specific SupplierOrder
+        /// </summary>
+        /// <returns>
+        /// void
+        /// </returns> 
+        public void CompleteSupplierOrder(int supplierOrderID)
+        {
+            var conn = DBConnection.GetDbConnection();
+
+            var cmdText = @"sp_complete_order_by_id";
+
+            SqlCommand cmd = new SqlCommand(cmdText, conn);
+
+            cmd.Parameters.AddWithValue("@SupplierOrderID", supplierOrderID);
+
+            try
+            {
+                conn.Open();
+                cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
+
+        /// <summary>
+        /// Kevin Broskow
+        /// Created 4/2/209
+        /// Returns supplierItemID for supplierOrders
+        /// </summary>
+        /// <returns>
+        /// void
+        /// </returns> 
+        public int SelectSupplierItemIDByItemAndSupplier(int itemID, int supplierID)
+        {
+            int supplierItemID;
+            var conn = DBConnection.GetDbConnection();
+            var cmdText = "sp_select_supplier_item_by_item_and_supplier";
+            var cmd = new SqlCommand(cmdText, conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            try
+            {
+                conn.Open();
+
+                supplierItemID = (int)cmd.ExecuteScalar();
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+
+
+            return supplierItemID;
+
         }
     }
 

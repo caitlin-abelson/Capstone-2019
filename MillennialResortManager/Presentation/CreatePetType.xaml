@@ -5,13 +5,15 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Presentation"
         mc:Ignorable="d"
-        Title="Create Pet Type" Height="400" Width="300">
-
-    <Grid Background="LightGray">
+        Title="Create Pet Type" Height="300" Width="400">
+    <Window.Resources>
+        <ResourceDictionary Source="Stylesheet.xaml"/>
+    </Window.Resources>
+    <Grid Style="{StaticResource DefaultPage}">
         <Grid.RowDefinitions>
-            <RowDefinition Height="40"></RowDefinition>
-            <RowDefinition Height="40"></RowDefinition>
-            <RowDefinition Height="50"></RowDefinition>
+            <RowDefinition Height=".5*"></RowDefinition>
+            <RowDefinition Height=".5*"></RowDefinition>
+            <RowDefinition Height=".6*"></RowDefinition>
             <RowDefinition></RowDefinition>
             <RowDefinition Height="50"></RowDefinition>
         </Grid.RowDefinitions>
@@ -23,11 +25,11 @@
         </Grid>
         <Grid Grid.Row="2">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition Width=".3*"></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
             <Grid Grid.Column="0">
-                <Label Content="Pet Type" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                <Label Content="Pet Type: " VerticalAlignment="Center" HorizontalAlignment="Right"/>
             </Grid>
             <Grid Grid.Column="1">
                 <!--txtEventTypeID-->
@@ -35,9 +37,13 @@
             </Grid>
         </Grid>
         <Grid Grid.Row="3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width=".4*" />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
             <!--txtDescription-->
-            <Label Content="Description: "/>
-            <TextBox x:Name="txtDescription" Margin="20 30 20 20" />
+            <Label Content="Description: " VerticalAlignment="Center" HorizontalAlignment="Right"/>
+            <TextBox x:Name="txtDescription" Grid.Column="1" Margin="20" />
         </Grid>
         <Grid Grid.Row="4">
             <Button x:Name="btnCreate" Content="Create" Margin="50 10" Click="BtnPetTypeAction_Click"></Button>

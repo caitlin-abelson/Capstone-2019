@@ -33,12 +33,15 @@ namespace DataObjects
 				return RoleID;
 			}
 		}
-
-		//  public bool Active { get; set; }
-		
-		public override string ToString()
+				
+        /// <summary>
+        /// Alisa Roehr
+        /// Created: 2019/04/05
+        /// </summary>
+        /// <returns></returns>
+        public override string ToString()
         {
-            return RoleID + Environment.NewLine + Environment.NewLine + Description;
+            return RoleID;
         }
     }
 }

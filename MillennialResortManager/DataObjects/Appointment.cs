@@ -16,8 +16,8 @@ namespace DataObjects
     {
         public int AppointmentID { get; set; }
         public string AppointmentType { get; set; }
-        public int GuestID { get; set; }
-        public DateTime StartDate { get; set; }
+        public int GuestID { get; set; }        
+        public DateTime StartDate { get; set; }        
         public DateTime EndDate { get; set; }
         public string Description { get; set; }
     }

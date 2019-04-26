@@ -36,6 +36,15 @@ namespace Presentation
         private Building newBuilding;
         private Building selectedBuilding;
 
+        private InspectionManager inspectionManager = new InspectionManager();
+        private List<Inspection> inspections;
+
+        private MaintenanceWorkOrderManagerMSSQL maintenanceManager = new MaintenanceWorkOrderManagerMSSQL();
+        private List<MaintenanceWorkOrder> mainTickets;
+
+        private RoomManager roomManager = new RoomManager();
+        private List<Room> roomsInSelectedBuilding;
+        private Employee employee;
         /// <summary>
         /// Danielle Russo
         /// Created: 2019/01/21
@@ -48,7 +57,7 @@ namespace Presentation
         public BuildingDetail()
         {
             InitializeComponent();
-            setupEditable();
+            setupBuildingInfoEditable();
             this.Title = "Add a New Building";
             this.btnPrimaryAction.Content = "Add";
             this.btnSecondaryAction.Content = "Cancel";
@@ -62,16 +71,14 @@ namespace Presentation
         /// </summary>
         ///
         /// <remarks>
-        /// Updater Name
-        /// Updated: yyyy/mm/dd 
-        /// 
         /// </remarks>
-        public BuildingDetail(Building building)
+        public BuildingDetail(Building building, Employee employee)
         {
             InitializeComponent();
 
             this.selectedBuilding = building;
-            setupEditable();
+            this.employee = employee;
+            setupBuildingInfoEditable();
             setupSelectedBuilding();
             this.btnPrimaryAction.Content = "Save";
             this.btnSecondaryAction.Content = "Cancel";
@@ -96,8 +103,54 @@ namespace Presentation
             txtDescription.Text = selectedBuilding.Description;
             cboStatusID.SelectedItem = selectedBuilding.StatusID;
 
-            // TO DO: fill dgShops 
-            // TO DO: fill dgRooms
+            setUpRooms();
+            setUpInspectionTab();
+            setUpMaintainanceTab();
+
+        }
+
+        private void setUpMaintainanceTab()
+        {
+            mainTickets = maintenanceManager.RetrieveAllMaintenanceWorkOrders();
+            mainTickets = mainTickets.FindAll(t => t.ResortPropertyID.Equals(selectedBuilding.ResortPropertyID));
+
+
+            if (mainTickets.Count > 0)
+            {
+                foreach (Room room in roomsInSelectedBuilding)
+                {
+                    List<MaintenanceWorkOrder> roomTickets = maintenanceManager.RetrieveAllMaintenanceWorkOrders()
+                        .FindAll(t => t.ResortPropertyID.Equals(room.ResortPropertyID));
+                    foreach (var ticket in roomTickets)
+                    {
+                        mainTickets.Add(ticket);
+                    }
+                }
+            }
+
+
+            dgBuildingMaintenance.ItemsSource = mainTickets;
+        }
+
+
+        /// <summary>
+        /// Danielle Russo
+        /// Created: 2019/03/19
+        /// 
+        /// Sets up Room datagrid with list of rooms in the selected building.
+        /// </summary>
+        ///
+        /// <remarks>
+        /// </remarks>
+        private void setUpRooms()
+        {
+            dgRooms.ItemsSource = null;
+
+            roomsInSelectedBuilding = roomManager.RetrieveRoomListByBuildingID(selectedBuilding.BuildingID);
+            dgRooms.ItemsSource = roomsInSelectedBuilding;
+
+            inspections = inspectionManager.RetrieveAllInspectionsByResortPropertyId(selectedBuilding.ResortPropertyID);
+            dgBuildingInspections.ItemsSource = inspections;
         }
 
         private void setupReadOnly()
@@ -115,7 +168,7 @@ namespace Presentation
         ///
         /// <remarks>
         /// </remarks>
-        private void setupEditable()
+        private void setupBuildingInfoEditable()
         {
             txtID.IsReadOnly = false;
             txtName.IsReadOnly = false;
@@ -134,47 +187,61 @@ namespace Presentation
         /// </summary>
         ///
         /// <remarks>
+        /// Updated: Danielle Russo
+        /// Date:    2019/03/08
+        /// Added switch statement to take in account of the tabs
         /// </remarks>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void btnPrimaryAction_Click(object sender, RoutedEventArgs e)
         {
-            if (btnPrimaryAction.Content.ToString() == "Add")
-            {
-                createNewBuilding();
-                try
-                {
-                    var buildingAdded = buildingManager.CreateBuilding(newBuilding);
-                    if (buildingAdded == true)
-                    {
-                        this.DialogResult = true;
-                        MessageBox.Show(newBuilding.BuildingID + " added.");
-                    }
-                }
-                catch (Exception ex)
-                {
+            string currentTab = ((TabItem)tabsetBldMain.SelectedItem).Header.ToString();
 
-                    MessageBox.Show(ex.Message, "New building not saved.");
-                }
-                return;
-            }
-            else if (btnPrimaryAction.Content.ToString() == "Save")
+            switch (currentTab)
             {
-                createNewBuilding();
-                try
-                {
-                    var buildingUpdated = buildingManager.UpdateBuilding(selectedBuilding, newBuilding);
-                    if (buildingUpdated)
+                case "Info":
+                    if (btnPrimaryAction.Content.ToString() == "Add")
                     {
-                        this.DialogResult = true;
-                        MessageBox.Show(selectedBuilding.BuildingID + " updated.");
+                        createNewBuilding();
+                        try
+                        {
+                            var buildingAdded = buildingManager.CreateBuilding(newBuilding);
+                            if (buildingAdded == true)
+                            {
+                                this.DialogResult = true;
+                                MessageBox.Show(newBuilding.BuildingID + " added.");
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+
+                            MessageBox.Show(ex.Message, "New building not saved.");
+                        }
+                        return;
                     }
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message, "Update not saved.");
-                }
-                return;
+                    else if (btnPrimaryAction.Content.ToString() == "Save")
+                    {
+                        createNewBuilding();
+                        try
+                        {
+                            var buildingUpdated = buildingManager.UpdateBuilding(selectedBuilding, newBuilding);
+                            if (buildingUpdated)
+                            {
+                                this.DialogResult = true;
+                                MessageBox.Show(selectedBuilding.BuildingID + " updated.");
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show(ex.Message, "Update not saved.");
+                        }
+                        return;
+                    }
+                    break;
+                case "Maintenance":
+                    break;
+                case "Inspection":
+                    break;
             }
         }
 
@@ -256,8 +323,6 @@ namespace Presentation
         /// </summary>
         ///
         /// <remarks>
-        /// Updater Name
-        /// Updated: yyyy/mm/dd 
         /// </remarks>
         /// <returns>True if description is apporpriate length, false if description is too long</returns>
         private bool validateDescription()
@@ -412,7 +477,19 @@ namespace Presentation
         /// <param name="selectedBuilding">The building that the room will be added to</param>
         private void btnAddRoom_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Feature not yet implemented. Need code from Room classes.");
+            var addRoomForm = new frmAddEditViewRoom(selectedBuilding.BuildingID, employee);
+            var roomAdded = addRoomForm.ShowDialog();
+
+            // if rooms were added, update list
+            try
+            {
+                setUpRooms();
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.Message);
+            }
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -425,10 +502,259 @@ namespace Presentation
             {
                 MessageBox.Show(ex.Message);
             }
-            
+
         }
 
+        /// <summary>
+        /// Danielle Russo
+        /// Created: 2019/03/14
+        /// 
+        /// Opens a new window to add an inspection to the selected building.
+        /// </summary>
+        ///
+        /// <remarks>
+        /// </remarks>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnAddInspection_Click(object sender, RoutedEventArgs e)
+        {
+            var addInspectionForm = new InspectionDetail(selectedBuilding.ResortPropertyID);
+            var inspectionAdded = addInspectionForm.ShowDialog();
+
+            if (inspectionAdded == true)
+            {
+                try
+                {
+                    inspections = inspectionManager.RetrieveAllInspectionsByResortPropertyId(selectedBuilding.ResortPropertyID);
+                    dgBuildingInspections.ItemsSource = inspections;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Inspection was not added.");
+            }
+        }
+
+        /// <summary>
+        /// Danielle Russo
+        /// Created: 2019/03/14
+        /// 
+        /// Opens a new window to view the inspection record to the selected building.
+        /// </summary>
+        ///
+        /// <remarks>
+        /// Dani Russo
+        /// Updated: 2019/04/18
+        /// 
+        /// Checks for null to prevent crashing
+        /// </remarks>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnSelectionInspection_Click(object sender, RoutedEventArgs e)
+        {
+            if ((Inspection)dgBuildingInspections.SelectedItem != null)
+            {
+                setUpSelectedInspection();
+            }
+        }
+
+        /// <summary>
+        /// Danielle Russo
+        /// Created: 2019/03/14
+        /// 
+        /// Sets up the general building info when the "Info" tab is clicked
+        /// </summary>
+        ///
+        /// <remarks>
+        /// </remarks>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void tabBldInfo_GotFocus(object sender, RoutedEventArgs e)
+        {
+        }
+
+        /// <summary>
+        /// Danielle Russo
+        /// Created: 2019/03/14
+        /// 
+        /// Sets up the inspection info when the "Inspections" tab is clicked
+        /// </summary>
+        ///
+        /// <remarks>
+        /// </remarks>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void tabBldInspections_GotFocus(object sender, RoutedEventArgs e)
+        {
+            //setUpInspectionTab();
+        }
+
+        /// <summary>
+        /// Danielle Russo
+        /// Created: 2019/03/14
+        /// 
+        /// Populates fields in the "Inspections" tab
+        /// </summary>
+        ///
+        /// <remarks>
+        /// </remarks>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void setUpInspectionTab()
+        {
+            inspections = inspectionManager.RetrieveAllInspectionsByResortPropertyId(selectedBuilding.ResortPropertyID);
+
+            if (inspections.Count > 0)
+            {
+                foreach (Room room in roomsInSelectedBuilding)
+                {
+                    inspections.AddRange(inspectionManager.RetrieveAllInspectionsByResortPropertyId(room.ResortPropertyID));
+                }
+            }
+
+
+            dgBuildingInspections.ItemsSource = inspections;
+        }
+
+        /// <summary>
+        /// Danielle Russo
+        /// Created: 2019/03/14
+        /// 
+        /// Makes form editable
+        /// </summary>
+        ///
+        /// <remarks>
+        /// </remarks>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnTernaryAction_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void dgBuildingInspections_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            if ((Inspection)dgBuildingInspections.SelectedItem != null)
+            {
+                setUpSelectedInspection();
+            }
+        }
+
+        private void setUpSelectedInspection()
+        {
+            Inspection selectedInspection = (Inspection)dgBuildingInspections.SelectedItem;
+            var inspectionDetailForm = new InspectionDetail(selectedInspection);
+            var inspectionUpdated = inspectionDetailForm.ShowDialog();
+
+            if (inspectionUpdated == true)
+            {
+                try
+                {
+                    inspections = inspectionManager.RetrieveAllInspectionsByResortPropertyId(selectedBuilding.ResortPropertyID);
+                    dgBuildingInspections.ItemsSource = inspections;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+            }
+        }
+
+        private void grdBldInspections_GotFocus(object sender, RoutedEventArgs e)
+        {
+            //setUpInspectionTab();
+        }
+
+        /// <summary>
+        /// Danielle Russo
+        /// Created: 2019/04/04
+        /// 
+        /// Goes to the room detail form
+        /// </summary>
+        ///
+        /// <remarks>
+        /// Dani Russo
+        /// Updated: 2019/04/18
+        /// 
+        /// Checks for null to prevent crashing
+        /// </remarks>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void dgRooms_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            if ((Room)dgRooms.SelectedItem != null)
+            {
+                selectRoom();
+            }
+        }
+
+        /// <summary>
+        /// Danielle Russo
+        /// Created: 2019/04/04
+        /// 
+        /// Goes to the room detail form
+        /// </summary>
+        private void selectRoom()
+        {
+            Room selectedRoom = (Room)dgRooms.SelectedItem;
+
+            var detailForm = new frmAddEditViewRoom(EditMode.View, selectedRoom.RoomID);
+            var formUpdated = detailForm.ShowDialog();
+
+            setUpRooms();
+
+            if (formUpdated == true)
+            {
+                try
+                {
+                    setUpRooms();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+            }
+        }
+
+
+        /// <summary>
+        /// Danielle Russo
+        /// Created: 2019/04/04
+        /// 
+        /// Goes to the room detail form
+        /// </summary>
+        ///
+        /// <remarks>
+        /// Dani Russo
+        /// Updated: 2019/04/18
+        /// 
+        /// Checks for null to prevent crashing
+        /// </remarks>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnSelectRoom_Click(object sender, RoutedEventArgs e)
+        {
+            if ((Room)dgRooms.SelectedItem != null)
+            {
+                selectRoom();
+            }
+        }
+
+        private void dgBuildingMaintenance_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+
+        }
+
+        private void btnAddMaintenance_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnSelectionMaintenance_Click(object sender, RoutedEventArgs e)
         {
 
         }

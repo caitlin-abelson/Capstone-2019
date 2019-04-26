@@ -16,12 +16,17 @@ namespace LogicLayer
         List<VMItemSupplierItem> RetrieveAllItemSuppliersBySupplierID(int supplierID);
 
         List<SupplierOrder> RetrieveAllSupplierOrders();
+        List<SupplierOrder> RetrieveAllGeneratedOrders();
 
         List<SupplierOrderLine> RetrieveAllSupplierOrderLinesBySupplierOrderID(int supplierOrderID);
 
         int UpdateSupplierOrder(SupplierOrder supplierOrder, List<SupplierOrderLine> supplierOrderLines);
 
         int DeleteSupplierOrder(int supplierOrderID);
+
+        SupplierOrder RetrieveSupplierOrderByID(int supplierOrderID);
+
+        void CompleteSupplierOrder(int supplierOrderID);
 
     }
 }

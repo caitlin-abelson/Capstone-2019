@@ -11,6 +11,7 @@ namespace DataObjects
         public int SupplierOrderID { get; set; }
 
         public int ItemID { get; set; }
+        public int SupplierItemID { get; set; }
 
         public string Description { get; set; }
 

@@ -20,14 +20,57 @@ namespace Presentation
     /// Jacob Miller
     /// Created: 2018/01/22
     /// Interaction logic for PerformanceViewer.xaml
+    /// 
+    /// Updated by Phil Hansen on 4/10/2019
+    /// Added functionality for when an Event searches for a Performance
     /// </summary>
     public partial class PerformanceViewer : Window
     {
         private PerformanceManager performanceManager = new PerformanceManager();
 
+        public Performance retrievedPerformance;
+
         public PerformanceViewer()
         {
             InitializeComponent();
+
+            setupWindow();
+        }
+        
+        /// <summary>
+        /// @Author: Phillip Hansen
+        /// 
+        /// This specific constructor is for retrieving a performance
+        /// for an Event with that performance
+        /// </summary>
+        /// <param name="filterText"></param>
+        public PerformanceViewer(string filterText)
+        {
+            InitializeComponent();
+
+            this.btnBack.Content = "Select Performance";
+            txtSearch.IsEnabled = false;
+            txtSearch.Text = filterText;
+
+            List<Performance> _filteredPerformances = new List<Performance>();
+
+            foreach (var item in performanceManager.RetrieveAllPerformance().Where(p => p.Name.Equals(filterText)))
+            {
+                _filteredPerformances.Add(item);
+            }
+            try
+            {
+                dgPerformaces.ItemsSource = null;
+                dgPerformaces.Items.Refresh();
+
+                dgPerformaces.ItemsSource = _filteredPerformances;
+                dgPerformaces.Items.Refresh();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message + "\nCould not populate filtered Performances");
+            }
+
         }
 
         private void setupWindow()
@@ -37,7 +80,25 @@ namespace Presentation
 
         private void btnBack_Click(object sender, RoutedEventArgs e)
         {
-            Close();
+            //This if statement is for the filter constructor
+            if(this.btnBack.Content.Equals("Select Performance"))
+            {
+                retrievedPerformance = (Performance)dgPerformaces.SelectedItem;
+                if(retrievedPerformance != null)
+                {
+                    this.DialogResult = true;
+                }
+                else
+                {
+                    this.DialogResult = false;
+                    MessageBox.Show("Must have a performance selected!\nCreated a new one if necessary.");
+                }
+            }
+            else
+            {
+                Close();
+            }
+            
         }
 
         private void openView(int performanceID)
@@ -62,10 +123,7 @@ namespace Presentation
             return;
         }
 
-        private void Window_Loaded(object sender, RoutedEventArgs e)
-        {
-            setupWindow();
-        }
+        
 
         private void txtSearch_TextChanged(object sender, TextChangedEventArgs e)
         {

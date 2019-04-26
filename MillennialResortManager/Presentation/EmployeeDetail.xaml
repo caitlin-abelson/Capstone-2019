@@ -5,10 +5,15 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Presentation"
         mc:Ignorable="d"
-        Title="Employee" Height="400" Width="450">
-    <Grid>
+        Title="Employee" Height="450" Width="450">
+    <Window.Resources>
+        <ResourceDictionary Source="Stylesheet.xaml"/>
+    </Window.Resources>
+
+    <Grid Style="{StaticResource DefaultPage}">
         <Grid.RowDefinitions>
             <RowDefinition Height="30"></RowDefinition>
+            <RowDefinition Height="50"></RowDefinition>
             <RowDefinition Height="50"></RowDefinition>
             <RowDefinition Height="50"></RowDefinition>
             <RowDefinition Height="50"></RowDefinition>
@@ -61,23 +66,31 @@
             <Label x:Name="lblDepartment" Grid.Column="0" Content="Department: " VerticalContentAlignment="Center" HorizontalContentAlignment="Right" Margin="5"/>
             <ComboBox x:Name="cbxDepartment" Grid.Column="1" Margin="10" />
         </Grid>
-        <Grid Grid.Row="6">
+        <Grid  Grid.Row="6">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="160"></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Label x:Name="lblEmployeeRole" Grid.Column="0" Content="Role: " VerticalContentAlignment="Center" HorizontalContentAlignment="Right" Margin="5"/>
+            <ComboBox x:Name="cbxEmployeeRole" Grid.Column="1" Margin="10" />
+        </Grid>
+        <Grid Grid.Row="7">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="200"></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
             <Label x:Name="lblActive" Content="Active" Margin="5,0,0,5" HorizontalContentAlignment="Right" VerticalContentAlignment="Center"/>
             <CheckBox x:Name="chkActive" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left"/>
-            
+
         </Grid>
-        <Grid  Grid.Row="7">
+        <Grid  Grid.Row="8">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <Button x:Name="btnSave" Grid.Column="3" Margin="7" Content="Sumbit" Click="btnSave_Click"/>
+            <Button x:Name="btnSave" Grid.Column="3" Margin="7" Content="Submit" Click="btnSave_Click"/>
             <Button x:Name="btnCancel" Grid.Column="0" Margin="7" Content="Cancel" Click="BtnCancel_Click"/>
         </Grid>
 

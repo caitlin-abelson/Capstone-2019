@@ -415,5 +415,73 @@ namespace DataAccessLayer
                 conn.Close();
             }
         }
+
+        /// <summary>
+        /// Author: Wes Richardson
+        /// Created: 2019/04/18
+        /// </summary>
+        /// <remarks>
+        /// James Heim
+        /// 2019-04-19
+        /// Added a check if Notes is null before assigning it.
+        /// </remarks>
+        /// <param name="guestID"></param>
+        /// <returns>A Reservation</returns>
+        public Reservation RetrieveReservationByGuestID(int guestID)
+        {
+            Reservation resv = null;
+
+            var conn = DBConnection.GetDbConnection();
+
+            var cmdText = @"sp_retrieve_reservation_by_guestID";
+
+            var cmd = new SqlCommand(cmdText, conn);
+
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.AddWithValue("@GuestID", guestID);
+
+            try
+            {
+
+                conn.Open();
+                var reader = cmd.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    reader.Read();
+                    resv = new Reservation()
+                    {
+                        ReservationID = reader.GetInt32(0),
+                        MemberID = reader.GetInt32(1),
+                        NumberOfGuests = reader.GetInt32(2),
+                        NumberOfPets = reader.GetInt32(3),
+                        ArrivalDate = reader.GetDateTime(4),
+                        DepartureDate = reader.GetDateTime(5),
+                        Active = true
+                    };
+
+                    // Notes can be nullable.
+                    if (reader.IsDBNull(6))
+                    {
+                        resv.Notes = "";
+                    }
+                    else
+                    {
+                        resv.Notes = reader.GetString(6);
+                    }
+
+                }
+            }
+            catch (Exception up)
+            {
+                throw up;
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            return resv;
+        }
     }
 }

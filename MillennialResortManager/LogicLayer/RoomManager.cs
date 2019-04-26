@@ -19,11 +19,16 @@ namespace LogicLayer
 
         private IRoomAccessor _roomAccessor;
 
+        /// <summary>
+        /// Dani Russo
+        /// Updated: 2019/04/05
+        /// 
+        /// _roomAccessor is assigned to actual accessor, not mock accessor
+        /// </summary>
         public RoomManager()
         {
             // used for database access, to be used when Intergartion testing is ready
-            // _roomAccessor = new RoomAccessor();
-            _roomAccessor = new MockRoomAccessor(); // when database is fixed Mock should be dropped
+            _roomAccessor = new RoomAccessor();
         }
 
 
@@ -84,6 +89,7 @@ namespace LogicLayer
         /// 
         /// Inserts a new Room into the database
         /// <param name="room">A room object</param>
+        /// 
         /// <returns>A bool if the room was created</returns>
         /// </summary>
         public bool CreateRoom(Room room, int employeeID)
@@ -144,15 +150,21 @@ namespace LogicLayer
         /// <param name="room">A room to update</param>
         /// <returns>A bool teling if the room was updated</returns>
         /// </summary>
-        public bool UpdateRoom(Room room)
+        /// <remarks>
+        /// Dani Russo
+        /// Updated 2019/04/15
+        /// 
+        /// Updated to take in newRoom
+        /// </remarks>
+        public bool UpdateRoom(Room selectedRoom, Room newRoom)
         {
             bool results = false;
             int rows = 0;
 
             try
             {
-                RoomVerifier.VerifyRoom(room, _roomAccessor);
-                rows = _roomAccessor.UpdateRoom(room);
+                RoomVerifier.VerifyRoom(newRoom, _roomAccessor);
+                rows = _roomAccessor.UpdateRoom(selectedRoom, newRoom);
             }
             catch (Exception)
             {
@@ -264,6 +276,29 @@ namespace LogicLayer
             }
 
             return statusList;
+        }
+
+        /// <summary>
+        /// Danielle Russo
+        /// Created: 2019/04/10
+        /// 
+        /// </summary>
+        /// <returns>A list of Rooms in a selected building</returns>
+        public List<Room> RetrieveRoomListByBuildingID(string buildingID)
+        {
+            List<Room> rooms = null;
+
+            try
+            {
+                rooms = _roomAccessor.SelectRoomsByBuildingID(buildingID);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+            return rooms;
         }
     }
 }

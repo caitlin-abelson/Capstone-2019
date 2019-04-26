@@ -9,7 +9,7 @@ using DataObjects;
 namespace LogicLayer
 {
     /// <summary>
-    /// @Author Phillip Hansen
+    /// @Author: Phillip Hansen
     /// @Created 1/23/2019
     /// 
     /// This class is for the Event objects in the logic layer, to be a building block between
@@ -18,9 +18,10 @@ namespace LogicLayer
     public class EventManager : IEventManager
     {
         private IEventAccessor _eventAccessor;
+        public int _createdEventID = 0;
 
         /// <summary>
-        /// @Author Phillip Hansen
+        /// @Author: Phillip Hansen
         /// 
         /// Constructor for calling non-static methods
         /// </summary>
@@ -35,31 +36,31 @@ namespace LogicLayer
         }
 
         /// <summary>
-        /// @Author Phillip Hansen
+        /// @Author: Phillip Hansen
         /// 
         /// Method for creating an event calling to the accessor for events
         /// </summary>
         /// <param name="newEvent"></param> creates a new Event object called newEvent
-        public void CreateEvent(Event newEvent)
+        public int CreateEvent(Event newEvent)
         {
-
             try
             {
                 if (!IsValid(newEvent))
                 {
                     throw new ArgumentException("Input for the new event was invalid!");
                 }
-                _eventAccessor.insertEvent(newEvent);
+                _createdEventID = _eventAccessor.insertEvent(newEvent);
             }
             catch (Exception)
             {
                 throw;
             }
 
+            return _createdEventID;
         }
 
         /// <summary>
-        /// @Author Phillip Hansen
+        /// @Author: Phillip Hansen
         /// 
         /// Method for retrieving all events as a list
         /// </summary>
@@ -71,6 +72,28 @@ namespace LogicLayer
             try
             {
                 events = _eventAccessor.selectAllEvents();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+
+            return events;
+        }
+
+        /// <summary>
+        /// @Author: Phillip Hansen
+        /// 
+        /// Method for retrieving all events as a list
+        /// </summary>
+        /// <returns></returns>
+        public List<Event> RetrieveAllCancelledEvents()
+        {
+            List<Event> events;
+
+            try
+            {
+                events = _eventAccessor.selectAllCancelledEvents();
             }
             catch (Exception)
             {
@@ -98,7 +121,7 @@ namespace LogicLayer
         }
 
         /// <summary>
-        /// @Author Phillip Hansen
+        /// @Author: Phillip Hansen
         /// 
         /// Updates the event
         /// </summary>
@@ -122,8 +145,40 @@ namespace LogicLayer
 
         }
 
+        public void UpdatEventToUncancel(Event uncancelEvent)
+        {
+            try
+            {
+                _eventAccessor.updateEventToUncancelled(uncancelEvent);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
         /// <summary>
-        /// @Author Phillip Hansen
+        /// @Author: Phillip Hansen
+        /// @Created: 4/3/2019
+        /// 
+        /// Method for cancelling a chosen event
+        /// </summary>
+        /// <param name="selectedEvent"></param> the specific event passed through
+        public void UpdateEventToCancel(Event cancelEvent)
+        {
+            try
+            {
+                _eventAccessor.updateEventToCancelled(cancelEvent);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            
+        }
+
+        /// <summary>
+        /// @Author: Phillip Hansen
         /// 
         /// Deletes the event by taking the object as a whole, and passes only the ID
         /// </summary>
@@ -191,6 +246,8 @@ namespace LogicLayer
             }
         }
 
+
+
         public bool ValidateDates(Event _event)
         {
             if(_event.EventStartDate.Date == null || _event.EventStartDate.Date <= DateTime.Now)
@@ -207,5 +264,6 @@ namespace LogicLayer
             }
         }
 
+        
     }
 }

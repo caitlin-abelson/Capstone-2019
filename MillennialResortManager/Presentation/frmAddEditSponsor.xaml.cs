@@ -49,8 +49,8 @@ namespace Presentation
                 SetError(ex.Message);
             }
             chkActive.Visibility = Visibility.Hidden;
-            txtSponsorID.Visibility = Visibility.Hidden;
-            dtpDateAdded.Visibility = Visibility.Hidden;
+            //txtSponsorID.Visibility = Visibility.Hidden;
+            //dtpDateAdded.Visibility = Visibility.Hidden;
             chkActive.IsChecked = true;
             _existingSponsor = null;
         }
@@ -85,17 +85,17 @@ namespace Presentation
         /// </summary>
         private void populateFormReadOnly()
         {
-            txtSponsorID.Text = "" + _existingSponsor.SponsorID;
+            //txtSponsorID.Text = "" + _existingSponsor.SponsorID;
             txtName.Text = "" + _existingSponsor.Name;
-            txtAddress.Text = "" + _existingSponsor.Address; 
+            txtAddress.Text = "" + _existingSponsor.Address;
             txtCity.Text = "" + _existingSponsor.City;
             cboState.SelectedItem = "" + _existingSponsor.State;
             txtPhoneNumber.Text = "" + _existingSponsor.PhoneNumber;
             txtEmail.Text = "" + _existingSponsor.Email;
             txtContactFirstName.Text = "" + _existingSponsor.ContactFirstName;
             txtContactLastName.Text = "" + _existingSponsor.ContactLastName;
-            cboStatusID.SelectedItem = "" + _existingSponsor.StatusID;
-            dtpDateAdded.Text = _existingSponsor.DateAdded.ToString("MM/dd/yyyy");
+            //cboStatusID.SelectedItem = "" + _existingSponsor.StatusID;
+            dtpDateAdded.SelectedDate = _existingSponsor.DateAdded;
             chkActive.IsChecked = _existingSponsor.Active;
             setReadOnly();
             btnSave.Content = "Update";
@@ -103,9 +103,13 @@ namespace Presentation
 
         /// <summary>
         /// Author: Gunardi Saputra
-        /// Created Date: 2019/02/20
+        /// Created Date: 02/20/2019
         /// 
         /// It will loaded every it's called.
+        /// 
+        /// Updated: Gunardi Saputra
+        /// Date: 04/19/2019
+        /// remove statusID
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -114,7 +118,7 @@ namespace Presentation
             try
             {
                 cboState.ItemsSource = _sponsorManager.RetrieveAllStates();
-                cboStatusID.ItemsSource = _sponsorManager.RetrieveAllSponsorStatus();
+                //cboStatusID.ItemsSource = _sponsorManager.RetrieveAllSponsorStatus();
 
 
             }
@@ -126,13 +130,16 @@ namespace Presentation
 
         /// <summary>
         /// Author: Gunardi Saputra
-        /// Created Date: 2019/02/20
+        /// Created Date: 02/20/2019
         /// 
         /// This sets up for the read only information
+        /// 
+        /// Updated: Gunardi Saputra
+        /// Date: 04/19/2019
         /// </summary>
         private void setReadOnly()
         {
-            txtSponsorID.IsReadOnly = true;
+            //txtSponsorID.IsReadOnly = true;
             txtName.IsReadOnly = true;
             txtAddress.IsReadOnly = true;
             txtCity.IsReadOnly = true;
@@ -141,7 +148,7 @@ namespace Presentation
             txtEmail.IsReadOnly = true;
             txtContactFirstName.IsReadOnly = true;
             txtContactLastName.IsReadOnly = true;
-            cboStatusID.IsEnabled = false;
+            //cboStatusID.IsEnabled = false;
             dtpDateAdded.IsEnabled = false;
             chkActive.Visibility = Visibility.Hidden;
         }
@@ -149,23 +156,26 @@ namespace Presentation
 
         /// <summary>
         /// Author: Gunardi Saputra
-        /// Created Date: 2019/02/20
+        /// Created Date: 02/20/2019
         /// 
         /// This sets up the information that can be edited on the form when the user
         /// clicks update
+        /// 
+        /// Updated: Gunardi Saputra
+        /// Date: 04/19/2019
         /// </summary>
         private void setEditable()
         {
-            txtName.IsReadOnly = !true;
-            txtAddress.IsReadOnly = !true;
-            txtCity.IsReadOnly = !true;
+            txtName.IsReadOnly = false;
+            txtAddress.IsReadOnly = false;
+            txtCity.IsReadOnly = false;
             cboState.IsEnabled = true;
-            txtPhoneNumber.IsReadOnly = !true;
-            txtEmail.IsReadOnly = !true;
-            txtContactFirstName.IsReadOnly = !true;
-            txtContactLastName.IsReadOnly = !true;
-            cboStatusID.IsEnabled = !false;
-            dtpDateAdded.IsEnabled = !false;
+            txtPhoneNumber.IsReadOnly = false;
+            txtEmail.IsReadOnly = false;
+            txtContactFirstName.IsReadOnly = false;
+            txtContactLastName.IsReadOnly = false;
+            //cboStatusID.IsEnabled = !false;
+            dtpDateAdded.IsEnabled = true;
 
             btnSave.Content = "Submit";
             chkActive.Visibility = Visibility.Visible;
@@ -173,10 +183,14 @@ namespace Presentation
 
         /// <summary>
         /// Author: Gunardi Saputra
-        /// Created Date: 2019/02/20
+        /// Created Date: 02/20/2019
         /// 
         /// The btnSave_Click method is used for saving a new sponsor or updating 
         /// an existing sponsor in the system.
+        /// 
+        /// Update: Gunardi Saputra
+        /// Date: 04/19/2019
+        /// remove statusID
         /// </summary>
         private void btnSave_Click(object sender, RoutedEventArgs e)
         {
@@ -199,14 +213,14 @@ namespace Presentation
                     Email = txtEmail.Text,
                     ContactFirstName = txtContactFirstName.Text,
                     ContactLastName = txtContactLastName.Text,
-                    StatusID = (string)cboStatusID.SelectedItem,
-                   DateAdded = DateTime.Parse(dtpDateAdded.Text),
+                    //StatusID = (string)cboStatusID.SelectedItem,
+                    DateAdded = DateTime.Parse(dtpDateAdded.Text)
                 };
                 try
                 {
                     if (_existingSponsor == null)
                     {
-                        
+
                         _sponsorManager.InsertSponsor(newSponsor);
                         SetError("");
                         MessageBox.Show("Sponsor Was Created Successfully: " +
@@ -265,77 +279,77 @@ namespace Presentation
         /// </summary>
         private bool ValidateInput()
         {
-                if (ValidateName())
+            if (ValidateName())
+            {
+                if (ValidateAddress())
                 {
-                    if (ValidateAddress())
+                    if (ValidateCity())
                     {
-                        if (ValidateCity())
+                        //if (ValidateStatusID())
+                        //{
+
+                        if (ValidateState())
                         {
-                                if (ValidateStatusID())
+                            if (ValidatePhoneNumber())
+                            {
+                                if (ValidateEmail())
                                 {
 
-                                    if (ValidateState())
+
+                                    if (ValidateContactFirstName())
                                     {
-                                        if (ValidatePhoneNumber())
+                                        if (ValidateContactLastName())
                                         {
-                                            if (ValidateEmail())
-                                            {
-
-
-                                                if (ValidateContactFirstName())
-                                                {
-                                                    if (ValidateContactLastName())
-                                                    {
-                                                        return true;
-                                                    }
-                                                    else
-                                                    {
-                                                        SetError("INVALID LAST NAME");
-                                                    }
-                                                }
-                                                else
-                                                {
-                                                    SetError("INVALID FIRST NAME");
-                                                }
-                                            }
-                                            else
-                                            {
-                                                SetError("INVALID Email");
-                                            }
+                                            return true;
                                         }
                                         else
                                         {
-                                            SetError("INVALID PHONE NUMBER");
+                                            SetError("INVALID LAST NAME");
                                         }
-
                                     }
                                     else
                                     {
-                                        SetError("INVALID STATE");
+                                        SetError("INVALID FIRST NAME");
                                     }
                                 }
-
-
                                 else
                                 {
-                                    SetError("INVALID STATUS ID");
+                                    SetError("INVALID Email");
                                 }
+                            }
+                            else
+                            {
+                                SetError("INVALID PHONE NUMBER");
+                            }
 
                         }
                         else
                         {
-                            SetError("INVALID CITY");
+                            SetError("INVALID STATE");
                         }
+                        //}
+
+
+                        //else
+                        //{
+                        //SetError("INVALID STATUS ID");
+                        //}
+
                     }
                     else
                     {
-                        SetError("INVALID ADDRESS");
+                        SetError("INVALID CITY");
                     }
                 }
                 else
                 {
-                    SetError("INVALID NAME");
+                    SetError("INVALID ADDRESS");
                 }
+            }
+            else
+            {
+                SetError("INVALID NAME");
+            }
 
 
             return false;
@@ -394,7 +408,7 @@ namespace Presentation
             }
             // Address no more than 50 characters long
 
-            if (txtAddress.Text.Length >= 2 && txtAddress.Text.Length <= 50)
+            if (txtAddress.Text.Length >= 7 && txtAddress.Text.Length < 50)
             {
                 return true;
             }
@@ -411,17 +425,17 @@ namespace Presentation
         /// The ValidateSponsorID method makes sure that 
         /// the SponsorID  has the correct amount of characters.
         /// </summary>
-        private bool ValidateSponsorID()
-        {
-            if (txtSponsorID.Text == null || txtSponsorID.Text == "")
-            {
-                return false;
-            }
-            else
-            {
-                return true;
-            }
-        }
+        //private bool ValidateSponsorID()
+        //{
+        //    if (txtSponsorID.Text == null || txtSponsorID.Text == "")
+        //    {
+        //        return false;
+        //    }
+        //    else
+        //    {
+        //        return true;
+        //    }
+        //}
 
         /// <summary>
         /// Author: Gunardi Saputra
@@ -622,22 +636,26 @@ namespace Presentation
 
         /// <summary>
         /// Author: Gunardi Saputra
-        /// Created Date: 2019/02/20
+        /// Created Date: 02/20/2019
         /// 
         /// The StatusID tracks to see if an item was selected from the StatusID drop down combo box
         /// and returns true if there was and false if there wasn't
+        /// 
+        /// Updated: Gunardi Saputra
+        /// Date: 04/19/2019
+        /// remove statusID
         /// </summary>
-        private bool ValidateStatusID()
-        {
-            if (cboStatusID.Text == null || cboStatusID.Text == "")
-            {
-                return false;
-            }
-            else
-            {
-                return true;
-            }
-        }
+        //private bool ValidateStatusID()
+        //{
+        //    if (cboStatusID.Text == null || cboStatusID.Text == "")
+        //    {
+        //        return false;
+        //    }
+        //    else
+        //    {
+        //        return true;
+        //    }
+        //}
 
         /// <summary>
         /// Author: Gunardi Saputra
@@ -649,7 +667,7 @@ namespace Presentation
         /// <param name="e"></param>
         private void btnCancel_Click(object sender, RoutedEventArgs e)
         {
-            var result = MessageBox.Show("Are you sure you want to cancel?", 
+            var result = MessageBox.Show("Are you sure you want to cancel?",
                 "Leaving Sponsor form detail screen.", MessageBoxButton.YesNo, MessageBoxImage.Warning);
 
             if (result == MessageBoxResult.Yes)

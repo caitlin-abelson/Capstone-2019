@@ -41,6 +41,7 @@ namespace DataAccessLayer
             cmd.Parameters.AddWithValue("@PrimarySupplier", itemSupplier.PrimarySupplier);
             cmd.Parameters.AddWithValue("@LeadTimeDays", itemSupplier.LeadTimeDays);
             cmd.Parameters.AddWithValue("@UnitPrice", itemSupplier.UnitPrice);
+            cmd.Parameters.AddWithValue("@SupplierItemID", itemSupplier.ItemSupplierID);
 
             try
             {
@@ -98,6 +99,7 @@ namespace DataAccessLayer
                             itemSupplier.Name = reader["Name"].ToString();
                             itemSupplier.Description = reader["Description"].ToString();  
                             itemSupplier.ItemSupplierActive = reader.GetBoolean(reader.GetOrdinal("ItemSupplierActive"));
+                            itemSupplier.ItemSupplierID = reader.GetInt32(reader.GetOrdinal("SupplierItemID"));
                             itemSuppliers.Add(itemSupplier);
 
                         }
@@ -166,6 +168,7 @@ namespace DataAccessLayer
                         itemSupplier.PostalCode = reader["PostalCode"].ToString();
                         itemSupplier.State = reader["State"].ToString();       
                         itemSupplier.ItemSupplierActive = reader.GetBoolean(reader.GetOrdinal("ItemSupplierActive"));
+                        itemSupplier.ItemSupplierID = reader.GetInt32(reader.GetOrdinal("SupplierItemID"));
                     }
                 }
             }
@@ -203,6 +206,7 @@ namespace DataAccessLayer
             cmd.Parameters.AddWithValue("@LeadTimeDays", itemSupplier.LeadTimeDays);
             cmd.Parameters.AddWithValue("@UnitPrice", itemSupplier.UnitPrice);
             cmd.Parameters.AddWithValue("@Active", itemSupplier.ItemSupplierActive);
+            cmd.Parameters.AddWithValue("@SupplierItemID", itemSupplier.ItemSupplierID);
 
             cmd.Parameters.AddWithValue("@OldItemID", oldItemSupplier.ItemID);
             cmd.Parameters.AddWithValue("@OldSupplierID", oldItemSupplier.SupplierID);
@@ -210,6 +214,7 @@ namespace DataAccessLayer
             cmd.Parameters.AddWithValue("@OldLeadTimeDays", oldItemSupplier.LeadTimeDays);
             cmd.Parameters.AddWithValue("@OldUnitPrice", oldItemSupplier.UnitPrice);
             cmd.Parameters.AddWithValue("@OldActive", oldItemSupplier.ItemSupplierActive);
+            cmd.Parameters.AddWithValue("@OldSupplierItemID", itemSupplier.ItemSupplierID);
 
             try
             {

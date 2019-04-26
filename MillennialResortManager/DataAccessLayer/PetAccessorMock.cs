@@ -27,6 +27,7 @@ namespace DataAccessLayer
             _pets.Add(new Pet() { PetID = 100001, PetName = "RayDog", Gender = "Male", Species = "Labradoors", PetTypeID = "snoopdoggy keyboards", GuestID = 100001 });
             _pets.Add(new Pet() { PetID = 100002, PetName = "JohnDog", Gender = "Male", Species = "Labradoors", PetTypeID = "snoopdoggy drums", GuestID = 100002 });
             _pets.Add(new Pet() { PetID = 100003, PetName = "RobbieDog", Gender = "Male", Species = "Labradoors", PetTypeID = "snoopdoggy guitar", GuestID = 100003 });
+       
 
             _AllPets = new List<int>();
 
@@ -67,6 +68,83 @@ namespace DataAccessLayer
         public int UpdatePet(Pet oldPet, Pet newPet)
         {
             throw new NotImplementedException();
+        }
+
+        ///  @Author Matthew Hill
+        ///  @Created 3/16/19
+        //RetrievePetImageFilenameByPetID(int petID)
+        /// <summary>
+        /// Mock method for testing RetrievePetImageFilenameByPetID
+        /// </summary>
+        /// <param name="int petID">The params to be passed to Retrieve.</param>
+        /// <returns>int</returns>
+        public string RetrievePetImageFilenameByPetID(int petID)
+        {
+            Pet testPet = new Pet();
+            testPet.PetID = 100099;
+            testPet.imageFilename = "testPetImg.jpg";
+
+            if (testPet.PetID != petID)
+            {
+                throw new ArgumentException();
+            }
+            else
+            {
+                return testPet.imageFilename;
+            }
+        }
+
+
+        ///  @Author Matthew Hill
+        ///  @Created 3/10/19
+        //CreatePetImageFilename(string filename, int petID)
+        /// <summary>
+        /// Mock method for testing CreatePetImageFilename
+        /// </summary>
+        /// <param name="string filename, int petID">The params to be passed to Create.</param>
+        /// <returns>int</returns>
+        public int CreatePetImageFilename(string filename, int petID)
+        {
+            if (filename == null)
+            {
+                return 0;
+            }
+            Pet myPet = new Pet() { imageFilename = filename, PetID = petID };
+
+            if (myPet.imageFilename != filename)
+            {
+                return 0;
+            }
+
+            return 1;
+        }
+
+
+        ///  @Author Matthew Hill
+        ///  @Created 3/16/19
+        //UpdatePetImageFilename(int petID, string oldFilename, string newFilename)
+        /// <summary>
+        /// Mock method for testing UpdatePetImageFilename
+        /// </summary>
+        /// <param name="int petID, string oldFilename, string newFilename">The params to be passed to Update.</param>
+        /// <returns>int</returns>
+        public int UpdatePetImageFilename(int petID, string oldFilename, string newFilename)
+        {
+            Pet testPet = new Pet();
+            testPet.PetID = 100099;
+            testPet.imageFilename = "testPetImg.jpg";
+
+            if (petID != testPet.PetID)
+            {
+                return 0;
+            }
+            else if (oldFilename != testPet.imageFilename)
+            {
+                return 0;
+            }
+
+            testPet.imageFilename = newFilename;
+            return 1;
         }
     }
 }

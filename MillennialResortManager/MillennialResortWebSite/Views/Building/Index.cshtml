@@ -1,0 +1,68 @@
+﻿@model IEnumerable<DataObjects.Building>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+
+
+<div class="content">
+    <div class="jumbotron jumbotronBackGroundBuildingPage">
+        <div class="container body-content">
+            <h1>Resort Buildings and Venues!</h1>
+
+        </div>
+    </div>
+
+    <div class="container body-content1">
+
+        <table class="table roomPortal">
+
+            <h1 class="pull-left" style="color:#40798C;    font-family: 'Fugaz One', cursive; text-shadow: 2px 2px 3px #2296a7; ">Rent out our Venues!</h1>
+
+
+            @foreach (var item in Model)
+            {
+            <tr>
+                <td>
+                    <img class="card-img-top" src="~/Content/images/sovenue.png" alt="Card image cap">
+                </td>
+
+                <th>
+                    @Html.DisplayNameFor(model => model.Name)
+                </th>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+
+                <th>
+                    @Html.DisplayNameFor(model => model.Address)
+                </th>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Address)
+                </td>
+
+                <th>
+                    @Html.DisplayNameFor(model => model.Description)
+                </th>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+
+
+                <th>
+                    @Html.DisplayNameFor(model => model.StatusID)
+                </th>
+                <td>
+                    @Html.DisplayFor(modelItem => item.StatusID)
+                </td>
+                <td>
+                    @Html.ActionLink("Details", "Details", new { id = item.BuildingID })
+                </td>
+            </tr>
+            }
+
+        </table>
+    </div>
+    </div>
+</div>

@@ -25,10 +25,17 @@ namespace Presentation
 
         SupplierOrderManager _supplierManager = new SupplierOrderManager();
         ReceivingTicketManager _receivingManager = new ReceivingTicketManager();
+        SpecialOrderManagerMSSQL _specialManager = new SpecialOrderManagerMSSQL();
+
+        List<SpecialOrderLine> originalSpecialOrderLine;
+        List<SpecialOrderLine> specialOrderLines;
         List<SupplierOrderLine> supplierOrderLine;
         private SupplierOrderLine _line = new SupplierOrderLine();
         private SupplierOrder order = new SupplierOrder();
+        private CompleteSpecialOrder _specialOrder = new CompleteSpecialOrder();
+        private SpecialOrderLine _specialLine = new SpecialOrderLine();
         ReceivingTicket ticket = new ReceivingTicket();
+        ReceivingTicket originalTicket = new ReceivingTicket();
         bool orderComplete = true;
 
         /// <summary>
@@ -49,32 +56,31 @@ namespace Presentation
         /// </summary>
         private void btnSubmit_Click(object sender, RoutedEventArgs e)
         {
-            /* Remove comment once order test data has been added
-            ticket.SupplierOrderID = order.SupplierOrderID;
-            */
-            //remove following line when order test data has been added
-            ticket.SupplierOrderID = 100002;
-            ticket.ReceivingTicketExceptions = this.txtException.Text;
-            ticket.ReceivingTicketCreationDate = DateTime.Now;
-            for (int i = 0; i < dgOrderRecieving.Items.Count-1; i++)
+
+            if (this.btnSubmit.Content.Equals("Submit"))
             {
-                dgOrderRecieving.SelectedIndex = i;
-                SupplierOrderLine temp = (SupplierOrderLine)dgOrderRecieving.SelectedItem;
-                var _tempLine = supplierOrderLine.Find(x => x.ItemID == temp.ItemID);
-                _tempLine.QtyReceived = temp.QtyReceived;
-                if(_tempLine.QtyReceived != temp.QtyReceived)
+                ticket.SupplierOrderID = order.SupplierOrderID;
+                ticket.ReceivingTicketExceptions = this.txtException.Text;
+                ticket.ReceivingTicketCreationDate = DateTime.Now;
+                for (int i = 0; i < dgOrderRecieving.Items.Count - 1; i++)
                 {
-                    orderComplete = false;
+                    dgOrderRecieving.SelectedIndex = i;
+                    SupplierOrderLine temp = (SupplierOrderLine)dgOrderRecieving.SelectedItem;
+                    var _tempLine = supplierOrderLine.Find(x => x.ItemID == temp.ItemID);
+                    _tempLine.QtyReceived = temp.QtyReceived;
+                    if (_tempLine.OrderQty != temp.QtyReceived)
+                    {
+                        orderComplete = false;
+                    }
+                    supplierOrderLine.Find(x => x.ItemID == temp.ItemID).QtyReceived = temp.QtyReceived;
                 }
-            }
-            
+
                 try
                 {
-                /* Remove comment once order test data has been added
                     order.OrderComplete = orderComplete;
-                    
+
                     _supplierManager.UpdateSupplierOrder(order, supplierOrderLine);
-                    */
+
                     _receivingManager.createReceivingTicket(ticket);
 
                 }
@@ -82,15 +88,86 @@ namespace Presentation
                 {
                     MessageBox.Show(ex.Message);
                 }
-            
-            
+            }
+            else if (this.btnSubmit.Content.Equals("Save"))
+            {
+                ticket.ReceivingTicketExceptions = this.txtException.Text;
+                ticket.ReceivingTicketCreationDate = DateTime.Now;
+                for (int i = 0; i < dgOrderRecieving.Items.Count - 1; i++)
+                {
+                    dgOrderRecieving.SelectedIndex = i;
+                    SupplierOrderLine temp = (SupplierOrderLine)dgOrderRecieving.SelectedItem;
+                    var _tempLine = supplierOrderLine.Find(x => x.ItemID == temp.ItemID);
+                    _tempLine.QtyReceived = temp.QtyReceived;
+                    if (_tempLine.OrderQty != temp.QtyReceived)
+                    {
+                        orderComplete = false;
+                    }
+                    supplierOrderLine.Find(x => x.ItemID == temp.ItemID).QtyReceived = temp.QtyReceived;
+                }
+
+                try
+                {
+                    order.OrderComplete = orderComplete;
+
+                    _supplierManager.UpdateSupplierOrder(order, supplierOrderLine);
+
+                    _receivingManager.updateReceivingTicket(originalTicket, ticket);
+
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+            }
+            else if (this.btnSubmit.Content.Equals("Complete"))
+            {
+                ticket.SupplierOrderID = _specialOrder.SpecialOrderID;
+                ticket.ReceivingTicketExceptions = this.txtException.Text;
+                ticket.ReceivingTicketCreationDate = DateTime.Now;
+                for (int i = 0; i < dgOrderRecieving.Items.Count - 1; i++)
+                {
+                    dgOrderRecieving.SelectedIndex = i;
+                    SpecialOrderLine temp = (SpecialOrderLine)dgOrderRecieving.SelectedItem;
+                    var _tempLine = specialOrderLines.Find(x => x.NameID == temp.NameID);
+                    _tempLine.QtyReceived = temp.QtyReceived;
+                    if (_tempLine.OrderQty != temp.QtyReceived)
+                    {
+                        orderComplete = false;
+                    }
+                    specialOrderLines.Find(x => x.NameID == temp.NameID).QtyReceived = temp.QtyReceived;
+                }
+
+                try
+                {
+                    if (orderComplete)
+                    {
+
+                        _specialManager.EditSpecialOrder(_specialOrder, _specialOrder);
+                    }
+                    int i = 0;
+                    foreach (var item in specialOrderLines)
+                    {
+                        _specialManager.EditSpecialOrderLine(originalSpecialOrderLine[i], item);
+                        i++;
+                    }
+
+                    //_receivingManager.createReceivingTicket(ticket);
+
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+            }
+
             this.Close();
 
         }
         /// <summary>
         /// Author: Kevin Broskow
         /// Created : 3/25/2019
-        /// Real constructor for the window being opened
+        /// Real constructor for the window being opened for a supplier order being received
         /// 
         /// </summary>
         public OrderRecieving(SupplierOrder supplierOrder)
@@ -99,7 +176,7 @@ namespace Presentation
             try
             {
                 supplierOrderLine = _supplierManager.RetrieveAllSupplierOrderLinesBySupplierOrderID(supplierOrder.SupplierOrderID);
-                
+
             }
             catch (Exception ex)
             {
@@ -107,20 +184,58 @@ namespace Presentation
             }
             InitializeComponent();
             this.lblRecieving.Content += supplierOrder.SupplierOrderID.ToString();
-            doOnStart();
-            
+            this.btnSubmit.Content = "Submit";
+            dgOrderRecieving.ItemsSource = supplierOrderLine;
+
         }
         /// <summary>
         /// Author: Kevin Broskow
         /// Created : 3/25/2019
-        /// Helper method to setup the datagrid
+        /// Real constructor for the window being opened on a special order being recieved
         /// 
         /// </summary>
-        private void doOnStart()
+        public OrderRecieving(CompleteSpecialOrder specialOrder)
         {
-            dgOrderRecieving.ItemsSource = supplierOrderLine;
-            
+            _specialOrder = specialOrder;
+            try
+            {
+                specialOrderLines = _specialManager.RetrieveOrderLinesByID(_specialOrder.SpecialOrderID);
+                originalSpecialOrderLine = _specialManager.RetrieveOrderLinesByID(_specialOrder.SpecialOrderID);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error: " + ex.Message);
+            }
+            InitializeComponent();
+            this.lblRecieving.Content += _specialOrder.SpecialOrderID.ToString();
+            this.btnSubmit.Content = "Complete";
+            dgOrderRecieving.ItemsSource = specialOrderLines;
         }
+        /// <summary>
+        /// Author: Kevin Broskow
+        /// Created : 3/25/2019
+        /// Real constructor for the window being opened
+        /// 
+        /// </summary>
+        public OrderRecieving(ReceivingTicket ticket)
+        {
+            originalTicket = ticket;
+            try
+            {
+                supplierOrderLine = _supplierManager.RetrieveAllSupplierOrderLinesBySupplierOrderID(ticket.SupplierOrderID);
+                order = _supplierManager.RetrieveSupplierOrderByID(ticket.SupplierOrderID);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            InitializeComponent();
+            this.lblRecieving.Content += ticket.SupplierOrderID.ToString();
+
+            this.btnSubmit.Content = "Save";
+            dgOrderRecieving.ItemsSource = supplierOrderLine;
+        }
+
         /// <summary>
         /// Author: Kevin Broskow
         /// Created : 3/25/2019
@@ -140,7 +255,7 @@ namespace Presentation
             {
                 e.Cancel = true;
             }
-            if(headerName == "QtyReceived")
+            if (headerName == "QtyReceived")
             {
                 e.Column.IsReadOnly = false;
             }

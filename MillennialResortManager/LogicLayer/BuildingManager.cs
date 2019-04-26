@@ -158,9 +158,29 @@ namespace LogicLayer
             return buildings;
         }
 
-        public Building RetrieveBuilding(Building selectedBuilding)
+        /// <summary>
+        /// James Heim
+        /// Created 2019-04-17
+        /// 
+        /// Retrieve a building by the specified building id.
+        /// </summary>
+        /// <param name="selectedBuilding"></param>
+        /// <returns></returns>
+        public Building RetrieveBuilding(string buildingID)
         {
-            throw new NotImplementedException();
+            Building building = null;
+
+            try
+            {
+                building = buildingAccessor.SelectBuildingByID(buildingID);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+
+            return building;
         }
 
         /// <summary>

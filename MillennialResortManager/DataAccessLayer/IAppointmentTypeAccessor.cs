@@ -9,5 +9,6 @@ namespace DataAccessLayer
         int DeleteAppointmentType(string appointmentTypeID);
         List<AppointmentType> RetrieveAllAppointmentTypes(string status);
         List<string> SelectAllAppointmentTypeID();
+        AppointmentType RetrievAppointmentTypeById(string id);
     }
 }

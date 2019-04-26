@@ -1,35 +1,44 @@
-﻿/*base css setting form html elements*/
-/*////////////////////////////////////*/
+﻿
+
+
+
+
+
+
+/*base css setting form html elements*/
+/*/
+//////////////////////////////////
+/*/
 body {
     /*padding-top: 50px;
-    padding-bottom: 20px;*/
+     padding-bottom: 20px;
+    */
+   overflow-x: hidden;
 }
-
 /* Set padding to keep content from hitting the edges */
 .body-content {
     /*padding-left: 15px;
-    padding-right: 15px;*/
+     padding-right: 15px;
+    */
 }
 
-/* Override the default bootstrap behavior where horizontal description lists 
-   will truncate terms that are too long to fit in the left column 
-*/
+.body-content1 {
+    padding-left: 15px;
+     padding-right: 15px;
+    
+}
+/* Override the default bootstrap behavior where horizontal description lists will truncate terms that are too long to fit in the left column */
 .dl-horizontal dt {
     white-space: normal;
 }
-
 /* Set width on the form input elements since they're 100% wide by default */
-input,
-select,
-textarea {
+input, select, textarea {
     max-width: 280px;
 }
 
-img{
+img {
     max-width: 100%;
 }
-
-
 
 footer {
     padding: 80px 0;
@@ -39,17 +48,15 @@ footer {
 }
 
 .footerDate {
-  padding: 20px;
-  font-size:17px;
-
+    padding: 20px;
+    font-size: 17px;
 }
+
 .footerBackground {
     background: #C3BEAC;
     background-image: linear-gradient(#0B2027, #C3BEAC);
     opacity: 0.7;
 }
-
-
 
 .latest-posts {
     list-style: none;
@@ -61,7 +68,6 @@ li a {
     font-size: 22px;
 }
 
-
 .navbar-inverse .navbar-nav > li > a {
     padding-top: 40px;
     color: azure;
@@ -70,14 +76,57 @@ li a {
 
 
 
-/*Layout //////////////////////////////////////////////////////////////////////////////////////////////*/
-/*/////////////////////////////////////////////////////////////////////////////////////////////////////*/
 
-.loginRegister {
-    margin-right: 200px;
+.title h2 {
+    font-family: 'Fugaz One', cursive;
+    text-align: center;
 }
 
 
+
+
+.textTime p {
+    font-size:18px;
+    text-align: center;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*Layout /////////////////////////////////////////////////////////////////////////////////////////////
+/*/
+/*/
+///////////////////////////////////////////////////////////////////////////////////////////////////
+/*/
+.loginRegister {
+    margin-right: 100px;
+}
+.loginRegister2 {
+    margin-left: 100px;
+}
 
 
 /* This with header div */
@@ -85,29 +134,23 @@ li a {
     clear: both;
     overflow: hidden;
 }
-
-
 /*These are for the header*/
 .top-container {
     height: 50px;
     background-color: #40798C;
-    
     color: white;
 }
 
-
-.top-container p {
-   float: left;
-   margin-left: 20px;
-   margin-top: 5px;
-   font-size: 22px;
-}
+    .top-container p {
+        float: left;
+        margin-left: 20px;
+        margin-top: 5px;
+        font-size: 22px;
+    }
 
 .resortHeader {
-    
-    z-index:50;
+    z-index: 50;
 }
-
 /* This runs the css header to slide up until the nav is in a fixed position */
 .sticky {
     box-sizing: border-box;
@@ -115,10 +158,10 @@ li a {
     top: 0;
     width: 100%;
 }
-.sticky + .content {
-   padding-top: 100px;
-}
 
+    .sticky + .content {
+        padding-top: 100px;
+    }
 
 header {
     z-index: 10;
@@ -126,58 +169,55 @@ header {
 
 
 
-
 /*navbar */
 .navbar-default {
- 
     background-color: #0B2027;
-    /*border-color: #495867;*/
     border-radius: unset;
     background-repeat: no-repeat;
     background-position: center;
-   
 }
-
 
 .jumbotron {
     margin-bottom: 0px;
 }
 
+
+
+
+
+
+
 .jumbotronBackGround {
-    padding-bottom: 270px;
+    /*padding-bottom: 270px;*/
     background-repeat: no-repeat;
     background-image: url(../Content/images/beach-family.jpg);
     background-size: cover;
     background-position: center center;
+    
 }
 
-
-.jumbotronBackGround h1 {
+    .jumbotronBackGround h1 {
         font-size: 70px;
         font-family: 'Fugaz One', cursive;
         text-shadow: 3px 3px #40798C;
         color: #fff;
-}
+    }
 
 .jumbotronHighlights {
-   
     background-repeat: no-repeat;
     background-color: #70A9A1;
 }
 
-.jumbotronHighlights h1 {
-    margin-top: -50px;
-    padding: 25px;
+    .jumbotronHighlights h1 {
+        margin-top: -50px;
+        padding: 25px;
         text-shadow: 3px 3px #40798C;
         color: #fff;
-     
-}
-
+    }
 
 .jumbotronEvents {
     background-repeat: no-repeat;
     background-color: #FFF1D0;
-    
 }
 
     .jumbotronEvents h1 {
@@ -192,23 +232,191 @@ header {
     text-align: center;
 }
 
-.jumbotronMailingList h2 {
+   .jumbotronMailingList h2 {
         text-shadow: 3px 3px #40798C;
         color: #fff;
         font-size: 40px;
     }
+
     .jumbotronMailingList legend {
         text-shadow: 3px 3px #40798C;
         color: #fff;
         font-size: 30px;
     }
- 
-.carousel-inner {
-    width: 500px;
+
+
+.jumbotronBackGroundReservationPage {
+    /*padding-bottom: 270px;*/
+    background-repeat: no-repeat;
+    background-image: url(../Content/images/beach-familyTwo.jpg);
+    background-size: cover;
+    background-position: center center;
+}
+
+    .jumbotronBackGroundReservationPage h1 {
+        font-size: 55px;
+        font-family: 'Fugaz One', cursive;
+        text-shadow: 3px 3px #40798C;
+        color: #fff;
+    }
+    .jumbotronBackGroundReservationPage h2 {
+        font-size: 30px;
+        font-family: 'Fugaz One', cursive;
+        text-shadow: 3px 3px #40798C;
+        color: #fff;
+    }
+
+
+.jumbotronBackGroundEventPage {
     height: 300px;
+    background-repeat: no-repeat;
+    background-image: url(../Content/images/MainStage.jpg);
+    background-size: cover;
+    background-position: center center;
+}
+    .jumbotronBackGroundEventPage h1 {
+        font-size: 55px;
+        font-family: 'Fugaz One', cursive;
+        text-shadow: 3px 3px #40798C;
+        color: #fff;
+    }
+
+    .jumbotronBackGroundEventPage h2 {
+        font-size: 30px;
+        font-family: 'Fugaz One', cursive;
+        text-shadow: 3px 3px #40798C;
+        color: #fff;
+    }
+
+.jumbotronBackGroundBuildingPage {
+    height: 300px;
+    background-repeat: no-repeat;
+    background-image: url(../Content/images/venue.jpg);
+    background-size: cover;
+    background-position: center center;
+}
+    .jumbotronBackGroundBuildingPage h1 {
+        font-size: 55px;
+        font-family: 'Fugaz One', cursive;
+        text-shadow: 3px 3px #40798C;
+        color: #fff;
+    }
+
+    .jumbotronBackGroundBuildingPage h2 {
+        font-size: 30px;
+        font-family: 'Fugaz One', cursive;
+        text-shadow: 3px 3px #40798C;
+        color: #fff;
+    }
+
+
+.jumbotronBackGroundAppointmentPage {
+    height: 300px;
+    background-repeat: no-repeat;
+    background-image: url(../Content/images/calm-beach.jpg);
+    background-size: cover;
+    background-position: center center;
+}
+
+    .jumbotronBackGroundAppointmentPage h1 {
+        font-size: 55px;
+        font-family: 'Fugaz One', cursive;
+        text-shadow: 3px 3px #40798C;
+        color: #fff;
+    }
+
+.jumbotronBackGroundAppointmentPage h2 {
+    font-size: 30px;
+    font-family: 'Fugaz One', cursive;
+    text-shadow: 3px 3px #40798C;
+    color: #fff;
 }
 
 
+
+
+.jumbotronBackGroundRoomPage {
+    height: 350px;
+    background-repeat: no-repeat;
+    background-image: url(../Content/images/pier.jpg);
+    background-size: cover;
+    background-position: center center;
+}
+
+
+    .jumbotronBackGroundRoomPage h1 {
+        font-size: 55px;
+        font-family: 'Fugaz One', cursive;
+        text-shadow: 3px 3px #40798C;
+        color: #fff;
+    }
+
+    .jumbotronBackGroundRoomPage h2 {
+        font-size: 30px;
+        font-family: 'Fugaz One', cursive;
+        text-shadow: 3px 3px #40798C;
+        color: #fff;
+    }
+
+.jumbotronBackGroundRoomPage2 {
+    background-repeat: no-repeat;
+    background-image: url(../Content/images/pier.jpg);
+    background-size: cover;
+    background-position: center center;
+}
+
+.jumbotronBackGroundRegistrationPage {
+    height: 250px;
+    background-repeat: no-repeat;
+    background-image: url('../Content/images/beach-familyTwo.jpg');
+    background-size: cover;
+    background-position: center center;
+}
+.jumbotronBackGroundRegistrationPage h1 {
+    font-size: 55px;
+    font-family: 'Fugaz One', cursive;
+    text-shadow: 3px 3px #40798C;
+    color: #fff;
+}
+
+
+.RegistrationPage {
+    /*background-color: #40798C;*/
+    /*background-image: linear-gradient(to right, rgba(255,0,0,0), #40798C);*/
+    border-radius: 10px;
+    background-color: rgba( 64, 121, 140, 0.4);
+    border: solid teal 3px;
+    box-shadow: 3px 3px 6px #888888;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    
+}
+    .RegistrationPage h1 {
+        font-size: 55px;
+        font-family: 'Fugaz One', cursive;
+        text-shadow: 3px 3px #40798C;
+        color: #fff;
+    }
+
+    .RegistrationPage h2 {
+        font-size: 30px;
+        font-family: 'Fugaz One', cursive;
+        text-shadow: 3px 3px #40798C;
+        color: #fff;
+    }
+
+.resForm {
+    margin: auto;
+    width: 50%;
+   
+    
+}
+
+.carousel-inner {
+    width: 500px;
+    height: 300px;
+  
+}
 
 .nav100 {
     padding: 0px;
@@ -217,27 +425,148 @@ header {
 .lead {
     color: #fff;
 }
+
 .col-md-4 {
-  position: static;
+    position: static;
 }
-
-
-
-
 
 .mailingList {
     display: inline;
 }
 
-
-
-
-
-
-
 .card {
     max-width: 350px;
-    margin:auto;
+    margin: auto;
+}
+
+
+.eventsText h1 {
+    font-family: 'Fugaz One', cursive;
+    margin: 2px 10px 10px 10px;
+    text-shadow: 3px 3px #0B2027;
+    color: #40798C;
+    text-align: center;
+    padding: 0px;
+   
+}
+
+
+.planTripHomepage {
+    float: right;
+    border-radius: 10px;
+    background-color: rgba(255, 255, 255, 0.5);
+    text-align: center;
+    padding: 35px;
+    /*margin-right: 40px;*/
+    border: solid white 3px;
+    box-shadow: 3px 6px 12px #888888;
+}
+
+
+    .planTripHomepage h2 {
+        font-family: 'Fugaz One', cursive;
+        margin-top: -10px;
+        color: #0B2027;
+        padding-bottom: 10px;
+      
+    }
+
+    .planTripHomepage p {
+        padding-top: 15px;
+        margin-bottom: -10px;
+    }
+
+.planTripHomepage .col-md-10 {
+    width: 100%;
+}
+
+
+
+#centerButton input[type="submit"] {
+    text-align:center;
+}
+
+
+.roomTable {
+    margin-top:15px;
+}
+
+.roomPortal td{
+
+    height:250px;
+}
+
+
+.roomPrice  {
+    
+    background-color:aqua;
+}
+
+
+
+
+.planTripRoomspage {
+    float: left;
+    border-radius: 10px;
+    background-color: rgba(255, 255, 255, 0.5);
+    text-align: center;
+    padding: 35px;
+    /*margin-right: 40px;*/
+    border: solid teal 3px;
+    box-shadow: 3px 3px 6px #888888;
+    margin-top: 15px;
+}
+
+    .planTripRoomspage h2 {
+        font-family: 'Fugaz One', cursive;
+        margin-top: -10px;
+        color: #0B2027;
+        padding-bottom: 10px;
+    }
+
+    .planTripRoomspage p {
+        padding-top: 15px;
+        margin-bottom: -10px;
+    }
+
+    .planTripRoomspage .col-md-10 {
+        width: 100%;
+    }
+
+/* Contact Page CSS*/
+
+#contactPageBody {
+    background-color: #FFF1D0;
+}
+
+.contactPageForm {
+    background-color: #FFF1D0;
+    width: 90%;
+    margin: auto;
+}
+
+#descDiv {
+    margin-left: 105px;  
+}
+
+#descTxtArea {
+    resize: none;
+}
+
+#emailTxtBox {
+    margin-left: 31px;
+}
+
+#contactFrmSbmtBtn {
+}
+
+.contactPageForm label {
+    text-decoration: underline;
+    
+}
+
+#contactPageBody address {
+    font-style: italic;
 }
 
 
@@ -245,61 +574,99 @@ header {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+/*.navbar-display {
+       margin: auto;
+       width: 50%;
+    }*/
 
 
 
 /*Media Query for ipad, iphone, sized devices.*/
 
+
+
+
+
 @media only screen and (max-width: 768px) {
 
-
-    .mobileHide {
-        visibility: hidden;
-    }
-
-
-
-    .navbar-nav {
-        margin: 0px;
-    }
-
-    
-
+    /*.navbar-display {
+        display: inline-block !important;
+    }*/
+    /*.navbar-collapse.collapse {
+        display: inline-block !important;
+    }*/
 }
 
-    @media only screen and (min-width: 768px) {
-        .navbar-default {
-            height: 100px;
-            background-color: #0B2027;
-            border-radius: unset;
-            background-repeat: no-repeat;
-            background-position: center;
+
+
+
+/*Switches thead login registration anchor from visible / hidden*/
+@media only screen and (max-width: 768px) {
+    .mobileHide {
+        display: none;
+    }
+    /*.navbar-nav {
+        margin: -10px;
+    }*/
+    .loginRegister2 {
+        margin-left: -15px;
+    }
+
+}
+@media only screen and (min-width: 768px) {
+
+    .navbar-default {
+        height: 100px;
+        background-color: #0B2027;
+        border-radius: unset;
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+    .mobileShow {
+        display: none;
+    }
+}
+
+
+
+@media only screen and (max-width: 992px) {
+    .eventsText h1 {
+        margin: 2px 10px 10px 10px;       
+        float: none;
+    }
+    
+}
+
+    @media only screen and (min-width: 992px) {
+
+        .col-md-offset-2 {
+            margin: 0;
         }
-
-        .mobileShow {
-            visibility: hidden;
-        }
+    }
 
 
 
+
+@media only screen and (max-width: 415px) {
+
+    .jumbotronBackGround h1 {
+        display: none;
+    }
+}
+
+
+.dropdown-backdrop {
+
+    display:block;
+}
+
+
+
+
+
+.section{
+    z-index: 4;
+}
 
 
 
@@ -309,8 +676,55 @@ header {
 
 
         /*modual css setting for partials and for chat windows and dialog boxes*/
-        /*//////////////////////////////////////////////////////////////////////*/
+   
+   
+.devPage {
+    background-color: dodgerblue;
+   margin-left: 15px;
+   margin-right:15px;
+    color: azure;
+    font-size: 24px;
+    font-weight:400;
+}
 
 
 
+  .devPage section {
+      margin: 10px;
+      height: 275px;
+  }
 
+
+    .devSection img {
+        float: right;
+    }
+
+/*.devSection2 img {
+    float: left;
+}*/
+
+
+.devImg {
+    margin: 5px;
+}
+
+
+.devSection2  {
+    float: right;
+    height: 200px;
+    width:85%;
+    padding:35px;
+}
+
+
+
+.devPageh1 {
+    font-size: 55px;
+    font-family: 'Fugaz One', cursive;
+    text-shadow: 3px 3px #40798C;
+    color: #fff;
+}
+
+marquee {
+    background-color:chartreuse;
+}

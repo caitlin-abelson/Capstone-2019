@@ -1,0 +1,139 @@
+﻿<Window x:Class="Presentation.BrowseShuttleReservation"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Presentation"
+        mc:Ignorable="d"
+      
+        Title="Shuttle Reservation List"  Height="640" Width="900" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded" >
+    <Grid>
+
+        <Grid.RowDefinitions>
+           
+            <RowDefinition Height="50"></RowDefinition>
+            <RowDefinition Height="50"></RowDefinition>
+         <!--   <RowDefinition Height="0"></RowDefinition -->
+            <RowDefinition  > </RowDefinition>
+            <RowDefinition Height="40" ></RowDefinition>
+        </Grid.RowDefinitions>
+        
+        
+        <Grid Grid.Row="0" >
+            <Grid.ColumnDefinitions>
+
+                <ColumnDefinition Width="0"></ColumnDefinition>
+                <ColumnDefinition Width="2"  ></ColumnDefinition>
+                <ColumnDefinition Width="2"></ColumnDefinition>
+              
+                <ColumnDefinition Width="130"></ColumnDefinition>
+                <ColumnDefinition Width="150"></ColumnDefinition>
+                <ColumnDefinition Width="140"></ColumnDefinition>
+                <ColumnDefinition Width="190"></ColumnDefinition>
+                <ColumnDefinition Width="110"></ColumnDefinition>
+                <ColumnDefinition Width="130"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+
+
+
+            <Label Grid.Column="3" Content="Search Pickup Date:"  Padding="5" HorizontalAlignment="Right" VerticalContentAlignment="Center" />
+        
+            <DatePicker Name="dtpSearchDate"  Height="25"  Grid.Row="0" Width="140" Grid.Column="4"/>
+            <Button x:Name="btnClearListShuttleReservation" VerticalAlignment="Center" Grid.Column="8" Content="Clear Filter" Margin="5" Height="25" Click="BtnClearSetupListShuttleReservation_Click" />
+            <Label Grid.Column="5" Content="Search Pickup Location:"  Padding="5" HorizontalAlignment="Right" VerticalContentAlignment="Center" />
+            <TextBox x:Name="txtSearchShuttleReservation" Grid.Column="6" Margin="5" Height="25" HorizontalContentAlignment="Left" Text=""    />
+
+            <Button x:Name="btnFilterShuttleReservation"  Grid.Column="7" Margin="5" Height="25" Content="Filter" Click="BtnFilterShuttleReservation_Click" />
+
+
+        </Grid>
+        <Grid Grid.Row="1" >
+            <Grid.ColumnDefinitions>
+
+                <ColumnDefinition Width="50"></ColumnDefinition>
+                <ColumnDefinition Width="50"  ></ColumnDefinition>
+                <ColumnDefinition Width="50"></ColumnDefinition>
+
+                <ColumnDefinition Width="100"></ColumnDefinition>
+                <ColumnDefinition Width="10"></ColumnDefinition>
+                <ColumnDefinition Width="190"></ColumnDefinition>
+                <ColumnDefinition Width="220"></ColumnDefinition>
+                <ColumnDefinition Width="110"></ColumnDefinition>
+                <ColumnDefinition Width="130"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <CheckBox x:Name="cbActiveShuttleReservation" HorizontalAlignment="Left"  VerticalAlignment="Center" Grid.Column="4" IsChecked="True" Click="CbActiveShuttleReservation_Click" />
+           
+            <Label x:Name="lblActive" HorizontalAlignment="Right" VerticalAlignment="Center" Content="Active" Grid.Column="3"/>
+            <CheckBox x:Name="cbDeactiveShuttleReservation" IsChecked="True" HorizontalAlignment="Left"  VerticalAlignment="Center" Grid.Column="3" Click="CbDeactiveShuttleReservation_Click" />
+        
+            <Label x:Name="lblDeactive"  HorizontalAlignment="Left" VerticalAlignment="Center" Content="Inactive" Grid.Column="2"/>
+            <Label Grid.Column="5" Content="Search Guest Last  Name:"  Padding="5" HorizontalAlignment="Right" VerticalContentAlignment="Center" />
+            <TextBox x:Name="txtSearchLastNameShuttleReservation" Grid.Column="6" Margin="5" Height="25" HorizontalContentAlignment="Left" Text=""    />
+        </Grid>
+
+        <Grid Grid.Row="2" >
+            <Grid.RowDefinitions>
+
+                <!--      <RowDefinition Height="50"></RowDefinition> -->
+                <RowDefinition></RowDefinition>
+
+                <!--  <RowDefinition Height="30"></RowDefinition> -->
+            </Grid.RowDefinitions>
+            <TabControl Grid.Row="1" x:Name="tabsetMain">
+                <TabItem Name="tabSetupList" Header="Shuttle Reservations" >
+
+
+
+
+
+
+
+                    <DataGrid Grid.Row="1" x:Name="dgShuttleReservation"  VerticalGridLinesBrush="{x:Null}" SelectionMode="Single"  AutoGenerateColumns="False"  AlternatingRowBackground="#FFDFF7F1" RowBackground="#FFF4F7DF"  IsReadOnly="True" Grid.ColumnSpan="2" Margin="0,0,0.2,0.4">
+                        <DataGrid.Columns>
+                            <!--<DataGridTextColumn Binding="{Binding ShuttleReservationID}" Header="Shuttle Reservation ID"></DataGridTextColumn>-->
+                           <!-- <DataGridTextColumn Binding="{Binding ShuttleReservation.GuestID}" Header="GuestID" Width="*"></DataGridTextColumn>
+                            <DataGridTextColumn Binding="{Binding ShuttleReservation.EmployeeID}" Header="EmployeeID" Width="*"></DataGridTextColumn>-->
+
+                            <DataGridTextColumn Binding="{Binding Guest.FirstName}" Header="Guest First Name"></DataGridTextColumn>
+                            <DataGridTextColumn Binding="{Binding Guest.LastName}" Header="Guest Last Name"></DataGridTextColumn>
+                            <DataGridTextColumn Binding="{Binding Guest.PhoneNumber}" Header="Guest Phone Number"></DataGridTextColumn>
+                            <DataGridTextColumn Binding="{Binding Employee.FirstName}" Header="Employee First Name"></DataGridTextColumn>
+                            <DataGridTextColumn Binding="{Binding Employee.LastName}" Header="Employee Last Name"></DataGridTextColumn>
+                            <DataGridTextColumn Binding="{Binding PickupLocation}" Header="Pickup Location"></DataGridTextColumn>
+                            <DataGridTextColumn Binding="{Binding DropoffDestination}" Header="Dropoff Location" ></DataGridTextColumn>
+                            <DataGridTextColumn Binding="{Binding PickupDateTime}" Header="Pickup Date Time" ></DataGridTextColumn>
+                            <DataGridTextColumn Binding="{Binding DropoffDateTime}" Header="Dropoff Date Time"></DataGridTextColumn>
+                          
+                
+                            <DataGridCheckBoxColumn Binding="{Binding Active}" Header="Active" ></DataGridCheckBoxColumn>
+                           
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </TabItem>
+                
+
+            </TabControl>
+
+
+
+        </Grid>
+
+        <Grid Grid.Row="3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="100"/>
+                <ColumnDefinition />
+                <ColumnDefinition Width="120"/>
+                <ColumnDefinition Width="100"/>
+                <ColumnDefinition Width="120"/>
+                <ColumnDefinition Width="100"/>
+                <ColumnDefinition Width="150"/>
+            </Grid.ColumnDefinitions>
+        
+            <Button x:Name="btnDeactivateShuttleReservation" Grid.Row="3"  Grid.Column="6" Content="Cancel Reservation" Margin="5" Height="25" Click="BtnDeactivateShuttleReservation_Click"/>
+            <Button x:Name="btnUpdateShuttleReservation" Grid.Column="5" Margin="5" Content="Read/Update" Height="25" Click="BtnUpdateShuttleReservation_Click" />
+            <Button x:Name="btnAddShuttleReservation"  Grid.Column="4" Content="Add" Margin="5" Height="25" Click="BtnAddShuttleReservation_Click"/>
+          
+         
+        </Grid>
+    </Grid>
+</Window>

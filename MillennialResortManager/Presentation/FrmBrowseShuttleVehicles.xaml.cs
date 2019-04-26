@@ -10,62 +10,98 @@ using System.Windows.Controls;
 namespace Presentation
 {
     /// <summary>
+    /// Francis Mingomba
+    /// Created: 2019/04/06
+    ///
     /// Interaction logic for frmBrowseShuttleVehicles.xaml
     /// </summary>
     public partial class FrmBrowseShuttleVehicles : UserControl
     {
-        private readonly IVehicleManager _vehicleManager;
-        private List<Vehicle> _shuttleVehicles;
-        private readonly User _user;
+        private readonly IResortVehicleManager _resortVehicleManager;
+        private List<ResortVehicle> _shuttleVehicles;
+        private Employee _employee;
 
-        public FrmBrowseShuttleVehicles(User user = null)
+        public FrmBrowseShuttleVehicles()
         {
-            _user = user ?? new User();
-            _vehicleManager = new VehicleManager();
+            _resortVehicleManager = new ResortVehicleManager();
+
             InitializeComponent();
         }
 
-        /// <summary>
-        /// Call constructor overload to setup window
-        /// </summary>
-        public FrmBrowseShuttleVehicles() : this(new User()) { }
 
         /// <summary>
-        /// Created By: Francis Mingomba
-        /// Description: Called by frmManageShuttleVehicle when 
-        ///              a vehicle is created or updated
-        ///              Do it on another thread to avoid hanging
-        ///              form.
+        /// Francis Mingomba
+        /// Created: 2019/04/06
+        ///
+        /// Initializer used by DevLauncher
+        /// </summary>
+        /// <param name="employee"></param>
+        public void setupForm(Employee employee)
+        {
+            _employee = employee;
+            RefreshShuttleVehiclesDatagrid();
+        }
+
+        private void DisableControls()
+        {
+            btnCreateShuttle.IsEnabled = false;
+            btnDeactivateVehicle.IsEnabled = false;
+            btnEditShuttle.IsEnabled = false;
+            btnViewShuttle.IsEnabled = false;
+            btnDeleteVehicle.IsEnabled = false;
+        }
+
+        /// <summary>
+        /// Francis Mingomba
+        /// Created: 2019/04/06
+        ///
+        /// Caller by any caller mutating resort vehicles
+        /// Done asynchronously to avoid UI hang ups
         /// </summary>
         public async Task RefreshShuttleVehiclesDatagrid()
         {
-            await Task.Run(() => getVehicles());
+            await Task.Run(() => GetVehicles());
 
             if (_shuttleVehicles != null)
                 dtgShuttleVehicles.ItemsSource = _shuttleVehicles;
         }
 
-        private void getVehicles()
+        #region External Resource Facing Logic
+
+        private void GetVehicles()
         {
             try
             {
-                _shuttleVehicles = _vehicleManager.RetrieveVehicles().ToList();
+                _shuttleVehicles = _resortVehicleManager.RetrieveVehicles().ToList();
+
+                // populate resort property string
+                foreach (var v in _shuttleVehicles)
+                    v.ResortPropertyStr = ((ResortVehicleManager)_resortVehicleManager).RetrieveResortProperties()
+                        .SingleOrDefault(x => x.ResortPropertyId == v.ResortPropertyId)
+                        ?.ResortPropertyTypeId;
             }
             catch (Exception e)
             {
-                MessageBox.Show(e.Message + "\n" + e.StackTrace);
+                MessageBox.Show($"Database Error: Controls shall be disabled.\n\n{e.Message}\n{e.StackTrace}");
+
+                this.Dispatcher.Invoke(DisableControls);                
             }
         }
 
+        #endregion
+
+        #region Event Handlers
+
         private void BtnCreateShuttle_Click(object sender, RoutedEventArgs e)
         {
-            var createShuttleFrm = new FrmManageShuttleVehicle(this, _user, null, true);
+            var createShuttleFrm = new FrmManageShuttleVehicle(this, _employee, null, true);
+
             createShuttleFrm.Show();
         }
 
         private void BtnViewShuttle_Click(object sender, RoutedEventArgs e)
         {
-            var vehicle = (Vehicle)dtgShuttleVehicles.SelectedItem;
+            var vehicle = (ResortVehicle)dtgShuttleVehicles.SelectedItem;
 
             // make sure a vehicle is selected
             if (vehicle == null)
@@ -74,13 +110,14 @@ namespace Presentation
                 return;
             }
 
-            var createShuttleFrm = new FrmManageShuttleVehicle(this, _user, vehicle, false);
+            bool editMode = false;
+            var createShuttleFrm = new FrmManageShuttleVehicle(this, _employee, vehicle, editMode);
             createShuttleFrm.Show();
         }
 
         private void BtnEditShuttle_Click(object sender, RoutedEventArgs e)
         {
-            var vehicle = (Vehicle)dtgShuttleVehicles.SelectedItem;
+            var vehicle = (ResortVehicle)dtgShuttleVehicles.SelectedItem;
 
             // make sure a vehicle is selected
             if (vehicle == null)
@@ -89,13 +126,14 @@ namespace Presentation
                 return;
             }
 
-            var createShuttleFrm = new FrmManageShuttleVehicle(this, _user, vehicle, true);
+            bool editMode = true;
+            var createShuttleFrm = new FrmManageShuttleVehicle(this, _employee, vehicle, editMode);
             createShuttleFrm.Show();
         }
 
         private void BtnDeactivateVehicle_OnClick(object sender, RoutedEventArgs e)
         {
-            var vehicle = (Vehicle)dtgShuttleVehicles.SelectedItem;
+            var vehicle = (ResortVehicle)dtgShuttleVehicles.SelectedItem;
 
             // make sure a vehicle is selected
             if (vehicle == null)
@@ -109,7 +147,7 @@ namespace Presentation
             try
             {
                 if (result == MessageBoxResult.Yes)
-                    _vehicleManager.DeactivateVehicle(vehicle);
+                    _resortVehicleManager.DeactivateVehicle(vehicle, _employee);
                 RefreshShuttleVehiclesDatagrid();
             }
             catch (Exception ex)
@@ -126,10 +164,10 @@ namespace Presentation
             dtgShuttleVehicles.ItemsSource = _shuttleVehicles.Where(
                 x => x.Make.ToLower().Contains(filterTxt)
                      || x.Model.ToLower().Contains(filterTxt)
-                     || x.YearOfManufacture.ToString().ToLower().Contains(filterTxt)
+                     || x.Year.ToString().ToLower().Contains(filterTxt)
                      || x.License.ToLower().Contains(filterTxt)
                      || x.Mileage.ToString().ToLower().Contains(filterTxt)
-                     || x.Vin.ToLower().Contains(filterTxt)
+                     || x.AvailableStr.ToLower().Contains(filterTxt)
                      || x.Capacity.ToString().ToLower().Contains(filterTxt)
                      || x.Color.ToString().Contains(filterTxt)
                      || x.PurchaseDate.Value.ToShortDateString().Contains(filterTxt)
@@ -140,7 +178,7 @@ namespace Presentation
 
         private void BtnDeleteVehicle_OnClick(object sender, RoutedEventArgs e)
         {
-            var vehicle = (Vehicle)dtgShuttleVehicles.SelectedItem;
+            var vehicle = (ResortVehicle)dtgShuttleVehicles.SelectedItem;
 
             // make sure a vehicle is selected
             if (vehicle == null)
@@ -154,7 +192,7 @@ namespace Presentation
             try
             {
                 if (result == MessageBoxResult.Yes)
-                    _vehicleManager.DeleteVehicle(vehicle, _user);
+                    _resortVehicleManager.DeleteVehicle(vehicle, _employee);
                 RefreshShuttleVehiclesDatagrid();
             }
             catch (Exception ex)
@@ -162,5 +200,9 @@ namespace Presentation
                 MessageBox.Show(ex.Message);
             }
         }
+
+        #endregion
+
+
     }
 }

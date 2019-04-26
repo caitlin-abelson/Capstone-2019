@@ -18,8 +18,14 @@ namespace DataAccessLayer
     public interface ISetupListAccessor
     {
 
-        List<SetupList> RetrieveAllSetupLists();
-    
-        SetupList RetrieveSetupListByRoleId(int setupListID);
+        List<SetupList> SelectAllSetupLists();
+        List<VMSetupList> SelectActiveSetupLists();
+        List<VMSetupList> SelectInactiveSetupLists();
+        void InsertSetupList(SetupList newSetupList);
+        int UpdateSetupList(SetupList newSetupList, SetupList oldSetupList);
+        SetupList SelectSetupList(int setupListID);
+        List<VMSetupList> SelectVMSetupLists();
+        void DeleteSetupList(int setupListID);
+        void DeactiveSetupList(int setupListID);
     }
 }

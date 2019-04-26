@@ -3,10 +3,22 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:window="clr-namespace:System.Windows;assembly=PresentationFramework"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
         Title="Create Shuttle Form" Height="450" Width="800" ResizeMode="NoResize">
-    <Grid>
+
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Stylesheet.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+            <window:GridLength x:Key="LhsWidth"><![CDATA[132]]></window:GridLength>
+        </ResourceDictionary>
+
+    </Window.Resources>
+
+    <Grid Style="{StaticResource DefaultPage}">
         <Grid.RowDefinitions>
             <RowDefinition Height="10"/>
             <RowDefinition Height="*"/>
@@ -28,7 +40,7 @@
             <!--Make-->
             <Grid Margin="0 10 10 0">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="75"/>
+                    <ColumnDefinition Width="{StaticResource LhsWidth}"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
 
@@ -52,7 +64,7 @@
             <!--Model-->
             <Grid Margin="0 5 10 0">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="75"/>
+                    <ColumnDefinition Width="{StaticResource LhsWidth}"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
 
@@ -76,7 +88,7 @@
             <!--Year of Manufacture-->
             <Grid Margin="0 5 10 0">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="75"/>
+                    <ColumnDefinition Width="{StaticResource LhsWidth}"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
 
@@ -89,9 +101,10 @@
                            HorizontalAlignment="Right"/>
 
                 <TextBox Width="190" Height="30" 
-                             Name="txtYearOfManufacture"
-                            Grid.Column="1" Margin="15 0 0 0"
-                             TextChanged="TxtYear_OnTextChanged"
+                           Name="txtYear"
+                           Grid.Column="1" Margin="15 0 0 0"
+                           PreviewTextInput="NumberValidationTextBox"
+                           TextChanged="TxtYear_OnTextChanged"
                            VerticalAlignment="Center"
                            HorizontalAlignment="Left"/>
             </Grid>
@@ -100,7 +113,7 @@
             <!--License-->
             <Grid Margin="0 5 10 0">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="75"/>
+                    <ColumnDefinition Width="{StaticResource LhsWidth}"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
 
@@ -113,9 +126,9 @@
                            HorizontalAlignment="Right"/>
 
                 <TextBox Width="190" Height="30" 
-                             Name="txtLicense"
-                            Grid.Column="1" Margin="15 0 0 0"
-                            TextChanged="TxtLicense_TextChanged"
+                           Name="txtLicense"
+                           Grid.Column="1" Margin="15 0 0 0"
+                           TextChanged="TxtLicense_TextChanged"
                            PreviewTextInput="SpecialCharValidationTextBox"
                            MaxLength="10"
                            VerticalAlignment="Center"
@@ -126,7 +139,7 @@
             <!--Mileage-->
             <Grid Margin="0 5 10 0">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="75"/>
+                    <ColumnDefinition Width="{StaticResource LhsWidth}"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
 
@@ -139,46 +152,20 @@
                            HorizontalAlignment="Right"/>
 
                 <TextBox Width="190" Height="30" 
-                            Grid.Column="1" Margin="15 0 0 0"
-                             Name="txtMileage"
+                           Grid.Column="1" Margin="15 0 0 0"
+                           Name="txtMileage"
                            PreviewTextInput="NumberValidationTextBox"
-                             TextChanged="TxtMileage_TextChanged"
+                           TextChanged="TxtMileage_TextChanged"
                            MaxLength="7"
                            VerticalAlignment="Center"
                            HorizontalAlignment="Left"/>
             </Grid>
             <!--End of Mileage-->
 
-            <!--VIN-->
-            <Grid Margin="0 5 10 0">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="75"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="36"/>
-                </Grid.RowDefinitions>
-
-                <Label Content="VIN:"
-                           VerticalAlignment="Center"
-                           HorizontalAlignment="Right"/>
-
-                <TextBox Width="190" Height="30" 
-                             Name="txtVin"
-                           Grid.Column="1" Margin="15 0 0 0"
-                            PreviewTextInput="SpecialCharValidationTextBox"
-                           MaxLength="17"
-                             TextChanged="TxtVin_TextChanged"
-                           VerticalAlignment="Center"
-                           HorizontalAlignment="Left"/>
-            </Grid>
-            <!--End of Vin-->
-
             <!--Capacity-->
             <Grid Margin="0 5 10 0">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="75"/>
+                    <ColumnDefinition Width="{StaticResource LhsWidth}"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
 
@@ -194,7 +181,8 @@
                            Name="txtCapacity"
                            MaxLength="6"
                            Grid.Column="1" Margin="15 0 0 0"
-                             TextChanged="TxtCapacity_TextChanged"
+                           PreviewTextInput="NumberValidationTextBox"
+                           TextChanged="TxtCapacity_TextChanged"
                            VerticalAlignment="Center"
                            HorizontalAlignment="Left"/>
             </Grid>
@@ -203,7 +191,7 @@
             <!--Color-->
             <Grid Margin="0 5 10 0">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="75"/>
+                    <ColumnDefinition Width="{StaticResource LhsWidth}"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
 
@@ -225,6 +213,29 @@
                 </ComboBox>
             </Grid>
             <!--End of Color-->
+
+            <!--Resort Property Id-->
+            <Grid Margin="0 5 10 0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="{StaticResource LhsWidth}"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="36"/>
+                </Grid.RowDefinitions>
+
+                <Label Content="Resort Property:"
+                       VerticalAlignment="Center"
+                       HorizontalAlignment="Right"/>
+
+                <ComboBox Width="190" Height="30" 
+                          Name="cmbResortProperty"
+                          Grid.Column="1" Margin="15 0 0 0"
+                          VerticalAlignment="Center"
+                          HorizontalAlignment="Left"/>
+            </Grid>
+            <!--End of Resort Property -->
         </StackPanel>
         <!--End of Left Side-->
 
@@ -233,7 +244,7 @@
             <!--Purchase Date-->
             <Grid Margin="0 10 10 0">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="100"/>
+                    <ColumnDefinition Width="132"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
 
@@ -262,7 +273,7 @@
                      />
             <!--End of Description-->
 
-            <!--Active-->
+            <!--Status-->
             <Grid Margin="0 10 5 0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="100"/>
@@ -278,12 +289,12 @@
                            HorizontalAlignment="Left"/>
 
                 <TextBlock Width="190"
-                             Name="tbActive"
+                             Name="tbStatus"
                             Grid.Column="1" Margin="0 0 0 0"
                            VerticalAlignment="Center"
                            HorizontalAlignment="Left"/>
             </Grid>
-            <!--End of Active-->
+            <!--End of Status-->
 
             <!--Deactivation Date-->
             <Grid Margin="0 10 5 0" Name="gridDeactivationDate" Visibility="Collapsed">

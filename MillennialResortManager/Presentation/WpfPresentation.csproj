@@ -37,8 +37,27 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.ReportViewer.Common, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.Winforms.150.900.148\lib\net40\Microsoft.ReportViewer.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.DataVisualization, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.Winforms.150.900.148\lib\net40\Microsoft.ReportViewer.DataVisualization.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.Design, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.Winforms.150.900.148\lib\net40\Microsoft.ReportViewer.Design.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.ProcessingObjectModel, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.Winforms.150.900.148\lib\net40\Microsoft.ReportViewer.ProcessingObjectModel.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.WinForms, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.Winforms.150.900.148\lib\net40\Microsoft.ReportViewer.WinForms.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.SqlServer.Types, Version=14.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.SqlServer.Types.14.0.314.76\lib\net40\Microsoft.SqlServer.Types.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -51,6 +70,7 @@
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
+    <Reference Include="WindowsFormsIntegration" />
     <Reference Include="Xceed.Wpf.AvalonDock, Version=3.5.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
       <HintPath>..\packages\Extended.Wpf.Toolkit.3.5.0\lib\net40\Xceed.Wpf.AvalonDock.dll</HintPath>
     </Reference>
@@ -74,10 +94,13 @@
     </ApplicationDefinition>
     <Compile Include="AddDepartment.xaml.cs" />
     <Compile Include="AddGuestType.xaml.cs" />
-    <Compile Include="AddItem.xaml.cs" />
+    <Compile Include="AddLuggage.xaml.cs" />
     <Compile Include="AddPerformance.xaml.cs" />
     <Compile Include="AddSpecialOrder.xaml.cs" />
     <Compile Include="BrowseAppointmentType.xaml.cs" />
+    <Compile Include="BrowseAvailableRooms.xaml.cs">
+      <DependentUpon>BrowseAvailableRooms.xaml</DependentUpon>
+    </Compile>
     <Compile Include="BrowseBuilding.xaml.cs">
       <DependentUpon>BrowseBuilding.xaml</DependentUpon>
     </Compile>
@@ -94,18 +117,25 @@
     <Compile Include="BrowseGuestVehicles.xaml.cs">
       <DependentUpon>BrowseGuestVehicles.xaml</DependentUpon>
     </Compile>
+    <Compile Include="BrowseItem.cs" />
     <Compile Include="BrowseMaintenanceWorkOrders.xaml.cs" />
     <Compile Include="BrowseOrders.xaml.cs">
       <DependentUpon>BrowseOrders.xaml</DependentUpon>
     </Compile>
     <Compile Include="BrowsePetType.xaml.cs" />
+    <Compile Include="BrowseReceiving.xaml.cs" />
     <Compile Include="BrowseReservation.xaml.cs" />
+    <Compile Include="BrowseSetup.xaml.cs">
+      <DependentUpon>BrowseSetup.xaml</DependentUpon>
+    </Compile>
     <Compile Include="BrowseSetupList.xaml.cs">
       <DependentUpon>BrowseSetupList.xaml</DependentUpon>
     </Compile>
     <Compile Include="BrowseShop.xaml.cs">
       <DependentUpon>BrowseShop.xaml</DependentUpon>
     </Compile>
+    <Compile Include="BrowseShuttleReservation.xaml.cs" />
+    <Compile Include="BrowseSpecialOrder.xaml.cs" />
     <Compile Include="BrowseSponsor.xaml.cs" />
     <Compile Include="BrowseSupplier.xaml.cs">
       <DependentUpon>BrowseSupplier.xaml</DependentUpon>
@@ -115,8 +145,11 @@
     </Compile>
     <Compile Include="CreateAppointmentType.xaml.cs" />
     <Compile Include="CreateEventType.xaml.cs" />
+    <Compile Include="CreateHouseKeepingRequest.xaml.cs" />
+    <Compile Include="CreateItem.cs" />
     <Compile Include="CreateMaintenanceWorkOrder.xaml.cs" />
     <Compile Include="CreatePetType.xaml.cs" />
+    <Compile Include="DeactivateHouseKeepingRequest.xaml.cs" />
     <Compile Include="DeactivateMaintenanceWorkOrder.xaml.cs" />
     <Compile Include="DeleteAppointmentType.xaml.cs" />
     <Compile Include="DeleteDepartment.xaml.cs" />
@@ -126,6 +159,7 @@
     <Compile Include="DeleteRole.xaml.cs" />
     <Compile Include="DeleteRoom.xaml.cs" />
     <Compile Include="Departments.xaml.cs" />
+    <Compile Include="EditLuggage.xaml.cs" />
     <Compile Include="EmployeeRoles.xaml.cs" />
     <Compile Include="frmAddEditSponsor.xaml.cs" />
     <Compile Include="FrmBrowseShuttleVehicles.xaml.cs">
@@ -133,6 +167,21 @@
     </Compile>
     <Compile Include="frmInbox.xaml.cs">
       <DependentUpon>frmInbox.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="FrmCheckoutPrompt.xaml.cs">
+      <DependentUpon>FrmCheckoutPrompt.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="FrmCheckoutPromptTwo.xaml.cs">
+      <DependentUpon>FrmCheckoutPromptTwo.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="frmEventPerformanceMain.xaml.cs">
+      <DependentUpon>frmEventPerformanceMain.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="frmEventSponsorMain.xaml.cs">
+      <DependentUpon>frmEventSponsorMain.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="FrmManageResortProperty.xaml.cs">
+      <DependentUpon>FrmManageResortProperty.xaml</DependentUpon>
     </Compile>
     <Compile Include="FrmManageShuttleVehicle.xaml.cs">
       <DependentUpon>FrmManageShuttleVehicle.xaml</DependentUpon>
@@ -145,6 +194,18 @@
     <Compile Include="frmBrowseRecipes.xaml.cs" />
     <Compile Include="frmConfirmAction.xaml.cs" />
     <Compile Include="frmCreateRecipe.xaml.cs" />
+    <Compile Include="frmOffering.xaml.cs">
+      <DependentUpon>frmOffering.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="frmPickOrders.xaml.cs">
+      <DependentUpon>frmPickOrders.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="FrmResortPropertyType.xaml.cs">
+      <DependentUpon>FrmResortPropertyType.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="FrmResortVehicleCheckout.xaml.cs">
+      <DependentUpon>FrmResortVehicleCheckout.xaml</DependentUpon>
+    </Compile>
     <Compile Include="frmSelectRecipeItem.xaml.cs" />
     <Compile Include="frmAddEditViewAppointment.xaml.cs">
       <DependentUpon>frmAddEditViewAppointment.xaml</DependentUpon>
@@ -156,13 +217,38 @@
     <Compile Include="frmSelectGuestForAppointment.xaml.cs">
       <DependentUpon>frmSelectGuestForAppointment.xaml</DependentUpon>
     </Compile>
+    <Compile Include="FrontDeskTemplate.xaml.cs" />
+    <Compile Include="GuestMemberRoomDetail.xaml.cs">
+      <DependentUpon>GuestMemberRoomDetail.xaml</DependentUpon>
+    </Compile>
     <Compile Include="GuestTypes.xaml.cs" />
     <Compile Include="GuestVehicleDetail.xaml.cs">
       <DependentUpon>GuestVehicleDetail.xaml</DependentUpon>
     </Compile>
+    <Compile Include="InspectionDetail.xaml.cs">
+      <DependentUpon>InspectionDetail.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Items.xaml.cs" />
+    <Compile Include="MemberTabDetail.xaml.cs">
+      <DependentUpon>MemberTabDetail.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MemberTabList.xaml.cs">
+      <DependentUpon>MemberTabList.xaml</DependentUpon>
+    </Compile>
     <Compile Include="OrderRecieving.xaml.cs" />
+    <Compile Include="PickSheetReport.xaml.cs">
+      <DependentUpon>PickSheetReport.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Read_BrowseOrder.xaml.cs" />
     <Compile Include="RoomTypes.xaml.cs" />
+    <Compile Include="SetupDetail.xaml.cs">
+      <DependentUpon>SetupDetail.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SetupListDetail.xaml.cs">
+      <DependentUpon>SetupListDetail.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ShuttleReservationDetail.xaml.cs" />
+    <Compile Include="SqlServerTypes\Loader.cs" />
     <Compile Include="viewAccount.xaml.cs" />
     <Compile Include="ViewPerformance.xaml.cs" />
     <Page Include="AddDepartment.xaml">
@@ -173,7 +259,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="AddItem.xaml">
+    <Page Include="AddLuggage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -186,6 +272,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="BrowseAppointmentType.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="BrowseAvailableRooms.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -219,6 +309,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="BrowseItem.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="BrowseMaintenanceWorkOrders.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -231,7 +325,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="BrowseReceiving.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="BrowseReservation.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="BrowseSetup.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -240,6 +342,14 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="BrowseShop.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="BrowseShuttleReservation.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="BrowseSpecialOrder.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -263,6 +373,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="CreateHouseKeepingRequest.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="CreateItem.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="CreateMaintenanceWorkOrder.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -271,15 +389,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="CreateProduct.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="CreateReservation.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
     <Page Include="CreateShop.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="DeactivateHouseKeepingRequest.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -324,6 +442,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="DevLauncher.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="EditLuggage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -375,6 +497,14 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="FrmCheckoutPrompt.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="FrmCheckoutPromptTwo.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="frmConfirmAction.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -392,12 +522,24 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="frmInbox.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="frmEventPerformanceMain.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="frmEventSponsorMain.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="frmManageItemSuppliers.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="FrmManageResortProperty.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="FrmManageShuttleVehicle.xaml">
       <SubType>Designer</SubType>
@@ -411,9 +553,25 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="frmOffering.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="frmPetMain.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="frmPickOrders.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="FrmResortPropertyType.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="FrmResortVehicleCheckout.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="frmRoomManagment.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -435,6 +593,14 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="FrontDeskTemplate.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="GuestMemberRoomDetail.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="GuestTypes.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -443,7 +609,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="InspectionDetail.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="InternalOrderDetail.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Items.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -460,7 +634,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="CreateEmployeeRole.xaml.cs" />
-    <Compile Include="CreateProduct.xaml.cs" />
     <Compile Include="CreateReservation.xaml.cs" />
     <Compile Include="CreateShop.xaml.cs" />
     <Compile Include="DeactivateReservation.xaml.cs" />
@@ -500,9 +673,13 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="BrowseProduct.xaml">
-      <Generator>MSBuild:Compile</Generator>
+    <Page Include="MemberTabDetail.xaml">
       <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MemberTabList.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="OrderRecieving.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -512,11 +689,27 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="PickSheetReport.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Read_BrowseOrder.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
     <Page Include="RoomTypes.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="SetupDetail.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="SetupListDetail.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ShuttleReservationDetail.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -534,7 +727,6 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BrowseProduct.cs" />
     <Compile Include="PerformanceViewer.xaml.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
@@ -554,6 +746,7 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="packages.config" />
+    <EmbeddedResource Include="PickSheet.rdlc" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -563,6 +756,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\DataAccessLayer\DataAccessLayer.csproj">
+      <Project>{CCE8F374-3775-4B7B-AEF6-89C330C61D27}</Project>
+      <Name>DataAccessLayer</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DataObjects\DataObjects.csproj">
       <Project>{8cdc4843-eeba-4e27-bb76-c179fb0cae70}</Project>
       <Name>DataObjects</Name>
@@ -575,6 +772,33 @@
       <Project>{0e18f616-f9a8-4ceb-8bf3-7a75a99a3457}</Project>
       <Name>LogicLayer</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\default.png" />
+    <Resource Include="Resources\pet1.jpg" />
+    <Resource Include="Resources\pet2.JPG" />
+    <Resource Include="Resources\pet3.jpg" />
+    <Resource Include="Resources\pet4.jpg" />
+    <Resource Include="Resources\pet5.jpg" />
+    <Resource Include="Resources\pet6.jpg" />
+    <Resource Include="Resources\pet7.jpg" />
+    <Resource Include="Resources\pet8.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\MillenialResortDesktop.jpg" />
+    <Content Include="SqlServerTypes\readme.htm" />
+    <Content Include="SqlServerTypes\x64\msvcr120.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SqlServerTypes\x64\SqlServerSpatial140.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SqlServerTypes\x86\msvcr120.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SqlServerTypes\x86\SqlServerSpatial140.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
