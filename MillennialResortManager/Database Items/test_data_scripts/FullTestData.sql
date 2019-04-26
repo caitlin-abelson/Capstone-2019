@@ -715,14 +715,14 @@ GO
 INSERT INTO [dbo].[MaintenanceWorkOrder]
 ([MaintenanceTypeID],[DateRequested],[DateCompleted],[RequestingEmployeeID],[WorkingEmployeeID],[Complete],[Description],[Comments],[MaintenanceStatus],[ResortPropertyID])
 VALUES
-("Repair","2018-10-10",NULL,100000,100001,0,"The toilet is leaking",NULL,"Waiting",NULL),
-("Replace","2018-01-10",NULL,100001,100000,0,"Faucet needs to be replaced",NULL,"Waiting",NULL),
-("Install","2019-10-05",NULL,100000,100001,0,"Ceiling fan is needed",NULL,"Waiting",NULL),
-("Repair","2018-10-10",NULL,100000,100003,0,"Rug has a frayed end",NULL,"Waiting",NULL),
-("Repair","2018-10-10",NULL,100001,100001,0,"Mini Bar is not cold",NULL,"Waiting",NULL),
-("Remove","2018-10-10",NULL,100002,100001,0,"Extra towel rack in bathroom",NULL,"Waiting",NULL),
-("Install","2018-10-10",NULL,100004,100002,0,"New air filter",NULL,"Waiting",NULL),
-("Repair","2018-10-10",NULL,100000,100004,0,"Window is not sealing fully",NULL,"Waiting",NULL)
+("Repair","2018-10-10",NULL,100000,100001,0,"The toilet is leaking",NULL,"Waiting",100000),
+("Replace","2018-01-10",NULL,100001,100000,0,"Faucet needs to be replaced",NULL,"Waiting",100000),
+("Install","2019-10-05",NULL,100000,100001,0,"Ceiling fan is needed",NULL,"Waiting",100001),
+("Repair","2018-10-10",NULL,100000,100003,0,"Rug has a frayed end",NULL,"Waiting",100002),
+("Repair","2018-10-10",NULL,100001,100001,0,"Mini Bar is not cold",NULL,"Waiting",100003),
+("Remove","2018-10-10",NULL,100002,100001,0,"Extra towel rack in bathroom",NULL,"Waiting",100003),
+("Install","2018-10-10",NULL,100004,100002,0,"New air filter",NULL,"Waiting",100003),
+("Repair","2018-10-10",NULL,100000,100004,0,"Window is not sealing fully",NULL,"Waiting",100003)
 GO
 
 

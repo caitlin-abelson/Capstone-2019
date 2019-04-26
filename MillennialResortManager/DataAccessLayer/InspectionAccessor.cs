@@ -119,5 +119,58 @@ namespace DataAccessLayer
 
             return inspections;
         }
+
+        /// <summary>
+        /// Danielle Russo
+        /// Created: 2019/04/26
+        /// 
+        /// Updates inspection details
+        /// </summary>
+        /// <param name="oldInspection">The old inspection details</param>
+        /// <param name="newInspection">The updated inspection</param>
+        /// <returns></returns>
+        public int UpdateInspection(Inspection oldInspection, Inspection newInspection)
+        {
+            int rows = 0;
+
+            var conn = DBConnection.GetDbConnection();
+            var cmdText = @"sp_update_inspection";
+            var cmd = new SqlCommand(cmdText, conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.AddWithValue("@ResortPropertyID", oldInspection.ResortPropertyID);
+            cmd.Parameters.AddWithValue("@InspectionID", oldInspection.InspectionID);
+
+            cmd.Parameters.AddWithValue("@OldName", oldInspection.Name);
+            cmd.Parameters.AddWithValue("@OldDateInspected", oldInspection.DateInspected);
+            cmd.Parameters.AddWithValue("@OldRating", oldInspection.Rating);
+            cmd.Parameters.AddWithValue("@OldResortInspectionAffiliation", oldInspection.ResortInspectionAffiliation);
+            cmd.Parameters.AddWithValue("@OldInspectionProblemNotes", oldInspection.InspectionProblemNotes);
+            cmd.Parameters.AddWithValue("@OldInspectionFixNotes", oldInspection.InspectionFixNotes);
+
+            cmd.Parameters.AddWithValue("@NewName", newInspection.Name);
+            cmd.Parameters.AddWithValue("@NewDateInspected", newInspection.DateInspected);
+            cmd.Parameters.AddWithValue("@NewRating", newInspection.Rating);
+            cmd.Parameters.AddWithValue("@NewResortInspectionAffiliation", newInspection.ResortInspectionAffiliation);
+            cmd.Parameters.AddWithValue("@NewInspectionProblemNotes", newInspection.InspectionProblemNotes);
+            cmd.Parameters.AddWithValue("@NewInspectionFixNotes", newInspection.InspectionFixNotes);
+
+            try
+            {
+                conn.Open();
+                rows = cmd.ExecuteNonQuery();
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            return rows;
+        }
     }
 }

@@ -325,17 +325,17 @@ namespace DataAccessLayer
             // parameters
             cmd.Parameters.AddWithValue("@SponsorID", oldSponsor.SponsorID);
 
-            cmd.Parameters.AddWithValue("@oldName", oldSponsor.Name);
-            cmd.Parameters.AddWithValue("@oldAddress", oldSponsor.Address);
-            cmd.Parameters.AddWithValue("@oldCity", oldSponsor.City);
-            cmd.Parameters.AddWithValue("@oldState", oldSponsor.State);
-            cmd.Parameters.AddWithValue("@oldPhoneNumber", oldSponsor.PhoneNumber);
-            cmd.Parameters.AddWithValue("@oldEmail", oldSponsor.Email);
-            cmd.Parameters.AddWithValue("@oldContactFirstName", oldSponsor.ContactFirstName);
-            cmd.Parameters.AddWithValue("@oldContactLastName", oldSponsor.ContactLastName);
-            //cmd.Parameters.AddWithValue("@oldStatusID", oldSponsor.StatusID);
-            cmd.Parameters.AddWithValue("@oldDateAdded", oldSponsor.DateAdded);
-            cmd.Parameters.AddWithValue("@oldActive", oldSponsor.Active);
+            cmd.Parameters.AddWithValue("@OldName", oldSponsor.Name);
+            cmd.Parameters.AddWithValue("@OldAddress", oldSponsor.Address);
+            cmd.Parameters.AddWithValue("@OldCity", oldSponsor.City);
+            cmd.Parameters.AddWithValue("@OldState", oldSponsor.State);
+            cmd.Parameters.AddWithValue("@OldPhoneNumber", oldSponsor.PhoneNumber);
+            cmd.Parameters.AddWithValue("@OldEmail", oldSponsor.Email);
+            cmd.Parameters.AddWithValue("@OldContactFirstName", oldSponsor.ContactFirstName);
+            cmd.Parameters.AddWithValue("@OldContactLastName", oldSponsor.ContactLastName);
+            //cmd.Parameters.AddWithValue("@OldStatusID", oldSponsor.StatusID);
+            cmd.Parameters.AddWithValue("@OldDateAdded", oldSponsor.DateAdded);
+            cmd.Parameters.AddWithValue("@OldActive", oldSponsor.Active);
 
             cmd.Parameters.AddWithValue("@Name", newSponsor.Name);
             cmd.Parameters.AddWithValue("@Address", newSponsor.Address);
