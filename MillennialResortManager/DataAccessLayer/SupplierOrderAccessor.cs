@@ -129,6 +129,61 @@ namespace DataAccessLayer
             return supplierOrders;
         }
 
+
+        public List<SupplierOrder> SelectAllGeneratedOrders()
+        {
+            /// <summary>
+            /// Richard Carroll
+            /// Created 4/26/2019
+            /// Gets list of All Generated SupplierOrders from SupplierOrder table
+            /// </summary>
+            /// <returns>
+            /// List of SupplierOrder Objects
+            /// </returns>            
+
+            List<SupplierOrder> supplierOrders = new List<SupplierOrder>();
+            var conn = DBConnection.GetDbConnection();
+            var cmdText = @"sp_select_all_generated_orders";
+            var cmd = new SqlCommand(cmdText, conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            try
+            {
+                conn.Open();
+                var reader = cmd.ExecuteReader();
+
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        SupplierOrder supplierOrder = new SupplierOrder();
+
+                        supplierOrder.SupplierOrderID = reader.GetInt32(reader.GetOrdinal("SupplierOrderID"));
+                        supplierOrder.DateOrdered = reader.GetDateTime(reader.GetOrdinal("DateOrdered"));
+                        supplierOrder.Description = reader["Description"].ToString();
+                        supplierOrder.EmployeeID = reader.GetInt32(reader.GetOrdinal("EmployeeID"));
+                        supplierOrder.FirstName = reader["FirstName"].ToString();
+                        supplierOrder.LastName = reader["LastName"].ToString();
+                        supplierOrder.OrderComplete = reader.GetBoolean(reader.GetOrdinal("OrderComplete"));
+                        supplierOrder.SupplierID = reader.GetInt32(reader.GetOrdinal("SupplierID"));
+                        supplierOrder.SupplierName = reader["SupplierName"].ToString();
+                        supplierOrders.Add(supplierOrder);
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+
+            return supplierOrders;
+        }
+
         public List<VMItemSupplierItem> SelectItemSuppliersBySupplierID(int supplierID)
         {
 
