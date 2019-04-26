@@ -34,13 +34,14 @@ namespace Presentation
         bool inputsGood = false;
         private EditMode _mode = EditMode.Add;
 
-        List<Room> roomsInBld;
-        Room selectedRoom;
-        Room newRoom;
-        Building bd;
-        RoomType rt;
-        int roomID;
-        int employeeID;
+        private List<Room> roomsInBld;
+        private Room selectedRoom;
+        private Room newRoom;
+        private Building bd;
+        private RoomType rt;
+        private int roomID;
+        private Employee user;
+
 
         /// <summary>
         /// Wes Richardson
@@ -54,13 +55,19 @@ namespace Presentation
         /// 
         /// Made txtRoomNumber uneditable
         /// </remarks>
-        public frmAddEditViewRoom(int employeeID = 100000)
+        /// <remarks>
+        /// Danielle Russo
+        /// Updated 2019/04/26
+        /// Changed parameter to take in a user
+        /// 
+        /// </remarks>
+        public frmAddEditViewRoom(Employee user)
         {
             _roomMgr = new RoomManager();
             bd = new Building();
             rt = new RoomType();
             EditMode _mode = EditMode.Add;
-            this.employeeID = employeeID;
+            this.user = user;
             InitializeComponent();
 
 
@@ -100,14 +107,13 @@ namespace Presentation
         /// Sets up Add page with Building combo box populated with correct building
         /// </summary>
         /// <param name="buildingID"></param>
-        public frmAddEditViewRoom(string buildingID)
+        public frmAddEditViewRoom(string buildingID, Employee user)
         {
-            // temp
-            employeeID = 100000;
 
             _roomMgr = new RoomManager();
             EditMode _mode = EditMode.Add;
             InitializeComponent();
+            this.user = user;
 
             cboBuilding.SelectedItem = buildingID;
             cboRoomStatus.SelectedItem = "Available";
@@ -189,6 +195,12 @@ namespace Presentation
         /// 
         /// Add for-loop needed to add multiple rooms
         /// </remarks>
+        /// <remarks>
+        /// Danielle Russo
+        /// Updated 2019/04/26
+        /// 
+        /// Added employee id parameterrs
+        /// </remarks>
         private void BtnAddEdit_Click(object sender, RoutedEventArgs e)
         {
             if (_mode == EditMode.View)
@@ -238,7 +250,7 @@ namespace Presentation
                         for (int i = 0; i < iudNumberOfRooms.Value; i++)
                         {
                             createNewRoom();
-                            created = _roomMgr.CreateRoom(newRoom, employeeID);
+                            created = _roomMgr.CreateRoom(newRoom, user.EmployeeID);
                             roomsAdded++;
                             roomsInBld = _roomMgr.RetrieveRoomListByBuildingID(newRoom.Building);
                         }

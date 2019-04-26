@@ -88,8 +88,8 @@
                     <ColumnDefinition/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
-                <Button Grid.Column="1" x:Name="btnSave" Margin="8" Content="Submit" Click="btnSave_Click" MaxWidth="150"/>
-                <Button Grid.Column="2" x:Name="btnCancel" Margin="8" Content="Cancel"  Click="btnCancel_Click" MaxWidth="150"/>
+                <Button Grid.Column="1" x:Name="btnSave" Margin="20" Content="Submit" Click="btnSave_Click" MaxWidth="150"/>
+                <Button Grid.Column="2" x:Name="btnCancel" Margin="20" Content="Cancel"  Click="btnCancel_Click" MaxWidth="150"/>
             </Grid>
         </Grid>
     </Grid>

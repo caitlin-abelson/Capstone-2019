@@ -119,6 +119,7 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="125"></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition Width="150"></ColumnDefinition>
                 <ColumnDefinition Width="125"></ColumnDefinition>
                 <ColumnDefinition Width="125"></ColumnDefinition>
             </Grid.ColumnDefinitions>
@@ -126,9 +127,12 @@
                 <Button x:Name="btnCancel" Content="Cancel" Margin="10" Click="btnCancel_Click" />
             </Grid>
             <Grid Grid.Column="2">
-                <Button x:Name="btnEdit" Content="Edit" Margin="10" Click="btnEdit_Click" />
+                <Button x:Name="btnAddSupplier" Content="Add Supplier" Margin="10" Click="btnAddSupplier_Click" />
             </Grid>
             <Grid Grid.Column="3">
+                <Button x:Name="btnEdit" Content="Edit" Margin="10" Click="btnEdit_Click" />
+            </Grid>
+            <Grid Grid.Column="4">
                 <Button x:Name="btnSubmit" Content="Submit" Margin="10" Click="btnSubmit_Click" />
             </Grid>
 

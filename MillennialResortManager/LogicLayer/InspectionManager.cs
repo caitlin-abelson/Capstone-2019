@@ -107,7 +107,32 @@ namespace LogicLayer
 
         public bool UpdateInspection(Inspection selectedInspection, Inspection newInspection)
         {
-            throw new NotImplementedException();
+            bool result = false;
+
+            try
+            {
+                LogicValidationExtensionMethods.ValidateInspectionName(selectedInspection.Name);
+                LogicValidationExtensionMethods.ValidateInspectionRating(selectedInspection.Rating);
+                LogicValidationExtensionMethods.ValidateAffiliation(selectedInspection.ResortInspectionAffiliation);
+                LogicValidationExtensionMethods.ValidateInspectionProblemNotes(selectedInspection.InspectionProblemNotes);
+                LogicValidationExtensionMethods.ValidateInspectionFixNotes(selectedInspection.InspectionFixNotes);
+                result = (1 == inspectionAccessor.UpdateInspection(selectedInspection, newInspection));
+            }
+            catch (ArgumentNullException ane)
+            {
+                throw ane;
+            }
+            catch (ArgumentException ae)
+            {
+                throw ae;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+            return result;
         }
     }
 }

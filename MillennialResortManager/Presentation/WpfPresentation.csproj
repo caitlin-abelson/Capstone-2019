@@ -224,6 +224,12 @@
       <DependentUpon>InspectionDetail.xaml</DependentUpon>
     </Compile>
     <Compile Include="Items.xaml.cs" />
+    <Compile Include="MemberTabDetail.xaml.cs">
+      <DependentUpon>MemberTabDetail.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MemberTabList.xaml.cs">
+      <DependentUpon>MemberTabList.xaml</DependentUpon>
+    </Compile>
     <Compile Include="OrderRecieving.xaml.cs" />
     <Compile Include="PickSheetReport.xaml.cs">
       <DependentUpon>PickSheetReport.xaml</DependentUpon>
@@ -658,6 +664,14 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="MemberTabDetail.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MemberTabList.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="OrderRecieving.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -762,6 +776,7 @@
     <Resource Include="Resources\pet8.jpg" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Resources\MillenialResortDesktop.jpg" />
     <Content Include="SqlServerTypes\readme.htm" />
     <Content Include="SqlServerTypes\x64\msvcr120.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
