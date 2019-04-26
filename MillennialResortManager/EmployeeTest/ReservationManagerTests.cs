@@ -354,5 +354,16 @@ namespace UnitTests
             //Assert
             Assert.IsNotNull(_vms);
         }
+
+        [TestMethod]
+        public void TestRetrieveAllActiveVMReservations()
+        {
+            //Arrange
+            List<VMBrowseReservation> _vms = new List<VMBrowseReservation>();
+            //Act
+            _vms = _reservationManager.RetrieveAllActiveVMReservations();
+            //Assert
+            Assert.IsNotNull(_vms);
+        }
     }
 }

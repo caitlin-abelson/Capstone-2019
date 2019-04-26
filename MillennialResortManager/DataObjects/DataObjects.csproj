@@ -59,6 +59,7 @@
     <Compile Include="EventType.cs" />
     <Compile Include="ExtensionMethods.cs" />
     <Compile Include="Guest.cs" />
+    <Compile Include="GuestRoomAssignmentVM.cs" />
     <Compile Include="GuestType.cs" />
     <Compile Include="GuestVehicle.cs" />
     <Compile Include="HouseKeepingRequest.cs" />

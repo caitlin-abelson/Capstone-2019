@@ -185,5 +185,17 @@ namespace DataAccessLayer
         {
             return _AllMembers.Contains(memberID);
         }
+
+        /// <summary>
+        /// Author: Jared Greenfield
+        /// Created : 2019-04-25
+        /// Brings up reservations with currently active inhabitants
+        /// </summary>
+        public List<VMBrowseReservation> RetrieveAllActiveVMReservations()
+        {
+            List<VMBrowseReservation> reservations = new List<VMBrowseReservation>();
+            reservations = _vmReservations.Where(x => x.Active).ToList();
+            return reservations;
+        }
     }
 }

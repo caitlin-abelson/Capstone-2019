@@ -25,6 +25,7 @@ namespace DataObjects
         Update,
         Deactivate,
         Reactivate,
-        Delete
+        Delete,
+        Checkout
     }
 }

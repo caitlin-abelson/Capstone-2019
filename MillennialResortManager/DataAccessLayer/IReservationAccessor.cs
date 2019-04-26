@@ -23,5 +23,6 @@ namespace DataAccessLayer
         void PurgeReservation(int ReservationID);
         bool ValidateMember(int memberID);
         Reservation RetrieveReservationByGuestID(int guestID);
+        List<VMBrowseReservation> RetrieveAllActiveVMReservations();
     }
 }

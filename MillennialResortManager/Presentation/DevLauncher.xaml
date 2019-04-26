@@ -80,7 +80,7 @@
                     <MenuItem Header="_Resort Ops" x:Name="_NavBarHeaderResortOperations" Style="{StaticResource NavBarHeader}" >
                         <MenuItem Header="Appointment Types" x:Name="NavBarSubHeaderAppointmentTypes" x:Uid="NBAppointmentTypes" Click="NavBarSubHeaderAppointmentTypes_Click"/>
                         <MenuItem Header="Guests" x:Name="NavBarSubHeaderGuests" x:Uid="NBGuests" Click="NavBarSubHeaderGuests_Click"/>
-                        <!--<MenuItem Header="Reservation" x:Name="NavBarSubHeaderReservation" x:Uid="NBReservation" Click="NavBarSubHeaderReservation_Click" />-->
+                        <MenuItem Header="Reservation" x:Name="NavBarSubHeaderReservation" x:Uid="NBReservation" Click="NavBarSubHeaderReservation_Click" />
                         <MenuItem Header="Guest Vehicles" x:Name="NavBarSubHeaderGuestVehicles" x:Uid="NBGuestVehicles" Click="NavBarSubHeaderGuestVehicles_Click"/>
                         <MenuItem Header="Pets" x:Name="NavBarSubHeaderPets" x:Uid="NBPets" Click="NavBarSubHeaderPets_Click"/>
                         <!--<MenuItem Header="Rooms" x:Name="NavBarSubHeaderRooms" x:Uid="NBRooms" Click="NavBarSubHeaderRooms_Click"/>-->
@@ -127,7 +127,7 @@
                         <ColumnDefinition/>
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
-                    <CheckBox Grid.Column="0" Content="Active" IsChecked="True" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <CheckBox  x:Name="chkReservationActive" Grid.Column="0" Content="Current Active Reservations" IsChecked="True" HorizontalAlignment="Center" VerticalAlignment="Center" Click="ChkReservationActive_Click" />
                     <Grid Grid.Column="1" Grid.ColumnSpan="3">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition/>
@@ -171,6 +171,7 @@
                         <ColumnDefinition/>
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
+                    <Button Grid.Column="2" Content="Checkout" x:Name="btnReservationCheckout" Margin="5" Click="BtnReservationCheckout_Click" />
                     <Button Grid.Column="3" Content="Add Reservation" x:Name="btnAddReservation" Margin="5" Click="btnAddReservation_Click" />
                     <Button Grid.Column="4" Content="View Reservation" x:Name="btnViewReservation" Margin="5" Click="btnViewReservation_Click"/>
                     <Button Grid.Column="5" Content="Delete" x:Name="btnDeleteReservation" Margin="5" Click="btnDeleteReservation_Click"/>

@@ -908,6 +908,8 @@ namespace Presentation
             //For now this would filter to all Reservations which have at least one day fall within the next 7 days
             //filterByDateRange(DateTime.Now.Date, DateTime.Now.AddDays(7).Date);
             populateReservations();
+            dgReservations.ItemsSource = _reservationManager.RetrieveAllActiveVMReservations();
+            chkReservationActive.IsChecked = true;
         }
 
         /// <summary>
@@ -938,6 +940,7 @@ namespace Presentation
         private void populateReservations()
         {
             dgReservations.ItemsSource = _currentReservations;
+            chkReservationActive.IsChecked = false;
         }
 
         /// <summary>
@@ -1242,7 +1245,38 @@ namespace Presentation
             }
         }
 
-
+        /// <summary>
+        /// Author: Jared Greenfield
+        /// Created : 2019-04-25
+        /// Brings up reservations with currently active 
+        /// </summary>
+        private void ChkReservationActive_Click(object sender, RoutedEventArgs e)
+        {
+            if (chkReservationActive.IsChecked == true)
+            {
+                dgReservations.ItemsSource = _reservationManager.RetrieveAllActiveVMReservations();
+                btnReservationCheckout.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                refreshAllReservations();
+                populateReservations();
+                btnReservationCheckout.Visibility = Visibility.Collapsed;
+            }   
+        }
+        /// <summary>
+        /// Author: Jared Greenfield
+        /// Created : 2019-04-25
+        /// Brings up checkout window
+        /// </summary>
+        private void BtnReservationCheckout_Click(object sender, RoutedEventArgs e)
+        {
+            if ((VMBrowseReservation)dgReservations.SelectedItem != null)
+            {
+                var checkoutForm = new frmReservationCheckout(((VMBrowseReservation)dgReservations.SelectedItem).ReservationID);
+                var result = checkoutForm.ShowDialog();
+            }
+        }
 
         /*--------------------------- Ending BrowseReservation Code --------------------------------*/
         #endregion
@@ -8037,7 +8071,10 @@ namespace Presentation
             }
         }
 
+
+
         #endregion
 
+        
     }
 }

@@ -59,6 +59,8 @@
     <Compile Include="GuestAccessor.cs" />
     <Compile Include="GuestAccessorMock.cs" />
     <Compile Include="EventTypeAccessorMock.cs" />
+    <Compile Include="GuestRoomAssignmentAccessor.cs" />
+    <Compile Include="GuestRoomAssignmentMock.cs" />
     <Compile Include="GuestVehicleAccessor.cs" />
     <Compile Include="GuestVehicleAccessorMock.cs" />
     <Compile Include="HouseKeepingRequestAccessorMock.cs" />
@@ -73,6 +75,7 @@
     <Compile Include="IEventAccessor.cs" />
     <Compile Include="IGuestAccessor.cs" />
     <Compile Include="IEventTypeAccessor.cs" />
+    <Compile Include="IGuestRoomAssignmentAccessor.cs" />
     <Compile Include="IGuestTypeAccessor.cs" />
     <Compile Include="IGuestVehicleAccessor.cs" />
     <Compile Include="IHouseKeepingRequestAccessor.cs" />

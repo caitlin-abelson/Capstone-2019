@@ -57,6 +57,7 @@
     <Compile Include="EventTypeManager.cs" />
     <Compile Include="GenericPropertyValidator.cs" />
     <Compile Include="GuestManager.cs" />
+    <Compile Include="GuestRoomAssignmentManager.cs" />
     <Compile Include="GuestVehicleManager.cs" />
     <Compile Include="HouseKeepingRequestManagerMSSQL.cs" />
     <Compile Include="IAppointmentManager.cs" />
@@ -70,6 +71,7 @@
     <Compile Include="IEventManager.cs" />
     <Compile Include="IGuestManager.cs" />
     <Compile Include="IEventTypeManager.cs" />
+    <Compile Include="IGuestRoomAssignmentManager.cs" />
     <Compile Include="IGuestTypeManager.cs" />
     <Compile Include="IGuestVehicleManager.cs" />
     <Compile Include="IHouseKeepingRequestManager.cs" />

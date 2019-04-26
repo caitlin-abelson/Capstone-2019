@@ -195,6 +195,9 @@
     <Compile Include="frmPickOrders.xaml.cs">
       <DependentUpon>frmPickOrders.xaml</DependentUpon>
     </Compile>
+    <Compile Include="frmReservationCheckout.xaml.cs">
+      <DependentUpon>frmReservationCheckout.xaml</DependentUpon>
+    </Compile>
     <Compile Include="FrmResortPropertyType.xaml.cs">
       <DependentUpon>FrmResortPropertyType.xaml</DependentUpon>
     </Compile>
@@ -549,6 +552,10 @@
     <Page Include="frmPickOrders.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="frmReservationCheckout.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="FrmResortPropertyType.xaml">
       <SubType>Designer</SubType>
