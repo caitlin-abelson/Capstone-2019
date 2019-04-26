@@ -13,12 +13,15 @@
             <RowDefinition Height="35"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width= "608*"/>
+            <ColumnDefinition Width= "550"/>
+            <ColumnDefinition Width="120" />
             <ColumnDefinition Width="110"/>
             <ColumnDefinition Width="30*"/>
         </Grid.ColumnDefinitions>
+
         <DataGrid x:Name = "dgListAllOrders" HorizontalAlignment="Left" Height="344" Margin="48,36,0,0" VerticalAlignment="Top" Width="700" Loaded="DatagridReadAll_loaded" MouseDoubleClick="dgListAllOrders_MouseDoubleClick" IsReadOnly="True" Grid.ColumnSpan="2" />
-        <Button x:Name = "btnAddOrder" Content="Add Order" HorizontalAlignment="right" VerticalAlignment="Bottom" Height="20" Width="75" Grid.Column="1" Click = "Button_Click_AddOrder" Margin="0,0,26,5" Grid.Row="2"/>
+        <Button x:Name = "btnCompleteOrder" Content="Complete Order" HorizontalAlignment="Center" VerticalAlignment="Bottom" Height="20"  Grid.Column="1" Margin="8" Grid.Row="2" Click="btnCompleteOrder_Click"/>
+        <Button x:Name = "btnAddOrder" Content="Add Order" HorizontalAlignment="Right" VerticalAlignment="Bottom" Height="20" Width="75" Grid.Column="2" Click = "Button_Click_AddOrder" Margin="0,0,26,5" Grid.Row="2"/>
     </Grid>
 </Window>
 
