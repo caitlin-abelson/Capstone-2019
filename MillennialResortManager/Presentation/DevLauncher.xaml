@@ -82,7 +82,8 @@
                     <MenuItem Header="_Profile" x:Name="_NavBarHeaderProfile" Style="{StaticResource NavBarHeader}" >
                         <MenuItem Header="Employees"  x:Name="NavBarSubHeaderEmployee" x:Uid="NBEmployee" Click="NavBarSubHeaderEmployee_Click"/>
                         <MenuItem Header="Profile" x:Name="NavBarSubHeaderProfile" x:Uid="NBProfile" Click="NavBarSubHeaderProfile_Click"/>
-                    </MenuItem>
+						<MenuItem Header="Inbox" x:Name="NavBarSubHeaderInbox" Click="NavBarSubHeaderInbox_Click" />
+					</MenuItem>
                 </Menu>
             </DockPanel>
 
@@ -1460,8 +1461,233 @@
 
                 </Grid>
             </Grid>
-            
-            <!--Manage Vehicles Page-->
+			<Grid x:Name="InboxPage" Visibility="Hidden">
+				<!-- This is where Austin D's code goes :^) -->
+				
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="300"/>
+					<!--Message sidebar-->
+					<ColumnDefinition />
+					<!--Main content-->
+				</Grid.ColumnDefinitions>
+
+				<Grid Grid.Column="0">
+					<!--Message sidebar-->
+					<Grid.RowDefinitions>
+						<RowDefinition Height="40"/>
+						<!--New thread-->
+						<RowDefinition Height="35"/>
+						<!--Thread search and refresh-->
+						<RowDefinition />
+						<!--List of threads-->
+						<RowDefinition Height="35"/>
+						<!--Show hidden-->
+						<RowDefinition Height="35"/>
+						<!--Show archived-->
+					</Grid.RowDefinitions>
+
+					<Button x:Name="btnNewThread"
+					Content="New thread"
+					Grid.Row="0" Margin="5"/>
+
+					<Grid Grid.Row="1">
+						<!--Thread search and refresh-->
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="4*"/>
+							<!--Search-->
+							<ColumnDefinition Width="1*"/>
+							<!--Refresh-->
+						</Grid.ColumnDefinitions>
+
+						<TextBox x:Name="txtSearchThreads"
+						 Grid.Column="0" Margin="5"/>
+
+						<Button x:Name="btnRefreshThreadList"
+						Grid.Column="1" Margin="5"/>
+					</Grid>
+					<!--/Thread search and refresh-->
+
+					<DataGrid x:Name="dgMessageThreadList"
+					  AutoGenerateColumns="False"
+					  IsReadOnly="True"
+					  CanUserReorderColumns="False"
+					  Grid.Row="2" Margin="5">
+						<DataGrid.Columns>
+							<DataGridTextColumn Header="Thread" Binding="{Binding OpeningSubject}" Width="134">
+								<DataGridTextColumn.ElementStyle>
+									<Style>
+										<Setter Property="TextBlock.TextWrapping" Value="Wrap" />
+									</Style>
+								</DataGridTextColumn.ElementStyle>
+							</DataGridTextColumn>
+							<DataGridTextColumn Header="Updated" Binding="{Binding NewestMessage.DateTimeSent, StringFormat=\{0:dd.MM.yy\}}" Width="56" />
+						</DataGrid.Columns>
+						<DataGrid.RowDetailsTemplate>
+							<DataTemplate>
+								<Border BorderThickness=".5">
+									<StackPanel Orientation="Vertical">
+										<TextBlock Text="{Binding ThreadOwner, StringFormat=Owner: {0}}"/>
+										<TextBlock Text="{Binding Alias, StringFormat=Your Alias: {0}}"/>
+										<Button x:Name="btnThreadListButton" Content="Open" Click="BtnThreadListButton_Click" />
+									</StackPanel>
+								</Border>
+							</DataTemplate>
+						</DataGrid.RowDetailsTemplate>
+						<DataGrid.RowStyle>
+							<Style TargetType="DataGridRow">
+								<Style.Triggers>
+									<DataTrigger Binding="{Binding HasNewMessages}" Value="True">
+										<Setter Property="FontWeight" Value="Bold" />
+									</DataTrigger>
+								</Style.Triggers>
+							</Style>
+						</DataGrid.RowStyle>
+					</DataGrid>
+
+					<CheckBox x:Name="chkShowHidden"
+					  Content="Show Hidden"
+					  HorizontalAlignment="Center"
+					  VerticalAlignment="Center"
+					  Grid.Row="3" Margin="5" 
+					  Click="ChkShowHidden_Click" />
+
+					<CheckBox x:Name="chkShowArchived"
+					  HorizontalAlignment="Center"
+					  VerticalAlignment="Center"
+					  Content="Show archived"
+					  Grid.Row="4" Margin="5" Click="ChkShowArchived_Click" />
+
+				</Grid>
+				<!--/Message sidebar-->
+
+				<Grid Grid.Column="1">
+					<!--Main content-->
+					<Grid.RowDefinitions>
+						<RowDefinition Height="40"/>
+						<!--Alias header-->
+						<RowDefinition Height="90"/>
+						<!--Participant list and actions-->
+						<RowDefinition />
+						<!--Message list content-->
+						<RowDefinition Height="40"/>
+						<!--Action buttons-->
+					</Grid.RowDefinitions>
+
+					<Grid Grid.Row="0">
+						<!--Alias header-->
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="1*" MinWidth="150"/>
+							<!--Label-->
+							<ColumnDefinition Width="1.5*"/>
+							<!--Dropdown-->
+							<ColumnDefinition Width="1*"/>
+							<!--filler-->
+						</Grid.ColumnDefinitions>
+
+						<Label Content="You are participating as..." 
+					   VerticalAlignment="Center"
+					   HorizontalAlignment="Right"
+					   Grid.Column="0" Margin="5"/>
+
+						<ComboBox x:Name="cboAliasPicker"
+						  Grid.Column="1" Margin="5" />
+
+					</Grid>
+					<!--/Alias header-->
+
+					<Grid Grid.Row="1">
+						<!--Participant list and actions-->
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition />
+							<!--List-->
+							<ColumnDefinition Width="75"/>
+							<!--Buttons-->
+						</Grid.ColumnDefinitions>
+
+						<ListView x:Name="lstThreadParticipants"
+						 Grid.Column="0" Margin="5">
+
+						</ListView>
+
+						<Grid Grid.Column="1">
+							<!--Buttons-->
+							<Grid.RowDefinitions>
+								<RowDefinition />
+								<!--filler-->
+								<RowDefinition Height="35"/>
+								<!--Add-->
+								<RowDefinition Height="35"/>
+								<!--Remove-->
+								<RowDefinition />
+								<!--filler-->
+							</Grid.RowDefinitions>
+
+							<Button x:Name="btnThreadParticipantAdd"
+							Content="Add"
+							Grid.Row="1" Margin="5" />
+
+							<Button x:Name="btnThreadParticipantRemove"
+							Content="Remove"
+							Grid.Row="2" Margin="5" />
+
+						</Grid>
+						<!--/Buttons-->
+
+					</Grid>
+					<!--/Participant list and actions-->
+
+					<ListBox x:Name="lstThreadMessages"
+					 Grid.Row="2" Margin="5">
+						<ListBox.ItemTemplate>
+							<DataTemplate>
+								<StackPanel Orientation="Vertical">
+									<StackPanel Orientation="Horizontal">
+										<TextBox IsEnabled="False"  Text="{Binding Subject}"/>
+										<TextBox IsEnabled="False" Text="{Binding SenderAlias}" />
+									</StackPanel>
+									<TextBlock Text="{Binding Body}" />
+								</StackPanel>
+							</DataTemplate>
+						</ListBox.ItemTemplate>
+					</ListBox>
+
+
+					<Grid Grid.Row="3">
+						<!--Action buttons-->
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+						</Grid.ColumnDefinitions>
+
+						<CheckBox x:Name="chkThreadHide" 
+						  Content="Hide thread"
+						  VerticalAlignment="Center"
+						  HorizontalAlignment="Center"
+						  Grid.Column="0" Margin="5" />
+
+						<CheckBox x:Name="chkThreadSilence"
+						  Content="Silence thread"
+						  HorizontalAlignment="Center"
+						  VerticalAlignment="Center"
+						  Grid.Column="1" Margin="5" Click="ChkThreadSilence_Click" />
+
+						<Button x:Name="btnThreadReply"
+						Content="Reply to thread"
+						MaxWidth="150"
+						Grid.Column="2" Margin="5" />
+
+					</Grid>
+					<!--/Action buttons-->
+
+				</Grid>
+				<!--/Main content-->
+
+			</Grid>
+
+
+
+			<!--Manage Vehicles Page-->
             <Grid x:Name="BrowseShuttleVehiclesPage" Visibility="Hidden">
                 <local:FrmBrowseShuttleVehicles/>
             </Grid>

@@ -13,7 +13,6 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using DataObjects;
 using LogicLayer;
-using DataAccessLayer;
 
 namespace Presentation
 {
@@ -29,9 +28,6 @@ namespace Presentation
         private CompleteSpecialOrder _selected;
         private SpecialOrderManagerMSSQL _specialOrderLogic = new SpecialOrderManagerMSSQL();
         private SpecialOrderManagerMSSQL _specialOrderLogicID = new SpecialOrderManagerMSSQL();
-        private ISpecialOrderAccessor _specialOrderAccessor;
-
-
 
         /// <summary>
         /// Carlos Arzu
@@ -67,20 +63,7 @@ namespace Presentation
             setDetails();
 
         }
-
-        /// <summary>
-        /// Carlos Arzu
-        /// Created: 2019/01/30
-        /// 
-        /// The third Constructor.
-        /// Creates a mock Accessor Object so the following methods can
-        /// be tested without needing the database.
-        /// </summary>
-        public AddSpecialOrder(SpecialOrderAccessorMock specialOrderAccessorMock)
-        {
-            _specialOrderAccessor = specialOrderAccessorMock;
-        }
-
+		
         private void btnAddOrder_Click(object sender, RoutedEventArgs e)
         {
            

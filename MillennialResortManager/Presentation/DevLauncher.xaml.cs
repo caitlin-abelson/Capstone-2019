@@ -1,4 +1,5 @@
 ﻿using DataObjects;
+using ExceptionLoggerLogic;
 using LogicLayer;
 using System;
 using System.Collections.Generic;
@@ -183,18 +184,21 @@ namespace Presentation
         private List<MaintenanceWorkOrder> _allMaintenanceWorkOrders;
         private List<MaintenanceWorkOrder> _currentMaintenanceWorkOrders;
         private MaintenanceWorkOrderManagerMSSQL _maintenanceWorkOrderManager;
+		//Inbox
+		IThreadManager _threadManager;
+		IMessageManager _messageManager;
+		UserThread _userThread;
+		#endregion
 
-        #endregion
+		#region DevLauncher Code #DevLauncher
 
-        #region DevLauncher Code #DevLauncher
-
-        /// <summary>
-        /// Author: Matt LaMarche
-        /// Created : 3/07/2019
-        /// Initializes all the pages components required at log in
-        /// </summary>
-        /// <param name="employee"></param>
-        public DevLauncher(Employee employee)
+		/// <summary>
+		/// Author: Matt LaMarche
+		/// Created : 3/07/2019
+		/// Initializes all the pages components required at log in
+		/// </summary>
+		/// <param name="employee"></param>
+		public DevLauncher(Employee employee)
         {
             _employee = employee;
             InitializeComponent();
@@ -774,18 +778,27 @@ namespace Presentation
             //BrowseMaintenanceWorkOrderDoOnStart();
         }
 
-        /*--------------------------- Ending NavBar Code --------------------------------*/
-        #endregion
+		/// <summary author="Austin Delaney" created="2019/04/26">
+		/// 
+		/// </summary>
+		private void NavBarSubHeaderInbox_Click(object sender, RoutedEventArgs e)
+		{
+			DisplayPage("Inbox");
+			InboxDoOnStart();
+		}
 
-        #region Reservation Code
-        /*--------------------------- Starting BrowseReservation Code #BrowseReservation --------------------------------*/
-        /// <summary>
-        /// Author: Matt LaMarche
-        /// Created : 3/13/2019
-        /// 
-        /// This is where you stick all the code you want to run in your Constructor/Window_Loaded statement
-        /// </summary>
-        private void BrowseReservationDoOnStart()
+		/*--------------------------- Ending NavBar Code --------------------------------*/
+		#endregion
+
+		#region Reservation Code
+		/*--------------------------- Starting BrowseReservation Code #BrowseReservation --------------------------------*/
+		/// <summary>
+		/// Author: Matt LaMarche
+		/// Created : 3/13/2019
+		/// 
+		/// This is where you stick all the code you want to run in your Constructor/Window_Loaded statement
+		/// </summary>
+		private void BrowseReservationDoOnStart()
         {
             _reservationManager = new ReservationManagerMSSQL();
             refreshAllReservations();
@@ -6110,21 +6123,131 @@ namespace Presentation
                 e.Cancel = true;
             }
         }
-        /*----------------------------- Ending BrowseMaintenanceWorkOrder code ----------------------------------*/
-        #endregion
+		/*----------------------------- Ending BrowseMaintenanceWorkOrder code ----------------------------------*/
+		#endregion
+
+		#region Inbox
+
+		private void InboxDoOnStart()
+		{
+			_threadManager = new FakeThreadManager();
+			//_employee = new Employee { Email = "big_dick_rick@gmail.com" };
+			SetupThreadList();
+		}
+		/// <summary author="Austin Delaney" created="2019/04/12">
+		/// Sets the thread list to the list found for local employee based on if the 
+		/// hidden or archived checks are checked.
+		/// </summary>
+		private void SetupThreadList()
+		{
+			List<UserThreadView> threads;
+
+			try
+			{
+				if (chkShowHidden.IsChecked.Value)
+				{
+					threads = _threadManager.GetUserThreadViewList(_employee, chkShowArchived.IsChecked.Value);
+				}
+				else
+				{
+					List<UserThreadView> unfilteredList = _threadManager.GetUserThreadViewList(_employee, chkShowArchived.IsChecked.Value);
+					threads = unfilteredList.Where(t => !t.ThreadHidden).ToList();
+				}
+			}
+			catch (Exception ex)
+			{
+				ExceptionLogManager.getInstance().LogException(ex);
+				MessageBox.Show(ex.Message);
+				threads = new List<UserThreadView>();
+			}
+
+			dgMessageThreadList.ItemsSource = threads;
+		}
+
+		private void ChkShowHidden_Click(object sender, RoutedEventArgs e)
+		{
+			SetupThreadList();
+		}
+
+		private void ChkThreadSilence_Click(object sender, RoutedEventArgs e)
+		{
+			if (null != _userThread && null != _employee)
+			{
+				try
+				{
+					if (_threadManager.UpdateThreadSilentStatus(_userThread, chkThreadSilence.IsChecked.Value, _employee))
+					{
+						throw new ApplicationException("Unable to change thread silent status for user " + _employee.Email + " in thread " + _userThread.ThreadID);
+					}
+				}
+				catch (Exception ex)
+				{
+					ExceptionLogManager.getInstance().LogException(ex);
+					MessageBox.Show(ex.Message);
+				}
+			}
+		}
+
+		private void PopulateMainThreadArea(IMessageThread selectedThread)
+		{
+			if (null != selectedThread && null != _employee)
+			{
+				UserThread thread = null;
+
+				try
+				{
+					thread = _threadManager.GetUserThread(selectedThread, _employee);
+
+					if (thread == null)
+					{
+						throw new ApplicationException("Unable to change thread silent status for user " + _employee.Email + " in thread " + _userThread.ThreadID);
+					}
+				}
+				catch (Exception ex)
+				{
+					ExceptionLogManager.getInstance().LogException(ex);
+					MessageBox.Show(ex.Message);
+				}
+
+				//alias dropdown
+				cboAliasPicker.ItemsSource = _employee.Aliases;
+				cboAliasPicker.SelectedValue = thread.Alias;
+
+				//participants list
+				lstThreadParticipants.ItemsSource = thread.ParticipantsWithAlias;
+
+				//message list
+				lstThreadMessages.ItemsSource = thread.Messages;
+
+				//bottom check boxes
+				chkThreadHide.IsChecked = thread.Hidden;
+				chkThreadSilence.IsChecked = thread.Silenced;
+			}
+		}
+
+		private void ChkShowArchived_Click(object sender, RoutedEventArgs e)
+		{
+			SetupThreadList();
+		}
+
+		private void BtnThreadListButton_Click(object sender, RoutedEventArgs e)
+		{
+			PopulateMainThreadArea(dgMessageThreadList.SelectedItem as IMessageThread);
+		}
+
+
+		#endregion
 
 
 
 
 
 
-
-
-        /**
+		/**
          * Created By Francis Mingomba
          * Date: 3/16/2019
          */
-        private void NavBarSubHeaderManageShuttleVehicles_OnClick(object sender, RoutedEventArgs e)
+		private void NavBarSubHeaderManageShuttleVehicles_OnClick(object sender, RoutedEventArgs e)
         {
 
             DisplayPage("BrowseShuttleVehiclesPage");
@@ -6163,5 +6286,7 @@ namespace Presentation
         {
 
         }
-    }
+
+
+	}
 }

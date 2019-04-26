@@ -24,6 +24,8 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>
+    </DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -128,6 +130,9 @@
     <Compile Include="frmAddEditSponsor.xaml.cs" />
     <Compile Include="FrmBrowseShuttleVehicles.xaml.cs">
       <DependentUpon>FrmBrowseShuttleVehicles.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="frmInbox.xaml.cs">
+      <DependentUpon>frmInbox.xaml</DependentUpon>
     </Compile>
     <Compile Include="FrmManageShuttleVehicle.xaml.cs">
       <DependentUpon>FrmManageShuttleVehicle.xaml</DependentUpon>
@@ -386,6 +391,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="frmInbox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="frmManageItemSuppliers.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -554,10 +563,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DataAccessLayer\DataAccessLayer.csproj">
-      <Project>{cce8f374-3775-4b7b-aef6-89c330c61d27}</Project>
-      <Name>DataAccessLayer</Name>
-    </ProjectReference>
     <ProjectReference Include="..\DataObjects\DataObjects.csproj">
       <Project>{8cdc4843-eeba-4e27-bb76-c179fb0cae70}</Project>
       <Name>DataObjects</Name>

@@ -17,14 +17,21 @@ using System.Threading.Tasks;
 
 namespace DataObjects
 {
-    public class Guest
+	/// <summary>
+	/// Author: Alisa Roehr
+	/// Created: 2019/01/24
+	/// 
+	/// A Guest is someone that is also staying at the resort with a Member. 
+	/// <remarks>
+	/// Austin Delaney
+	/// Date: 2019/01/06
+	/// 
+	/// Implemented ISender and IMessagable interface
+	/// </remarks>
+	/// </summary>
+	public class Guest : ISender
     {
-        /// <summary>
-        /// Author: Alisa Roehr
-        /// Created: 2019/01/24
-        /// 
-        /// A Guest is someone that is also staying at the resort with a Member. 
-        /// </summary>
+
         public int GuestID { get; set; }
         public int MemberID { get; set; }
         public string GuestTypeID { get; set; }
@@ -55,5 +62,21 @@ namespace DataObjects
             Minor = minor;
             Active = true;
         }*/
-    }
+
+		public List<string> Aliases
+		{
+			get
+			{
+				return new string[] { GuestTypeID , "Guest" }.ToList();
+			}
+		}
+
+		public string Alias
+		{
+			get
+			{
+				return Email;
+			}
+		}
+	}
 }

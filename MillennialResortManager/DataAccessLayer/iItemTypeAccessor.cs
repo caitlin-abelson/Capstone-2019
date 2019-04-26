@@ -17,7 +17,7 @@ namespace DataAccessLayer
     {
         void CreateItemType(ItemType newItemType);
         ItemType RetrieveItemType();
-        List<String> RetrieveAllItemTypesString();
+        List<string> RetrieveAllItemTypesString();
         List<ItemType> RetrieveAllItemTypes();
         void UpdateItemType(ItemType newItemType, ItemType oldItemType);
         void DeactivateItemType(ItemType deactivatingItemType);

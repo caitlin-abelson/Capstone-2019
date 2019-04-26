@@ -15,11 +15,11 @@ namespace DataObjects
     public class Product
     {
         public int ProductID { get; set; }
-        public String Name { get; set; }
+        public string Name { get; set; }
         public int OnHandQty { get; set; }
         public int ReorderQty { get; set; }
-        public String ItemType { get; set; }
-        public String Description { get; set; }
+        public string ItemType { get; set; }
+        public string Description { get; set; }
         public DateTime DateActive { get; set; }
         public bool Active { get; set; }
         public bool CustomerPurchasable { get; set; }

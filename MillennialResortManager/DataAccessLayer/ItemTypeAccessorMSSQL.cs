@@ -43,10 +43,10 @@ namespace DataAccessLayer
         /// Updated: yyyy/mm/dd
         /// example: Fixed a problem when user inputs bad data
         /// </remarks>
-        /// <returns>List<String> That contains all of the ItemTypeIDs</returns>	
-        public List<String> RetrieveAllItemTypes()
+        /// <returns>List<string> That contains all of the ItemTypeIDs</returns>	
+        public List<string> RetrieveAllItemTypes()
         {
-            List<String> itemTypes = new List<String>();
+            List<string> itemTypes = new List<string>();
             var conn = DBConnection.GetDbConnection();
             var cmdText = @"sp_retrieve_itemtypes";
 

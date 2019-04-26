@@ -62,8 +62,6 @@ namespace LogicLayer
             return false;
         }
 
-
-
         /// <summary>
         /// Author: Caitlin Abelson
         /// Created Date: 2/14/19
@@ -98,7 +96,6 @@ namespace LogicLayer
             }
             return true;
         }
-
 
         /// <summary>
         /// Author: Caitlin Abelson
@@ -150,7 +147,6 @@ namespace LogicLayer
             }
             return true;
         }
-
 
         /// <summary>
         /// Author: Caitlin Abelson
@@ -390,7 +386,7 @@ namespace LogicLayer
                 data = sha256hash.ComputeHash(Encoding.UTF8.GetBytes(source));
             }
 
-            // now, we just need to build the result string with a String Builder
+            // now, we just need to build the result string with a StringBuilder
             var s = new StringBuilder();
 
             // loop through the bytes creating hex digits
@@ -399,7 +395,7 @@ namespace LogicLayer
                 s.Append(data[i].ToString("x2"));       //x2 - formating string will take byte char and give the hexidecimal string 
             }
 
-            // conver String Builder to a string
+            // conver StringBuilder to a string
             result = s.ToString();
 
             return result;

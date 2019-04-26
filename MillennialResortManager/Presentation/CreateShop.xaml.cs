@@ -64,7 +64,7 @@ namespace Presentation
             }
             try
             {
-                if ((String)this.btnSubmit.Content == "Submit")
+                if ((string)this.btnSubmit.Content == "Submit")
                 {
                     newShop.RoomID = Int32.Parse(this.cboRoomID.SelectedValue.ToString());
                     newShop.Name = this.txtName.Text;

@@ -13,7 +13,6 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using DataObjects;
 using LogicLayer;
-using DataAccessLayer;
 
 namespace Presentation
 {
@@ -32,21 +31,6 @@ namespace Presentation
         ReceivingTicket ticket = new ReceivingTicket();
         bool orderComplete = true;
 
-
-        /// <summary>
-        /// Author: Kevin Broskow
-        /// Created : 3/25/2019
-        /// Default constructor for the receiving window
-        /// 
-        /// </summary>
-        public OrderRecieving()
-        {
-            InitializeComponent();
-            SupplierOrderAccessorMock _accessorMock = new SupplierOrderAccessorMock();
-            dgOrderRecieving.ItemsSource = _accessorMock.SelectSupplierOrderLinesBySupplierOrderID(100002);
-            supplierOrderLine = _accessorMock.SelectSupplierOrderLinesBySupplierOrderID(100002);
-            doOnStart();
-        }
         /// <summary>
         /// Author: Kevin Broskow
         /// Created : 3/25/2019

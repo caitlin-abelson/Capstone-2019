@@ -21,6 +21,8 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>
+    </DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -79,6 +81,7 @@
     <Compile Include="IMaintenanceTypeAccessor.cs" />
     <Compile Include="IMaintenanceWorkOrderAccessor.cs" />
     <Compile Include="IMemberAccessor.cs" />
+    <Compile Include="IMessageAccessor.cs" />
     <Compile Include="InternalOrderAccessor.cs" />
     <Compile Include="InternalOrderAccessorMock.cs" />
     <Compile Include="IOfferingAccessor.cs" />
@@ -104,6 +107,7 @@
     <Compile Include="ISupplierAccessor.cs" />
     <Compile Include="ItemTypeAccessorMock.cs" />
     <Compile Include="ItemTypeAccessorMSSQL.cs" />
+    <Compile Include="IThreadAccessor.cs" />
     <Compile Include="IVehicleAccessor.cs" />
     <Compile Include="MaintenanceStatusTypeAccessorMSSQL.cs" />
     <Compile Include="MaintenanceTypeAccessorMSSQL.cs" />
@@ -111,6 +115,8 @@
     <Compile Include="MaintenanceWorkOrderAccessorMSSQL.cs" />
     <Compile Include="MemberAccessorMock.cs" />
     <Compile Include="MemberAccessorMSSQL.cs" />
+    <Compile Include="MessageAccessorMock.cs" />
+    <Compile Include="MessageAccessorMSSQL.cs" />
     <Compile Include="MockBuildingAccessor.cs" />
     <Compile Include="MockDepartmentAccessor.cs" />
     <Compile Include="MockEmpRolesAccessor.cs" />
@@ -151,6 +157,8 @@
     <Compile Include="SupplierAccessorMock.cs" />
     <Compile Include="SupplierOrderAccessor.cs" />
     <Compile Include="SupplierOrderAccessorMock.cs" />
+    <Compile Include="ThreadAccessorMock.cs" />
+    <Compile Include="ThreadAccessorMSSQL.cs" />
     <Compile Include="UserAccessor.cs" />
     <Compile Include="VehicleAccessor.cs" />
   </ItemGroup>

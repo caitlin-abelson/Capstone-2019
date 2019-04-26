@@ -90,7 +90,7 @@ namespace Presentation
             {
                 return;
             }
-            if (((String)this.btnSubmit.Content) == "Submit")
+            if (((string)this.btnSubmit.Content) == "Submit")
             {
                 try
                 {
@@ -117,7 +117,7 @@ namespace Presentation
                     MessageBox.Show("Error: " + ex.Message);
                 }
             }
-            else if(((String)this.btnSubmit.Content) == "Save")
+            else if(((string)this.btnSubmit.Content) == "Save")
             {
                 newProduct.Name = this.txtName.Text;
                 newProduct.OnHandQty = Int32.Parse(this.txtOnHand.Text);
@@ -302,7 +302,7 @@ namespace Presentation
         {
             this.txtName.Focus();
             
-            List<String> itemTypes = new List<String>();
+            List<string> itemTypes = new List<string>();
             try
             {
                 itemTypes = _itemTypeManager.RetrieveAllItemTypesString();

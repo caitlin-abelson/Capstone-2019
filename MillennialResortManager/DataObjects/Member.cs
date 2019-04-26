@@ -6,18 +6,24 @@ using System.Threading.Tasks;
 
 namespace DataObjects
 {
-    /// <summary>
-    /// Author: Matt LaMarche
-    /// Created : 1/24/2019
-    /// The Member Object is designed to directly carry information about a Member based on the information about Members in our Data Dictionary
-    /// 
-    /// <remarks>
-    /// Name: Ramesh Adhikari
-    /// Update Date: 03/08/2019
-    /// Description: Added the password property
-    /// </remarks>
-    /// </summary>
-    public class Member
+	/// <summary>
+	/// Author: Matt LaMarche
+	/// Created : 1/24/2019
+	/// The Member Object is designed to directly carry information about a Member based on the information about Members in our Data Dictionary
+	/// 
+	/// <remarks>
+	/// Name: Ramesh Adhikari
+	/// Update Date: 03/08/2019
+	/// Description: Added the password property
+	/// </remarks>
+	/// <remarks>
+	/// Austin Delaney
+	/// Date: 2019/01/06
+	/// 
+	/// Implemented ISender and IMessagable interface
+	/// </remarks>
+	/// </summary>
+	public class Member : ISender , IMessagable
     {
         public int MemberID { get; set; }
         public string FirstName { get; set; }
@@ -31,5 +37,21 @@ namespace DataObjects
         {
             return FirstName + " " + LastName;
         }
-    }
+
+		public List<string> Aliases
+		{
+			get
+			{
+				return new string[] { "Member" }.ToList();
+			}
+		}
+
+		public string Alias
+		{
+			get
+			{
+				return Email;
+			}
+		}
+	}
 }
