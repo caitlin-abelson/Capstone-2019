@@ -12,7 +12,7 @@
             <RowDefinition Height="75"></RowDefinition>
         </Grid.RowDefinitions>
         <TabControl Grid.Row="0" x:Name="tabsetBldMain">
-            <TabItem x:Name="tabBldInfo" Header="Info" GotFocus="tabBldInfo_GotFocus">
+            <TabItem x:Name="tabBldInfo" Header="Info">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="100"></RowDefinition>
@@ -87,8 +87,8 @@
                     </Grid>
                 </Grid>
             </TabItem>
-            <TabItem x:Name="tabBldInspections" Header="Inspection" GotFocus="tabBldInspections_GotFocus">
-                <Grid x:Name="grdBldInspections" GotFocus="grdBldInspections_GotFocus" >
+            <TabItem x:Name="tabBldInspections" Header="Inspection" >
+                <Grid x:Name="grdBldInspections"  >
                     <Grid.RowDefinitions>
                         <RowDefinition Height="75"></RowDefinition>
                         <RowDefinition Height="75"></RowDefinition>
