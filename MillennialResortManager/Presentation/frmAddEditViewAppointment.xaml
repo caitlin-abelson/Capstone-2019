@@ -7,7 +7,10 @@
         xmlns:local="clr-namespace:Presentation"
         mc:Ignorable="d"
         Title="Add Appointment" Height="350" Width="560" Loaded="Window_Loaded">
-    <Grid>
+    <Window.Resources>
+        <ResourceDictionary Source="Stylesheet.xaml"/>
+    </Window.Resources>
+    <Grid Style="{StaticResource DefaultPage}">
         <Grid.RowDefinitions>
             <RowDefinition></RowDefinition>
             <RowDefinition></RowDefinition>
@@ -21,11 +24,11 @@
             <ColumnDefinition Width="125"></ColumnDefinition>
             <ColumnDefinition Width="400"></ColumnDefinition>
         </Grid.ColumnDefinitions>
-        <Label Name="lblAppointmentType" Grid.Row="0" Grid.Column="0" FontSize="8" HorizontalAlignment="Right" VerticalAlignment="Center">Appointment Type</Label>
-        <Label Name="lblStartTime" Grid.Row="1" Grid.Column="0" FontSize="8" HorizontalAlignment="Right" VerticalAlignment="Center">Start Time</Label>
-        <Label Name="lblEndTime" Grid.Row="2" Grid.Column="0" FontSize="8" HorizontalAlignment="Right" VerticalAlignment="Center">End Time</Label>
-        <Label Name="lblDescription" Grid.Row="3" Grid.Column="0" FontSize="8" HorizontalAlignment="Right" VerticalAlignment="Center">Description</Label>
-        <Button Name="btnSelectGuest" Content="Choose Guest" Grid.Row="5" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center" Click="BtnSelectGuest_Click" />
+        <Label Name="lblAppointmentType" Grid.Row="0" Grid.Column="0" FontSize="12" HorizontalAlignment="Right" VerticalAlignment="Center">Appointment Type</Label>
+        <Label Name="lblStartTime" Grid.Row="1" Grid.Column="0" FontSize="12" HorizontalAlignment="Right" VerticalAlignment="Center">Start Time</Label>
+        <Label Name="lblEndTime" Grid.Row="2" Grid.Column="0" FontSize="12" HorizontalAlignment="Right" VerticalAlignment="Center">End Time</Label>
+        <Label Name="lblDescription" Grid.Row="3" Grid.Column="0" FontSize="12" HorizontalAlignment="Right" VerticalAlignment="Center">Description</Label>
+        <Button Name="btnSelectGuest" Content="Choose Guest" Grid.Row="5" Width="120" HorizontalAlignment="Right" VerticalAlignment="Center" Click="BtnSelectGuest_Click" />
         <ComboBox Name="cboAppointmentType" Grid.Row="0" Grid.Column="1" Margin="5"></ComboBox>
         <xctk:DateTimePicker Name="dtpStartTime"  Grid.Row="1" Grid.Column="1" Margin="5"></xctk:DateTimePicker>
         <xctk:DateTimePicker Name="dtpEndTime" Grid.Row="2" Grid.Column="1" Margin="5"></xctk:DateTimePicker>

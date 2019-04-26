@@ -26,5 +26,7 @@ namespace MillennialResortWebSite.Controllers
             return View(_rooms);
         }
 
+
+
     }
 }

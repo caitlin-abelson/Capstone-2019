@@ -1,0 +1,113 @@
+﻿<UserControl x:Class="Presentation.FrmResortVehicleCheckout"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:local="clr-namespace:Presentation"
+        mc:Ignorable="d"
+        d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="10" />
+            <ColumnDefinition />
+            <ColumnDefinition Width="10" />
+            <ColumnDefinition Width="100" />
+            <ColumnDefinition Width="10" />
+            <ColumnDefinition />
+            <ColumnDefinition Width="10" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="10" />
+            <RowDefinition Height="36" />
+            <RowDefinition Height="8.4"/>
+            <RowDefinition Height="30" />
+            <RowDefinition Height="5" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="10" />
+            <RowDefinition Height="10" />
+        </Grid.RowDefinitions>
+
+        <!--Page Title-->
+        <TextBlock x:Name="txtHeading" Grid.Row="1" TextWrapping="Wrap" Text="Resort Vehicle Checkout"
+                   Grid.ColumnSpan="7" TextAlignment="Center" VerticalAlignment="Center"
+                   FontSize="15"/>
+        <!--End of Page Title-->
+
+        <!--Filter for Available Vehicles-->
+        <Grid Column="1" Grid.Row="3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="100"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Grid.Column="0" Text="Available Vehicles" VerticalAlignment="Bottom"/>
+
+            <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
+                <TextBlock Text="Filter: " VerticalAlignment="Center"/>
+                <TextBox x:Name="txtFilterForAvailable" HorizontalAlignment="Right" Width="150" 
+                         TextChanged="TxtFilterForAvailable_OnTextChanged" />
+            </StackPanel>
+        </Grid>
+        <!--End of Filter for Available Vehicles-->
+
+        <!--Available Vehicles-->
+        <DataGrid x:Name="dtgAvailableVehicles" Grid.Column="1" Grid.Row="5"
+                  IsTextSearchEnabled="True" AutoGenerateColumns="False"
+                  ItemsSource="{Binding}" GridLinesVisibility="Horizontal" SelectionMode="Single" IsReadOnly="True"
+                  CanUserSortColumns="True" CanUserAddRows="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Resort Vehicle Id" Binding="{Binding Id}" />
+                <DataGridTextColumn Header="Make" Binding="{Binding Make}" />
+                <DataGridTextColumn Header="Model" Binding="{Binding Model}" />
+                <DataGridTextColumn Header="Year" Binding="{Binding Year}" />
+                <DataGridTextColumn Header="License" Binding="{Binding License}" />
+                <DataGridTextColumn Header="Mileage" Binding="{Binding Mileage}" />
+                <DataGridTextColumn Header="Capacity" Binding="{Binding Capacity}" />
+                <DataGridTextColumn Header="Color" Binding="{Binding Color}" />
+            </DataGrid.Columns>
+        </DataGrid>
+        <!--End of Available Vehicles-->
+
+        <!--Filter for Checked Out Vehicles-->
+        <Grid Column="5" Grid.Row="3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="130"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Grid.Column="0" Text="Checked Out Vehicles" VerticalAlignment="Bottom"/>
+
+            <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
+                <TextBlock Text="Filter: " VerticalAlignment="Center"/>
+                <TextBox x:Name="txtFilterForCheckedOutVehicles" HorizontalAlignment="Right" Width="150" TextChanged="TxtFilterForCheckedOutVehicles_OnTextChanged"/>
+            </StackPanel>
+        </Grid>
+        
+        <!--End of Filter for Checked Out Vehicles-->
+
+        <!--Checked Out Vehicles-->
+        <DataGrid x:Name="dtgCheckedOutVehicles" Grid.Column="5" Grid.Row="5"
+                  IsTextSearchEnabled="True" AutoGenerateColumns="False"
+                  ItemsSource="{Binding}" GridLinesVisibility="Horizontal" SelectionMode="Single" IsReadOnly="True"
+                  CanUserSortColumns="True" CanUserAddRows="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Resort Vehicle Id" Binding="{Binding ResortVehicleId}" />
+                <DataGridTextColumn Header="Make" Binding="{Binding ResortVehicleMake}" />
+                <DataGridTextColumn Header="Model" Binding="{Binding ResortVehicleModel}" />
+                <DataGridTextColumn Header="Checkout Date" Binding="{Binding DateCheckedOut}" />
+                <DataGridTextColumn Header="Expected Return Date" Binding="{Binding DateExpectedBack}" />
+                <DataGridTextColumn Header="Employee Id" Binding="{Binding EmployeeId}" />
+                <DataGridTextColumn Header="First Name" Binding="{Binding EmployeeFirstName}" />
+                <DataGridTextColumn Header="Last Name" Binding="{Binding EmployeeLastName}" />
+            </DataGrid.Columns>
+        </DataGrid>
+        <!--End of Checked Out Vehicles-->
+
+        <!--Controls-->
+        <StackPanel Grid.Column="3" Grid.Row="5" VerticalAlignment="Center" HorizontalAlignment="Center">
+            <Button x:Name="btnCheckout" Content="Check Out" Width="80" Height="32" Click="BtnCheckout_OnClick"/>
+            <Button x:Name="btnCheckIn" Content="Check In" Margin="0 10 0 0" Width="80" Height="32" Click="BtnCheckIn_OnClick"/>
+        </StackPanel>
+        <!--End of Controls-->
+    </Grid>
+</UserControl>

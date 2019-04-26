@@ -2465,7 +2465,8 @@ namespace Presentation
         private void BrowseBuildingDoOnStart()
         {
             buildingManager = new BuildingManager();
-            try{
+            try
+            {
                 allBuildings = buildingManager.RetrieveAllBuildings();
             }
             catch (Exception ex)
@@ -2510,15 +2511,20 @@ namespace Presentation
         /// </summary>
         ///
         /// <remarks>
-        /// Updater Name
-        /// Updated: yyyy/mm/dd
+        /// Dani Russo
+        /// Updated: 2019/04/18
         /// 
+        /// Checks for null to prevent crashing
         /// </remarks>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void dgBuildings_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            selectBuilding();
+            if ((Building)dgBuildings.SelectedItem != null)
+            {
+                selectBuilding();
+            }
+
         }
 
         private void btnFilterBuilding_Click(object sender, RoutedEventArgs e)
@@ -2584,11 +2590,36 @@ namespace Presentation
             }
         }
 
+        /// <summary>
+        /// Danielle Russo
+        /// Created: 2019/01/31
+        /// 
+        /// User double clicks a line in the dgBuildings data grid.
+        /// </summary>
+        ///
+        /// <remarks>
+        /// Dani Russo
+        /// Updated: 2019/04/18
+        /// 
+        /// Checks for null to prevent crashing
+        /// </remarks>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnSelect_Click(object sender, RoutedEventArgs e)
         {
-            selectBuilding();
+            if ((Building)dgBuildings.SelectedItem != null)
+            {
+                selectBuilding();
+            }
         }
 
+        /// <summary>
+        /// Danielle Russo
+        /// Created: 2019/01/31
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void selectBuilding()
         {
             Building selectedBuilding = (Building)dgBuildings.SelectedItem;
@@ -2879,8 +2910,17 @@ namespace Presentation
 
         private void DgRole_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            //   var role = (Role)dgRole.SelectedItem;
-            //  var detailForm = new UpdateEmployeeRole(role); 
+            if (dgRole.SelectedItem != null)
+            {
+                _selectedRole = (Role)dgRole.SelectedItem;
+                var assign = new CreateEmployeeRole(_selectedRole);
+                assign.ShowDialog();
+            }
+            else
+            {
+                MessageBox.Show("You must select an item first");
+            }
+            refreshRolesEmployeeRole();
 
         }
 
@@ -3583,7 +3623,8 @@ namespace Presentation
         /// Created : 3/13/2019
         /// 
         /// This is where you stick all the code you want to run in your Constructor/Window_Loaded statement
-        /// 
+        /// </summary>
+        /// <remarks>
         /// Updated By: Caitiln Abelson
         /// Date: 2019/04/11
         /// 
@@ -3591,8 +3632,7 @@ namespace Presentation
         /// Added new helper methods to refresh and populate the datagrid.
         /// Implemented the new VMGuest class so that the appropriate datagrid information would 
         /// be presented when the datagrid was populated and refreshed.
-        /// 
-        /// </summary>
+        /// </remarks>
         private void BrowseGuestDoOnStart()
         {
             _guestsBrowseGuests = new List<VMGuest>();
@@ -3658,7 +3698,6 @@ namespace Presentation
         /// for loading the guest details
         /// </summary>
         /// <remarks>
-        /// 
         /// Updated by: Caitlin Abelson
         /// Date: 2019/04/15
         /// 
@@ -3721,13 +3760,15 @@ namespace Presentation
         /// Created: 2019/02/05
         /// 
         /// for searching for guests.
-        /// 
+        /// </summary>
+        /// <remarks>
         /// Updated By: Caitlin Abelson
         /// Date: 2019/04/15
         /// 
         /// Added the member fields to the search functions so users can now search by guest and member name.
         /// Expanded how a user can search
         ///     i.e. by first name only, by last name only, by both first and last name, etc.
+        /// </remarks>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void BtnGuestSearch_Click(object sender, RoutedEventArgs e)
@@ -3813,7 +3854,7 @@ namespace Presentation
             }
         }
 
-  
+
 
         /// <summary>
         /// Alisa Roehr
@@ -3821,12 +3862,13 @@ namespace Presentation
         /// 
         /// for checking in and out guests.
         /// </summary>
-        /// 
+        /// <remarks>
         /// Updated By: Caitlin Abelson
         /// Date: 2019/04/15
         /// 
         /// Fixed the method so that it implements the VMGuest class and the correct datagrid.
         /// Also used the helper methods for refreshing and populating the datagrid.
+        /// </remarks>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void btnCheckGuest_Click(object sender, RoutedEventArgs e)
@@ -7997,5 +8039,31 @@ namespace Presentation
         }
 
         #endregion
+
+        #region Vehicle Checkout
+
+        /// <summary>
+        /// Francis Mingomba
+        /// Created: 2019/04/25
+        ///
+        /// Page Link for Resort Vehicle Checkout
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void NavBarSubHeaderVehicleCheckout_OnClick(object sender, RoutedEventArgs e)
+        {
+            DisplayPage("ResortVehicleCheckoutPage");
+
+            foreach (UserControl item in this.ResortVehicleCheckoutPage.Children)
+            {
+                if (item.GetType() != typeof(FrmResortVehicleCheckout)) continue;
+
+                FrmResortVehicleCheckout instance = (FrmResortVehicleCheckout)item;
+                instance.SetupForm(_employee);
+            }
+        }
+
+        #endregion
+
     }
 }

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
+using DataObjects;
 
 namespace MillennialResortWebSite.Models
 {
@@ -58,7 +59,13 @@ namespace MillennialResortWebSite.Models
 
     public class HomeViewModelsMixer
     {
-        public List<ReservationSearchModel> Reservations { get; set; }
+        // public List<ReservationSearchModel> Reservations { get; set; }
+
+        // public IEnumerable<Room> Rooms { get; set; }
+
+
+
+        public List<NewReservation> Reservation { get; set; }
 
         /*public List<IndexPageMailingListViewModel> MailingLists { get; set; } */
 

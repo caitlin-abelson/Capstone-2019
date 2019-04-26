@@ -5,8 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Presentation"
         mc:Ignorable="d"
-        Title="AddDepartment" Height="400" Width="300">
-    <Grid Background="LightGray">
+        Title="AddDepartment" Height="300" Width="400">
+    <Window.Resources>
+        <ResourceDictionary Source="Stylesheet.xaml"/>
+    </Window.Resources>
+    <Grid Style="{StaticResource DefaultPage}">
         <Grid.RowDefinitions>
             <RowDefinition Height="40"></RowDefinition>
             <RowDefinition Height="40"></RowDefinition>
@@ -15,26 +18,30 @@
             <RowDefinition Height="50"></RowDefinition>
         </Grid.RowDefinitions>
         <Grid Grid.Row="0">
-            <Label Content="Create New Department" VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="bold" FontSize="16"></Label>
+            <Label Content="Create New Department" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="22"></Label>
         </Grid>
         <Grid Grid.Row="1">
-            <Label Content="Please enter in the following fields" VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="Bold"/>
+            <Label Content="Please enter in the following fields" VerticalAlignment="Center" HorizontalAlignment="Center"/>
         </Grid>
         <Grid Grid.Row="2">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition Width=".4*"></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
             <Grid Grid.Column="0">
-                <Label Content="Department" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                <Label Content="Department: " VerticalAlignment="Center" HorizontalAlignment="Center"/>
             </Grid>
             <Grid Grid.Column="1">
                 <TextBox x:Name="txtDepartment" Margin="5 10 20 10"/>
             </Grid>
         </Grid>
         <Grid Grid.Row="3">
-            <Label Content="Description: "/>
-            <TextBox x:Name="txtDescription" Margin="20 30 20 20" />
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width=".4*" />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Label Content="Description: " VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            <TextBox x:Name="txtDescription" Grid.Column="1" Margin="20 30 20 20" />
         </Grid>
         <Grid Grid.Row="4">
             <Button x:Name="btnCreate" Content="Create" Margin="50 10" Click="btnCreate_Click"></Button>

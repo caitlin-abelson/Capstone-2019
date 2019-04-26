@@ -1,6 +1,8 @@
 ﻿@model IEnumerable<DataObjects.Room>
 
 
+@*@model MillennialResortWebSite.Models.HomeViewModelsMixer*@
+
 
 
 
@@ -15,124 +17,119 @@
         </div>
     </div>
 
-   
-        <div class="container body-content1">
-            <div class="col-md-4">
 
-                @using (Html.BeginForm("Index", "Rooms"))
-                {
-                    @Html.AntiForgeryToken()
+    <div class="container body-content1">
+        <div class="col-md-4">
 
-                    <div class="form-horizontal planTripRoomspage">
-                        <h2>Make Reservation</h2>
+            @using (Html.BeginForm("Index", "Rooms"))
+            {
+                @Html.AntiForgeryToken()
 
-                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-horizontal planTripRoomspage">
+                    <h2>Make Reservation</h2>
+
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
 
-                        <div class="form-group">
+                    <div class="form-group">
 
-                            <div class="col-md-10">
-                                @*   @Html.EditorFor(model => model.startDate, new { htmlAttributes = new { @class = "form-control", placeholder = "Start Date", @readonly = "true" } })
-                                    @Html.ValidationMessageFor(model => model.startDate, "", new { @class = "text-danger" }) *@
-
-                                @*@Html.EditorFor(model => model.Reservations.FirstOrDefault().startDate, new { htmlAttributes = new { @class = "form-control", placeholder = "Start Date", @readonly = "true" } })
-                                    @Html.ValidationMessageFor(model => model.Reservations.FirstOrDefault().startDate, "", new { @class = "text-danger" })*@
-                            </div>
+                        <div class="col-md-10">
+                            @*@Html.EditorFor(model => model.Reservation.FirstOrDefault().ArrivalDate, new { htmlAttributes = new { @class = "form-control", placeholder = "Start Date", @readonly = "true" } })
+                            @Html.ValidationMessageFor(model => model.Reservation.FirstOrDefault().ArrivalDate, "", new { @class = "text-danger" })*@
                         </div>
-
-
-                        <div class="form-group">
-
-                            <div class="col-md-10">
-                                @* @Html.EditorFor(model => model.endDate, new { htmlAttributes = new { @class = "form-control", placeholder = "End Date", @readonly = "true" } })
-                                    @Html.ValidationMessageFor(model => model.endDate, "", new { @class = "text-danger" }) *@
-
-                                @*@Html.EditorFor(model => model.Reservations.FirstOrDefault().endDate, new { htmlAttributes = new { @class = "form-control", placeholder = "End Date", @readonly = "true" } })
-                                    @Html.ValidationMessageFor(model => model.Reservations.FirstOrDefault().endDate, "", new { @class = "text-danger" })*@
-                            </div>
-                        </div>
-
-
-                        <div class="form-group">
-                            <div class="col-md-10">
-                                <select class="form-control Sleeps" name="booking-roomtype">
-                                    <option selected="">Guests</option>
-                                    <option value="2">2 Guests</option>
-                                    <option value="3">3 Guests</option>
-                                    <option value="4">4 Guests</option>
-                                    <option value="5">5 Guests</option>
-                                    <option value="6">6 Guests</option>
-                                    <option value="7">7 Guests</option>
-                                    <option value="8">8 Guests</option>
-                                    <option value="9">9 Guests</option>
-                                    <option value="10">10 Guests</option>
-                                    <option value="11">11 Guests</option>
-                                    <option value="12">12 Guests</option>
-                                    <option value="13">13 Guests</option>
-                                    <option value="14">14 Guests</option>
-                                    <option value="15">15 Guests</option>
-                                    <option value="16">16 Guests</option>
-                                    <option value="17">17 Guests</option>
-                                    <option value="18">18 Guests</option>
-                                    <option value="19">19 Guests</option>
-                                    <option value="20">20 Guests</option>
-                                    <option value="25">25 Guests</option>
-                                </select>
-
-                                @*@Html.DropDownListFor(model => model.numberOfGuests, Enumerable.Range(1, 25).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() }))*@
-
-                                @* @Html.ValidationMessageFor(model => model.numberOfGuests, "", new { @class = "text-danger" }) *@
-
-                                @* @Html.ValidationMessageFor(model => model.Reservations.FirstOrDefault().numberOfGuests, "", new { @class = "text-danger" })*@
-
-                                @*@Html.EditorFor(model => model.numberOfGuests, new { htmlAttributes = new { @class = "form-control", placeholder = "Number Of Guests", @readonly = "true" } })
-                                    @Html.ValidationMessageFor(model => model.numberOfGuests, "", new { @class = "text-danger" })*@
-
-
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="col-md-10">
-                                <select class="form-control Sleeps" name="petNum">
-                                    <option selected="">Pets</option>
-                                    <option value="1">1 Pet</option>
-                                    <option value="2">2 Pets</option>
-                                    <option value="3">3 Pets</option>
-
-                                </select>
-
-                                @*@Html.DropDownListFor(model => model.numberOfGuests, Enumerable.Range(1, 25).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() }))*@
-
-                                @* @Html.ValidationMessageFor(model => model.numberOfGuests, "", new { @class = "text-danger" }) *@
-
-                                @* @Html.ValidationMessageFor(model => model.Reservations.FirstOrDefault().numberOfGuests, "", new { @class = "text-danger" })*@
-
-                                @*@Html.EditorFor(model => model.numberOfGuests, new { htmlAttributes = new { @class = "form-control", placeholder = "Number Of Guests", @readonly = "true" } })
-                                    @Html.ValidationMessageFor(model => model.numberOfGuests, "", new { @class = "text-danger" })*@
-
-
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <div class="col-md-offset-2 col-md-10">
-                                <input type="submit" value="Search" id="centerButton" class="btn btn-default" />
-                            </div>
-                        </div>
-
-                        <p>@Html.ActionLink("View all Properties", "Index", "Rooms")</p>
-
                     </div>
-                }
-            </div>
-            <div class="col-md-8 roomTable">
-                <div class="row">
 
-                    <table class="table roomPortal">
-                        
 
-                        @foreach (var item in Model)
-                        {
+                    <div class="form-group">
+
+                        <div class="col-md-10">
+                            @*@Html.EditorFor(model => model.Reservation.FirstOrDefault().DepartureDate, new { htmlAttributes = new { @class = "form-control", placeholder = "End Date", @readonly = "true" } })
+                            @Html.ValidationMessageFor(model => model.Reservation.FirstOrDefault().DepartureDate, "", new { @class = "text-danger" })*@
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <div class="col-md-10">
+                            <select class="form-control Sleeps" name="booking-roomtype">
+                                <option selected="">Guests</option>
+                                <option value="2">2 Guests</option>
+                                <option value="3">3 Guests</option>
+                                <option value="4">4 Guests</option>
+                                <option value="5">5 Guests</option>
+                                <option value="6">6 Guests</option>
+                                <option value="7">7 Guests</option>
+                                <option value="8">8 Guests</option>
+                                <option value="9">9 Guests</option>
+                                <option value="10">10 Guests</option>
+                                <option value="11">11 Guests</option>
+                                <option value="12">12 Guests</option>
+                                <option value="13">13 Guests</option>
+                                <option value="14">14 Guests</option>
+                                <option value="15">15 Guests</option>
+                                <option value="16">16 Guests</option>
+                                <option value="17">17 Guests</option>
+                                <option value="18">18 Guests</option>
+                                <option value="19">19 Guests</option>
+                                <option value="20">20 Guests</option>
+                                <option value="25">25 Guests</option>
+                            </select>
+
+                            @*@Html.DropDownListFor(model => model.numberOfGuests, Enumerable.Range(1, 25).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() }))*@
+
+                            @* @Html.ValidationMessageFor(model => model.numberOfGuests, "", new { @class = "text-danger" }) *@
+
+                            @*@Html.ValidationMessageFor(model => model.Reservation.FirstOrDefault().numberOfGuests, "", new { @class = "text-danger" })*@
+
+                            @*@Html.EditorFor(model => model.numberOfGuests, new { htmlAttributes = new { @class = "form-control", placeholder = "Number Of Guests", @readonly = "true" } })
+                                  @Html.ValidationMessageFor(model => model.numberOfGuests, "", new { @class = "text-danger" })*@
+
+
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-10">
+                            <select class="form-control Sleeps" name="petNum">
+                                <option selected="">Pets</option>
+                                <option value="0">No Pets</option>
+                                <option value="1">1 Pet</option>
+                                <option value="2">2 Pets</option>
+                                <option value="3">3 Pets</option>
+
+                            </select>
+
+                            @*@Html.DropDownListFor(model => model.numberOfGuests, Enumerable.Range(1, 25).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() }))*@
+
+                            @* @Html.ValidationMessageFor(model => model.numberOfGuests, "", new { @class = "text-danger" }) *@
+
+                            @*@Html.ValidationMessageFor(model => model.Reservation.FirstOrDefault().numberOfPets, "", new { @class = "text-danger" })*@
+
+                            @*@Html.EditorFor(model => model.numberOfGuests, new { htmlAttributes = new { @class = "form-control", placeholder = "Number Of Guests", @readonly = "true" } })
+                                @Html.ValidationMessageFor(model => model.numberOfGuests, "", new { @class = "text-danger" })*@
+
+
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <input type="submit" value="Search" id="centerButton" class="btn btn-default" />
+                        </div>
+                    </div>
+
+                    <p>@Html.ActionLink("View all Properties", "Index", "Rooms")</p>
+
+                </div>
+            }
+        </div>
+        <div class="col-md-8 roomTable">
+            <div class="row">
+
+                <table class="table roomPortal">
+
+
+                    @foreach (var item in Model)
+                    {
 
 
                         <tr>
@@ -164,13 +161,15 @@
                             <td>
                                 <p>$  @Html.DisplayFor(modelItem => item.Price)</p>
                             </td>
-
+                            <td>
+                                @Html.ActionLink("Reserve Now!", "Create", new { id = item.RoomID })
+                            </td>
                         </tr>
-                        }
+                    }
 
-                    </table>
-                </div>
+                </table>
             </div>
         </div>
+    </div>
 </div>
 

@@ -52,7 +52,7 @@
     <IntermediateOutputPath>C:\Users\Muyo\AppData\Local\Temp\vs5A29.tmp\Debug\</IntermediateOutputPath>
     <IntermediateOutputPath>C:\Users\Eric\AppData\Local\Temp\vs29C1.tmp\Debug\</IntermediateOutputPath>
     <IntermediateOutputPath>C:\Users\Craig\AppData\Local\Temp\vs2457.tmp\Debug\</IntermediateOutputPath>
-    <IntermediateOutputPath>C:\Users\nh229u10\AppData\Local\Temp\vsE2BA.tmp\Debug\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\artax\AppData\Local\Temp\vs75D2.tmp\Debug\</IntermediateOutputPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -80,7 +80,7 @@
     <IntermediateOutputPath>C:\Users\Muyo\AppData\Local\Temp\vs5A29.tmp\Release\</IntermediateOutputPath>
     <IntermediateOutputPath>C:\Users\Eric\AppData\Local\Temp\vs29C1.tmp\Release\</IntermediateOutputPath>
     <IntermediateOutputPath>C:\Users\Craig\AppData\Local\Temp\vs2457.tmp\Release\</IntermediateOutputPath>
-    <IntermediateOutputPath>C:\Users\nh229u10\AppData\Local\Temp\vsE2BA.tmp\Release\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\artax\AppData\Local\Temp\vs75D2.tmp\Release\</IntermediateOutputPath>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
@@ -216,6 +216,7 @@
     <Compile Include="Controllers\AppointmentController.cs" />
     <Compile Include="Controllers\BuildingController.cs" />
     <Compile Include="Controllers\DeveloperPageController.cs" />
+    <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\EventController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -233,9 +234,11 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\AppointmentModel.cs" />
     <Compile Include="Models\CreateAppointmentViewModel.cs" />
+    <Compile Include="Models\ErrorViewModel.cs" />
     <Compile Include="Models\HomeViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\NewReservation.cs" />
     <Compile Include="Models\ReservationSearchModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -245,7 +248,12 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\images\activities.jpg" />
+    <Content Include="Content\images\bungaloLand.jpg" />
+    <Content Include="Content\images\bunglalowWater.jpg" />
+    <Content Include="Content\images\calm-beach.jpg" />
     <Content Include="Content\images\devPics\ecolon.jpg" />
+    <Content Include="Content\images\hero--xl.jpg" />
     <Content Include="Content\images\hotel\01-RIVUE.jpg" />
     <Content Include="Content\images\hotel\02-RIVUE.jpg" />
     <Content Include="Content\images\hotel\03-RIVUE.jpg" />
@@ -281,16 +289,22 @@
     <Content Include="Content\images\island_fish.jpg" />
     <Content Include="Content\images\jade-Mountain.jpg" />
     <Content Include="Content\images\limbo.jpg" />
-    <Content Include="Content\images\Massage.jpg" />
+    <Content Include="Content\images\MainStage.jpg" />
+    <Content Include="Content\images\Message.jpg" />
     <Content Include="Content\images\pier.jpg" />
+    <Content Include="Content\images\resort-activities.jpg" />
     <Content Include="Content\images\Resort-Beachfront.jpg" />
     <Content Include="Content\images\Resort-Beachfrontjpg.jpg" />
     <Content Include="Content\images\resortDining.jpg" />
     <Content Include="Content\images\Resv Problem.JPG" />
     <Content Include="Content\images\ropes.jpg" />
     <Content Include="Content\images\SandCastle.jpg" />
+    <Content Include="Content\images\Seaplane.jpg" />
     <Content Include="Content\images\sing-along.jpg" />
+    <Content Include="Content\images\sovenue.png" />
     <Content Include="Content\images\Spa.jpg" />
+    <Content Include="Content\images\spa22.jpg" />
+    <Content Include="Content\images\venue.jpg" />
     <Content Include="Content\images\WhaleWatching.jpg" />
     <Content Include="Content\images\The new\05.jpg" />
     <Content Include="Content\images\The new\06.jpg" />
@@ -422,6 +436,8 @@
     <Content Include="Views\Building\Details.cshtml" />
     <Content Include="Views\Amenities\Create.cshtml" />
     <Content Include="Views\Amenities\Success.cshtml" />
+    <Content Include="Views\Rooms\Create.cshtml" />
+    <Content Include="Views\Error\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

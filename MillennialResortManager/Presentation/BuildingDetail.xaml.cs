@@ -99,8 +99,9 @@ namespace Presentation
             txtDescription.Text = selectedBuilding.Description;
             cboStatusID.SelectedItem = selectedBuilding.StatusID;
 
-            setUpInspectionTab();
             setUpRooms();
+            setUpInspectionTab();
+
         }
 
 
@@ -518,12 +519,19 @@ namespace Presentation
         /// </summary>
         ///
         /// <remarks>
+        /// Dani Russo
+        /// Updated: 2019/04/18
+        /// 
+        /// Checks for null to prevent crashing
         /// </remarks>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void btnSelectionInspection_Click(object sender, RoutedEventArgs e)
         {
-            setUpSelectedInspection();
+            if ((Inspection)dgBuildingInspections.SelectedItem != null)
+            {
+                setUpSelectedInspection();
+            }
         }
 
         /// <summary>
@@ -602,7 +610,10 @@ namespace Presentation
 
         private void dgBuildingInspections_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            setUpSelectedInspection();
+            if ((Inspection)dgBuildingInspections.SelectedItem != null)
+            {
+                setUpSelectedInspection();
+            }
         }
 
         private void setUpSelectedInspection()
@@ -638,12 +649,19 @@ namespace Presentation
         /// </summary>
         ///
         /// <remarks>
+        /// Dani Russo
+        /// Updated: 2019/04/18
+        /// 
+        /// Checks for null to prevent crashing
         /// </remarks>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void dgRooms_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            selectRoom();
+            if ((Room)dgRooms.SelectedItem != null)
+            {
+                selectRoom();
+            }
         }
 
         /// <summary>
@@ -659,6 +677,8 @@ namespace Presentation
             var detailForm = new frmAddEditViewRoom(EditMode.View, selectedRoom.RoomID);
             var formUpdated = detailForm.ShowDialog();
 
+            setUpRooms();
+
             if (formUpdated == true)
             {
                 try
@@ -672,6 +692,7 @@ namespace Presentation
             }
         }
 
+
         /// <summary>
         /// Danielle Russo
         /// Created: 2019/04/04
@@ -680,12 +701,19 @@ namespace Presentation
         /// </summary>
         ///
         /// <remarks>
+        /// Dani Russo
+        /// Updated: 2019/04/18
+        /// 
+        /// Checks for null to prevent crashing
         /// </remarks>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void btnSelectRoom_Click(object sender, RoutedEventArgs e)
         {
-            selectRoom();
+            if ((Room)dgRooms.SelectedItem != null)
+            {
+                selectRoom();
+            }
         }
 
         private void dgBuildingMaintenance_MouseDoubleClick(object sender, MouseButtonEventArgs e)
