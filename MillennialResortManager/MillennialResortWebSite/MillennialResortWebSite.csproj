@@ -52,7 +52,7 @@
     <IntermediateOutputPath>C:\Users\Muyo\AppData\Local\Temp\vs5A29.tmp\Debug\</IntermediateOutputPath>
     <IntermediateOutputPath>C:\Users\Eric\AppData\Local\Temp\vs29C1.tmp\Debug\</IntermediateOutputPath>
     <IntermediateOutputPath>C:\Users\Craig\AppData\Local\Temp\vs2457.tmp\Debug\</IntermediateOutputPath>
-    <IntermediateOutputPath>C:\Users\Craig\AppData\Local\Temp\vs8BBD.tmp\Debug\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\artax\AppData\Local\Temp\vs75D2.tmp\Debug\</IntermediateOutputPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -80,7 +80,7 @@
     <IntermediateOutputPath>C:\Users\Muyo\AppData\Local\Temp\vs5A29.tmp\Release\</IntermediateOutputPath>
     <IntermediateOutputPath>C:\Users\Eric\AppData\Local\Temp\vs29C1.tmp\Release\</IntermediateOutputPath>
     <IntermediateOutputPath>C:\Users\Craig\AppData\Local\Temp\vs2457.tmp\Release\</IntermediateOutputPath>
-    <IntermediateOutputPath>C:\Users\Craig\AppData\Local\Temp\vs8BBD.tmp\Release\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\artax\AppData\Local\Temp\vs75D2.tmp\Release\</IntermediateOutputPath>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
@@ -216,6 +216,7 @@
     <Compile Include="Controllers\AppointmentController.cs" />
     <Compile Include="Controllers\BuildingController.cs" />
     <Compile Include="Controllers\DeveloperPageController.cs" />
+    <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\EventController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -233,6 +234,7 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\AppointmentModel.cs" />
     <Compile Include="Models\CreateAppointmentViewModel.cs" />
+    <Compile Include="Models\ErrorViewModel.cs" />
     <Compile Include="Models\HomeViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
@@ -435,6 +437,7 @@
     <Content Include="Views\Amenities\Create.cshtml" />
     <Content Include="Views\Amenities\Success.cshtml" />
     <Content Include="Views\Rooms\Create.cshtml" />
+    <Content Include="Views\Error\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
