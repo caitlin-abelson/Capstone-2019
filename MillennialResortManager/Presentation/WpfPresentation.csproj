@@ -776,6 +776,7 @@
     <Resource Include="Resources\pet8.jpg" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Resources\MillenialResortDesktop.jpg" />
     <Content Include="SqlServerTypes\readme.htm" />
     <Content Include="SqlServerTypes\x64\msvcr120.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
