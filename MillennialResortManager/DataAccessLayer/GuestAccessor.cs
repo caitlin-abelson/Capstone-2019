@@ -48,6 +48,7 @@ namespace DataAccessLayer
             var cmdText = "sp_insert_guest";
             var cmd = new SqlCommand(cmdText, conn);
             cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.Clear();
 
             cmd.Parameters.AddWithValue("@MemberID", newGuest.MemberID);
             cmd.Parameters.AddWithValue("@GuestTypeID", newGuest.GuestTypeID);
@@ -100,6 +101,7 @@ namespace DataAccessLayer
             var cmdText = "sp_retrieve_guests_by_id";
             var cmd = new SqlCommand(cmdText, conn);
             cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.Clear();
 
             cmd.Parameters.AddWithValue("@GuestID", guestID);
 
@@ -167,6 +169,7 @@ namespace DataAccessLayer
             var cmdText = "sp_retrieve_guests_by_name";
             var cmd = new SqlCommand(cmdText, conn);
             cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.Clear();
 
             cmd.Parameters.AddWithValue("@FirstName", searchFirst);
             cmd.Parameters.AddWithValue("@LastName", searchLast);
@@ -271,6 +274,7 @@ namespace DataAccessLayer
             var cmdText = "sp_update_guest_by_id";
             var cmd = new SqlCommand(cmdText, conn);
             cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.Clear();
 
             cmd.Parameters.AddWithValue("@GuestID", newGuest.GuestID);
 
@@ -438,6 +442,7 @@ namespace DataAccessLayer
             var cmdText = "sp_deactivate_guest_by_id";
             var cmd = new SqlCommand(cmdText, conn);
             cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.Clear();
 
             // parameters
             cmd.Parameters.AddWithValue("@GuestID", guestID);
@@ -477,6 +482,7 @@ namespace DataAccessLayer
             var cmdText = "sp_delete_guest_by_id";
             var cmd = new SqlCommand(cmdText, conn);
             cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.Clear();
 
             // parameters
             cmd.Parameters.AddWithValue("@GuestID", guestID);
@@ -516,6 +522,7 @@ namespace DataAccessLayer
             var cmdText = "sp_activate_guest_by_id";
             var cmd = new SqlCommand(cmdText, conn);
             cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.Clear();
 
             // parameters
             cmd.Parameters.AddWithValue("@GuestID", guestID);
@@ -555,6 +562,7 @@ namespace DataAccessLayer
             var cmdText = "sp_check_out_guest_by_id";
             var cmd = new SqlCommand(cmdText, conn);
             cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.Clear();
 
             // parameters
             cmd.Parameters.AddWithValue("@GuestID", guestID);
@@ -594,6 +602,7 @@ namespace DataAccessLayer
             var cmdText = "sp_check_in_guest_by_id";
             var cmd = new SqlCommand(cmdText, conn);
             cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.Clear();
 
             // parameters
             cmd.Parameters.AddWithValue("@GuestID", guestID);
