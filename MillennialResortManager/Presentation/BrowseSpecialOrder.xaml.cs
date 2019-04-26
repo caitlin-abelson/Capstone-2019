@@ -122,7 +122,20 @@ namespace Presentation
             }
         }
 
-
+        private void btnCompleteOrder_Click(object sender, RoutedEventArgs e)
+        {
+            if (dgListAllOrders.SelectedIndex < 0)
+            {
+                MessageBox.Show("You must have an order selected");
+            }
+            else
+            {
+                var order = (CompleteSpecialOrder)dgListAllOrders.SelectedItem;
+                var receiving = new OrderRecieving(order);
+                receiving.ShowDialog();
+                updateList();
+            }
+        }
     }
 }
 

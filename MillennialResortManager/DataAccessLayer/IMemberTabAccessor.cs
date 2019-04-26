@@ -1,9 +1,5 @@
 ﻿using DataObjects;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DataAccessLayer
 {
@@ -17,8 +13,24 @@ namespace DataAccessLayer
 
         MemberTab SelectActiveMemberTabByMemberID(int memberID);
 
+        IEnumerable<MemberTab> SelectMemberTabsByMemberID(int memberID);
+
+        IEnumerable<MemberTab> SelectMemberTabs();
+
         int InsertMemberTab(int memberID);
 
-        int UpdateMemberTabSetInactive(int memberTabID);
+        int DeactivateMemberTab(int memberTabID);
+
+        int ReactivateMemberTab(int memberTabID);
+
+        int InsertMemberTabLine(MemberTabLine memberTabLine);
+
+        IEnumerable<MemberTabLine> SelectMemberTabLinesByMemberTabID(int memberTabID);
+
+        MemberTabLine SelectMemberTabLineByID(int memberTabLineID);
+
+        int DeleteMemberTab(int memberTabID);
+
+        int DeleteMemberTabLine(int memberTabLineID);
     }
 }

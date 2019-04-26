@@ -63,5 +63,9 @@ namespace DataObjects
         /// </summary>
         public decimal Discount { get; set; }
 
+        /// <summary>
+        /// Date the item was added to the bill.
+        /// </summary>
+        public DateTime DatePurchased { get; set; }
     }
 }
