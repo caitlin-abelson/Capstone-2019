@@ -50,7 +50,7 @@ namespace Presentation
             }
             chkActive.Visibility = Visibility.Hidden;
             //txtSponsorID.Visibility = Visibility.Hidden;
-            dtpDateAdded.Visibility = Visibility.Hidden;
+            //dtpDateAdded.Visibility = Visibility.Hidden;
             chkActive.IsChecked = true;
             _existingSponsor = null;
         }
@@ -95,7 +95,7 @@ namespace Presentation
             txtContactFirstName.Text = "" + _existingSponsor.ContactFirstName;
             txtContactLastName.Text = "" + _existingSponsor.ContactLastName;
             //cboStatusID.SelectedItem = "" + _existingSponsor.StatusID;
-            dtpDateAdded.Text = _existingSponsor.DateAdded.ToString("MM/dd/yyyy");
+            dtpDateAdded.SelectedDate = _existingSponsor.DateAdded;
             chkActive.IsChecked = _existingSponsor.Active;
             setReadOnly();
             btnSave.Content = "Update";
@@ -166,16 +166,16 @@ namespace Presentation
         /// </summary>
         private void setEditable()
         {
-            txtName.IsReadOnly = !true;
-            txtAddress.IsReadOnly = !true;
-            txtCity.IsReadOnly = !true;
+            txtName.IsReadOnly = false;
+            txtAddress.IsReadOnly = false;
+            txtCity.IsReadOnly = false;
             cboState.IsEnabled = true;
-            txtPhoneNumber.IsReadOnly = !true;
-            txtEmail.IsReadOnly = !true;
-            txtContactFirstName.IsReadOnly = !true;
-            txtContactLastName.IsReadOnly = !true;
+            txtPhoneNumber.IsReadOnly = false;
+            txtEmail.IsReadOnly = false;
+            txtContactFirstName.IsReadOnly = false;
+            txtContactLastName.IsReadOnly = false;
             //cboStatusID.IsEnabled = !false;
-            dtpDateAdded.IsEnabled = !false;
+            dtpDateAdded.IsEnabled = true;
 
             btnSave.Content = "Submit";
             chkActive.Visibility = Visibility.Visible;
@@ -408,7 +408,7 @@ namespace Presentation
             }
             // Address no more than 50 characters long
 
-            if (txtAddress.Text.Length >= 2 && txtAddress.Text.Length <= 50)
+            if (txtAddress.Text.Length >= 7 && txtAddress.Text.Length < 50)
             {
                 return true;
             }

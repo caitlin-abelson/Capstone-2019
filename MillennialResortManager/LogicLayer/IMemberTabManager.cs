@@ -10,6 +10,12 @@ namespace LogicLayer
     /// <summary>
     /// James Heim
     /// Created 2019-04-18
+    /// 
+    /// <remarks>
+    /// James Heim
+    /// Modified 2019-04-25
+    /// Added more methods.
+    /// </remarks>
     /// </summary>
     public interface IMemberTabManager
     {
@@ -17,8 +23,24 @@ namespace LogicLayer
 
         MemberTab RetrieveActiveMemberTabByMemberID(int memberID);
 
+        IEnumerable<MemberTab> RetrieveMemberTabsByMemberID(int memberID);
+
+        IEnumerable<MemberTab> RetrieveAllMemberTabs();
+
         bool CreateMemberTab(int memberID);
 
-        bool UpdateMemberTabSetInactive(int memberTabID);
+        bool DeactivateMemberTab(int memberTabID);
+
+        bool ReactivateMemberTab(int memberTabID);
+
+        int CreateMemberTabLine(MemberTabLine memberTabLine);
+
+        IEnumerable<MemberTabLine> RetrieveMemberTabLinesByMemberTabID(int memberTabID);
+
+        MemberTabLine RetrieveMemberTabLineByID(int memberTabLineID);
+
+        bool DeleteMemberTab(int memberTabID);
+
+        bool DeleteMemberTabLine(int memberTabLineID);
     }
 }

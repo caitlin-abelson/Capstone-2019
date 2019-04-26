@@ -306,5 +306,10 @@ namespace DataAccessLayer
         {
             throw new NotImplementedException();
         }
+
+        public List<SupplierOrder> SelectAllGeneratedOrders()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

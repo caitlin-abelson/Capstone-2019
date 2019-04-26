@@ -364,6 +364,9 @@ namespace Presentation
             }
             return false;
         }
+
+
+
         /// <summary>
         ///Kevin Broskow
         /// Created: 2019/01/21
@@ -466,6 +469,11 @@ namespace Presentation
             this.Close();
         }
 
+        private void btnAddSupplier_Click(object sender, RoutedEventArgs e)
+        {
+            var form = new frmManageItemSuppliers(oldItem);
+            form.ShowDialog();
+        }
         /// <summary>
         ///Kevin Broskow
         /// Created: 2019/01/21
