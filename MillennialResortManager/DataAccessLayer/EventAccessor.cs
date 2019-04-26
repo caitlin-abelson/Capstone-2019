@@ -341,6 +341,11 @@ namespace DataAccessLayer
         /// 
         /// Method for retrieving a specific Event
         /// </summary>
+        /// <remarks>
+        /// James Heim
+        /// Modified 4/26/2019
+        /// Added the CommandType to fix the command from throwing an exception.
+        /// </remarks>
         /// <param name="eventReqID"></param> needs the unique ID of the event to be retrieved
         /// <returns></returns>
         public Event selectEventById(int eventReqID)
@@ -350,6 +355,7 @@ namespace DataAccessLayer
             var conn = DBConnection.GetDbConnection();
             var cmdText = "sp_retrieve_event";
             var cmd = new SqlCommand(cmdText, conn);
+            cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.AddWithValue("@EventID", eventReqID);
 
             try

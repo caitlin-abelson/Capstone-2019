@@ -8,34 +8,37 @@ namespace DataObjects
 {
     /// <summary>
     /// James Heim
-    /// Created 2019-04-18
+    /// Created 2019-04-26
     /// 
-    /// MemberTab object.
+    /// A ViewModel to show relevant data about a Tab in a 
+    /// DataGrid.
     /// </summary>
-    public class MemberTab
+    public class VMTab
     {
+        /// <summary>
+        /// The Unique ID of the MemberTab.
+        /// </summary>
         public int MemberTabID { get; set; }
 
         /// <summary>
-        /// The Member that this Tab belongs to.
+        /// The MemberID of the Tab.
         /// </summary>
         public int MemberID { get; set; }
 
         /// <summary>
-        /// If the tab is not active, charges cannot be billed to the tab.
+        /// Whether the tab is Active.
         /// </summary>
         public bool Active { get; set; }
 
         /// <summary>
-        /// The total of all items on the tab.
+        /// The total of all lines on the tab.
         /// </summary>
         public decimal TotalPrice { get; set; }
 
         /// <summary>
-        /// The itemized tab lines.
+        /// The DateTime of the last item added to the tab.
         /// </summary>
-        public List<MemberTabLine> MemberTabLines { get; set; }
+        public DateTime Date { get; set; }
 
-        
     }
 }
