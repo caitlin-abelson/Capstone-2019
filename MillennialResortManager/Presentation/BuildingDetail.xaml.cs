@@ -39,9 +39,12 @@ namespace Presentation
         private InspectionManager inspectionManager = new InspectionManager();
         private List<Inspection> inspections;
 
+        private MaintenanceWorkOrderManagerMSSQL maintenanceManager = new MaintenanceWorkOrderManagerMSSQL();
+        private List<MaintenanceWorkOrder> mainTickets;
+
         private RoomManager roomManager = new RoomManager();
         private List<Room> roomsInSelectedBuilding;
-
+        private Employee employee;
         /// <summary>
         /// Danielle Russo
         /// Created: 2019/01/21
@@ -69,11 +72,12 @@ namespace Presentation
         ///
         /// <remarks>
         /// </remarks>
-        public BuildingDetail(Building building)
+        public BuildingDetail(Building building, Employee employee)
         {
             InitializeComponent();
 
             this.selectedBuilding = building;
+            this.employee = employee;
             setupBuildingInfoEditable();
             setupSelectedBuilding();
             this.btnPrimaryAction.Content = "Save";
@@ -101,7 +105,31 @@ namespace Presentation
 
             setUpRooms();
             setUpInspectionTab();
+            setUpMaintainanceTab();
 
+        }
+
+        private void setUpMaintainanceTab()
+        {
+            mainTickets = maintenanceManager.RetrieveAllMaintenanceWorkOrders();
+            mainTickets = mainTickets.FindAll(t => t.ResortPropertyID.Equals(selectedBuilding.ResortPropertyID));
+
+
+            if (mainTickets.Count > 0)
+            {
+                foreach (Room room in roomsInSelectedBuilding)
+                {
+                    List<MaintenanceWorkOrder> roomTickets = maintenanceManager.RetrieveAllMaintenanceWorkOrders()
+                        .FindAll(t => t.ResortPropertyID.Equals(room.ResortPropertyID));
+                    foreach (var ticket in roomTickets)
+                    {
+                        mainTickets.Add(ticket);
+                    }
+                }
+            }
+
+
+            dgBuildingMaintenance.ItemsSource = mainTickets;
         }
 
 
@@ -449,7 +477,7 @@ namespace Presentation
         /// <param name="selectedBuilding">The building that the room will be added to</param>
         private void btnAddRoom_Click(object sender, RoutedEventArgs e)
         {
-            var addRoomForm = new frmAddEditViewRoom(selectedBuilding.BuildingID);
+            var addRoomForm = new frmAddEditViewRoom(selectedBuilding.BuildingID, employee);
             var roomAdded = addRoomForm.ShowDialog();
 
             // if rooms were added, update list

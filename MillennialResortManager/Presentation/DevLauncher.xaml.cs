@@ -2611,7 +2611,7 @@ namespace Presentation
         private void selectBuilding()
         {
             Building selectedBuilding = (Building)dgBuildings.SelectedItem;
-            var detailForm = new BuildingDetail(selectedBuilding);
+            var detailForm = new BuildingDetail(selectedBuilding, _employee);
             var formUpdated = detailForm.ShowDialog();
 
             if (formUpdated == true)
@@ -5988,7 +5988,7 @@ namespace Presentation
 
         private void BtnAddRoom_Click(object sender, RoutedEventArgs e)
         {
-            var roomForm = new frmAddEditViewRoom();
+            var roomForm = new frmAddEditViewRoom(_employee);
             var results = roomForm.ShowDialog();
         }
 
