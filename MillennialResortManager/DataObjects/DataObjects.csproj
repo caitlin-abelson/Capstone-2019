@@ -121,6 +121,8 @@
     <Compile Include="VMRoomRoomReservation.cs" />
     <Compile Include="VMSetup.cs" />
     <Compile Include="VMSetupList.cs" />
+    <Compile Include="VMTab.cs" />
+    <Compile Include="VMTabLine.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
