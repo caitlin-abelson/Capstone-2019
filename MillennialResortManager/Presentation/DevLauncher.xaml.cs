@@ -99,7 +99,7 @@ namespace Presentation
         private List<string> _searchCategories;
         //private UserManager _userManager;
         private InternalOrderManager _internalOrderManager;
-       // private User _fullUser;
+        // private User _fullUser;
         private List<VMInternalOrder> _orders;
         private List<VMInternalOrder> _currentOrders;
         //Employee Roles
@@ -2473,7 +2473,7 @@ namespace Presentation
             {
                 MessageBox.Show(ex.Message);
             }
-            
+
             dgBuildings.ItemsSource = allBuildings;
         }
 
@@ -2500,7 +2500,7 @@ namespace Presentation
             {
                 MessageBox.Show(ex.Message);
             }
-            
+
         }
 
         /// <summary>
@@ -3178,7 +3178,7 @@ namespace Presentation
                     _currentGuests = _guests;
                 }
                 dgGuests.ItemsSource = _currentGuests;
-                
+
             }
 
             catch (Exception ex)
@@ -3369,7 +3369,7 @@ namespace Presentation
         {
             string headerName = e.Column.Header.ToString();
 
-            if(headerName == "ID")
+            if (headerName == "ID")
             {
                 e.Cancel = true;
             }
@@ -3407,7 +3407,7 @@ namespace Presentation
             {
                 MessageBox.Show(ex.Message);
             }
-            
+
         }
 
         private void setupWindowPerformance()
@@ -3420,7 +3420,7 @@ namespace Presentation
             {
                 MessageBox.Show(ex.Message);
             }
-            
+
         }
 
         /*--------------------------- Ending BrowsePerformance Code --------------------------------*/
@@ -3963,12 +3963,12 @@ namespace Presentation
                     if (_selectedGuest.Active)
                     {
                         btnActivateGuest.Content = "Deactivate";
-                        
+
                     }
                     else
                     {
                         btnActivateGuest.Content = "Activate";
-                        
+
                     }
                     if (_selectedGuest.CheckedIn)
                     {
@@ -3981,7 +3981,7 @@ namespace Presentation
                 }
                 else
                 {
-                    
+
                     btnCheckGuest.IsEnabled = false;
                     btnActivateGuest.IsEnabled = false;
                 }
@@ -5032,11 +5032,11 @@ namespace Presentation
         {
             _eventPerfManager = new EventPerformanceManager();
             populateEvPerfList();
-            
+
             dgEventPerformance.IsEnabled = true;
         }
 
-       
+
         /// <summary>
         /// @Author: Phillip Hansen
         /// 
@@ -5089,11 +5089,11 @@ namespace Presentation
         /// <param name="e"></param>
         private void dgEventPerformance_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            if(dgEventPerformance.SelectedIndex > -1)
+            if (dgEventPerformance.SelectedIndex > -1)
             {
                 var selectedEvPerf = (EventPerformance)dgEventPerformance.SelectedItem;
 
-                if(selectedEvPerf == null)
+                if (selectedEvPerf == null)
                 {
                     MessageBox.Show("No record selected!");
                 }
@@ -5116,7 +5116,7 @@ namespace Presentation
         {
             EventPerformance selectedRecord = (EventPerformance)dgEventPerformance.SelectedItem;
 
-            if(dgEventPerformance.SelectedIndex > -1)
+            if (dgEventPerformance.SelectedIndex > -1)
             {
                 //Add delete method here
             }
@@ -5193,13 +5193,13 @@ namespace Presentation
         {
             //make sure the button for 'cancelled' is inaccessable
             btnUncancelEvent.Visibility = Visibility.Hidden;
-            
+
             //re-populate the data grid with the events
             populateEvents();
 
             //The "delete" button for Event should be 'Cancel Event' instead
             btnDeleteEvent.Content = "Cancel Event";
-            
+
         }
 
         /// <summary>
@@ -5231,7 +5231,7 @@ namespace Presentation
         {
             _selectedEvent = (Event)dgEvents.SelectedItem;
 
-            if(dgEvents.SelectedIndex > -1)
+            if (dgEvents.SelectedIndex > -1)
             {
                 try
                 {
@@ -5250,7 +5250,7 @@ namespace Presentation
             {
                 MessageBox.Show("A record from the list must be selected!");
             }
-            
+
         }
 
         /// <summary>
@@ -5265,23 +5265,23 @@ namespace Presentation
         {
             if (btnEventUncancelled.IsChecked == true)
             {
-                if(txtEventSearchName != null)
+                if (txtEventSearchName != null)
                 {
                     List<Event> _filteredEvents = new List<Event>();
                     foreach (var item in _eventManager.RetrieveAllEvents().Where(b => b.EventTitle.Equals(txtEventSearchName.Text.ToString())))
                     {
                         _filteredEvents.Add(item);
                     }
-                    
+
                     dgEvents.ItemsSource = _filteredEvents;
                 }
                 else
                 {
                     dgEvents.ItemsSource = _events;
                 }
-                
+
             }
-            else if(btnEventCancelled.IsChecked == true)
+            else if (btnEventCancelled.IsChecked == true)
             {
                 if (txtEventSearchName != null)
                 {
@@ -5298,7 +5298,7 @@ namespace Presentation
                     dgEvents.ItemsSource = _events;
                 }
             }
-            
+
         }
 
         /// <summary>
@@ -5361,7 +5361,7 @@ namespace Presentation
             {
                 var viewEvent = new frmAddEditEvent(_employee, _selectedEvent);
                 var result = viewEvent.ShowDialog();
-                if(result == true)
+                if (result == true)
                 {
                     populateEvents();
                 }
@@ -5387,7 +5387,7 @@ namespace Presentation
 
             if (dgEvents.SelectedIndex > -1)
             {
-                if(btnDeleteEvent.Content.Equals("Cancel Event"))
+                if (btnDeleteEvent.Content.Equals("Cancel Event"))
                 {
                     try
                     {
@@ -5401,15 +5401,15 @@ namespace Presentation
                     {
                         populateEvents();
                     }
-                    
+
                 }
-                else if(btnDeleteEvent.Content.Equals("Delete"))
+                else if (btnDeleteEvent.Content.Equals("Delete"))
                 {
                     if (_selectedEvent.Approved == false)
                     {
                         var deleteEvent = new frmEventDeleteConfirmation(_selectedEvent);
                         var result = deleteEvent.ShowDialog();
-                        if(result == true)
+                        if (result == true)
                         {
                             populateEvents();
                         }
@@ -5419,7 +5419,7 @@ namespace Presentation
                         MessageBox.Show("Event must not be approved!");
                     }
                 }
-                
+
             }
             else
             {
@@ -5437,7 +5437,7 @@ namespace Presentation
         private void DgEvents_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
         {
             string headerName = e.Column.Header.ToString();
-            
+
             if (e.PropertyType == typeof(DateTime))
             {
                 (e.Column as DataGridTextColumn).Binding.StringFormat = "MM/dd/yyyy";
@@ -5450,19 +5450,19 @@ namespace Presentation
             {
                 e.Cancel = true;
             }
-            if(headerName == "Cancelled")
+            if (headerName == "Cancelled")
             {
                 e.Cancel = true;
             }
-            if(headerName == "SeatsRemaining")
+            if (headerName == "SeatsRemaining")
             {
                 e.Column.Header = "Open Seats";
             }
-            if(headerName == "PublicEvent")
+            if (headerName == "PublicEvent")
             {
                 e.Column.Header = "Public?";
             }
-            if(headerName == "Price")
+            if (headerName == "Price")
             {
                 e.Column.Header = "Entry Price";
             }
@@ -5524,7 +5524,7 @@ namespace Presentation
 
 
             //Re-Add the events based on the radio button selected
-            if(btnEventCancelled.IsChecked == true)
+            if (btnEventCancelled.IsChecked == true)
             {
                 try
                 {
@@ -5534,9 +5534,9 @@ namespace Presentation
                 {
                     MessageBox.Show("Error: " + ex.Message);
                 }
-                
+
             }
-            else if(btnEventUncancelled.IsChecked == true)
+            else if (btnEventUncancelled.IsChecked == true)
             {
                 try
                 {
@@ -5544,9 +5544,9 @@ namespace Presentation
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Error: "+ex.Message);
+                    MessageBox.Show("Error: " + ex.Message);
                 }
-                
+
             }
 
 
@@ -5627,6 +5627,10 @@ namespace Presentation
                 {
                     cboSupplier.Items.Add(supplier.Name + " " + supplier.SupplierID);
                 }
+            }
+            catch (NullReferenceException)
+            {
+
             }
             catch (Exception ex)
             {
@@ -5729,27 +5733,34 @@ namespace Presentation
         }
         private void BtnDeleteOrder_Click(object sender, RoutedEventArgs e)
         {
-            if ((SupplierOrder)dgSupplierOrders.SelectedItem != null)
+            try
             {
-                _supplierOrder = (SupplierOrder)dgSupplierOrders.SelectedItem;
-                MessageBoxResult mbresult;
-
-                mbresult = MessageBox.Show("Are you sure you want to delete order number " + _supplierOrder.SupplierOrderID + "?", "Delete Order", MessageBoxButton.YesNo);
-
-                if (mbresult == MessageBoxResult.No)
+                if ((SupplierOrder)dgSupplierOrders.SelectedItem != null)
                 {
-                    return;
-                }
-                else
-                {
-                    if (1 == _supplierOrderManager.DeleteSupplierOrder(_supplierOrder.SupplierOrderID))
+                    _supplierOrder = (SupplierOrder)dgSupplierOrders.SelectedItem;
+                    MessageBoxResult mbresult;
+
+                    mbresult = MessageBox.Show("Are you sure you want to delete order number " + _supplierOrder.SupplierOrderID + "?", "Delete Order", MessageBoxButton.YesNo);
+
+                    if (mbresult == MessageBoxResult.No)
                     {
-                        MessageBox.Show("Record Deleted");
-                        LoadSupplierOrderGrid();
+                        return;
+                    }
+                    else
+                    {
+                        if (1 == _supplierOrderManager.DeleteSupplierOrder(_supplierOrder.SupplierOrderID))
+                        {
+                            MessageBox.Show("Record Deleted");
+                            LoadSupplierOrderGrid();
+                        }
+
                     }
 
                 }
-
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("An error occurred while trying to delete the order:\n" + ex.Message);
             }
 
         }
@@ -5985,7 +5996,7 @@ namespace Presentation
                         cboRoomType.Items.Add(item);
                     }
                 }
-                
+
                 cboRoomType.SelectedItem = "Show All";
             }
             cbxRoomActive.IsChecked = true;
@@ -6545,7 +6556,7 @@ namespace Presentation
                 cbxDepartmentProfile.ItemsSource = new List<string>() { _employee.DepartmentID };
                 cbxDepartmentProfile.SelectedIndex = 0;
             }
-            
+
             chkActiveProfile.IsChecked = _employee.Active;
             readOnlyForm();
             btnSaveProfile.Content = "Update";
@@ -7066,7 +7077,7 @@ namespace Presentation
         #endregion
 
         #region Front Desk Code
-            //#FrontDesk
+        //#FrontDesk
         private void frontDeskDoOnStart()
         {
             luggageManager = new LuggageManager();
@@ -7086,7 +7097,7 @@ namespace Presentation
             {
                 MessageBox.Show(ex.Message);
             }
-            
+
         }
 
         /// <summary>
@@ -7105,7 +7116,7 @@ namespace Presentation
 
                 MessageBox.Show(ex.Message);
             }
-           
+
         }
         /// <summary>
         /// Author: Dalton Cleveland
@@ -7297,9 +7308,9 @@ namespace Presentation
             }
             catch (Exception ex)
             {
-                MessageBox.Show( ex.Message);
+                MessageBox.Show(ex.Message);
             }
-            
+
 
         }
 
