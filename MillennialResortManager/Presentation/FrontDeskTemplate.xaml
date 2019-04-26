@@ -72,14 +72,15 @@ xmlns:local="clr-namespace:Presentation">
         </Grid.RowDefinitions>
         <TabControl x:Name="tabSetGuestServicesMain" Grid.Row="0">
             <!--Start Check-In Tab-->
+            <!--
             <TabItem x:Name="tabCheckIn" Header="Check-In">
-            </TabItem>
-            
+            </TabItem>-->
+
             <!--Start Housekeeping Tab-->
             <TabItem x:Name="tabHousekeepingService" Header="Housekeeping">
                 <DataGrid x:Name="dgHouseKeepingRequests" VerticalGridLinesBrush="{x:Null}" SelectionMode="Single" AlternatingRowBackground="#FF3DD8CA" RowBackground="LightGoldenrodYellow" IsReadOnly="True" MouseDoubleClick="dgHouseKeepingRequests_MouseDoubleClick"/>
             </TabItem>
-            
+
             <!--Start Bell Hop Tab-->
             <TabItem x:Name="tabBellHopService" Header="Bell Hop">
                 <Grid>
@@ -89,12 +90,13 @@ xmlns:local="clr-namespace:Presentation">
                     <DataGrid x:Name="dgLuggage" Grid.Column="0" IsReadOnly="True"/>
                 </Grid>
             </TabItem>
-            
+
             <!--Start Concierge Tab-->
+            <!--
             <TabItem x:Name="tabConcierge" Header="Concierge">
-            </TabItem>
+            </TabItem>-->
         </TabControl>
-        <Grid Grid.Row="1">
+        <Grid Grid.Row="1" Margin="0,0,0,10">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
                 <ColumnDefinition/>

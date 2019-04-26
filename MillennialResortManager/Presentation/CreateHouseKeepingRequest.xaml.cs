@@ -38,9 +38,10 @@ namespace Presentation
             InitializeComponent();
             _houseKeepingRequestManager = houseKeepingRequestManager;
 
-            
+
             chkActive.IsEnabled = false;
             chkActive.IsChecked = true;
+            chkActive.Visibility = Visibility.Hidden;
             txtWorkingEmployee.IsEnabled = false;
             txtWorkingEmployee.Equals(null);
             _existingHouseKeepingRequest = null;
@@ -121,7 +122,7 @@ namespace Presentation
                 }
                 HouseKeepingRequest newHouseKeepingRequest = new HouseKeepingRequest();
                 newHouseKeepingRequest.Active = (bool)chkActive.IsChecked;
-                newHouseKeepingRequest.BuildingNumber = int.Parse(txtBuildingNumber.Text) ;
+                newHouseKeepingRequest.BuildingNumber = int.Parse(txtBuildingNumber.Text);
                 newHouseKeepingRequest.RoomNumber = int.Parse(txtRoomNumber.Text);
                 newHouseKeepingRequest.Description = txtDescription.Text;
                 try
@@ -161,7 +162,7 @@ namespace Presentation
             }
             else if (((string)btnSave.Content) == "Update")
             {
-                setEditable();     
+                setEditable();
             }
             else
             {
@@ -261,7 +262,7 @@ namespace Presentation
         /// </summary>
         private bool ValidateDescription()
         {
-            if (txtDescription.Text == null || txtDescription.Text == "" )
+            if (txtDescription.Text == null || txtDescription.Text == "")
             {
                 return false;
             }
