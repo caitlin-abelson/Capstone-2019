@@ -67,6 +67,9 @@ namespace Presentation
         #region Variables Code #Variables
         //This is the employee who is logged in to our system
         private Employee _employee;
+        // Static Employee property who is logged in to our system.
+        // Used for forms that do not take an EmployeeID.
+        public static Employee Employee { get; private set; }
         //Reservation
         private List<VMBrowseReservation> _allReservations;
         private List<VMBrowseReservation> _currentReservations;
@@ -234,10 +237,19 @@ namespace Presentation
         /// Created : 3/07/2019
         /// Initializes all the pages components required at log in
         /// </summary>
+        /// <remarks>
+        /// James Heim
+        /// Modified 4/26/2019
+        /// Static Employee Property is set so it can be referenced from
+        /// forms that do not have an EmployeeID passed to it.
+        /// </remarks>
         /// <param name="employee"></param>
         public DevLauncher(Employee employee)
         {
             _employee = employee;
+
+            Employee = employee;
+
             InitializeComponent();
 
             //For Navbar
@@ -6333,6 +6345,11 @@ namespace Presentation
 
             ViewSelectedRecordBrowseMembers();
 
+        }
+
+        private void btnViewMember_Click(object sender, RoutedEventArgs e)
+        {
+            ViewSelectedRecordBrowseMembers();
         }
 
         private void btnCancelBrowseMembers_Click(object sender, RoutedEventArgs e)

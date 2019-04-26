@@ -215,6 +215,12 @@
       <DependentUpon>InspectionDetail.xaml</DependentUpon>
     </Compile>
     <Compile Include="Items.xaml.cs" />
+    <Compile Include="MemberTabDetail.xaml.cs">
+      <DependentUpon>MemberTabDetail.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MemberTabList.xaml.cs">
+      <DependentUpon>MemberTabList.xaml</DependentUpon>
+    </Compile>
     <Compile Include="OrderRecieving.xaml.cs" />
     <Compile Include="PickSheetReport.xaml.cs">
       <DependentUpon>PickSheetReport.xaml</DependentUpon>
@@ -634,6 +640,14 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="BrowseSupplier.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MemberTabDetail.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MemberTabList.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
