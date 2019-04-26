@@ -766,61 +766,8 @@ VALUES
 (100006,100001,1,150,100000,NULL,100000),
 (100006,100000,1,150,100000,NULL,100000),
 (100006,100004,1,150,100000,NULL,100000)
-
-
-INSERT INTO [dbo].[MemberTabLine]
-([MemberTabID],[OfferingID],[Quantity],[Price],[EmployeeID],[Discount], [GuestID])
-VALUES
-(100000,100002,2,25,100000,NULL, 100000)
-
-INSERT INTO [dbo].[MemberTabLine]
-([MemberTabID],[OfferingID],[Quantity],[Price],[EmployeeID],[Discount], [GuestID])
-VALUES
-(100007,100002,2,25,100000,NULL, NULL),
-(100007,100003,3,10,100000, NULL, 100000),
-(100007,100002,2,25,100000, NULL, 100000)
-
-INSERT INTO [dbo].[MemberTabLine]
-([MemberTabID],[OfferingID],[Quantity],[Price],[EmployeeID],[Discount])
-VALUES
-(100001,100005,1,2000,100000,NULL),
-(100001,100003,3,10,100000,NULL),
-(100001,100001,1,150,100000,NULL)
-
-INSERT INTO [dbo].[MemberTabLine]
-([MemberTabID],[OfferingID],[Quantity],[Price],[EmployeeID],[Discount])
-VALUES
-(100002,100000,1,150,100000,NULL),
-(100002,100005,1,2000,100000,NULL),
-(100002,100002,6,25,100000,NULL)
-
-INSERT INTO [dbo].[MemberTabLine]
-([MemberTabID],[OfferingID],[Quantity],[Price],[EmployeeID],[Discount])
-VALUES
-(100003,100003,1,10,100000,NULL),
-(100003,100001,1,150,100000,NULL)
-
-INSERT INTO [dbo].[MemberTabLine]
-([MemberTabID],[OfferingID],[Quantity],[Price],[EmployeeID],[Discount])
-VALUES
-(100004,100003,1,150,100000,NULL),
-(100004,100005,1,2000,100000,NULL)
-
-INSERT INTO [dbo].[MemberTabLine]
-([MemberTabID],[OfferingID],[Quantity],[Price],[EmployeeID],[Discount])
-VALUES
-(100005,100002,1,25,100000,NULL),
-(100005,100001,1,150,100000,NULL)
-
-INSERT INTO [dbo].[MemberTabLine]
-([MemberTabID],[OfferingID],[Quantity],[Price],[EmployeeID],[Discount])
-VALUES
-(100006,100002,4,25,100000,NULL),
-(100006,100001,1,150,100000,NULL),
-(100006,100000,1,150,100000,NULL),
-(100006,100004,2,150,100000,NULL)
->>>>>>> origin/master
 GO
+
 
 INSERT INTO [dbo].[Receiving]
 ([SupplierOrderID],[Description],[DateDelivered])
