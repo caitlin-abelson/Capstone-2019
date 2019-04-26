@@ -71,7 +71,7 @@
                                 <DataGridTextColumn Header="Room Number" Binding="{Binding RoomNumber}" />
                                 <DataGridTextColumn Header="Room Type" Binding="{Binding RoomType}" />
                                 <DataGridTextColumn Header="Capacity" Binding="{Binding Capacity}" />
-                                <DataGridTextColumn Header="Price" Binding="{Binding Price}" />
+                                <DataGridTextColumn Header="Price" Binding="{Binding Price, StringFormat=C}"  />
                                 <DataGridTextColumn Header="Status" Binding="{Binding RoomStatus}" />
                             </DataGrid.Columns>
                         </DataGrid>
@@ -105,7 +105,7 @@
                               MouseDoubleClick="dgBuildingInspections_MouseDoubleClick">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Inspection" Binding="{Binding Name}" />
-                            <DataGridTextColumn Header="Inspection Date" Binding="{Binding DateInspected}" />
+                            <DataGridTextColumn Header="Inspection Date" Binding="{Binding DateInspected, StringFormat='yyyy-MM-dd'}" />
                             <DataGridTextColumn Header="Rating" Binding="{Binding Rating}" />
                             <DataGridTextColumn Header="Problems" Binding="{Binding InspectionProblemNotes}" />
                             <DataGridTextColumn Header="Fixes" Binding="{Binding InspectionFixNotes}" />

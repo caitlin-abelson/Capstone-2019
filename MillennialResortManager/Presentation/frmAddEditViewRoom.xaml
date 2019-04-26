@@ -40,7 +40,7 @@
         <ComboBox Name="cboRoomType" Grid.Row="2" Grid.Column="1" Margin="10"></ComboBox>
         <xctk:IntegerUpDown Name="iudNumberOfRooms" Grid.Row="4" Grid.Column="3" Value="1" Minimum="1" Margin="10" IsReadOnly="False"></xctk:IntegerUpDown>
         <xctk:IntegerUpDown Name="iudCapacity" Grid.Row="3" Grid.Column="1" Value="1" Minimum="1" Margin="10" IsReadOnly="False"></xctk:IntegerUpDown>
-        <xctk:DecimalUpDown Name="dudPrice" Grid.Row="5" Grid.Column="1" Value="100" Minimum="1" Increment="10" Margin="10" IsReadOnly="False"></xctk:DecimalUpDown>
+        <xctk:DecimalUpDown Name="dudPrice" FormatString="C2" Grid.Row="5" Grid.Column="1" Value="100" Minimum="1" Increment="10" Margin="10" IsReadOnly="False"></xctk:DecimalUpDown>
         <ComboBox Name="cboRoomStatus" Grid.Row="4" Grid.Column="1" Margin="10"></ComboBox>
         <Button Name="btnCancel" Content="Cancel" Grid.Row="6" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" Click="btnCancel_Click" />
         <Button Name="btnAddEdit" Content="Add Room" Grid.Row="6" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center" Click="BtnAddEdit_Click" />

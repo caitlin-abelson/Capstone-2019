@@ -294,6 +294,20 @@ namespace Presentation
             Edit
         
         }
+
+        /// <summary>
+        /// James Heim
+        /// Created 2019-04-25
+        /// 
+        /// View all MemberTabs for the current member.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void BtnViewMemberTabs_Click(object sender, RoutedEventArgs e)
+        {
+            var tabForm = new MemberTabDetail(_oldMember.MemberID);
+            var result = tabForm.ShowDialog();
+        }
     }
 }
     
