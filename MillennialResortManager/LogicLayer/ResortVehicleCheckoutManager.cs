@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using DataAccessLayer;
 using DataObjects;
-using Newtonsoft.Json;
 
 namespace LogicLayer
 {
@@ -190,23 +189,32 @@ namespace LogicLayer
         /// <returns>A list of checked out vehicles</returns>
         public IEnumerable<ResortVehicleCheckoutDecorator> RetrieveCurrentlyCheckedOutVehicles()
         {
-            IEnumerable<ResortVehicleCheckoutDecorator> resortVehicleCheckouts;
+            List<ResortVehicleCheckoutDecorator> resortVehicleCheckoutsDecorator;
 
             try
             {
-                // grossly illegal workaround to cast parent to child.
-                var serializedParent = JsonConvert.SerializeObject(RetrieveVehicleCheckouts());
+                var resortVehicleCheckouts = RetrieveVehicleCheckouts().Where(x => x.Returned == false);
 
-                resortVehicleCheckouts = JsonConvert
-                    .DeserializeObject<List<ResortVehicleCheckoutDecorator>>(serializedParent)
-                    ?.Where(x => x.Returned == false);
+                resortVehicleCheckoutsDecorator = new List<ResortVehicleCheckoutDecorator>();
+
+                resortVehicleCheckoutsDecorator.AddRange(resortVehicleCheckouts.Select(
+                    item => new ResortVehicleCheckoutDecorator
+                {
+                    VehicleCheckoutId = item.VehicleCheckoutId,
+                    EmployeeId = item.EmployeeId,
+                    DateCheckedOut = item.DateCheckedOut,
+                    DateReturned = item.DateReturned,
+                    DateExpectedBack = item.DateExpectedBack,
+                    Returned = item.Returned,
+                    ResortVehicleId = item.ResortVehicleId
+                }));
             }
             catch (Exception)
             {
                 throw;
             }            
 
-            return resortVehicleCheckouts;
+            return resortVehicleCheckoutsDecorator;
         }
 
         /// <summary>
