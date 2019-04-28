@@ -522,5 +522,26 @@ namespace DataAccessLayer
         {
             throw new NotImplementedException();
         }
+        /// <summary>
+        /// Eduardo Colon
+        ///  2019/03/20
+        /// 
+        /// Retrieve   guest apointment info by guestID
+        /// </summary>
+        public Guest RetrieveGuestAppointmentInfo(int guestID)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// Eduardo Colon
+        ///  2019/04/23
+        /// 
+        /// Retrieve all  guest appointment info
+        /// </summary>
+        public List<Guest> RetrieveAllGuestAppointmentInfo()
+        {
+            return _guests;
+        }
     }
 }

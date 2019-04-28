@@ -1,0 +1,42 @@
+﻿<Window x:Class="WpfPresentation.WalkInAppointmentDetail"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfPresentation"
+        mc:Ignorable="d"
+        Title="AppointmentDetail" Height="550" Width="700">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition  Height="30"/>
+            <RowDefinition  />
+            <RowDefinition Height="30" />
+            <RowDefinition />
+            <RowDefinition Height="30" />
+            <RowDefinition Height="10" />
+            <RowDefinition Height="70" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <ComboBox Name="cboLastName" Grid.Row="0" Width="250"  Grid.Column="0" Margin="30" SelectionChanged="CboLastName_SelectionChanged"/>
+        <Label Grid.Row="1" FontWeight="DemiBold" Grid.Column="0" Content="Guest Last Name" FontSize="14"  HorizontalAlignment="Center" VerticalAlignment="Center" />
+        <ComboBox Name="cboFirstName" Width="250" Grid.Row="2" Grid.Column="0" Margin="30" SelectionChanged="CboFirstName_SelectionChanged" IsEnabled="False"/>
+        <Label Grid.Row="3" FontWeight="DemiBold" Grid.Column="0" Content="Guest First Name" FontSize="14"  HorizontalAlignment="Center" VerticalAlignment="Center" />
+        <ComboBox Name="cboEmail" Grid.Row="4"  Width="250" Grid.Column="0" Margin="30"  IsEnabled="False"/>
+        <Label Grid.Row="5" FontWeight="DemiBold" Grid.Column="0" Content="Email Address" FontSize="14"  HorizontalAlignment="Center" VerticalAlignment="Center" />
+        <Button Name="btnCancel" Grid.Row="7" Grid.Column="0"  Content="Cancel" Width="150" Margin="30 15" Click="BtnCancel_Click"/>
+
+        <Button Name="btnSubmit" Grid.Row="7" Grid.Column="1" Margin="30 15" Width="150" Content="Submit" Click="BtnSubmit_Click"/>
+        <DatePicker Name="dtpikStart" Grid.Row="0" Grid.Column="1" Margin="30" SelectedDateChanged="DtpikStart_SelectedDateChanged"  Width="250" />
+        <Label Grid.Row="1" FontWeight="DemiBold" Grid.Column="1" Content="Start Date" FontSize="14"  HorizontalAlignment="Center" VerticalAlignment="Center" />
+        <DatePicker Name="dtpikEnd" Grid.Row="2" Grid.Column="1" Margin="30"  Width="250" />
+
+        <Label Grid.Row="3" FontWeight="DemiBold" Grid.Column="1" Content="End Date" FontSize="14"  HorizontalAlignment="Center" VerticalAlignment="Center" />
+        <ComboBox Name="cboAppointmentTypes" Grid.Row="4" Grid.Column="1" Margin="30"  Width="250" />
+        <Label Grid.Row="5" FontWeight="DemiBold" Grid.Column="1" Content="Services" FontSize="14"  HorizontalAlignment="Center" VerticalAlignment="Center" />
+        
+    </Grid>
+</Window>

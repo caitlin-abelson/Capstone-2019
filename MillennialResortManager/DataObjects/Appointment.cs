@@ -20,5 +20,6 @@ namespace DataObjects
         public DateTime StartDate { get; set; }        
         public DateTime EndDate { get; set; }
         public string Description { get; set; }
+        public Guest Guest { get; set; } // Eduardo Colon Date: 2019/04/23
     }
 }

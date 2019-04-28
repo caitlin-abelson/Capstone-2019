@@ -418,6 +418,22 @@ namespace UnitTests
             }
 
         }
+        /// <summary>
+        /// Eduardo Colon
+        /// Created: 2019/04/23
+        /// Testing  to retrieve all appointments
+
+        [TestMethod]
+        public void TestRetrieveAllAppointments()
+        {
+            //Arrange
+            List<Appointment> appointments = null;
+            //Act
+            appointments = _appMgr.RetrieveAppointments();
+            //Assert
+            CollectionAssert.Equals(_testAppointments, appointments);
+
+        }
 
         private Appointment BuildNewAppointment()
         {
