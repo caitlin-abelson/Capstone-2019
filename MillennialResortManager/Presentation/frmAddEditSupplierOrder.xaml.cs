@@ -533,72 +533,85 @@ namespace Presentation
         /// <summary>
         /// Eric Bostwick
         /// 2/27/2019
-        /// Sets the local item variable based upon the selection from
-        /// the item combo box
+        /// Sets the local item variable based upon the selection from the item combo box
+        /// Updated: 2/24/19
+        /// Author: Jacob Miller
+        /// Changed code to prevent user from submitting empty form
         /// </summary>
         private void BtnAddOrder_Click(object sender, RoutedEventArgs e)
         {
-            string message = "";
-
-            if (_editMode == EditMode.Add)
+            try
             {
-                message = "Do You Really Want to Submit this Order?";
-            }
-            if (_editMode == EditMode.Edit)
-            {
-                message = "This Will Update the Order, Is This what you want to do?";
-            }
+                string message = "";
 
-            MessageBoxResult mbresult;
-
-            mbresult = MessageBox.Show(message, "Add/Edit Orders", MessageBoxButton.YesNo);
-
-            if (mbresult == MessageBoxResult.No)
-            {
-                return;
-            }
-
-            int result;
-
-            if (_editMode == EditMode.Add)
-            {
-                _supplierOrder.Description = this.txtDescription.Text;
-
-                try
+                if (_editMode == EditMode.Add)
                 {
-                    result = _supplierOrderManager.CreateSupplierOrder(_supplierOrder, _supplierOrderLines);
-                    if (1 <= result)
+                    message = "Do You Really Want to Submit this Order?";
+                }
+                if (_editMode == EditMode.Edit)
+                {
+                    message = "This Will Update the Order, Is This what you want to do?";
+                }
+
+                MessageBoxResult mbresult;
+
+                mbresult = MessageBox.Show(message, "Add/Edit Orders", MessageBoxButton.YesNo);
+
+                if (mbresult == MessageBoxResult.No)
+                {
+                    return;
+                }
+
+                int result;
+
+                if (_editMode == EditMode.Add)
+                {
+                    _supplierOrder.Description = this.txtDescription.Text;
+
+                    try
                     {
-                        MessageBox.Show("Order Added");
-                        DialogResult = true;
-                        Close();
-                    }
+                        result = _supplierOrderManager.CreateSupplierOrder(_supplierOrder, _supplierOrderLines);
+                        if (1 <= result)
+                        {
+                            MessageBox.Show("Order Added");
+                            DialogResult = true;
+                            Close();
+                        }
 
+                    }
+                    catch (Exception)
+                    {
+                        throw;
+                    }
                 }
-                catch (Exception ex)
+                if (_editMode == EditMode.Edit)
                 {
-                    MessageBox.Show(ex.Message);
+                    _supplierOrder.Description = this.txtDescription.Text;
+
+                    try
+                    {
+                        result = _supplierOrderManager.UpdateSupplierOrder(_supplierOrder, _supplierOrderLines);
+                        if (1 <= result)
+                        {
+                            MessageBox.Show("Order Updated");
+                            DialogResult = true;
+                            Close();
+                        }
+
+                    }
+                    catch (Exception)
+                    {
+                        throw;
+                    }
                 }
             }
-            if (_editMode == EditMode.Edit)
+            catch (System.Data.SqlClient.SqlException)
             {
-                _supplierOrder.Description = this.txtDescription.Text;
-
-                try
-                {
-                    result = _supplierOrderManager.UpdateSupplierOrder(_supplierOrder, _supplierOrderLines);
-                    if (1 <= result)
-                    {
-                        MessageBox.Show("Order Updated");
-                        DialogResult = true;
-                        Close();
-                    }
-
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message);
-                }
+                MessageBox.Show("Insertion failed:\nTried to insert nulls into database.");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
             }
         }
 

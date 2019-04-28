@@ -38,5 +38,7 @@ namespace DataObjects
         /// The itemized tab lines.
         /// </summary>
         public List<MemberTabLine> MemberTabLines { get; set; }
+
+        
     }
 }

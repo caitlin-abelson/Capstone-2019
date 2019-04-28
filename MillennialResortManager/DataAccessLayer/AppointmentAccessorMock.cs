@@ -222,5 +222,17 @@ namespace DataAccessLayer
             _appointments.Add(apt3);
 
         }
+        /// <summary>
+        /// Eduardo Colon
+        ///  2019/04/23
+        /// 
+        /// Retrieve all  Appointments 
+        /// </summary>
+
+
+        public List<Appointment> SelectAppointments()
+        {
+            return _appointments;
+        }
     }
 }

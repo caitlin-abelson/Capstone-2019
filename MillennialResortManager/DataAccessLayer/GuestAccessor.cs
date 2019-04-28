@@ -48,6 +48,7 @@ namespace DataAccessLayer
             var cmdText = "sp_insert_guest";
             var cmd = new SqlCommand(cmdText, conn);
             cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.Clear();
 
             cmd.Parameters.AddWithValue("@MemberID", newGuest.MemberID);
             cmd.Parameters.AddWithValue("@GuestTypeID", newGuest.GuestTypeID);
@@ -100,6 +101,7 @@ namespace DataAccessLayer
             var cmdText = "sp_retrieve_guests_by_id";
             var cmd = new SqlCommand(cmdText, conn);
             cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.Clear();
 
             cmd.Parameters.AddWithValue("@GuestID", guestID);
 
@@ -167,6 +169,7 @@ namespace DataAccessLayer
             var cmdText = "sp_retrieve_guests_by_name";
             var cmd = new SqlCommand(cmdText, conn);
             cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.Clear();
 
             cmd.Parameters.AddWithValue("@FirstName", searchFirst);
             cmd.Parameters.AddWithValue("@LastName", searchLast);
@@ -271,6 +274,7 @@ namespace DataAccessLayer
             var cmdText = "sp_update_guest_by_id";
             var cmd = new SqlCommand(cmdText, conn);
             cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.Clear();
 
             cmd.Parameters.AddWithValue("@GuestID", newGuest.GuestID);
 
@@ -438,6 +442,7 @@ namespace DataAccessLayer
             var cmdText = "sp_deactivate_guest_by_id";
             var cmd = new SqlCommand(cmdText, conn);
             cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.Clear();
 
             // parameters
             cmd.Parameters.AddWithValue("@GuestID", guestID);
@@ -477,6 +482,7 @@ namespace DataAccessLayer
             var cmdText = "sp_delete_guest_by_id";
             var cmd = new SqlCommand(cmdText, conn);
             cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.Clear();
 
             // parameters
             cmd.Parameters.AddWithValue("@GuestID", guestID);
@@ -516,6 +522,7 @@ namespace DataAccessLayer
             var cmdText = "sp_activate_guest_by_id";
             var cmd = new SqlCommand(cmdText, conn);
             cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.Clear();
 
             // parameters
             cmd.Parameters.AddWithValue("@GuestID", guestID);
@@ -555,6 +562,7 @@ namespace DataAccessLayer
             var cmdText = "sp_check_out_guest_by_id";
             var cmd = new SqlCommand(cmdText, conn);
             cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.Clear();
 
             // parameters
             cmd.Parameters.AddWithValue("@GuestID", guestID);
@@ -594,6 +602,7 @@ namespace DataAccessLayer
             var cmdText = "sp_check_in_guest_by_id";
             var cmd = new SqlCommand(cmdText, conn);
             cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.Clear();
 
             // parameters
             cmd.Parameters.AddWithValue("@GuestID", guestID);
@@ -926,6 +935,97 @@ namespace DataAccessLayer
                 conn.Close();
             }
             return guest;
+        }
+        /// <summary>
+        /// Eduardo Colon
+        /// Created: 2019/04/23
+        /// 
+        /// method to retrieve all guestappointmentinfo by guestid
+        /// </summary>
+        public Guest RetrieveGuestAppointmentInfo(int guestID)
+        {
+            Guest guest = new Guest();
+
+            var conn = DBConnection.GetDbConnection();
+            var cmdText = @"sp_retrieve_guest_appointment_info_by_id";
+            var cmd = new SqlCommand(cmdText, conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.AddWithValue("@GuestID", guestID);
+
+            try
+            {
+                conn.Open();
+
+                SqlDataReader reader = cmd.ExecuteReader();
+
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        guest.GuestID = reader.GetInt32(0);
+                        guest.FirstName = reader.GetString(1);
+                        guest.LastName = reader.GetString(2);
+                        guest.Email = reader.GetString(3);
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            return guest;
+        }
+
+        /// <summary>
+        /// Eduardo Colon
+        /// Created: 2019/04/23
+        /// 
+        /// method to retrieve all guestapointmentinfo
+        /// </summary>
+        public List<Guest> RetrieveAllGuestAppointmentInfo()
+        {
+            var guests = new List<Guest>();
+
+            var conn = DBConnection.GetDbConnection();
+            var cmdText = @"sp_retrieve_guest_appointment_info";
+            var cmd = new SqlCommand(cmdText, conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            try
+            {
+                conn.Open();
+
+                SqlDataReader reader = cmd.ExecuteReader();
+
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        var guest = new Guest();
+                        guest.GuestID = reader.GetInt32(0);
+                        guest.FirstName = reader.GetString(1);
+                        guest.LastName = reader.GetString(2);
+                        guest.Email = reader.GetString(3);
+                        guests.Add(guest);
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            return guests;
         }
     }
 }

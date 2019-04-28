@@ -21,6 +21,8 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>
+    </DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -59,6 +61,8 @@
     <Compile Include="GuestAccessor.cs" />
     <Compile Include="GuestAccessorMock.cs" />
     <Compile Include="EventTypeAccessorMock.cs" />
+    <Compile Include="GuestRoomAssignmentAccessor.cs" />
+    <Compile Include="GuestRoomAssignmentMock.cs" />
     <Compile Include="GuestVehicleAccessor.cs" />
     <Compile Include="GuestVehicleAccessorMock.cs" />
     <Compile Include="HouseKeepingRequestAccessorMock.cs" />
@@ -73,6 +77,7 @@
     <Compile Include="IEventAccessor.cs" />
     <Compile Include="IGuestAccessor.cs" />
     <Compile Include="IEventTypeAccessor.cs" />
+    <Compile Include="IGuestRoomAssignmentAccessor.cs" />
     <Compile Include="IGuestTypeAccessor.cs" />
     <Compile Include="IGuestVehicleAccessor.cs" />
     <Compile Include="IHouseKeepingRequestAccessor.cs" />
@@ -86,6 +91,7 @@
     <Compile Include="IMaintenanceTypeAccessor.cs" />
     <Compile Include="IMaintenanceWorkOrderAccessor.cs" />
     <Compile Include="IMemberAccessor.cs" />
+    <Compile Include="IMessageAccessor.cs" />
     <Compile Include="IMemberTabAccessor.cs" />
     <Compile Include="IMemberTabLineAccessor.cs" />
     <Compile Include="InspectionAccessor.cs" />
@@ -121,6 +127,7 @@
     <Compile Include="ISupplierAccessor.cs" />
     <Compile Include="ItemTypeAccessorMock.cs" />
     <Compile Include="ItemTypeAccessorMSSQL.cs" />
+    <Compile Include="IThreadAccessor.cs" />
     <Compile Include="IResortVehicleAccessor.cs" />
     <Compile Include="LuggageAccessor.cs" />
     <Compile Include="MaintenanceStatusTypeAccessorMSSQL.cs" />
@@ -129,6 +136,8 @@
     <Compile Include="MaintenanceWorkOrderAccessorMSSQL.cs" />
     <Compile Include="MemberAccessorMock.cs" />
     <Compile Include="MemberAccessorMSSQL.cs" />
+    <Compile Include="MessageAccessorMock.cs" />
+    <Compile Include="MessageAccessorMSSQL.cs" />
     <Compile Include="BuildingAccessorMock.cs" />
     <Compile Include="MemberTabAccessor.cs" />
     <Compile Include="MemberTabLineAccessor.cs" />
@@ -181,6 +190,8 @@
     <Compile Include="SupplierAccessorMock.cs" />
     <Compile Include="SupplierOrderAccessor.cs" />
     <Compile Include="SupplierOrderAccessorMock.cs" />
+    <Compile Include="ThreadAccessorMock.cs" />
+    <Compile Include="ThreadAccessorMSSQL.cs" />
     <Compile Include="UserAccessor.cs" />
     <Compile Include="ResortVehicleAccessor.cs" />
   </ItemGroup>

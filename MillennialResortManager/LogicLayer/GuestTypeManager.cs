@@ -75,7 +75,7 @@ namespace LogicLayer
         /// <summary>
         /// Method that deletes a guestType through the accessor
         /// </summary>
-        /// <param name="guestTypeID">String of guestTypeId to delete</param>
+        /// <param name="guestTypeID">string of guestTypeId to delete</param>
         /// <returns> bool on if the guest was deleted </returns>
         public bool DeleteGuestType(string guestTypeID)
         {

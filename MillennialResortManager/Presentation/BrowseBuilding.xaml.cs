@@ -139,22 +139,22 @@ namespace Presentation
 
         private void selectBuilding()
         {
-            Building selectedBuilding = (Building)dgBuildings.SelectedItem;
-            var detailForm = new BuildingDetail(selectedBuilding);
-            var formUpdated = detailForm.ShowDialog();
+            //Building selectedBuilding = (Building)dgBuildings.SelectedItem;
+            //var detailForm = new BuildingDetail(selectedBuilding);
+            //var formUpdated = detailForm.ShowDialog();
 
-            if (formUpdated == true)
-            {
-                try
-                {
-                    allBuildings = buildingManager.RetrieveAllBuildings();
-                    dgBuildings.ItemsSource = allBuildings;
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message);
-                }
-            }
+            //if (formUpdated == true)
+            //{
+            //    try
+            //    {
+            //        allBuildings = buildingManager.RetrieveAllBuildings();
+            //        dgBuildings.ItemsSource = allBuildings;
+            //    }
+            //    catch (Exception ex)
+            //    {
+            //        MessageBox.Show(ex.Message);
+            //    }
+            //}
         }
     }
 }

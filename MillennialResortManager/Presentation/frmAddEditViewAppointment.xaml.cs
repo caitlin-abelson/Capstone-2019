@@ -29,7 +29,7 @@ namespace Presentation
     {
         private AppointmentManager _appMgr;
         private List<AppointmentType> _appointmentTypes;
-        private List<String> _appointmentTypeIDs;
+        private List<string> _appointmentTypeIDs;
         private Appointment _appointment;
         private AppointmentGuestViewModel _guest;
         private EditMode _mode;

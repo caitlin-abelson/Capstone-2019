@@ -20,8 +20,11 @@ namespace Presentation
         private List<ResortVehicleCheckoutDecorator> _currentlyCheckedOutResortVehicles;
         private Employee _employee;
 
-        public FrmResortVehicleCheckout() : this(null, new ResortVehicleCheckoutManager())
+        public FrmResortVehicleCheckout()
         {
+			_employee = null;
+			_resortVehicleCheckoutManager = new ResortVehicleCheckoutManager();
+			InitializeComponent();
         }
 
         public FrmResortVehicleCheckout(Employee employee = null
@@ -123,7 +126,7 @@ namespace Presentation
             }
             catch (Exception e)
             {
-                MessageBox.Show($"Failed to check out vehicle\n{e.Message}\n{e.StackTrace}");
+                MessageBox.Show($"Failed to check out vehicle\n");
             }
 
             RefreshDataGrids();
@@ -163,9 +166,9 @@ namespace Presentation
 
                 MessageBox.Show("Success");
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                MessageBox.Show($"Unable to check in vehicle\n{ex.Message}\n{ex.StackTrace}");
+                MessageBox.Show($"Unable to check in vehicle\n");
             }
         }
 

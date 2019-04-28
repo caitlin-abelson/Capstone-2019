@@ -25,7 +25,7 @@ namespace DataAccessLayer
             int result = 0;
 
             var conn = DBConnection.GetDbConnection();
-            String cmdText = @"sp_activate_supplier";
+            string cmdText = @"sp_activate_supplier";
             var cmd = new SqlCommand(cmdText, conn);
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.AddWithValue("@SupplierID", supplier.SupplierID);

@@ -13,7 +13,6 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using DataObjects;
 using LogicLayer;
-using DataAccessLayer;
 
 namespace Presentation
 {
@@ -27,6 +26,8 @@ namespace Presentation
         SupplierOrderManager _supplierManager = new SupplierOrderManager();
         ReceivingTicketManager _receivingManager = new ReceivingTicketManager();
         SpecialOrderManagerMSSQL _specialManager = new SpecialOrderManagerMSSQL();
+
+        List<SpecialOrderLine> originalSpecialOrderLine;
         List<SpecialOrderLine> specialOrderLines;
         List<SupplierOrderLine> supplierOrderLine;
         private SupplierOrderLine _line = new SupplierOrderLine();
@@ -37,21 +38,6 @@ namespace Presentation
         ReceivingTicket originalTicket = new ReceivingTicket();
         bool orderComplete = true;
 
-
-        /// <summary>
-        /// Author: Kevin Broskow
-        /// Created : 3/25/2019
-        /// Default constructor for the receiving window
-        /// 
-        /// </summary>
-        public OrderRecieving()
-        {
-            InitializeComponent();
-            SupplierOrderAccessorMock _accessorMock = new SupplierOrderAccessorMock();
-            dgOrderRecieving.ItemsSource = _accessorMock.SelectSupplierOrderLinesBySupplierOrderID(100002);
-            supplierOrderLine = _accessorMock.SelectSupplierOrderLinesBySupplierOrderID(100002);
-            dgOrderRecieving.ItemsSource = supplierOrderLine;
-        }
         /// <summary>
         /// Author: Kevin Broskow
         /// Created : 3/25/2019
@@ -102,7 +88,8 @@ namespace Presentation
                 {
                     MessageBox.Show(ex.Message);
                 }
-            }else if (this.btnSubmit.Content.Equals("Save"))
+            }
+            else if (this.btnSubmit.Content.Equals("Save"))
             {
                 ticket.ReceivingTicketExceptions = this.txtException.Text;
                 ticket.ReceivingTicketCreationDate = DateTime.Now;
@@ -132,7 +119,8 @@ namespace Presentation
                 {
                     MessageBox.Show(ex.Message);
                 }
-            }else if (this.btnSubmit.Content.Equals("Complete"))
+            }
+            else if (this.btnSubmit.Content.Equals("Complete"))
             {
                 ticket.SupplierOrderID = _specialOrder.SpecialOrderID;
                 ticket.ReceivingTicketExceptions = this.txtException.Text;
@@ -141,26 +129,30 @@ namespace Presentation
                 {
                     dgOrderRecieving.SelectedIndex = i;
                     SpecialOrderLine temp = (SpecialOrderLine)dgOrderRecieving.SelectedItem;
-                 //   var _tempLine = specialOrderLines.Find(x => x.ItemID == temp.ItemID);
-                    //_tempLine.QtyReceived = temp.QtyReceived;
-                 //   if (_tempLine.OrderQty != temp.QtyReceived)
+                    var _tempLine = specialOrderLines.Find(x => x.NameID == temp.NameID);
+                    _tempLine.QtyReceived = temp.QtyReceived;
+                    if (_tempLine.OrderQty != temp.QtyReceived)
                     {
                         orderComplete = false;
                     }
-                  //  specialOrderLines.Find(x => x.ItemID == temp.ItemID).QtyReceived = temp.QtyReceived;
+                    specialOrderLines.Find(x => x.NameID == temp.NameID).QtyReceived = temp.QtyReceived;
                 }
 
                 try
                 {
                     if (orderComplete)
                     {
-                     //   _specialOrder.OrderComplete = orderComplete;
 
                         _specialManager.EditSpecialOrder(_specialOrder, _specialOrder);
                     }
-                    //_specialManager.UpdateSpecialOrderLine(specialOrderLines);
+                    int i = 0;
+                    foreach (var item in specialOrderLines)
+                    {
+                        _specialManager.EditSpecialOrderLine(originalSpecialOrderLine[i], item);
+                        i++;
+                    }
 
-                    _receivingManager.createReceivingTicket(ticket);
+                    //_receivingManager.createReceivingTicket(ticket);
 
                 }
                 catch (Exception ex)
@@ -168,7 +160,7 @@ namespace Presentation
                     MessageBox.Show(ex.Message);
                 }
             }
-            
+
             this.Close();
 
         }
@@ -184,7 +176,7 @@ namespace Presentation
             try
             {
                 supplierOrderLine = _supplierManager.RetrieveAllSupplierOrderLinesBySupplierOrderID(supplierOrder.SupplierOrderID);
-                
+
             }
             catch (Exception ex)
             {
@@ -208,7 +200,7 @@ namespace Presentation
             try
             {
                 specialOrderLines = _specialManager.RetrieveOrderLinesByID(_specialOrder.SpecialOrderID);
-
+                originalSpecialOrderLine = _specialManager.RetrieveOrderLinesByID(_specialOrder.SpecialOrderID);
             }
             catch (Exception ex)
             {
@@ -243,7 +235,7 @@ namespace Presentation
             this.btnSubmit.Content = "Save";
             dgOrderRecieving.ItemsSource = supplierOrderLine;
         }
-            
+
         /// <summary>
         /// Author: Kevin Broskow
         /// Created : 3/25/2019
@@ -263,7 +255,7 @@ namespace Presentation
             {
                 e.Cancel = true;
             }
-            if(headerName == "QtyReceived")
+            if (headerName == "QtyReceived")
             {
                 e.Column.IsReadOnly = false;
             }

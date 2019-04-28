@@ -21,6 +21,8 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>
+    </DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -59,12 +61,16 @@
     <Compile Include="EventType.cs" />
     <Compile Include="ExtensionMethods.cs" />
     <Compile Include="Guest.cs" />
+    <Compile Include="GuestRoomAssignmentVM.cs" />
     <Compile Include="GuestType.cs" />
     <Compile Include="GuestVehicle.cs" />
+    <Compile Include="IMessagable.cs" />
+    <Compile Include="IMessageThread.cs" />
     <Compile Include="HouseKeepingRequest.cs" />
     <Compile Include="Inspection.cs" />
     <Compile Include="InternalOrder.cs" />
     <Compile Include="InternalOrderLine.cs" />
+    <Compile Include="ISender.cs" />
     <Compile Include="Item.cs" />
     <Compile Include="ItemSupplier.cs" />
     <Compile Include="ItemType.cs" />
@@ -74,6 +80,7 @@
     <Compile Include="MaintenanceType.cs" />
     <Compile Include="MaintenanceWorkOrder.cs" />
     <Compile Include="Member.cs" />
+    <Compile Include="Message.cs" />
     <Compile Include="MemberTab.cs" />
     <Compile Include="MemberTabLine.cs" />
     <Compile Include="Offering.cs" />
@@ -109,6 +116,8 @@
     <Compile Include="SupplierOrderLine.cs" />
     <Compile Include="Suppliers.cs" />
     <Compile Include="User.cs" />
+    <Compile Include="UserThread.cs" />
+    <Compile Include="UserThreadView.cs" />
     <Compile Include="Validation.cs" />
     <Compile Include="ResortVehicle.cs" />
     <Compile Include="VMBrowseReservation.cs" />
@@ -121,6 +130,8 @@
     <Compile Include="VMRoomRoomReservation.cs" />
     <Compile Include="VMSetup.cs" />
     <Compile Include="VMSetupList.cs" />
+    <Compile Include="VMTab.cs" />
+    <Compile Include="VMTabLine.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

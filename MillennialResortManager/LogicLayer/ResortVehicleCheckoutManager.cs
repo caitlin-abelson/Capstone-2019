@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using DataAccessLayer;
 using DataObjects;
-using Newtonsoft.Json;
 
 namespace LogicLayer
 {
@@ -17,15 +16,31 @@ namespace LogicLayer
     {
         private readonly IResortVehicleCheckoutAccessor _resortVehicleCheckoutAccessor;
         private readonly IResortVehicleAccessor _resortVehicleAccessor;
+		AppData.DataStoreType daotype;
 
         public ResortVehicleCheckoutManager(IResortVehicleCheckoutAccessor resortVehicleCheckoutAccessor = null
                                             , IResortVehicleAccessor resortVehicleAccessor = null)
         {
-            _resortVehicleCheckoutAccessor = resortVehicleCheckoutAccessor;
-            _resortVehicleAccessor = resortVehicleAccessor;
+			daotype = AppData.DataStoreType.msssql;
+
+			switch (daotype)
+			{
+				case AppData.DataStoreType.mock:
+					throw new NotImplementedException();
+					break;
+				case AppData.DataStoreType.msssql:
+				default:
+					_resortVehicleCheckoutAccessor = new ResortVehicleCheckoutAccessor();
+					_resortVehicleAccessor = new ResortVehicleAccessor();
+					break;
+			}
         }
 
-        public ResortVehicleCheckoutManager() : this(new ResortVehicleCheckoutAccessor(), new ResortVehicleAccessor()){ }
+        public ResortVehicleCheckoutManager()
+		{
+			_resortVehicleCheckoutAccessor = new ResortVehicleCheckoutAccessor();
+			_resortVehicleAccessor = new ResortVehicleAccessor();
+		}
 
         /// <summary>
         /// Francis Mingomba
@@ -155,7 +170,7 @@ namespace LogicLayer
             try
             {
                 availableVehicles = _resortVehicleAccessor.RetrieveVehicles().Where(
-                    x => x.ResortVehicleStatusId.Equals(ResortVehicleStatusEnum.Available.ToString()));
+                    x => x.ResortVehicleStatusId.Equals(new ResortVehicleStatus().Available));
             }
             catch (Exception)
             {
@@ -174,23 +189,35 @@ namespace LogicLayer
         /// <returns>A list of checked out vehicles</returns>
         public IEnumerable<ResortVehicleCheckoutDecorator> RetrieveCurrentlyCheckedOutVehicles()
         {
-            IEnumerable<ResortVehicleCheckoutDecorator> resortVehicleCheckouts;
+            List<ResortVehicleCheckoutDecorator> resortVehicleCheckoutsDecorator;
 
             try
             {
-                // grossly illegal workaround to cast parent to child.
-                var serializedParent = JsonConvert.SerializeObject(RetrieveVehicleCheckouts());
+                var resortVehicleCheckouts = RetrieveVehicleCheckouts()?.Where(x => x.Returned == false);
 
-                resortVehicleCheckouts = JsonConvert
-                    .DeserializeObject<List<ResortVehicleCheckoutDecorator>>(serializedParent)
-                    ?.Where(x => x.Returned == false);
+                resortVehicleCheckoutsDecorator = new List<ResortVehicleCheckoutDecorator>();
+
+                if (resortVehicleCheckouts == null)
+                    return resortVehicleCheckoutsDecorator;
+
+                resortVehicleCheckoutsDecorator.AddRange(resortVehicleCheckouts.Select(
+                    item => new ResortVehicleCheckoutDecorator
+                {
+                    VehicleCheckoutId = item.VehicleCheckoutId,
+                    EmployeeId = item.EmployeeId,
+                    DateCheckedOut = item.DateCheckedOut,
+                    DateReturned = item.DateReturned,
+                    DateExpectedBack = item.DateExpectedBack,
+                    Returned = item.Returned,
+                    ResortVehicleId = item.ResortVehicleId
+                }));
             }
             catch (Exception)
             {
                 throw;
             }            
 
-            return resortVehicleCheckouts;
+            return resortVehicleCheckoutsDecorator;
         }
 
         /// <summary>
@@ -247,7 +274,7 @@ namespace LogicLayer
 
             mutatedResortVehicle.Available = true;
 
-            mutatedResortVehicle.ResortVehicleStatusId = "Available";
+            mutatedResortVehicle.ResortVehicleStatusId = new ResortVehicleStatus().Available;
 
             _resortVehicleAccessor.UpdateVehicle(resortVehicle, mutatedResortVehicle);
         }
@@ -265,7 +292,7 @@ namespace LogicLayer
 
             var mutatedResortVehicle = resortVehicle.DeepClone();
 
-            mutatedResortVehicle.ResortVehicleStatusId = "In Use";
+            mutatedResortVehicle.ResortVehicleStatusId = new ResortVehicleStatus().InUse;
 
             mutatedResortVehicle.Available = false;
 

@@ -52,7 +52,18 @@
     <IntermediateOutputPath>C:\Users\Muyo\AppData\Local\Temp\vs5A29.tmp\Debug\</IntermediateOutputPath>
     <IntermediateOutputPath>C:\Users\Eric\AppData\Local\Temp\vs29C1.tmp\Debug\</IntermediateOutputPath>
     <IntermediateOutputPath>C:\Users\Craig\AppData\Local\Temp\vs2457.tmp\Debug\</IntermediateOutputPath>
+<<<<<<< HEAD
     <IntermediateOutputPath>C:\Users\Muyo\AppData\Local\Temp\vs9FCC.tmp\Debug\</IntermediateOutputPath>
+=======
+    <IntermediateOutputPath>C:\Users\Jared\AppData\Local\Temp\vsFBC1.tmp\Debug\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\nh229u09\AppData\Local\Temp\vs9052.tmp\Debug\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\nh229u08\AppData\Local\Temp\vs22CE.tmp\Debug\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\nh229u05\AppData\Local\Temp\vs6AA6.tmp\Debug\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\nh229u18\AppData\Local\Temp\vs49C3.tmp\Debug\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\nh229u22\AppData\Local\Temp\vs32D2.tmp\Debug\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\owner\AppData\Local\Temp\vs381B.tmp\Debug\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\Jacob\AppData\Local\Temp\vsC0E6.tmp\Debug\</IntermediateOutputPath>
+>>>>>>> 189c2e3db616d0b857c38141ebfd6a44eb389e1b
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -80,7 +91,17 @@
     <IntermediateOutputPath>C:\Users\Muyo\AppData\Local\Temp\vs5A29.tmp\Release\</IntermediateOutputPath>
     <IntermediateOutputPath>C:\Users\Eric\AppData\Local\Temp\vs29C1.tmp\Release\</IntermediateOutputPath>
     <IntermediateOutputPath>C:\Users\Craig\AppData\Local\Temp\vs2457.tmp\Release\</IntermediateOutputPath>
+<<<<<<< HEAD
     <IntermediateOutputPath>C:\Users\Muyo\AppData\Local\Temp\vs9FCC.tmp\Release\</IntermediateOutputPath>
+=======
+    <IntermediateOutputPath>C:\Users\Jared\AppData\Local\Temp\vsFBC1.tmp\Release\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\nh229u09\AppData\Local\Temp\vs9052.tmp\Release\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\nh229u08\AppData\Local\Temp\vs22CE.tmp\Release\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\nh229u18\AppData\Local\Temp\vs49C3.tmp\Release\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\nh229u22\AppData\Local\Temp\vs32D2.tmp\Release\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\owner\AppData\Local\Temp\vs381B.tmp\Release\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\Jacob\AppData\Local\Temp\vsC0E6.tmp\Release\</IntermediateOutputPath>
+>>>>>>> 189c2e3db616d0b857c38141ebfd6a44eb389e1b
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
@@ -216,6 +237,7 @@
     <Compile Include="Controllers\AppointmentController.cs" />
     <Compile Include="Controllers\BuildingController.cs" />
     <Compile Include="Controllers\DeveloperPageController.cs" />
+    <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\EventController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -233,6 +255,7 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\AppointmentModel.cs" />
     <Compile Include="Models\CreateAppointmentViewModel.cs" />
+    <Compile Include="Models\ErrorViewModel.cs" />
     <Compile Include="Models\HomeViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
@@ -247,7 +270,12 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\images\activities.jpg" />
+    <Content Include="Content\images\bungaloLand.jpg" />
+    <Content Include="Content\images\bunglalowWater.jpg" />
+    <Content Include="Content\images\calm-beach.jpg" />
     <Content Include="Content\images\devPics\ecolon.jpg" />
+    <Content Include="Content\images\hero--xl.jpg" />
     <Content Include="Content\images\hotel\01-RIVUE.jpg" />
     <Content Include="Content\images\hotel\02-RIVUE.jpg" />
     <Content Include="Content\images\hotel\03-RIVUE.jpg" />
@@ -283,16 +311,22 @@
     <Content Include="Content\images\island_fish.jpg" />
     <Content Include="Content\images\jade-Mountain.jpg" />
     <Content Include="Content\images\limbo.jpg" />
-    <Content Include="Content\images\Massage.jpg" />
+    <Content Include="Content\images\MainStage.jpg" />
+    <Content Include="Content\images\Message.jpg" />
     <Content Include="Content\images\pier.jpg" />
+    <Content Include="Content\images\resort-activities.jpg" />
     <Content Include="Content\images\Resort-Beachfront.jpg" />
     <Content Include="Content\images\Resort-Beachfrontjpg.jpg" />
     <Content Include="Content\images\resortDining.jpg" />
     <Content Include="Content\images\Resv Problem.JPG" />
     <Content Include="Content\images\ropes.jpg" />
     <Content Include="Content\images\SandCastle.jpg" />
+    <Content Include="Content\images\Seaplane.jpg" />
     <Content Include="Content\images\sing-along.jpg" />
+    <Content Include="Content\images\sovenue.png" />
     <Content Include="Content\images\Spa.jpg" />
+    <Content Include="Content\images\spa22.jpg" />
+    <Content Include="Content\images\venue.jpg" />
     <Content Include="Content\images\WhaleWatching.jpg" />
     <Content Include="Content\images\The new\05.jpg" />
     <Content Include="Content\images\The new\06.jpg" />
@@ -425,7 +459,11 @@
     <Content Include="Views\Amenities\Create.cshtml" />
     <Content Include="Views\Amenities\Success.cshtml" />
     <Content Include="Views\Rooms\Create.cshtml" />
+<<<<<<< HEAD
     <Content Include="Views\MyAccount\ViewTab.cshtml" />
+=======
+    <Content Include="Views\Error\Index.cshtml" />
+>>>>>>> 189c2e3db616d0b857c38141ebfd6a44eb389e1b
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

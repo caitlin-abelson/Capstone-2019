@@ -18,5 +18,6 @@ namespace LogicLayer
         bool UpdateAppointment(Appointment appointment);
         List<Appointment> RetrieveAppointmentsByGuestID(int guestID);
         bool DeleteAppointmentByID(int id);
+        List<Appointment> RetrieveAppointments();
     }
 }

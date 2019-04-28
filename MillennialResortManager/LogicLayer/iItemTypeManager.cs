@@ -18,7 +18,7 @@ namespace LogicLayer
         void AddItemType(ItemType newItemType);
         void EditItemType(ItemType newItemType, ItemType oldItemType);
         ItemType RetrieveItemType();
-        List<String> RetrieveAllItemTypesString();
+        List<string> RetrieveAllItemTypesString();
         List<ItemType> RetrieveAllItemTypes();
         void DeleteItemType();
     }

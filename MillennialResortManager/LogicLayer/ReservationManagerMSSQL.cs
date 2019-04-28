@@ -121,6 +121,24 @@ namespace LogicLayer
                 throw;
             }
         }
+        /// <summary>
+        /// Author: Jared Greenfield
+        /// Created : 2019-04-25
+        /// Retrieves active Reservations
+        /// </summary>
+        public List<VMBrowseReservation> RetrieveAllActiveVMReservations()
+        {
+            List<VMBrowseReservation> reservations = new List<VMBrowseReservation>();
+            try
+            {
+                reservations = _reservationAccessor.RetrieveAllActiveVMReservations();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            return reservations;
+        }
 
         /// <summary>
         /// Author: Matt LaMarche

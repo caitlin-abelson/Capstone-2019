@@ -13,7 +13,6 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using DataObjects;
-using DataAccessLayer;
 using LogicLayer;
 
 namespace Presentation
@@ -122,7 +121,20 @@ namespace Presentation
             }
         }
 
-
+        private void btnCompleteOrder_Click(object sender, RoutedEventArgs e)
+        {
+            if (dgListAllOrders.SelectedIndex < 0)
+            {
+                MessageBox.Show("You must have an order selected");
+            }
+            else
+            {
+                var order = (CompleteSpecialOrder)dgListAllOrders.SelectedItem;
+                var receiving = new OrderRecieving(order);
+                receiving.ShowDialog();
+                updateList();
+            }
+        }
     }
 }
 

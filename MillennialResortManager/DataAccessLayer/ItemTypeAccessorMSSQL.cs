@@ -32,10 +32,22 @@ namespace DataAccessLayer
             throw new NotImplementedException();
         }
 
-
+        /// <summary>
+        /// Kevin Broskow
+        /// Created: 2019/01/23
+        /// 
+        /// Method used to access the database and retrieve all item types.
+        /// </summary>
+        ///
+        /// <remarks>
+        /// Updater Name
+        /// Updated: yyyy/mm/dd
+        /// example: Fixed a problem when user inputs bad data
+        /// </remarks>
+        /// <returns>List<string> That contains all of the ItemTypeIDs</returns>	
         public List<string> RetrieveAllItemTypesString()
         {
-            List<String> itemTypes = new List<String>();
+            List<string> itemTypes = new List<string>();
             var conn = DBConnection.GetDbConnection();
             var cmdText = @"sp_retrieve_itemtypes";
 

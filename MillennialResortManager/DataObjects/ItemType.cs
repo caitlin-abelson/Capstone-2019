@@ -14,8 +14,8 @@ namespace DataObjects
 	/// </summary>
     public class ItemType
     {
-        public String ItemTypeID { get; set; }
-        public String Description { get; set; }
+        public string ItemTypeID { get; set; }
+        public string Description { get; set; }
 
         /// <summary>
         /// Jared Greenfield

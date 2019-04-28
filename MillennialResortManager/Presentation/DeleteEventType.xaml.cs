@@ -22,11 +22,11 @@ namespace Presentation
     public partial class DeleteEventType : Window
     {
         private IEventTypeManager _eventTypeManager;
-       
+
         public DeleteEventType(IEventTypeManager eventTypeManager = null)
         {
             _eventTypeManager = eventTypeManager;
-            if(_eventTypeManager == null)
+            if (_eventTypeManager == null)
             {
                 _eventTypeManager = new EventTypeManager();
             }
@@ -71,22 +71,15 @@ namespace Presentation
 
         private void BtnDelete_Click(object sender, RoutedEventArgs e)
         {
-            
+
             if (delete())
             {
                 try
                 {
-                    var result = _eventTypeManager.DeleteEventType(cboEventType.SelectedItem.ToString());
-                    if (result == true)
-                    {
-                        var boxResult = MessageBox.Show("Are you sure you want to Delete this Event Type?");
-                        if(boxResult == MessageBoxResult.OK)
-                        {
-                            this.DialogResult = true;
-                            MessageBox.Show("Event Type Deleted.");
-                            Close();
-                        }
-                        
+                    if (_eventTypeManager.DeleteEventType(cboEventType.SelectedItem.ToString())){
+                        this.DialogResult = true;
+                        MessageBox.Show("Event Type Deleted.");
+                        Close();
                     }
                 }
                 catch (Exception ex)
@@ -98,6 +91,6 @@ namespace Presentation
 
 
         }
-        
+
     }
 }

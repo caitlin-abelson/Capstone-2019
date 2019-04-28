@@ -13,6 +13,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using ExceptionLoggerLogic;
 using WpfPresentation;
 using EventManager = LogicLayer.EventManager;
 
@@ -20,7 +21,7 @@ namespace Presentation
 {
     /// <summary>
     /// Author: Matt LaMarche
-    /// Created : 2/27/2019
+    /// Created : 2019/02/27
     /// This is a launcher for Developers to use while we develop functionality for our program
     /// 
     /// To quickly find the section of code you are looking for Ctrl + F and look for one of these Keys:
@@ -62,11 +63,19 @@ namespace Presentation
     /// #FrontDesk
     /// 
     /// </summary>
+    /// <remarks>
+    /// Updater: Alisa Roehr
+    /// Date: 2019/04/26
+    /// Changed all dates to match on the dev launcher (goes yyyy/mm/dd) as well as ensuring all parts are commented (up to Setup List). 
+    /// </remarks>
     public partial class DevLauncher : Window
     {
         #region Variables Code #Variables
         //This is the employee who is logged in to our system
         private Employee _employee;
+        // Static Employee property who is logged in to our system.
+        // Used for forms that do not take an EmployeeID.
+        public static Employee Employee { get; private set; }
         //Reservation
         private List<VMBrowseReservation> _allReservations;
         private List<VMBrowseReservation> _currentReservations;
@@ -96,7 +105,7 @@ namespace Presentation
         private List<string> _searchCategories;
         //private UserManager _userManager;
         private InternalOrderManager _internalOrderManager;
-       // private User _fullUser;
+        // private User _fullUser;
         private List<VMInternalOrder> _orders;
         private List<VMInternalOrder> _currentOrders;
         //Employee Roles
@@ -225,19 +234,32 @@ namespace Presentation
         public List<Department> _departmentsList;
         public List<Department> _currentDepartments;
         IDepartmentTypeManager departmentManager;
+		//Inbox
+		IThreadManager _threadManager;
+		IMessageManager _messageManager;
+		UserThread _userThread;
         #endregion
 
         #region DevLauncher Code #DevLauncher
 
         /// <summary>
         /// Author: Matt LaMarche
-        /// Created : 3/07/2019
+        /// Created : 2019/03/07
         /// Initializes all the pages components required at log in
         /// </summary>
+        /// <remarks>
+        /// James Heim
+        /// Modified 4/26/2019
+        /// Static Employee Property is set so it can be referenced from
+        /// forms that do not have an EmployeeID passed to it.
+        /// </remarks>
         /// <param name="employee"></param>
         public DevLauncher(Employee employee)
         {
             _employee = employee;
+
+            Employee = employee;
+
             InitializeComponent();
 
             //For Navbar
@@ -248,7 +270,7 @@ namespace Presentation
 
         /// <summary>
         /// Author: Matt LaMarche
-        /// Created : 3/11/2019
+        /// Created : 2019/03/11
         /// Hides all the navbar options the viewer does not have permission to see
         /// </summary>
         private void HideNavBarOptions()
@@ -394,6 +416,12 @@ namespace Presentation
 
         }
 
+        /// <summary>
+        /// Author: ??????
+        /// Date: 2019/03/29
+        /// Used to hide the navbar items based on role?
+        /// comment by Alisa Roehr. assumed creator Matt LaMarche.
+        /// </summary>
         private void HideNavbarOption()
         {
             foreach (MenuItem mi in NavbarMenu.Items)
@@ -409,7 +437,7 @@ namespace Presentation
 
         /// <summary>
         /// Author: Matt LaMarche
-        /// Created : 3/11/2019
+        /// Created : 2019/03/11
         /// Hides sidebar items based on role. Department will come soon as well
         /// </summary>
         /// <param name="uid"></param>
@@ -438,7 +466,7 @@ namespace Presentation
 
         /// <summary>
         /// Author: Matt LaMarche
-        /// Created : 3/07/2019
+        /// Created : 2019/03/07
         /// Returns the user to the Login page and closes the current session
         /// </summary>
         /// <param name="sender"></param>
@@ -453,7 +481,7 @@ namespace Presentation
 
         /// <summary>
         /// Author: Matt LaMarche
-        /// Created : 3/07/2019
+        /// Created : 2019/03/07
         /// Displays a page based on the name of the page and hides all the other pages
         /// </summary>
         /// <param name="v">The name of the page we want to display</param>
@@ -489,7 +517,7 @@ namespace Presentation
 
         /// <summary>
         /// Author: Matt LaMarche
-        /// Created : 3/07/2019
+        /// Created : 2019/03/07
         /// This is what happens when the subheader button for Reservations is clicked from the navbar
         /// </summary>
         /// <param name="sender"></param>
@@ -502,7 +530,7 @@ namespace Presentation
 
         /// <summary>
         /// Author: Matt LaMarche
-        /// Created : 3/07/2019
+        /// Created : 2019/03/07
         /// This is what happens when the subheader button for Shops is clicked from the navbar
         /// </summary>
         /// <param name="sender"></param>
@@ -515,7 +543,7 @@ namespace Presentation
 
         /// <summary>
         /// Author: Matt LaMarche
-        /// Created : 3/07/2019
+        /// Created : 2019/03/07
         /// This is what happens when the subheader button for Employees is clicked from the navbar
         /// </summary>
         /// <param name="sender"></param>
@@ -528,7 +556,7 @@ namespace Presentation
 
         /// <summary>
         /// Author: Matt LaMarche
-        /// Created : 3/07/2019
+        /// Created : 2019/03/07
         /// This is what happens when the subheader button for Suppliers is clicked from the navbar
         /// </summary>
         /// <param name="sender"></param>
@@ -541,7 +569,7 @@ namespace Presentation
 
         /// <summary>
         /// Author: Matt LaMarche
-        /// Created : 3/07/2019
+        /// Created : 2019/03/07
         /// This is what happens when the subheader button for Products is clicked from the navbar
         /// </summary>
         /// <param name="sender"></param>
@@ -554,7 +582,7 @@ namespace Presentation
 
         /// <summary>
         /// Author: Matt LaMarche
-        /// Created : 3/07/2019
+        /// Created : 2019/03/07
         /// This is what happens when the subheader button for Buildings is clicked from the navbar
         /// </summary>
         /// <param name="sender"></param>
@@ -567,7 +595,7 @@ namespace Presentation
 
         /// <summary>
         /// Author: Matt LaMarche
-        /// Created : 3/07/2019
+        /// Created : 2019/03/07
         /// This is what happens when the subheader button for Orders is clicked from the navbar
         /// </summary>
         /// <param name="sender"></param>
@@ -580,7 +608,7 @@ namespace Presentation
 
         /// <summary>
         /// Author: Matt LaMarche
-        /// Created : 3/07/2019
+        /// Created : 2019/03/07
         /// This is what happens when the subheader button for Employee Roles is clicked from the navbar
         /// </summary>
         /// <param name="sender"></param>
@@ -593,7 +621,7 @@ namespace Presentation
 
         /// <summary>
         /// Author: Matt LaMarche
-        /// Created : 3/07/2019
+        /// Created : 2019/03/07
         /// This is what happens when the subheader button for Guest Types is clicked from the navbar
         /// </summary>
         /// <param name="sender"></param>
@@ -606,7 +634,7 @@ namespace Presentation
 
         /// <summary>
         /// Author: Matt LaMarche
-        /// Created : 3/07/2019
+        /// Created : 2019/03/07
         /// This is what happens when the subheader button for Room Types is clicked from the navbar
         /// </summary>
         /// <param name="sender"></param>
@@ -619,7 +647,7 @@ namespace Presentation
 
         /// <summary>
         /// Author: Matt LaMarche
-        /// Created : 3/07/2019
+        /// Created : 2019/03/07
         /// This is what happens when the subheader button for Performances is clicked from the navbar
         /// </summary>
         /// <param name="sender"></param>
@@ -632,7 +660,7 @@ namespace Presentation
 
         /// <summary>
         /// Author: Matt LaMarche
-        /// Created : 3/13/2019
+        /// Created : 2019/03/13
         /// This is what happens when the subheader button for Event Types is clicked from the navbar
         /// </summary>
         /// <param name="sender"></param>
@@ -645,7 +673,7 @@ namespace Presentation
 
         /// <summary>
         /// Author: Matt LaMarche
-        /// Created : 3/13/2019
+        /// Created : 2019/03/13
         /// This is what happens when the subheader button for Appointment Types is clicked from the navbar
         /// </summary>
         /// <param name="sender"></param>
@@ -658,7 +686,7 @@ namespace Presentation
 
         /// <summary>
         /// Author: Matt LaMarche
-        /// Created : 3/13/2019
+        /// Created : 2019/03/13
         /// This is what happens when the subheader button for Guests is clicked from the navbar
         /// </summary>
         /// <param name="sender"></param>
@@ -671,7 +699,7 @@ namespace Presentation
 
         /// <summary>
         /// Author: Matt LaMarche
-        /// Created : 3/13/2019
+        /// Created : 2019/03/13
         /// This is what happens when the subheader button for Guest Vehicles is clicked from the navbar
         /// </summary>
         /// <param name="sender"></param>
@@ -684,7 +712,7 @@ namespace Presentation
 
         /// <summary>
         /// Author: Matt LaMarche
-        /// Created : 3/13/2019
+        /// Created : 2019/03/13
         /// This is what happens when the subheader button for Setup Lists is clicked from the navbar
         /// </summary>
         /// <param name="sender"></param>
@@ -697,7 +725,7 @@ namespace Presentation
 
         /// <summary>
         /// Author: Matt LaMarche
-        /// Created : 3/13/2019
+        /// Created : 2019/03/13
         /// This is what happens when the subheader button for Sponsors is clicked from the navbar
         /// </summary>
         /// <param name="sender"></param>
@@ -710,7 +738,7 @@ namespace Presentation
 
         /// <summary>
         /// Author: Matt LaMarche
-        /// Created : 3/13/2019
+        /// Created : 2019/03/13
         /// This is what happens when the subheader button for Recipes is clicked from the navbar
         /// </summary>
         /// <param name="sender"></param>
@@ -723,8 +751,8 @@ namespace Presentation
 
         /// <summary>
         /// @Author: Phillip Hansen
-        /// @Created: 4/3/2019
-        /// 
+        /// @Created: 2019/04/03
+        /// This is what happens when the subheader button for SponsorList is clicked from the navbar
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -736,7 +764,8 @@ namespace Presentation
 
         /// <summary>
         /// @Author: Phillip Hansen
-        /// Created 4/10/2019
+        /// Created: 2019/04/10
+        /// This is what happens when the subheader button for Event Performaces is clicked from the navbar
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -748,7 +777,7 @@ namespace Presentation
 
         /// <summary>
         /// Author: Matt LaMarche
-        /// Created : 3/13/2019
+        /// Created : 2019/03/13
         /// This is what happens when the subheader button for Events is clicked from the navbar
         /// </summary>
         /// <param name="sender"></param>
@@ -761,7 +790,7 @@ namespace Presentation
 
         /// <summary>
         /// Author: Matt LaMarche
-        /// Created : 3/13/2019
+        /// Created : 2019/03/13
         /// This is what happens when the subheader button for Supplier Orders is clicked from the navbar
         /// </summary>
         /// <param name="sender"></param>
@@ -774,7 +803,7 @@ namespace Presentation
 
         /// <summary>
         /// Author: Matt LaMarche
-        /// Created : 3/13/2019
+        /// Created : 2019/03/13
         /// This is what happens when the subheader button for Pets is clicked from the navbar
         /// </summary>
         /// <param name="sender"></param>
@@ -787,7 +816,7 @@ namespace Presentation
 
         /// <summary>
         /// Author: Matt LaMarche
-        /// Created : 3/13/2019
+        /// Created : 2019/03/13
         /// This is what happens when the subheader button for Rooms is clicked from the navbar
         /// </summary>
         /// <param name="sender"></param>
@@ -800,7 +829,7 @@ namespace Presentation
 
         /// <summary>
         /// Author: Matt LaMarche
-        /// Created : 3/13/2019
+        /// Created : 2019/03/13
         /// This is what happens when the subheader button for Maintenance Types is clicked from the navbar
         /// </summary>
         /// <param name="sender"></param>
@@ -813,7 +842,7 @@ namespace Presentation
 
         /// <summary>
         /// Author: Matt LaMarche
-        /// Created : 3/13/2019
+        /// Created : 2019/03/13
         /// This is what happens when the subheader button for Members is clicked from the navbar
         /// </summary>
         /// <param name="sender"></param>
@@ -826,7 +855,7 @@ namespace Presentation
 
         /// <summary>
         /// Author: Matt LaMarche
-        /// Created : 3/23/2019
+        /// Created : 2019/03/23
         /// This is what happens when the subheader button for Profile is clicked from the navbar
         /// </summary>
         /// <param name="sender"></param>
@@ -838,7 +867,10 @@ namespace Presentation
         }
 
         /// <summary>
+        /// Author: ??????
+        /// Created : 2019/03/29
         /// This is what happens when the subheader button for Maintenance Work Orders is clicked from the navbar
+        /// assumed creator Matt LaMarche.
         /// </summary>
         /// <param name=""></param>
         /// <param name="e"></param>
@@ -848,7 +880,10 @@ namespace Presentation
             BrowseMaintenanceWorkOrderDoOnStart();
         }
         /// <summary>
+        /// Author: ??????
+        /// Created : 2019/04/05
         /// This is what happens when the subheader button for Maintenance Work Orders is clicked from the navbar
+        /// assumed creator Matt LaMarche.
         /// </summary>
         /// <param name=""></param>
         /// <param name="e"></param>
@@ -858,6 +893,14 @@ namespace Presentation
             BrowseReceivingDoOnStart();
         }
 
+        /// <summary>
+        /// Author: ??????
+        /// Date: 2019/04/08
+        /// This is what happens when the subheader button for Front Desk is clicked from the navbar
+        /// comment by Alisa Roehr.assumed creator Matt LaMarche.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void NavBarSubHeaderFrontDesk_OnClick(object sender, RoutedEventArgs e)
         {
             DisplayPage("FrontDesk");
@@ -866,7 +909,7 @@ namespace Presentation
 
         /// <summary>
         /// Author: Jared Greenfield
-        /// Created : 03/28/2019
+        /// Created : 2019/03/28
         /// This is what happens when the subheader button for Offerings is clicked from the navbar
         /// </summary>
         /// <param name="sender"></param>
@@ -876,17 +919,42 @@ namespace Presentation
             DisplayPage("BrowseOfferings");
             BrowseOfferingDoOnStart();
         }
+        /// <summary>
+        /// Author: ??????
+        /// Date: 2019/04/10
+        /// This is what happens when the subheader button for Shuttle Reservations is clicked from the navbar
+        /// comment by Alisa Roehr.assumed creator Matt LaMarche.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void NavBarSubHeaderShuttleReservation_OnClick(object sender, RoutedEventArgs e)
         {
             DisplayPage("ShuttleReservation");
             BrowseShuttleReservationDoOnStart();
         }
 
+        /// <summary>
+        /// Author: ??????
+        /// Date: 2019/04/11
+        /// This is what happens when the subheader button for Departments is clicked from the navbar
+        /// comment by Alisa Roehr.assumed creator Matt LaMarche.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void NavBarSubHeaderDepartment_Click(object sender, RoutedEventArgs e)
         {
             DisplayPage("Department");
 
         }
+
+		/// <summary author="Austin Delaney" created="2019/04/26">
+		/// At the end of the NavBar code
+		/// </summary>
+		private void NavBarSubHeaderInbox_Click(object sender, RoutedEventArgs e)
+		{
+			DisplayPage("Inbox");
+			InboxDoOnStart();
+		}
 
         /*--------------------------- Ending NavBar Code --------------------------------*/
         #endregion
@@ -895,7 +963,7 @@ namespace Presentation
         /*--------------------------- Starting BrowseReservation Code #BrowseReservation --------------------------------*/
         /// <summary>
         /// Author: Matt LaMarche
-        /// Created : 3/13/2019
+        /// Created : 2019/03/13
         /// 
         /// This is where you stick all the code you want to run in your Constructor/Window_Loaded statement
         /// </summary>
@@ -908,12 +976,14 @@ namespace Presentation
             //For now this would filter to all Reservations which have at least one day fall within the next 7 days
             //filterByDateRange(DateTime.Now.Date, DateTime.Now.AddDays(7).Date);
             populateReservations();
+            dgReservations.ItemsSource = _reservationManager.RetrieveAllActiveVMReservations();
+            chkReservationActive.IsChecked = true;
         }
 
         /// <summary>
         /// Author: Matt LaMarche
-        /// Created : 1/31/2019
-        /// Updated : 2/08/2019
+        /// Created : 2019/01/31
+        /// Updated : 2019/02/08
         /// gets a list of all Reservations from our database and updates our lists
         /// </summary>
         private void refreshAllReservations()
@@ -932,17 +1002,18 @@ namespace Presentation
 
         /// <summary>
         /// Author: Matt LaMarche
-        /// Created : 1/31/2019
+        /// Created : 2019/01/31
         /// sets the Data Grids Item Source to our current reservations
         /// </summary>
         private void populateReservations()
         {
             dgReservations.ItemsSource = _currentReservations;
+            chkReservationActive.IsChecked = false;
         }
 
         /// <summary>
         /// Author: Matt LaMarche
-        /// Created : 1/31/2019
+        /// Created : 2019/01/31
         /// The function which runs when Add Reservation is clicked
         /// </summary>
         private void btnAddReservation_Click(object sender, RoutedEventArgs e)
@@ -955,8 +1026,8 @@ namespace Presentation
 
         /// <summary>
         /// Author: Matt LaMarche
-        /// Created : 1/31/2019
-        /// Updated : 2/08/2019 by Matt LaMarche
+        /// Created : 2019/01/31
+        /// Updated : 2019/02/08 by Matt LaMarche
         /// The function which runs when Delete is clicked
         /// </summary>
         private void btnDeleteReservation_Click(object sender, RoutedEventArgs e)
@@ -972,7 +1043,7 @@ namespace Presentation
 
         /// <summary>
         /// Author: Matt LaMarche
-        /// Created : 1/31/2019
+        /// Created : 2019/01/31
         /// The function which runs when Add Member is clicked
         /// </summary>
         private void dgReservations_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
@@ -1038,7 +1109,7 @@ namespace Presentation
 
         /// <summary>
         /// Author: Matt LaMarche
-        /// Created : 1/31/2019
+        /// Created : 2019/01/31
         /// The function which runs when Clear Filters is clicked
         /// </summary>
         private void btnClearFiltersReservation_Click(object sender, RoutedEventArgs e)
@@ -1052,7 +1123,7 @@ namespace Presentation
 
         /// <summary>
         /// Author: Matt LaMarche
-        /// Created : 1/31/2019
+        /// Created : 2019/01/31
         /// The function which runs when Filter is clicked
         /// </summary>
         private void btnFilterReservation_Click(object sender, RoutedEventArgs e)
@@ -1090,7 +1161,7 @@ namespace Presentation
 
         /// <summary>
         /// Author: Matt LaMarche
-        /// Created : 2/08/2019
+        /// Created : 2019/02/28
         /// This method takes the current list of reservations and filters out the deactive ones 
         /// </summary>
         private void filterActiveOnly()
@@ -1100,7 +1171,7 @@ namespace Presentation
 
         /// <summary>
         /// Author: Matt LaMarche
-        /// Created : 2/08/2019
+        /// Created : 2019/02/08
         /// This method takes the current list of reservations and filters out the active ones
         /// </summary>
         private void filterDeActiveOnly()
@@ -1110,7 +1181,7 @@ namespace Presentation
 
         /// <summary>
         /// Author: Matt LaMarche
-        /// Created : 2/08/2019
+        /// Created : 2019/02/08
         /// This method takes the current list of reservations and filters out Reservations whose emails do not have the matching email string
         /// </summary>
         /// <param name="email">The email string we want to search our Reservations for</param>
@@ -1121,7 +1192,7 @@ namespace Presentation
 
         /// <summary>
         /// Author: Matt LaMarche
-        /// Created : 2/08/2019
+        /// Created : 2019/02/08
         /// This method takes the current list of reservations and filters out Reservations whose last names do not have the matching lastName string
         /// </summary>
         /// <param name="lastName">The last name string which we want to search out Reservations for</param>
@@ -1132,7 +1203,7 @@ namespace Presentation
 
         /// <summary>
         /// Author: Matt LaMarche
-        /// Created : 2/08/2019
+        /// Created : 2019/02/08
         /// This method takes the current list of reservations and filters out Reservations whose Arrival dates are before the given date
         /// </summary>
         /// <param name="date">The date which we want to compare our arrival dates against</param>
@@ -1143,7 +1214,7 @@ namespace Presentation
 
         /// <summary>
         /// Author: Matt LaMarche
-        /// Created : 2/08/2019
+        /// Created : 2019/02/08
         /// This method takes the current list of reservations and filters out Reservations whose Departure dates are after the given date
         /// </summary>
         /// <param name="date">The date which we want to compare our arrival dates against</param>
@@ -1154,7 +1225,7 @@ namespace Presentation
 
         /// <summary>
         /// Author: Matt LaMarche
-        /// Created : 2/08/2019
+        /// Created : 2019/02/08
         /// This method takes the current list of reservations and filters out Reservations whose given date does not fall within the Reservations Arrival date and Departure date
         /// </summary>
         /// <param name="date"></param>
@@ -1166,8 +1237,8 @@ namespace Presentation
 
         /// <summary>
         /// Author: Matt LaMarche
-        /// Created : 2/08/2019
-        /// Updated : 2/13/2019 by Matt LaMarche
+        /// Created : 2019/02/08
+        /// Updated : 2019/02/13 by Matt LaMarche
         /// This method takes a date range and filters out all Reservations which do not have a date within the given range
         /// </summary>
         /// <param name="startDate">startDate is the start of a date range of which we will check to see if the Reservation falls within</param>
@@ -1191,7 +1262,7 @@ namespace Presentation
 
         /// <summary>
         /// Author: Matt LaMarche
-        /// Created : 1/31/2019
+        /// Created : 2019/01/31
         /// The function which runs when a reservation is double clicked
         /// </summary>
         private void dgReservations_MouseDoubleClick(object sender, MouseButtonEventArgs e)
@@ -1217,7 +1288,7 @@ namespace Presentation
 
         /// <summary>
         /// Author: Matt LaMarche
-        /// Created : 2/08/2019
+        /// Created : 2019/02/08
         /// The function which runs when the view reservation button is clicked. 
         /// It will launch the CreateReservation window in view mode with the option of updating the 
         /// </summary>
@@ -1242,7 +1313,38 @@ namespace Presentation
             }
         }
 
-
+        /// <summary>
+        /// Author: Jared Greenfield
+        /// Created : 2019-04-25
+        /// Brings up reservations with currently active 
+        /// </summary>
+        private void ChkReservationActive_Click(object sender, RoutedEventArgs e)
+        {
+            if (chkReservationActive.IsChecked == true)
+            {
+                dgReservations.ItemsSource = _reservationManager.RetrieveAllActiveVMReservations();
+                btnReservationCheckout.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                refreshAllReservations();
+                populateReservations();
+                btnReservationCheckout.Visibility = Visibility.Collapsed;
+            }   
+        }
+        /// <summary>
+        /// Author: Jared Greenfield
+        /// Created : 2019-04-25
+        /// Brings up checkout window
+        /// </summary>
+        private void BtnReservationCheckout_Click(object sender, RoutedEventArgs e)
+        {
+            if ((VMBrowseReservation)dgReservations.SelectedItem != null)
+            {
+                var checkoutForm = new frmReservationCheckout(((VMBrowseReservation)dgReservations.SelectedItem).ReservationID);
+                var result = checkoutForm.ShowDialog();
+            }
+        }
 
         /*--------------------------- Ending BrowseReservation Code --------------------------------*/
         #endregion
@@ -1251,7 +1353,7 @@ namespace Presentation
         /*--------------------------- Starting BrowseShops Code #BrowseShops --------------------------------*/
         /// <summary>
         /// Author: Matt LaMarche
-        /// Created : 3/13/2019
+        /// Created : 2019/03/13
         /// 
         /// This is where you stick all the code you want to run in your Constructor/Window_Loaded statement
         /// </summary>
@@ -1270,7 +1372,7 @@ namespace Presentation
 
         /// <summary>
         /// Author: James Heim
-        /// Created 2019-02-28
+        /// Created 2019/02/28
         /// 
         /// Retrieve all Shops from the View Model.
         /// </summary>
@@ -1294,7 +1396,7 @@ namespace Presentation
 
         /// <summary>
         /// Author: James Heim
-        /// Created 2019-02-28
+        /// Created 2019/02/28
         /// 
         /// Populate the DataGrid with filtered list of shops.
         /// Show active or inactive based on which corresponding
@@ -1308,7 +1410,7 @@ namespace Presentation
 
         /// <summary>
         /// Author James Heim
-        /// Created 2019-02-28
+        /// Created 2019/02/28
         /// 
         /// Filter the Shops by Name and/or Building.
         /// </summary>
@@ -1337,7 +1439,12 @@ namespace Presentation
             }
         }
 
-        // Clear the filters and reset the textboxes.
+        /// <summary>
+        /// Author James Heim
+        /// Created 2019/02/28
+        /// 
+        /// Clear the filters and reset the textboxes.
+        /// </summary>
         public void ClearFiltersShops()
         {
             txtSearchBuilding.Text = "";
@@ -1349,7 +1456,7 @@ namespace Presentation
 
         /// <summary>
         /// Author: James Heim
-        /// Created 2019-02-28
+        /// Created 2019/02/28
         /// 
         /// Call the filter method.
         /// </summary>
@@ -1362,7 +1469,7 @@ namespace Presentation
 
         /// <summary>
         /// Author James Heim
-        /// Created 2019-02-28
+        /// Created 2019/02/28
         /// 
         /// Call the filter clear method.
         /// </summary>
@@ -1375,7 +1482,7 @@ namespace Presentation
 
         /// <summary>
         /// Author James Heim
-        /// Created 2019-03-01
+        /// Created 2019/03/01
         /// 
         /// Display the Create form.
         /// If the form was saved, refresh the list of Shops and the grid.
@@ -1413,7 +1520,7 @@ namespace Presentation
 
         /// <summary>
         /// Author James Heim
-        /// Created 2019-02-28
+        /// Created 2019/02/28
         /// 
         /// Refresh the shops when Active Shops are selected.
         /// </summary>
@@ -1427,7 +1534,7 @@ namespace Presentation
 
         /// <summary>
         /// Author James Heim
-        /// Created 2019-02-28
+        /// Created 2019/02/28
         /// 
         /// Refresh the shops when Inactive Shops are selected.
         /// </summary>
@@ -1444,7 +1551,7 @@ namespace Presentation
         /*--------------------------- Starting BrowseEmployees Code #BrowseEmployees --------------------------------*/
         /// <summary>
         /// Author: Matt LaMarche
-        /// Created : 3/13/2019
+        /// Created : 2019/03/13
         /// 
         /// This is where you stick all the code you want to run in your Constructor/Window_Loaded statement
         /// </summary>
@@ -1465,7 +1572,6 @@ namespace Presentation
         {
             try
             {
-
                 // Get a fresh grid.
                 repopulateEmployees();
 
@@ -1574,7 +1680,7 @@ namespace Presentation
 
         /// <summary>
         /// Author: Caitlin Abelson
-        /// Created Date: 2/6/2019
+        /// Created Date: 2019/02/06
         /// 
         /// Retrieves all of the employees in order for the data grid to be refreshed.
         /// </summary>
@@ -1608,7 +1714,7 @@ namespace Presentation
 
         /// <summary>
         /// Author: Caitlin Abelson
-        /// Created Date: 2/7/19
+        /// Created Date: 2019/02/07
         /// 
         /// This opens with window to add a new employee
         /// </summary>
@@ -1624,7 +1730,7 @@ namespace Presentation
 
         /// <summary>
         /// Author: Caitlin Abelson
-        /// Created Date: 2/7/19
+        /// Created Date: 2019/02/07
         /// 
         /// This button opens the window to read the information for the chosen employee.
         /// </summary>
@@ -1652,7 +1758,7 @@ namespace Presentation
 
         /// <summary>
         /// Author: Caitlin Abelson
-        /// Created Date: 2/13/19
+        /// Created Date: 2019/02/13
         /// 
         /// The delete button first deactivates and then deletes an employee.
         /// </summary>
@@ -1693,7 +1799,7 @@ namespace Presentation
 
         /// <summary>
         /// Author: Caitlin Abelson
-        /// Created Date: 2/7/19
+        /// Created Date: 2019/02/07
         /// 
         /// Opens the window to read the information for the chosen employee.
         /// </summary>
@@ -1725,7 +1831,7 @@ namespace Presentation
         /*--------------------------- Starting BrowseSuppliers Code #BrowseSuppliers --------------------------------*/
         /// <summary>
         /// Author: Matt LaMarche
-        /// Created : 3/13/2019
+        /// Created : 2019/03/13
         /// 
         /// This is where you stick all the code you want to run in your Constructor/Window_Loaded statement
         /// </summary>
@@ -1779,13 +1885,13 @@ namespace Presentation
 
         /// <summary>
         /// Author: Caitlin Abelson
-        /// Created Date: 1/23/19
+        /// Created Date: 2019/01/23
         /// 
         /// Calls the procedure to view the selected record.
         /// </summary>
         /// <remarks>
         /// Author: Caitlin Abelson
-        /// Created Date: 1/23/19
+        /// Created Date: 2019/01/23
         /// Brings up the data grid for the user to view.
         /// 
         /// Modified: James Heim
@@ -1802,7 +1908,7 @@ namespace Presentation
 
         /// <summary>
         /// Author: Caitlin Abelson
-        /// Created Date: 1/25/19
+        /// Created Date: 2019/01/25
         /// 
         /// This is a helper method that we can use to populate the data grid with
         /// only active Suppliers.
@@ -1834,13 +1940,13 @@ namespace Presentation
 
         /// <summary>
         /// Author: Caitlin Abelson
-        /// Created Date: 1/23/19
+        /// Created Date: 2019/01/23
         /// 
         /// Calls the method to filter the datagrid.
         /// </summary>
         /// <remarks>
         /// Author: Caitlin Abelson
-        /// Created Date: 1/23/19
+        /// Created Date: 2019/01/23
         /// The ReadSuppliers button allows for filtering by the company name and city location using lambda expressions.
         /// 
         /// Modified by James Heim
@@ -1857,7 +1963,7 @@ namespace Presentation
 
         /// <summary>
         /// Author: Caitlin Abelson
-        /// Created Date: 1/23/19
+        /// Created Date: 2019/01/23
         /// 
         /// The ReadSuppliers button allows for filtering by the company name and city location using lambda expressions.
         /// 
@@ -1893,7 +1999,7 @@ namespace Presentation
 
         /// <summary>
         /// Author: Caitlin Abelson
-        /// Created Date: 1/23/19
+        /// Created Date: 2019/01/23
         /// 
         /// The Clear button allows the user to clear the filter that they have done so that they can see all of the 
         /// suppliers in the data grid once again.
@@ -1908,7 +2014,7 @@ namespace Presentation
 
         /// <summary>
         /// Author: Caitlin Abelson
-        /// Created Date: 1/25/19
+        /// Created Date: 2019/01/25
         /// 
         /// This method allows us to select which columns we want to show to the user. 
         /// </summary>
@@ -1961,6 +2067,14 @@ namespace Presentation
             }
         }
 
+        /// <summary>
+        /// Author: ?????
+        /// Date: 2019/01/25
+        /// To add a supplier and open the form to create a supplier. 
+        /// comment by Alisa Roehr. assumed creator Caitlin Abelson.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void BtnAddSuppliers_Click(object sender, RoutedEventArgs e)
         {
             var createSupplierForm = new frmSupplier();
@@ -1988,14 +2102,22 @@ namespace Presentation
             }
         }
 
+        /// <summary>
+        /// Author: ?????
+        /// Created Date: 2019/01/25
+        /// To view a supplier record. 
+        /// comment by Alisa Roehr. assumed creator Caitlin Abelson.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void DgSuppliers_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             ViewSelectedRecord();
         }
 
         /// <summary>
-        /// Author James Heim
-        /// Created 2019/02/21
+        /// Author: James Heim
+        /// Created Date: 2019/02/21
         /// 
         /// Handle logic for deleting a record.
         /// </summary>
@@ -2076,7 +2198,7 @@ namespace Presentation
         /*--------------------------- Starting BrowseItems Code #BrowseItems --------------------------------*/
         /// <summary>
         /// Author: Matt LaMarche
-        /// Created : 3/13/2019
+        /// Created : 2019/03/13
         /// 
         /// This is where you stick all the code you want to run in your Constructor/Window_Loaded statement
         /// </summary>
@@ -2089,15 +2211,9 @@ namespace Presentation
 
         /// <summary>
         /// Kevin Broskow
-        /// Created: 2019/02/5
-        /// 
-        /// </summary>
+        /// Created: 2019/02/05
         /// Handler for a mouse double click on an item within the data grid.
-        /// <remarks>
-        /// Updater Name
-        /// Updated: yyyy/mm/dd 
-        /// example: Fixed a problem when user inputs bad data
-        /// </remarks>
+        /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void dgProducts_MouseDoubleClick(object sender, MouseButtonEventArgs e)
@@ -2112,15 +2228,9 @@ namespace Presentation
         }
         /// <summary>
         /// Kevin Broskow
-        /// Created: 2019/02/5
-        /// 
-        /// </summary>
+        /// Created: 2019/02/05
         /// Method to populate the datagrid.
-        /// <remarks>
-        /// Updater Name
-        /// Updated: yyyy/mm/dd 
-        /// example: Fixed a problem when user inputs bad data
-        /// </remarks>
+        /// </summary>
         private void populateItems()
         {
             try
@@ -2135,15 +2245,9 @@ namespace Presentation
         }
         /// <summary>
         /// Kevin Broskow
-        /// Created: 2019/02/5
-        /// 
-        /// </summary>
+        /// Created: 2019/02/05
         /// Method to refresh the datagrid information after a change
-        /// <remarks>
-        /// Updater Name
-        /// Updated: yyyy/mm/dd 
-        /// example: Fixed a problem when user inputs bad data
-        /// </remarks>
+        /// </summary>
         private void refreshItems()
         {
             try
@@ -2160,10 +2264,9 @@ namespace Presentation
 
         /// <summary>
         /// Kevin Broskow
-        /// Created: 2019/02/5
-        /// 
-        /// </summary>
+        /// Created: 2019/02/05
         /// Handler to deal with a user clicking on a add item button. Calls the createItem window.
+        /// </summary>
         /// <remarks>
         /// Jared Greenfield
         /// Updated: 2019/04/03
@@ -2179,15 +2282,9 @@ namespace Presentation
         }
         /// <summary>
         /// Kevin Broskow
-        /// Created: 2019/02/5
-        /// 
-        /// </summary>
+        /// Created: 2019/02/05
         /// Handler to deal with a user clicking on a button labled read/update. Checks to assure an item is selected.
-        /// <remarks>
-        /// Updater Name
-        /// Updated: yyyy/mm/dd 
-        /// example: Fixed a problem when user inputs bad data
-        /// </remarks>
+        /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void btnReadProduct_Click(object sender, RoutedEventArgs e)
@@ -2207,15 +2304,9 @@ namespace Presentation
         }
         /// <summary>
         /// Kevin Broskow
-        /// Created: 2019/02/5
-        /// 
-        /// </summary>
+        /// Created: 2019/02/05
         /// Handler to deal with a user clicking on a delete button. Assures that there is an item selected.
-        /// <remarks>
-        /// Updater Name
-        /// Updated: yyyy/mm/dd 
-        /// example: Fixed a problem when user inputs bad data
-        /// </remarks>
+        /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void btnDeleteProduct_Click(object sender, RoutedEventArgs e)
@@ -2257,15 +2348,9 @@ namespace Presentation
         }
         /// <summary>
         /// Kevin Broskow
-        /// Created: 2019/02/5
-        /// 
-        /// </summary>
+        /// Created: 2019/02/05
         /// Handler to deal with a user checking a box labled active to view only active items.
-        /// <remarks>
-        /// Updater Name
-        /// Updated: yyyy/mm/dd 
-        /// example: Fixed a problem when user inputs bad data
-        /// </remarks>
+        /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void cbActive_Click(object sender, RoutedEventArgs e)
@@ -2291,17 +2376,12 @@ namespace Presentation
                 populateItems();
             }
         }
+
         /// <summary>
         /// Kevin Broskow
-        /// Created: 2019/02/5
-        /// 
-        /// </summary>
+        /// Created: 2019/02/05
         /// Handler to deal with a user checking a box labled deactive to view only deactive *should be inactive* items.
-        /// <remarks>
-        /// Updater Name
-        /// Updated: yyyy/mm/dd 
-        /// example: Fixed a problem when user inputs bad data
-        /// </remarks>
+        /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void cbDeactive_Checked(object sender, RoutedEventArgs e)
@@ -2327,17 +2407,12 @@ namespace Presentation
                 populateItems();
             }
         }
+
         /// <summary>
         /// Kevin Broskow
-        /// Created: 2019/02/5
-        /// 
-        /// </summary>
+        /// Created: 2019/02/05
         /// Handler to deal with a user clicking the search button. Assures the user has entered something to search for.
-        /// <remarks>
-        /// Updater Name
-        /// Updated: yyyy/mm/dd 
-        /// example: Fixed a problem when user inputs bad data
-        /// </remarks>
+        /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void btnSearch_Click(object sender, RoutedEventArgs e)
@@ -2362,14 +2437,8 @@ namespace Presentation
         /// <summary>
         /// Kevin Broskow
         /// Created: 2019/02/5
-        /// 
-        /// </summary>
         /// Handler to deal with a user clciking the clear button. Clears all filters and checkboxes
-        /// <remarks>
-        /// Updater Name
-        /// Updated: yyyy/mm/dd 
-        /// example: Fixed a problem when user inputs bad data
-        /// </remarks>
+        /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void btnClear_Click(object sender, RoutedEventArgs e)
@@ -2381,15 +2450,9 @@ namespace Presentation
         }
         /// <summary>
         /// Kevin Broskow
-        /// Created: 2019/02/5
-        /// 
-        /// </summary>
+        /// Created: 2019/02/05
         /// Handler to deal with the columns that populate on the datagrid. Can be changed moving forward as many fields have been added to original.
-        /// <remarks>
-        /// Updater Name
-        /// Updated: yyyy/mm/dd 
-        /// example: Fixed a problem when user inputs bad data
-        /// </remarks>
+        /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void dgProducts_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
@@ -2422,15 +2485,9 @@ namespace Presentation
         }
         /// <summary>
         /// Kevin Broskow
-        /// Created: 2019/02/5
-        /// 
-        /// </summary>
+        /// Created: 2019/02/05
         /// Handler to deal with the serachbox being focused. Highlights the text for easier searching.
-        /// <remarks>
-        /// Updater Name
-        /// Updated: yyyy/mm/dd 
-        /// example: Fixed a problem when user inputs bad data
-        /// </remarks>
+        /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void txtSearchBox_GotFocus(object sender, RoutedEventArgs e)
@@ -2446,7 +2503,7 @@ namespace Presentation
         /*--------------------------- Starting BrowseBuilding Code #BrowseBuilding --------------------------------*/
         /// <summary>
         /// Author: Matt LaMarche
-        /// Created : 3/13/2019
+        /// Created : 2019/03/13
         /// 
         /// This is where you stick all the code you want to run in your Constructor/Window_Loaded statement
         /// </summary>
@@ -2461,7 +2518,7 @@ namespace Presentation
             {
                 MessageBox.Show(ex.Message);
             }
-            
+
             dgBuildings.ItemsSource = allBuildings;
         }
 
@@ -2472,12 +2529,6 @@ namespace Presentation
         /// 
         /// Displays list of buildings in the dgBuildings data grid.
         /// </summary>
-        ///
-        /// <remarks>
-        /// Updater Name
-        /// Updated: yyyy/mm/dd
-        /// 
-        /// </remarks>
         private void displayBuildings()
         {
             try
@@ -2488,7 +2539,7 @@ namespace Presentation
             {
                 MessageBox.Show(ex.Message);
             }
-            
+
         }
 
         /// <summary>
@@ -2497,7 +2548,6 @@ namespace Presentation
         /// 
         /// User double clicks a line in the dgBuildings data grid.
         /// </summary>
-        ///
         /// <remarks>
         /// Dani Russo
         /// Updated: 2019/04/18
@@ -2515,6 +2565,15 @@ namespace Presentation
 
         }
 
+        /// <summary>
+        /// Author: ??????
+        /// Created: 2019/01/31
+        /// 
+        /// for filtering buildings.
+        /// comment by Alisa Roehr.assumed creator Danielle Russo.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnFilterBuilding_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -2531,7 +2590,15 @@ namespace Presentation
             }
 
         }
-
+        /// <summary>
+        /// Author: ??????
+        /// Created: 2019/01/31
+        /// 
+        /// for clearing the filtering settings on buildings.
+        /// comment by Alisa Roehr.assumed creator Danielle Russo.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnClearFiltersBuilding_Click(object sender, RoutedEventArgs e)
         {
             txtSearch.Text = "";
@@ -2544,12 +2611,6 @@ namespace Presentation
         /// 
         /// Displays an "Add View" BuildingDetail window.
         /// </summary>
-        ///
-        /// <remarks>
-        /// Updater Name
-        /// Updated: yyyy/mm/dd
-        /// 
-        /// </remarks>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void btnAddBuilding_Click(object sender, RoutedEventArgs e)
@@ -2584,7 +2645,6 @@ namespace Presentation
         /// 
         /// User double clicks a line in the dgBuildings data grid.
         /// </summary>
-        ///
         /// <remarks>
         /// Dani Russo
         /// Updated: 2019/04/18
@@ -2604,14 +2664,14 @@ namespace Presentation
         /// <summary>
         /// Danielle Russo
         /// Created: 2019/01/31
-        /// 
+        /// To select the building for updating. (description by Alisa Roehr)
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void selectBuilding()
         {
             Building selectedBuilding = (Building)dgBuildings.SelectedItem;
-            var detailForm = new BuildingDetail(selectedBuilding);
+            var detailForm = new BuildingDetail(selectedBuilding, _employee);
             var formUpdated = detailForm.ShowDialog();
 
             if (formUpdated == true)
@@ -2635,7 +2695,7 @@ namespace Presentation
         /*--------------------------- Starting BrowseOrder Code #BrowseOrder --------------------------------*/
         /// <summary>
         /// Author: Matt LaMarche
-        /// Created : 3/13/2019
+        /// Created : 2019/03/13
         /// 
         /// This is where you stick all the code you want to run in your Constructor/Window_Loaded statement
         /// </summary>
@@ -2708,7 +2768,7 @@ namespace Presentation
         /// </summary>
         /// <remarks>
         /// Updated By: Jared Greenfield
-        /// Updated Date: 2019-04-11
+        /// Updated Date: 2019/04/11
         /// Fixed to call correct form
         /// </remarks>
         private void DgInternalOrders_MouseDoubleClick(object sender, MouseButtonEventArgs e)
@@ -2730,7 +2790,7 @@ namespace Presentation
         /// </summary>
         /// <remarks>
         /// Updated By: Jared Greenfield
-        /// Updated Date: 2019-04-11
+        /// Updated Date: 2019/04/11
         /// Fixed to call correct form
         /// </remarks>
         private void BtnViewDetail_Click(object sender, RoutedEventArgs e)
@@ -2846,7 +2906,7 @@ namespace Presentation
 
         /// <remarks>
         /// Updated By: Jared Greenfield
-        /// Updated Date: 2019-04-11
+        /// Updated Date: 2019/04/11
         /// Fixed to call correct form and use Employee
         /// </remarks>
         private void BtnAddNewOrder_Click(object sender, RoutedEventArgs e)
@@ -2874,7 +2934,7 @@ namespace Presentation
         /*--------------------------- Starting BrowseEmployeeRole Code #BrowseEmployeeRole --------------------------------*/
         /// <summary>
         /// Author: Matt LaMarche
-        /// Created : 3/13/2019
+        /// Created : 2019/03/13
         /// 
         /// This is where you stick all the code you want to run in your Constructor/Window_Loaded statement
         /// </summary>
@@ -2885,21 +2945,32 @@ namespace Presentation
             refreshRolesEmployeeRole();
         }
 
-
-
-
         private void TabRole_GotFocus(object sender, RoutedEventArgs e)
         {
-
             //dgRole.Items.Refresh();
-
-
         }
 
+        /// <summary>
+        /// Author: ??????
+        /// Date: 2019/03/08
+        /// Double click to pick a role to edit in the form.
+        /// comment by Alisa Roehr. assumed creator Matt LaMarche.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void DgRole_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            //   var role = (Role)dgRole.SelectedItem;
-            //  var detailForm = new UpdateEmployeeRole(role); 
+            if (dgRole.SelectedItem != null)
+            {
+                _selectedRole = (Role)dgRole.SelectedItem;
+                var assign = new CreateEmployeeRole(_selectedRole);
+                assign.ShowDialog();
+            }
+            else
+            {
+                MessageBox.Show("You must select an item first");
+            }
+            refreshRolesEmployeeRole();
 
         }
 
@@ -2961,7 +3032,6 @@ namespace Presentation
         /// 
         /// //method to call the filter method
         /// </summary>
-
         private void BtnFilterEmployeeRole_Click(object sender, RoutedEventArgs e)
         {
             filterRolesEmployeeRole();
@@ -2972,7 +3042,7 @@ namespace Presentation
         /// Eduardo Colon
         /// Created: 2019/01/27
         /// 
-        /// //method to filter the  view employee roles
+        /// method to filter the view employee roles
         /// </summary>
         private void filterRolesEmployeeRole()
         {
@@ -3020,7 +3090,7 @@ namespace Presentation
         /// Eduardo Colon
         /// Created: 2019/01/27
         /// 
-        /// //method to clear the filters
+        /// method to clear the filters
         /// </summary>
         private void BtnClearRoles_Click(object sender, RoutedEventArgs e)
         {
@@ -3033,15 +3103,11 @@ namespace Presentation
             dgRole.ItemsSource = _currentRoles;
         }
 
-
-
-
-
         /// <summary>
         /// Eduardo Colon
         /// Created: 2019/01/27
         /// 
-        /// //method to update an employee role
+        /// method to update an employee role
         /// </summary>
         private void BtnUpdateEmployeeRole_Click(object sender, RoutedEventArgs e)
         {
@@ -3063,7 +3129,7 @@ namespace Presentation
         /// Eduardo Colon
         /// Created: 2019/01/27
         /// 
-        /// //method to cancel and exit a window
+        /// method to cancel and exit a window
         /// </summary>
         private void BtnCancelEmployeeRole_Click(object sender, RoutedEventArgs e)
         {
@@ -3078,37 +3144,30 @@ namespace Presentation
         /// Eduardo Colon
         /// Created: 2019/01/27
         /// 
-        /// //method to Deactivate an employee role
+        /// method to Deactivate an employee role
         /// </summary>
         private void BtnDeactivateEmployeeRole_Click(object sender, RoutedEventArgs e)
         {
             if (dgRole.SelectedItem != null)
             {
                 Role current = (Role)dgRole.SelectedItem;
-
                 try
                 {
                     var result = MessageBox.Show("Are you sure that you want to delete this role?", "Delete Role", MessageBoxButton.YesNo);
                     if (result == MessageBoxResult.Yes)
                     {
                         //  _roleManager.DeleteRole(current.RoleID, current.Active);
-
                         _roleManager.DeleteRole(current.RoleID);
-
                     }
-
                 }
                 catch (Exception ex)
                 {
-
                     MessageBox.Show(ex.Message + Environment.NewLine + ex.StackTrace);
                 }
             }
             else
             {
-
                 MessageBox.Show("You must select an item first");
-
             }
             refreshRolesEmployeeRole();
         }
@@ -3142,7 +3201,7 @@ namespace Presentation
         /*--------------------------- Starting BrowseGuestTypes Code #BrowseGuestTypes --------------------------------*/
         /// <summary>
         /// Author: Matt LaMarche
-        /// Created : 3/13/2019
+        /// Created : 2019/03/13
         /// 
         /// This is where you stick all the code you want to run in your Constructor/Window_Loaded statement
         /// </summary>
@@ -3157,7 +3216,7 @@ namespace Presentation
                     _currentGuests = _guests;
                 }
                 dgGuests.ItemsSource = _currentGuests;
-                
+
             }
 
             catch (Exception ex)
@@ -3167,7 +3226,10 @@ namespace Presentation
         }
 
         /// <summary>
+        /// Author: ??????
+        /// Date: 2019/02/22
         /// Opens up the add window and updates the datagrid if guest type was created successfully
+        /// comment by Alisa Roehr. assumed creator Austin Berquam.
         /// </summary>
         private void btnAddGuestType_Click(object sender, RoutedEventArgs e)
         {
@@ -3193,7 +3255,10 @@ namespace Presentation
         }
 
         /// <summary>
+        /// Author: ??????
+        /// Date: 2019/02/22
         /// Opens up the delete window and updates the datagrid if guest type was deleted successfully
+        /// comment by Alisa Roehr. assumed creator Austin Berquam.
         /// </summary>
         private void btnDeleteGuestType_Click(object sender, RoutedEventArgs e)
         {
@@ -3226,7 +3291,7 @@ namespace Presentation
         /*--------------------------- Starting BrowseRoomTypes Code #BrowseRoomTypes --------------------------------*/
         /// <summary>
         /// Author: Matt LaMarche
-        /// Created : 3/13/2019
+        /// Created : 2019/03/13
         /// 
         /// This is where you stick all the code you want to run in your Constructor/Window_Loaded statement
         /// </summary>
@@ -3251,7 +3316,10 @@ namespace Presentation
 
 
         /// <summary>
+        /// Author: ??????
+        /// Date: 2019/02/22
         /// Opens up the add window and updates the datagrid if guest type was created successfully
+        /// comment by Alisa Roehr. assumed creator Austin Berquam.
         /// </summary>
         private void btnAddRoomType_Click(object sender, RoutedEventArgs e)
         {
@@ -3277,7 +3345,10 @@ namespace Presentation
         }
 
         /// <summary>
+        /// Author: ??????
+        /// Date: 2019/02/22
         /// Opens up the delete window and updates the datagrid if guest type was deleted successfully
+        /// comment by Alisa Roehr. assumed creator Austin Berquam.
         /// </summary>
         private void btnDeleteRoomType_Click(object sender, RoutedEventArgs e)
         {
@@ -3310,7 +3381,7 @@ namespace Presentation
         /*--------------------------- Starting BrowsePerformance Code #BrowsePerformance --------------------------------*/
         /// <summary>
         /// Author: Matt LaMarche
-        /// Created : 3/13/2019
+        /// Created : 2019/03/13
         /// 
         /// This is where you stick all the code you want to run in your Constructor/Window_Loaded statement
         /// </summary>
@@ -3320,6 +3391,15 @@ namespace Presentation
             setupWindowPerformance();
         }
 
+        /// <summary>
+        /// Author: ??????
+        /// Date: 2019/02/23
+        /// 
+        /// Used to allow the selection to be changed.
+        /// comment by Alisa Roehr. assumed creator Jacob Miller.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void dgPerformaces_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             try
@@ -3348,12 +3428,20 @@ namespace Presentation
         {
             string headerName = e.Column.Header.ToString();
 
-            if(headerName == "ID")
+            if (headerName == "ID")
             {
                 e.Cancel = true;
             }
         }
 
+        /// <summary>
+        /// Author: ??????
+        /// Date: 2019/02/23
+        /// 
+        /// Used to open the form of a perfomance for editing.
+        /// comment by Alisa Roehr. assumed creator Jacob Miller.
+        /// </summary>
+        /// <param name="performanceID"></param>
         private void openView(int performanceID)
         {
             var frmView = new ViewPerformance(performanceID, performanceManager);
@@ -3365,6 +3453,15 @@ namespace Presentation
             return;
         }
 
+        /// <summary>
+        /// Author: ??????
+        /// Date: 2019/02/23
+        /// 
+        /// Used to add a new performance.
+        /// comment by Alisa Roehr. assumed creator Jacob Miller.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnAddPerformance_Click(object sender, RoutedEventArgs e)
         {
             var frmAdd = new AddPerformance(performanceManager);
@@ -3376,6 +3473,15 @@ namespace Presentation
             return;
         }
 
+        /// <summary>
+        /// Author: ??????
+        /// Date: 2019/02/23
+        /// 
+        /// Used to search performances.
+        /// comment by Alisa Roehr. assumed creator Jacob Miller.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void txtSearchPerformance_TextChanged(object sender, TextChangedEventArgs e)
         {
             try
@@ -3386,9 +3492,16 @@ namespace Presentation
             {
                 MessageBox.Show(ex.Message);
             }
-            
+
         }
 
+        /// <summary>
+        /// Author: ??????
+        /// Date: 2019/02/23
+        /// 
+        /// Used to set up the performance datagrid.
+        /// comment by Alisa Roehr. assumed creator Jacob Miller.
+        /// </summary>
         private void setupWindowPerformance()
         {
             try
@@ -3399,7 +3512,7 @@ namespace Presentation
             {
                 MessageBox.Show(ex.Message);
             }
-            
+
         }
 
         /*--------------------------- Ending BrowsePerformance Code --------------------------------*/
@@ -3425,7 +3538,7 @@ namespace Presentation
         /*--------------------------- Starting BrowseEventTypes Code #BrowseEventTypes --------------------------------*/
         /// <summary>
         /// Author: Matt LaMarche
-        /// Created : 3/13/2019
+        /// Created : 2019/03/13
         /// 
         /// This is where you stick all the code you want to run in your Constructor/Window_Loaded statement
         /// </summary>
@@ -3447,7 +3560,14 @@ namespace Presentation
                 MessageBox.Show(ex.Message);
             }
         }
-
+        /// <summary>
+        /// Author: ??????
+        /// Date: 2019/01/23
+        /// Used to create a new event type
+        /// comment by Alisa Roehr. assumed creator Craig Barkley.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void BtnEventTypeAddAction_Click(object sender, RoutedEventArgs e)
         {
             //An empty constructor allows us to invoke the Event Type Add.
@@ -3473,7 +3593,14 @@ namespace Presentation
                 }
             }
         }
-
+        /// <summary>
+        /// Author: ??????
+        /// Date: 2019/01/23
+        /// Used to delete an event type
+        /// comment by Alisa Roehr. assumed creator Craig Barkley.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void BtnEventTypeActionDelete_Click(object sender, RoutedEventArgs e)
         {
             var deleteEventType = new DeleteEventType();
@@ -3504,7 +3631,7 @@ namespace Presentation
         /*--------------------------- Starting BrowseAppointment Code #BrowseAppointment --------------------------------*/
         /// <summary>
         /// Author: Matt LaMarche
-        /// Created : 3/13/2019
+        /// Created : 2019/03/13
         /// 
         /// This is where you stick all the code you want to run in your Constructor/Window_Loaded statement
         /// </summary>
@@ -3528,12 +3655,15 @@ namespace Presentation
             }
         }
 
-        //  BtnAppointmentTypeAddAction_Click
+
         /// <summary>
-        ///Button click event to Add an appointmentType.
+        /// Author: ??????
+        /// Date: 2019/01/23
+        /// Button click event to Add an appointmentType
+        /// comment by Alisa Roehr. assumed creator Craig Barkley.
         /// </summary>
-        /// <param name="PetType newPetType">The BtnAppointmentTypeAddAction calls RetrieveAllAppointmentTypes.</param>
-        /// <returns></returns>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void BtnAppointmentTypeAddAction_Click(object sender, RoutedEventArgs e)
         {
             var addAppointmentType = new CreateAppointmentType();
@@ -3556,15 +3686,15 @@ namespace Presentation
                 }
             }
         }
-
-
-        //  BtnAppointmentTypeActionDelete_Click
+        
         /// <summary>
+        /// Author: ??????
+        /// Date: 2019/01/23
         /// Button for deleting an appointment Type.
+        /// comment by Alisa Roehr. assumed creator Craig Barkley.
         /// </summary>
-        /// <param name="">The BtnAppointmentTypeActionDelete calls the RetrieveAllAppointmentTypes("All").</param>
-        /// <returns></returns>
-
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void BtnAppointmentTypeActionDelete_Click(object sender, RoutedEventArgs e)
         {
             var deleteAppointmentType = new DeleteAppointmentType();
@@ -3588,10 +3718,6 @@ namespace Presentation
             }
         }
 
-
-
-
-
         /*--------------------------- Ending BrowseAppointment Code --------------------------------*/
         #endregion
 
@@ -3599,7 +3725,7 @@ namespace Presentation
         /*--------------------------- Starting BrowseGuest Code #BrowseGuest --------------------------------*/
         /// <summary>
         /// Author: Matt LaMarche
-        /// Created : 3/13/2019
+        /// Created : 2019/03/13
         /// 
         /// This is where you stick all the code you want to run in your Constructor/Window_Loaded statement
         /// </summary>
@@ -3668,8 +3794,7 @@ namespace Presentation
             }
             _guestsSearched = _guestsBrowseGuests;
         }
-
-
+        
         /// <summary>
         /// Alisa Roehr
         /// Created: 2019/02/01
@@ -3709,21 +3834,20 @@ namespace Presentation
                 }
             }
         }
-
-
-
-
+        
         /// <summary>
         /// Alisa Roehr
         /// Created: 2019/02/01
         /// 
         /// for creating a new guest. 
-        /// 
+        /// </summary>
+        /// <remarks>
         /// Updated By: Caitlin Abelson
         /// Date: 2019/04/10
         /// 
         /// Used the new helper method of updating the datagrid in order to populate it once
         /// a new guest has been made.
+        /// </remarks>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void btnAddGuest_Click(object sender, RoutedEventArgs e)
@@ -3752,7 +3876,6 @@ namespace Presentation
         /// <param name="e"></param>
         private void BtnGuestSearch_Click(object sender, RoutedEventArgs e)
         {
-
             string searchGuestFirst = txtGuestFirst.Text.ToString();
             string searchGuestLast = txtGuestLast.Text.ToString();
             string searchMemberFirst = txtMemberFirst.Text.ToString();
@@ -3833,8 +3956,6 @@ namespace Presentation
             }
         }
 
-
-
         /// <summary>
         /// Alisa Roehr
         /// Created: 2019/03/01
@@ -3895,16 +4016,13 @@ namespace Presentation
             if (dgGuestsList.SelectedItem != null)
             {
                 chosenGuest = _guestManager.ReadGuestByGuestID(((VMGuest)dgGuestsList.SelectedItem).GuestID);
-
                 try
                 {
-
                     var guestMemberRoomForm = new GuestMemberRoomDetail(chosenGuest);
                     guestMemberRoomForm.ShowDialog();
 
                     refreshGuests();
                     populateGuests();
-
                 }
                 catch (Exception ex)
                 {
@@ -3942,12 +4060,11 @@ namespace Presentation
                     if (_selectedGuest.Active)
                     {
                         btnActivateGuest.Content = "Deactivate";
-                        
                     }
                     else
                     {
                         btnActivateGuest.Content = "Activate";
-                        
+
                     }
                     if (_selectedGuest.CheckedIn)
                     {
@@ -3960,7 +4077,7 @@ namespace Presentation
                 }
                 else
                 {
-                    
+
                     btnCheckGuest.IsEnabled = false;
                     btnActivateGuest.IsEnabled = false;
                 }
@@ -3976,13 +4093,14 @@ namespace Presentation
         /// Created: 2019/03/08
         /// 
         /// for clearing the filters.
-        /// 
+        /// </summary>
+        /// <remarks>
         /// Updated By: Caitlin Abelson
         /// Date: 2019/04/15
         /// 
         /// Used the existing helper methods to refresh and populate the datagrid again with the original list of Guests.
         /// Also added the Member text boxes so that they can be cleared as well.
-        /// </summary>
+        /// </remarks>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void btnGuestClearFilter_Click(object sender, RoutedEventArgs e)
@@ -4003,7 +4121,7 @@ namespace Presentation
         /*--------------------------- Starting BrowseGuestVehicle Code #BrowseGuestVehicle --------------------------------*/
         /// <summary>
         /// Author: Matt LaMarche
-        /// Created : 3/13/2019
+        /// Created : 2019/03/13
         /// 
         /// This is where you stick all the code you want to run in your Constructor/Window_Loaded statement
         /// </summary>
@@ -4019,7 +4137,7 @@ namespace Presentation
 
         /// <summary>
         /// Richard Carroll
-        /// Created: 3/8/19
+        /// Created: 2019/03/08
         /// 
         /// Makes a Detail Form for adding a new GuestVehicle
         /// </summary>
@@ -4035,7 +4153,7 @@ namespace Presentation
 
         /// <summary>
         /// Richard Carroll
-        /// Created: 3/8/19
+        /// Created: 2019/03/08
         /// 
         /// Sets the combo box and Search bar to blank, and refreshes the Grid
         /// </summary>
@@ -4048,7 +4166,7 @@ namespace Presentation
 
         /// <summary>
         /// Richard Carroll
-        /// Created: 3/8/19
+        /// Created: 2019/03/08
         /// 
         /// Searches through the existing Grid for data matching what's in the search bar
         /// with what's in the Grid
@@ -4087,7 +4205,7 @@ namespace Presentation
 
         /// <summary>
         /// Richard Carroll
-        /// Created: 3/8/19
+        /// Created: 2019/03/08
         /// 
         /// Opens a Detail Form for Viewing the Details of a GuestVehicle
         /// </summary>
@@ -4107,7 +4225,7 @@ namespace Presentation
 
         /// <summary>
         /// Richard Carroll
-        /// Created: 3/8/19
+        /// Created: 2019/03/08
         /// 
         /// Opens a Detail Form for Viewing the Details of a GuestVehicle
         /// </summary>
@@ -4123,7 +4241,7 @@ namespace Presentation
 
         /// <summary>
         /// Richard Carroll
-        /// Created: 3/8/19
+        /// Created: 2019/03/08
         /// 
         /// Opens a Detail Form for Updating a GuestVehicle
         /// </summary>
@@ -4144,7 +4262,7 @@ namespace Presentation
 
         /// <summary>
         /// Richard Carroll
-        /// Created: 3/8/19
+        /// Created: 2019/03/08
         /// 
         /// Refreshes the Grid
         /// </summary>
@@ -4165,7 +4283,7 @@ namespace Presentation
 
         /// <summary>
         /// Richard Carroll
-        /// Created: 3/8/19
+        /// Created: 2019/03/08
         /// 
         /// Fills the Search options for the combo box
         /// </summary>
@@ -4179,11 +4297,25 @@ namespace Presentation
             cboSearchCategoryGuestVehicle.ItemsSource = _searchOptions;
         }
 
+        /// <summary>
+        /// Author: ??????
+        /// Date: 2019/03/08
+        /// Used to apply the filters to the datagrid. 
+        /// comment by Alisa Roehr. assumed creator Richard Carroll.
+        /// </summary>
         private void applyFiltersGuestVehicle()
         {
             dgGuestVehicles.ItemsSource = _currentListGuestVehicle;
         }
 
+        /// <summary>
+        /// Author: ??????
+        /// Date: 2019/03/08
+        /// Used to apply the search function to the datagrid. 
+        /// comment by Alisa Roehr. assumed creator Richard Carroll.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void CboSearchCategoryGuestVehicle_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (cboSearchCategoryGuestVehicle.SelectedIndex != -1)
@@ -4577,6 +4709,9 @@ namespace Presentation
         {
             filterSponsors();
         }
+
+        
+
 
         /// <summary>
         /// @Author: Gunardi Saputra
@@ -5011,11 +5146,11 @@ namespace Presentation
         {
             _eventPerfManager = new EventPerformanceManager();
             populateEvPerfList();
-            
+
             dgEventPerformance.IsEnabled = true;
         }
 
-       
+
         /// <summary>
         /// @Author: Phillip Hansen
         /// 
@@ -5068,11 +5203,11 @@ namespace Presentation
         /// <param name="e"></param>
         private void dgEventPerformance_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            if(dgEventPerformance.SelectedIndex > -1)
+            if (dgEventPerformance.SelectedIndex > -1)
             {
                 var selectedEvPerf = (EventPerformance)dgEventPerformance.SelectedItem;
 
-                if(selectedEvPerf == null)
+                if (selectedEvPerf == null)
                 {
                     MessageBox.Show("No record selected!");
                 }
@@ -5095,7 +5230,7 @@ namespace Presentation
         {
             EventPerformance selectedRecord = (EventPerformance)dgEventPerformance.SelectedItem;
 
-            if(dgEventPerformance.SelectedIndex > -1)
+            if (dgEventPerformance.SelectedIndex > -1)
             {
                 //Add delete method here
             }
@@ -5172,13 +5307,13 @@ namespace Presentation
         {
             //make sure the button for 'cancelled' is inaccessable
             btnUncancelEvent.Visibility = Visibility.Hidden;
-            
+
             //re-populate the data grid with the events
             populateEvents();
 
             //The "delete" button for Event should be 'Cancel Event' instead
             btnDeleteEvent.Content = "Cancel Event";
-            
+
         }
 
         /// <summary>
@@ -5210,7 +5345,7 @@ namespace Presentation
         {
             _selectedEvent = (Event)dgEvents.SelectedItem;
 
-            if(dgEvents.SelectedIndex > -1)
+            if (dgEvents.SelectedIndex > -1)
             {
                 try
                 {
@@ -5229,7 +5364,7 @@ namespace Presentation
             {
                 MessageBox.Show("A record from the list must be selected!");
             }
-            
+
         }
 
         /// <summary>
@@ -5244,23 +5379,23 @@ namespace Presentation
         {
             if (btnEventUncancelled.IsChecked == true)
             {
-                if(txtEventSearchName != null)
+                if (txtEventSearchName != null)
                 {
                     List<Event> _filteredEvents = new List<Event>();
                     foreach (var item in _eventManager.RetrieveAllEvents().Where(b => b.EventTitle.Equals(txtEventSearchName.Text.ToString())))
                     {
                         _filteredEvents.Add(item);
                     }
-                    
+
                     dgEvents.ItemsSource = _filteredEvents;
                 }
                 else
                 {
                     dgEvents.ItemsSource = _events;
                 }
-                
+
             }
-            else if(btnEventCancelled.IsChecked == true)
+            else if (btnEventCancelled.IsChecked == true)
             {
                 if (txtEventSearchName != null)
                 {
@@ -5277,7 +5412,7 @@ namespace Presentation
                     dgEvents.ItemsSource = _events;
                 }
             }
-            
+
         }
 
         /// <summary>
@@ -5340,7 +5475,7 @@ namespace Presentation
             {
                 var viewEvent = new frmAddEditEvent(_employee, _selectedEvent);
                 var result = viewEvent.ShowDialog();
-                if(result == true)
+                if (result == true)
                 {
                     populateEvents();
                 }
@@ -5366,7 +5501,7 @@ namespace Presentation
 
             if (dgEvents.SelectedIndex > -1)
             {
-                if(btnDeleteEvent.Content.Equals("Cancel Event"))
+                if (btnDeleteEvent.Content.Equals("Cancel Event"))
                 {
                     try
                     {
@@ -5380,15 +5515,15 @@ namespace Presentation
                     {
                         populateEvents();
                     }
-                    
+
                 }
-                else if(btnDeleteEvent.Content.Equals("Delete"))
+                else if (btnDeleteEvent.Content.Equals("Delete"))
                 {
                     if (_selectedEvent.Approved == false)
                     {
                         var deleteEvent = new frmEventDeleteConfirmation(_selectedEvent);
                         var result = deleteEvent.ShowDialog();
-                        if(result == true)
+                        if (result == true)
                         {
                             populateEvents();
                         }
@@ -5398,7 +5533,7 @@ namespace Presentation
                         MessageBox.Show("Event must not be approved!");
                     }
                 }
-                
+
             }
             else
             {
@@ -5416,7 +5551,7 @@ namespace Presentation
         private void DgEvents_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
         {
             string headerName = e.Column.Header.ToString();
-            
+
             if (e.PropertyType == typeof(DateTime))
             {
                 (e.Column as DataGridTextColumn).Binding.StringFormat = "MM/dd/yyyy";
@@ -5429,19 +5564,19 @@ namespace Presentation
             {
                 e.Cancel = true;
             }
-            if(headerName == "Cancelled")
+            if (headerName == "Cancelled")
             {
                 e.Cancel = true;
             }
-            if(headerName == "SeatsRemaining")
+            if (headerName == "SeatsRemaining")
             {
                 e.Column.Header = "Open Seats";
             }
-            if(headerName == "PublicEvent")
+            if (headerName == "PublicEvent")
             {
                 e.Column.Header = "Public?";
             }
-            if(headerName == "Price")
+            if (headerName == "Price")
             {
                 e.Column.Header = "Entry Price";
             }
@@ -5503,7 +5638,7 @@ namespace Presentation
 
 
             //Re-Add the events based on the radio button selected
-            if(btnEventCancelled.IsChecked == true)
+            if (btnEventCancelled.IsChecked == true)
             {
                 try
                 {
@@ -5513,9 +5648,9 @@ namespace Presentation
                 {
                     MessageBox.Show("Error: " + ex.Message);
                 }
-                
+
             }
-            else if(btnEventUncancelled.IsChecked == true)
+            else if (btnEventUncancelled.IsChecked == true)
             {
                 try
                 {
@@ -5523,9 +5658,9 @@ namespace Presentation
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Error: "+ex.Message);
+                    MessageBox.Show("Error: " + ex.Message);
                 }
-                
+
             }
 
 
@@ -5606,6 +5741,10 @@ namespace Presentation
                 {
                     cboSupplier.Items.Add(supplier.Name + " " + supplier.SupplierID);
                 }
+            }
+            catch (NullReferenceException)
+            {
+
             }
             catch (Exception ex)
             {
@@ -5708,27 +5847,34 @@ namespace Presentation
         }
         private void BtnDeleteOrder_Click(object sender, RoutedEventArgs e)
         {
-            if ((SupplierOrder)dgSupplierOrders.SelectedItem != null)
+            try
             {
-                _supplierOrder = (SupplierOrder)dgSupplierOrders.SelectedItem;
-                MessageBoxResult mbresult;
-
-                mbresult = MessageBox.Show("Are you sure you want to delete order number " + _supplierOrder.SupplierOrderID + "?", "Delete Order", MessageBoxButton.YesNo);
-
-                if (mbresult == MessageBoxResult.No)
+                if ((SupplierOrder)dgSupplierOrders.SelectedItem != null)
                 {
-                    return;
-                }
-                else
-                {
-                    if (1 == _supplierOrderManager.DeleteSupplierOrder(_supplierOrder.SupplierOrderID))
+                    _supplierOrder = (SupplierOrder)dgSupplierOrders.SelectedItem;
+                    MessageBoxResult mbresult;
+
+                    mbresult = MessageBox.Show("Are you sure you want to delete order number " + _supplierOrder.SupplierOrderID + "?", "Delete Order", MessageBoxButton.YesNo);
+
+                    if (mbresult == MessageBoxResult.No)
                     {
-                        MessageBox.Show("Record Deleted");
-                        LoadSupplierOrderGrid();
+                        return;
+                    }
+                    else
+                    {
+                        if (1 == _supplierOrderManager.DeleteSupplierOrder(_supplierOrder.SupplierOrderID))
+                        {
+                            MessageBox.Show("Record Deleted");
+                            LoadSupplierOrderGrid();
+                        }
+
                     }
 
                 }
-
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("An error occurred while trying to delete the order:\n" + ex.Message);
             }
 
         }
@@ -5964,7 +6110,7 @@ namespace Presentation
                         cboRoomType.Items.Add(item);
                     }
                 }
-                
+
                 cboRoomType.SelectedItem = "Show All";
             }
             cbxRoomActive.IsChecked = true;
@@ -5979,7 +6125,7 @@ namespace Presentation
 
         private void BtnAddRoom_Click(object sender, RoutedEventArgs e)
         {
-            var roomForm = new frmAddEditViewRoom();
+            var roomForm = new frmAddEditViewRoom(_employee);
             var results = roomForm.ShowDialog();
         }
 
@@ -6368,6 +6514,11 @@ namespace Presentation
 
         }
 
+        private void btnViewMember_Click(object sender, RoutedEventArgs e)
+        {
+            ViewSelectedRecordBrowseMembers();
+        }
+
         private void btnCancelBrowseMembers_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
@@ -6519,7 +6670,7 @@ namespace Presentation
                 cbxDepartmentProfile.ItemsSource = new List<string>() { _employee.DepartmentID };
                 cbxDepartmentProfile.SelectedIndex = 0;
             }
-            
+
             chkActiveProfile.IsChecked = _employee.Active;
             readOnlyForm();
             btnSaveProfile.Content = "Update";
@@ -7040,7 +7191,7 @@ namespace Presentation
         #endregion
 
         #region Front Desk Code
-            //#FrontDesk
+        //#FrontDesk
         private void frontDeskDoOnStart()
         {
             luggageManager = new LuggageManager();
@@ -7060,7 +7211,7 @@ namespace Presentation
             {
                 MessageBox.Show(ex.Message);
             }
-            
+
         }
 
         /// <summary>
@@ -7079,7 +7230,7 @@ namespace Presentation
 
                 MessageBox.Show(ex.Message);
             }
-           
+
         }
         /// <summary>
         /// Author: Dalton Cleveland
@@ -7271,9 +7422,9 @@ namespace Presentation
             }
             catch (Exception ex)
             {
-                MessageBox.Show( ex.Message);
+                MessageBox.Show(ex.Message);
             }
-            
+
 
         }
 
@@ -8036,8 +8187,120 @@ namespace Presentation
                 instance.SetupForm(_employee);
             }
         }
+        
+		#endregion
 
-        #endregion
+		#region Inbox
 
-    }
+		private void InboxDoOnStart()
+		{
+			_threadManager = new FakeThreadManager();
+			//_employee = new Employee { Email = "big_dick_rick@gmail.com" };
+			SetupThreadList();
+		}
+		/// <summary author="Austin Delaney" created="2019/04/12">
+		/// Sets the thread list to the list found for local employee based on if the 
+		/// hidden or archived checks are checked.
+		/// </summary>
+		private void SetupThreadList()
+		{
+			List<UserThreadView> threads;
+
+			try
+			{
+				if (chkShowHidden.IsChecked.Value)
+				{
+					threads = _threadManager.GetUserThreadViewList(_employee, chkShowArchived.IsChecked.Value);
+				}
+				else
+				{
+					List<UserThreadView> unfilteredList = _threadManager.GetUserThreadViewList(_employee, chkShowArchived.IsChecked.Value);
+					threads = unfilteredList.Where(t => !t.ThreadHidden).ToList();
+				}
+			}
+			catch (Exception ex)
+			{
+				ExceptionLogManager.getInstance().LogException(ex);
+				MessageBox.Show(ex.Message);
+				threads = new List<UserThreadView>();
+			}
+
+			dgMessageThreadList.ItemsSource = threads;
+		}
+
+		private void ChkShowHidden_Click(object sender, RoutedEventArgs e)
+		{
+			SetupThreadList();
+		}
+
+		private void ChkThreadSilence_Click(object sender, RoutedEventArgs e)
+		{
+			if (null != _userThread && null != _employee)
+			{
+				try
+				{
+					if (_threadManager.UpdateThreadSilentStatus(_userThread, chkThreadSilence.IsChecked.Value, _employee))
+					{
+						throw new ApplicationException("Unable to change thread silent status for user " + _employee.Email + " in thread " + _userThread.ThreadID);
+					}
+				}
+				catch (Exception ex)
+				{
+					ExceptionLogManager.getInstance().LogException(ex);
+					MessageBox.Show(ex.Message);
+				}
+			}
+		}
+
+		private void PopulateMainThreadArea(IMessageThread selectedThread)
+		{
+			if (null != selectedThread && null != _employee)
+			{
+				UserThread thread = null;
+
+				try
+				{
+					thread = _threadManager.GetUserThread(selectedThread, _employee);
+
+					if (thread == null)
+					{
+						throw new ApplicationException("Unable to change thread silent status for user " + _employee.Email + " in thread " + _userThread.ThreadID);
+					}
+				}
+				catch (Exception ex)
+				{
+					ExceptionLogManager.getInstance().LogException(ex);
+					MessageBox.Show(ex.Message);
+				}
+
+				//alias dropdown
+				cboAliasPicker.ItemsSource = _employee.Aliases;
+				cboAliasPicker.SelectedValue = thread.Alias;
+
+				//participants list
+				lstThreadParticipants.ItemsSource = thread.ParticipantsWithAlias;
+
+				//message list
+				lstThreadMessages.ItemsSource = thread.Messages;
+
+				//bottom check boxes
+				chkThreadHide.IsChecked = thread.Hidden;
+				chkThreadSilence.IsChecked = thread.Silenced;
+			}
+		}
+
+		private void ChkShowArchived_Click(object sender, RoutedEventArgs e)
+		{
+			SetupThreadList();
+		}
+
+		private void BtnThreadListButton_Click(object sender, RoutedEventArgs e)
+		{
+			PopulateMainThreadArea(dgMessageThreadList.SelectedItem as IMessageThread);
+		}
+
+
+		#endregion
+
+	}
 }

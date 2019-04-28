@@ -35,5 +35,9 @@ namespace LogicLayer
         // Added by Caitlin Abelson 2019/04/12
         List<VMGuest> SelectAllVMGuests();
         Guest RetrieveGuestByEmail(string email);
+
+        List<Guest> RetrieveAllGuestAppointmentInfo(); //Eduardo colon 2019-04-23
+        Guest RetrieveGuestAppointmentInfo(int guestID); //Eduardo colon 2019-04-23
+
     }
 }

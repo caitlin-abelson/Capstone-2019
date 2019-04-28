@@ -474,5 +474,49 @@ namespace LogicLayer
                 throw;
             }
         }
+        /// <summary>
+        /// Eduardo Colon
+        /// Created: 2019/04/23
+        /// 
+        /// method to retrieve all guestappointmentinfo
+        /// </summary>
+        public List<Guest> RetrieveAllGuestAppointmentInfo()
+        {
+            var guests = new List<Guest>();
+            try
+            {
+                guests = _guestAccessor.RetrieveAllGuestAppointmentInfo();
+            }
+            catch
+            {
+                throw;
+            }
+            return guests;
+        }
+        /// <summary>
+        /// Eduardo Colon
+        /// Created: 2019/04/23
+        /// 
+        /// method to retrieve all guesappointmentinfo by guestid
+        /// </summary>
+        public Guest RetrieveGuestAppointmentInfo(int guestID)
+        {
+            Guest guest = new Guest();
+
+
+
+            try
+            {
+
+                guest = _guestAccessor.RetrieveGuestAppointmentInfo(guestID);
+
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+
+            return guest;
+        }
     }
 }

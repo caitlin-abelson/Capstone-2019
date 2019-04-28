@@ -46,7 +46,7 @@ namespace DataAccessLayer
                             Price = rdr.GetDecimal(5),
                             EmployeeID = rdr.GetInt32(6),
                             GuestID = rdr.GetInt32(7),
-                            DatePurchased = rdr.GetDateTime(8)
+                            PurchasedDate = rdr.GetDateTime(8)
                         }); 
                     }
                 }

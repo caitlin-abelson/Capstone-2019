@@ -8,7 +8,9 @@
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition Height="10"/>
             <RowDefinition Height="36"/>
+            <RowDefinition Height="10"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="36"/>
         </Grid.RowDefinitions>
@@ -21,8 +23,13 @@
             <ColumnDefinition Width="10"/>
         </Grid.ColumnDefinitions>
 
+        <!--Form Title-->
+        <TextBlock Grid.Row="1" Grid.ColumnSpan="5" Text="Manage Resort Property Types"
+                   FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+        <!--End of Form Title-->
+
         <!--Left Hand Side-->
-        <Grid x:Name="Lhs" Column="1" Row="1">
+        <Grid x:Name="Lhs" Column="1" Row="3">
             <Grid.RowDefinitions>
                 <RowDefinition Height="36"/>
                 <RowDefinition Height="10"/>
@@ -63,13 +70,13 @@
         <!--End of Left Hand Side-->
 
         <!--Right Hand Side-->
-        <Grid x:Name="Rhs" Column="3" Row="1">
+        <Grid x:Name="Rhs" Column="3" Row="3">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="30"/>
+                <ColumnDefinition Width="50"/>
                 <ColumnDefinition Width="5"/>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="5"/>
-                <ColumnDefinition Width="30"/>
+                <ColumnDefinition Width="50"/>
             </Grid.ColumnDefinitions>
 
             <!--Left Arrow-->

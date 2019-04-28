@@ -90,10 +90,10 @@ namespace LogicLayer
         /// Updated: yyyy/mm/dd
         /// example: Fixed a problem when user inputs bad data
         /// </remarks>
-        /// <returns>List<String> That contains all of the itemTypeIDs</returns>	
-        public List<String> RetrieveAllItemTypesString()
+        /// <returns>List<string> That contains all of the itemTypeIDs</returns>	
+        public List<string> RetrieveAllItemTypesString()
         {
-            List<String> itemTypes = new List<String>();
+            List<string> itemTypes = new List<string>();
             try
             {
                 itemTypes = _itemTypeAccessor.RetrieveAllItemTypesString();

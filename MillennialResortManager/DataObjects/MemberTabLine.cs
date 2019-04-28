@@ -70,7 +70,7 @@ namespace DataObjects
         /// The Date the offering/item was purchased.
         /// </summary>
         [DisplayName("Date of Purchase")]
-        public DateTime DatePurchased { get; set; } // added by Matt H. on 4/26/19
+        public DateTime PurchasedDate { get; set; } // added by Matt H. on 4/26/19
 
         /// <summary>
         /// The purchased offering's item type.
@@ -83,5 +83,9 @@ namespace DataObjects
         /// </summary>
         [DisplayName("Item's Description")]
         public string Description { get; set; } // added by Matt H. on 4/27/19
+
+        /// Date the item was added to the bill.
+        /// </summary>
+        public DateTime DatePurchased { get; set; }
     }
 }

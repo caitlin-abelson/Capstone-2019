@@ -12,7 +12,7 @@
             <RowDefinition Height="75"></RowDefinition>
         </Grid.RowDefinitions>
         <TabControl Grid.Row="0" x:Name="tabsetBldMain">
-            <TabItem x:Name="tabBldInfo" Header="Info" GotFocus="tabBldInfo_GotFocus">
+            <TabItem x:Name="tabBldInfo" Header="Info">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="100"></RowDefinition>
@@ -71,7 +71,7 @@
                                 <DataGridTextColumn Header="Room Number" Binding="{Binding RoomNumber}" />
                                 <DataGridTextColumn Header="Room Type" Binding="{Binding RoomType}" />
                                 <DataGridTextColumn Header="Capacity" Binding="{Binding Capacity}" />
-                                <DataGridTextColumn Header="Price" Binding="{Binding Price}" />
+                                <DataGridTextColumn Header="Price" Binding="{Binding Price, StringFormat=C}"  />
                                 <DataGridTextColumn Header="Status" Binding="{Binding RoomStatus}" />
                             </DataGrid.Columns>
                         </DataGrid>
@@ -87,8 +87,8 @@
                     </Grid>
                 </Grid>
             </TabItem>
-            <TabItem x:Name="tabBldInspections" Header="Inspection" GotFocus="tabBldInspections_GotFocus">
-                <Grid x:Name="grdBldInspections" GotFocus="grdBldInspections_GotFocus" >
+            <TabItem x:Name="tabBldInspections" Header="Inspection" >
+                <Grid x:Name="grdBldInspections"  >
                     <Grid.RowDefinitions>
                         <RowDefinition Height="75"></RowDefinition>
                         <RowDefinition Height="75"></RowDefinition>
@@ -105,7 +105,7 @@
                               MouseDoubleClick="dgBuildingInspections_MouseDoubleClick">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Inspection" Binding="{Binding Name}" />
-                            <DataGridTextColumn Header="Inspection Date" Binding="{Binding DateInspected}" />
+                            <DataGridTextColumn Header="Inspection Date" Binding="{Binding DateInspected, StringFormat='yyyy-MM-dd'}" />
                             <DataGridTextColumn Header="Rating" Binding="{Binding Rating}" />
                             <DataGridTextColumn Header="Problems" Binding="{Binding InspectionProblemNotes}" />
                             <DataGridTextColumn Header="Fixes" Binding="{Binding InspectionFixNotes}" />

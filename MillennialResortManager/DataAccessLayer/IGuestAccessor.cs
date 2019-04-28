@@ -39,5 +39,7 @@ namespace DataAccessLayer
         // VMGuest List method added by Caitlin Abelson
         List<VMGuest> SelectAllVMGuests();
         Guest RetriveGuestByEmail(string email);
+        Guest RetrieveGuestAppointmentInfo(int guestID);  //Eduardo Colon 2019-04-23
+        List<Guest> RetrieveAllGuestAppointmentInfo();  //Eduardo Colon 2019-04-23
     }
 }

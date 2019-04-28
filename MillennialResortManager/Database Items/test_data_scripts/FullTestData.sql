@@ -715,14 +715,14 @@ GO
 INSERT INTO [dbo].[MaintenanceWorkOrder]
 ([MaintenanceTypeID],[DateRequested],[DateCompleted],[RequestingEmployeeID],[WorkingEmployeeID],[Complete],[Description],[Comments],[MaintenanceStatus],[ResortPropertyID])
 VALUES
-("Repair","2018-10-10",NULL,100000,100001,0,"The toilet is leaking",NULL,"Waiting",NULL),
-("Replace","2018-01-10",NULL,100001,100000,0,"Faucet needs to be replaced",NULL,"Waiting",NULL),
-("Install","2019-10-05",NULL,100000,100001,0,"Ceiling fan is needed",NULL,"Waiting",NULL),
-("Repair","2018-10-10",NULL,100000,100003,0,"Rug has a frayed end",NULL,"Waiting",NULL),
-("Repair","2018-10-10",NULL,100001,100001,0,"Mini Bar is not cold",NULL,"Waiting",NULL),
-("Remove","2018-10-10",NULL,100002,100001,0,"Extra towel rack in bathroom",NULL,"Waiting",NULL),
-("Install","2018-10-10",NULL,100004,100002,0,"New air filter",NULL,"Waiting",NULL),
-("Repair","2018-10-10",NULL,100000,100004,0,"Window is not sealing fully",NULL,"Waiting",NULL)
+("Repair","2018-10-10",NULL,100000,100001,0,"The toilet is leaking",NULL,"Waiting",100000),
+("Replace","2018-01-10",NULL,100001,100000,0,"Faucet needs to be replaced",NULL,"Waiting",100000),
+("Install","2019-10-05",NULL,100000,100001,0,"Ceiling fan is needed",NULL,"Waiting",100001),
+("Repair","2018-10-10",NULL,100000,100003,0,"Rug has a frayed end",NULL,"Waiting",100002),
+("Repair","2018-10-10",NULL,100001,100001,0,"Mini Bar is not cold",NULL,"Waiting",100003),
+("Remove","2018-10-10",NULL,100002,100001,0,"Extra towel rack in bathroom",NULL,"Waiting",100003),
+("Install","2018-10-10",NULL,100004,100002,0,"New air filter",NULL,"Waiting",100003),
+("Repair","2018-10-10",NULL,100000,100004,0,"Window is not sealing fully",NULL,"Waiting",100003)
 GO
 
 
@@ -730,38 +730,44 @@ GO
 INSERT INTO [dbo].[MemberTab]
 ([MemberID],[Active],[TotalPrice])
 VALUES
-(100000,1,1500),
+(100000,0,1500),
 (100001,1,75),
 (100002,1,150),
 (100003,1,45000),
 (100004,1,2751),
 (100005,1,1589),
-(100006,1,3489)
+(100006,1,3489),
+(100000,1,1500)
 GO
 
+-- Has to be done separately for each Member because
+-- the trigger that updates the MemberTab.TotalPrice
+-- can only be done on one member at a time.
 INSERT INTO [dbo].[MemberTabLine]
-([MemberTabID],[OfferingID],[Quantity],[Price],[EmployeeID],[Discount])
+
+([MemberTabID],[OfferingID],[Quantity],[Price],[EmployeeID],[Discount],[GuestID])
 VALUES
-(100000,100000,1,150,100000,NULL),
-(100000,100003,1,10,100000,NULL),
-(100000,100002,1,25,100000,NULL),
-(100001,100005,1,2000,100000,NULL),
-(100001,100003,1,10,100000,NULL),
-(100001,100001,1,150,100000,NULL),
-(100002,100000,1,150,100000,NULL),
-(100002,100005,1,2000,100000,NULL),
-(100002,100002,1,25,100000,NULL),
-(100003,100003,1,10,100000,NULL),
-(100003,100001,1,150,100000,NULL),
-(100004,100003,1,150,100000,NULL),
-(100004,100005,1,2000,100000,NULL),
-(100005,100002,1,25,100000,NULL),
-(100005,100001,1,150,100000,NULL),
-(100006,100002,1,25,100000,NULL),
-(100006,100001,1,150,100000,NULL),
-(100006,100000,1,150,100000,NULL),
-(100006,100004,1,150,100000,NULL)
+(100000,100000,1,150,100000,NULL,100000),
+(100000,100003,1,10,100000,NULL,100000),
+(100000,100002,1,25,100000,NULL,100000),
+(100001,100005,1,2000,100000,NULL,100000),
+(100001,100003,1,10,100000,NULL,100000),
+(100001,100001,1,150,100000,NULL,100000),
+(100002,100000,1,150,100000,NULL,100000),
+(100002,100005,1,2000,100000,NULL,100000),
+(100002,100002,1,25,100000,NULL,100000),
+(100003,100003,1,10,100000,NULL,100000),
+(100003,100001,1,150,100000,NULL,100000),
+(100004,100003,1,150,100000,NULL,100000),
+(100004,100005,1,2000,100000,NULL,100000),
+(100005,100002,1,25,100000,NULL,100000),
+(100005,100001,1,150,100000,NULL,100000),
+(100006,100002,1,25,100000,NULL,100000),
+(100006,100001,1,150,100000,NULL,100000),
+(100006,100000,1,150,100000,NULL,100000),
+(100006,100004,1,150,100000,NULL,100000)
 GO
+
 
 INSERT INTO [dbo].[Receiving]
 ([SupplierOrderID],[Description],[DateDelivered])
@@ -838,10 +844,27 @@ VALUES
 (100002,"2019-05-03",NULL,"2019-05-04",1,100003)
 GO
 
+SET IDENTITY_INSERT [dbo].[SpecialOrder] ON
+
+INSERT INTO [dbo].[SpecialOrder]
+		([SpecialOrderID], [EmployeeID], [Description],[DateOrdered], [Supplier],[Authorized])
+	VALUES
+		(2000001, 100001, 'Full Synthetic Engine Oil','2/8/2019','Megaproducts','Erater'),
+		(2000002, 100002, 'Full Synthetic Engine Oil', '2/6/2011','Sam electrics',''),
+		(2000003, 100003, 'Synthectic blend Engine Oil','6/8/2012','Slantic','')
+		
+SET IDENTITY_INSERT [dbo].[SpecialOrder] OFF		
+GO
 
 
-
-
+INSERT INTO [dbo].[SpecialOrderLine]
+    ([NameID], [SpecialOrderID], [Description], [OrderQty], [QtyReceived])
+    VALUES
+        ('Tomato Soup', 2000001, 'Tomato soup with green pepper',1, 1),
+        ('Paper', 2000002, 'White paper', 5, 0),
+        ('Pencil', 2000003, 'Pencil 2B for designer', 6, 6)
+    
+GO
 
 
 

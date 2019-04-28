@@ -196,7 +196,7 @@
                     <ColumnDefinition/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
-                <Button Grid.Column="1" x:Name="btnSave" Margin="10 10 10 10" Content="Save" FontSize="16" FontWeight="Bold" Click="btnSave_Click" MaxWidth="150"/>
+                <Button Grid.Column="1" x:Name="btnSave" Margin="10 10 10 10" Content="Save" FontSize="16" FontWeight="Bold" Click="btnSave_Click"  MaxWidth="150"/>
                 <Button Grid.Column="2" x:Name="btnCancel" Margin="10 10 10 10" Content="Cancel" FontSize="16" FontWeight="Bold" Click="btnCancel_Click" MaxWidth="150"/>
             </Grid>
 
