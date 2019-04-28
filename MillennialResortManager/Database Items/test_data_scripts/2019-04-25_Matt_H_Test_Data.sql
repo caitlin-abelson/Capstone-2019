@@ -13,7 +13,7 @@ GO
 -- the site. Registering a user on the site then adds a new member to the member table, as well as membertab table, and currently that entry has a membertabid 
 -- of 100007, which matches the membertabid foreign key in all of my test data entries. pretty much, what this means is that come presentation day, in order
 -- for my mebertabline web feature to be tested and have actual test data, a new user will need to be created on the website, and then my insert statements below will 
--- need to be ran, in that order. will also have to ensure that the memberid and membertabid's being inserted below are 100007, or match whatever is inserted when the 
+-- need to be ran, in that order. will also have to ensure that the memberid and membertabid's being inserted below are 100010, or match whatever is inserted when the 
 -- new user is created.
 
 print '' print '*** Inserting MemberTab Test Records'
@@ -21,7 +21,7 @@ GO
 INSERT INTO [dbo].[MemberTab]
 		([MemberID], [TotalPrice])
 	VALUES
-		(100007, 583.35)
+		(100010, 583.35)
 GO
 
 print '' print '*** Inserting MemberTabLine Test Records'
@@ -29,16 +29,16 @@ GO
 INSERT INTO [dbo].[MemberTabLine]
 		([MemberTabID], [OfferingID], [Quantity], [Price], [EmployeeID], [GuestID])
 	VALUES
-		(100007, 100002, 1, 130.45, 100000, 100000),
-		(100007, 100010, 1, 25, 100000, 100000),
-		(100007, 100004, 2, 25.45, 100000, 100000),
-		(100007, 100006, 2, 1, 100000, 100000),
-		(100007, 100013, 1, 350, 100000, 100000),
-		(100007, 100010, 1, 25, 100000, 100000),
-		(100007, 100004, 2, 25.45, 100000, 100000),
-		(100007, 100005, 1, 85.45, 100000, 100000),
-		(100007, 100011, 1, 15, 100000, 100000),
-		(100007, 100001, 1, 13.45, 100000, 100000),
-		(100007, 100000, 1, 10, 100000, 100000),
-		(100007, 100009, 1, 65, 100000, 100000)
+		(100010, 100002, 1, 130.45, 100000, 100000),
+		(100010, 100010, 1, 25, 100000, 100000),
+		(100010, 100004, 2, 25.45, 100000, 100000),
+		(100010, 100006, 2, 1, 100000, 100000),
+		(100010, 100013, 1, 350, 100000, 100000),
+		(100010, 100010, 1, 25, 100000, 100000),
+		(100010, 100004, 2, 25.45, 100000, 100000),
+		(100010, 100005, 1, 85.45, 100000, 100000),
+		(100010, 100011, 1, 15, 100000, 100000),
+		(100010, 100001, 1, 13.45, 100000, 100000),
+		(100010, 100000, 1, 10, 100000, 100000),
+		(100010, 100009, 1, 65, 100000, 100000)
 GO		
