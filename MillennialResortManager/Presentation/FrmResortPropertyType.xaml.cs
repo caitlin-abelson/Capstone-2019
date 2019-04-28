@@ -158,7 +158,7 @@ namespace Presentation
 
         private void BtnDelete_OnClick(object sender, RoutedEventArgs e)
         {
-            var resortProperty = ((FrameworkElement)sender).DataContext as ResortPropertyType;
+            var resortProperty = ((FrameworkElement)sender).DataContext as ResortPropertyType; 
 
             try
             {
