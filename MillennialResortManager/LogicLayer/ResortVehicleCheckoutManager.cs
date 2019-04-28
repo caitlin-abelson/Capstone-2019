@@ -170,7 +170,7 @@ namespace LogicLayer
             try
             {
                 availableVehicles = _resortVehicleAccessor.RetrieveVehicles().Where(
-                    x => x.ResortVehicleStatusId.Equals(ResortVehicleStatusEnum.Available.ToString()));
+                    x => x.ResortVehicleStatusId.Equals(new ResortVehicleStatus().Available));
             }
             catch (Exception)
             {
@@ -193,9 +193,12 @@ namespace LogicLayer
 
             try
             {
-                var resortVehicleCheckouts = RetrieveVehicleCheckouts().Where(x => x.Returned == false);
+                var resortVehicleCheckouts = RetrieveVehicleCheckouts()?.Where(x => x.Returned == false);
 
                 resortVehicleCheckoutsDecorator = new List<ResortVehicleCheckoutDecorator>();
+
+                if (resortVehicleCheckouts == null)
+                    return resortVehicleCheckoutsDecorator;
 
                 resortVehicleCheckoutsDecorator.AddRange(resortVehicleCheckouts.Select(
                     item => new ResortVehicleCheckoutDecorator
@@ -271,7 +274,7 @@ namespace LogicLayer
 
             mutatedResortVehicle.Available = true;
 
-            mutatedResortVehicle.ResortVehicleStatusId = "Available";
+            mutatedResortVehicle.ResortVehicleStatusId = new ResortVehicleStatus().Available;
 
             _resortVehicleAccessor.UpdateVehicle(resortVehicle, mutatedResortVehicle);
         }
@@ -289,7 +292,7 @@ namespace LogicLayer
 
             var mutatedResortVehicle = resortVehicle.DeepClone();
 
-            mutatedResortVehicle.ResortVehicleStatusId = "In Use";
+            mutatedResortVehicle.ResortVehicleStatusId = new ResortVehicleStatus().InUse;
 
             mutatedResortVehicle.Available = false;
 

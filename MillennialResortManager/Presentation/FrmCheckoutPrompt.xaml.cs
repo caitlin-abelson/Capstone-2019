@@ -129,6 +129,8 @@ namespace Presentation
         {
             errorStr = "";
             if (txtEmployeeId.Text.Length == 0) { /* this is acceptable */ }
+            else if (txtEmployeeId.Text.Length > 8)
+                errorStr = "Invalid Employee Id"; // check length to avoid integer overflow
             else if (!int.TryParse(txtEmployeeId.Text, out int n))
                 errorStr = "Employee ID must be a number";
             else if (n < 0)

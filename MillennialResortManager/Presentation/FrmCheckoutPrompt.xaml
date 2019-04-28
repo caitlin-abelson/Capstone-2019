@@ -57,7 +57,7 @@
                     </Grid.ColumnDefinitions>
 
                     <Label Grid.Column="0" HorizontalAlignment="Right" Content="First Name" VerticalAlignment="Center"/>
-                    <TextBox Grid.Column="1" Name="txtFirstName" Background="Aqua" Margin="10 0 10 0" IsReadOnly="True"/>
+                    <TextBox Grid.Column="1" Name="txtFirstName" Margin="10 0 10 0" IsReadOnly="True"/>
                 </Grid>
                 <!--End of First Name-->
 
@@ -74,7 +74,7 @@
                     </Grid.ColumnDefinitions>
 
                     <Label Grid.Column="0" HorizontalAlignment="Right" Content="Last Name" VerticalAlignment="Center"/>
-                    <TextBox Grid.Column="1" Name="txtLastName" Background="Aqua" Margin="10 0 10 0" IsReadOnly="True"/>
+                    <TextBox Grid.Column="1" Name="txtLastName" Margin="10 0 10 0" IsReadOnly="True"/>
                 </Grid>
                 <!--End of Last Name-->
 
