@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using DataAccessLayer;
 using DataObjects;
 using LogicLayer;
 using MillennialResortWebSite.Models;
 
 namespace MillennialResortWebSite.Controllers
 {
+    [Authorize]
     public class MyAccountController : Controller
     {
         IGuestManager _guestManager = new GuestManager();
@@ -16,7 +18,8 @@ namespace MillennialResortWebSite.Controllers
         IMemberTabLineManager _memberTabLineManager = new MemberTabLineManager();
         IMemberManager _memberManager = new MemberManagerMSSQL();
 
-
+        IAppointmentAccessor apptAccessor = new AppointmentAccessorMock();
+        IReservationAccessor resAccessor = new ReservationAccessorMock();
         // GET: MyAccount
         public ActionResult Index()
         {
@@ -95,49 +98,35 @@ namespace MillennialResortWebSite.Controllers
                 return View(newGuest);
             }
         }
-
+        [Authorize]
         // GET: MyAccount/ViewAppointments/5
         public ActionResult ViewAppointments(int id)
         {
-            return View();
-        }
-
-        // POST: MyAccount/ViewAppointments/5
-        [HttpPost]
-        public ActionResult ViewAppointments(int id, FormCollection collection)
-        {
+            List<Appointment> appt;
             try
             {
-                // TODO: Add update logic here
-
-                return RedirectToAction("Index");
+                appt = apptAccessor.SelectAppointmentByGuestID(id);
             }
             catch
             {
-                return View();
+                return RedirectToAction("Index");
             }
+            return View(appt);
         }
-
+        [Authorize]
         // GET: MyAccount/ViewReservations/5
         public ActionResult ViewReservations(int id)
         {
-            return View();
-        }
-
-        // POST: MyAccount/ViewReservations/5
-        [HttpPost]
-        public ActionResult ViewReservations(int id, FormCollection collection)
-        {
+            Reservation res;
             try
             {
-                // TODO: Add update logic here
-
-                return RedirectToAction("Index");
+                res = resAccessor.RetrieveReservationByGuestID(id);
             }
             catch
             {
-                return View();
+                return RedirectToAction("Index");
             }
+            return View(res);
         }
 
         // GET: MyAccount/AddGuests/5
@@ -161,51 +150,7 @@ namespace MillennialResortWebSite.Controllers
                 return View();
             }
         }
-
-
-        // GET: MyAccount/AddEmergencyContact/5
-        public ActionResult AddEmergencyContact(int id)
-        {
-            return View();
-        }
-
-        // POST: MyAccount/AddEmergencyContact/5
-        [HttpPost]
-        public ActionResult AddEmergencyContact(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add update logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: MyAccount/Delete/5
-        public ActionResult Deactivate(int id)
-        {
-            return View();
-        }
-
-        // POST: MyAccount/Delete/5
-        [HttpPost]
-        public ActionResult Deactivate(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
+        
 
         /// <summary>
         /// Added by: Matt H. on 4/26/17

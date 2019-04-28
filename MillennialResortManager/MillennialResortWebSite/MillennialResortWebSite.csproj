@@ -60,7 +60,7 @@
     <IntermediateOutputPath>C:\Users\nh229u18\AppData\Local\Temp\vs49C3.tmp\Debug\</IntermediateOutputPath>
     <IntermediateOutputPath>C:\Users\nh229u22\AppData\Local\Temp\vs32D2.tmp\Debug\</IntermediateOutputPath>
     <IntermediateOutputPath>C:\Users\owner\AppData\Local\Temp\vs381B.tmp\Debug\</IntermediateOutputPath>
-    <IntermediateOutputPath>C:\Users\Muyo\AppData\Local\Temp\vsB392.tmp\Debug\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\berqu\AppData\Local\Temp\vs4D3A.tmp\Debug\</IntermediateOutputPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -95,7 +95,7 @@
     <IntermediateOutputPath>C:\Users\nh229u18\AppData\Local\Temp\vs49C3.tmp\Release\</IntermediateOutputPath>
     <IntermediateOutputPath>C:\Users\nh229u22\AppData\Local\Temp\vs32D2.tmp\Release\</IntermediateOutputPath>
     <IntermediateOutputPath>C:\Users\owner\AppData\Local\Temp\vs381B.tmp\Release\</IntermediateOutputPath>
-    <IntermediateOutputPath>C:\Users\Muyo\AppData\Local\Temp\vsB392.tmp\Release\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\berqu\AppData\Local\Temp\vs4D3A.tmp\Release\</IntermediateOutputPath>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
@@ -449,12 +449,13 @@
     <Content Include="Views\Event\Index.cshtml" />
     <Content Include="Views\Home\ContactResult.cshtml" />
     <Content Include="Views\DeveloperPage\Index.cshtml" />
-    <Content Include="Views\Building\Details.cshtml" />
     <Content Include="Views\Amenities\Create.cshtml" />
     <Content Include="Views\Amenities\Success.cshtml" />
     <Content Include="Views\Rooms\Create.cshtml" />
     <Content Include="Views\MyAccount\ViewTab.cshtml" />
     <Content Include="Views\Error\Index.cshtml" />
+    <Content Include="Views\MyAccount\ViewAppointments.cshtml" />
+    <Content Include="Views\MyAccount\ViewReservations.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
