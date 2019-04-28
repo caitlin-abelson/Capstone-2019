@@ -85,11 +85,8 @@
     <Compile Include="IMaintenanceTypeManager.cs" />
     <Compile Include="IMaintenanceWorkOrderManager.cs" />
     <Compile Include="IMemberManager.cs" />
-<<<<<<< HEAD
     <Compile Include="IMemberTabLineManager.cs" />
-=======
     <Compile Include="IMessageManager.cs" />
->>>>>>> 189c2e3db616d0b857c38141ebfd6a44eb389e1b
     <Compile Include="IMemberTabManager.cs" />
     <Compile Include="InspectionManager.cs" />
     <Compile Include="InternalOrderManager.cs" />
