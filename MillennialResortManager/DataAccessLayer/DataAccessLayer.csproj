@@ -87,6 +87,7 @@
     <Compile Include="IMaintenanceWorkOrderAccessor.cs" />
     <Compile Include="IMemberAccessor.cs" />
     <Compile Include="IMemberTabAccessor.cs" />
+    <Compile Include="IMemberTabLineAccessor.cs" />
     <Compile Include="InspectionAccessor.cs" />
     <Compile Include="InternalOrderAccessor.cs" />
     <Compile Include="InternalOrderAccessorMock.cs" />
@@ -130,6 +131,7 @@
     <Compile Include="MemberAccessorMSSQL.cs" />
     <Compile Include="BuildingAccessorMock.cs" />
     <Compile Include="MemberTabAccessor.cs" />
+    <Compile Include="MemberTabLineAccessor.cs" />
     <Compile Include="MockDepartmentAccessor.cs" />
     <Compile Include="MockEmpRolesAccessor.cs" />
     <Compile Include="MockEventAccessor.cs" />

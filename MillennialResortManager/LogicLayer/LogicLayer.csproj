@@ -82,6 +82,7 @@
     <Compile Include="IMaintenanceTypeManager.cs" />
     <Compile Include="IMaintenanceWorkOrderManager.cs" />
     <Compile Include="IMemberManager.cs" />
+    <Compile Include="IMemberTabLineManager.cs" />
     <Compile Include="IMemberTabManager.cs" />
     <Compile Include="InspectionManager.cs" />
     <Compile Include="InternalOrderManager.cs" />
@@ -119,6 +120,7 @@
     <Compile Include="MaintenanceTypeManagerMSSQl.cs" />
     <Compile Include="MaintenanceWorkOrderManagerMSSQL.cs" />
     <Compile Include="MemberManagerMSSQL.cs" />
+    <Compile Include="MemberTabLineManager.cs" />
     <Compile Include="MemberTabManager.cs" />
     <Compile Include="OfferingManager.cs" />
     <Compile Include="MemberValidator.cs" />

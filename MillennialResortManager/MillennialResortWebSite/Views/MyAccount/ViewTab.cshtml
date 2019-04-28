@@ -1,0 +1,64 @@
+﻿<!-- View Added on 4/26/19 by Matt H. -->
+@model MillennialResortWebSite.Models.ViewTabMixer
+
+@{
+    ViewBag.Title = "ViewTab";
+}
+
+<h2 style="text-shadow: 2px 2px 7px #0B2027;">Current Active Charges</h2>
+
+<hr />
+
+<div>
+    @Html.DisplayNameFor(model => model.MemberTab.Active)
+    @Html.DisplayFor(model => model.MemberTab.Active)
+    <br />
+    @Html.DisplayNameFor(model => model.MemberTab.TotalPrice)
+    @Html.DisplayFor(model => model.MemberTab.TotalPrice)
+</div>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.MemberTabLines.FirstOrDefault().Description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MemberTabLines.FirstOrDefault().OfferingTypeID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MemberTabLines.FirstOrDefault().Quantity)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MemberTabLines.FirstOrDefault().Price)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MemberTabLines.FirstOrDefault().DatePurchased)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model.MemberTabLines)
+    {
+        <tr>
+            <td>
+                @item.Description
+            </td>
+            <td>
+                @item.OfferingTypeID
+            </td>
+            <td>
+                @item.Quantity
+            </td>
+            <td>
+                @item.Price
+            </td>
+            <td>
+                @item.DatePurchased
+            </td>
+            <td>
+                @Html.ActionLink("Dispute This Charge", "Contact", "Home", new { id = item.MemberTabLineID }, null) |
+            </td>
+        </tr>
+    }
+
+</table>

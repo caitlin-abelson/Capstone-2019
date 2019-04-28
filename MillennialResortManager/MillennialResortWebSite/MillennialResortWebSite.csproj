@@ -52,7 +52,7 @@
     <IntermediateOutputPath>C:\Users\Muyo\AppData\Local\Temp\vs5A29.tmp\Debug\</IntermediateOutputPath>
     <IntermediateOutputPath>C:\Users\Eric\AppData\Local\Temp\vs29C1.tmp\Debug\</IntermediateOutputPath>
     <IntermediateOutputPath>C:\Users\Craig\AppData\Local\Temp\vs2457.tmp\Debug\</IntermediateOutputPath>
-    <IntermediateOutputPath>C:\Users\nh229u26\AppData\Local\Temp\vsD816.tmp\Debug\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\Muyo\AppData\Local\Temp\vs9FCC.tmp\Debug\</IntermediateOutputPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -80,7 +80,7 @@
     <IntermediateOutputPath>C:\Users\Muyo\AppData\Local\Temp\vs5A29.tmp\Release\</IntermediateOutputPath>
     <IntermediateOutputPath>C:\Users\Eric\AppData\Local\Temp\vs29C1.tmp\Release\</IntermediateOutputPath>
     <IntermediateOutputPath>C:\Users\Craig\AppData\Local\Temp\vs2457.tmp\Release\</IntermediateOutputPath>
-    <IntermediateOutputPath>C:\Users\nh229u26\AppData\Local\Temp\vsD816.tmp\Release\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\Muyo\AppData\Local\Temp\vs9FCC.tmp\Release\</IntermediateOutputPath>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
@@ -236,6 +236,7 @@
     <Compile Include="Models\HomeViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\MyAccountModels.cs" />
     <Compile Include="Models\NewReservation.cs" />
     <Compile Include="Models\ReservationSearchModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -424,6 +425,7 @@
     <Content Include="Views\Amenities\Create.cshtml" />
     <Content Include="Views\Amenities\Success.cshtml" />
     <Content Include="Views\Rooms\Create.cshtml" />
+    <Content Include="Views\MyAccount\ViewTab.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

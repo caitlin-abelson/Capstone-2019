@@ -11,6 +11,10 @@ namespace MillennialResortWebSite.Controllers
 {
     public class HomeController : Controller
     {
+        /// <summary>
+        /// Added by Matt H. on 4/18/19
+        /// </summary>
+        /// <returns></returns>
         public ActionResult Index()
         {
             HomeViewModelsMixer homeViewModelsMixer = new HomeViewModelsMixer();
@@ -33,6 +37,10 @@ namespace MillennialResortWebSite.Controllers
             return View();
         }
 
+        /// <summary>
+        /// Added by Matt H. on 4/18/19
+        /// </summary>
+        /// <returns></returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult MailingList(HomeViewModelsMixer homeViewModelsMixer)
@@ -79,6 +87,10 @@ namespace MillennialResortWebSite.Controllers
             }
         }
 
+        /// <summary>
+        /// Added by Matt H. on 4/18/19
+        /// </summary>
+        /// <returns></returns>
         public ActionResult Contact()
         {
             ContactViewModel contactViewModel = new ContactViewModel();
@@ -137,6 +149,10 @@ namespace MillennialResortWebSite.Controllers
             return View(contactViewModel);
         }
 
+        /// <summary>
+        /// Added by Matt H. on 4/18/19
+        /// </summary>
+        /// <returns></returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Contact(ContactViewModel contactViewModel)

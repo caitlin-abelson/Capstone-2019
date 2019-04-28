@@ -7,6 +7,7 @@ rem This is the name you change. _____.sql Your file name goes in the blank. ex.
 
 sqlcmd -S localhost -E -i new_sql_additions/2019-04-10_SQL_Dani.sql
 sqlcmd -S localhost -E -i new_sql_additions/2019-04-15_Francis_Mingomba.sql
+sqlcmd -S localhost -E -i new_sql_additions/2019-04_25_Matt_H.sql
 
 
 ECHO .

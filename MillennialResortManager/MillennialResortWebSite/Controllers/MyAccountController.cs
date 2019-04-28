@@ -12,6 +12,9 @@ namespace MillennialResortWebSite.Controllers
     public class MyAccountController : Controller
     {
         IGuestManager _guestManager = new GuestManager();
+        IMemberTabManager _memberTabManager = new MemberTabManager();
+        IMemberTabLineManager _memberTabLineManager = new MemberTabLineManager();
+        IMemberManager _memberManager = new MemberManagerMSSQL();
 
 
         // GET: MyAccount
@@ -201,6 +204,32 @@ namespace MillennialResortWebSite.Controllers
             catch
             {
                 return View();
+            }
+        }
+
+        /// <summary>
+        /// Added by: Matt H. on 4/26/17
+        /// </summary>
+        // GET: MyAccount/ViewTab/5
+        public ActionResult ViewTab()
+        {
+            try
+            {
+                string email = User.Identity.Name;
+                MemberTab memberTab = _memberTabManager.RetrieveActiveMemberTabByMemberID(_memberManager.RetrieveMemberByEmail(email));
+                List<MemberTabLine> memberTabLines = _memberTabLineManager.RetrieveMemberTabLineByMemberID(_memberManager.RetrieveMemberByEmail(email));
+                
+                ViewTabMixer viewTabMixer = new ViewTabMixer
+                {
+                    MemberTab = memberTab,
+                    MemberTabLines = memberTabLines
+                };
+
+                return View(viewTabMixer);
+            }
+            catch
+            {
+                return RedirectToAction("Index", "MyAccount");
             }
         }
     }
