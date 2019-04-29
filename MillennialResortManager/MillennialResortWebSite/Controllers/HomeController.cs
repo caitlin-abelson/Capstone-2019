@@ -19,9 +19,7 @@ namespace MillennialResortWebSite.Controllers
         {
             HomeViewModelsMixer homeViewModelsMixer = new HomeViewModelsMixer();
 
-           // homeViewModelsMixer.Reservations = new List<ReservationSearchModel>();
-
-            homeViewModelsMixer.Reservation = new List<NewReservation>();
+            homeViewModelsMixer.Reservation = new ReservationSearchModel();
 
            // homeViewModelsMixer.Rooms = new List<Room>();
 

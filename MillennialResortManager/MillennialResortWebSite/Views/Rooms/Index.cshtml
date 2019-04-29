@@ -1,4 +1,4 @@
-﻿@model IEnumerable<DataObjects.Room>
+﻿@model MillennialResortWebSite.Models.ReservationSearchModel
 
 
 @*@model MillennialResortWebSite.Models.HomeViewModelsMixer*@
@@ -34,8 +34,8 @@
                     <div class="form-group">
 
                         <div class="col-md-10">
-                            @*@Html.EditorFor(model => model.Reservation.FirstOrDefault().ArrivalDate, new { htmlAttributes = new { @class = "form-control", placeholder = "Start Date", @readonly = "true" } })
-                            @Html.ValidationMessageFor(model => model.Reservation.FirstOrDefault().ArrivalDate, "", new { @class = "text-danger" })*@
+                            @Html.EditorFor(model => model.ArrivalDate, new { htmlAttributes = new { @class = "form-control", placeholder = "Start Date", @readonly = "true" } })
+                            @Html.ValidationMessageFor(model => model.ArrivalDate, "", new { @class = "text-danger" })
                         </div>
                     </div>
 
@@ -43,15 +43,15 @@
                     <div class="form-group">
 
                         <div class="col-md-10">
-                            @*@Html.EditorFor(model => model.Reservation.FirstOrDefault().DepartureDate, new { htmlAttributes = new { @class = "form-control", placeholder = "End Date", @readonly = "true" } })
-                            @Html.ValidationMessageFor(model => model.Reservation.FirstOrDefault().DepartureDate, "", new { @class = "text-danger" })*@
+                            @Html.EditorFor(model => model.DepartureDate, new { htmlAttributes = new { @class = "form-control", placeholder = "End Date", @readonly = "true" } })
+                            @Html.ValidationMessageFor(model => model.DepartureDate, "", new { @class = "text-danger" })
                         </div>
                     </div>
 
 
                     <div class="form-group">
                         <div class="col-md-10">
-                            <select class="form-control Sleeps" name="booking-roomtype">
+                            <select class="form-control Sleeps" name="@Html.NameFor(model => model.NumberOfGuests)">
                                 <option selected="">Guests</option>
                                 <option value="2">2 Guests</option>
                                 <option value="3">3 Guests</option>
@@ -128,7 +128,7 @@
                 <table class="table roomPortal">
 
 
-                    @foreach (var item in Model)
+                    @foreach (var item in Model.Rooms)
                     {
 
 
@@ -138,7 +138,7 @@
                                 <img class="card-img-top" src="~/Content/images/beachHouse.jpg" alt="Card image cap">
                             </td>
                             <th>
-                                @Html.DisplayNameFor(model => model.RoomType)
+                                @Html.DisplayNameFor(modelItem => item.RoomType)
                             </th>
                             <td>
                                 @Html.DisplayFor(modelItem => item.RoomType)
@@ -147,7 +147,7 @@
 
 
                             <th>
-                                @Html.DisplayNameFor(model => model.Description)
+                                @Html.DisplayNameFor(modelItem => item.Description)
                             </th>
                             <td>
                                 @Html.DisplayFor(modelItem => item.Description)
@@ -156,7 +156,7 @@
 
 
                             <th>
-                                @Html.DisplayNameFor(model => model.Price)
+                                @Html.DisplayNameFor(modelItem => item.Price)
                             </th>
                             <td>
                                 <p>$  @Html.DisplayFor(modelItem => item.Price)</p>
