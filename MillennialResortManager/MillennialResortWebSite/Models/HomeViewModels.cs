@@ -59,17 +59,10 @@ namespace MillennialResortWebSite.Models
 
     public class HomeViewModelsMixer
     {
-        // public List<ReservationSearchModel> Reservations { get; set; }
-
-        // public IEnumerable<Room> Rooms { get; set; }
-
-
-
-        public List<NewReservation> Reservation { get; set; }
-
         /*public List<IndexPageMailingListViewModel> MailingLists { get; set; } */
 
-        /*public ReservationSearchModel Reservation { get; set; } */
+        public ReservationSearchModel Reservation { get; set; }
+
         public IndexPageMailingListViewModel MailingList { get; set; } 
 
 
