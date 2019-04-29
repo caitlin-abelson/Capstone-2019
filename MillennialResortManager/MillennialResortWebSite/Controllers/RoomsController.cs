@@ -25,17 +25,17 @@ namespace MillennialResortWebSite.Controllers
 
 
         // GET: Rooms
-        public ActionResult Index()
+        public ActionResult Index(ReservationSearchModel model)
         {
             roomManager = new RoomManager();
 
-            rooms = roomManager.RetrieveRoomList();
+            model.Rooms = roomManager.RetrieveRoomList();
 
             int hour = DateTime.Now.Hour;
 
             ViewBag.Greeting = hour < 12 ? "Good Morning" : "Good Afternoon";
 
-            return View(rooms);
+            return View(model);
         }
 
 
