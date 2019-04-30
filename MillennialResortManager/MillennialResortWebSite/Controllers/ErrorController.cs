@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Routing;
 
 namespace MillennialResortWebSite.Controllers
 {
@@ -15,15 +16,43 @@ namespace MillennialResortWebSite.Controllers
     /// </summary>
     public class ErrorController : Controller
     {
-        //ErrorViewModel errorViewModel;
-        public ErrorController()
-        {
-            //errorViewModel = new ErrorViewModel("ErrorTitle", "ErrorMessage", "ErrorException", "~/Content/images/SandCastle.jpg", "Sandcastle", 300, 300, "Go Home", "Home", "Index");
-        }
+        /*
+         * Code Block to use this error page
+         * Insert your own data for each property
+         *TempData["error"] = new ErrorViewModel(
+          Title: "You've been screwed!", 
+          Message: "All rooms are currently sealed with crime scene tape.", 
+          ExceptionMessage: ex.Message, 
+          ImageLocation: "~/Content/images/errorPics/ErrorPic.jpg",
+          ImageAlt: "Error",
+          ImageHeight: 221, 
+          ImageWidth: 340,
+          ButtonMessage: "Try Again",
+          ReturnController: "Home", 
+          ReturnAction: "Index"
+          );
+
+                return RedirectToAction("Index", "Error");
+         */
         // GET: Error
-        public ActionResult Index(ErrorViewModel errorViewModel)
+        public ActionResult Index()
         {
-            return View(errorViewModel);
+            //TempData["error"] = new ErrorViewModel(
+            //Title: "You've been screwed!",
+            //Message: "All rooms are currently sealed with crime scene tape.",
+            //ExceptionMessage: ex.Message,
+            //ImageLocation: "~/Content/images/errorPics/ErrorPic.jpg",
+            //ImageAlt: "Error",
+            //ImageHeight: 221,
+            //ImageWidth: 340,
+            //ButtonMessage: "Try Again",
+            //ReturnController: "Home",
+            //ReturnAction: "Index"
+            //);
+
+            //return RedirectToAction("Index", "Error");
+
+            return View((ErrorViewModel)TempData["error"]);
         }
     }
 }
