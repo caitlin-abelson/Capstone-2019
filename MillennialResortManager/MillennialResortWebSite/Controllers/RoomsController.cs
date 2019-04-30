@@ -43,7 +43,7 @@ namespace MillennialResortWebSite.Controllers
 
 
         [Authorize]
-        public ActionResult Create(int id)
+        public ActionResult Create(int id, DateTime start, DateTime end)
         {
             if (id == 0)
             {
@@ -70,14 +70,10 @@ namespace MillennialResortWebSite.Controllers
             }
 
 
-
-
-
-
             NewReservation res = new NewReservation()
             {
-                ArrivalDate = DateTime.Now,
-                DepartureDate = DateTime.Now.AddDays(1),
+                ArrivalDate = start,
+                DepartureDate = end,
                 numberOfGuests = 0,
                 numberOfPets = 0,
                 roomType = room.RoomType,
@@ -86,15 +82,6 @@ namespace MillennialResortWebSite.Controllers
 
             return View(res);
         }
-
-
-
-
-
-
-
-
-
 
 
         // POST: Reservaion/Create
@@ -113,8 +100,8 @@ namespace MillennialResortWebSite.Controllers
                     {
                         MemberID = guest.MemberID,
                         NumberOfGuests = reservation.numberOfGuests,
-                        ArrivalDate = reservation.ArrivalDate,
-                        DepartureDate = reservation.DepartureDate,
+                        ArrivalDate = reservation.ArrivalDate.Value,
+                        DepartureDate = reservation.DepartureDate.Value,
                         Notes = reservation.Notes
                     };
                     if (reservationManager.AddReservation(res))

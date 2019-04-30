@@ -162,7 +162,8 @@
                                 <p>$  @Html.DisplayFor(modelItem => item.Price)</p>
                             </td>
                             <td>
-                                @Html.ActionLink("Reserve Now!", "Create", new { id = item.RoomID })
+                                @Html.ActionLink("Reserve Now!", "Create", new { id = item.RoomID, start = Model.ArrivalDate, end = Model.DepartureDate } )
+                                
                             </td>
                         </tr>
                     }

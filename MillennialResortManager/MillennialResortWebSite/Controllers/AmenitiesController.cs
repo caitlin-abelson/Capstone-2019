@@ -20,18 +20,7 @@ namespace MillennialResortWebSite.Controllers
         // GET: Amenities
         public ActionResult Index()
         {
-            List<AppointmentType> appointments = apptTypeAccessor.RetrieveAllAppointmentTypes("all");
-            try
-            {
-                foreach (var item in appointments)
-                {
-                    apptTypeManager.AddAppointmentType(item);
-                }
-            }
-            catch
-            {
-                return View(appointments);
-            }
+            List<AppointmentType> appointments = apptTypeManager.RetrieveAllAppointmentTypes("all");
 
             return View(appointments);
         }
@@ -44,7 +33,6 @@ namespace MillennialResortWebSite.Controllers
             {
                 return RedirectToAction("Index");
             }
-            AppointmentType appointment = apptTypeAccessor.RetrievAppointmentTypeById(id);
 
             Guest guest = new Guest();
             try
@@ -59,8 +47,9 @@ namespace MillennialResortWebSite.Controllers
 
             AppointmentModel appt = new AppointmentModel()
             {
-                AppointmentType = appointment.AppointmentTypeID,
-                Description = appointment.Description,
+                AppointmentType = id,
+
+                Description = "",
                 StartDate = DateTime.Now
             };
 
@@ -82,7 +71,7 @@ namespace MillennialResortWebSite.Controllers
                     Appointment appt = new Appointment()
                     {
                         AppointmentType = appointment.AppointmentType,
-                        Description = appointment.Description,
+                        Description = "",
                         StartDate = appointment.StartDate,
                         EndDate = appointment.StartDate.AddDays(1),
                         GuestID = guest.GuestID

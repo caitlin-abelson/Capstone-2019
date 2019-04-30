@@ -21,6 +21,6 @@ namespace MillennialResortWebSite.Models
         [DisplayName("Time")]
         [DataType(DataType.Time)]
         public DateTime Time { get; set; }
-        public String Description { get; set; }
+        public string Description { get; set; }
     }
 }

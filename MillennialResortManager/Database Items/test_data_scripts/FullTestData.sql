@@ -329,39 +329,39 @@ GO
 INSERT INTO [dbo].[Room]
 		([RoomNumber], [BuildingID], [RoomTypeID], [Description], [Capacity], [ResortPropertyID], [OfferingID], [RoomStatusID])
 	VALUES
-		(101, 'Hotel 101', 'Double', 'Double beds', 4, 100001, 100000, 'Available'),
-		(102, 'Hotel 101', 'King', 'Single king', 2, 100000, 100001, 'Occupied'),
-		(104, 'Hotel 102', 'Double', 'Double beds', 4, 100001, 100002, 'Available'),
-		(105, 'Hotel 102', 'King', 'Single king', 2, 100001, 100003, 'Occupied'),
-		(103, 'Guest Bld 101', 'Double', 'Double beds', 4, 100001, 100004, 'Available'),
-		(106, 'Guest Bld 101', 'King', 'Single king', 2, 100002, 100005, 'Occupied'),
-		(107, 'Shopping Center 101', 'Double', 'Double beds', 4, 100003, 100006, 'Available'),
-		(108, 'Shopping Center 101', 'King', 'Single king', 2, 100004, 100006, 'Occupied'),
-		(109, 'Food Center 101', 'Double', 'Double beds', 4, 100005, 100005, 'Available'),
-		(110, 'Food Center 101', 'King', 'Single king', 2, 100006, 100005, 'Occupied'),
-		(111, 'Welcome Center', 'Double', 'Double beds', 4, 100007, 100000, 'Available'),
-		(112, 'Welcome Center', 'King', 'Single king', 2, 100008, 100001, 'Occupied'),
-		(114, 'GenBld01', 'Double', 'Double beds', 4, 100009, 100002, 'Available'),
-		(113, 'GenBld01', 'King', 'Single king', 2, 100002, 100000, 'Occupied')
+		-- (101, 'Hotel 101', 'Double', 'Double beds', 4, 100001, 100000, 'Available'),
+		-- (102, 'Hotel 101', 'King', 'Single king', 2, 100000, 100001, 'Occupied'),
+		-- (104, 'Hotel 102', 'Double', 'Double beds', 4, 100001, 100002, 'Available'),
+		-- (105, 'Hotel 102', 'King', 'Single king', 2, 100001, 100003, 'Occupied'),
+		-- (103, 'Guest Bld 101', 'Double', 'Double beds', 4, 100001, 100004, 'Available'),
+		-- (106, 'Guest Bld 101', 'King', 'Single king', 2, 100002, 100005, 'Occupied'),
+		-- (107, 'Shopping Center 101', 'Double', 'Double beds', 4, 100003, 100006, 'Available'),
+		-- (108, 'Shopping Center 101', 'King', 'Single king', 2, 100004, 100006, 'Occupied'),
+		-- (109, 'Food Center 101', 'Double', 'Double beds', 4, 100005, 100005, 'Available'),
+		-- (110, 'Food Center 101', 'King', 'Single king', 2, 100006, 100005, 'Occupied'),
+		-- (111, 'Welcome Center', 'Double', 'Double beds', 4, 100007, 100000, 'Available'),
+		-- (112, 'Welcome Center', 'King', 'Single king', 2, 100008, 100001, 'Occupied'),
+		-- (114, 'GenBld01', 'Double', 'Double beds', 4, 100009, 100002, 'Available'),
+		-- (113, 'GenBld01', 'King', 'Single king', 2, 100002, 100000, 'Occupied')
 
-    	-- (114, 'North Shore1', 'Beach House', 'Sleeps 10 to 20 guests.', 20, 100001, 100012, 'Available'),
-		-- (115, 'East Shore1', 'Beach House', 'Sleeps 10 to 20 guests.', 20, 100001, 100012, 'Occupied'),
-		-- (116, 'West Shore1', 'Beach House', 'Sleeps 10 to 20 guests.', 20, 100001, 100012, 'Available'),
-		-- (117, 'South Shore1', 'Beach House', 'Sleeps 10 to 20 guests.', 20, 100001, 100012, 'Occupied'),
-		-- (118, 'North Shore2', 'Bungalow Land', 'Queen Size Beds.', 2, 100001, 100013, 'Available'),
-		-- (119, 'East Shore2', 'Bungalow Land', 'Queen Size Beds.', 2, 100001, 100013, 'Occupied'),
-		-- (120, 'West Shore2', 'Bungalow Land', 'Queen Size Beds.', 2, 100001, 100013, 'Available'),
-		-- (121, 'South Shore2', 'Bungalow Land', 'Queen Size Beds.', 2, 100001, 100013, 'Occupied'),
-		-- (122, 'North Shore3', 'Bungalow Sea', 'Queen Size Beds', 2, 100001, 100014, 'Available'),
-		-- (123, 'East Shore3', 'Bungalow Sea', 'Queen Size Beds', 2, 100001, 100014, 'Occupied'),
-		-- (124, 'West Shore3', 'Bungalow Sea', 'Queen Size Beds', 2, 100001, 100014, 'Available'),
-		-- (125, 'South Shore3', 'Bungalow Sea', 'Queen Size Beds.', 2, 100001, 100014, 'Occupied'),
-		-- (126, 'North Shore4', 'Royal Suite', 'Kings and Queens, Sleep 2 - 5 guests.', 2, 100001, 100015, 'Available'),
-		-- (127, 'East Shore4', 'Royal Suite', 'Kings and Queens, Sleep 2 - 5 guests.', 2, 100001, 100015, 'Occupied'),
-		-- (128, 'West Shore4', 'Royal Suite', 'Kings and Queens, Sleep 2 - 5 guests.', 2, 100001, 100015, 'Available'),
-		-- (129, 'South Shore4', 'Royal Suite', 'Kings and Queens, Sleep 2 - 5 guests.', 2, 100001, 100015, 'Occupied'),
-		-- (130, 'East Shore5', 'Hostel Hut', 'Single Size Beds Sleeps 20 or more.', 5, 100001, 100016, 'Occupied'),
-		-- (131, 'South Shore5', 'Hostel Hut', 'Single Size Beds Sleeps 20 or more.', 20, 100001, 100016, 'Occupied')
+    	(114, 'North Shore1', 'Beach House', 'Sleeps 10 to 20 guests.', 20, 100001, 100012, 'Available'),
+		(115, 'East Shore1', 'Beach House', 'Sleeps 10 to 20 guests.', 20, 100001, 100012, 'Occupied'),
+		(116, 'West Shore1', 'Beach House', 'Sleeps 10 to 20 guests.', 20, 100001, 100012, 'Available'),
+		(117, 'South Shore1', 'Beach House', 'Sleeps 10 to 20 guests.', 20, 100001, 100012, 'Occupied'),
+		(118, 'North Shore2', 'Bungalow Land', 'Queen Size Beds.', 2, 100001, 100013, 'Available'),
+		(119, 'East Shore2', 'Bungalow Land', 'Queen Size Beds.', 2, 100001, 100013, 'Occupied'),
+		(120, 'West Shore2', 'Bungalow Land', 'Queen Size Beds.', 2, 100001, 100013, 'Available'),
+		(121, 'South Shore2', 'Bungalow Land', 'Queen Size Beds.', 2, 100001, 100013, 'Occupied'),
+		(122, 'North Shore3', 'Bungalow Sea', 'Queen Size Beds', 2, 100001, 100014, 'Available'),
+		(123, 'East Shore3', 'Bungalow Sea', 'Queen Size Beds', 2, 100001, 100014, 'Occupied'),
+		(124, 'West Shore3', 'Bungalow Sea', 'Queen Size Beds', 2, 100001, 100014, 'Available'),
+		(125, 'South Shore3', 'Bungalow Sea', 'Queen Size Beds.', 2, 100001, 100014, 'Occupied'),
+		(126, 'North Shore4', 'Royal Suite', 'Kings and Queens, Sleep 2 - 5 guests.', 2, 100001, 100015, 'Available'),
+		(127, 'East Shore4', 'Royal Suite', 'Kings and Queens, Sleep 2 - 5 guests.', 2, 100001, 100015, 'Occupied'),
+		(128, 'West Shore4', 'Royal Suite', 'Kings and Queens, Sleep 2 - 5 guests.', 2, 100001, 100015, 'Available'),
+		(129, 'South Shore4', 'Royal Suite', 'Kings and Queens, Sleep 2 - 5 guests.', 2, 100001, 100015, 'Occupied'),
+		(130, 'East Shore5', 'Hostel Hut', 'Single Size Beds Sleeps 20 or more.', 5, 100001, 100016, 'Occupied'),
+		(131, 'South Shore5', 'Hostel Hut', 'Single Size Beds Sleeps 20 or more.', 20, 100001, 100016, 'Occupied')
 
 		
 GO
@@ -801,7 +801,25 @@ VALUES
 ("Super Glue",100002,25,"Part of this component",1),
 ("Duct Tape",100003,25,"Part of this component",1),
 ("Knife",100004,25,"Part of this component",1),
-("Hose Fitting",100005,25,"Part of this component",1)
+("Hose Fitting",100005,25,"Part of this component",1),
+('C# and Yoga', 100000, 30,'Modern Yoga infused with loose couplings and dependancy construction.',1),
+('sql and Yoga', 100000, 30, 'Modern Yoga infused with data redundancy.',1),
+('Coal Walk',  100000, 30,'Ever wanted to walk on hot coals? Now is your chance!',1),
+('Leg Waxing',  100000, 30,'It is as painful as it sounds.',1),
+('Beach Massage', 100000, 30, 'Get a relaxing massage on the beach.',1),
+('Nature Walk',  100000, 30,'Explore the natural beauty surrounding the resort',1),
+('Fishing Charter', 100000, 30, 'Go catch the big fish and have it professionally filleted for your eating pleasure.',1),
+('Spa', 100000, 30,'Spa',1),
+('Pet Grooming',  100000, 30,'Pet Grooming',1),
+('Turtle Petting', 100000, 30, 'Turtle Petting',1),
+('Whale Watching',  100000, 30,'Whale Watching',1),
+('Sand Castle',  100000, 30,'Sand Castle Building',1)
+
+
+
+
+
+
 GO
 
 
