@@ -1,8 +1,6 @@
 ﻿@model MillennialResortWebSite.Models.ReservationSearchModel
 
 
-@*@model MillennialResortWebSite.Models.HomeViewModelsMixer*@
-
 
 
 
@@ -51,42 +49,20 @@
 
                     <div class="form-group">
                         <div class="col-md-10">
-                            <select class="form-control Sleeps" name="@Html.NameFor(model => model.NumberOfGuests)">
-                                <option selected="">Guests</option>
-                                <option value="2">2 Guests</option>
-                                <option value="3">3 Guests</option>
-                                <option value="4">4 Guests</option>
-                                <option value="5">5 Guests</option>
-                                <option value="6">6 Guests</option>
-                                <option value="7">7 Guests</option>
-                                <option value="8">8 Guests</option>
-                                <option value="9">9 Guests</option>
-                                <option value="10">10 Guests</option>
-                                <option value="11">11 Guests</option>
-                                <option value="12">12 Guests</option>
-                                <option value="13">13 Guests</option>
-                                <option value="14">14 Guests</option>
-                                <option value="15">15 Guests</option>
-                                <option value="16">16 Guests</option>
-                                <option value="17">17 Guests</option>
-                                <option value="18">18 Guests</option>
-                                <option value="19">19 Guests</option>
-                                <option value="20">20 Guests</option>
-                                <option value="25">25 Guests</option>
-                            </select>
+                           
 
-                            @*@Html.DropDownListFor(model => model.numberOfGuests, Enumerable.Range(1, 25).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() }))*@
+                            @Html.DropDownListFor(model => model.NumberOfGuests, Enumerable.Range(1, 25).Select(i => new SelectListItem { Text = i.ToString() + " Guest", Value = i.ToString() }),
+                                                    new { @class = "form-control Sleeps" })
 
-                            @* @Html.ValidationMessageFor(model => model.numberOfGuests, "", new { @class = "text-danger" }) *@
+                            @Html.ValidationMessageFor(model => model.NumberOfGuests, "", new { @class = "text-danger" })
 
-                            @*@Html.ValidationMessageFor(model => model.Reservation.FirstOrDefault().numberOfGuests, "", new { @class = "text-danger" })*@
+                           
 
-                            @*@Html.EditorFor(model => model.numberOfGuests, new { htmlAttributes = new { @class = "form-control", placeholder = "Number Of Guests", @readonly = "true" } })
-                                  @Html.ValidationMessageFor(model => model.numberOfGuests, "", new { @class = "text-danger" })*@
 
 
                         </div>
                     </div>
+
                     <div class="form-group">
                         <div class="col-md-10">
                             <select class="form-control Sleeps" name="petNum">
@@ -110,6 +86,8 @@
 
                         </div>
                     </div>
+
+
 
                     <div class="form-group">
                         <div class="col-md-offset-2 col-md-10">
