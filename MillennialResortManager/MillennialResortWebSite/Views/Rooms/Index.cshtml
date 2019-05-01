@@ -51,7 +51,7 @@
 
                     <div class="form-group">
                         <div class="col-md-10">
-                            <select class="form-control Sleeps" name="@Html.NameFor(model => model.NumberOfGuests)">
+                            @*<select class="form-control Sleeps" name="@Html.NameFor(model => model.NumberOfGuests)">
                                 <option selected="">Guests</option>
                                 <option value="2">2 Guests</option>
                                 <option value="3">3 Guests</option>
@@ -73,21 +73,22 @@
                                 <option value="19">19 Guests</option>
                                 <option value="20">20 Guests</option>
                                 <option value="25">25 Guests</option>
-                            </select>
+                            </select>*@
+
+                            @Html.DropDownListFor(model => model.NumberOfGuests, Enumerable.Range(1, 25).Select(i => new SelectListItem { Text = i.ToString() + " Guest", Value = i.ToString() }),
+                                                    new { @class = "form-control Sleeps" })
+
+                            @Html.ValidationMessageFor(model => model.NumberOfGuests, "", new { @class = "text-danger" })
 
                             @*@Html.DropDownListFor(model => model.numberOfGuests, Enumerable.Range(1, 25).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() }))*@
+                            @*@Html.EditorFor(model => model.NumberOfGuests, new { htmlAttributes = new { @class = "form-control", placeholder = "Number Of Guests", @readonly = "true" } })*@
 
-                            @* @Html.ValidationMessageFor(model => model.numberOfGuests, "", new { @class = "text-danger" }) *@
-
-                            @*@Html.ValidationMessageFor(model => model.Reservation.FirstOrDefault().numberOfGuests, "", new { @class = "text-danger" })*@
-
-                            @*@Html.EditorFor(model => model.numberOfGuests, new { htmlAttributes = new { @class = "form-control", placeholder = "Number Of Guests", @readonly = "true" } })
-                                  @Html.ValidationMessageFor(model => model.numberOfGuests, "", new { @class = "text-danger" })*@
 
 
                         </div>
                     </div>
-                    <div class="form-group">
+
+                    @*<div class="form-group">
                         <div class="col-md-10">
                             <select class="form-control Sleeps" name="petNum">
                                 <option selected="">Pets</option>
@@ -96,7 +97,7 @@
                                 <option value="2">2 Pets</option>
                                 <option value="3">3 Pets</option>
 
-                            </select>
+                            </select>*@
 
                             @*@Html.DropDownListFor(model => model.numberOfGuests, Enumerable.Range(1, 25).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() }))*@
 
@@ -108,8 +109,10 @@
                                 @Html.ValidationMessageFor(model => model.numberOfGuests, "", new { @class = "text-danger" })*@
 
 
-                        </div>
-                    </div>
+                        @*</div>
+                    </div>*@
+
+
 
                     <div class="form-group">
                         <div class="col-md-offset-2 col-md-10">
