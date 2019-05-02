@@ -11,13 +11,13 @@ namespace MillennialResortWebSite.Controllers
 {
     public class EventController : Controller
     {
-        IEventAccessor eventAccessor = new MockEventAccessor();
+        IEventManager eventManager = new EventManager();
 
 
         // GET: Event
         public ActionResult Index()
         {
-            List<Event> events = eventAccessor.selectAllEvents();
+            List<Event> events = eventManager.RetrieveAllEvents();
 
             return View(events);
         }
