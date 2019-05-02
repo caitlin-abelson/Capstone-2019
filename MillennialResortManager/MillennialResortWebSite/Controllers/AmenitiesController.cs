@@ -48,8 +48,7 @@ namespace MillennialResortWebSite.Controllers
             AppointmentModel appt = new AppointmentModel()
             {
                 AppointmentType = id,
-
-                Description = "",
+                Description = "Incomplete",
                 StartDate = DateTime.Now
             };
 
@@ -71,7 +70,7 @@ namespace MillennialResortWebSite.Controllers
                     Appointment appt = new Appointment()
                     {
                         AppointmentType = appointment.AppointmentType,
-                        Description = "",
+                        Description = appointment.Description,
                         StartDate = appointment.StartDate,
                         EndDate = appointment.StartDate.AddDays(1),
                         GuestID = guest.GuestID

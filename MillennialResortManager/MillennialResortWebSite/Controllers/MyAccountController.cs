@@ -14,12 +14,16 @@ namespace MillennialResortWebSite.Controllers
     public class MyAccountController : Controller
     {
         IGuestManager _guestManager = new GuestManager();
+
         IMemberTabManager _memberTabManager = new MemberTabManager();
+
         IMemberTabLineManager _memberTabLineManager = new MemberTabLineManager();
+
         IMemberManager _memberManager = new MemberManagerMSSQL();
 
-        IAppointmentAccessor apptAccessor = new AppointmentAccessorMock();
-        IReservationAccessor resAccessor = new ReservationAccessorMock();
+        IAppointmentManager apptManager = new AppointmentManager();
+
+        IReservationManager resManager = new ReservationManagerMSSQL();
         // GET: MyAccount
         public ActionResult Index()
         {
@@ -105,7 +109,7 @@ namespace MillennialResortWebSite.Controllers
             List<Appointment> appt;
             try
             {
-                appt = apptAccessor.SelectAppointmentByGuestID(id);
+                appt = apptManager.RetrieveAppointmentsByGuestID(id);
             }
             catch
             {
@@ -120,7 +124,7 @@ namespace MillennialResortWebSite.Controllers
             Reservation res;
             try
             {
-                res = resAccessor.RetrieveReservationByGuestID(id);
+                res = resManager.RetrieveReservationByGuestID(id);
             }
             catch
             {
@@ -128,30 +132,7 @@ namespace MillennialResortWebSite.Controllers
             }
             return View(res);
         }
-
-        // GET: MyAccount/AddGuests/5
-        public ActionResult AddGuests(int id)
-        {
-            return View();
-        }
-
-        // POST: MyAccount/AddGuests/5
-        [HttpPost]
-        public ActionResult AddGuests(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add update logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
         
-
         /// <summary>
         /// Added by: Matt H. on 4/26/17
         /// </summary>
