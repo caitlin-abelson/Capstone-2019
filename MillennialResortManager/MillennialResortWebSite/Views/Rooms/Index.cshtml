@@ -113,7 +113,10 @@
                         <tr>
 
                             <td>
-                                <img class="card-img-top" src="~/Content/images/beachHouse.jpg" alt="Card image cap">
+                                @*<img class="card-img-top" src="~/Content/images/beachHouse.jpg" alt="Card image cap">*@
+                                <img class="card-img-top" src="~/Content/images/HotelHostel.jpg" alt="Card image cap">
+                                @*<img class="card-img-top" src="~/Content/images/" alt="Card image cap">
+                                <img class="card-img-top" src="~/Content/images/" alt="Card image cap">*@
                             </td>
                             <th>
                                 @Html.DisplayNameFor(modelItem => item.RoomType)
@@ -140,7 +143,7 @@
                                 <p>$  @Html.DisplayFor(modelItem => item.Price)</p>
                             </td>
                             <td>
-                                @Html.ActionLink("Reserve Now!", "Create", new { id = item.RoomID, start = Model.ArrivalDate, end = Model.DepartureDate } )
+                                @Html.ActionLink("Reserve Now!", "Create", new { id = item.RoomID, start = Model.ArrivalDate, end = Model.DepartureDate, numGuest = Model.NumberOfGuests } )
                                 
                             </td>
                         </tr>
