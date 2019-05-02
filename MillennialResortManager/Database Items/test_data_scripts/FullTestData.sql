@@ -356,12 +356,12 @@ INSERT INTO [dbo].[Room]
 		(123, 'East Shore3', 'Bungalow Sea', 'Queen Size Beds', 2, 100001, 100014, 'Occupied'),
 		(124, 'West Shore3', 'Bungalow Sea', 'Queen Size Beds', 2, 100001, 100014, 'Available'),
 		(125, 'South Shore3', 'Bungalow Sea', 'Queen Size Beds.', 2, 100001, 100014, 'Occupied'),
-		(126, 'North Shore4', 'Royal Suite', 'Kings and Queens, Sleep 2 - 5 guests.', 2, 100001, 100015, 'Available'),
-		(127, 'East Shore4', 'Royal Suite', 'Kings and Queens, Sleep 2 - 5 guests.', 2, 100001, 100015, 'Occupied'),
-		(128, 'West Shore4', 'Royal Suite', 'Kings and Queens, Sleep 2 - 5 guests.', 2, 100001, 100015, 'Available'),
-		(129, 'South Shore4', 'Royal Suite', 'Kings and Queens, Sleep 2 - 5 guests.', 2, 100001, 100015, 'Occupied'),
-		(130, 'East Shore5', 'Hostel Hut', 'Single Size Beds Sleeps 20 or more.', 5, 100001, 100016, 'Occupied'),
-		(131, 'South Shore5', 'Hostel Hut', 'Single Size Beds Sleeps 20 or more.', 20, 100001, 100016, 'Occupied')
+		(126, 'North Shore4', 'Royal Suite', 'Sleeps up to 10 guests.', 2, 100001, 100015, 'Available'),
+		(127, 'East Shore4', 'Royal Suite', 'Sleeps up to 10 guests.', 2, 100001, 100015, 'Occupied'),
+		(128, 'West Shore4', 'Royal Suite', 'Sleeps up to 10 guests.', 2, 100001, 100015, 'Available'),
+		(129, 'South Shore4', 'Royal Suite', 'Sleeps up to 10 guests.', 2, 100001, 100015, 'Occupied'),
+		(130, 'East Shore5', 'Hostel Hut', 'Sleeps up to 10 guests.', 5, 100001, 100016, 'Occupied'),
+		(131, 'South Shore5', 'Hostel Hut', 'Sleeps up to 10 guests.', 20, 100001, 100016, 'Occupied')
 
 		
 GO
