@@ -43,7 +43,7 @@ namespace MillennialResortWebSite.Controllers
 
 
         [Authorize]
-        public ActionResult Create(int id, DateTime start, DateTime end)
+        public ActionResult Create(int id, DateTime start, DateTime end, int numGuest)
         {
             if (id == 0)
             {
@@ -74,7 +74,7 @@ namespace MillennialResortWebSite.Controllers
             {
                 ArrivalDate = start,
                 DepartureDate = end,
-                numberOfGuests = 0,
+                NumberOfGuests = numGuest,
                 numberOfPets = 0,
                 roomType = room.RoomType,
                 Notes = ""
@@ -99,7 +99,7 @@ namespace MillennialResortWebSite.Controllers
                     Reservation res = new Reservation()
                     {
                         MemberID = guest.MemberID,
-                        NumberOfGuests = reservation.numberOfGuests,
+                        NumberOfGuests = reservation.NumberOfGuests,
                         ArrivalDate = reservation.ArrivalDate.Value,
                         DepartureDate = reservation.DepartureDate.Value,
                         Notes = reservation.Notes

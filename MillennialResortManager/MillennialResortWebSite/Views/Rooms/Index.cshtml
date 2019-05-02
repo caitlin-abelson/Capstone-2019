@@ -111,10 +111,31 @@
 
 
                         <tr>
+                            @{ 
+                                if (item.RoomType == "Beach House")
+                                {
+                                    <td><img class="card-img-top" src="~/Content/images/beachHouse.jpg" alt="Card image cap"></td>
+                                }
+                                else if (item.RoomType == "Bungalow Land")
+                                {
+                                     <td><img class="card-img-top" src="~/Content/images/bungaloLand.jpg" alt="Card image cap"></td>
+                                }
+                                else if (item.RoomType == "Bungalow Sea")
+                                {
+                                    <td><img class="card-img-top" src="~/Content/images/bunglalowWater.jpg" alt="Card image cap"></td>
+                                }
+                                else if (item.RoomType == "Royal Suite")
+                                {
+                                     <td><img class="card-img-top" src="~/Content/images/jade-Mountain.jpg" alt="Card image cap"></td>
+                                }
+                                else
+                                {
+                                    <td><img class="card-img-top" src="~/Content/images/HotelHostel.jpg" alt="Card image cap"></td>
+                                }
+                              }
 
-                            <td>
-                                <img class="card-img-top" src="~/Content/images/beachHouse.jpg" alt="Card image cap">
-                            </td>
+                                                                                                                                  
+
                             <th>
                                 @Html.DisplayNameFor(modelItem => item.RoomType)
                             </th>
@@ -140,11 +161,11 @@
                                 <p>$  @Html.DisplayFor(modelItem => item.Price)</p>
                             </td>
                             <td>
-                                @Html.ActionLink("Reserve Now!", "Create", new { id = item.RoomID, start = Model.ArrivalDate, end = Model.DepartureDate } )
-                                
+                                @Html.ActionLink("Reserve Now!", "Create", new { id = item.RoomID, start = Model.ArrivalDate, end = Model.DepartureDate, numGuest = Model.NumberOfGuests })
+
                             </td>
-                        </tr>
-                    }
+                       </tr>
+                     }
 
                 </table>
             </div>
