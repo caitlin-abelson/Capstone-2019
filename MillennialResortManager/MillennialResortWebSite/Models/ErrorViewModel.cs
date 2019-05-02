@@ -36,19 +36,19 @@ namespace MillennialResortWebSite.Models
         /// <param name="ButtonMessage"></param>
         /// <param name="ReturnController"></param>
         /// <param name="ReturnAction"></param>
-        //public ErrorViewModel(string Title, string Message, string ExceptionMessage, string ButtonMessage, string ReturnController, string ReturnAction)
-        //{
-        //    this.Title = Title;
-        //    this.Message = Message;
-        //    this.ExceptionMessage = ExceptionMessage;
-        //    ImageLocation = "";
-        //    ImageAlt = "";
-        //    ImageHeight = 0;
-        //    ImageWidth = 0;
-        //    this.ButtonMessage = ButtonMessage;
-        //    this.ReturnController = ReturnController;
-        //    this.ReturnAction = ReturnAction;
-        //}
+        public ErrorViewModel(string Title, string Message, string ExceptionMessage, string ButtonMessage, string ReturnController, string ReturnAction)
+        {
+            this.Title = Title;
+            this.Message = Message;
+            this.ExceptionMessage = ExceptionMessage;
+            ImageLocation = "";
+            ImageAlt = "";
+            ImageHeight = 0;
+            ImageWidth = 0;
+            this.ButtonMessage = ButtonMessage;
+            this.ReturnController = ReturnController;
+            this.ReturnAction = ReturnAction;
+        }
 
         /// <summary>
         /// Wes Richardson

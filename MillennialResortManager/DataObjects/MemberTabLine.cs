@@ -87,5 +87,7 @@ namespace DataObjects
         /// Date the item was added to the bill.
         /// </summary>
         public DateTime DatePurchased { get; set; }
+
+        
     }
 }

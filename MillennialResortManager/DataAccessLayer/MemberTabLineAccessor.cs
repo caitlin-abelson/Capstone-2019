@@ -21,7 +21,7 @@ namespace DataAccessLayer
             List<MemberTabLine> memberTabLines = new List<MemberTabLine>();
 
             var conn = DBConnection.GetDbConnection();
-            var cmdText = @"sp_select_member_tab_line_by_member_tab_id";
+            var cmdText = @"sp_select_membertablines";
             SqlCommand cmd = new SqlCommand(cmdText, conn);
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.AddWithValue("@MemberTabID", id);
@@ -36,24 +36,25 @@ namespace DataAccessLayer
                 {
                     while (rdr.Read())
                     {
-                        memberTabLines.Add(new MemberTabLine
+                        var tab = new MemberTabLine()
                         {
                             MemberTabLineID = rdr.GetInt32(0),
                             MemberTabID = rdr.GetInt32(1),
-                            OfferingTypeID = rdr.GetString(2),
-                            Description = rdr.GetString(3),
-                            Quantity = rdr.GetInt32(4),
-                            Price = rdr.GetDecimal(5),
-                            EmployeeID = rdr.GetInt32(6),
+                            OfferingID = rdr.GetInt32(2),
+                            Quantity = rdr.GetInt32(3),
+                            Price = (decimal)rdr.GetSqlMoney(4),
+                            EmployeeID = rdr.GetInt32(5),
+                            Discount = rdr.GetDecimal(6),
                             GuestID = rdr.GetInt32(7),
                             PurchasedDate = rdr.GetDateTime(8)
-                        }); 
+                        };
+                        memberTabLines.Add(tab);
                     }
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw;
+                throw ex;
             }
             finally
             {

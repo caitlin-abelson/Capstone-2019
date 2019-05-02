@@ -24,9 +24,12 @@ namespace MillennialResortWebSite.Controllers
         IAppointmentManager apptManager = new AppointmentManager();
 
         IReservationManager resManager = new ReservationManagerMSSQL();
+
+        
         // GET: MyAccount
         public ActionResult Index()
         {
+
             try
             {
                 Guest guest = new Guest();
@@ -111,9 +114,18 @@ namespace MillennialResortWebSite.Controllers
             {
                 appt = apptManager.RetrieveAppointmentsByGuestID(id);
             }
-            catch
+            catch (Exception ex)
             {
-                return RedirectToAction("Index");
+                TempData["error"] = new ErrorViewModel(
+                    Title: "Your Appointments",
+                    Message: "We could not pull up a list of your appointments!",
+                    ExceptionMessage: ex.Message,
+                    ButtonMessage: "Back to Account",
+                    ReturnController: "MyAccount",
+                    ReturnAction: "Index"
+                    );
+
+                return RedirectToAction("Index", "Error");
             }
             return View(appt);
         }
@@ -126,13 +138,22 @@ namespace MillennialResortWebSite.Controllers
             {
                 res = resManager.RetrieveReservationByGuestID(id);
             }
-            catch
+            catch (Exception ex)
             {
-                return RedirectToAction("Index");
+                    TempData["error"] = new ErrorViewModel(
+                    Title: "Your Reservations",
+                    Message: "We could not pull up a list of your reservations!",
+                    ExceptionMessage: ex.Message,
+                    ButtonMessage: "Back to Account",
+                    ReturnController: "MyAccount",
+                    ReturnAction: "Index"
+                    );
+
+                return RedirectToAction("Index", "Error");
             }
             return View(res);
         }
-        
+
         /// <summary>
         /// Added by: Matt H. on 4/26/17
         /// </summary>
@@ -142,9 +163,13 @@ namespace MillennialResortWebSite.Controllers
             try
             {
                 string email = User.Identity.Name;
-                MemberTab memberTab = _memberTabManager.RetrieveActiveMemberTabByMemberID(_memberManager.RetrieveMemberByEmail(email));
-                List<MemberTabLine> memberTabLines = _memberTabLineManager.RetrieveMemberTabLineByMemberID(_memberManager.RetrieveMemberByEmail(email));
-                
+
+                int id = _memberManager.RetrieveMemberByEmail(email);
+
+                MemberTab memberTab = _memberTabManager.RetrieveActiveMemberTabByMemberID(id);
+
+                List<MemberTabLine> memberTabLines = _memberTabLineManager.RetrieveMemberTabLineByMemberID(memberTab.MemberTabID);
+
                 ViewTabMixer viewTabMixer = new ViewTabMixer
                 {
                     MemberTab = memberTab,
@@ -153,9 +178,18 @@ namespace MillennialResortWebSite.Controllers
 
                 return View(viewTabMixer);
             }
-            catch
+            catch (Exception ex)
             {
-                return RedirectToAction("Index", "MyAccount");
+                TempData["error"] = new ErrorViewModel(
+                Title: "Your Tab",
+                Message: "We could not pull up your tab!",
+                ExceptionMessage: ex.Message,
+                ButtonMessage: "Back to Account",
+                ReturnController: "MyAccount",
+                ReturnAction: "Index"
+                );
+
+                return RedirectToAction("Index", "Error");
             }
         }
     }

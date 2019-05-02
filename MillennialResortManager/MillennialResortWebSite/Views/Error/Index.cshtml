@@ -15,22 +15,17 @@
         <h3>@Model.Title</h3>
         <hr />
         <dl class="dl-horizontal">
-
             <dd>
                 <h4>@Model.Message</h4>
             </dd>
-            <dd><h1>@Html.ActionLink(Model.ButtonMessage, Model.ReturnAction, Model.ReturnController)</h1></dd>
+            <dd><h5>@Html.ActionLink(Model.ButtonMessage, Model.ReturnAction, Model.ReturnController)</h5></dd>
             <dd>
                 @{ if (Model.ImageLocation != "")
                     {
                     <dd><img src="@Url.Content(Model.ImageLocation)" alt="@Model.ImageAlt" width=@Model.ImageWidth height=@Model.ImageHeight></dd>
                 }
                 }
-
-
-                <dd>If Contacting Technical Support Please Give this message: @Model.ExceptionMessage</dd>
-
-
+                <dd>If Contacting Technical Support, please give them this message: @Model.ExceptionMessage</dd>
             </dl>
         </div>
     </div>
