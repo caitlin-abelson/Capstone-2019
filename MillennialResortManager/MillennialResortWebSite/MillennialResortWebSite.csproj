@@ -61,7 +61,9 @@
     <IntermediateOutputPath>C:\Users\nh229u22\AppData\Local\Temp\vs32D2.tmp\Debug\</IntermediateOutputPath>
     <IntermediateOutputPath>C:\Users\owner\AppData\Local\Temp\vs381B.tmp\Debug\</IntermediateOutputPath>
     <IntermediateOutputPath>C:\Users\Craig\AppData\Local\Temp\vs95F3.tmp\Debug\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\nh229u26\AppData\Local\Temp\vs8F0D.tmp\Debug\</IntermediateOutputPath>
     <IntermediateOutputPath>C:\Users\shado\AppData\Local\Temp\vs3E9D.tmp\Debug\</IntermediateOutputPath>
+
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -97,6 +99,7 @@
     <IntermediateOutputPath>C:\Users\nh229u22\AppData\Local\Temp\vs32D2.tmp\Release\</IntermediateOutputPath>
     <IntermediateOutputPath>C:\Users\owner\AppData\Local\Temp\vs381B.tmp\Release\</IntermediateOutputPath>
     <IntermediateOutputPath>C:\Users\Craig\AppData\Local\Temp\vs95F3.tmp\Release\</IntermediateOutputPath>
+
     <IntermediateOutputPath>C:\Users\shado\AppData\Local\Temp\vs3E9D.tmp\Release\</IntermediateOutputPath>
   </PropertyGroup>
   <ItemGroup>
