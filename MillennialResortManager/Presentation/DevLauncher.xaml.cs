@@ -417,10 +417,9 @@ namespace Presentation
         }
 
         /// <summary>
-        /// Author: ??????
+        /// Author: Matt LaMarche
         /// Date: 2019/03/29
-        /// Used to hide the navbar items based on role?
-        /// comment by Alisa Roehr. assumed creator Matt LaMarche.
+        /// Used to hide individual navbar items
         /// </summary>
         private void HideNavbarOption()
         {
@@ -867,10 +866,9 @@ namespace Presentation
         }
 
         /// <summary>
-        /// Author: ??????
+        /// Author: Matt LaMarche
         /// Created : 2019/03/29
         /// This is what happens when the subheader button for Maintenance Work Orders is clicked from the navbar
-        /// assumed creator Matt LaMarche.
         /// </summary>
         /// <param name=""></param>
         /// <param name="e"></param>
@@ -880,10 +878,9 @@ namespace Presentation
             BrowseMaintenanceWorkOrderDoOnStart();
         }
         /// <summary>
-        /// Author: ??????
+        /// Author: Matt LaMarche
         /// Created : 2019/04/05
         /// This is what happens when the subheader button for Maintenance Work Orders is clicked from the navbar
-        /// assumed creator Matt LaMarche.
         /// </summary>
         /// <param name=""></param>
         /// <param name="e"></param>
@@ -894,10 +891,9 @@ namespace Presentation
         }
 
         /// <summary>
-        /// Author: ??????
+        /// Author: Matt LaMarche
         /// Date: 2019/04/08
         /// This is what happens when the subheader button for Front Desk is clicked from the navbar
-        /// comment by Alisa Roehr.assumed creator Matt LaMarche.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -920,10 +916,9 @@ namespace Presentation
             BrowseOfferingDoOnStart();
         }
         /// <summary>
-        /// Author: ??????
+        /// Author: Matt LaMarche
         /// Date: 2019/04/10
         /// This is what happens when the subheader button for Shuttle Reservations is clicked from the navbar
-        /// comment by Alisa Roehr.assumed creator Matt LaMarche.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -934,17 +929,16 @@ namespace Presentation
         }
 
         /// <summary>
-        /// Author: ??????
+        /// Author: Matt LaMarche
         /// Date: 2019/04/11
         /// This is what happens when the subheader button for Departments is clicked from the navbar
-        /// comment by Alisa Roehr.assumed creator Matt LaMarche.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void NavBarSubHeaderDepartment_Click(object sender, RoutedEventArgs e)
         {
             DisplayPage("Department");
-
+            BrowseDepartmentDoOnStart();
         }
 
 		/// <summary author="Austin Delaney" created="2019/04/26">
@@ -6589,6 +6583,12 @@ namespace Presentation
 
         #region Profile Code
         /*--------------------------- Starting Profile Code #Profile--------------------------------*/
+        /// <summary>
+        /// Author: Matt LaMarche
+        /// Created : 3/13/2019
+        /// 
+        /// This is where you stick all the code you want to run in your Constructor/Window_Loaded statement for the Profile Page
+        /// </summary>
         private void ProfileDoOnStart()
         {
             _departmentManager = new DepartmentManager();
