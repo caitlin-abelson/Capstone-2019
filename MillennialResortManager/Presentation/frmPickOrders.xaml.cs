@@ -56,6 +56,30 @@ namespace Presentation
            
         }
 
+        //public frmPickOrders(int employeeId)
+        //{
+        //    InitializeComponent();
+        //    if (employeeId == 0)
+        //    {
+        //        _employeeID = 100001;
+        //    }
+        //    else
+        //    {
+        //        _employeeID = employeeId;
+        //    }
+        //    dtpStartDate.SelectedDate = _startDate;
+        //    SetupControls();
+        //    LoadCreatePickGrid(false);
+        //    //Load the Process Pick Sheet grid (Second Tab)
+        //    dtpProcessPickStartDate.SelectedDate = _startDate;
+        //    //Load the Deliver Pick Sheet grid (Third Tab)
+        //    dtpDeliveryStartDate.SelectedDate = _startDate;
+        //    LoadPickSheetHeaderGrid((DateTime)dtpProcessPickStartDate.SelectedDate);
+        //    dtpDeliveryStartDate.SelectedDate = _startDate;
+        //    LoadPickSheetDeliveryGrid(_startDate);
+
+        //}
+
         private void LoadCreatePickGrid(bool hidePicked)
         {
             try

@@ -179,6 +179,7 @@
     <Compile Include="RoomAccessor.cs" />
     <Compile Include="RoomReservationAccessor.cs" />
     <Compile Include="SetupAccessor.cs" />
+    <Compile Include="SetupAccessorMock.cs" />
     <Compile Include="SetupListAccessor.cs" />
     <Compile Include="SetupListAccessorMock.cs" />
     <Compile Include="ShopAccessorMock.cs" />

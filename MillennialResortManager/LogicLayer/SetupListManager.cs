@@ -25,6 +25,19 @@ namespace LogicLayer
         }
 
         /// <summary>
+        /// Author: James Heim
+        /// Created Date: 5/3/19
+        /// 
+        /// Constructor that takes allows a different accessor.
+        /// Created specificially for supplying the mock accessor for unit testing.
+        /// </summary>
+        /// <param name="accessor"></param>
+        public SetupListManager(ISetupListAccessor accessor)
+        {
+            _setupListAccessor = accessor;
+        }
+
+        /// <summary>
         /// Author: Caitlin Abelson
         /// Created Date: 2019-02-28
         /// 

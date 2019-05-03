@@ -6,78 +6,97 @@
 }
 
 
-<div class="container-fluid body-content" id="contactPageBody">
-    <div class="container body-content">
 
-        <p>Please fill out this form, and one of our support team members will reach out via Email sometime within the next 2-3 days.</p>
-        <div class="form-inline contactPageForm">
-            @using (Html.BeginForm())
-            {
-                @Html.AntiForgeryToken()
-                <fieldset>
-                    <legend>Contact Us:</legend>
-                    <div class="form-group">
-                        <div id="fNameDiv">
-                            @Html.LabelFor(model => model.FirstName)
-                            @Html.TextBoxFor(model => model.FirstName, new { @class = "form-control", @id = "fNameTxtBox" })
-                            <br />
-                            @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
-                        </div>
+
+<div class="container body-content RegistrationPage contactPageForm">
+    @*<div class="container body-content1">*@
+
+    <h1 class="pull-left" style="color:#40798C;    font-family: 'Fugaz One', cursive; text-shadow: 2px 2px 3px #2296a7; ">Contact Us and we will respond within the next 2-3 days.</h1>
+
+    <div class="form-horizontal">
+
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            <div class="col-md-6">
+
+
+                <div class="form-group">
+                    <div id="fNameDiv">
+                        @Html.LabelFor(model => model.FirstName)
+                        @Html.TextBoxFor(model => model.FirstName, new { @class = "form-control", @id = "fNameTxtBox" })
+                        <br />
+                        @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
                     </div>
+                </div>
 
-                    <div class="form-group">
-                        <div id="selSubDiv">
-                            @Html.LabelFor(model => model.SelectedSubject)
+                <div class="form-group">
+                    <div id="selSubDiv">
+                        @Html.LabelFor(model => model.SelectedSubject)
 
-                            @Html.DropDownListFor(model => model.SelectedSubject, new SelectList(Model.Subjects, "Value", "Text"), htmlAttributes: new { @class = "form-control" })
-                            <br />
-                            <p class="text-danger">@ViewBag.DropdownError</p>
-                        </div>
+                        @Html.DropDownListFor(model => model.SelectedSubject, new SelectList(Model.Subjects, "Value", "Text"), htmlAttributes: new { @class = "form-control" })
+                        <br />
+                        <p class="text-danger">@ViewBag.DropdownError</p>
                     </div>
-                    <br />
-
-                    <div class="form-group">
-                        <div id="lNameDiv">
-                            @Html.LabelFor(model => model.LastName)
-                            @Html.TextBoxFor(model => model.LastName, new { @class = "form-control", @id = "lNameTxtBox" })
-                            <br />
-                            @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
-                        </div>
+                </div>
+                <div class="form-group">
+                    <div id="lNameDiv">
+                        @Html.LabelFor(model => model.LastName)
+                        @Html.TextBoxFor(model => model.LastName, new { @class = "form-control", @id = "lNameTxtBox" })
+                        <br />
+                        @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
                     </div>
+                </div>
 
-                    <div class="form-group">
-                        <div id="descDiv">
-                            @Html.TextAreaFor(model => model.Description, 10, 50, new { @class = "form-control", @id = "descTxtArea", placeholder = "Tell us a little about your issue.", })
-                            <br />
-                            @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
-                        </div>
+            </div>
+
+
+
+
+
+
+
+            <div class="col-md-6">
+
+
+                <div class="form-group">
+                    <div id="descDiv">
+                        @Html.TextAreaFor(model => model.Description, 10, 50, new { @class = "form-control", @id = "descTxtArea", placeholder = "Tell us a little about your issue.", })
+                        <br />
+                        @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
                     </div>
-                    <br />
+                </div>
+                <br />
 
-                    <div class="form-group">
-                        <div id="emailDiv">
-                            @Html.LabelFor(model => model.Email)
-                            @Html.TextBoxFor(model => model.Email, new { @class = "form-control", @id = "emailTxtBox" })
-                            <br />
-                            @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
-                        </div>
+                <div class="form-group">
+                    <div id="emailDiv">
+                        @Html.LabelFor(model => model.Email)
+                        @Html.TextBoxFor(model => model.Email, new { @class = "form-control", @id = "emailTxtBox" })
+                        <br />
+                        @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
                     </div>
+                </div>
 
-                    <div class="form-group">
-                        <div id="submitDiv">
-                            <input type="submit" value="Submit" id="contactFrmSbmtBtn" class="btn btn-default" />
-                        </div>
+                <div class="form-group">
+                    <div id="submitDiv">
+                        <input type="submit" value="Submit" id="contactFrmSbmtBtn" class="btn btn-default" />
                     </div>
-                </fieldset>
+                </div>
+            </div>
 
-            }
-        </div><br />
-
-        <address>
-            Rest & Relaxation Way<br /><br />
-            Panama City Beach, Florida 32401<br /><br />
-            Phone: 425.555.0100<br /><br />
-            <strong>Support:</strong>   <a href="mailto:millennialcontact107@gmail.com">millennialcontact107@gmail.com</a>
-        </address>
+        }
     </div>
+
+  
+       
+                <h2>Rest & Relaxation Way</h2> 
+                <h2>Panama City Beach, Florida 32401</h2>
+                <h2>Phone: 425.555.0100</h2>
+                <strong>Support:</strong>   <a href="mailto:millennialcontact107@gmail.com">millennialcontact107@gmail.com</a>
+
+           
+
+        
+   
 </div>
+

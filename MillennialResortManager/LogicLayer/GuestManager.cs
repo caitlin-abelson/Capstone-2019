@@ -101,7 +101,7 @@ namespace LogicLayer
             {
                 return false; // for EmergencyLastName
             }
-            else if (_guest.EmergencyPhoneNumber.Length > 11 || _guest.EmergencyPhoneNumber == null || _guest.EmergencyPhoneNumber.Length < 7 || int.TryParse(_guest.EmergencyPhoneNumber, out aNumber))
+            else if (_guest.EmergencyPhoneNumber.Length > 11 || _guest.EmergencyPhoneNumber == null || _guest.EmergencyPhoneNumber.Length < 7)
             {
                 return false; // for EmergencyPhoneNumber, need to test for if integer
             }

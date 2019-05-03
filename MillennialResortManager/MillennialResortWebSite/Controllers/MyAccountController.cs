@@ -14,15 +14,22 @@ namespace MillennialResortWebSite.Controllers
     public class MyAccountController : Controller
     {
         IGuestManager _guestManager = new GuestManager();
+
         IMemberTabManager _memberTabManager = new MemberTabManager();
+
         IMemberTabLineManager _memberTabLineManager = new MemberTabLineManager();
+
         IMemberManager _memberManager = new MemberManagerMSSQL();
 
-        IAppointmentAccessor apptAccessor = new AppointmentAccessorMock();
-        IReservationAccessor resAccessor = new ReservationAccessorMock();
+        IAppointmentManager apptManager = new AppointmentManager();
+
+        IReservationManager resManager = new ReservationManagerMSSQL();
+
+        
         // GET: MyAccount
         public ActionResult Index()
         {
+
             try
             {
                 Guest guest = new Guest();
@@ -105,11 +112,20 @@ namespace MillennialResortWebSite.Controllers
             List<Appointment> appt;
             try
             {
-                appt = apptAccessor.SelectAppointmentByGuestID(id);
+                appt = apptManager.RetrieveAppointmentsByGuestID(id);
             }
-            catch
+            catch (Exception ex)
             {
-                return RedirectToAction("Index");
+                TempData["error"] = new ErrorViewModel(
+                    Title: "Your Appointments",
+                    Message: "We could not pull up a list of your appointments!",
+                    ExceptionMessage: ex.Message,
+                    ButtonMessage: "Back to Account",
+                    ReturnController: "MyAccount",
+                    ReturnAction: "Index"
+                    );
+
+                return RedirectToAction("Index", "Error");
             }
             return View(appt);
         }
@@ -120,37 +136,23 @@ namespace MillennialResortWebSite.Controllers
             Reservation res;
             try
             {
-                res = resAccessor.RetrieveReservationByGuestID(id);
+                res = resManager.RetrieveReservationByGuestID(id);
             }
-            catch
+            catch (Exception ex)
             {
-                return RedirectToAction("Index");
+                    TempData["error"] = new ErrorViewModel(
+                    Title: "Your Reservations",
+                    Message: "We could not pull up a list of your reservations!",
+                    ExceptionMessage: ex.Message,
+                    ButtonMessage: "Back to Account",
+                    ReturnController: "MyAccount",
+                    ReturnAction: "Index"
+                    );
+
+                return RedirectToAction("Index", "Error");
             }
             return View(res);
         }
-
-        // GET: MyAccount/AddGuests/5
-        public ActionResult AddGuests(int id)
-        {
-            return View();
-        }
-
-        // POST: MyAccount/AddGuests/5
-        [HttpPost]
-        public ActionResult AddGuests(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add update logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-        
 
         /// <summary>
         /// Added by: Matt H. on 4/26/17
@@ -161,9 +163,13 @@ namespace MillennialResortWebSite.Controllers
             try
             {
                 string email = User.Identity.Name;
-                MemberTab memberTab = _memberTabManager.RetrieveActiveMemberTabByMemberID(_memberManager.RetrieveMemberByEmail(email));
-                List<MemberTabLine> memberTabLines = _memberTabLineManager.RetrieveMemberTabLineByMemberID(_memberManager.RetrieveMemberByEmail(email));
-                
+
+                int id = _memberManager.RetrieveMemberByEmail(email);
+
+                MemberTab memberTab = _memberTabManager.RetrieveActiveMemberTabByMemberID(id);
+
+                List<MemberTabLine> memberTabLines = _memberTabLineManager.RetrieveMemberTabLineByMemberID(memberTab.MemberTabID);
+
                 ViewTabMixer viewTabMixer = new ViewTabMixer
                 {
                     MemberTab = memberTab,
@@ -172,9 +178,18 @@ namespace MillennialResortWebSite.Controllers
 
                 return View(viewTabMixer);
             }
-            catch
+            catch (Exception ex)
             {
-                return RedirectToAction("Index", "MyAccount");
+                TempData["error"] = new ErrorViewModel(
+                Title: "Your Tab",
+                Message: "We could not pull up your tab!",
+                ExceptionMessage: ex.Message,
+                ButtonMessage: "Back to Account",
+                ReturnController: "MyAccount",
+                ReturnAction: "Index"
+                );
+
+                return RedirectToAction("Index", "Error");
             }
         }
     }

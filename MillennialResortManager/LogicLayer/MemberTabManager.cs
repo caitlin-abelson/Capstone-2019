@@ -43,6 +43,13 @@ namespace LogicLayer
         /// 
         /// Create a new MemberTab for the specified Member.
         /// </summary>
+        /// <remarks>
+        /// Modified by James Heim
+        /// Modified 2019-05-01
+        /// Stored Procedure does not return rowcount, and database is locked down,
+        /// so set result to true if it ran without exception. 
+        /// (Procedure throws error if there exists an already active member tab.)
+        /// </remarks>
         /// <param name="memberID"></param>
         /// <returns>Whether the tab was created.</returns>
         public bool CreateMemberTab(int memberID)
@@ -51,7 +58,8 @@ namespace LogicLayer
 
             try
             {
-                result = (1 == _memberTabAccessor.InsertMemberTab(memberID));
+                _memberTabAccessor.InsertMemberTab(memberID);
+                result = true;
             }
             catch (Exception)
             {

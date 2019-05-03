@@ -9,21 +9,6 @@
     @Scripts.Render("~/bundles/jqueryui")
     @Styles.Render("~/Content/cssjqryUi")
 
-
-
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $('input[type=datetime]').datepicker({
-                dateFormat: "dd/M/yy",
-                changeMonth: true,
-                changeYear: true,
-                yearRange: "-60:+0",
-                minDate: 0
-            });
-
-        });
-    </script>
-
 }
 
 
@@ -51,7 +36,7 @@
                     <div class="form-group">
                         @Html.LabelFor(model => model.ArrivalDate, htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-10">
-                            @Html.EditorFor(model => model.ArrivalDate, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.EditorFor(model => model.ArrivalDate, new { htmlAttributes = new { @class = "form-control" , @readonly = "readonly" } })  
                             @Html.ValidationMessageFor(model => model.ArrivalDate, "", new { @class = "text-danger" })
 
                         </div>
@@ -60,32 +45,32 @@
                     <div class="form-group">
                         @Html.LabelFor(model => model.DepartureDate, htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-10">
-                            @Html.EditorFor(model => model.DepartureDate, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.EditorFor(model => model.DepartureDate, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
                             @Html.ValidationMessageFor(model => model.DepartureDate, "", new { @class = "text-danger" })
                         </div>
                     </div>
-
+                     
                     <div class="form-group">
-                        @Html.LabelFor(model => model.numberOfGuests, htmlAttributes: new { @class = "control-label col-md-2" })
+                        @Html.LabelFor(model => model.NumberOfGuests, htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-10">
-                            @Html.EditorFor(model => model.numberOfGuests, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.numberOfGuests, "", new { @class = "text-danger" })
+                            @Html.EditorFor(model => model.NumberOfGuests, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                            @Html.ValidationMessageFor(model => model.NumberOfGuests, "", new { @class = "text-danger" })
                         </div>
                     </div>
 
                     <div class="form-group">
                         @Html.LabelFor(model => model.numberOfPets, htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-10">
-                            @Html.EditorFor(model => model.numberOfPets, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.EditorFor(model => model.numberOfPets, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly"  } })
                             @Html.ValidationMessageFor(model => model.numberOfPets, "", new { @class = "text-danger" })
                         </div>
                     </div>
 
                     <div class="form-group">
-                        @Html.LabelFor(model => model.roomType, htmlAttributes: new { @class = "control-label col-md-2" })
+                        @Html.LabelFor(model => model.RoomType, htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-10">
-                            @Html.EditorFor(model => model.roomType, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
-                            @Html.ValidationMessageFor(model => model.roomType, "", new { @class = "text-danger" })
+                            @Html.EditorFor(model => model.RoomType, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                            @Html.ValidationMessageFor(model => model.RoomType, "", new { @class = "text-danger" })
                         </div>
                     </div>
 
