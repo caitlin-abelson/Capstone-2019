@@ -23,10 +23,18 @@ namespace LogicLayer
             _setupAccessor = new SetupAccessor();
         }
 
-        //public SetupManager(SetupAccessorMock setupAccessorMock)
-        //{
-        //    _setupAccessor = setupAccessorMock;
-        //}
+        /// <summary>
+        /// Author: Caitlin Ablson
+        /// Created Date 2/25/19
+        /// 
+        /// The constructor for for the SetupManager class 
+        /// that takes an alternate setupAccessor.
+        /// </summary>
+        /// <param name="setupAccessor"></param>
+        public SetupManager(ISetupAccessor setupAccessor)
+        {
+            _setupAccessor = setupAccessor;
+        }
 
 
         /// <summary>

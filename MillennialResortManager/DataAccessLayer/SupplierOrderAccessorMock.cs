@@ -311,5 +311,10 @@ namespace DataAccessLayer
         {
             throw new NotImplementedException();
         }
+
+        public int UpdateGeneratedOrder(int supplierOrderID, int employeeID)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

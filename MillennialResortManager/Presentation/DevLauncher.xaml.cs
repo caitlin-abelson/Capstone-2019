@@ -5804,6 +5804,7 @@ namespace Presentation
         private void BrowseSupplierOrdersDoOnStart()
         {
             _supplierOrderManager = new SupplierOrderManager();
+            _supplierManager = new SupplierManager();
             LoadSupplierCombo();
             LoadSupplierOrderGrid();
         }
@@ -6038,6 +6039,38 @@ namespace Presentation
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
+        private void CbxIsGenerated_Click(object sender, RoutedEventArgs e)
+        {
+            if (cbxIsGenerated.IsChecked == true)
+            {
+                LoadGeneratedOrders();
+                btnApproveOrder.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                LoadSupplierOrderGrid();
+                btnApproveOrder.Visibility = Visibility.Hidden;
+            }
+        }
+
+        private void LoadGeneratedOrders()
+        {
+            try
+            {
+
+                _supplierOrders = _supplierOrderManager.RetrieveAllGeneratedOrders();
+                _currentSupplierOrders = _supplierOrders;
+                dgSupplierOrders.ItemsSource = null;
+
+                dgSupplierOrders.ItemsSource = _supplierOrders;
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
         private void BtnDeleteOrder_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -6070,7 +6103,28 @@ namespace Presentation
             }
 
         }
-
+        private void BtnApproveOrder_Click(object sender, RoutedEventArgs e)
+        {
+            if (dgSupplierOrders.SelectedIndex != -1)
+            {
+                _supplierOrder = (SupplierOrder)dgSupplierOrders.SelectedItem;
+                try
+                {
+                    if (_supplierOrderManager.UpdateGeneratedOrder(_supplierOrder.SupplierOrderID, _employee.EmployeeID))
+                    {
+                        LoadGeneratedOrders();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Failed to approve order");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+            }
+        }
 
         /*--------------------------- Ending BrowseSupplierOrders Code --------------------------------*/
         #endregion
@@ -8723,7 +8777,7 @@ namespace Presentation
 		}
 
 
-		#endregion
+        #endregion
 
-	}
+    }
 }
