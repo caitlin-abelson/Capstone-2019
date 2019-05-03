@@ -18,15 +18,15 @@ namespace LogicLayer
         /// for managing relationship between items and supplier 
         /// </summary>
 
-        private ISupplierOrderAccessor _supplierOrderManager;
+        private ISupplierOrderAccessor _supplierOrderAccessor;
         public SupplierOrderManager()
         {
-            _supplierOrderManager = new SupplierOrderAccessor();
+            _supplierOrderAccessor = new SupplierOrderAccessor();
         }
 
         public SupplierOrderManager(SupplierOrderAccessorMock _supplierOrderAccessorMock)
         {
-            _supplierOrderManager = _supplierOrderAccessorMock;
+            _supplierOrderAccessor = _supplierOrderAccessorMock;
         }
 
         /// <summary>
@@ -56,7 +56,7 @@ namespace LogicLayer
                         throw new ArgumentException("Data for this supplier line item record is invalid");
                     }
                 }
-                result = _supplierOrderManager.InsertSupplierOrder(supplierOrder, supplierOrderLines);
+                result = _supplierOrderAccessor.InsertSupplierOrder(supplierOrder, supplierOrderLines);
             }
             catch (Exception ex)
             {
@@ -82,7 +82,7 @@ namespace LogicLayer
             List<VMItemSupplierItem> _itemSuppliers;
             try
             {
-                _itemSuppliers = _supplierOrderManager.SelectItemSuppliersBySupplierID(supplierID);
+                _itemSuppliers = _supplierOrderAccessor.SelectItemSuppliersBySupplierID(supplierID);
 
             }
             catch (Exception ex)
@@ -97,7 +97,7 @@ namespace LogicLayer
             List<SupplierOrderLine> _supplierOrderLines;
             try
             {
-                _supplierOrderLines = _supplierOrderManager.SelectSupplierOrderLinesBySupplierOrderID(supplierOrderID);
+                _supplierOrderLines = _supplierOrderAccessor.SelectSupplierOrderLinesBySupplierOrderID(supplierOrderID);
 
             }
             catch (Exception ex)
@@ -112,7 +112,7 @@ namespace LogicLayer
             List<SupplierOrder> _supplierOrders;
             try
             {
-                _supplierOrders = _supplierOrderManager.SelectAllSupplierOrders();
+                _supplierOrders = _supplierOrderAccessor.SelectAllSupplierOrders();
 
             }
             catch (Exception ex)
@@ -138,7 +138,7 @@ namespace LogicLayer
             List<SupplierOrder> _supplierOrders;
             try
             {
-                _supplierOrders = _supplierOrderManager.SelectAllSupplierOrders();
+                _supplierOrders = _supplierOrderAccessor.SelectAllGeneratedOrders();
 
             }
             catch (Exception ex)
@@ -148,6 +148,8 @@ namespace LogicLayer
             return _supplierOrders;
 
         }
+
+
 
         public int UpdateSupplierOrder(SupplierOrder supplierOrder, List<SupplierOrderLine> supplierOrderLines)
         {
@@ -166,7 +168,7 @@ namespace LogicLayer
                         throw new ArgumentException("Data for this supplier line item record is invalid");
                     }
                 }
-                result = _supplierOrderManager.UpdateSupplierOrder(supplierOrder, supplierOrderLines);
+                result = _supplierOrderAccessor.UpdateSupplierOrder(supplierOrder, supplierOrderLines);
             }
             catch (Exception ex)
             {
@@ -181,7 +183,7 @@ namespace LogicLayer
             int result;
             try
             {
-                result = _supplierOrderManager.DeleteSupplierOrder(supplierOrderID);
+                result = _supplierOrderAccessor.DeleteSupplierOrder(supplierOrderID);
             }
             catch (Exception ex)
             {
@@ -194,7 +196,7 @@ namespace LogicLayer
             int supplierItemID;
             try
             {
-                supplierItemID = _supplierOrderManager.SelectSupplierItemIDByItemAndSupplier(ItemID, SupplierID);
+                supplierItemID = _supplierOrderAccessor.SelectSupplierItemIDByItemAndSupplier(ItemID, SupplierID);
             }
             catch (Exception ex)
             {
@@ -209,7 +211,7 @@ namespace LogicLayer
             SupplierOrder order = new SupplierOrder();
             try
             {
-                order = _supplierOrderManager.RetrieveSupplierOrderByID(supplierOrderID);
+                order = _supplierOrderAccessor.RetrieveSupplierOrderByID(supplierOrderID);
             }
             catch (Exception ex)
             {
@@ -223,13 +225,30 @@ namespace LogicLayer
         {
             try
             {
-                _supplierOrderManager.CompleteSupplierOrder(supplierOrderID);
+                _supplierOrderAccessor.CompleteSupplierOrder(supplierOrderID);
             }
             catch (Exception ex)
             {
 
                 throw ex;
             }
+        }
+
+        public bool UpdateGeneratedOrder(int supplierOrderID, int employeeID)
+        {
+            bool result = false;
+
+            try
+            {
+                result = _supplierOrderAccessor.UpdateGeneratedOrder(supplierOrderID, employeeID) == 1;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+            return result;
         }
     }
 }
