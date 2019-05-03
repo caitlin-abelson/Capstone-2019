@@ -136,6 +136,7 @@
     <Compile Include="MaintenanceWorkOrderAccessorMSSQL.cs" />
     <Compile Include="MemberAccessorMock.cs" />
     <Compile Include="MemberAccessorMSSQL.cs" />
+    <Compile Include="MemberTabAccessorMock.cs" />
     <Compile Include="MessageAccessorMock.cs" />
     <Compile Include="MessageAccessorMSSQL.cs" />
     <Compile Include="BuildingAccessorMock.cs" />
@@ -175,6 +176,7 @@
     <Compile Include="RoomAccessor.cs" />
     <Compile Include="RoomReservationAccessor.cs" />
     <Compile Include="SetupAccessor.cs" />
+    <Compile Include="SetupAccessorMock.cs" />
     <Compile Include="SetupListAccessor.cs" />
     <Compile Include="SetupListAccessorMock.cs" />
     <Compile Include="ShopAccessorMock.cs" />
