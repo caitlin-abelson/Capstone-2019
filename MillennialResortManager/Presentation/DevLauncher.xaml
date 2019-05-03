@@ -80,6 +80,7 @@
                         <MenuItem Header="SupplierOrders" x:Name="NavBarSubHeaderSupplierOrders" x:Uid="NBSupplierOrders" Click="NavBarSubHeaderSupplierOrders_Click"/>
                         <MenuItem Header="Receiving" x:Name="NavBarSubHeaderReceiving" x:Uid="NBReceiving" Click="NavBarSubHeaderReceiving_Click"/>
                         <MenuItem Header="Offerings" x:Name="NavBarSubHeaderOfferings" x:Uid="NBOfferings" Click="NavBarSubHeadersOfferings_Click"/>
+                        <MenuItem Header="Pick Orders" x:Name="NavBarSubHeaderPickOrders" x:Uid="NBPickings" Click="NavBarSubHeaderPickOrders_Click" /> 
                     </MenuItem>
                     <MenuItem Header="_Resort Ops" x:Name="_NavBarHeaderResortOperations" Style="{StaticResource NavBarHeader}" >
                         <MenuItem Header="Appointment Types" x:Name="NavBarSubHeaderAppointmentTypes" x:Uid="NBAppointmentTypes" Click="NavBarSubHeaderAppointmentTypes_Click"/>
@@ -455,10 +456,12 @@
                         <ColumnDefinition />
                         <ColumnDefinition />
                         <ColumnDefinition />
+                        <ColumnDefinition />
                     </Grid.ColumnDefinitions>
                     <Button x:Name="btnAddProduct" Content="Add Item" Margin="5" Grid.Column="1" Click="btnAddProduct_Click"/>
                     <Button x:Name="btnReadProduct"  Content="View Item" Margin="5"  Grid.Column="2" Click="btnReadProduct_Click"/>
                     <Button x:Name="btnDeleteProduct" Content="Delete" Margin="5"  Grid.Column="3" Click="btnDeleteProduct_Click"/>
+                    <Button x:Name="btnManageItemSuppliers" Content="Item Suppliers" Margin="5" Grid.Column="4" Click="BtnManageItemSuppliers_Click"/>
                 </Grid>
             </Grid>
             <!-- Browse Building Page-->
@@ -2039,6 +2042,279 @@
                     </Grid>
                 </Grid>
             </Grid>
+
+            <!--Pick Orders-->
+            <Grid x:Name="PickOrdersPage" Visibility="Hidden">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="5"/>
+                    <RowDefinition/>
+                    <RowDefinition Height="5"/>
+                </Grid.RowDefinitions>
+
+                <Grid Grid.Row="1">
+                    <TabControl Grid.Row="0" x:Name="tabsetPick" GotFocus="tabsetPick_GotFocus" >
+                        <TabItem x:Name="tabCreatePickSheet" Header="Create Pick Sheet" GotFocus="TabCreatePickSheet_GotFocus">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="50"/>
+                                    <RowDefinition/>
+                                    <RowDefinition Height="80"/>
+                                </Grid.RowDefinitions>
+                                <Grid Grid.Row="0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition Width="390"/>
+                                        <ColumnDefinition Width="150"/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBox Grid.Row="0" x:Name="txtPromptCreatePickSheet" Text="test"  IsReadOnly="True" HorizontalAlignment="Stretch" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="16" Margin="5,2,5,0"/>
+
+                                    <Grid Grid.Column="1"  >
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition></RowDefinition>
+                                            <RowDefinition></RowDefinition>
+                                        </Grid.RowDefinitions>
+                                        <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,5,0"  >
+                                            <Label Content="Start Date"  HorizontalContentAlignment="Right" VerticalAlignment="Center" VerticalContentAlignment="Center"/>
+                                            <DatePicker x:Name="dtpStartDate" Height="30" VerticalAlignment="Center" VerticalContentAlignment="Center" Margin="0" />
+                                        </StackPanel>
+                                        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" >
+                                            <RadioButton x:Name="rbAllOrdersPick" Content="Show All Orders" Width="130" Margin="0,5,0,3" Checked="rbAllOrdersPick_Checked"  />
+                                            <RadioButton x:Name="rbNewOrdersPick" Content="Show New Orders" Width="130" Margin="0,5,0,3" Checked="rbNewOrdersPick_Checked" />
+                                            <RadioButton x:Name="rbPickedOrders" Content="Show Picked Orders"  Width="130" Margin="0,5,0,3" Checked="rbPickedOrders_Checked"/>
+                                        </StackPanel>
+                                    </Grid>
+
+
+                                    <Grid Grid.Column="3" >
+                                        <Button x:Name="btnRefreshPickCreateGrid" Content="Refresh Grid" Margin="10" Click="btnRefreshPickCreateGrid_Click" />
+                                    </Grid>
+                                </Grid>
+                                <StackPanel Grid.Row="1" x:Name="stpdgPickCreate" Orientation="Vertical">
+                                    <DataGrid x:Name="dgPickCreate" AutoGenerateColumns="False"  Margin="5,5,5.2,5"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" CanUserAddRows="False"
+                                      FontWeight="Bold" Foreground="#525252" ScrollViewer.CanContentScroll="True" Height="385" 
+                                      ScrollViewer.HorizontalScrollBarVisibility="Visible" ScrollViewer.VerticalScrollBarVisibility="Auto" MouseDoubleClick="dgPickCreate_MouseDoubleClick">
+                                        <DataGrid.Columns>
+                                            <DataGridTextColumn x:Name="dgcPickSheetNumber" Header="PickSheet#"  Binding="{Binding Path='PickSheetIDView'}" IsReadOnly="False"/>
+                                            <DataGridTemplateColumn x:Name="dgcPickChkBox" Header="Pick" >
+                                                <DataGridTemplateColumn.CellTemplate>
+                                                    <DataTemplate>
+                                                        <CheckBox x:Name="chkPickItem" Checked="chkPickItem_Checked" Unchecked="chkPickItem_Unchecked" HorizontalAlignment="Center" HorizontalContentAlignment="Center" />
+                                                    </DataTemplate>
+                                                </DataGridTemplateColumn.CellTemplate>
+                                            </DataGridTemplateColumn>
+                                            <DataGridTextColumn Header="Order #" Binding="{Binding Path='InternalOrderID'}" IsReadOnly="True"/>
+                                            <!--<DataGridTextColumn Header="StationID" Binding="{Binding Path='OrderStationID'}" IsReadOnly="True" Visibility="Hidden"/>-->
+                                            <DataGridTextColumn Header="ItemID"  Binding="{Binding Path='ItemID'}" IsReadOnly="True"/>
+                                            <DataGridTextColumn Header="Description" Binding="{Binding Path='ItemDescription'}" IsReadOnly="True"/>
+                                            <DataGridTextColumn Header="Qty" Binding="{Binding Path='OrderQty'}" IsReadOnly="True"/>
+                                            <!--<DataGridTextColumn Header="Cell" Binding="{Binding Path='CellID'}" IsReadOnly="True"/>-->
+                                            <DataGridTextColumn Header="OrderDate" Binding="{Binding Path='OrderDate', StringFormat=\{0:MM/dd/yy HH:mm\}}" IsReadOnly="True"/>
+                                            <DataGridTextColumn Header="Orderer" Binding="{Binding Path='Orderer'}" IsReadOnly="True"/>
+                                            <DataGridTextColumn Header="Department" Binding="{Binding Path='DepartmentID'}" IsReadOnly="True"/>
+                                            <DataGridTextColumn Header="OrderStatus" Binding="{Binding Path='OrderStatusView'}" IsReadOnly="True"/>
+                                        </DataGrid.Columns>
+                                    </DataGrid>
+                                </StackPanel>
+                                <Grid Grid.Row="2">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition></ColumnDefinition>
+                                        <ColumnDefinition></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <StackPanel Grid.Column="0" Orientation="Horizontal" >
+                                        <Button x:Name="btnStartPick" Content="Start a PickSheet" Margin="10,20,10,20" Width="110" Click="btnStartPick_Click" />
+                                        <Button x:Name="btnEndPick" Content="Stop Picking" Margin="10,20,10,20" Width="110" HorizontalAlignment="Right" HorizontalContentAlignment="Center" IsEnabled="False" Click="btnEndPick_Click"/>
+                                        <Button x:Name="btnCancelPick" Content="Cancel Picking" Margin="10,20,10,20" Width="110" HorizontalAlignment="Right" HorizontalContentAlignment="Center" IsEnabled="False" Click="btnCancelPick_Click"/>
+                                    </StackPanel>
+                                    <TextBox x:Name="txtPickInfo"  FontSize="14" Grid.Column="1"   IsReadOnly="True" TextWrapping="Wrap" Margin="5"></TextBox>
+                                </Grid>
+                            </Grid>
+                        </TabItem>
+                        <TabItem x:Name="tabProcessPickSheet" Header="Process Pick Sheet">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="50"/>
+                                    <RowDefinition Height="230"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+                                <Grid Grid.Row="0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition Width="390"/>
+                                        <ColumnDefinition Width="150"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <TextBox Grid.Row="0" x:Name="txtPromptProcessPickSheet" Text="Process Pick Sheets" IsReadOnly="True" HorizontalAlignment="Stretch" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="16" Margin="5,2,5,0" />
+
+                                    <Grid Grid.Column="1"  >
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition></RowDefinition>
+                                            <RowDefinition></RowDefinition>
+                                        </Grid.RowDefinitions>
+                                        <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,5,0"  >
+                                            <Label Content="Start Date"  VerticalAlignment="Center" VerticalContentAlignment="Center" />
+                                            <DatePicker x:Name="dtpProcessPickStartDate" Height="30"   VerticalAlignment="Center" VerticalContentAlignment="Center"  />
+                                        </StackPanel>
+
+                                    </Grid>
+
+                                    <Grid Grid.Column="3" >
+                                        <Button x:Name="btnRefreshProcessPickGrid" Content="Refresh Grid" Margin="10" Click="btnRefreshProcessPickGrid_Click"  />
+
+                                    </Grid>
+                                </Grid>
+                                <StackPanel Grid.Row="1" x:Name="stpdgProcessPickHeader" Orientation="Vertical">
+                                    <DataGrid x:Name="dgProcessPickHeader" AutoGenerateColumns="False"  Margin="5,5,5,5"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" CanUserAddRows="False"
+                                      ScrollViewer.CanContentScroll="True"  HorizontalContentAlignment="Center" Height="230" FontWeight="Bold" Foreground="#525252"
+                                      ScrollViewer.HorizontalScrollBarVisibility="Visible" ScrollViewer.VerticalScrollBarVisibility="Auto" MouseDoubleClick="dgPickCreate_MouseDoubleClick" >
+                                        <DataGrid.Columns>
+                                            <DataGridTextColumn x:Name="dgcProcessPickHeaderPickSheetNumber" Header="PickSheet#"  Binding="{Binding Path='PickSheetID'}" IsReadOnly="False"/>
+                                            <DataGridTemplateColumn x:Name="dgcPPHeader" Header="Show Details" >
+                                                <DataGridTemplateColumn.CellTemplate>
+                                                    <DataTemplate>
+                                                        <Button x:Name="btnPPHeaderShowDetails" Content ="Show Details" HorizontalAlignment="Center" HorizontalContentAlignment="Center" Click="btnPPHeaderShowDetails_Click" />
+                                                    </DataTemplate>
+                                                </DataGridTemplateColumn.CellTemplate>
+                                            </DataGridTemplateColumn>
+                                            <DataGridTemplateColumn x:Name="dgcPPHeaderMarkClosed" Header="Mark Closed" >
+                                                <DataGridTemplateColumn.CellTemplate>
+                                                    <DataTemplate>
+                                                        <Button x:Name="btnPPHeaderMarkClosed" Content="{Binding Path = 'PickSheetStatusView'}" HorizontalAlignment="Center" HorizontalContentAlignment="Center" Click="BtnPPHeaderMarkClosed_Click"  />
+                                                    </DataTemplate>
+                                                </DataGridTemplateColumn.CellTemplate>
+                                            </DataGridTemplateColumn>
+                                            <DataGridTemplateColumn x:Name="dgcPPHeaderPrint" Header="Print PickSheet" >
+                                                <DataGridTemplateColumn.CellTemplate>
+                                                    <DataTemplate>
+                                                        <Button x:Name="btnPPHeaderPrint" Content ="Print Pick Sheet" HorizontalAlignment="Center" HorizontalContentAlignment="Center" Click="btnPPHeaderPrint_Click" />
+                                                    </DataTemplate>
+                                                </DataGridTemplateColumn.CellTemplate>
+                                            </DataGridTemplateColumn>
+
+                                            <DataGridTextColumn Header="Order Count" Binding="{Binding Path='NumberOfOrders'}"  IsReadOnly="True" />
+                                            <!--<DataGridCheckBoxColumn Header="Pick Complete" Binding="{Binding Path='PickComplete'}" IsReadOnly="True" />-->
+                                            <DataGridTextColumn Header="Create Date"  Binding="{Binding Path='CreateDate', StringFormat=\{0:MM/dd/yy HH:mm\}}" IsReadOnly="True"/>
+                                            <DataGridTextColumn Header="Closed By" Binding="{Binding Path='PickCompletedByName'}" IsReadOnly="True"/>
+                                            <DataGridTextColumn Header="Close Date" Binding="{Binding Path='PickCompletedDateView'}" IsReadOnly="True"/>
+                                        </DataGrid.Columns>
+                                    </DataGrid>
+                                </StackPanel>
+                                <StackPanel Grid.Row="2" x:Name="stpdgProcessPickDetail"  Orientation="Vertical">
+                                    <DataGrid x:Name="dgProcessPickDetail" AutoGenerateColumns="False"  Margin="5,5,5,5"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  CanUserAddRows="False"
+                                      Height="230" ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Auto" MouseDoubleClick="dgPickCreate_MouseDoubleClick"
+                                      FontWeight="Bold" Foreground="#525252" >
+                                        <DataGrid.Columns>
+                                            <!--<DataGridTextColumn x:Name="dgcProcessPickDetailOrderNumber" Header="OrderNumber"  Binding="{Binding Path='OrderID'}" IsReadOnly="False"/>-->
+                                            <DataGridTextColumn Header="ItemID" Binding="{Binding Path='ItemID'}" IsReadOnly="True"/>
+                                            <DataGridTextColumn Header="Description" Binding="{Binding Path='ItemDescription'}" IsReadOnly="True"/>
+                                            <DataGridTextColumn Header="Order Qty" Binding="{Binding Path='OrderQty'}" IsReadOnly="True"/>
+                                            <DataGridTextColumn Header="Filled Qty" Binding="{Binding Path='QtyReceived'}" IsReadOnly="True"/>
+                                            <DataGridTemplateColumn x:Name="dgcPPDetailFillQty" Header="New Fill Qty" Width="80" >
+                                                <DataGridTemplateColumn.CellTemplate>
+                                                    <DataTemplate>
+                                                        <TextBox x:Name="txtPPDetailFillQty" Text="{Binding Path = 'QtyReceived'}"  Width ="50" MaxLength="6" HorizontalAlignment="Center" HorizontalContentAlignment="Center"  LostFocus="TxtPPDetailFillQty_LostFocus"/>
+                                                    </DataTemplate>
+                                                </DataGridTemplateColumn.CellTemplate>
+                                            </DataGridTemplateColumn>
+                                            <!--<DataGridTemplateColumn x:Name="dgcPPDetailMarkQtyFilled" Header="Mark Fill Qty" >
+                                        <DataGridTemplateColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <CheckBox x:Name="chkPPDetailMarkQtyFilled" HorizontalAlignment="Center" HorizontalContentAlignment="Center" Checked="chkPPDetailMarkQtyFilled_Checked" Unchecked="chkPPDetailMarkQtyFilled_Unchecked" />
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellTemplate>                                        
+                                    </DataGridTemplateColumn>-->
+                                            <DataGridTemplateColumn x:Name="dgcPPbtnDetailMarkQtyFilled" Header="Mark Fill Qty" >
+                                                <DataGridTemplateColumn.CellTemplate>
+                                                    <DataTemplate>
+                                                        <Button x:Name="btnPPDetailMarkQtyFilled" Content="Mark Qty Filled" HorizontalAlignment="Center" HorizontalContentAlignment="Center" Click="BtnPPDetailMarkQtyFilled_Click"  />
+                                                    </DataTemplate>
+                                                </DataGridTemplateColumn.CellTemplate>
+                                            </DataGridTemplateColumn>
+                                            <DataGridTemplateColumn x:Name="dgcPPDetailMarkOutOfStock" Header="Out of Stock" >
+                                                <DataGridTemplateColumn.CellTemplate>
+                                                    <DataTemplate>
+                                                        <CheckBox x:Name="chkPPDetailMarkOutOfStock" IsChecked="{Binding Path = 'OutOfStock'}" HorizontalAlignment="Center" HorizontalContentAlignment="Center" Checked="ChkPPDetailMarkOutOfStock_Checked" Unchecked="ChkPPDetailMarkOutOfStock_Unchecked" />
+                                                    </DataTemplate>
+                                                </DataGridTemplateColumn.CellTemplate>
+                                            </DataGridTemplateColumn>
+                                            <DataGridTextColumn Header="Department For Delivery" Binding="{Binding Path='DeptID'}" IsReadOnly="True"/>
+
+                                        </DataGrid.Columns>
+                                    </DataGrid>
+                                </StackPanel>
+                            </Grid>
+                        </TabItem>
+                        <TabItem x:Name="tabDeliverPickSheet" Header="Deliver Pick Sheet" GotFocus="TabDeliverPickSheet_GotFocus">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="50"/>
+                                    <RowDefinition/>
+                                    <RowDefinition Height="80"/>
+                                </Grid.RowDefinitions>
+                                <Grid Grid.Row="0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition Width="450"/>
+                                        <ColumnDefinition Width="150"/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBox Grid.Column="0" x:Name="txtPromptDeliverPickSheet" Text="Deliver PickSheets" IsReadOnly="True" HorizontalAlignment="Stretch" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="16" Margin="5,2,5,0"/>
+                                    <Grid Grid.Column="1"  >
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition></RowDefinition>
+                                            <RowDefinition></RowDefinition>
+                                        </Grid.RowDefinitions>
+                                        <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,5,0" >
+                                            <Label Content="Start Date" VerticalContentAlignment="Center" />
+                                            <DatePicker x:Name="dtpDeliveryStartDate" Height="30" HorizontalAlignment="Right" VerticalAlignment="Center" VerticalContentAlignment="Center" Margin="0" />
+                                        </StackPanel>
+                                        <StackPanel Grid.Row="1" Orientation="Horizontal" >
+
+                                        </StackPanel>
+                                    </Grid>
+
+
+                                    <Grid Grid.Column="3">
+                                        <Button x:Name="btnRefreshDeliveryGrid" Content="Refresh Grid" Margin="10" Click="BtnRefreshDeliveryGrid_Click"  />
+                                    </Grid>
+                                </Grid>
+                                <StackPanel Grid.Row="1" x:Name="stpdgDeliverPickSheet" Orientation="Vertical">
+                                    <DataGrid x:Name="dgDeliverPickSheet" AutoGenerateColumns="False"  Margin="5,5,5,5"  HorizontalAlignment="Stretch" VerticalAlignment="Top" CanUserAddRows="False"
+                                      Background="#fff" FontWeight="Bold" Foreground="#525252" ScrollViewer.CanContentScroll="True" Height="480"  HorizontalContentAlignment="Center"
+                                      ScrollViewer.HorizontalScrollBarVisibility="Visible" ScrollViewer.VerticalScrollBarVisibility="Auto"  >
+                                        <DataGrid.Columns>
+                                            <DataGridTextColumn x:Name="dgcDeliverPickHeaderPickSheetNumber" Header="PickSheet#"  Binding="{Binding Path='PickSheetID'}" IsReadOnly="False"/>
+
+                                            <DataGridTemplateColumn x:Name="dgcDPHeaderMarkDelivered" Header="Mark Delivered" >
+                                                <DataGridTemplateColumn.CellTemplate>
+                                                    <DataTemplate>
+                                                        <Button x:Name="btnDPHeaderMarkDelivered" Content="{Binding Path = 'PickSheetStatusView'}" HorizontalAlignment="Center" HorizontalContentAlignment="Stretch" Click="BtnDPHeaderMarkDelivered_Click"  />
+                                                    </DataTemplate>
+                                                </DataGridTemplateColumn.CellTemplate>
+                                            </DataGridTemplateColumn>
+                                            <DataGridTemplateColumn x:Name="dgcDPHeaderPrint" Header="Print PickSheet" >
+                                                <DataGridTemplateColumn.CellTemplate>
+                                                    <DataTemplate>
+                                                        <Button x:Name="btnDPHeaderPrint" Content ="Print Pick Sheet" HorizontalAlignment="Center" HorizontalContentAlignment="Center" Click="BtnDPHeaderPrint_Click" />
+                                                    </DataTemplate>
+                                                </DataGridTemplateColumn.CellTemplate>
+                                            </DataGridTemplateColumn>
+
+                                            <DataGridTextColumn Header="Order Count" Binding="{Binding Path='NumberOfOrders'}" IsReadOnly="True" />
+                                            <!--<DataGridCheckBoxColumn Header="Pick Delivered" Binding="{Binding Path='PickDelivered'}" IsReadOnly="True" />-->
+                                            <!--<DataGridTextColumn Header="Create Date"  Binding="{Binding Path='CreateDate'}" IsReadOnly="True"/>-->
+                                            <DataGridTextColumn Header="Delivered By" Binding="{Binding Path='PickDeliveredByName'}" IsReadOnly="True"/>
+                                            <DataGridTextColumn Header="Delivery Date" Binding="{Binding Path='PickDeliveryDateView'}" IsReadOnly="True"/>
+                                            <DataGridTextColumn Header="Completed By" Binding="{Binding Path='PickCompletedByName'}" IsReadOnly="True"/>
+                                            <DataGridTextColumn Header="Completed Date" Binding="{Binding Path='PickCompletedDate', StringFormat=\{0:MM/dd/yy HH:mm\}}" IsReadOnly="True"/>
+                                        </DataGrid.Columns>
+                                    </DataGrid>
+                                </StackPanel>
+                            </Grid>
+                        </TabItem>
+                    </TabControl>
+                </Grid>
+            </Grid>
+
+            <!--Pick Orders-->
             <!--Manage Vehicles Page-->
             <Grid x:Name="BrowseShuttleVehiclesPage" Visibility="Hidden">
                 <local:FrmBrowseShuttleVehicles/>

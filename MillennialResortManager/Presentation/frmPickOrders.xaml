@@ -6,7 +6,10 @@
         xmlns:local="clr-namespace:Presentation"
         mc:Ignorable="d"
         Title="Pick Internal Orders" Height="600" Width="800">
-    <Grid>
+    <Window.Resources>
+        <ResourceDictionary Source="Stylesheet.xaml"/>
+    </Window.Resources>
+    <Grid Style="{StaticResource DefaultPage}">
         <Grid.RowDefinitions>
             <RowDefinition Height="5"/>
             <RowDefinition/>
