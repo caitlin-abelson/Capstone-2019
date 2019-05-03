@@ -200,7 +200,7 @@ namespace DataAccessLayer
             Appointment apt2 = new Appointment()
             {
                 AppointmentID = nextAppID,
-                AppointmentType = "Massage Therapy",
+                AppointmentType = "Spa",
                 GuestID = 100000,
                 StartDate = new DateTime(2020, 12, 26, 10, 30, 50),
                 EndDate = new DateTime(2020, 12, 26, 10, 50, 50),
@@ -212,7 +212,7 @@ namespace DataAccessLayer
             Appointment apt3 = new Appointment()
             {
                 AppointmentID = nextAppID,
-                AppointmentType = "Sand Castle Building",
+                AppointmentType = "Spa",
                 GuestID = 100000,
                 StartDate = new DateTime(2020, 12, 27, 10, 30, 50),
                 EndDate = new DateTime(2020, 12, 27, 10, 50, 50),

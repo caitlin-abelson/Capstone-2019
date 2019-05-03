@@ -244,7 +244,6 @@ namespace LogicLayer
             return tabLine;
         }
 
-
         /// <summary>
         /// James Heim
         /// Created 2019-04-25
@@ -339,6 +338,29 @@ namespace LogicLayer
             }
 
             return memberTabs;
+        }
+
+        /// <summary>
+        /// Jared Greenfield
+        /// Created 2019-04-30
+        /// 
+        /// Select last tab member had.
+        /// </summary>
+        /// <param name="memberID"></param>
+        /// <returns></returns>
+        public MemberTab RetrieveLastMemberTabByMemberID(int memberID)
+        {
+            MemberTab tab = null;
+            try
+            {
+                tab = _memberTabAccessor.SelectLastMemberTabByMemberID(memberID);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            return tab;
         }
     }
 }

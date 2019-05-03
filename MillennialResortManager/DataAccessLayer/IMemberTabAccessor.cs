@@ -32,5 +32,15 @@ namespace DataAccessLayer
         int DeleteMemberTab(int memberTabID);
 
         int DeleteMemberTabLine(int memberTabLineID);
+
+        /// <summary>
+        /// Jared Greenfield
+        /// Created 2019-04-30
+        /// 
+        /// Select last tab member had.
+        /// </summary>
+        /// <param name="memberID"></param>
+        /// <returns></returns>
+        MemberTab SelectLastMemberTabByMemberID(int memberID);
     }
 }

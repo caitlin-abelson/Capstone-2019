@@ -608,7 +608,7 @@ VALUES
 (100000,100000),
 (100002, 100001)
 GO
-
+/*
 INSERT INTO [dbo].[Reservation]
 ([MemberID],[NumberOfGuests],[NumberOfPets],[ArrivalDate],[DepartureDate],[Notes],[Active])
 VALUES
@@ -637,6 +637,7 @@ VALUES
 (100001,100002),
 (100002,100003)
 GO
+*/
 
 INSERT INTO [dbo].[GuestType]
 ([GuestTypeID],[Description])
@@ -725,7 +726,7 @@ VALUES
 ("Repair","2018-10-10",NULL,100000,100004,0,"Window is not sealing fully",NULL,"Waiting",100003)
 GO
 
-
+/*
 
 INSERT INTO [dbo].[MemberTab]
 ([MemberID],[Active],[TotalPrice])
@@ -739,6 +740,7 @@ VALUES
 (100006,1,3489),
 (100000,1,1500)
 GO
+
 
 -- Has to be done separately for each Member because
 -- the trigger that updates the MemberTab.TotalPrice
@@ -767,7 +769,7 @@ VALUES
 (100006,100000,1,150,100000,NULL,100000),
 (100006,100004,1,150,100000,NULL,100000)
 GO
-
+*/
 
 INSERT INTO [dbo].[Receiving]
 ([SupplierOrderID],[Description],[DateDelivered])
@@ -866,7 +868,38 @@ INSERT INTO [dbo].[SpecialOrderLine]
     
 GO
 
-
+print '' print '*** INSERT INTO [Reservation]'	
+GO
+INSERT INTO [Reservation]
+	([MemberID], [NumberOfGuests], [NumberOfPets], [ArrivalDate], [DepartureDate])
+	VALUES
+		(100000, 3, 0, "2019-04-04", "2019-04-07"),
+		(100001, 3, 0, "2019-04-04", "2019-04-07")
+GO		
+		
+print '' print '*** INSERT INTO [RoomReservation]'	
+INSERT INTO [RoomReservation]
+		([RoomID], [ReservationID], [CheckinDate])
+	VALUES
+		(100000, 100000, CURRENT_TIMESTAMP),
+		(100001, 100000, CURRENT_TIMESTAMP)/*,
+		//(100002, 100000, CURRENT_TIMESTAMP)*/
+GO	
+print '' print '*** INSERT INTO [GuestRoomAssignment]'	
+GO
+INSERT INTO [GuestRoomAssignment]
+		([GuestID], [RoomReservationID], [CheckinDate])
+	VALUES
+		(100001, 100000,CURRENT_TIMESTAMP),
+		(100002, 100000,CURRENT_TIMESTAMP),
+		(100000, 100001,CURRENT_TIMESTAMP)
+GO
+print '' print '*** INSERT INTO [MemberTab]'	
+INSERT INTO [MemberTab]
+		([MemberID])
+	VALUES
+		(100000)
+	GO	
 
 
 

@@ -1279,5 +1279,27 @@ namespace DataObjects
             }
             return isValid;
         }
+
+        /// <summary>
+        /// Jared Greenfield
+        /// Created: 2019/04/30
+        /// 
+        /// Converts a phone number to a formatted number
+        /// </summary>
+        public static string ToFormattedPhoneNumber(this string phoneNumber)
+        {
+            string formattedPhoneNumber = phoneNumber;
+
+            if (phoneNumber.Length == 10)
+            {
+                formattedPhoneNumber = "(" + phoneNumber.Substring(0, 3) + ") " + phoneNumber.Substring(3, 3) + "-" + phoneNumber.Substring(6, phoneNumber.Length - 1);
+            }
+            else if (phoneNumber.Length == 11)
+            { 
+                formattedPhoneNumber = phoneNumber.Substring(0, 1) + "-" + phoneNumber.Substring(1, 3) + "-" + phoneNumber.Substring(4, 3) + "-" + phoneNumber.Substring(7, 4);
+
+            }
+            return formattedPhoneNumber;
+        }
     }
 }

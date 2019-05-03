@@ -46,6 +46,7 @@
     <Compile Include="AppointmentManager.cs" />
     <Compile Include="AppointmentTypeManager.cs" />
     <Compile Include="BuildingManager.cs" />
+    <Compile Include="CheckoutReceiptManager.cs" />
     <Compile Include="DepartmentManager.cs" />
     <Compile Include="DepartmentTypeManager.cs" />
     <Compile Include="EmployeeManager.cs" />
@@ -65,6 +66,7 @@
     <Compile Include="IAppointmentTypeManager.cs" />
     <Compile Include="IBuildingManager.cs" />
     <Compile Include="GuestTypeManager.cs" />
+    <Compile Include="ICheckoutReceiptManager.cs" />
     <Compile Include="IDepartmentManager.cs" />
     <Compile Include="IDepartmentTypeManager.cs" />
     <Compile Include="IEmployeeManager.cs" />

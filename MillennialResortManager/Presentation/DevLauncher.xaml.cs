@@ -977,7 +977,12 @@ namespace Presentation
             //filterByDateRange(DateTime.Now.Date, DateTime.Now.AddDays(7).Date);
             populateReservations();
             dgReservations.ItemsSource = _reservationManager.RetrieveAllActiveVMReservations();
-            chkReservationActive.IsChecked = true;
+            cboReservationViewSelect.Items.Clear();
+            cboReservationViewSelect.Items.Add("All");
+            cboReservationViewSelect.Items.Add("Current");
+            cboReservationViewSelect.Items.Add("Past");
+            cboReservationViewSelect.Items.Add("Active / Future");
+            cboReservationViewSelect.SelectedItem = "Current";
         }
 
         /// <summary>
@@ -992,6 +997,7 @@ namespace Presentation
             {
                 _allReservations = _reservationManager.RetrieveAllVMReservations();
                 _currentReservations = _allReservations;
+                cboReservationViewSelect.SelectedItem = "All";
             }
             catch (Exception e)
             {
@@ -1008,7 +1014,6 @@ namespace Presentation
         private void populateReservations()
         {
             dgReservations.ItemsSource = _currentReservations;
-            chkReservationActive.IsChecked = false;
         }
 
         /// <summary>
@@ -1119,6 +1124,7 @@ namespace Presentation
             dtpDateSearch.Text = "";
             txtEmailReservation.Text = "";
             txtLastName.Text = "";
+            cboReservationViewSelect.SelectedItem = "All";
         }
 
         /// <summary>
@@ -1315,23 +1321,41 @@ namespace Presentation
 
         /// <summary>
         /// Author: Jared Greenfield
-        /// Created : 2019-04-25
-        /// Brings up reservations with currently active 
+        /// Created : 2019-04-30
+        /// Filters the registration list to the different view types. Current, past, Active / Future, all
         /// </summary>
-        private void ChkReservationActive_Click(object sender, RoutedEventArgs e)
+        private void CboReservationViewSelect_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (chkReservationActive.IsChecked == true)
+            try
             {
-                dgReservations.ItemsSource = _reservationManager.RetrieveAllActiveVMReservations();
-                btnReservationCheckout.Visibility = Visibility.Visible;
+                switch (cboReservationViewSelect.SelectedItem.ToString())
+                {
+                    case "All":
+                        dgReservations.ItemsSource = _allReservations;
+                        btnReservationCheckout.Visibility = Visibility.Collapsed;
+                        break;
+                    case "Current":
+                        _currentReservations = _reservationManager.RetrieveAllActiveVMReservations();
+                        dgReservations.ItemsSource = _currentReservations;
+                        btnReservationCheckout.Visibility = Visibility.Visible;
+                        break;
+                    case "Past":
+                        _currentReservations = _allReservations.Where(x => x.Active == false).ToList();
+                        dgReservations.ItemsSource = _currentReservations;
+                        btnReservationCheckout.Visibility = Visibility.Collapsed;
+                        break;
+                    case "Active / Future":
+                        _currentReservations = _allReservations.Where(x => x.Active != false).ToList();
+                        dgReservations.ItemsSource = _currentReservations;
+                        btnReservationCheckout.Visibility = Visibility.Collapsed;
+                        break;
+                }
             }
-            else
+            catch (Exception)
             {
-                refreshAllReservations();
-                populateReservations();
-                btnReservationCheckout.Visibility = Visibility.Collapsed;
-            }   
+            }
         }
+
         /// <summary>
         /// Author: Jared Greenfield
         /// Created : 2019-04-25
@@ -8300,7 +8324,8 @@ namespace Presentation
 		}
 
 
-		#endregion
+        #endregion
 
-	}
+        
+    }
 }

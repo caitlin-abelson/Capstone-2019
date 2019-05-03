@@ -667,5 +667,61 @@ namespace DataAccessLayer
 
             return memberTabs;
         }
+
+        /// <summary>
+        /// Jared Greenfield
+        /// Created 2019-04-30
+        /// 
+        /// Select last tab member had.
+        /// </summary>
+        /// <param name="memberID"></param>
+        /// <returns></returns>
+        public MemberTab SelectLastMemberTabByMemberID(int memberID)
+        {
+            MemberTab memberTabs = new MemberTab();
+
+            var conn = DBConnection.GetDbConnection();
+            var cmdText = @"sp_select_last_membertab_by_member_id";
+            SqlCommand cmd = new SqlCommand(cmdText, conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@MemberID", memberID);
+
+
+            try
+            {
+                conn.Open();
+
+                var reader = cmd.ExecuteReader();
+
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        memberTabs = new MemberTab()
+                        {
+                            MemberTabID = reader.GetInt32(0),
+                            MemberID = reader.GetInt32(1),
+                            Active = reader.GetBoolean(2),
+                            TotalPrice = (decimal)reader.GetSqlMoney(3)
+                        };
+                    }
+
+                    memberTabs.MemberTabLines = SelectMemberTabLinesByMemberTabID(memberTabs.MemberTabID).ToList();
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            finally
+            {
+                conn.Close();
+            }
+            
+            
+
+            return memberTabs;
+        }
     }
 }

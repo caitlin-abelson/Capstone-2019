@@ -112,6 +112,11 @@
             <!-- Browse Reservation Page-->
             <!-- Updated: Gunardi Saputra -->
             <!-- Date: 03/19/2019 -->
+            <!-- Updated: Jared Greenfield -->
+            <!-- Date: 04/30/2019 -->
+            <!-- Removed Date field to add in view select
+            this shows past, future, current, and 
+            all reservations depending on choice. -->
             <Grid x:Name="BrowseReservationPage" Visibility="Hidden">
                 <Grid.RowDefinitions>
                     <RowDefinition/>
@@ -120,49 +125,27 @@
                 </Grid.RowDefinitions>
                 <Grid Grid.Row="0" Style="{StaticResource FilterBar}">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width=".5*"/>
-                        <ColumnDefinition Width="340"/>
-                        <ColumnDefinition />
-                        <ColumnDefinition/>
-                        <ColumnDefinition Width=".5*"/>
-                        <ColumnDefinition/>
+                        <ColumnDefinition Width=".85*"/>
+                        <ColumnDefinition Width="1.25*"/>
+                        <ColumnDefinition  Width=".80*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width=".45*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width=".40*"/>
+                        <ColumnDefinition Width="*"/>
                         <ColumnDefinition/>
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
-                    <CheckBox  x:Name="chkReservationActive" Grid.Column="0" Content="Current Active Reservations" IsChecked="True" HorizontalAlignment="Center" VerticalAlignment="Center" Click="ChkReservationActive_Click" />
-
-                    <Grid Grid.Column="1" Grid.ColumnSpan="3">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition/>
-                            <ColumnDefinition/>
-                        </Grid.ColumnDefinitions>
-                        <Grid Grid.Column="0">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition/>
-                                <ColumnDefinition Width="2*"/>
-                            </Grid.ColumnDefinitions>
-                            <Label x:Name="lblLastName" Content="Last Name: " HorizontalAlignment="Center" VerticalAlignment="Center" />
-                            <TextBox Grid.Column="1" x:Name="txtLastName" Margin="5" VerticalAlignment="Center" />
-                        </Grid>
-                        <Grid Grid.Column="1">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition/>
-                                <ColumnDefinition Width="2*"/>
-                            </Grid.ColumnDefinitions>
-                            <Label x:Name="lblEmailReservation" Content="Email: " MaxWidth="50" HorizontalAlignment="Center" VerticalAlignment="Center" />
-                            <TextBox Grid.Column="4" x:Name="txtEmailReservation" Margin="5" VerticalAlignment="Center" MinWidth="100"/>
-                        </Grid>
-                    </Grid>
-                    <Grid Grid.Column="4" Grid.ColumnSpan="2">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition/>
-                            <ColumnDefinition Width="2*"/>
-                        </Grid.ColumnDefinitions>
-                        <Label Content="Date" Grid.Column="0" VerticalAlignment="Center" MaxWidth="50"/>
-                        <DatePicker x:Name="dtpDateSearch" Grid.Column="1" VerticalAlignment="Center"/>
-                    </Grid>
-                    <Button Grid.Column="6" Content="Filter" x:Name="btnFilterReservation" MinWidth="60" Margin="5" Click="btnFilterReservation_Click"/>
-                    <Button Grid.Column="7" Content="Clear" x:Name="btnClearFiltersReservation" MinWidth="60" Margin="5" Click="btnClearFiltersReservation_Click"/>
+                    <Label x:Name="lblViewSelect" Grid.Column="0" Content="View Select" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    <ComboBox Grid.Column="1" x:Name="cboReservationViewSelect" Margin="5" Width="100" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" SelectionChanged="CboReservationViewSelect_SelectionChanged" ></ComboBox>
+                    <Label x:Name="lblLastName" Grid.Column="2" Content="Last Name " HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    <TextBox Grid.Column="3" x:Name="txtLastName" Margin="5" VerticalAlignment="Center" />
+                    <Label x:Name="lblEmailReservation" Grid.Column="4" Content="Email " MaxWidth="50" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    <TextBox Grid.Column="5" x:Name="txtEmailReservation" Margin="5" VerticalAlignment="Center" MinWidth="100"/>
+                    <Label Content="Date" Grid.Column="6" VerticalAlignment="Center" MaxWidth="50"/>
+                    <DatePicker x:Name="dtpDateSearch" Grid.Column="7" VerticalAlignment="Center"/>
+                    <Button Grid.Column="8" Content="Filter" x:Name="btnFilterReservation" MinWidth="60" Margin="5" Click="btnFilterReservation_Click"/>
+                    <Button Grid.Column="9" Content="Clear" x:Name="btnClearFiltersReservation" MinWidth="60" Margin="5" Click="btnClearFiltersReservation_Click"/>
                 </Grid>
                 <DataGrid Grid.Row="1" x:Name="dgReservations"   VerticalGridLinesBrush="{x:Null}" SelectionMode="Single" AlternatingRowBackground="#FF3DD8CA" RowBackground="LightGoldenrodYellow" IsReadOnly="True" AutoGeneratingColumn="dgReservations_AutoGeneratingColumn" MouseDoubleClick="dgReservations_MouseDoubleClick" />
                 <Grid Grid.Row="2" Style="{StaticResource BottomBar}">

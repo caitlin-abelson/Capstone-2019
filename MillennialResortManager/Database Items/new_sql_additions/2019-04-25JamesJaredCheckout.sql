@@ -26,7 +26,6 @@ AS
 			) = 0
 
 	UPDATE [RoomReservation]
-	
 	SET CheckOutDate = GETDATE()
 	WHERE RoomReservationID = @RoomReservationID
 
@@ -52,50 +51,47 @@ AS
 	    SELECT @ReservationID = [ReservationID] FROM Inserted
 
 	
-	UPDATE [Room]
-	SET [RoomStatusID] = "Ready for Cleaning"
-	WHERE [Room].[RoomID] = @RoomID
-	IF (SELECT COUNT(RoomReservationID) 
-		FROM RoomReservation
-		WHERE ReservationID = @ReservationID
-		  AND CheckoutDate IS NULL
-		) = 0
+		UPDATE [Room]
+		SET [RoomStatusID] = "Ready for Cleaning"
+		WHERE [Room].[RoomID] = @RoomID
+		SELECT @ReservationID
+		IF (SELECT COUNT(RoomReservationID) 
+			FROM RoomReservation
+			WHERE ReservationID = @ReservationID
+			  AND CheckoutDate IS NULL
+			) = 0
 		BEGIN
-		BEGIN TRANSACTION
-			BEGIN TRY
-			-- Deactivates the reservation
-			UPDATE [dbo].[Reservation]
-			SET [Active] = 0
-			WHERE [ReservationID] = @ReservationID
-			-- Retrieve Member from Reservation and Deactivate Member
-			-- Makes it so no one can add items to the tab
-			SELECT @MemberID = (SELECT [MemberID] FROM [dbo].[Reservation] WHERE [Reservation].[ReservationID] = @ReservationID)
-			UPDATE [dbo].[Member]
-			SET Member.Active = 0
-			WHERE [Member].[MemberID] = @MemberID
+			BEGIN TRANSACTION
+				BEGIN TRY
+					-- Deactivates the reservation
+					UPDATE [dbo].[Reservation]
+					SET [Active] = 0
+					WHERE [ReservationID] = @ReservationID
+					-- Retrieve Member from Reservation and Deactivate Member
+					-- Makes it so no one can add items to the tab
+					SELECT @MemberID = (SELECT [MemberID] FROM [dbo].[Reservation] WHERE [Reservation].[ReservationID] = @ReservationID)
+					UPDATE [dbo].[Member]
+					SET Member.Active = 0
+					WHERE [Member].[MemberID] = @MemberID
 
-			-- Retrieve TabID with MemberID
-			SELECT @TabID = (SELECT MemberTabID FROM MemberTab WHERE MemberTab.Active = 1 AND MemberID = @MemberID)
+					-- Retrieve TabID with MemberID
+					SELECT @TabID = (SELECT MemberTabID FROM MemberTab WHERE MemberTab.Active = 1 AND MemberID = @MemberID)
 
-			-- Sum up all tab items and place it in MemberTab total column
-			SELECT @TotalPrice = SUM(Price * Quantity) FROM MemberTabLine WHERE MemberTabID = @TabID
-			
-			-- Finalize The Tab
-			UPDATE [MemberTab]
-			SET [Active] = 0,
-				[TotalPrice] = @TotalPrice
-				WHERE [MemberTabID] = @TabID
-			
-			END TRY
-			
-			BEGIN CATCH
-				ROLLBACK TRANSACTION
-			END CATCH
-			
-			COMMIT TRANSACTION
-			
+					-- Sum up all tab items and place it in MemberTab total column
+					SELECT @TotalPrice = SUM(Price * Quantity) FROM MemberTabLine WHERE MemberTabID = @TabID
+					
+					-- Finalize The Tab
+					UPDATE [MemberTab]
+					SET [Active] = 0,
+						[TotalPrice] = @TotalPrice
+						WHERE [MemberTabID] = @TabID
+				END TRY
+					
+				BEGIN CATCH
+					ROLLBACK TRANSACTION
+				END CATCH
+				COMMIT TRANSACTION
 		END
-
 	END
 GO	
 print '' print 'Creating sp_select_all_active_reservationvms'
@@ -176,3 +172,22 @@ AS
 
 GO
 	
+-- Jared Greenfield
+-- Created 2019-04-30
+-- Select the last opened membertab
+CREATE PROCEDURE [dbo].[sp_select_last_membertab_by_member_id]
+(
+	@MemberID [int]
+)
+AS
+	BEGIN
+		SELECT TOP 1 
+		MemberTabID,
+		MemberID,
+		Active,
+		TotalPrice
+		FROM MemberTab
+		WHERE MemberID = @MemberID
+		ORDER BY [MemberTabID] DESC
+	END
+GO

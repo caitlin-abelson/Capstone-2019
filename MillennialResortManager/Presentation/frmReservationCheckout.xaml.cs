@@ -2,17 +2,8 @@
 using LogicLayer;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace Presentation
 {
@@ -26,11 +17,21 @@ namespace Presentation
         private List<GuestRoomAssignmentVM> _allGuests;
         private List<GuestRoomAssignmentVM> _currentGuests;
         private GuestRoomAssignmentManager _roomAssignmentManager;
+        private MemberManagerMSSQL _memberManager;
+        private ReservationManagerMSSQL _reservationManager;
+        private MemberTabManager _tabManager;
+        private OfferingManager _offeringManager;
+        private CheckoutReceiptManager _checkoutReceiptManager;
         private int _reservationID;
         public frmReservationCheckout(int reservationID)
         {
             _reservationID = reservationID;
             _roomAssignmentManager = new GuestRoomAssignmentManager();
+            _memberManager = new MemberManagerMSSQL();
+            _reservationManager = new ReservationManagerMSSQL();
+            _tabManager = new MemberTabManager();
+            _offeringManager = new OfferingManager();
+            _checkoutReceiptManager = new CheckoutReceiptManager();
             InitializeComponent();
             try
             {
@@ -54,8 +55,47 @@ namespace Presentation
             dgReservationGuests.ItemsSource = _allGuests;
             if (_allGuests.Find(x => x.CheckOutDate == null) == null)
             {
-                MessageBox.Show("Go to final tab page.");
+                try
+                {
+                    string path = generateReportHTML();
+                }
+                catch (Exception)
+                {
+                    MessageBox.Show("Receipt Error");
+                }
             }
+        }
+
+        /// <summary>
+        /// Author: Jared Greenfield
+        /// Created On: 2019-04-30
+        /// Creates the customer receipt in html 
+        /// </summary>
+        private string generateReportHTML()
+        {
+            String filepath = AppDomain.CurrentDomain.BaseDirectory + @"Receipts";
+            Reservation reservation = _reservationManager.RetrieveReservation(_reservationID);
+            Member member = _memberManager.RetrieveMember(reservation.MemberID);
+            List<OfferingVM> allOfferings = _offeringManager.RetrieveAllOfferingViewModels();
+            MemberTab tab = _tabManager.RetrieveLastMemberTabByMemberID(member.MemberID);
+            // Removed because CSS wouldn't be included if they didn't choose correct folder. 
+            // Possible future feature, maybe specify static CSS location.
+
+            //Instead of using a static folder, let the user pick folder
+            //CommonOpenFileDialog dialog = new CommonOpenFileDialog();
+            //dialog.InitialDirectory = "C:\\Users";
+            //dialog.IsFolderPicker = true;
+            //if (dialog.ShowDialog() == CommonFileDialogResult.Ok)
+            //{
+            //    filepath = dialog.FileName;
+            //}
+            
+            // Create the file name
+            string fileName = @"\" + reservation.DepartureDate.ToShortDateString().Replace("/", "-") + member.Email + ".html";
+            var result = _checkoutReceiptManager.generateMemberTabReceipt(reservation, member, allOfferings, tab, filepath + fileName, _allGuests);
+            
+            System.Diagnostics.Process.Start("IExplore.exe", filepath + fileName);
+            return filepath + fileName;
         }
 
         /// <summary>
@@ -117,7 +157,7 @@ namespace Presentation
             {
                 (e.Column as DataGridTextColumn).Binding.StringFormat = "MM/dd/yyyy";
             }
-                
+
         }
 
         /// <summary>
@@ -161,12 +201,12 @@ namespace Presentation
                             }
                         }
                     }
-                    
+
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                MessageBox.Show("Unable to checkout guest.");
+                MessageBox.Show("Unable to checkout guest." + ex.Message);
             }
         }
 
