@@ -25,7 +25,15 @@ namespace MillennialResortWebSite.Models
         [Display(Name = "Number of Guests")]
         public int NumberOfGuests { get; set; }
 
+        [Required]
+        [Display(Name = "Room Type")]
+        public string RoomType { get; set; }
+
+
+
         public IEnumerable<DataObjects.Room> Rooms { get; set; }
+
+        public IEnumerable<SelectListItem> RoomTypes { get; set; }
     }
 }
 

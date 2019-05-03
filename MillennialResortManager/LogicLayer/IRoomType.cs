@@ -19,16 +19,27 @@ namespace LogicLayer
         /// 
         /// Creates a new room type
         /// </summary>
+        /// 
+
         bool CreateRoomType(RoomType roomType);
+
+
+
+
+
         List<RoomType> RetrieveAllRoomTypes(string status);
+
+
 
         /// <summary>
         /// Austin Berquam
         /// Created: 2019/02/06
-        /// 
         /// Deletes a room type
         /// </summary>
         bool DeleteRoomType(string roomTypeID);
+
+
+
         List<string> RetrieveAllRoomTypes();
     }
 }

@@ -30,8 +30,10 @@ namespace MillennialResortWebSite.Models
 
         [Required]
         [Display(Name = "Room Type")]
-        public string roomType { get; set; }
+        public string RoomType { get; set; }
 
         public string Notes { get; set; }
+
+
     }
 }
