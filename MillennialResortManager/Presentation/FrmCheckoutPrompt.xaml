@@ -6,7 +6,10 @@
         xmlns:local="clr-namespace:Presentation"
         mc:Ignorable="d" ResizeMode="NoResize" WindowStartupLocation="CenterScreen"
         Title="Check Out Vehicle" Height="405" Width="500">
-    <Grid>
+    <Window.Resources>
+        <ResourceDictionary Source="Stylesheet.xaml"/>
+    </Window.Resources>
+    <Grid Style="{StaticResource DefaultPage}">
         <Grid.RowDefinitions>
             <RowDefinition Height ="5"/>
             <RowDefinition Height ="100"/>

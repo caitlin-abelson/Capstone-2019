@@ -16,10 +16,6 @@ namespace MillennialResortWebSite.Controllers
 
         IReservationManager reservationManager = new ReservationManagerMSSQL();
 
-        //IEnumerable<Reservation> reservation;
-
-        IEnumerable<Room> rooms;
-
         IGuestManager _guestManager = new GuestManager();
 
 
@@ -76,7 +72,7 @@ namespace MillennialResortWebSite.Controllers
                 DepartureDate = end,
                 NumberOfGuests = numGuest,
                 numberOfPets = 0,
-                roomType = room.RoomType,
+                RoomType = room.RoomType,
                 Notes = ""
             };
 
