@@ -1156,11 +1156,10 @@
                         <Grid Grid.Row="0">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="100"/>
-                                <ColumnDefinition Width="100"/>
-
                                 <ColumnDefinition/>
 
                                 <ColumnDefinition Width="200"/>
+                                <ColumnDefinition Width="100"/>
                                 <ColumnDefinition Width="100"/>
                                 <ColumnDefinition Width="200"/>
                                 <ColumnDefinition Width="100"/>
@@ -1168,6 +1167,8 @@
 
                             </Grid.ColumnDefinitions>
 
+                            <Label x:Name="lblIsGenerated" Grid.Column="2" Content="Generated Orders" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+                            <CheckBox x:Name="cbxIsGenerated" Grid.Column="3" VerticalAlignment="Center" Click="CbxIsGenerated_Click"/>
                             <Label Content="Supplier" Grid.Column="4" VerticalAlignment="Center"></Label>
                             <ComboBox x:Name="cboSupplier" Grid.Column="5" Margin="5"  SelectionChanged="CboSupplier_SelectionChanged"/>
 
@@ -1210,6 +1211,7 @@
                                 <ColumnDefinition />
                                 <ColumnDefinition />
                                 <ColumnDefinition />
+                                <ColumnDefinition />
 
                             </Grid.ColumnDefinitions>
                             <!--<Button Grid.Column="0" x:Name="btnCancelBrowseSupplierOrders" Content="Cancel" Margin="5" Click="BtnCancelBrowseSupplierOrders_Click"/>-->
@@ -1217,6 +1219,7 @@
                             <Button Grid.Column="2" x:Name="btnAddOrder" Content="Add Order" Margin="5" Click="BtnAddOrder_Click" />
                             <Button Grid.Column="3" x:Name="btnViewOrder" Content="View Order" Margin="5"/>
                             <Button Grid.Column="4" x:Name="btnDeleteOrder" Content="Delete Order" Margin="5" Click="BtnDeleteOrder_Click" />
+                            <Button Grid.Column="5" x:Name="btnApproveOrder" Content="Approve Order" Margin="5" Click="BtnApproveOrder_Click" />
                         </Grid>
                     </Grid>
                 </Grid>
