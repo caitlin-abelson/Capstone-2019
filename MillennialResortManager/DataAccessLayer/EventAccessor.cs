@@ -386,16 +386,15 @@ namespace DataAccessLayer
                             Location = r.GetString(12),
                             Sponsored = r.GetBoolean(13),
                             Approved = r.GetBoolean(14),
-                            Cancelled = r.GetBoolean(15),
-                            PublicEvent = r.GetBoolean(16),
-                            Price = (decimal)r.GetSqlMoney(17)
+                            PublicEvent = r.GetBoolean(15),
+                            Price = (decimal)r.GetSqlMoney(16)
                         };
                     }
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw;
+                throw ex;
             }
             finally
             {

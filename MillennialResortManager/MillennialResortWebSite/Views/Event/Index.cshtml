@@ -75,7 +75,7 @@
                     @Html.DisplayFor(modelItem => item.SeatsRemaining)
                 </td>*@
                     <td>
-                        @Html.ActionLink("Buy Ticket", "TicketOrder")
+                        @Html.ActionLink("Buy Ticket", "Buy", new { id = item.EventID })
                     </td>
                 </tr>
             }

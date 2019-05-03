@@ -61,8 +61,11 @@
     <IntermediateOutputPath>C:\Users\nh229u22\AppData\Local\Temp\vs32D2.tmp\Debug\</IntermediateOutputPath>
     <IntermediateOutputPath>C:\Users\owner\AppData\Local\Temp\vs381B.tmp\Debug\</IntermediateOutputPath>
     <IntermediateOutputPath>C:\Users\Craig\AppData\Local\Temp\vs95F3.tmp\Debug\</IntermediateOutputPath>
+
     <IntermediateOutputPath>C:\Users\nh229u26\AppData\Local\Temp\vs8F0D.tmp\Debug\</IntermediateOutputPath>
-    <IntermediateOutputPath>C:\Users\shado\AppData\Local\Temp\vs3E9D.tmp\Debug\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\nh229u17\AppData\Local\Temp\vs70E9.tmp\Debug\</IntermediateOutputPath>
+
+    <IntermediateOutputPath>C:\Users\nh229u17\AppData\Local\Temp\vs3139.tmp\Debug\</IntermediateOutputPath>
 
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
@@ -100,7 +103,10 @@
     <IntermediateOutputPath>C:\Users\owner\AppData\Local\Temp\vs381B.tmp\Release\</IntermediateOutputPath>
     <IntermediateOutputPath>C:\Users\Craig\AppData\Local\Temp\vs95F3.tmp\Release\</IntermediateOutputPath>
 
-    <IntermediateOutputPath>C:\Users\shado\AppData\Local\Temp\vs3E9D.tmp\Release\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\nh229u17\AppData\Local\Temp\vs70E9.tmp\Release\</IntermediateOutputPath>
+
+    <IntermediateOutputPath>C:\Users\nh229u17\AppData\Local\Temp\vs3139.tmp\Release\</IntermediateOutputPath>
+
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
@@ -253,6 +259,7 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\AppointmentModel.cs" />
+    <Compile Include="Models\BuyTicketModel.cs" />
     <Compile Include="Models\CreateAppointmentViewModel.cs" />
     <Compile Include="Models\ErrorViewModel.cs" />
     <Compile Include="Models\HomeViewModels.cs" />
@@ -462,6 +469,7 @@
     <Content Include="Views\MyAccount\ViewReservations.cshtml" />
     <Content Include="Views\Home\_ReservationSearch.cshtml" />
     <Content Include="Views\Success\Index.cshtml" />
+    <Content Include="Views\Event\Buy.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
