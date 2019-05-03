@@ -17,6 +17,6 @@ INSERT INTO [dbo].[InternalOrder]
 	(100005, "Talent" , "Reorder Scrambles Brand Tapshoes", "2019-01-12"),
 	(100006, "Grooming" , "Kitty Massage Oil Reorder", "2019-01-12"),
 	(100007, "Kitchen" , "Produce Order", "2019-01-12"),
-	(100008, "Events" , "Scrambles Birthday Bash Supplies", "2019-01-12"),
+	(100008, "Events" , "Scrambles Birthday Bash Supplies", "2019-01-12")
 GO
   
