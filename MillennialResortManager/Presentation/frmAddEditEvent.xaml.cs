@@ -34,12 +34,14 @@ namespace WpfPresentation
         private EventPerformanceManager _eventPerfManager = new EventPerformanceManager();
         private Event _oldEvent;
         private Event _newEvent;
+        private string validateMessage = null;
         public int _createdEventID;
         public Sponsor _retrievedSponsor;
         public Performance _retrievedPerf;
         
 
         public int newEventID;
+
 
         /// <summary>
         /// @Author: Phillip Hansen
@@ -73,7 +75,7 @@ namespace WpfPresentation
         /// <summary>
         /// @Author: Phillip Hansen
         /// 
-        /// When editing an event record
+        /// This constructor for the window is called when an event is being edited
         /// </summary>
         /// <param name="user"></param>
         /// <param name="oldEvent"></param>
@@ -168,7 +170,7 @@ namespace WpfPresentation
         /// <param name="e"></param>
         private void BtnEventCancel_Click(object sender, RoutedEventArgs e)
         {
-            this.DialogResult = true;
+            this.Close();
         }
 
         /// <summary>
@@ -226,8 +228,8 @@ namespace WpfPresentation
 
             cboEventType.IsEnabled = true;   /*<-- Use if RetrieveEventTypes() works?*/
 
-            dateEventStart.IsEnabled = true;
-            dateEventEnd.IsEnabled = true;
+            dateEventStart.IsEnabled = false;
+            dateEventEnd.IsEnabled = false;
 
             chkEventAppr.IsEnabled = true;
             chkEventKids.IsEnabled = true;
@@ -324,35 +326,32 @@ namespace WpfPresentation
         /// </summary>
         private void captureEvent()
         {
-            try
-            {
-                // Method will error check first
-                if (txtEventTitle.Text == null || txtEventTitle.Text.Length < 1 || txtEventTitle.Text.Length > 50)
+                if (this.Title == "New Event Record")
                 {
-                    MessageBox.Show("Event Title must be between 1 and 50 characters!");
-                }
-                else if (!int.TryParse(txtReqNumGuest.Text, out int aNumber) || (!decimal.TryParse(txtEventPrice.Text, out decimal bNumber)) || (!int.TryParse(txtSeatsRemaining.Text, out aNumber))/*(!int.TryParse(txtEvent//SponsorID.Text, out aNumber))*/)
-                {
-                    MessageBox.Show("Numbers only!");
-                }
-                else if (int.Parse(txtSeatsRemaining.Text) > int.Parse(txtReqNumGuest.Text))
-                {
-                    MessageBox.Show("Seats Remaining must be less or equal to the Number of Guests allowed!");
-                }
-                else if (dateEventEnd.SelectedDate < dateEventStart.SelectedDate)
-                {
-                    MessageBox.Show("The date selection must start before it ends!");
-                }
-                else if (dateEventStart.SelectedDate < DateTime.Now)
-                {
-                    MessageBox.Show("The date selection must be after today!");
-                }
-
-                //Data is captured once there are no errors
-                else
-                {
+                    // Method will error check first
+                    if (txtEventTitle.Text == null || txtEventTitle.Text.Length < 1 || txtEventTitle.Text.Length > 50)
+                    {
+                        validateMessage = "Event Title must be between 1 and 50 characters!";
+                    }
+                    else if (!int.TryParse(txtReqNumGuest.Text, out int aNumber) || (!decimal.TryParse(txtEventPrice.Text, out decimal bNumber)) || (!int.TryParse(txtSeatsRemaining.Text, out aNumber))/*(!int.TryParse(txtEvent//SponsorID.Text, out aNumber))*/)
+                    {
+                        validateMessage = "Numbers only!";
+                    }
+                    else if (int.Parse(txtSeatsRemaining.Text) > int.Parse(txtReqNumGuest.Text))
+                    {
+                        validateMessage = "Seats Remaining must be less or equal to the Number of Guests allowed!";
+                    }
+                    else if (dateEventEnd.SelectedDate < dateEventStart.SelectedDate)
+                    {
+                        validateMessage = "The date selection must start before it ends!";
+                    }
+                    else if (dateEventStart.SelectedDate < DateTime.Now)
+                    {
+                        validateMessage = "The date selection must be after today!";
+                    }
+                    //Data is captured once there are no errors
                     //If a new record is being created, the place holder for 'EventID' will be blank and would cause errors if captured in its state
-                    if (this.Title == "New Event Record")
+                    else
                     {
                         _newEvent = new Event
                         {
@@ -372,6 +371,28 @@ namespace WpfPresentation
                             PublicEvent = chkEventPublic.IsChecked.Value
                         };
                     }
+                }   //End if(title == Create New Event) block
+                //If a record is being edited, having an older date is valid (in case a user edits an event created from an earlier day)
+                else
+                {
+                    // Method will error check first
+                    if (txtEventTitle.Text == null || txtEventTitle.Text.Length < 1 || txtEventTitle.Text.Length > 50)
+                    {
+                        validateMessage = "Event Title must be between 1 and 50 characters!";
+                    }
+                    else if (!int.TryParse(txtReqNumGuest.Text, out int aNumber) || (!decimal.TryParse(txtEventPrice.Text, out decimal bNumber)) || (!int.TryParse(txtSeatsRemaining.Text, out aNumber))/*(!int.TryParse(txtEvent//SponsorID.Text, out aNumber))*/)
+                    {
+                        validateMessage = "Numbers only!";
+                    }
+                    else if (int.Parse(txtSeatsRemaining.Text) > int.Parse(txtReqNumGuest.Text))
+                    {
+                        validateMessage = "Seats Remaining must be less or equal to the Number of Guests allowed!";
+                    }
+                    else if (dateEventEnd.SelectedDate < dateEventStart.SelectedDate)
+                    {
+                        validateMessage = "The date selection must start before it ends!";
+                    }
+                    //Data is captured once there are no errors
                     //If a record is being edited (or in a specific case deleted) the EventID in the text box place holder must be captured
                     else
                     {
@@ -396,13 +417,7 @@ namespace WpfPresentation
                             PublicEvent = chkEventPublic.IsChecked.Value
                         };
                     }
-
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message + "\nCreating the event failed.");
-            }
+                }   //End main else block
 
         }
 
@@ -435,7 +450,7 @@ namespace WpfPresentation
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ex.Message + "\nCould not create the event.");
+                    MessageBox.Show(ex.Message + "\nCould not create the event." + "\n" + validateMessage);
                 }
             }
             if (this.btnEventAction1.Content.ToString() == "Save")

@@ -5449,6 +5449,9 @@ namespace Presentation
             }
             if (result == true)
             {
+                MessageBox.Show("An Event must have a way to be set up.\nPlease complete the following form.");
+                var addSetup = new SetupDetail();
+                var setupResult = addSetup.ShowDialog();
                 populateEvents();
             }
         }
