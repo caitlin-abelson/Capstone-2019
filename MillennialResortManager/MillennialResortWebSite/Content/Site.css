@@ -15,12 +15,12 @@ body {
     */
    overflow-x: hidden;
 }
-/* Set padding to keep content from hitting the edges */
+/*Set padding to keep content from hitting the edges 
 .body-content {
-    /*padding-left: 15px;
+    padding-left: 15px;
      padding-right: 15px;
-    */
-}
+    
+}*/
 
 .body-content1 {
     padding-left: 15px;
@@ -540,10 +540,22 @@ header {
 }
 
 .contactPageForm {
-    background-color: #FFF1D0;
-    width: 90%;
-    margin: auto;
+   
+    border-radius: 10px;
+    background-color: rgba(255, 255, 255, 0.5);
+    padding: 35px;
+    /*margin-right: 40px;*/
+    border: solid white 3px;
+    box-shadow: 3px 6px 12px #888888;
 }
+
+
+    .contactPageForm h2 {
+        font-size: 30px;
+        font-family: 'Fugaz One', cursive;
+        text-shadow: 3px 3px 3px #0B2027;
+        color: darkcyan;
+    }
 
 #descDiv {
     margin-left: 105px;  
@@ -557,8 +569,8 @@ header {
     margin-left: 31px;
 }
 
-#contactFrmSbmtBtn {
-}
+/*#contactFrmSbmtBtn {
+}*/
 
 .contactPageForm label {
     text-decoration: underline;
