@@ -18,7 +18,11 @@
         <ResourceDictionary Source="Stylesheet.xaml"/>
     </Window.Resources>
 
-
+    <!-- 
+        Author: Matt LaMarche
+        Created: 2019/02/21
+        DevLauncher is meant to act as a shell for all the content created by the dev team
+    -->
     <Grid x:Name="MainWindow">
         <Grid.RowDefinitions>
             <RowDefinition Height="40"/>
