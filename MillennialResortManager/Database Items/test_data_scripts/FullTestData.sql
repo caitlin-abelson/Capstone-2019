@@ -329,20 +329,7 @@ GO
 INSERT INTO [dbo].[Room]
 		([RoomNumber], [BuildingID], [RoomTypeID], [Description], [Capacity], [ResortPropertyID], [OfferingID], [RoomStatusID])
 	VALUES
-		-- (101, 'Hotel 101', 'Double', 'Double beds', 4, 100001, 100000, 'Available'),
-		-- (102, 'Hotel 101', 'King', 'Single king', 2, 100000, 100001, 'Occupied'),
-		-- (104, 'Hotel 102', 'Double', 'Double beds', 4, 100001, 100002, 'Available'),
-		-- (105, 'Hotel 102', 'King', 'Single king', 2, 100001, 100003, 'Occupied'),
-		-- (103, 'Guest Bld 101', 'Double', 'Double beds', 4, 100001, 100004, 'Available'),
-		-- (106, 'Guest Bld 101', 'King', 'Single king', 2, 100002, 100005, 'Occupied'),
-		-- (107, 'Shopping Center 101', 'Double', 'Double beds', 4, 100003, 100006, 'Available'),
-		-- (108, 'Shopping Center 101', 'King', 'Single king', 2, 100004, 100006, 'Occupied'),
-		-- (109, 'Food Center 101', 'Double', 'Double beds', 4, 100005, 100005, 'Available'),
-		-- (110, 'Food Center 101', 'King', 'Single king', 2, 100006, 100005, 'Occupied'),
-		-- (111, 'Welcome Center', 'Double', 'Double beds', 4, 100007, 100000, 'Available'),
-		-- (112, 'Welcome Center', 'King', 'Single king', 2, 100008, 100001, 'Occupied'),
-		-- (114, 'GenBld01', 'Double', 'Double beds', 4, 100009, 100002, 'Available'),
-		-- (113, 'GenBld01', 'King', 'Single king', 2, 100002, 100000, 'Occupied')
+	
 
     	(114, 'North Shore1', 'Beach House', 'Sleeps 10 to 20 guests.', 20, 100001, 100012, 'Available'),
 		(115, 'East Shore1', 'Beach House', 'Sleeps 10 to 20 guests.', 20, 100001, 100012, 'Occupied'),

@@ -11,6 +11,10 @@ namespace MillennialResortWebSite.Controllers
 {
     public class HomeController : Controller
     {
+
+        
+
+
         /// <summary>
         /// Added by Matt H. on 4/18/19
         /// </summary>
@@ -20,8 +24,6 @@ namespace MillennialResortWebSite.Controllers
             HomeViewModelsMixer homeViewModelsMixer = new HomeViewModelsMixer();
 
             homeViewModelsMixer.Reservation = new ReservationSearchModel();
-
-           // homeViewModelsMixer.Rooms = new List<Room>();
 
             homeViewModelsMixer.MailingList = new IndexPageMailingListViewModel();
 
