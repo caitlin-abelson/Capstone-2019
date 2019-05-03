@@ -18,10 +18,10 @@ namespace DataObjects
     {
         public int ShopID { get; set; }
         public int RoomID { get; set; }
+        public string BuildingID { get; set; }
+        public string Name { get; set; }
+        public string Description { get; set; }
         public int RoomNumber { get; set; }
-        public String BuildingID { get; set; }
-        public String Name { get; set; }
-        public String Description { get; set; }
         public bool Active { get; set; }
     }
 }

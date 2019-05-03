@@ -13,7 +13,6 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using DataObjects;
-using DataAccessLayer;
 using LogicLayer;
 
 namespace Presentation

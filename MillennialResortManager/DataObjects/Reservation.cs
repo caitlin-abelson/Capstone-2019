@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,9 +16,17 @@ namespace DataObjects
     {
         public int ReservationID { get; set; }
         public int MemberID { get; set; }
+
+        [DisplayName("Guests")]
         public int NumberOfGuests { get; set; }
+
+        [DisplayName("Pets")]
         public int NumberOfPets { get; set; }
+
+        [DisplayName("Arrival")]
         public DateTime ArrivalDate { get ; set; }
+
+        [DisplayName("Departure")]
         public DateTime DepartureDate { get; set; }
         public string Notes { get; set; }
         public bool Active { get; set; }

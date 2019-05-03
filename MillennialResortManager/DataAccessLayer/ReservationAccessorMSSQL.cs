@@ -281,7 +281,15 @@ namespace DataAccessLayer
                         reservation.NumberOfPets = reader.GetInt32(3);
                         reservation.ArrivalDate = reader.GetDateTime(4);
                         reservation.DepartureDate = reader.GetDateTime(5);
-                        reservation.Notes = reader.GetString(6);
+                        if (reader.IsDBNull(6))
+                        {
+                            reservation.Notes = "";
+                        }
+                        else
+                        {
+
+                            reservation.Notes = reader.GetString(6);
+                        }
                         reservation.Active = reader.GetBoolean(7);
                         reservation.FirstName = reader.GetString(8);
                         reservation.LastName = reader.GetString(9);
@@ -344,7 +352,14 @@ namespace DataAccessLayer
                         reservation.NumberOfPets = reader.GetInt32(3);
                         reservation.ArrivalDate = reader.GetDateTime(4);
                         reservation.DepartureDate = reader.GetDateTime(5);
-                        reservation.Notes = reader.GetString(6);
+                        if (reader.IsDBNull(6))
+                        {
+                            reservation.Notes = "";
+                        }
+                        else
+                        {
+                            reservation.Notes = reader.GetString(6);
+                        }
                         reservation.Active = reader.GetBoolean(7);
                         break;
                     }
@@ -482,6 +497,71 @@ namespace DataAccessLayer
             }
 
             return resv;
+        }
+
+        /// <summary>
+        /// Author: Jared Greenfield
+        /// Created : 2019-04-25
+        /// Retrieve All Active VM Reservations
+        /// </summary>
+        /// <returns>Returns a List of all View Models for the Browse Reservations</returns>
+        public List<VMBrowseReservation> RetrieveAllActiveVMReservations()
+        {
+            List<VMBrowseReservation> reservations = new List<VMBrowseReservation>();
+
+            var conn = DBConnection.GetDbConnection();
+
+            // command text
+            string cmdText = @"sp_select_all_active_reservationvms";
+
+            // command objects
+            var cmd = new SqlCommand(cmdText, conn);
+
+            // set the command type
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            try
+            {
+                conn.Open();
+                SqlDataReader reader = cmd.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        VMBrowseReservation reservation = new VMBrowseReservation();
+                        reservation.ReservationID = reader.GetInt32(0);
+                        reservation.MemberID = reader.GetInt32(1);
+                        reservation.NumberOfGuests = reader.GetInt32(2);
+                        reservation.NumberOfPets = reader.GetInt32(3);
+                        reservation.ArrivalDate = reader.GetDateTime(4);
+                        reservation.DepartureDate = reader.GetDateTime(5);
+                        if (reader.IsDBNull(6))
+                        {
+                            reservation.Notes = "";
+                        }
+                        else
+                        {
+
+                            reservation.Notes = reader.GetString(6);
+                        }
+                        reservation.Active = reader.GetBoolean(7);
+                        reservation.FirstName = reader.GetString(8);
+                        reservation.LastName = reader.GetString(9);
+                        reservation.PhoneNumber = reader.GetString(10);
+                        reservation.Email = reader.GetString(11);
+                        reservations.Add(reservation);
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return reservations;
         }
     }
 }

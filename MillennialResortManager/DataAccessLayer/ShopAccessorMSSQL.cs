@@ -73,7 +73,7 @@ namespace DataAccessLayer
             int result = 0;
 
             var conn = DBConnection.GetDbConnection();
-            String cmdText = @"sp_activate_shop";
+            string cmdText = @"sp_activate_shop";
             var cmd = new SqlCommand(cmdText, conn);
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.AddWithValue("@ShopID", shop.ShopID);
@@ -110,7 +110,7 @@ namespace DataAccessLayer
             int result = 0;
 
             var conn = DBConnection.GetDbConnection();
-            String cmdText = @"sp_deactivate_shop";
+            string cmdText = @"sp_deactivate_shop";
             var cmd = new SqlCommand(cmdText, conn);
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.AddWithValue("@ShopID", shop.ShopID);
@@ -144,7 +144,7 @@ namespace DataAccessLayer
             int result = 0;
 
             var conn = DBConnection.GetDbConnection();
-            String cmdText = @"sp_delete_shop";
+            string cmdText = @"sp_delete_shop";
             var cmd = new SqlCommand(cmdText, conn);
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.AddWithValue("@ShopID", shop.ShopID);
@@ -183,7 +183,7 @@ namespace DataAccessLayer
 
 
             var conn = DBConnection.GetDbConnection();
-            String cmdText = @"sp_select_shop_by_id";
+            string cmdText = @"sp_select_shop_by_id";
             var cmd = new SqlCommand(cmdText, conn);
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.AddWithValue("@ShopID", id);
@@ -236,7 +236,7 @@ namespace DataAccessLayer
             List<Shop> shops = new List<Shop>();
 
             var conn = DBConnection.GetDbConnection();
-            String cmdText = @"sp_select_shops";
+            string cmdText = @"sp_select_shops";
             var cmd = new SqlCommand(cmdText, conn);
             cmd.CommandType = CommandType.StoredProcedure;
 

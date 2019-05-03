@@ -13,7 +13,6 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using DataObjects;
 using LogicLayer;
-using DataAccessLayer;
 
 namespace Presentation
 {
@@ -38,8 +37,6 @@ namespace Presentation
         ReceivingTicket ticket = new ReceivingTicket();
         ReceivingTicket originalTicket = new ReceivingTicket();
         bool orderComplete = true;
-
-
 
         /// <summary>
         /// Author: Kevin Broskow

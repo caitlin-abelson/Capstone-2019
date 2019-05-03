@@ -28,10 +28,15 @@ namespace DataAccessLayer
         {
             appointmentType = new List<AppointmentType>
             {
-               new AppointmentType {AppointmentTypeID = "AppointmentType1", Description = "AppointmentType is a appointmentType"},
-               new AppointmentType {AppointmentTypeID = "AppointmentType2", Description = "AppointmentType is a appointmentType"},
-               new AppointmentType {AppointmentTypeID = "AppointmentType3", Description = "AppointmentType is a appointmentType"},
-               new AppointmentType {AppointmentTypeID = "AppointmentType4", Description = "AppointmentType is a appointmentType"}
+               new AppointmentType {AppointmentTypeID = "Massage Therapy", Description = "Our Peaceful Massage is a professional massage clinic." +
+                                                            "We have multiple licensed massage therapists and are open seven days a week." +
+                                                            "Come in, relax, and take your time truly enveloping yourself in a peaceful environment."},
+
+               new AppointmentType {AppointmentTypeID = "Sand Castle Building", Description = "Schedule an appointment with one of our professional " +
+                                                                 "sand castle builders. Come build like the pros!"},
+
+               new AppointmentType {AppointmentTypeID = "Spa", Description = "Come relax at our 5-star spa where our location uses mineral-rich spring water " +
+                                                                 "(and sometimes seawater) to give medicinal baths and rejuvenate those pores!"},
             };
         }
 

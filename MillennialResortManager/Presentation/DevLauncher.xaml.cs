@@ -13,6 +13,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using ExceptionLoggerLogic;
 using WpfPresentation;
 using EventManager = LogicLayer.EventManager;
 
@@ -233,6 +234,10 @@ namespace Presentation
         public List<Department> _departmentsList;
         public List<Department> _currentDepartments;
         IDepartmentTypeManager departmentManager;
+		//Inbox
+		IThreadManager _threadManager;
+		IMessageManager _messageManager;
+		UserThread _userThread;
         #endregion
 
         #region DevLauncher Code #DevLauncher
@@ -412,10 +417,9 @@ namespace Presentation
         }
 
         /// <summary>
-        /// Author: ??????
+        /// Author: Matt LaMarche
         /// Date: 2019/03/29
-        /// Used to hide the navbar items based on role?
-        /// comment by Alisa Roehr. assumed creator Matt LaMarche.
+        /// Used to hide individual navbar items
         /// </summary>
         private void HideNavbarOption()
         {
@@ -862,10 +866,9 @@ namespace Presentation
         }
 
         /// <summary>
-        /// Author: ??????
+        /// Author: Matt LaMarche
         /// Created : 2019/03/29
         /// This is what happens when the subheader button for Maintenance Work Orders is clicked from the navbar
-        /// assumed creator Matt LaMarche.
         /// </summary>
         /// <param name=""></param>
         /// <param name="e"></param>
@@ -875,10 +878,9 @@ namespace Presentation
             BrowseMaintenanceWorkOrderDoOnStart();
         }
         /// <summary>
-        /// Author: ??????
+        /// Author: Matt LaMarche
         /// Created : 2019/04/05
         /// This is what happens when the subheader button for Maintenance Work Orders is clicked from the navbar
-        /// assumed creator Matt LaMarche.
         /// </summary>
         /// <param name=""></param>
         /// <param name="e"></param>
@@ -889,10 +891,9 @@ namespace Presentation
         }
 
         /// <summary>
-        /// Author: ??????
+        /// Author: Matt LaMarche
         /// Date: 2019/04/08
         /// This is what happens when the subheader button for Front Desk is clicked from the navbar
-        /// comment by Alisa Roehr.assumed creator Matt LaMarche.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -915,10 +916,9 @@ namespace Presentation
             BrowseOfferingDoOnStart();
         }
         /// <summary>
-        /// Author: ??????
+        /// Author: Matt LaMarche
         /// Date: 2019/04/10
         /// This is what happens when the subheader button for Shuttle Reservations is clicked from the navbar
-        /// comment by Alisa Roehr.assumed creator Matt LaMarche.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -929,18 +929,26 @@ namespace Presentation
         }
 
         /// <summary>
-        /// Author: ??????
+        /// Author: Matt LaMarche
         /// Date: 2019/04/11
         /// This is what happens when the subheader button for Departments is clicked from the navbar
-        /// comment by Alisa Roehr.assumed creator Matt LaMarche.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void NavBarSubHeaderDepartment_Click(object sender, RoutedEventArgs e)
         {
             DisplayPage("Department");
-
+            BrowseDepartmentDoOnStart();
         }
+
+		/// <summary author="Austin Delaney" created="2019/04/26">
+		/// At the end of the NavBar code
+		/// </summary>
+		private void NavBarSubHeaderInbox_Click(object sender, RoutedEventArgs e)
+		{
+			DisplayPage("Inbox");
+			InboxDoOnStart();
+		}
 
         /*--------------------------- Ending NavBar Code --------------------------------*/
         #endregion
@@ -962,6 +970,8 @@ namespace Presentation
             //For now this would filter to all Reservations which have at least one day fall within the next 7 days
             //filterByDateRange(DateTime.Now.Date, DateTime.Now.AddDays(7).Date);
             populateReservations();
+            dgReservations.ItemsSource = _reservationManager.RetrieveAllActiveVMReservations();
+            chkReservationActive.IsChecked = true;
         }
 
         /// <summary>
@@ -992,6 +1002,7 @@ namespace Presentation
         private void populateReservations()
         {
             dgReservations.ItemsSource = _currentReservations;
+            chkReservationActive.IsChecked = false;
         }
 
         /// <summary>
@@ -1296,7 +1307,38 @@ namespace Presentation
             }
         }
 
-
+        /// <summary>
+        /// Author: Jared Greenfield
+        /// Created : 2019-04-25
+        /// Brings up reservations with currently active 
+        /// </summary>
+        private void ChkReservationActive_Click(object sender, RoutedEventArgs e)
+        {
+            if (chkReservationActive.IsChecked == true)
+            {
+                dgReservations.ItemsSource = _reservationManager.RetrieveAllActiveVMReservations();
+                btnReservationCheckout.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                refreshAllReservations();
+                populateReservations();
+                btnReservationCheckout.Visibility = Visibility.Collapsed;
+            }   
+        }
+        /// <summary>
+        /// Author: Jared Greenfield
+        /// Created : 2019-04-25
+        /// Brings up checkout window
+        /// </summary>
+        private void BtnReservationCheckout_Click(object sender, RoutedEventArgs e)
+        {
+            if ((VMBrowseReservation)dgReservations.SelectedItem != null)
+            {
+                var checkoutForm = new frmReservationCheckout(((VMBrowseReservation)dgReservations.SelectedItem).ReservationID);
+                var result = checkoutForm.ShowDialog();
+            }
+        }
 
         /*--------------------------- Ending BrowseReservation Code --------------------------------*/
         #endregion
@@ -5407,6 +5449,9 @@ namespace Presentation
             }
             if (result == true)
             {
+                MessageBox.Show("An Event must have a way to be set up.\nPlease complete the following form.");
+                var addSetup = new SetupDetail();
+                var setupResult = addSetup.ShowDialog();
                 populateEvents();
             }
         }
@@ -5654,6 +5699,7 @@ namespace Presentation
         private void BrowseSupplierOrdersDoOnStart()
         {
             _supplierOrderManager = new SupplierOrderManager();
+            _supplierManager = new SupplierManager();
             LoadSupplierCombo();
             LoadSupplierOrderGrid();
         }
@@ -5797,6 +5843,39 @@ namespace Presentation
                 MessageBox.Show("You must select an order");
             }
         }
+
+        private void CbxIsGenerated_Click(object sender, RoutedEventArgs e)
+        {
+            if (cbxIsGenerated.IsChecked == true)
+            {
+                LoadGeneratedOrders();
+                btnApproveOrder.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                LoadSupplierOrderGrid();
+                btnApproveOrder.Visibility = Visibility.Hidden;
+            }
+        }
+
+        private void LoadGeneratedOrders()
+        {
+            try
+            {
+
+                _supplierOrders = _supplierOrderManager.RetrieveAllGeneratedOrders();
+                _currentSupplierOrders = _supplierOrders;
+                dgSupplierOrders.ItemsSource = null;
+
+                dgSupplierOrders.ItemsSource = _supplierOrders;
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
         private void BtnDeleteOrder_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -5830,7 +5909,28 @@ namespace Presentation
             }
 
         }
-
+        private void BtnApproveOrder_Click(object sender, RoutedEventArgs e)
+        {
+            if (dgSupplierOrders.SelectedIndex != -1)
+            {
+                _supplierOrder = (SupplierOrder)dgSupplierOrders.SelectedItem;
+                try
+                {
+                    if (_supplierOrderManager.UpdateGeneratedOrder(_supplierOrder.SupplierOrderID, _employee.EmployeeID))
+                    {
+                        LoadGeneratedOrders();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Failed to approve order");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+            }
+        }
 
         /*--------------------------- Ending BrowseSupplierOrders Code --------------------------------*/
         #endregion
@@ -6541,6 +6641,12 @@ namespace Presentation
 
         #region Profile Code
         /*--------------------------- Starting Profile Code #Profile--------------------------------*/
+        /// <summary>
+        /// Author: Matt LaMarche
+        /// Created : 3/13/2019
+        /// 
+        /// This is where you stick all the code you want to run in your Constructor/Window_Loaded statement for the Profile Page
+        /// </summary>
         private void ProfileDoOnStart()
         {
             _departmentManager = new DepartmentManager();
@@ -8139,6 +8245,118 @@ namespace Presentation
                 instance.SetupForm(_employee);
             }
         }
+        
+		#endregion
+
+		#region Inbox
+
+		private void InboxDoOnStart()
+		{
+			_threadManager = new FakeThreadManager();
+			//_employee = new Employee { Email = "big_dick_rick@gmail.com" };
+			SetupThreadList();
+		}
+		/// <summary author="Austin Delaney" created="2019/04/12">
+		/// Sets the thread list to the list found for local employee based on if the 
+		/// hidden or archived checks are checked.
+		/// </summary>
+		private void SetupThreadList()
+		{
+			List<UserThreadView> threads;
+
+			try
+			{
+				if (chkShowHidden.IsChecked.Value)
+				{
+					threads = _threadManager.GetUserThreadViewList(_employee, chkShowArchived.IsChecked.Value);
+				}
+				else
+				{
+					List<UserThreadView> unfilteredList = _threadManager.GetUserThreadViewList(_employee, chkShowArchived.IsChecked.Value);
+					threads = unfilteredList.Where(t => !t.ThreadHidden).ToList();
+				}
+			}
+			catch (Exception ex)
+			{
+				ExceptionLogManager.getInstance().LogException(ex);
+				MessageBox.Show(ex.Message);
+				threads = new List<UserThreadView>();
+			}
+
+			dgMessageThreadList.ItemsSource = threads;
+		}
+
+		private void ChkShowHidden_Click(object sender, RoutedEventArgs e)
+		{
+			SetupThreadList();
+		}
+
+		private void ChkThreadSilence_Click(object sender, RoutedEventArgs e)
+		{
+			if (null != _userThread && null != _employee)
+			{
+				try
+				{
+					if (_threadManager.UpdateThreadSilentStatus(_userThread, chkThreadSilence.IsChecked.Value, _employee))
+					{
+						throw new ApplicationException("Unable to change thread silent status for user " + _employee.Email + " in thread " + _userThread.ThreadID);
+					}
+				}
+				catch (Exception ex)
+				{
+					ExceptionLogManager.getInstance().LogException(ex);
+					MessageBox.Show(ex.Message);
+				}
+			}
+		}
+
+		private void PopulateMainThreadArea(IMessageThread selectedThread)
+		{
+			if (null != selectedThread && null != _employee)
+			{
+				UserThread thread = null;
+
+				try
+				{
+					thread = _threadManager.GetUserThread(selectedThread, _employee);
+
+					if (thread == null)
+					{
+						throw new ApplicationException("Unable to change thread silent status for user " + _employee.Email + " in thread " + _userThread.ThreadID);
+					}
+				}
+				catch (Exception ex)
+				{
+					ExceptionLogManager.getInstance().LogException(ex);
+					MessageBox.Show(ex.Message);
+				}
+
+				//alias dropdown
+				cboAliasPicker.ItemsSource = _employee.Aliases;
+				cboAliasPicker.SelectedValue = thread.Alias;
+
+				//participants list
+				lstThreadParticipants.ItemsSource = thread.ParticipantsWithAlias;
+
+				//message list
+				lstThreadMessages.ItemsSource = thread.Messages;
+
+				//bottom check boxes
+				chkThreadHide.IsChecked = thread.Hidden;
+				chkThreadSilence.IsChecked = thread.Silenced;
+			}
+		}
+
+		private void ChkShowArchived_Click(object sender, RoutedEventArgs e)
+		{
+			SetupThreadList();
+		}
+
+		private void BtnThreadListButton_Click(object sender, RoutedEventArgs e)
+		{
+			PopulateMainThreadArea(dgMessageThreadList.SelectedItem as IMessageThread);
+		}
+
 
         #endregion
 

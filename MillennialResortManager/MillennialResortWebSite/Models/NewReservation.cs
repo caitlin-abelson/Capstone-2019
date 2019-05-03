@@ -12,17 +12,17 @@ namespace MillennialResortWebSite.Models
         
         [Required]
         [Display(Name = "Start Date")]       
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MMM/yyyy}")]
-        public DateTime ArrivalDate { get; set; }
+        [DisplayFormat(ApplyFormatInEditMode = false, DataFormatString = "{0:dd/MMM/yyyy}")]
+        public DateTime? ArrivalDate { get; set; }
 
         [Required]
         [Display(Name = "End Date")]       
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MMM/yyyy}")]
-        public DateTime DepartureDate { get; set; }
+        [DisplayFormat(ApplyFormatInEditMode = false, DataFormatString = "{0:dd/MMM/yyyy}")]
+        public DateTime? DepartureDate { get; set; }
 
         [Required]
         [Display(Name = "Number of Guests")]
-        public int numberOfGuests { get; set; }
+        public int NumberOfGuests { get; set; }
 
         [Required]
         [Display(Name = "Number of Pets")]
@@ -30,8 +30,10 @@ namespace MillennialResortWebSite.Models
 
         [Required]
         [Display(Name = "Room Type")]
-        public string roomType { get; set; }
+        public string RoomType { get; set; }
 
         public string Notes { get; set; }
+
+
     }
 }

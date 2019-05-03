@@ -7,3 +7,8 @@ Resort Management System
 Gunardi Saputra
 Phillip Hansen
 Matt LaMarche
+Eric Bostwick
+Richard Carroll
+Kevin Broskow
+Caitlin Abelson
+Danielle Russo

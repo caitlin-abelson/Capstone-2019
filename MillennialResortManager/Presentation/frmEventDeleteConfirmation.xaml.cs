@@ -80,9 +80,9 @@ namespace Presentation
                 _eventManager.DeleteEvent(_newEvent);
                 this.DialogResult = true;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                MessageBox.Show("Could not delete event. Is the Event 'Not Approved'?");
+                MessageBox.Show(ex.Message + "\nCould not delete event. Is the Event 'Not Approved'?\nIs the setup to the event deleted?");
             }
         }
     }

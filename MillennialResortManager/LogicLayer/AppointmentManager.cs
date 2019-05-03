@@ -280,6 +280,31 @@ namespace LogicLayer
             }
             appointmentValid = true;
         }
+        /// <summary>
+        /// Eduardo Colon
+        /// Created: 2019/04/23
+        /// 
+        /// Retrieves  all  appointments
+        /// </summary>
+        public List<Appointment> RetrieveAppointments()
+        {
+            var appointments = new List<Appointment>();
+            try
+            {
+                appointments = _appointmentAccessor.SelectAppointments();
+                if (appointments == null)
+                {
+                    throw new ApplicationException("No Data");
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+            return appointments;
+        }
     }
 }
 

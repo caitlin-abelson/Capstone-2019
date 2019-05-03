@@ -4,26 +4,28 @@
     ViewBag.Title = Model.Title;
 }
 
-<h2>Something went wrong</h2>
-
-<div>
-    <h3>@Model.Title</h3>
-    <hr />
-    <dl class="dl-horizontal">
-
-        <dd>
-            <h4>@Model.Message</h4>
-        </dd>
-        <dd>@Html.ActionLink(Model.ButtonMessage, Model.ReturnAction, Model.ReturnController)</dd>
-        <dd>
-            @{ if (Model.ImageLocation != "")
-                {
-                <dd><img src="@Url.Content(Model.ImageLocation)" alt="@Model.ImageAlt" width=@Model.ImageWidth height=@Model.ImageHeight></dd>
-            }
-            }
-
-            <dd>If Contacting Technical Support Please Give this message</dd>
-
-            @Model.ExceptionMessage
-        </dl>
+<h1 style=" font-size: 36px;
+        font-family: 'Fugaz One', cursive;
+        color: #40798C;
+        margin-left: 100px;">
+    Something went wrong
+</h1>
+<div class="container body-content">
+    <div>
+        <h3>@Model.Title</h3>
+        <hr />
+        <dl class="dl-horizontal">
+            <dd>
+                <h4>@Model.Message</h4>
+            </dd>
+            <dd><h5>@Html.ActionLink(Model.ButtonMessage, Model.ReturnAction, Model.ReturnController)</h5></dd>
+            <dd>
+                @{ if (Model.ImageLocation != "")
+                    {
+                    <dd><img src="@Url.Content(Model.ImageLocation)" alt="@Model.ImageAlt" width=@Model.ImageWidth height=@Model.ImageHeight></dd>
+                }
+                }
+                <dd>If Contacting Technical Support, please give them this message: @Model.ExceptionMessage</dd>
+            </dl>
+        </div>
     </div>

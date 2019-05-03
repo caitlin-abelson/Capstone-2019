@@ -93,7 +93,7 @@ namespace LogicLayer
                 throw new ApplicationException("Vehicle already inactive");
 
             // make sure vehicle is not in use
-            if(resortVehicle.ResortVehicleStatusId == ResortVehicleStatusEnum.InUse.ToString())
+            if(resortVehicle.ResortVehicleStatusId == new ResortVehicleStatus().InUse)
                 throw new ApplicationException("Vehicle currently in use");
 
             try

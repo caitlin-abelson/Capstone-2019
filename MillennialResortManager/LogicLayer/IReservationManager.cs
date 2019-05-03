@@ -21,5 +21,7 @@ namespace LogicLayer
         List<VMBrowseReservation> RetrieveAllVMReservations();
         void DeleteReservation(int ReservationID, bool isActive);
         Reservation RetrieveReservationByGuestID(int guestID);
+
+        List<VMBrowseReservation> RetrieveAllActiveVMReservations();
     }
 }

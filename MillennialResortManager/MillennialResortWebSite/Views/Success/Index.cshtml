@@ -1,0 +1,26 @@
+﻿@model MillennialResortWebSite.Models.SuccessViewModel
+
+@{
+    ViewBag.Title = Model.Title;
+}
+
+<h1 style=" font-size: 36px;
+        font-family: 'Fugaz One', cursive;
+        color: #40798C;
+        margin-left: 100px;">
+    Congratulations!
+</h1>
+<div class="container body-content">
+    <div>
+        <h3>You have made @Model.Title</h3>
+        <hr />
+        <dl class="dl-horizontal">
+            <dd>
+                <h4>Your @Model.Type is currently scheduled for @Model.StartDate at @Model.Time</h4>
+            </dd>
+            <dd><h5>@Html.ActionLink(Model.ButtonMessage, Model.ReturnAction, Model.ReturnController)</h5></dd>
+            <dd>
+            </dl>
+        </div>
+    </div>
+

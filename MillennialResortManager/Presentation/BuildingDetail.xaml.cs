@@ -566,37 +566,6 @@ namespace Presentation
         /// Danielle Russo
         /// Created: 2019/03/14
         /// 
-        /// Sets up the general building info when the "Info" tab is clicked
-        /// </summary>
-        ///
-        /// <remarks>
-        /// </remarks>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void tabBldInfo_GotFocus(object sender, RoutedEventArgs e)
-        {
-        }
-
-        /// <summary>
-        /// Danielle Russo
-        /// Created: 2019/03/14
-        /// 
-        /// Sets up the inspection info when the "Inspections" tab is clicked
-        /// </summary>
-        ///
-        /// <remarks>
-        /// </remarks>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void tabBldInspections_GotFocus(object sender, RoutedEventArgs e)
-        {
-            //setUpInspectionTab();
-        }
-
-        /// <summary>
-        /// Danielle Russo
-        /// Created: 2019/03/14
-        /// 
         /// Populates fields in the "Inspections" tab
         /// </summary>
         ///
@@ -618,22 +587,6 @@ namespace Presentation
 
 
             dgBuildingInspections.ItemsSource = inspections;
-        }
-
-        /// <summary>
-        /// Danielle Russo
-        /// Created: 2019/03/14
-        /// 
-        /// Makes form editable
-        /// </summary>
-        ///
-        /// <remarks>
-        /// </remarks>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void btnTernaryAction_Click(object sender, RoutedEventArgs e)
-        {
-
         }
 
         private void dgBuildingInspections_MouseDoubleClick(object sender, MouseButtonEventArgs e)
@@ -664,10 +617,6 @@ namespace Presentation
             }
         }
 
-        private void grdBldInspections_GotFocus(object sender, RoutedEventArgs e)
-        {
-            //setUpInspectionTab();
-        }
 
         /// <summary>
         /// Danielle Russo
@@ -746,17 +695,63 @@ namespace Presentation
 
         private void dgBuildingMaintenance_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
+            if (dgBuildingMaintenance.SelectedItem != null)
+            {
+                selectMaintenanceTicket();
+            }
+            
+        }
 
+        private void selectMaintenanceTicket()
+        {
+            MaintenanceWorkOrder ticket = (MaintenanceWorkOrder)dgBuildingMaintenance.SelectedItem;
+
+            var detailForm = new CreateMaintenanceWorkOrder(ticket, maintenanceManager);
+            var formUpdated = detailForm.ShowDialog();
+
+            if (formUpdated == true)
+            {
+                try
+                {
+                    setUpMaintainanceTab();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+
+            }
         }
 
         private void btnAddMaintenance_Click(object sender, RoutedEventArgs e)
         {
+            var addTicketForm = new CreateMaintenanceWorkOrder(maintenanceManager);
+            var ticketAdded = addTicketForm.ShowDialog();
 
+
+            if (ticketAdded == true)
+            {
+                try
+                {
+                    setUpMaintainanceTab();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Inspection was not added.");
+            }
         }
 
         private void btnSelectionMaintenance_Click(object sender, RoutedEventArgs e)
         {
-
+            if (dgBuildingMaintenance.SelectedItem != null)
+            {
+                selectMaintenanceTicket();
+            }
         }
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.ComponentModel;
 
 namespace DataObjects
 {
@@ -24,11 +25,13 @@ namespace DataObjects
         /// <summary>
         /// If the tab is not active, charges cannot be billed to the tab.
         /// </summary>
+        [DisplayName("Tab Status: Active")]
         public bool Active { get; set; }
 
         /// <summary>
         /// The total of all items on the tab.
-        /// </summary>
+        /// </summary> 
+        [DisplayName("Current Total")]
         public decimal TotalPrice { get; set; }
 
         /// <summary>

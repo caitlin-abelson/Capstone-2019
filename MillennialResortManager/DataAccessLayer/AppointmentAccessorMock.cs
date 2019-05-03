@@ -200,7 +200,7 @@ namespace DataAccessLayer
             Appointment apt2 = new Appointment()
             {
                 AppointmentID = nextAppID,
-                AppointmentType = "Spa",
+                AppointmentType = "Massage Therapy",
                 GuestID = 100000,
                 StartDate = new DateTime(2020, 12, 26, 10, 30, 50),
                 EndDate = new DateTime(2020, 12, 26, 10, 50, 50),
@@ -212,7 +212,7 @@ namespace DataAccessLayer
             Appointment apt3 = new Appointment()
             {
                 AppointmentID = nextAppID,
-                AppointmentType = "Spa",
+                AppointmentType = "Sand Castle Building",
                 GuestID = 100000,
                 StartDate = new DateTime(2020, 12, 27, 10, 30, 50),
                 EndDate = new DateTime(2020, 12, 27, 10, 50, 50),
@@ -221,6 +221,18 @@ namespace DataAccessLayer
             nextAppID++;
             _appointments.Add(apt3);
 
+        }
+        /// <summary>
+        /// Eduardo Colon
+        ///  2019/04/23
+        /// 
+        /// Retrieve all  Appointments 
+        /// </summary>
+
+
+        public List<Appointment> SelectAppointments()
+        {
+            return _appointments;
         }
     }
 }

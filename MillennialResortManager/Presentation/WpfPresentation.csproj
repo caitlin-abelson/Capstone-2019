@@ -24,6 +24,8 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>
+    </DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -95,6 +97,7 @@
     <Compile Include="AddLuggage.xaml.cs" />
     <Compile Include="AddPerformance.xaml.cs" />
     <Compile Include="AddSpecialOrder.xaml.cs" />
+    <Compile Include="BrowseAppointment.xaml.cs" />
     <Compile Include="BrowseAppointmentType.xaml.cs" />
     <Compile Include="BrowseAvailableRooms.xaml.cs">
       <DependentUpon>BrowseAvailableRooms.xaml</DependentUpon>
@@ -163,6 +166,9 @@
     <Compile Include="FrmBrowseShuttleVehicles.xaml.cs">
       <DependentUpon>FrmBrowseShuttleVehicles.xaml</DependentUpon>
     </Compile>
+    <Compile Include="frmInbox.xaml.cs">
+      <DependentUpon>frmInbox.xaml</DependentUpon>
+    </Compile>
     <Compile Include="FrmCheckoutPrompt.xaml.cs">
       <DependentUpon>FrmCheckoutPrompt.xaml</DependentUpon>
     </Compile>
@@ -194,6 +200,9 @@
     </Compile>
     <Compile Include="frmPickOrders.xaml.cs">
       <DependentUpon>frmPickOrders.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="frmReservationCheckout.xaml.cs">
+      <DependentUpon>frmReservationCheckout.xaml</DependentUpon>
     </Compile>
     <Compile Include="FrmResortPropertyType.xaml.cs">
       <DependentUpon>FrmResortPropertyType.xaml</DependentUpon>
@@ -246,6 +255,7 @@
     <Compile Include="SqlServerTypes\Loader.cs" />
     <Compile Include="viewAccount.xaml.cs" />
     <Compile Include="ViewPerformance.xaml.cs" />
+    <Compile Include="WalkInAppointmentDetail.xaml.cs" />
     <Page Include="AddDepartment.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -263,6 +273,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="AddSpecialOrder.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="BrowseAppointment.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -516,6 +530,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="frmInbox.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="frmEventPerformanceMain.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -555,6 +573,10 @@
     <Page Include="frmPickOrders.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="frmReservationCheckout.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="FrmResortPropertyType.xaml">
       <SubType>Designer</SubType>
@@ -716,6 +738,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="WalkInAppointmentDetail.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="PerformanceViewer.xaml.cs" />
@@ -748,7 +774,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DataAccessLayer\DataAccessLayer.csproj">
-      <Project>{cce8f374-3775-4b7b-aef6-89c330c61d27}</Project>
+      <Project>{CCE8F374-3775-4B7B-AEF6-89C330C61D27}</Project>
       <Name>DataAccessLayer</Name>
     </ProjectReference>
     <ProjectReference Include="..\DataObjects\DataObjects.csproj">

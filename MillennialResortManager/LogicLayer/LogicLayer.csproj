@@ -21,6 +21,8 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>
+    </DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -31,9 +33,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.11.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -55,8 +54,11 @@
     <Compile Include="EventPerformanceManager.cs" />
     <Compile Include="EventSponsorManager.cs" />
     <Compile Include="EventTypeManager.cs" />
+    <Compile Include="FakeMessageManager.cs" />
+    <Compile Include="FakeThreadManager.cs" />
     <Compile Include="GenericPropertyValidator.cs" />
     <Compile Include="GuestManager.cs" />
+    <Compile Include="GuestRoomAssignmentManager.cs" />
     <Compile Include="GuestVehicleManager.cs" />
     <Compile Include="HouseKeepingRequestManagerMSSQL.cs" />
     <Compile Include="IAppointmentManager.cs" />
@@ -70,6 +72,7 @@
     <Compile Include="IEventManager.cs" />
     <Compile Include="IGuestManager.cs" />
     <Compile Include="IEventTypeManager.cs" />
+    <Compile Include="IGuestRoomAssignmentManager.cs" />
     <Compile Include="IGuestTypeManager.cs" />
     <Compile Include="IGuestVehicleManager.cs" />
     <Compile Include="IHouseKeepingRequestManager.cs" />
@@ -82,6 +85,8 @@
     <Compile Include="IMaintenanceTypeManager.cs" />
     <Compile Include="IMaintenanceWorkOrderManager.cs" />
     <Compile Include="IMemberManager.cs" />
+    <Compile Include="IMemberTabLineManager.cs" />
+    <Compile Include="IMessageManager.cs" />
     <Compile Include="IMemberTabManager.cs" />
     <Compile Include="InspectionManager.cs" />
     <Compile Include="InternalOrderManager.cs" />
@@ -112,6 +117,7 @@
     <Compile Include="ItemManager.cs" />
     <Compile Include="ItemSupplierManager.cs" />
     <Compile Include="ItemTypeManagerMSSQL.cs" />
+    <Compile Include="IThreadManager.cs" />
     <Compile Include="IResortVehicleManager.cs" />
     <Compile Include="LogicValidationExtensionMethods.cs" />
     <Compile Include="LuggageManager.cs" />
@@ -119,6 +125,7 @@
     <Compile Include="MaintenanceTypeManagerMSSQl.cs" />
     <Compile Include="MaintenanceWorkOrderManagerMSSQL.cs" />
     <Compile Include="MemberManagerMSSQL.cs" />
+    <Compile Include="MemberTabLineManager.cs" />
     <Compile Include="MemberTabManager.cs" />
     <Compile Include="OfferingManager.cs" />
     <Compile Include="MemberValidator.cs" />
@@ -127,6 +134,8 @@
     <Compile Include="PetTypeManager.cs" />
     <Compile Include="PickManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RealMessageManager.cs" />
+    <Compile Include="RealThreadManager.cs" />
     <Compile Include="ReceivingTicketManager.cs" />
     <Compile Include="RecipeManager.cs" />
     <Compile Include="ReservationManagerMSSQL.cs" />
@@ -167,9 +176,6 @@
       <Project>{9b36dc60-da48-44a9-9bc6-1f4d6daa2816}</Project>
       <Name>ExceptionLoggerLogic</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

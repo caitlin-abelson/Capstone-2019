@@ -121,9 +121,9 @@
             <Label Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Bottom">Event Description</Label>
             <TextBox x:Name="txtDescription" TextWrapping="Wrap" Grid.Row="2" Width="180" />
 
-            <Button x:Name="btnEventAction1" Grid.Column="0" Grid.Row="6" Width="80" Margin="10" Height="25" HorizontalAlignment="Right" Content="Action" Click="BtnEventAction1_Click" />
-            <Button x:Name="btnEventAction2" Grid.Column="3" Grid.Row="6" Width="80" Margin="10" Height="25" HorizontalAlignment="Center" Content="Action2" Click="BtnEventAction2_Click" />
-            <Button x:Name="btnDeleteEvent" Grid.Row="6" Width="80" Margin="10" Height="25" HorizontalAlignment="Left" Content="Delete" Click="BtnDeleteEvent_Click" />
+            <Button x:Name="btnEventAction1" Grid.Column="0" Grid.Row="6" Width="80" Margin="5" Height="25" HorizontalAlignment="Right" Content="Action" Click="BtnEventAction1_Click" />
+            <Button x:Name="btnEventAction2" Grid.Column="3" Grid.Row="6" Width="80" Margin="5" Height="25" HorizontalAlignment="Center" Content="Action2" Click="BtnEventAction2_Click" />
+            <Button x:Name="btnDeleteEvent" Grid.Row="6" Width="80" Margin="5" Height="25" HorizontalAlignment="Left" Content="Delete" Click="BtnDeleteEvent_Click" />
         </Grid>
     </Grid>
     <!--End Main Grid-->

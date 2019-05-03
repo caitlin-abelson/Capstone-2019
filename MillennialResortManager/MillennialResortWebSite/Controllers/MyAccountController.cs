@@ -3,20 +3,33 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using DataAccessLayer;
 using DataObjects;
 using LogicLayer;
 using MillennialResortWebSite.Models;
 
 namespace MillennialResortWebSite.Controllers
 {
+    [Authorize]
     public class MyAccountController : Controller
     {
         IGuestManager _guestManager = new GuestManager();
 
+        IMemberTabManager _memberTabManager = new MemberTabManager();
 
+        IMemberTabLineManager _memberTabLineManager = new MemberTabLineManager();
+
+        IMemberManager _memberManager = new MemberManagerMSSQL();
+
+        IAppointmentManager apptManager = new AppointmentManager();
+
+        IReservationManager resManager = new ReservationManagerMSSQL();
+
+        
         // GET: MyAccount
         public ActionResult Index()
         {
+
             try
             {
                 Guest guest = new Guest();
@@ -92,115 +105,91 @@ namespace MillennialResortWebSite.Controllers
                 return View(newGuest);
             }
         }
-
+        [Authorize]
         // GET: MyAccount/ViewAppointments/5
         public ActionResult ViewAppointments(int id)
         {
-            return View();
-        }
-
-        // POST: MyAccount/ViewAppointments/5
-        [HttpPost]
-        public ActionResult ViewAppointments(int id, FormCollection collection)
-        {
+            List<Appointment> appt;
             try
             {
-                // TODO: Add update logic here
-
-                return RedirectToAction("Index");
+                appt = apptManager.RetrieveAppointmentsByGuestID(id);
             }
-            catch
+            catch (Exception ex)
             {
-                return View();
-            }
-        }
+                TempData["error"] = new ErrorViewModel(
+                    Title: "Your Appointments",
+                    Message: "We could not pull up a list of your appointments!",
+                    ExceptionMessage: ex.Message,
+                    ButtonMessage: "Back to Account",
+                    ReturnController: "MyAccount",
+                    ReturnAction: "Index"
+                    );
 
+                return RedirectToAction("Index", "Error");
+            }
+            return View(appt);
+        }
+        [Authorize]
         // GET: MyAccount/ViewReservations/5
         public ActionResult ViewReservations(int id)
         {
-            return View();
+            Reservation res;
+            try
+            {
+                res = resManager.RetrieveReservationByGuestID(id);
+            }
+            catch (Exception ex)
+            {
+                    TempData["error"] = new ErrorViewModel(
+                    Title: "Your Reservations",
+                    Message: "We could not pull up a list of your reservations!",
+                    ExceptionMessage: ex.Message,
+                    ButtonMessage: "Back to Account",
+                    ReturnController: "MyAccount",
+                    ReturnAction: "Index"
+                    );
+
+                return RedirectToAction("Index", "Error");
+            }
+            return View(res);
         }
 
-        // POST: MyAccount/ViewReservations/5
-        [HttpPost]
-        public ActionResult ViewReservations(int id, FormCollection collection)
+        /// <summary>
+        /// Added by: Matt H. on 4/26/17
+        /// </summary>
+        // GET: MyAccount/ViewTab/5
+        public ActionResult ViewTab()
         {
             try
             {
-                // TODO: Add update logic here
+                string email = User.Identity.Name;
 
-                return RedirectToAction("Index");
+                int id = _memberManager.RetrieveMemberByEmail(email);
+
+                MemberTab memberTab = _memberTabManager.RetrieveActiveMemberTabByMemberID(id);
+
+                List<MemberTabLine> memberTabLines = _memberTabLineManager.RetrieveMemberTabLineByMemberID(memberTab.MemberTabID);
+
+                ViewTabMixer viewTabMixer = new ViewTabMixer
+                {
+                    MemberTab = memberTab,
+                    MemberTabLines = memberTabLines
+                };
+
+                return View(viewTabMixer);
             }
-            catch
+            catch (Exception ex)
             {
-                return View();
-            }
-        }
+                TempData["error"] = new ErrorViewModel(
+                Title: "Your Tab",
+                Message: "We could not pull up your tab!",
+                ExceptionMessage: ex.Message,
+                ButtonMessage: "Back to Account",
+                ReturnController: "MyAccount",
+                ReturnAction: "Index"
+                );
 
-        // GET: MyAccount/AddGuests/5
-        public ActionResult AddGuests(int id)
-        {
-            return View();
-        }
-
-        // POST: MyAccount/AddGuests/5
-        [HttpPost]
-        public ActionResult AddGuests(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add update logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-
-        // GET: MyAccount/AddEmergencyContact/5
-        public ActionResult AddEmergencyContact(int id)
-        {
-            return View();
-        }
-
-        // POST: MyAccount/AddEmergencyContact/5
-        [HttpPost]
-        public ActionResult AddEmergencyContact(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add update logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: MyAccount/Delete/5
-        public ActionResult Deactivate(int id)
-        {
-            return View();
-        }
-
-        // POST: MyAccount/Delete/5
-        [HttpPost]
-        public ActionResult Deactivate(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
+                return RedirectToAction("Index", "Error");
             }
         }
     }

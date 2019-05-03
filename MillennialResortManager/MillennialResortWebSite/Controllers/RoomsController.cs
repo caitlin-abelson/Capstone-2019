@@ -16,26 +16,22 @@ namespace MillennialResortWebSite.Controllers
 
         IReservationManager reservationManager = new ReservationManagerMSSQL();
 
-        //IEnumerable<Reservation> reservation;
-
-        IEnumerable<Room> rooms;
-
         IGuestManager _guestManager = new GuestManager();
 
 
 
         // GET: Rooms
-        public ActionResult Index()
+        public ActionResult Index(ReservationSearchModel model)
         {
             roomManager = new RoomManager();
 
-            rooms = roomManager.RetrieveRoomList();
+            model.Rooms = roomManager.RetrieveRoomList();
 
             int hour = DateTime.Now.Hour;
 
             ViewBag.Greeting = hour < 12 ? "Good Morning" : "Good Afternoon";
 
-            return View(rooms);
+            return View(model);
         }
 
 
@@ -43,7 +39,7 @@ namespace MillennialResortWebSite.Controllers
 
 
         [Authorize]
-        public ActionResult Create(int id)
+        public ActionResult Create(int id, DateTime start, DateTime end, int numGuest)
         {
             if (id == 0)
             {
@@ -70,31 +66,18 @@ namespace MillennialResortWebSite.Controllers
             }
 
 
-
-
-
-
             NewReservation res = new NewReservation()
             {
-                ArrivalDate = DateTime.Now,
-                DepartureDate = DateTime.Now.AddDays(1),
-                numberOfGuests = 0,
+                ArrivalDate = start,
+                DepartureDate = end,
+                NumberOfGuests = numGuest,
                 numberOfPets = 0,
-                roomType = room.RoomType,
+                RoomType = room.RoomType,
                 Notes = ""
             };
 
             return View(res);
         }
-
-
-
-
-
-
-
-
-
 
 
         // POST: Reservaion/Create
@@ -112,9 +95,9 @@ namespace MillennialResortWebSite.Controllers
                     Reservation res = new Reservation()
                     {
                         MemberID = guest.MemberID,
-                        NumberOfGuests = reservation.numberOfGuests,
-                        ArrivalDate = reservation.ArrivalDate,
-                        DepartureDate = reservation.DepartureDate,
+                        NumberOfGuests = reservation.NumberOfGuests,
+                        ArrivalDate = reservation.ArrivalDate.Value,
+                        DepartureDate = reservation.DepartureDate.Value,
                         Notes = reservation.Notes
                     };
                     if (reservationManager.AddReservation(res))

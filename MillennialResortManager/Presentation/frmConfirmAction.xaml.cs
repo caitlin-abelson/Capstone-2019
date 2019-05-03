@@ -23,7 +23,7 @@ namespace Presentation
         public frmConfirmAction(CrudFunction crudFuction)
         {
             InitializeComponent();
-            lblPrompt.Content = "Are you sure you would like to " + crudFuction.ToString() + " this record?";
+            lblPrompt.Content = "Are you sure you would like to " + crudFuction.ToString() + " this record? This is your last chance.";
         }
 
         private void BtnExit_Click(object sender, RoutedEventArgs e)
