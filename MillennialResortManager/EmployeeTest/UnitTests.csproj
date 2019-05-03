@@ -81,6 +81,7 @@
     <Compile Include="RoleManagerTests.cs" />
     <Compile Include="RoomManagerTest.cs" />
     <Compile Include="SetupListManagerTests.cs" />
+    <Compile Include="SetupManagerTests.cs" />
     <Compile Include="ShopManagerTest.cs" />
     <Compile Include="RoomTypeUnitTests.cs" />
     <Compile Include="ShuttleReservationManagerTests.cs" />
