@@ -48,20 +48,20 @@
         <Grid Grid.Row="2" Style="{StaticResource BottomBar}">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                 <Button Content="Create Shuttle Vehicle"
-                        Margin="5"
-                        Name="btnCreateShuttle" Width="200" Click="BtnCreateShuttle_Click" />
+                        Margin="5" Padding="5"
+                        Name="btnCreateShuttle"  Click="BtnCreateShuttle_Click" />
                 <Button Content="Edit Shuttle Vehicle"
-                        Margin="5"
-                        Name="btnEditShuttle" Width="200" Click="BtnEditShuttle_Click" />
+                        Margin="5" Padding="5"
+                        Name="btnEditShuttle"  Click="BtnEditShuttle_Click" />
                 <Button Content="View Shuttle Vehicle"
-                        Margin="5"
-                        Name="btnViewShuttle" Width="200" Click="BtnViewShuttle_Click" />
+                        Margin="5" Padding="5"
+                        Name="btnViewShuttle"  Click="BtnViewShuttle_Click" />
                 <Button Content="Deactivate Vehicle"
-                        Margin="5" Name="btnDeactivateVehicle"
-                        Width="200" Click="BtnDeactivateVehicle_OnClick" />
+                        Margin="5" Padding="5" Name="btnDeactivateVehicle"
+                         Click="BtnDeactivateVehicle_OnClick" />
                 <Button Content="Delete Vehicle"
-                        Margin="5" Name="btnDeleteVehicle"
-                        Width="200" Click="BtnDeleteVehicle_OnClick" />
+                        Margin="5" Padding="5" Name="btnDeleteVehicle"
+                         Click="BtnDeleteVehicle_OnClick" />
             </StackPanel>
         </Grid>
         <!--End of Button Group-->
