@@ -5696,6 +5696,7 @@ namespace Presentation
         private void BrowseSupplierOrdersDoOnStart()
         {
             _supplierOrderManager = new SupplierOrderManager();
+            _supplierManager = new SupplierManager();
             LoadSupplierCombo();
             LoadSupplierOrderGrid();
         }
