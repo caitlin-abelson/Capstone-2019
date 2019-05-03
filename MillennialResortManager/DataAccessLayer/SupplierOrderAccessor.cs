@@ -225,8 +225,8 @@ namespace DataAccessLayer
                         itemSupplier.Description = reader["Description"].ToString();
                         itemSupplier.ItemSupplierActive = reader.GetBoolean(reader.GetOrdinal("Active"));
                         itemSupplier.ItemType = reader["ItemTypeID"].ToString();
-                        itemSupplier.OnHandQty = reader.GetInt32(reader.GetOrdinal("OnHandQuantity"));
-                        itemSupplier.ReorderQty = reader.GetInt32(reader.GetOrdinal("ReOrderQuantity"));
+                        itemSupplier.OnHandQty = reader.GetInt32(reader.GetOrdinal("OnHandQty"));
+                        itemSupplier.ReorderQty = reader.GetInt32(reader.GetOrdinal("ReOrderQty"));
                         itemSupplier.SupplierItemID = reader.GetInt32(reader.GetOrdinal("SupplierItemID"));
                         itemSuppliers.Add(itemSupplier);
 
