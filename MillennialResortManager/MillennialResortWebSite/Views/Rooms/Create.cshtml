@@ -9,21 +9,6 @@
     @Scripts.Render("~/bundles/jqueryui")
     @Styles.Render("~/Content/cssjqryUi")
 
-
-
-    @*<script type="text/javascript">
-        $(document).ready(function () {
-            $('input[type=datetime]:not([readonly])').datepicker({
-                dateFormat: "dd/M/yy",
-                changeMonth: true,
-                changeYear: true,
-                yearRange: "-60:+0",
-                minDate: 0
-            });
-
-        });
-    </script>*@
-
 }
 
 
@@ -82,10 +67,10 @@
                     </div>
 
                     <div class="form-group">
-                        @Html.LabelFor(model => model.roomType, htmlAttributes: new { @class = "control-label col-md-2" })
+                        @Html.LabelFor(model => model.RoomType, htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-10">
-                            @Html.EditorFor(model => model.roomType, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
-                            @Html.ValidationMessageFor(model => model.roomType, "", new { @class = "text-danger" })
+                            @Html.EditorFor(model => model.RoomType, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                            @Html.ValidationMessageFor(model => model.RoomType, "", new { @class = "text-danger" })
                         </div>
                     </div>
 
