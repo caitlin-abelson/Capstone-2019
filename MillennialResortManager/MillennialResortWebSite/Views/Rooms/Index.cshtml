@@ -1,6 +1,10 @@
 ﻿@model MillennialResortWebSite.Models.ReservationSearchModel
 
 
+@{
+    IEnumerable<String> types = (IEnumerable<String>)ViewBag.Types;
+}
+
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryui")
     @Styles.Render("~/Content/cssjqryUi")
@@ -42,61 +46,60 @@
             {
                 @Html.AntiForgeryToken()
 
-                <div class="form-horizontal planTripRoomspage">
-                    <h2>Make Reservation</h2>
+            <div class="form-horizontal planTripRoomspage">
+                <h2>Make Reservation</h2>
 
-                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
 
-                    <div class="form-group">
+                <div class="form-group">
 
-                        <div class="col-md-10">
-                            @Html.EditorFor(model => model.ArrivalDate, new { htmlAttributes = new { @class = "form-control", placeholder = "Start Date", @readonly = "true" } })
-                            @Html.ValidationMessageFor(model => model.ArrivalDate, "", new { @class = "text-danger" })
-                        </div>
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.ArrivalDate, new { htmlAttributes = new { @class = "form-control", placeholder = "Start Date", @readonly = "true" } })
+                        @Html.ValidationMessageFor(model => model.ArrivalDate, "", new { @class = "text-danger" })
                     </div>
-
-
-                    <div class="form-group">
-
-                        <div class="col-md-10">
-                            @Html.EditorFor(model => model.DepartureDate, new { htmlAttributes = new { @class = "form-control", placeholder = "End Date", @readonly = "true" } })
-                            @Html.ValidationMessageFor(model => model.DepartureDate, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
-
-
-                    <div class="form-group">
-                        <div class="col-md-10">
-
-                            @Html.DropDownListFor(model => model.NumberOfGuests, Enumerable.Range(1, 25).Select(i => new SelectListItem { Text = i.ToString() + " Guest", Value = i.ToString() }), new { @class = "form-control Sleeps" })
-
-                            @Html.ValidationMessageFor(model => model.NumberOfGuests, "", new { @class = "text-danger" })
-
-                        </div>
-                    </div>
-
-
-                    @*<div class="form-group">
-                        <div class="col-md-10">
-
-                            @Html.DropDownListFor(model => model.RoomType, Model.RoomTypes)
-                            @Html.ValidationMessageFor(model => model.RoomType, "", new { @class = "text-danger" })
-
-                        </div>
-                    </div>*@
-
-
-
-                    <div class="form-group">
-                        <div class="col-md-offset-2 col-md-10">
-                            <input type="submit" value="Search" id="centerButton" class="btn btn-default" />
-                        </div>
-                    </div>
-
-                    <p>@Html.ActionLink("View all Properties", "Index", "Rooms")</p>
-
                 </div>
+
+
+                <div class="form-group">
+
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.DepartureDate, new { htmlAttributes = new { @class = "form-control", placeholder = "End Date", @readonly = "true" } })
+                        @Html.ValidationMessageFor(model => model.DepartureDate, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    <div class="col-md-10">
+
+                        @Html.DropDownListFor(model => model.NumberOfGuests, Enumerable.Range(1, 25).Select(i => new SelectListItem { Text = i.ToString() + " Guest", Value = i.ToString() }), new { @class = "form-control Sleeps" })
+
+                        @Html.ValidationMessageFor(model => model.NumberOfGuests, "", new { @class = "text-danger" })
+
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.RoomTypes, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.DropDownListFor(model => model.RoomTypes,
+                                          new SelectList(types),
+                                          new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.RoomTypes, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Search" id="centerButton" class="btn btn-default" />
+                    </div>
+                </div>
+
+                <p>@Html.ActionLink("View all Properties", "Index", "Rooms")</p>
+
+            </div>
             }
         </div>
         <div class="col-md-8 roomTable">

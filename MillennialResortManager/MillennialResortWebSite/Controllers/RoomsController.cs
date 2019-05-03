@@ -18,11 +18,15 @@ namespace MillennialResortWebSite.Controllers
 
         IGuestManager _guestManager = new GuestManager();
 
+        IRoomType _roomType = new RoomTypeManager();
+
+        IEnumerable<String> _types = null;
 
 
         // GET: Rooms
         public ActionResult Index(ReservationSearchModel model)
         {
+            _types = _roomType.RetrieveAllRoomTypes();
             roomManager = new RoomManager();
 
             model.Rooms = roomManager.RetrieveRoomList();
@@ -30,8 +34,9 @@ namespace MillennialResortWebSite.Controllers
             int hour = DateTime.Now.Hour;
 
             ViewBag.Greeting = hour < 12 ? "Good Morning" : "Good Afternoon";
-
+            ViewBag.Types = _types;
             return View(model);
+
         }
 
 
@@ -41,6 +46,7 @@ namespace MillennialResortWebSite.Controllers
         [Authorize]
         public ActionResult Create(int id, DateTime start, DateTime end, int numGuest)
         {
+            _types = _roomType.RetrieveAllRoomTypes();
             if (id == 0)
             {
                 return RedirectToAction("Index");
@@ -76,6 +82,7 @@ namespace MillennialResortWebSite.Controllers
                 Notes = ""
             };
 
+            ViewBag.Types = _types;
             return View(res);
         }
 
@@ -84,6 +91,7 @@ namespace MillennialResortWebSite.Controllers
         [HttpPost]
         public ActionResult Create(NewReservation reservation)
         {
+            _types = _roomType.RetrieveAllRoomTypes();
             if (ModelState.IsValid)
             {
                 try
@@ -110,6 +118,8 @@ namespace MillennialResortWebSite.Controllers
                     throw;
                 }
             }
+
+            ViewBag.Types = _types;
             return View(reservation);
         }
 
