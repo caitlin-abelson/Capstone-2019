@@ -102,7 +102,7 @@
         <!-- Content -->
         <Grid Grid.Row="2" Panel.ZIndex="1" x:Name="Content">
             <!-- Landing Page-->
-            <Grid x:Name="LandingPage" Visibility="Hidden" Style="{StaticResource LandingPage }">
+            <Grid x:Name="LandingPage" Visibility="Visible" Style="{StaticResource LandingPage }">
                 <Label Content="Content Goes Here" Grid.Column="0" Grid.ColumnSpan="2" FontSize="72" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                 <Image Source="../MillennialResortWebSite/Content/images/beachPool.jpg"/>
 
@@ -571,7 +571,7 @@
                 </Grid>
             </Grid>
             <!-- Browse Employee Roles Page-->
-            <Grid x:Name="BrowseEmployeeRolesPage" Visibility="Visible">
+            <Grid x:Name="BrowseEmployeeRolesPage" Visibility="Hidden">
                 <Grid.RowDefinitions>
                     <RowDefinition/>
                     <RowDefinition Height="8*"/>
