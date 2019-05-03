@@ -337,12 +337,19 @@
                         </Grid.RowDefinitions>
                         <Grid Grid.Row="0">
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="100"/>
+                                <!--<ColumnDefinition Width="100"/>
                                 <ColumnDefinition />
 
                                 <ColumnDefinition Width="100"/>
                                 <ColumnDefinition Width="100"/>
-                                <ColumnDefinition Width="100"/>
+                                <ColumnDefinition Width="100"/>-->
+<!--Modified by Gunardi Saputra on 5/3/2019 : adjusted position --> 
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                                <ColumnDefinition />
 
                             </Grid.ColumnDefinitions>
                             <Button x:Name="btnAddEmployee" Grid.Column="2" Content="Add Employee" Margin="5" Click="BtnAddEmployee_Click"></Button>
@@ -373,15 +380,17 @@
                             <RowDefinition Height="40" />
                         </Grid.RowDefinitions>
                         <Grid Grid.Row="0">
+                            <!-- Updated: Gunardi Saputra on 5/2/2019-->
+                            <!-- Adjusted presentation layer -->
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="100"/>
-                                <ColumnDefinition Width="100"/>
+                                <ColumnDefinition Width="85"/>
 
-                                <ColumnDefinition Width="100"/>
+                                <ColumnDefinition Width="120"/>
 
-                                <ColumnDefinition Width="200"/>
-                                <ColumnDefinition Width="100"/>
-                                <ColumnDefinition Width="200"/>
+                                <ColumnDefinition Width="175"/>
+                                <ColumnDefinition Width="130"/>
+                                <ColumnDefinition Width="175"/>
                                 <ColumnDefinition Width="100"/>
                                 <ColumnDefinition Width="100"/>
 
@@ -432,8 +441,8 @@
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="100"/>
                                 <ColumnDefinition />
-                                <ColumnDefinition Width="100"/>
-                                <ColumnDefinition Width="100"/>
+                                <ColumnDefinition Width="130"/>
+                                <ColumnDefinition Width="130"/>
                                 <ColumnDefinition Width="100"/>
                             </Grid.ColumnDefinitions>
                             <Button x:Name="btnAddSuppliers" Grid.Column="2" Content="Add Supplier" Margin="5" Click="BtnAddSuppliers_Click"></Button>
@@ -735,14 +744,18 @@
                 <DataGrid CanUserDeleteRows="True" x:Name="dgAppointmentTypes" Grid.Row="2" IsReadOnly="True"/>
                 <Grid Grid.Row="3" Style="{StaticResource BottomBar}">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="3*"/>                       
+                        <ColumnDefinition />                       
                         <ColumnDefinition />
-                        <ColumnDefinition />
-                        <ColumnDefinition />
+                        <ColumnDefinition MaxWidth="100"/>
+                        <ColumnDefinition MaxWidth="10" />
+                        <ColumnDefinition MaxWidth="100"/>
+                        <ColumnDefinition MaxWidth="10" />
                     </Grid.ColumnDefinitions>
-                    <Button x:Name="btnAppointmentTypeAddAction" Grid.Column="1" Content="Add" Click="BtnAppointmentTypeAddAction_Click"></Button>
-                    <Label Grid.Column="2">View Here</Label>
-                    <Button x:Name="btnAppointmentTypeActionDelete" Grid.Column="3" Content="Delete"  Click="BtnAppointmentTypeActionDelete_Click" ></Button>
+                    <Button x:Name="btnAppointmentTypeAddAction" Grid.Column="2" Content="Add" Click="BtnAppointmentTypeAddAction_Click"></Button>
+                   
+            <!--Modified by Gunardi Saputra on 5/03/2019, remove note on the screen, no view button function -->
+                    <!--<Label Grid.Column="2">View Here</Label>-->
+                    <Button x:Name="btnAppointmentTypeActionDelete" Grid.Column="4" Content="Delete"  Click="BtnAppointmentTypeActionDelete_Click" ></Button>
                 </Grid>
             </Grid>
             <!-- Browse Guests Page -->
