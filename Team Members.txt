@@ -12,3 +12,4 @@ Richard Carroll
 Kevin Broskow
 Caitlin Abelson
 Danielle Russo
+Wes RIcharson
