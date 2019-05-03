@@ -61,7 +61,7 @@
     <IntermediateOutputPath>C:\Users\nh229u22\AppData\Local\Temp\vs32D2.tmp\Debug\</IntermediateOutputPath>
     <IntermediateOutputPath>C:\Users\owner\AppData\Local\Temp\vs381B.tmp\Debug\</IntermediateOutputPath>
     <IntermediateOutputPath>C:\Users\Craig\AppData\Local\Temp\vs95F3.tmp\Debug\</IntermediateOutputPath>
-    <IntermediateOutputPath>C:\Users\berqu\AppData\Local\Temp\vs3417.tmp\Debug\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\Craig\AppData\Local\Temp\vs3A6A.tmp\Debug\</IntermediateOutputPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -97,7 +97,7 @@
     <IntermediateOutputPath>C:\Users\nh229u22\AppData\Local\Temp\vs32D2.tmp\Release\</IntermediateOutputPath>
     <IntermediateOutputPath>C:\Users\owner\AppData\Local\Temp\vs381B.tmp\Release\</IntermediateOutputPath>
     <IntermediateOutputPath>C:\Users\Craig\AppData\Local\Temp\vs95F3.tmp\Release\</IntermediateOutputPath>
-    <IntermediateOutputPath>C:\Users\berqu\AppData\Local\Temp\vs3417.tmp\Release\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\Craig\AppData\Local\Temp\vs3A6A.tmp\Release\</IntermediateOutputPath>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
@@ -305,6 +305,8 @@
     <Content Include="Content\images\foodroom.jpg" />
     <Content Include="Content\images\helochoopper.jpg" />
     <Content Include="Content\images\HotelHostel.jpg" />
+    <Content Include="Content\images\image0.jpg" />
+    <Content Include="Content\images\image1.png" />
     <Content Include="Content\images\island_fish.jpg" />
     <Content Include="Content\images\jade-Mountain.jpg" />
     <Content Include="Content\images\limbo.jpg" />
