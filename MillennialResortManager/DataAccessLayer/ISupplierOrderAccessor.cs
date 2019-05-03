@@ -31,5 +31,6 @@ namespace DataAccessLayer
 
         void CompleteSupplierOrder(int supplierOrderID);
         int SelectSupplierItemIDByItemAndSupplier(int itemID, int supplierID);
+        int UpdateGeneratedOrder(int supplierOrderID, int employeeID);
     }
 }
