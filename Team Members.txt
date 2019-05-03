@@ -7,4 +7,8 @@ Resort Management System
 Gunardi Saputra
 Phillip Hansen
 Matt LaMarche
+<<<<<<< HEAD
+Eric Bostwick
+Richard Carroll
+Kevin Broskow
 Caitlin Abelson
