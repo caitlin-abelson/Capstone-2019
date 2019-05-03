@@ -341,89 +341,87 @@
                 <!-- Browse Suppliers Page-->
                 <!-- Updated: Gunardi Saputra -->
                 <!-- Date: 03/19/2019 -->
-                <Grid x:Name="BrowseSuppliersPage" Visibility="Hidden">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="55"></RowDefinition>
-                        <RowDefinition></RowDefinition>
-                        <RowDefinition Height="55"></RowDefinition>
-                    </Grid.RowDefinitions>
-                    <Grid Grid.Row="0" Style="{StaticResource FilterBar}">
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="40" />
-                                <RowDefinition />
-                                <RowDefinition Height="40" />
-                            </Grid.RowDefinitions>
-                            <Grid Grid.Row="0">
-                                <!-- Updated: Gunardi Saputra on 5/2/2019-->
-                                <!-- Adjusted presentation layer -->
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="100"/>
-                                    <ColumnDefinition Width="85"/>
+            <Grid x:Name="BrowseSuppliersPage" Visibility="Hidden">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="55"></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition Height="55"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0" Style="{StaticResource FilterBar}">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="40" />
+                            <RowDefinition />
+                            <RowDefinition Height="40" />
+                        </Grid.RowDefinitions>
+                        <Grid Grid.Row="0">
+                            <!-- Updated: Gunardi Saputra on 5/2/2019-->
+                            <!-- Adjusted presentation layer -->
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="100"/>
+                                <ColumnDefinition Width="85"/>
 
-                                    <ColumnDefinition Width="120"/>
+                                <ColumnDefinition Width="120"/>
 
-                                    <ColumnDefinition Width="175"/>
-                                    <ColumnDefinition Width="130"/>
-                                    <ColumnDefinition Width="175"/>
-                                    <ColumnDefinition Width="100"/>
-                                    <ColumnDefinition Width="100"/>
+                                <ColumnDefinition Width="175"/>
+                                <ColumnDefinition Width="130"/>
+                                <ColumnDefinition Width="175"/>
+                                <ColumnDefinition Width="100"/>
+                                <ColumnDefinition Width="100"/>
 
-                                </Grid.ColumnDefinitions>
+                            </Grid.ColumnDefinitions>
 
-                                <Label Grid.Column="0" Content="Inactive" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-                                <RadioButton x:Name="rbtnInactiveSupplier" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="5" Checked="RbtnInactiveSupplier_Checked"/>
-                                <Label Grid.Column="1" Content="Active" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" />
-                                <RadioButton x:Name="rbtnActiveSupplier" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="5" IsChecked="True"/>
+                            <Label Grid.Column="0" Content="Inactive" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                            <RadioButton x:Name="rbtnInactiveSupplier" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="5" Checked="RbtnInactiveSupplier_Checked"/>
+                            <Label Grid.Column="1" Content="Active" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" />
+                            <RadioButton x:Name="rbtnActiveSupplier" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="5" IsChecked="True"/>
 
-                                <Label Grid.Column="2" Content="Supplier City: " VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Padding="5"/>
-                                <TextBox x:Name="txtSearchSupplierCity" Grid.Column="3" Margin="5" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Text=""/>
+                            <Label Grid.Column="2" Content="Supplier City: " VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Padding="5"/>
+                            <TextBox x:Name="txtSearchSupplierCity" Grid.Column="3" Margin="5" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Text=""/>
 
-                                <Label Grid.Column="4" Content="Supplier Name: " Padding="5" HorizontalAlignment="Right" VerticalContentAlignment="Center" />
-                                <TextBox x:Name="txtSearchSupplierName" Grid.Column="5" HorizontalContentAlignment="Center" Text="" Margin="5"/>
-                                <Button x:Name="btnFilterSuppliers" Grid.Column="6" Margin="5" Content="Filter" Click="BtnFilterSuppliers_Click" />
+                            <Label Grid.Column="4" Content="Supplier Name: " Padding="5" HorizontalAlignment="Right" VerticalContentAlignment="Center" />
+                            <TextBox x:Name="txtSearchSupplierName" Grid.Column="5" HorizontalContentAlignment="Center" Text="" Margin="5"/>
+                            <Button x:Name="btnFilterSuppliers" Grid.Column="6" Margin="5" Content="Filter" Click="BtnFilterSuppliers_Click" />
 
-                                <!-- Caitlin Abelson 1/23/19
+                            <!-- Caitlin Abelson 1/23/19
                             The Clear button was not in the user interface that was drawn up in the design phase. There needs
                             needs to be a clear button in order to reset the data grid back to it's original state from the 
                             filtering that a user does.-->
-                                <Button x:Name="btnClearSuppliers"  Grid.Column="7" Content="Clear" Margin="5" Click="BtnClearSuppliers_Click" />
-                            </Grid>
-                        </Grid>
-                    </Grid>
-                    <!-- Modified 2019/01/31 by James Heim
-        Disable AutoGenerating Columns to remove the SupplierID from the list. -->
-                    <DataGrid Grid.Row="1" x:Name="dgSuppliers"   VerticalGridLinesBrush="{x:Null}" SelectionMode="Single" IsReadOnly="True" AutoGenerateColumns="False" ItemsSource="{Binding}" MouseDoubleClick="DgSuppliers_MouseDoubleClick">
-                        <DataGrid.Columns>
-                            <DataGridTextColumn Header="Supplier Name" Binding="{Binding Name}"/>
-                            <DataGridTextColumn Header="City" Binding="{Binding City}"/>
-                            <DataGridTextColumn Header="Country" Binding="{Binding Country}"/>
-                            <DataGridTextColumn Header="Description" Binding="{Binding Description}"/>
-                        </DataGrid.Columns>
-                    </DataGrid>
-                    <Grid Grid.Row="2" Style="{StaticResource BottomBar}">
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="40" />
-                                <RowDefinition />
-                                <RowDefinition Height="40" />
-                            </Grid.RowDefinitions>
-                            <Grid Grid.Row="0">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="3*"/>
-                                    <ColumnDefinition />
-                                    <ColumnDefinition />
-                                </Grid.ColumnDefinitions>
-                                    
-                                <Button x:Name="btnAddSuppliers" Grid.Column="1" Content="Add Supplier" Margin="5" Click="BtnAddSuppliers_Click"></Button>
-                                <Button x:Name="btnReadSuppliers" Grid.Column="2" Margin="5" Content="View Supplier" Click="BtnReadSuppliers_Click"/>
-                                <Button x:Name="btnDeactivateSuppliers" Grid.Column="3" Content="Deactivate" Margin="5" Click="BtnDeactivateSuppliers_Click" />
-                                <Button x:Name="btnDeleteSuppliers" IsEnabled="False" Visibility="Hidden" Grid.Column="3" Content="Delete" Margin="5" Click="BtnDeleteSuppliers_Click" />
-                            </Grid>
+                            <Button x:Name="btnClearSuppliers"  Grid.Column="7" Content="Clear" Margin="5" Click="BtnClearSuppliers_Click" />
                         </Grid>
                     </Grid>
                 </Grid>
+                <!-- Modified 2019/01/31 by James Heim
+        Disable AutoGenerating Columns to remove the SupplierID from the list. -->
+                <DataGrid Grid.Row="1" x:Name="dgSuppliers"   VerticalGridLinesBrush="{x:Null}" SelectionMode="Single" IsReadOnly="True" AutoGenerateColumns="False" ItemsSource="{Binding}" MouseDoubleClick="DgSuppliers_MouseDoubleClick">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Supplier Name" Binding="{Binding Name}"/>
+                        <DataGridTextColumn Header="City" Binding="{Binding City}"/>
+                        <DataGridTextColumn Header="Country" Binding="{Binding Country}"/>
+                        <DataGridTextColumn Header="Description" Binding="{Binding Description}"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+                <Grid Grid.Row="2" Style="{StaticResource BottomBar}">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="40" />
+                            <RowDefinition />
+                            <RowDefinition Height="40" />
+                        </Grid.RowDefinitions>
+                        <Grid Grid.Row="0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="3*"/>
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
 
+                            <Button x:Name="btnAddSuppliers" Grid.Column="1" Content="Add Supplier" Margin="5" Click="BtnAddSuppliers_Click"></Button>
+                            <Button x:Name="btnReadSuppliers" Grid.Column="2" Margin="5" Content="View Supplier" Click="BtnReadSuppliers_Click"/>
+                            <Button x:Name="btnDeactivateSuppliers" Grid.Column="3" Content="Deactivate" Margin="5" Click="BtnDeactivateSuppliers_Click" />
+                            <Button x:Name="btnDeleteSuppliers" IsEnabled="False" Visibility="Hidden" Grid.Column="3" Content="Delete" Margin="5" Click="BtnDeleteSuppliers_Click" />
+                        </Grid>
+                    </Grid>
+                </Grid>
             </Grid>
             <!-- Browse Item Page-->
             <!-- Updated: Gunardi Saputra -->
@@ -471,7 +469,7 @@
             <!-- Browse Building Page-->
             <!-- Updated: Gunardi Saputra -->
             <!-- Date: 03/19/2019 -->
-            <Grid x:Name="BrowseBuildingPage" Visibility="Hidden">
+            <!--<Grid x:Name="BrowseBuildingPage" Visibility="Hidden">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="45"/>
                     <RowDefinition />
@@ -485,14 +483,14 @@
                         <ColumnDefinition/>
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
-                    <!--<CheckBox x:Name="chkActive" Grid.Column="0" Content="Show only active buildings" IsChecked="True" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="10"/>-->
+                    --><!--<CheckBox x:Name="chkActive" Grid.Column="0" Content="Show only active buildings" IsChecked="True" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="10"/>--><!--
                     <Label Grid.Column="1" Content="Building Name: " VerticalContentAlignment="Center" HorizontalAlignment="Right"/>
                     <TextBox Grid.Column="2" x:Name="txtSearch" Margin="5" VerticalAlignment="Center" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" MinWidth="100"/>
                     <Button Grid.Column="3" Content="Filter" x:Name="btnFilter" Margin="5" Click="btnFilterBuilding_Click" />
-                    <Button Grid.Column="4" Content="Clear" x:Name="btnClearFiltersBuilding" Margin="5" Click="btnClearFiltersBuilding_Click" />
+                    <Button Grid.Column="4" Content="Clear" x:Name="btnClearFiltersBuilding" Margin="5" Click="btnClearFiltersBuilding_Click" />-->
 
    
-                </Grid>
+                <!--</Grid>-->
                 <!-- Browse Building Page-->
                 <!-- Updated: Gunardi Saputra -->
                 <!-- Date: 03/19/2019 -->
@@ -2074,7 +2072,7 @@
                         </Grid>
                     </Grid>
                 </Grid>
-            </Grid>
+            <!--</Grid>-->
 
             <!--Pick Orders-->
             <Grid x:Name="PickOrdersPage" Visibility="Hidden">
@@ -2373,5 +2371,6 @@
                 </Grid>
                 <!--End of Resort Vehicle Checkout-->
             </Grid>
-        </Grid>
+    </Grid>
+
 </Window>
