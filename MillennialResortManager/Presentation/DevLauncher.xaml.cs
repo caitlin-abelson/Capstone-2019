@@ -2552,7 +2552,14 @@ namespace Presentation
         /// <param name="e"></param>
         private void BtnManageItemSuppliers_Click(object sender, RoutedEventArgs e)
         {
+            
             Item selectedItem = (Item)dgProducts.SelectedItem;
+            if(selectedItem == null)
+            {
+                MessageBox.Show("You Need to Select an Item");
+                return;
+
+            }
             var itemSupplyManager = new frmManageItemSuppliers(selectedItem);
             var result = itemSupplyManager.ShowDialog();
             if (result == true)
@@ -8050,8 +8057,7 @@ namespace Presentation
 
 
         #endregion
-
-        #region Offering
+               #region Offering
         /*--------------------------- Starting BrowseOffering Code #BrowseOffering --------------------------------*/
 
         /// <summary>
@@ -8848,7 +8854,6 @@ namespace Presentation
 
 
         #endregion
-
 
         #region PickOrders
         private void PickOrdersDoOnStart()

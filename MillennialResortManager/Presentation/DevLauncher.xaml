@@ -434,7 +434,7 @@
                     <Button x:Name="btnClear" Content="Clear" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="7" Width="60" Height="25" Click="btnClear_Click"/>
                     <TextBox x:Name="txtSearchBox" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="5" Width="120" Text="Name Search" GotFocus="txtSearchBox_GotFocus"/>
                 </Grid>
-                <DataGrid x:Name="dgProducts" VerticalGridLinesBrush="{x:Null}" Grid.Row="1"  SelectionMode="Single" AlternatingRowBackground="#FF3DD8CA" RowBackground="LightGoldenrodYellow"  IsReadOnly="True" MouseDoubleClick="dgProducts_MouseDoubleClick" AutoGeneratingColumn="dgProducts_AutoGeneratingColumn" />
+                <DataGrid x:Name="dgProducts" VerticalGridLinesBrush="{x:Null}" Grid.Row="1"  SelectionMode="Single"  IsReadOnly="True" MouseDoubleClick="dgProducts_MouseDoubleClick" AutoGeneratingColumn="dgProducts_AutoGeneratingColumn" />
                 <Grid Grid.Row="2" Style="{StaticResource BottomBar}">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="3*"/>
@@ -2135,9 +2135,9 @@
                                         <ColumnDefinition></ColumnDefinition>
                                     </Grid.ColumnDefinitions>
                                     <StackPanel Grid.Column="0" Orientation="Horizontal" >
-                                        <Button x:Name="btnStartPick" Content="Start a PickSheet" Margin="10,20,10,20" Width="110" Click="btnStartPick_Click" />
-                                        <Button x:Name="btnEndPick" Content="Stop Picking" Margin="10,20,10,20" Width="110" HorizontalAlignment="Right" HorizontalContentAlignment="Center" IsEnabled="False" Click="btnEndPick_Click"/>
-                                        <Button x:Name="btnCancelPick" Content="Cancel Picking" Margin="10,20,10,20" Width="110" HorizontalAlignment="Right" HorizontalContentAlignment="Center" IsEnabled="False" Click="btnCancelPick_Click"/>
+                                        <Button x:Name="btnStartPick" Content="Start PickSheet" Margin="10,20,10,20" Width="135" Click="btnStartPick_Click" />
+                                        <Button x:Name="btnEndPick" Content="Stop Picking" Margin="10,20,10,20" Width="135" HorizontalAlignment="Right" HorizontalContentAlignment="Center" IsEnabled="False" Click="btnEndPick_Click"/>
+                                        <Button x:Name="btnCancelPick" Content="Cancel Picking" Margin="10,20,10,20" Width="135" HorizontalAlignment="Right" HorizontalContentAlignment="Center" IsEnabled="False" Click="btnCancelPick_Click"/>
                                     </StackPanel>
                                     <TextBox x:Name="txtPickInfo"  FontSize="14" Grid.Column="1"   IsReadOnly="True" TextWrapping="Wrap" Margin="5"></TextBox>
                                 </Grid>
