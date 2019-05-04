@@ -542,7 +542,7 @@
                         <TextBox Grid.Column="3" x:Name="txtSearchTerm" Margin="5" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" TextChanged="TxtSearchTerm_TextChanged" ></TextBox>
                         <Button Grid.Column="4" Width="120" Margin="5"  x:Name="btnClearFiltersOrders" Content="Clear Filters" FontSize="14" Click="BtnClearFiltersOrders_Click"></Button>
                     </Grid>
-                    <DataGrid x:Name="dgInternalOrders" IsReadOnly="True" Grid.Row="1"  VerticalGridLinesBrush="{x:Null}" SelectionMode="Single" AlternatingRowBackground="#FF3DD8CA" RowBackground="LightGoldenrodYellow" MouseDoubleClick="DgInternalOrders_MouseDoubleClick"></DataGrid>
+                    <DataGrid x:Name="dgInternalOrders" IsReadOnly="True" Grid.Row="1"  VerticalGridLinesBrush="{x:Null}" SelectionMode="Single"  MouseDoubleClick="DgInternalOrders_MouseDoubleClick"></DataGrid>
                     <Grid Grid.Row="2" Style="{StaticResource BottomBar}">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="3*"/>

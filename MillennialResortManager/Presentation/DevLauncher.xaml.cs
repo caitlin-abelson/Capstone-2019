@@ -9644,7 +9644,18 @@ namespace Presentation
 
         private void BtnDPHeaderPrint_Click(object sender, RoutedEventArgs e)
         {
-
+            //Print the Picksheet 
+            //Sends the picksheetId to the report
+            try
+            {
+                var picksheet = (PickSheet)dgDeliverPickSheet.SelectedItem;
+                var picksheetreportForm = new PickSheetReport(picksheet.PickSheetID);
+                var result = picksheetreportForm.ShowDialog();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         private void TabDeliverPickSheet_GotFocus(object sender, RoutedEventArgs e)
