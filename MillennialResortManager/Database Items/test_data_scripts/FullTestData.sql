@@ -417,27 +417,27 @@ INSERT INTO [dbo].[Item]
 )
 VALUES
 	(100000, 'Food', NULL, 1, 'TURTLE OF DOOM!', 455, 'TURTLE OF DOOM (Limited Edition)!', 23),
-	(NULL, 'Food', NULL, 1, '12 OZ Porterhouse with a red wine reduction, served with finglering potatoes and a warm green salad.', 45, '12 oz. Porterhouse meal', 30),
+	(NULL, 'Food', NULL, 1, '12 OZ Porterhouse ', 45, '12 oz. Porterhouse meal', 30),
 	(NULL, 'Misc', NULL, 1, 'Deck of cards', 455, 'Bicycle deck of 52', 200),
 	(NULL, 'Parts', NULL, 0, 'Ring burner for GE model 4800 Gas Stove', 8, 'Replacement burner for GE4800', 4),
 	(NULL, 'Consumables', NULL, 1, 'Shampoo Bottle', 45500, '', 2500),
 	(NULL, 'Food', NULL, 1, '16oz Miller Lite Tall Boy', 5000, '16oz. Miller Lite', 1000),
-	(NULL, 'Food', NULL, 1, 'Fresh Atlantic Salmon, packed in ice, ready to be filleted', 50, 'Fresh Atlantic Salmon', 15),
+	(NULL, 'Food', NULL, 1, 'Fresh Atlantic Salmon', 50, 'Fresh Atlantic Salmon', 15),
 	(NULL, 'Misc', NULL, 1, 'Resort Tshirt', 156, 'Millenial Resort Branded Tshirt', 50),
-	(NULL, 'Hydraulic', NULL, 0, 'DCVAM-200 10223 Hydraulic control Valve for loading bay lifts.', 4, '10233 Hydraulic Control Valve', 1),
+	(NULL, 'Hydraulic', NULL, 0, 'DCVAM-200 10223 Hydraulic control Valve', 4, '10233 Hydraulic Control Valve', 1),
 	(NULL, 'Consumables', NULL, 1, '250 count of napkins', 15612, '250 Napkins', 500),
-	(NULL, 'Parts', NULL, 0, 'Toilet plunger for tank in back of toilet', 50, 'Float Valve', 25),
-	
+	(NULL, 'Parts', NULL, 0, 'Float Valve', 50, 'Float Valve', 25),	
 	(NULL, 'Parts', NULL, 0, 'Plunger', 20, 'Plunger', 5),
 	(NULL, 'Hotel', NULL, 0, 'Toilet Paper', 10000, 'Toilet Paper', 1000),
-	(NULL, 'Hotel', NULL, 0, 'Queen Size Bed Sheet', 100, 'Queen Bed Sheet', 25),
+	(NULL, 'Hotel', NULL, 0, 'Queen Size Bed Sheet', 100, 'Queen Bed Sheet', 25),	
 	(NULL, 'Hotel', NULL, 0, 'Note Pads', 200, 'Note Pads', 25),
 	(NULL, 'Hotel', NULL, 0, '4oz Hand Lotion', 50, '4oz Hand Lotion', 25),
 	(NULL, 'Food', NULL, 0, 'Lean Ground Beef 10 lb', 75, 'Lean Ground Beef 10 lb', 25),
 	(NULL, 'Food', NULL, 0, 'Yukon Gold Potatoes lb', 500, 'Yukon Gold Potatoes', 150),
 	(NULL, 'Food', NULL, 0, 'Ribeye Steak lb', 100, 'Ribeye Steak', 10),
 	(NULL, 'Food', NULL, 0, 'Bottled Water 8oz', 100, 'Bottled Water 8oz', 10),
-	(NULL, 'Food', NULL, 0, 'Dinner Plate', 50, 'Dinner Plate', 10)
+	(NULL, 'Food', NULL, 0, 'Dinner Plate', 50, 'Dinner Plate', 10),
+	(NULL, 'Hotel', NULL, 0, 'King Size Bed Sheet', 100, 'King Bed Sheet', 25)
 	
 GO
 
