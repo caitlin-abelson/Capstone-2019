@@ -5,7 +5,7 @@ using DataObjects;
 using DataAccessLayer;
 using System;
 
-namespace UnitTests
+namespace LogicLayer.Tests
 {
     ///  /// <summary>
     /// Carlos Arzu

@@ -6,7 +6,7 @@ using DataObjects;
 using DataAccessLayer;
 
 
-namespace UnitTests
+namespace LogicLayer.Tests
 {
     [TestClass]
     public class EmployeeManagerTests

@@ -18,8 +18,16 @@ namespace LogicLayer
 
         List<Role> RetrieveAllRoles();
 
-
-        int CreateRole(Role newRole);
+		/// <summary author="Eduardo Colon" created="2019/02/08">
+		/// Sends a role to the the DAO to be added to the datastore.
+		/// </summary>
+		/// <updates>
+		/// <update author="Austin Delaney" created="2019/04/27">
+		/// Changed output from 'int' to 'bool'.
+		/// </update>
+		/// </updates>
+		/// <returns>If the operation was successful.</returns>
+		bool CreateRole(Role newRole);
 
         Role RetrieveRoleByRoleId(string roleID);
         void UpdateRole(Role oldRole, Role newRole);

@@ -5,7 +5,7 @@
 //using DataObjects;
 //using System.Collections.Generic;
 
-//namespace UnitTests
+//namespace LogicLayer.Tests
 //{
 //    [TestClass]
 //    public class RoomManagerTest

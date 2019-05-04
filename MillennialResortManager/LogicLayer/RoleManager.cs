@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Security.Cryptography;
 using DataAccessLayer;
 using DataObjects;
+using ExceptionLoggerLogic;
 
 namespace LogicLayer
 {
@@ -55,32 +56,36 @@ namespace LogicLayer
         }
 
 
-        /// <summary>
-        /// Eduardo Colon
-        /// Created: 2019/02/08
-        /// 
-        /// method to create role
-        /// </summary>
-
-        public int CreateRole(Role newRole)
+		/// <summary author="Eduardo Colon" created="2019/02/08">
+		/// Sends a role to the the DAO to be added to the datastore.
+		/// </summary>
+		/// <updates>
+		/// <update author="Austin Delaney" created="2019/04/27">
+		/// Changed output from 'int' to 'bool', added exception logging, moved argument validation, added arguement
+		/// null check.
+		/// </update>
+		/// </updates>
+		/// <returns>The success of the operation, based on if the DAO signals 1 role was added to the data store.</returns>
+		public bool CreateRole(Role newRole)
         {
-            int role = 0;
+			if (null == newRole)
+			{ throw new ArgumentNullException("Role to be created cannot be null"); }
+            if (!isValid(newRole))
+            { throw new ArgumentException("The data for this role is invalid"); }
+
+			int result = -1;
 
             try
             {
-                if (!isValid(newRole))
-                {
-                    throw new ArgumentException("The data for this role is invalid");
-                }
-
-                role = _roleAccessor.InsertRole(newRole);
+                result = _roleAccessor.InsertRole(newRole);
             }
-            catch
+            catch (Exception ex)
             {
-                throw;
+				ExceptionLogManager.getInstance().LogException(ex);
+                throw ex;
             }
-
-            return role;
+			
+            return (1 == result);
         }
 
 
@@ -90,8 +95,6 @@ namespace LogicLayer
         /// 
         /// method to retrieve role by roleid
         /// </summary>
-
-
         public Role RetrieveRoleByRoleId(string roleID)
         {
             Role role;
@@ -112,8 +115,6 @@ namespace LogicLayer
         /// 
         /// method to update role 
         /// </summary>
-
-
         public void UpdateRole(Role oldRole, Role newRole)
         {
             try

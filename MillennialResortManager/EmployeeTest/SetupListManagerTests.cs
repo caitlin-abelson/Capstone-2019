@@ -6,7 +6,7 @@
 //using DataObjects;
 //using DataAccessLayer;
 
-//namespace LogicLayerUnitTests
+//namespace LogicLayer.Tests
 //{
 
 
@@ -16,7 +16,7 @@
 //    /// 
 //    /// description for RoleManagerTests
 //    /// </summary>
-   
+
 //    [TestClass]
 //    public class SetupListManagerTests
 //    {
@@ -69,7 +69,7 @@
 //            CollectionAssert.Equals(_setupLists, setupLists);
 //        }
 
-      
+
 
 //        /// <summary>
 //        /// Eduardo Colon
@@ -91,7 +91,7 @@
 //        }
 
 
-      
+
 
 //        /// <summary>
 //        /// Eduardo Colon
@@ -111,7 +111,7 @@
 //            Assert.IsTrue(hasAtLeastOneElement);
 //        }
 
-       
+
 
 //       /// <summary>
 //       /// Eduardo Colon
@@ -134,7 +134,7 @@
 
 
 
-       
+
 //        /// <summary>
 //        /// Eduardo Colon
 //        /// Created: 2019/03/05
@@ -159,7 +159,7 @@
 //            Assert.AreEqual(expected, setupListIDTest);
 //        }
 
-  
+
 
 
 

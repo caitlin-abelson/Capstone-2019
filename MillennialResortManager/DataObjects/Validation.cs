@@ -1279,5 +1279,74 @@ namespace DataObjects
             }
             return isValid;
         }
-    }
+
+		/// <summary author="Austin Delaney" created="2019/05/01">
+		/// Returns the validity of a string as a RoleID, DepartmentID, or email belonging to a guest, member, or employee.
+		/// </summary>
+		/// <remarks>
+		/// Calls the individual validator methods for each of those items, in case the validation rules were to ever change
+		/// in the future.
+		/// </remarks>
+		public static bool IsValidMessengerAlias(this string alias)
+		{
+			return (alias.IsValidRoleID() || alias.IsValidEmail() || alias.IsValidDepartmentID());
+		}
+		/// <summary author="Austin Delaney" created="2019/04/19">
+		/// Confirms if a string is a valid Body for a Message object.
+		/// </summary>
+		/// <param name="body">The body to confirm is valid or not.</param>
+		/// <returns>Boolean if the body is valid.</returns>
+		public static bool IsValidMessageBody(this string body)
+		{
+			try
+			{
+				if (body.Length < Message.BODY_MIN_LENGTH)
+				{
+					throw new Exception("Body must meet minimum character requirement of " + Message.BODY_MIN_LENGTH);
+				}
+				if (body.Length > Message.BODY_MAX_LENGTH)
+				{
+					throw new Exception("Body cannot exceed maximum character length of " + Message.BODY_MAX_LENGTH);
+				}
+				if (body == null)
+				{
+					throw new Exception("Body cannot be null");
+				};
+				return true;
+			}
+			catch
+			{
+				return false;
+			}
+		}
+
+		/// <summary author="Austin Delaney" created="2019/04/19">
+		/// Confirms if a string is a valid Subject for a message object.
+		/// </summary>
+		/// <param name="subject">The subject to validate.</param>
+		/// <returns>Boolean if the subject is valid or not.</returns>
+		public static bool IsValidMessageSubject(this string subject)
+		{
+			try
+			{
+				if (subject.Length < Message.SUBJECT_MIN_LENGTH)
+				{
+					throw new Exception("Subject must meet minimum character requirement of " + Message.SUBJECT_MIN_LENGTH);
+				}
+				if (subject.Length > Message.SUBJECT_MAX_LENGTH)
+				{
+					throw new Exception("Subject cannot exceed maximum character length of " + Message.SUBJECT_MAX_LENGTH);
+				}
+				if (subject == null)
+				{
+					throw new Exception("Subject cannot be null.");
+				}
+				return true;
+			}
+			catch
+			{
+				return false;
+			}
+		}
+	}
 }

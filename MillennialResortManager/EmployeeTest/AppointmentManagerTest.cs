@@ -12,7 +12,7 @@ using DataAccessLayer;
 using DataObjects;
 using LogicLayer;
 
-namespace UnitTests
+namespace LogicLayer.Tests
 {
     /// <summary>
     /// Tests the Methods of AppointmentManager

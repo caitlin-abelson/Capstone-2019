@@ -149,6 +149,9 @@
     <Compile Include="CreateItem.cs" />
     <Compile Include="CreateMaintenanceWorkOrder.xaml.cs" />
     <Compile Include="CreatePetType.xaml.cs" />
+    <Compile Include="CtrlThreadParticipantAdder.xaml.cs">
+      <DependentUpon>CtrlThreadParticipantAdder.xaml</DependentUpon>
+    </Compile>
     <Compile Include="DeactivateHouseKeepingRequest.xaml.cs" />
     <Compile Include="DeactivateMaintenanceWorkOrder.xaml.cs" />
     <Compile Include="DeleteAppointmentType.xaml.cs" />
@@ -194,6 +197,9 @@
     <Compile Include="frmBrowseRecipes.xaml.cs" />
     <Compile Include="frmConfirmAction.xaml.cs" />
     <Compile Include="frmCreateRecipe.xaml.cs" />
+    <Compile Include="frmNewMessage.xaml.cs">
+      <DependentUpon>frmNewMessage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="frmOffering.xaml.cs">
       <DependentUpon>frmOffering.xaml</DependentUpon>
     </Compile>
@@ -400,6 +406,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="CtrlThreadParticipantAdder.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="DeactivateHouseKeepingRequest.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -555,6 +565,10 @@
     <Page Include="frmMember.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="frmNewMessage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="frmOffering.xaml">
       <Generator>MSBuild:Compile</Generator>

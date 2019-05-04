@@ -390,7 +390,7 @@ namespace LogicLayer
 			{ throw new ArgumentNullException("Thread to set the alias for to cannot be null."); }
 			if (null == participant)
 			{ throw new ArgumentNullException("Participant to set the alias for cannot be null."); }
-			if (!Validation.IsValidEmail(newAlias))
+			if (!newAlias.IsValidMessengerAlias())
 			{ throw new ArgumentException("New alias is invalid."); }
 			if (null == newAlias)
 			{ return true; }

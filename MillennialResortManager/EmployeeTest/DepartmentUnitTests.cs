@@ -12,7 +12,7 @@ using System.Collections.Generic;
 using LogicLayer;
 using System.Text;
 
-namespace DepartmentLogicTests
+namespace LogicLayer.Tests
 {
     [TestClass]
     public class DepartmentUnitTests

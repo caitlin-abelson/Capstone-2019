@@ -22,8 +22,6 @@ namespace Presentation
     /// </summary>
     public partial class CreateEmployeeRole : Window
     {
-
-
         private IRoleManager _roleManager;
         private Role _selectedRole;
 
@@ -118,23 +116,16 @@ namespace Presentation
                 {
                     MessageBox.Show(ex.Message);
                 }
-
             }
             else
             {
-
                 try
                 {
-
-
-                    if (_roleManager.CreateRole(newRole) == 0)
+                    if (_roleManager.CreateRole(newRole))
                     {
                         MessageBox.Show("Role Saved");
                         this.DialogResult = true;
                     }
-
-
-
                 }
                 catch (ArgumentException ex)
                 {

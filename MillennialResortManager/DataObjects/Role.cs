@@ -18,6 +18,9 @@ namespace DataObjects
 
         public string Description { get; set; }
 
+		/// <summary author="Austin Delaney" created="2019/04/03">
+		/// The available aliases that can be used for sending messages.
+		/// </summary>
 		public List<string> Aliases
 		{
 			get
@@ -26,6 +29,9 @@ namespace DataObjects
 			}
 		}
 
+		/// <summary author="Austin Delaney" created="2019/04/03">
+		/// The primary alias to be used for this object.
+		/// </summary>
 		public string Alias
 		{
 			get
@@ -33,10 +39,8 @@ namespace DataObjects
 				return RoleID;
 			}
 		}
-				
-        /// <summary>
-        /// Alisa Roehr
-        /// Created: 2019/04/05
+
+        /// <summary author="Alisa Roehr" created="2019/04/05">
         /// </summary>
         /// <returns></returns>
         public override string ToString()

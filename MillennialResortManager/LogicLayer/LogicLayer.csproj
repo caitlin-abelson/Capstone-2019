@@ -58,6 +58,7 @@
     <Compile Include="EventSponsorManager.cs" />
     <Compile Include="EventTypeManager.cs" />
     <Compile Include="FakeMessageManager.cs" />
+    <Compile Include="FakeRoleManager.cs" />
     <Compile Include="FakeThreadManager.cs" />
     <Compile Include="GenericPropertyValidator.cs" />
     <Compile Include="GuestManager.cs" />

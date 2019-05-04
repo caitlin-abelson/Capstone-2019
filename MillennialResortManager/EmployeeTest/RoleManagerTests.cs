@@ -7,7 +7,7 @@ using DataObjects;
 using DataAccessLayer;
 
 
-namespace UnitTests
+namespace LogicLayer.Tests
 {
 
     ///  /// <summary>

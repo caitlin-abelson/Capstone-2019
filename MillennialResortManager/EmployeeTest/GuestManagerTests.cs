@@ -8,7 +8,7 @@ using DataObjects;
 using LogicLayer;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace UnitTests
+namespace LogicLayer.Tests
 {
     /// <summary>
     /// Author: Alisa Roehr

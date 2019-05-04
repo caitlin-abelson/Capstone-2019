@@ -4,7 +4,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using LogicLayer;
 using DataObjects;
 using DataAccessLayer;
-namespace LogicLayerUnitTests
+namespace LogicLayer.Tests
 {
   
 

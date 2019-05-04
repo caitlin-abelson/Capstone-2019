@@ -16,7 +16,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 /// </summary>
 
 
-namespace UnitTests
+namespace LogicLayer.Tests
 {
     [TestClass]
     public class ItemSupplierTests

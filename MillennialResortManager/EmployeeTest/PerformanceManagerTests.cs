@@ -5,7 +5,7 @@ using DataAccessLayer;
 using DataObjects;
 using System.Collections.Generic;
 
-namespace UnitTests
+namespace LogicLayer.Tests
 {
     /// <summary>
     /// Author: Jacob Miller

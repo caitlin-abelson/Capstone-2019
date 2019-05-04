@@ -6,7 +6,7 @@ using DataObjects;
 using DataAccessLayer;
 using LogicLayer;
 
-namespace UnitTest.LogicLayer
+namespace LogicLayer.Tests
 {
     /// <summary>
     /// Author: Craig Barkley

@@ -9,7 +9,7 @@ using LogicLayer;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 
-namespace UnitTests
+namespace LogicLayer.Tests
 {
     [TestClass]
     public class SupplierOrderTests

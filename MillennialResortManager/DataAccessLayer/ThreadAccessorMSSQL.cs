@@ -64,7 +64,7 @@ namespace DataAccessLayer
 		/// <returns>If the operation was a success or not.</returns>
 		public bool AddEmployeeThreadParticipant(int threadID, string employeeEmail)
 		{
-			if (!Validation.IsValidEmail(employeeEmail))
+			if (!employeeEmail.IsValidMessengerAlias())
 			{ throw new ArgumentException("Invalid employee email."); }
 
 			int result = -1;
@@ -104,7 +104,7 @@ namespace DataAccessLayer
 		/// <returns>If the operation was a success or not.</returns>
 		public bool AddGuestThreadParticipant(int threadID, string guestEmail)
 		{
-			if (!Validation.IsValidEmail(guestEmail))
+			if (!guestEmail.IsValidMessengerAlias())
 			{ throw new ArgumentException("Invalid employee email."); }
 
 			int result = -1;
@@ -144,7 +144,7 @@ namespace DataAccessLayer
 		/// <returns>If the operation was a success or not.</returns>
 		public bool AddMemberThreadParticipant(int threadID, string memberEmail)
 		{
-			if (!Validation.IsValidEmail(memberEmail))
+			if (!memberEmail.IsValidMessengerAlias())
 			{ throw new ArgumentException("Invalid member email."); }
 
 			int result = -1;
@@ -273,7 +273,7 @@ namespace DataAccessLayer
 		/// <returns>A UserThread obj, devoid of messages.</returns>
 		public UserThread GetUserThreadData(int threadID, string email)
 		{
-			if (!Validation.IsValidEmail(email))
+			if (!email.IsValidMessengerAlias())
 			{ throw new ArgumentException("Invalid user email."); }
 
 			UserThread result = null;
@@ -337,7 +337,7 @@ namespace DataAccessLayer
 		/// <returns>A list of compact easily human readable UserThreadView objects.</returns>
 		public List<UserThreadView> GetUserThreadViews(string email, bool showArchived)
 		{
-			if (!Validation.IsValidEmail(email))
+			if (!email.IsValidMessengerAlias())
 			{ throw new ArgumentException("Invalid user email."); }
 			List<UserThreadView> result = new List<UserThreadView>();
 
@@ -397,7 +397,7 @@ namespace DataAccessLayer
 		/// <returns>If the operation was a success or not.</returns>
 		public bool RemoveThreadParticipant(int threadID, string email)
 		{
-			if (!Validation.IsValidEmail(email))
+			if (!email.IsValidMessengerAlias())
 			{ throw new ArgumentException("Invalid user email."); }
 
 			int result = -1;
@@ -477,7 +477,7 @@ namespace DataAccessLayer
 		/// <returns>Whether the operation was a success or not.</returns>
 		public bool UpdateThreadHiddenStatus(int threadID, bool status, string email)
 		{
-			if (!Validation.IsValidEmail(email))
+			if (!email.IsValidMessengerAlias())
 			{ throw new ArgumentException("Invalid user email."); }
 
 			int result = -1;
@@ -519,7 +519,7 @@ namespace DataAccessLayer
 		/// <returns>Whether the change was successfully made to the data store.</returns>
 		public bool UpdateThreadParticipantNewMessageStatus(int threadID, string email)
 		{
-			if (!Validation.IsValidEmail(email))
+			if (!email.IsValidMessengerAlias())
 			{ throw new ArgumentException("Invalid user email."); }
 
 			int result = -1;
@@ -560,7 +560,7 @@ namespace DataAccessLayer
 		/// <returns>Whether the operation was a success or not.</returns>
 		public bool UpdateThreadSilentStatus(int threadID, bool status, string email)
 		{
-			if (!Validation.IsValidEmail(email))
+			if (!email.IsValidMessengerAlias())
 			{ throw new ArgumentException("Invalid user email."); }
 
 			int result = -1;
@@ -602,9 +602,9 @@ namespace DataAccessLayer
 		/// <returns>If the operation was a success or not.</returns>
 		public bool UpdateUserThreadAlias(int threadID, string email, string newAlias)
 		{
-			if (!Validation.IsValidEmail(email))
+			if (!email.IsValidMessengerAlias())
 			{ throw new ArgumentException("Invalid user email."); }
-			if (!Validation.IsValidEmail(newAlias))
+			if (!newAlias.IsValidMessengerAlias())
 			{ throw new ArgumentException("Invalid alias."); }
 
 			int result = -1;
@@ -647,7 +647,7 @@ namespace DataAccessLayer
 		{
 			throw new NotImplementedException("Pending removal.");
 
-			if (!Validation.IsValidEmail(email))
+			if (!email.IsValidMessengerAlias())
 			{ throw new ArgumentException("Invalid user email."); }
 
 			//@Email [nvarchar](250),@ThreadID[int]

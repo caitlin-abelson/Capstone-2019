@@ -5,7 +5,7 @@ using DataObjects;
 using LogicLayer;
 using System.Collections.Generic;
 
-namespace LogicLayerTests1
+namespace LogicLayer.Tests
 {
     /// <summary>
     /// Author: Richard Carroll

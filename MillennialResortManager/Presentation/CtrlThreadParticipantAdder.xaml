@@ -1,0 +1,114 @@
+﻿<UserControl x:Class="Presentation.CtrlThreadParticipantAdder"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+			 mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="500">
+	<UserControl.Resources>
+		<ResourceDictionary Source="Stylesheet.xaml" />
+	</UserControl.Resources>
+	<Grid Style="{StaticResource DefaultPage}">
+		<Grid.RowDefinitions>
+			<RowDefinition />
+			<RowDefinition />
+			<RowDefinition />
+			<RowDefinition />
+			<RowDefinition />
+		</Grid.RowDefinitions>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition />
+			<ColumnDefinition />
+		</Grid.ColumnDefinitions>
+		
+		<!--Employee-->
+		<Grid Grid.Row="0">
+			<Grid.RowDefinitions>
+				<RowDefinition Height="29"/>
+				<RowDefinition />
+			</Grid.RowDefinitions>
+			<Label Content="Employee"
+				   Grid.Row="0"
+				   HorizontalAlignment="Center"
+				   VerticalAlignment="Top"/>
+			<ListBox Margin="5"
+					 Grid.Row="1"
+					 x:Name="lstPossibleRecipientsEmployee"/>
+		</Grid>
+
+		<!--Roles-->
+		<Grid Grid.Row="1">
+			<Grid.RowDefinitions>
+				<RowDefinition Height="29"/>
+				<RowDefinition />
+			</Grid.RowDefinitions>
+			<Label Content="Roles"
+				   Grid.Row="0"
+				   HorizontalAlignment="Center"
+				   VerticalAlignment="Top"/>
+			<ListBox Margin="5"
+					 Grid.Row="1"
+					 x:Name="lstPossibleRecipientsRoles"/>
+		</Grid>
+		
+		<!--Department-->
+		<Grid Grid.Row="2">
+			<Grid.RowDefinitions>
+				<RowDefinition Height="29"/>
+				<RowDefinition />
+			</Grid.RowDefinitions>
+			<Label Content="Department"
+				   Grid.Row="0"
+				   HorizontalAlignment="Center"
+				   VerticalAlignment="Top"/>
+			<ListBox Margin="5"
+					 Grid.Row="1"
+					 x:Name="lstPossibleRecipientsDepartment"/>
+		</Grid>
+		
+		<!--Member-->
+		<Grid Grid.Row="3">
+			<Grid.RowDefinitions>
+				<RowDefinition Height="29"/>
+				<RowDefinition />
+			</Grid.RowDefinitions>
+			<Label Content="Member"
+				   Grid.Row="0"
+				   HorizontalAlignment="Center"
+				   VerticalAlignment="Top"/>
+			<ListBox Margin="5"
+					 Grid.Row="1"
+					 x:Name="lstPossibleRecipientsMember"/>
+		</Grid>
+		
+		<!--Guest-->
+		<Grid Grid.Row="4">
+			<Grid.RowDefinitions>
+				<RowDefinition Height="29"/>
+				<RowDefinition />
+			</Grid.RowDefinitions>
+			<Label Content="Guest"
+				   Grid.Row="0"
+				   HorizontalAlignment="Center"
+				   VerticalAlignment="Top"/>
+			<ListBox Margin="5"
+					 Grid.Row="1"
+					 x:Name="lstPossibleRecipientsGuest"/>
+		</Grid>
+		
+		<!--Selected-->
+		<Grid Grid.Column="1" Grid.RowSpan="5">
+			<Grid.RowDefinitions>
+				<RowDefinition Height="29"/>
+				<RowDefinition />
+			</Grid.RowDefinitions>
+			<Label Content="content"
+				   Grid.Row="0"
+				   HorizontalAlignment="Center"
+				   VerticalAlignment="Top"/>
+			<ListBox Margin="5"
+					 Grid.Row="1"
+					 x:Name="lstFinalSelection"/>
+		</Grid>
+	</Grid>
+</UserControl>

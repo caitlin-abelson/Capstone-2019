@@ -46,15 +46,13 @@ namespace DataObjects
 		{
 			get
 			{
-				List<string> aliases = new List<string>();
+				List<string> aliases = new[] { Email }.ToList();
 
-				if (null == DepartmentID)
+				if (null != DepartmentID)
 				{ aliases.Add(DepartmentID); }
 
-				if (EmployeeRoles.Count > 0)
-				{ aliases.Concat(EmployeeRoles.Select(r => r.RoleID).ToList()); }
-
-				aliases.Add("Resort Employee");
+				foreach (var role in EmployeeRoles)
+				{ aliases.Add(role.Alias); }
 
 				return aliases.Distinct().ToList();
 			}
