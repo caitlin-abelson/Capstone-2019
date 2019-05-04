@@ -71,14 +71,6 @@ INSERT INTO [dbo].[Role]
 -- 	('Welcome Wagon', 'Gift Store and Information.',1),
 -- 	('Annex', 'Big Empty Reception Hall.',1)
 
-	
-	
-	
-	
-	
-	
-	
-	
 -- GO
 
 INSERT INTO [Employee]
@@ -130,4 +122,12 @@ INSERT INTO [dbo].[BuildingStatus]
 		('Available', 'Building is good to go!'),
 		('No Vacancy', 'All rooms are filled'),
 		('Undergoing Maintanance', 'Some rooms available')
+GO
+
+INSERT INTO [dbo].[ResortVehicleStatus]
+	([ResortVehicleStatusID], [Description])
+	VALUES
+		('In Use', 'Vehicle currently checked out'),
+		('Decomissioned', 'Vehicle dead'),
+		('Available', 'Vehicle available for use')
 GO

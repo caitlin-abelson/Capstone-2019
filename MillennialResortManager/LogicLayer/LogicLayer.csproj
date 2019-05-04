@@ -33,9 +33,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.11.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -49,6 +46,7 @@
     <Compile Include="AppointmentManager.cs" />
     <Compile Include="AppointmentTypeManager.cs" />
     <Compile Include="BuildingManager.cs" />
+    <Compile Include="CheckoutReceiptManager.cs" />
     <Compile Include="DepartmentManager.cs" />
     <Compile Include="DepartmentTypeManager.cs" />
     <Compile Include="EmployeeManager.cs" />
@@ -69,6 +67,7 @@
     <Compile Include="IAppointmentTypeManager.cs" />
     <Compile Include="IBuildingManager.cs" />
     <Compile Include="GuestTypeManager.cs" />
+    <Compile Include="ICheckoutReceiptManager.cs" />
     <Compile Include="IDepartmentManager.cs" />
     <Compile Include="IDepartmentTypeManager.cs" />
     <Compile Include="IEmployeeManager.cs" />
@@ -89,6 +88,7 @@
     <Compile Include="IMaintenanceTypeManager.cs" />
     <Compile Include="IMaintenanceWorkOrderManager.cs" />
     <Compile Include="IMemberManager.cs" />
+    <Compile Include="IMemberTabLineManager.cs" />
     <Compile Include="IMessageManager.cs" />
     <Compile Include="IMemberTabManager.cs" />
     <Compile Include="InspectionManager.cs" />
@@ -128,6 +128,7 @@
     <Compile Include="MaintenanceTypeManagerMSSQl.cs" />
     <Compile Include="MaintenanceWorkOrderManagerMSSQL.cs" />
     <Compile Include="MemberManagerMSSQL.cs" />
+    <Compile Include="MemberTabLineManager.cs" />
     <Compile Include="MemberTabManager.cs" />
     <Compile Include="OfferingManager.cs" />
     <Compile Include="MemberValidator.cs" />
@@ -178,9 +179,6 @@
       <Project>{9b36dc60-da48-44a9-9bc6-1f4d6daa2816}</Project>
       <Name>ExceptionLoggerLogic</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

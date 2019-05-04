@@ -184,6 +184,33 @@ namespace DataAccessLayer
             return supplierOrders;
         }
 
+        public int UpdateGeneratedOrder(int supplierOrderID, int employeeID)
+        {
+            int result = 0;
+
+            var cmdText = "sp_update_generated_order";
+            var conn = DBConnection.GetDbConnection();
+            var cmd = new SqlCommand(cmdText, conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@SupplierOrderID", supplierOrderID);
+            cmd.Parameters.AddWithValue("@EmployeeID", employeeID);
+
+            try
+            {
+                conn.Open();
+
+                result = cmd.ExecuteNonQuery();
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+            return result;
+        }
+
+
         public List<VMItemSupplierItem> SelectItemSuppliersBySupplierID(int supplierID)
         {
 
@@ -225,8 +252,8 @@ namespace DataAccessLayer
                         itemSupplier.Description = reader["Description"].ToString();
                         itemSupplier.ItemSupplierActive = reader.GetBoolean(reader.GetOrdinal("Active"));
                         itemSupplier.ItemType = reader["ItemTypeID"].ToString();
-                        itemSupplier.OnHandQty = reader.GetInt32(reader.GetOrdinal("OnHandQuantity"));
-                        itemSupplier.ReorderQty = reader.GetInt32(reader.GetOrdinal("ReOrderQuantity"));
+                        itemSupplier.OnHandQty = reader.GetInt32(reader.GetOrdinal("OnHandQty"));
+                        itemSupplier.ReorderQty = reader.GetInt32(reader.GetOrdinal("ReOrderQty"));
                         itemSupplier.SupplierItemID = reader.GetInt32(reader.GetOrdinal("SupplierItemID"));
                         itemSuppliers.Add(itemSupplier);
 

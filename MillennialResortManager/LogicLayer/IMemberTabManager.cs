@@ -42,5 +42,15 @@ namespace LogicLayer
         bool DeleteMemberTab(int memberTabID);
 
         bool DeleteMemberTabLine(int memberTabLineID);
+
+        /// <summary>
+        /// Jared Greenfield
+        /// Created 2019-04-30
+        /// 
+        /// Select last tab member had.
+        /// </summary>
+        /// <param name="memberID"></param>
+        /// <returns></returns>
+        MemberTab RetrieveLastMemberTabByMemberID(int memberID);
     }
-}
+    }

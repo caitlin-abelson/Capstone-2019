@@ -43,6 +43,13 @@ namespace LogicLayer
         /// 
         /// Create a new MemberTab for the specified Member.
         /// </summary>
+        /// <remarks>
+        /// Modified by James Heim
+        /// Modified 2019-05-01
+        /// Stored Procedure does not return rowcount, and database is locked down,
+        /// so set result to true if it ran without exception. 
+        /// (Procedure throws error if there exists an already active member tab.)
+        /// </remarks>
         /// <param name="memberID"></param>
         /// <returns>Whether the tab was created.</returns>
         public bool CreateMemberTab(int memberID)
@@ -51,7 +58,8 @@ namespace LogicLayer
 
             try
             {
-                result = (1 == _memberTabAccessor.InsertMemberTab(memberID));
+                _memberTabAccessor.InsertMemberTab(memberID);
+                result = true;
             }
             catch (Exception)
             {
@@ -244,7 +252,6 @@ namespace LogicLayer
             return tabLine;
         }
 
-
         /// <summary>
         /// James Heim
         /// Created 2019-04-25
@@ -339,6 +346,29 @@ namespace LogicLayer
             }
 
             return memberTabs;
+        }
+
+        /// <summary>
+        /// Jared Greenfield
+        /// Created 2019-04-30
+        /// 
+        /// Select last tab member had.
+        /// </summary>
+        /// <param name="memberID"></param>
+        /// <returns></returns>
+        public MemberTab RetrieveLastMemberTabByMemberID(int memberID)
+        {
+            MemberTab tab = null;
+            try
+            {
+                tab = _memberTabAccessor.SelectLastMemberTabByMemberID(memberID);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            return tab;
         }
     }
 }

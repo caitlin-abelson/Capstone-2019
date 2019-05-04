@@ -49,6 +49,8 @@
     <Compile Include="AppointmentTypeAccessor.cs" />
     <Compile Include="AppointmentTypeAccessorMock.cs" />
     <Compile Include="BuildingAccessor.cs" />
+    <Compile Include="CheckoutReceiptAccessor.cs" />
+    <Compile Include="CheckoutReceiptAccessorMock.cs" />
     <Compile Include="DBConnection.cs" />
     <Compile Include="DepartmentAccessor.cs" />
     <Compile Include="EmployeeAccessor.cs" />
@@ -71,6 +73,7 @@
     <Compile Include="IAppointmentTypeAccessor.cs" />
     <Compile Include="IBuildingAccessor.cs" />
     <Compile Include="GuestTypeAccessor.cs" />
+    <Compile Include="ICheckoutReceiptAccessor.cs" />
     <Compile Include="IDepartmentAccessor.cs" />
     <Compile Include="IEmployeeAccessor.cs" />
     <Compile Include="IEmpRolesAccessor.cs" />
@@ -93,6 +96,7 @@
     <Compile Include="IMemberAccessor.cs" />
     <Compile Include="IMessageAccessor.cs" />
     <Compile Include="IMemberTabAccessor.cs" />
+    <Compile Include="IMemberTabLineAccessor.cs" />
     <Compile Include="InspectionAccessor.cs" />
     <Compile Include="InternalOrderAccessor.cs" />
     <Compile Include="InternalOrderAccessorMock.cs" />
@@ -135,10 +139,12 @@
     <Compile Include="MaintenanceWorkOrderAccessorMSSQL.cs" />
     <Compile Include="MemberAccessorMock.cs" />
     <Compile Include="MemberAccessorMSSQL.cs" />
+    <Compile Include="MemberTabAccessorMock.cs" />
     <Compile Include="MessageAccessorMock.cs" />
     <Compile Include="MessageAccessorMSSQL.cs" />
     <Compile Include="BuildingAccessorMock.cs" />
     <Compile Include="MemberTabAccessor.cs" />
+    <Compile Include="MemberTabLineAccessor.cs" />
     <Compile Include="MockDepartmentAccessor.cs" />
     <Compile Include="MockEmpRolesAccessor.cs" />
     <Compile Include="MockEventAccessor.cs" />
@@ -173,6 +179,7 @@
     <Compile Include="RoomAccessor.cs" />
     <Compile Include="RoomReservationAccessor.cs" />
     <Compile Include="SetupAccessor.cs" />
+    <Compile Include="SetupAccessorMock.cs" />
     <Compile Include="SetupListAccessor.cs" />
     <Compile Include="SetupListAccessorMock.cs" />
     <Compile Include="ShopAccessorMock.cs" />

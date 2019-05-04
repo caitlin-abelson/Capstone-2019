@@ -22,6 +22,7 @@ namespace MillennialResortWebSite.Controllers
         private ApplicationUserManager _userManager;
 
         IMemberManager _memberManager;
+        IMemberTabManager _memberTabManager = new MemberTabManager();
         IGuestManager _guestManager;
 
         public AccountController()
@@ -175,6 +176,8 @@ namespace MillennialResortWebSite.Controllers
                     _memberManager.CreateMember(newMember);
                     int memberID = 0;
                     memberID = _memberManager.RetrieveMemberByEmail(model.Email);
+                    
+                    _memberTabManager.CreateMemberTab(memberID);
 
                     //Creates the guest
                     _guestManager = new GuestManager();

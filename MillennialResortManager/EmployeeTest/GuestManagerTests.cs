@@ -1074,5 +1074,21 @@ namespace LogicLayer.Tests
             _guestManager.CheckInGuest(invalidGuestID);
 
         }
+        /// <summary>
+        /// Eduardo Colon
+        /// Created: 2019/04/23
+        /// Testing  to retrieve all guest appointment info
+
+        [TestMethod]
+        public void TestRetrieveAllGuestAppointments()
+        {
+            //Arrange
+            List<Guest> guests = null;
+            //Act
+            guests = _guestManager.RetrieveAllGuestAppointmentInfo();
+            //Assert
+            CollectionAssert.Equals(_guests, guests);
+
+        }
     }
 }

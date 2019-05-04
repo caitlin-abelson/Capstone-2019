@@ -29,7 +29,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <PlatformTarget>AnyCPU</PlatformTarget>
+    <PlatformTarget>x86</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -54,6 +54,7 @@
     <Compile Include="AppointmentManagerTest.cs" />
     <Compile Include="AppointmentTypeManagerTests.cs" />
     <Compile Include="BuildingLogicTests.cs" />
+    <Compile Include="CheckoutReceiptManagerTests.cs" />
     <Compile Include="DepartmentUnitTests.cs" />
     <Compile Include="EmployeeManagerTests.cs" />
     <Compile Include="EmployeeRolesUnitTests.cs" />
@@ -70,6 +71,7 @@
     <Compile Include="ItemTypeManagerTest.cs" />
     <Compile Include="LoginUnitTest.cs" />
     <Compile Include="MaintenanceWorkOrderManagerTests.cs" />
+    <Compile Include="MemberTabManagerTests.cs" />
     <Compile Include="OfferingManagerTest.cs" />
     <Compile Include="MemberManagerTests.cs" />
     <Compile Include="PerformanceManagerTests.cs" />
@@ -81,6 +83,7 @@
     <Compile Include="RoleManagerTests.cs" />
     <Compile Include="RoomManagerTest.cs" />
     <Compile Include="SetupListManagerTests.cs" />
+    <Compile Include="SetupManagerTests.cs" />
     <Compile Include="ShopManagerTest.cs" />
     <Compile Include="RoomTypeUnitTests.cs" />
     <Compile Include="ShuttleReservationManagerTests.cs" />

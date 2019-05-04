@@ -281,7 +281,7 @@ namespace Presentation
                         Active = _resortVehicle?.Active ?? true,
                         DeactivationDate = _resortVehicle?.DeactivationDate,
                         Available = _resortVehicle?.Available ?? true,
-                        ResortVehicleStatusId = _resortVehicle?.ResortVehicleStatusId ?? ResortVehicleStatusEnum.Available.ToString(),
+                        ResortVehicleStatusId = _resortVehicle?.ResortVehicleStatusId ?? new ResortVehicleStatus().Available,
                         ResortPropertyId = int.Parse(cmbResortProperty.Text)
                     };
 

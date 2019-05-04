@@ -357,5 +357,58 @@ namespace DataAccessLayer
 
             return rows;
         }
+        /// <summary>
+        /// Eduardo Colon
+        /// Created: 2019/04/23
+        /// 
+        /// method to retrieve all appoinment
+        /// </summary>
+        public List<Appointment> SelectAppointments()
+        {
+            List<Appointment> appointments = new List<Appointment>();
+
+            var conn = DBConnection.GetDbConnection();
+
+            var cmdText = @"sp_retrieve_appointments";
+
+            var cmd = new SqlCommand(cmdText, conn);
+
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+
+
+            try
+            {
+                conn.Open();
+                var reader = cmd.ExecuteReader();
+
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        var appointment = new Appointment()
+                        {
+                            AppointmentID = reader.GetInt32(0),
+                            AppointmentType = reader.GetString(1),
+                            GuestID = reader.GetInt32(2),
+                            StartDate = reader.GetDateTime(3),
+                            EndDate = reader.GetDateTime(4),
+                            Description = reader.GetString(5)
+                        };
+                        appointment.Guest = new GuestAccessor().RetrieveGuestAppointmentInfo(appointment.GuestID);
+                        appointments.Add(appointment);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Database access error", ex);
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            return appointments;
+        }
     }
 }

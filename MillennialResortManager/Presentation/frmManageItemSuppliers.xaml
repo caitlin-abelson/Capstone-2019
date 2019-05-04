@@ -7,19 +7,25 @@
         mc:Ignorable="d"
         Title="Manage Suppliers for Item" Height="480" Width="640">
     <Window.Resources>
-        <Style x:Key="WrappedColumnHeaderStyle" TargetType="{x:Type DataGridColumnHeader}">
-            <Setter Property="ContentTemplate">
-                <Setter.Value>
-                    <DataTemplate>
-                        <TextBlock TextWrapping="Wrap" HorizontalAlignment="Center" Text="{Binding}"></TextBlock>
-                    </DataTemplate>                  
-                </Setter.Value>                
-            </Setter>
-            <Setter Property="HorizontalContentAlignment" Value="Center" />            
-        </Style>
-       
+        
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Stylesheet.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+            <Style x:Key="WrappedColumnHeaderStyle" TargetType="{x:Type DataGridColumnHeader}">
+                <Setter Property="ContentTemplate">
+                    <Setter.Value>
+                        <DataTemplate>
+                            <TextBlock TextWrapping="Wrap" HorizontalAlignment="Center" Text="{Binding}"></TextBlock>
+                        </DataTemplate>
+                    </Setter.Value>
+                </Setter>
+                <Setter Property="HorizontalContentAlignment" Value="Center" />
+            </Style>
+        </ResourceDictionary>
     </Window.Resources>
-    <Grid>
+   
+    <Grid Style="{StaticResource DefaultPage}">
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
             <ColumnDefinition/>

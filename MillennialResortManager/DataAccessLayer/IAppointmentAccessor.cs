@@ -18,5 +18,6 @@ namespace DataAccessLayer
         List<Appointment> SelectAppointmentByGuestID(int guestID);
         int UpdateAppointment(Appointment appointment);
         int DeleteAppointmentByID(int appointmentID);
+        List<Appointment> SelectAppointments();
     }
 }

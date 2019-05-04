@@ -8,6 +8,10 @@ using DataObjects;
 
 namespace MillennialResortWebSite.Models
 {
+    /// <summary>
+    /// Added by Matt H. on 4/18/19
+    /// View Model class for Contact Us page.
+    /// </summary>
     public class ContactViewModel
     {
         [Required]
@@ -38,6 +42,10 @@ namespace MillennialResortWebSite.Models
         public IEnumerable<SelectListItem> Subjects { get; set; }
     }
 
+    /// <summary>
+    /// Added by Matt H. on 4/18/19
+    /// View Model class for index page's mailing list form.
+    /// </summary>
     public class IndexPageMailingListViewModel
     {
         [Required]
@@ -57,19 +65,17 @@ namespace MillennialResortWebSite.Models
 
     }
 
+    /// <summary>
+    /// Added by Matt H. on 4/18/19
+    /// View Model class comprised of both Reservation View Model and MailingList View Model
+    /// for the index page.
+    /// </summary>
     public class HomeViewModelsMixer
     {
-        // public List<ReservationSearchModel> Reservations { get; set; }
-
-        // public IEnumerable<Room> Rooms { get; set; }
-
-
-
-        public List<NewReservation> Reservation { get; set; }
-
         /*public List<IndexPageMailingListViewModel> MailingLists { get; set; } */
 
-        /*public ReservationSearchModel Reservation { get; set; } */
+        public ReservationSearchModel Reservation { get; set; }
+
         public IndexPageMailingListViewModel MailingList { get; set; } 
 
 

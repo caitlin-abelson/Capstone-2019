@@ -23,7 +23,7 @@
                 <RowDefinition Height="1*"/>
                 <RowDefinition Height="1*"/>
             </Grid.RowDefinitions>
-            
+
             <Grid x:Name="grdHeader" Grid.Row="0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
@@ -104,7 +104,7 @@
                 <!--<Label Grid.Column="1" Content="Status ID:" HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="16" FontWeight="Bold" Margin="0,0,15,0" />-->
             </Grid>
 
-            
+
         </Grid>
 
         <Grid Grid.Column="2">
@@ -203,5 +203,5 @@
 
         </Grid>
     </Grid>
-    
+
 </Window>

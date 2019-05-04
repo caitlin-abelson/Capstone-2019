@@ -59,6 +59,10 @@ INSERT INTO [dbo].[EmployeeRole]
 		(100007, 'Maintenance')
 GO
 
+print '' print '*** Adding Itemtype Data'
+GO
+
+
 INSERT INTO [dbo].[ItemType]
 		([ItemTypeID],[Description])
 	VALUES
@@ -68,8 +72,18 @@ INSERT INTO [dbo].[ItemType]
 		('Hat','Hats'),
 		('Tshirt','Tshirts'),
 		('Pet','Pets'),
-		('Beverage','Drinks')
+		('Beverage','Drinks'),
+		('Toiletries', 'Bathroom Stuff'),
+		('Misc', 'miscellaneous'),
+		('Hydraulic', 'Hydraulic Stuff'),
+		('Parts', 'Parts to repair equipment'),
+		('Consumables', 'Daily use'),
+		('Hotel', 'Hotel'),
+		('Event', 'Event')
 GO
+
+
+
 
 
 INSERT INTO [dbo].[PetType]
@@ -329,39 +343,26 @@ GO
 INSERT INTO [dbo].[Room]
 		([RoomNumber], [BuildingID], [RoomTypeID], [Description], [Capacity], [ResortPropertyID], [OfferingID], [RoomStatusID])
 	VALUES
-		(101, 'Hotel 101', 'Double', 'Double beds', 4, 100001, 100000, 'Available'),
-		(102, 'Hotel 101', 'King', 'Single king', 2, 100000, 100001, 'Occupied'),
-		(104, 'Hotel 102', 'Double', 'Double beds', 4, 100001, 100002, 'Available'),
-		(105, 'Hotel 102', 'King', 'Single king', 2, 100001, 100003, 'Occupied'),
-		(103, 'Guest Bld 101', 'Double', 'Double beds', 4, 100001, 100004, 'Available'),
-		(106, 'Guest Bld 101', 'King', 'Single king', 2, 100002, 100005, 'Occupied'),
-		(107, 'Shopping Center 101', 'Double', 'Double beds', 4, 100003, 100006, 'Available'),
-		(108, 'Shopping Center 101', 'King', 'Single king', 2, 100004, 100006, 'Occupied'),
-		(109, 'Food Center 101', 'Double', 'Double beds', 4, 100005, 100005, 'Available'),
-		(110, 'Food Center 101', 'King', 'Single king', 2, 100006, 100005, 'Occupied'),
-		(111, 'Welcome Center', 'Double', 'Double beds', 4, 100007, 100000, 'Available'),
-		(112, 'Welcome Center', 'King', 'Single king', 2, 100008, 100001, 'Occupied'),
-		(114, 'GenBld01', 'Double', 'Double beds', 4, 100009, 100002, 'Available'),
-		(113, 'GenBld01', 'King', 'Single king', 2, 100002, 100000, 'Occupied')
+	
 
-    	-- (114, 'North Shore1', 'Beach House', 'Sleeps 10 to 20 guests.', 20, 100001, 100012, 'Available'),
-		-- (115, 'East Shore1', 'Beach House', 'Sleeps 10 to 20 guests.', 20, 100001, 100012, 'Occupied'),
-		-- (116, 'West Shore1', 'Beach House', 'Sleeps 10 to 20 guests.', 20, 100001, 100012, 'Available'),
-		-- (117, 'South Shore1', 'Beach House', 'Sleeps 10 to 20 guests.', 20, 100001, 100012, 'Occupied'),
-		-- (118, 'North Shore2', 'Bungalow Land', 'Queen Size Beds.', 2, 100001, 100013, 'Available'),
-		-- (119, 'East Shore2', 'Bungalow Land', 'Queen Size Beds.', 2, 100001, 100013, 'Occupied'),
-		-- (120, 'West Shore2', 'Bungalow Land', 'Queen Size Beds.', 2, 100001, 100013, 'Available'),
-		-- (121, 'South Shore2', 'Bungalow Land', 'Queen Size Beds.', 2, 100001, 100013, 'Occupied'),
-		-- (122, 'North Shore3', 'Bungalow Sea', 'Queen Size Beds', 2, 100001, 100014, 'Available'),
-		-- (123, 'East Shore3', 'Bungalow Sea', 'Queen Size Beds', 2, 100001, 100014, 'Occupied'),
-		-- (124, 'West Shore3', 'Bungalow Sea', 'Queen Size Beds', 2, 100001, 100014, 'Available'),
-		-- (125, 'South Shore3', 'Bungalow Sea', 'Queen Size Beds.', 2, 100001, 100014, 'Occupied'),
-		-- (126, 'North Shore4', 'Royal Suite', 'Kings and Queens, Sleep 2 - 5 guests.', 2, 100001, 100015, 'Available'),
-		-- (127, 'East Shore4', 'Royal Suite', 'Kings and Queens, Sleep 2 - 5 guests.', 2, 100001, 100015, 'Occupied'),
-		-- (128, 'West Shore4', 'Royal Suite', 'Kings and Queens, Sleep 2 - 5 guests.', 2, 100001, 100015, 'Available'),
-		-- (129, 'South Shore4', 'Royal Suite', 'Kings and Queens, Sleep 2 - 5 guests.', 2, 100001, 100015, 'Occupied'),
-		-- (130, 'East Shore5', 'Hostel Hut', 'Single Size Beds Sleeps 20 or more.', 5, 100001, 100016, 'Occupied'),
-		-- (131, 'South Shore5', 'Hostel Hut', 'Single Size Beds Sleeps 20 or more.', 20, 100001, 100016, 'Occupied')
+    	(114, 'North Shore1', 'Beach House', 'Sleeps 10 to 20 guests.', 20, 100001, 100012, 'Available'),
+		(115, 'East Shore1', 'Beach House', 'Sleeps 10 to 20 guests.', 20, 100001, 100012, 'Occupied'),
+		(116, 'West Shore1', 'Beach House', 'Sleeps 10 to 20 guests.', 20, 100001, 100012, 'Available'),
+		(117, 'South Shore1', 'Beach House', 'Sleeps 10 to 20 guests.', 20, 100001, 100012, 'Occupied'),
+		(118, 'North Shore2', 'Bungalow Land', 'Queen Size Beds.', 2, 100001, 100013, 'Available'),
+		(119, 'East Shore2', 'Bungalow Land', 'Queen Size Beds.', 2, 100001, 100013, 'Occupied'),
+		(120, 'West Shore2', 'Bungalow Land', 'Queen Size Beds.', 2, 100001, 100013, 'Available'),
+		(121, 'South Shore2', 'Bungalow Land', 'Queen Size Beds.', 2, 100001, 100013, 'Occupied'),
+		(122, 'North Shore3', 'Bungalow Sea', 'Queen Size Beds', 2, 100001, 100014, 'Available'),
+		(123, 'East Shore3', 'Bungalow Sea', 'Queen Size Beds', 2, 100001, 100014, 'Occupied'),
+		(124, 'West Shore3', 'Bungalow Sea', 'Queen Size Beds', 2, 100001, 100014, 'Available'),
+		(125, 'South Shore3', 'Bungalow Sea', 'Queen Size Beds.', 2, 100001, 100014, 'Occupied'),
+		(126, 'North Shore4', 'Royal Suite', 'Sleeps up to 10 guests.', 2, 100001, 100015, 'Available'),
+		(127, 'East Shore4', 'Royal Suite', 'Sleeps up to 10 guests.', 2, 100001, 100015, 'Occupied'),
+		(128, 'West Shore4', 'Royal Suite', 'Sleeps up to 10 guests.', 2, 100001, 100015, 'Available'),
+		(129, 'South Shore4', 'Royal Suite', 'Sleeps up to 10 guests.', 2, 100001, 100015, 'Occupied'),
+		(130, 'East Shore5', 'Hostel Hut', 'Sleeps up to 10 guests.', 5, 100001, 100016, 'Occupied'),
+		(131, 'South Shore5', 'Hostel Hut', 'Sleeps up to 10 guests.', 20, 100001, 100016, 'Occupied')
 
 		
 GO
@@ -407,37 +408,37 @@ EXEC sp_create_vehicle 'Hyundai', 'Excel'  , 2010, 'IA 523', 50000, 5, 'Gray', '
 EXEC sp_create_vehicle 'Skoda'  , 'Octavia', 1920, 'IA 523', 50000, 5, 'Gray', '2008-05-05', 'A car', 1, '', 1, 'Available', 100000 ;
 
 
-
-
-INSERT INTO [ItemType]
-(
-	[ItemTypeID], [Description]
-)
-VALUES
-	("Toiletries", "Bathroom Stuff"),
-	("Misc", "miscellaneous"),
-	("Hydraulic", "Hydraulic Stuff"),
-	("Parts", "Parts to repair equipment"),
-	("Consumables", "Daily use")
+print '' print '*** Adding Item Data'
 GO
-
 INSERT INTO [dbo].[Item]
 (
 	[OfferingID], [ItemTypeID], [RecipeID], [CustomerPurchasable], [Description], 
 	[OnHandQty], [Name], [ReOrderQty]
 )
 VALUES
-	(100000, "Food", NULL, 1, "TURTLE OF DOOM!", 455, "TURTLE OF DOOM (Limited Edition)!", 23),
-	(NULL, "Food", NULL, 1, "12 OZ Porterhouse with a red wine reduction, served with finglering potatoes and a warm green salad.", 45, "12 oz. Porterhouse meal", 30),
-	(NULL, "Misc", NULL, 1, "Deck of cards", 455, "Bicycle deck of 52", 200),
-	(NULL, "Parts", NULL, 0, "Ring burner for GE model 4800 Gas Stove", 8, "Replacement burner for GE4800", 4),
-	(NULL, "Consumables", NULL, 1, "Shampoo Bottle", 45500, "", 2500),
-	(NULL, "Food", NULL, 1, "16oz Miller Lite Tall Boy", 5000, "16oz. Miller Lite", 1000),
-	(NULL, "Food", NULL, 1, "'Fresh' Atlantic Salmon, packed in ice, ready to be filleted", 50, "Fresh Atlantic Salmon", 15),
-	(NULL, "Misc", NULL, 1, "Resort Tshirt", 156, "Millenial Resort Branded Tshirt", 50),
-	(NULL, "Hydraulic", NULL, 0, "DCVAM-200 10223 Hydraulic control Valve for loading bay lifts.", 4, "10233 Hydraulic Control Valve", 1),
-	(NULL, "Consumables", NULL, 1, "250 count of napkins", 15612, "250 Napkins", 500),
-	(NULL, "Parts", NULL, 0, "Toilet plunger for tank in back of toilet", 50, "", 25)
+	(100000, 'Food', NULL, 1, 'TURTLE OF DOOM!', 455, 'TURTLE OF DOOM (Limited Edition)!', 23),
+	(NULL, 'Food', NULL, 1, '12 OZ Porterhouse ', 45, '12 oz. Porterhouse meal', 30),
+	(NULL, 'Misc', NULL, 1, 'Deck of cards', 455, 'Bicycle deck of 52', 200),
+	(NULL, 'Parts', NULL, 0, 'Ring burner for GE model 4800 Gas Stove', 8, 'Replacement burner for GE4800', 4),
+	(NULL, 'Consumables', NULL, 1, 'Shampoo Bottle', 45500, '', 2500),
+	(NULL, 'Food', NULL, 1, '16oz Miller Lite Tall Boy', 5000, '16oz. Miller Lite', 1000),
+	(NULL, 'Food', NULL, 1, 'Fresh Atlantic Salmon', 50, 'Fresh Atlantic Salmon', 15),
+	(NULL, 'Misc', NULL, 1, 'Resort Tshirt', 156, 'Millenial Resort Branded Tshirt', 50),
+	(NULL, 'Hydraulic', NULL, 0, 'DCVAM-200 10223 Hydraulic control Valve', 4, '10233 Hydraulic Control Valve', 1),
+	(NULL, 'Consumables', NULL, 1, '250 count of napkins', 15612, '250 Napkins', 500),
+	(NULL, 'Parts', NULL, 0, 'Float Valve', 50, 'Float Valve', 25),	
+	(NULL, 'Parts', NULL, 0, 'Plunger', 20, 'Plunger', 5),
+	(NULL, 'Hotel', NULL, 0, 'Toilet Paper', 10000, 'Toilet Paper', 1000),
+	(NULL, 'Hotel', NULL, 0, 'Queen Size Bed Sheet', 100, 'Queen Bed Sheet', 25),	
+	(NULL, 'Hotel', NULL, 0, 'Note Pads', 200, 'Note Pads', 25),
+	(NULL, 'Hotel', NULL, 0, '4oz Hand Lotion', 50, '4oz Hand Lotion', 25),
+	(NULL, 'Food', NULL, 0, 'Lean Ground Beef 10 lb', 75, 'Lean Ground Beef 10 lb', 25),
+	(NULL, 'Food', NULL, 0, 'Yukon Gold Potatoes lb', 500, 'Yukon Gold Potatoes', 150),
+	(NULL, 'Food', NULL, 0, 'Ribeye Steak lb', 100, 'Ribeye Steak', 10),
+	(NULL, 'Food', NULL, 0, 'Bottled Water 8oz', 100, 'Bottled Water 8oz', 10),
+	(NULL, 'Food', NULL, 0, 'Dinner Plate', 50, 'Dinner Plate', 10),
+	(NULL, 'Hotel', NULL, 0, 'King Size Bed Sheet', 100, 'King Bed Sheet', 25)
+	
 GO
 
 
@@ -514,18 +515,24 @@ VALUES
 ('Rum Runner','3 kinds of rum, triple sec, pineapple, orange juice and a splash of grenadine','2019-08-05',0)
 
 GO
+print '' print '*** Adding Supplier Data'
+GO
 
 INSERT INTO [dbo].[Supplier]
 ([Name],[Address],[City],[State],[PostalCode],[Country],[PhoneNumber],[Email],[ContactFirstName],[ContactLastName],
 [DateAdded],[Description],[Active])
 VALUES
 ('MySupply','123 Main St','Iowa City','IA','60013','USA','8155554488','place@place.com','John','Cena','2019-03-05','Description',1),
-('Joes Supply shed','149 E Pulaski St','Olive Branch','MA','38654','USA','8155554321','glenna@place.com','Glenna','Smalls','2019-03-05','Description',1),
+('Joes Supply Shed','149 E Pulaski St','Olive Branch','MA','38654','USA','8155554321','glenna@place.com','Glenna','Smalls','2019-03-05','Description',1),
 ('Grainger','141 Rockville Ave.','W Bloomfield','MI','48322','USA','8155554123','beau@place.com','Beau','Carpenter','2019-03-05','Description',1),
 ('Cisco','38 Cedar Swamp St','Aberdeen','SD','57401','USA','8155554654','angie@place.com','Angie','Wright','2019-03-05','Description',1),
 ('US Foods','9326 Rocky River Ave.','Lutherville','MD','21093','USA','8155554845','norman@place.com','Norman','Dorsey','2019-03-05','Description',1),
 ('Swift','2 Bald Hill Circle','Hanover Park','IL','60133','USA','8155554155','wilford@place.com','Wilford','Rye','2019-03-05','Description',1),
-('Hungry Hobo','93 Talbot Dr','Hamtramck','MI','48212','USA','8154891566','nick@place.com','Nick','Wyndham','2019-03-05','Description',1)
+('Hungry Hobo','93 Talbot Dr','Hamtramck','MI','48212','USA','8154891566','nick@place.com','Nick','Wyndham','2019-03-05','Description',1),
+('Food Supply','100 Hungry Court','Spoon River','WI','53534','USA','6085551566','archie@place.com','Archie','Manning','2019-03-05','Description',1),
+('Millennial Resort','1 West Idyllic Avenue','Nirvana','FL','32000','USA','4854854850','jimg@place.com','Jim','Edinburgh','2019-03-05','Description',1)
+GO
+print '' print '*** Adding Supplier Order Data'
 GO
 
 INSERT INTO [dbo].[SupplierOrder]
@@ -537,16 +544,19 @@ VALUES
 (100000,'Order For special event',1,'2019-03-05',100000)
 GO
 
+print '' print '*** Adding SupplierOrderLine Data'
+GO
+
 INSERT INTO [dbo].[SupplierOrderLine]
 ([ItemID],[SupplierOrderID],[Description],[OrderQty],[QtyReceived],[UnitPrice])
 VALUES 
-(100000,100005,'Description',25,0,10),
-(100000,100006,'Description',25,0,10),
-(100001,100007,'Description',25,0,10),
-(100001,100005,'Description',25,0,10),
-(100001,100006,'Description',25,0,10),
-(100003,100007,'Description',25,0,10),
-(100002,100005,'Description',25,0,10),
+(100000,100005,'Order 1',25,0,10),
+(100000,100006,'Order 1',25,0,10),
+(100001,100007,'Order 2',25,0,10),
+(100001,100005,'Order 2',25,0,10),
+(100001,100006,'Order 2',25,0,10),
+(100003,100007,'Order 1',25,0,10),
+(100002,100005,'Order 1',25,0,10),
 (100002,100006,'Description',25,0,10),
 (100002,100007,'Description',25,0,10),
 (100003,100005,'Description',25,0,10)
@@ -608,7 +618,7 @@ VALUES
 (100000,100000),
 (100002, 100001)
 GO
-
+/*
 INSERT INTO [dbo].[Reservation]
 ([MemberID],[NumberOfGuests],[NumberOfPets],[ArrivalDate],[DepartureDate],[Notes],[Active])
 VALUES
@@ -637,6 +647,7 @@ VALUES
 (100001,100002),
 (100002,100003)
 GO
+*/
 
 INSERT INTO [dbo].[GuestType]
 ([GuestTypeID],[Description])
@@ -670,17 +681,52 @@ VALUES
 (2,385,"Gum on doorknob",NULL)
 Go
 
+print '' print '*** Adding ItemSupplier Data'
+GO
+
 INSERT INTO [dbo].[ItemSupplier]
-([ItemID],[SupplierID],[PrimarySupplier],[LeadTimeDays],[UnitPrice],[Active])
+([ItemID],[SupplierItemID],[SupplierID],[PrimarySupplier],[LeadTimeDays],[UnitPrice],[Active])
 VALUES
-(100000,100000,NULL,NULL,NULL,1),
-(100001,100000,NULL,NULL,NULL,1),
-(100002,100001,NULL,NULL,NULL,1),
-(100003,100001,NULL,NULL,NULL,1),
-(100004,100002,NULL,NULL,NULL,1),
-(100005,100002,NULL,NULL,NULL,1),
-(100006,100003,NULL,NULL,NULL,1),
-(100007,100003,NULL,NULL,NULL,1)
+(100000,0,100008,1,1,50.00, 1),
+(100001,0,100008,1,1,30.00,1),
+(100002,8832888,100000,1,5,1.00,1),
+(100002,7742455,100001,0,10,1.25,1),
+(100003,4545454,100002,1,5,15.00,1),
+(100003,6262644,100001,0,5,15.00,1),
+(100004,32145678,100005,1,20,0.50,1),
+(100004,54545461,100003,0,20,0.55,1),
+(100005,44546487,100004,1,1,0.50,1),
+(100005,99999965,100007,0,1,0.51,1),
+(100006,44456789,100004,1,1,15.00,1),
+(100006,12124564,100007,0,3,15.50,1),
+(100007,0,100008,1,1,10.00,1),
+(100008,12456789,100001,1,10,150.00,1),
+(100008,45878774,100002,0,10,175.00,1),
+(100009,12456789,100007,1,1,0.01,1),
+(100009,45878774,100004,0,1,0.01,1),
+(100010,11115555,100002,1,5,10.75,1),
+(100010,55551111,100000,0,6,11.01,1),
+(100011,11115555,100002,1,4,10.75,1),
+(100011,55551111,100000,0,5,11.01,1),
+(100012,23234646,100000,1,1,0.25,1),
+(100012,46462323,100001,0,1,0.26,1),
+(100013,56569898,100000,1,5,15.25,1),
+(100013,65658989,100001,0,5,16.26,1),
+(100014,23234646,100000,1,1,0.10,1),
+(100014,46462323,100001,0,1,0.10,1),
+(100015,75579559,100000,1,1,0.25,1),
+(100015,25523663,100001,0,1,0.26,1),
+(100016,75579559,100007,1,1,5.00,1),
+(100016,25523663,100004,0,1,5.20,1),
+(100017,75579559,100007,1,1,2.50,1),
+(100017,25523663,100004,0,1,2.55,1),
+(100018,58859877,100007,1,1,14.25,1),
+(100018,45658844,100004,0,1,15.00,1),
+(100019,44889944,100007,1,1,0.50,1),
+(100019,88444499,100004,0,1,0.55,1),
+(100020,58859877,100007,1,3,5.25,1),
+(100020,45658844,100004,0,3,5.50,1)
+
 GO
 
 INSERT INTO [dbo].[Luggage]
@@ -725,7 +771,7 @@ VALUES
 ("Repair","2018-10-10",NULL,100000,100004,0,"Window is not sealing fully",NULL,"Waiting",100003)
 GO
 
-
+/*
 
 INSERT INTO [dbo].[MemberTab]
 ([MemberID],[Active],[TotalPrice])
@@ -739,6 +785,7 @@ VALUES
 (100006,1,3489),
 (100000,1,1500)
 GO
+
 
 -- Has to be done separately for each Member because
 -- the trigger that updates the MemberTab.TotalPrice
@@ -767,7 +814,7 @@ VALUES
 (100006,100000,1,150,100000,NULL,100000),
 (100006,100004,1,150,100000,NULL,100000)
 GO
-
+*/
 
 INSERT INTO [dbo].[Receiving]
 ([SupplierOrderID],[Description],[DateDelivered])
@@ -801,7 +848,25 @@ VALUES
 ("Super Glue",100002,25,"Part of this component",1),
 ("Duct Tape",100003,25,"Part of this component",1),
 ("Knife",100004,25,"Part of this component",1),
-("Hose Fitting",100005,25,"Part of this component",1)
+("Hose Fitting",100005,25,"Part of this component",1),
+('C# and Yoga', 100000, 30,'Modern Yoga infused with loose couplings and dependancy construction.',1),
+('sql and Yoga', 100000, 30, 'Modern Yoga infused with data redundancy.',1),
+('Coal Walk',  100000, 30,'Ever wanted to walk on hot coals? Now is your chance!',1),
+('Leg Waxing',  100000, 30,'It is as painful as it sounds.',1),
+('Beach Massage', 100000, 30, 'Get a relaxing massage on the beach.',1),
+('Nature Walk',  100000, 30,'Explore the natural beauty surrounding the resort',1),
+('Fishing Charter', 100000, 30, 'Go catch the big fish and have it professionally filleted for your eating pleasure.',1),
+('Spa', 100000, 30,'Spa',1),
+('Pet Grooming',  100000, 30,'Pet Grooming',1),
+('Turtle Petting', 100000, 30, 'Turtle Petting',1),
+('Whale Watching',  100000, 30,'Whale Watching',1),
+('Sand Castle',  100000, 30,'Sand Castle Building',1)
+
+
+
+
+
+
 GO
 
 
@@ -866,7 +931,38 @@ INSERT INTO [dbo].[SpecialOrderLine]
     
 GO
 
-
+print '' print '*** INSERT INTO [Reservation]'	
+GO
+INSERT INTO [Reservation]
+	([MemberID], [NumberOfGuests], [NumberOfPets], [ArrivalDate], [DepartureDate])
+	VALUES
+		(100000, 3, 0, "2019-04-04", "2019-04-07"),
+		(100001, 3, 0, "2019-04-04", "2019-04-07")
+GO		
+		
+print '' print '*** INSERT INTO [RoomReservation]'	
+INSERT INTO [RoomReservation]
+		([RoomID], [ReservationID], [CheckinDate])
+	VALUES
+		(100000, 100000, CURRENT_TIMESTAMP),
+		(100001, 100000, CURRENT_TIMESTAMP)/*,
+		//(100002, 100000, CURRENT_TIMESTAMP)*/
+GO	
+print '' print '*** INSERT INTO [GuestRoomAssignment]'	
+GO
+INSERT INTO [GuestRoomAssignment]
+		([GuestID], [RoomReservationID], [CheckinDate])
+	VALUES
+		(100001, 100000,CURRENT_TIMESTAMP),
+		(100002, 100000,CURRENT_TIMESTAMP),
+		(100000, 100001,CURRENT_TIMESTAMP)
+GO
+print '' print '*** INSERT INTO [MemberTab]'	
+INSERT INTO [MemberTab]
+		([MemberID])
+	VALUES
+		(100000)
+	GO	
 
 
 

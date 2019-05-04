@@ -126,7 +126,7 @@ namespace Presentation
             }
             catch (Exception e)
             {
-                MessageBox.Show($"Failed to check out vehicle\n{e.Message}\n{e.StackTrace}");
+                MessageBox.Show($"Failed to check out vehicle\n");
             }
 
             RefreshDataGrids();
@@ -166,9 +166,9 @@ namespace Presentation
 
                 MessageBox.Show("Success");
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                MessageBox.Show($"Unable to check in vehicle\n{ex.Message}\n{ex.StackTrace}");
+                MessageBox.Show($"Unable to check in vehicle\n");
             }
         }
 

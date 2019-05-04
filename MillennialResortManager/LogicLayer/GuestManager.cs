@@ -101,7 +101,7 @@ namespace LogicLayer
             {
                 return false; // for EmergencyLastName
             }
-            else if (_guest.EmergencyPhoneNumber.Length > 11 || _guest.EmergencyPhoneNumber == null || _guest.EmergencyPhoneNumber.Length < 7 || int.TryParse(_guest.EmergencyPhoneNumber, out aNumber))
+            else if (_guest.EmergencyPhoneNumber.Length > 11 || _guest.EmergencyPhoneNumber == null || _guest.EmergencyPhoneNumber.Length < 7)
             {
                 return false; // for EmergencyPhoneNumber, need to test for if integer
             }
@@ -473,6 +473,50 @@ namespace LogicLayer
             {
                 throw;
             }
+        }
+        /// <summary>
+        /// Eduardo Colon
+        /// Created: 2019/04/23
+        /// 
+        /// method to retrieve all guestappointmentinfo
+        /// </summary>
+        public List<Guest> RetrieveAllGuestAppointmentInfo()
+        {
+            var guests = new List<Guest>();
+            try
+            {
+                guests = _guestAccessor.RetrieveAllGuestAppointmentInfo();
+            }
+            catch
+            {
+                throw;
+            }
+            return guests;
+        }
+        /// <summary>
+        /// Eduardo Colon
+        /// Created: 2019/04/23
+        /// 
+        /// method to retrieve all guesappointmentinfo by guestid
+        /// </summary>
+        public Guest RetrieveGuestAppointmentInfo(int guestID)
+        {
+            Guest guest = new Guest();
+
+
+
+            try
+            {
+
+                guest = _guestAccessor.RetrieveGuestAppointmentInfo(guestID);
+
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+
+            return guest;
         }
     }
 }

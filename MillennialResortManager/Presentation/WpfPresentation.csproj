@@ -97,6 +97,7 @@
     <Compile Include="AddLuggage.xaml.cs" />
     <Compile Include="AddPerformance.xaml.cs" />
     <Compile Include="AddSpecialOrder.xaml.cs" />
+    <Compile Include="BrowseAppointment.xaml.cs" />
     <Compile Include="BrowseAppointmentType.xaml.cs" />
     <Compile Include="BrowseAvailableRooms.xaml.cs">
       <DependentUpon>BrowseAvailableRooms.xaml</DependentUpon>
@@ -260,6 +261,7 @@
     <Compile Include="SqlServerTypes\Loader.cs" />
     <Compile Include="viewAccount.xaml.cs" />
     <Compile Include="ViewPerformance.xaml.cs" />
+    <Compile Include="WalkInAppointmentDetail.xaml.cs" />
     <Page Include="AddDepartment.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -277,6 +279,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="AddSpecialOrder.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="BrowseAppointment.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -746,6 +752,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="WalkInAppointmentDetail.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="PerformanceViewer.xaml.cs" />
@@ -820,6 +830,9 @@
     <Content Include="SqlServerTypes\x86\SqlServerSpatial140.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Receipts\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

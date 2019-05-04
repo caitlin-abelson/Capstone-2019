@@ -16,26 +16,27 @@ namespace MillennialResortWebSite.Controllers
 
         IReservationManager reservationManager = new ReservationManagerMSSQL();
 
-        //IEnumerable<Reservation> reservation;
-
-        IEnumerable<Room> rooms;
-
         IGuestManager _guestManager = new GuestManager();
 
+        IRoomType _roomType = new RoomTypeManager();
+
+        IEnumerable<String> _types = null;
 
 
         // GET: Rooms
-        public ActionResult Index()
+        public ActionResult Index(ReservationSearchModel model)
         {
+            _types = _roomType.RetrieveAllRoomTypes();
             roomManager = new RoomManager();
 
-            rooms = roomManager.RetrieveRoomList();
+            model.Rooms = roomManager.RetrieveRoomList();
 
             int hour = DateTime.Now.Hour;
 
             ViewBag.Greeting = hour < 12 ? "Good Morning" : "Good Afternoon";
+            ViewBag.Types = _types;
+            return View(model);
 
-            return View(rooms);
         }
 
 
@@ -43,8 +44,9 @@ namespace MillennialResortWebSite.Controllers
 
 
         [Authorize]
-        public ActionResult Create(int id)
+        public ActionResult Create(int id, DateTime start, DateTime end, int numGuest)
         {
+            _types = _roomType.RetrieveAllRoomTypes();
             if (id == 0)
             {
                 return RedirectToAction("Index");
@@ -70,37 +72,26 @@ namespace MillennialResortWebSite.Controllers
             }
 
 
-
-
-
-
             NewReservation res = new NewReservation()
             {
-                ArrivalDate = DateTime.Now,
-                DepartureDate = DateTime.Now.AddDays(1),
-                numberOfGuests = 0,
+                ArrivalDate = start,
+                DepartureDate = end,
+                NumberOfGuests = numGuest,
                 numberOfPets = 0,
-                roomType = room.RoomType,
+                RoomType = room.RoomType,
                 Notes = ""
             };
 
+            ViewBag.Types = _types;
             return View(res);
         }
-
-
-
-
-
-
-
-
-
 
 
         // POST: Reservaion/Create
         [HttpPost]
         public ActionResult Create(NewReservation reservation)
         {
+            _types = _roomType.RetrieveAllRoomTypes();
             if (ModelState.IsValid)
             {
                 try
@@ -112,9 +103,9 @@ namespace MillennialResortWebSite.Controllers
                     Reservation res = new Reservation()
                     {
                         MemberID = guest.MemberID,
-                        NumberOfGuests = reservation.numberOfGuests,
-                        ArrivalDate = reservation.ArrivalDate,
-                        DepartureDate = reservation.DepartureDate,
+                        NumberOfGuests = reservation.NumberOfGuests,
+                        ArrivalDate = reservation.ArrivalDate.Value,
+                        DepartureDate = reservation.DepartureDate.Value,
                         Notes = reservation.Notes
                     };
                     if (reservationManager.AddReservation(res))
@@ -127,6 +118,8 @@ namespace MillennialResortWebSite.Controllers
                     throw;
                 }
             }
+
+            ViewBag.Types = _types;
             return View(reservation);
         }
 

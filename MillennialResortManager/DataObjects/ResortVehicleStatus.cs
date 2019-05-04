@@ -1,4 +1,6 @@
 ﻿using System;
+using System.CodeDom;
+using System.Security.Policy;
 
 namespace DataObjects
 {
@@ -13,12 +15,10 @@ namespace DataObjects
         public string Id { get; set; }
 
         public string Description { get; set; }
-    }
 
-    public enum ResortVehicleStatusEnum
-    {
-        InUse,
-        Available,
-        Decommissioned
+        // VEHICLE STATUS AS IN DATABASE
+        public string InUse => "In Use";
+        public string Available => "Available";
+        public string Decommissioned => "Decommissioned";
     }
 }
