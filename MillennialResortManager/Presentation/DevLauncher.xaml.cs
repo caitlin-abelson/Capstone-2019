@@ -514,6 +514,7 @@ namespace Presentation
                         if (b.Name.Contains(v))
                         {
                             b.Visibility = Visibility.Visible;
+                            this.Title = v;
                         }
                         else
                         {
