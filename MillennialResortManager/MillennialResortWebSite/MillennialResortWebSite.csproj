@@ -65,11 +65,8 @@
     <IntermediateOutputPath>C:\Users\nh229u26\AppData\Local\Temp\vs8F0D.tmp\Debug\</IntermediateOutputPath>
     <IntermediateOutputPath>C:\Users\nh229u17\AppData\Local\Temp\vs70E9.tmp\Debug\</IntermediateOutputPath>
     <IntermediateOutputPath>C:\Users\nh229u17\AppData\Local\Temp\vs3139.tmp\Debug\</IntermediateOutputPath>
-<<<<<<< HEAD
     <IntermediateOutputPath>C:\Users\shado\AppData\Local\Temp\vsF7BD.tmp\Debug\</IntermediateOutputPath>
-=======
     <IntermediateOutputPath>C:\Users\austin\AppData\Local\Temp\vsE728.tmp\Debug\</IntermediateOutputPath>
->>>>>>> dev
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
