@@ -361,7 +361,7 @@ namespace LogicLayer.Tests
                 Assert.IsTrue(true);
             }
         }
-
+        /*
         [TestMethod]
         public void RetrieveAppointmentsByGuestID()
         {
@@ -379,7 +379,7 @@ namespace LogicLayer.Tests
                 Assert.AreEqual(apptList1[i].Description, _testAppointments[i].Description);
             }
         }
-
+        */
         [TestMethod]
         public void RetrieveAppointmentByID()
         {
