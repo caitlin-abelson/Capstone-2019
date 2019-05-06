@@ -11,35 +11,48 @@
 	</Window.Resources>
 	<Grid Style="{StaticResource DefaultPage}">
 		<Grid.ColumnDefinitions>
-			<ColumnDefinition Width="300"/><!--Message sidebar-->
-			<ColumnDefinition /><!--Main content-->
+			<ColumnDefinition Width="300"/>
+			<!--Message sidebar-->
+			<ColumnDefinition />
+			<!--Main content-->
 		</Grid.ColumnDefinitions>
 
-		<Grid Grid.Column="0"><!--Message sidebar-->
+		<Grid Grid.Column="0">
+			<!--Message sidebar-->
 			<Grid.RowDefinitions>
-				<RowDefinition Height="40"/><!--New thread-->
-				<RowDefinition Height="35"/><!--Thread search and refresh-->
-				<RowDefinition /><!--List of threads-->
-				<RowDefinition Height="35"/><!--Show hidden-->
-				<RowDefinition Height="35"/><!--Show archived-->
+				<RowDefinition Height="40"/>
+				<!--New thread-->
+				<RowDefinition Height="35"/>
+				<!--Thread search and refresh-->
+				<RowDefinition />
+				<!--List of threads-->
+				<RowDefinition Height="35"/>
+				<!--Show hidden-->
+				<RowDefinition Height="35"/>
+				<!--Show archived-->
 			</Grid.RowDefinitions>
 
 			<Button x:Name="btnNewThread"
 					Content="New thread"
-					Grid.Row="0" Margin="5" Click="BtnNewThread_Click"/>
+					Grid.Row="0" Margin="5" 
+					Click="BtnNewThread_Click"/>
 
-			<Grid Grid.Row="1"><!--Thread search and refresh-->
+			<Grid Grid.Row="1">
+				<!--Thread search and refresh-->
 				<Grid.ColumnDefinitions>
-					<ColumnDefinition Width="4*"/><!--Search-->
-					<ColumnDefinition Width="1*"/><!--Refresh-->
+					<ColumnDefinition Width="4*"/>
+					<!--Search-->
+					<ColumnDefinition Width="1*"/>
+					<!--Refresh-->
 				</Grid.ColumnDefinitions>
-				
+
 				<TextBox x:Name="txtSearchThreads"
 						 Grid.Column="0" Margin="5"/>
 
 				<Button x:Name="btnRefreshThreadList"
 						Grid.Column="1" Margin="5"/>
-			</Grid><!--/Thread search and refresh-->
+			</Grid>
+			<!--/Thread search and refresh-->
 
 			<DataGrid x:Name="dgMessageThreadList"
 					  AutoGenerateColumns="False"
@@ -91,21 +104,31 @@
 					  Content="Show archived"
 					  Grid.Row="4" Margin="5" Click="ChkShowArchived_Click" />
 
-		</Grid><!--/Message sidebar-->
-		
-		<Grid Grid.Column="1"><!--Main content-->
+		</Grid>
+		<!--/Message sidebar-->
+
+		<Grid Grid.Column="1">
+			<!--Main content-->
 			<Grid.RowDefinitions>
-				<RowDefinition Height="40"/><!--Alias header-->
-				<RowDefinition Height="90"/><!--Participant list and actions-->
-				<RowDefinition /><!--Message list content-->
-				<RowDefinition Height="40"/><!--Action buttons-->
+				<RowDefinition Height="40"/>
+				<!--Alias header-->
+				<RowDefinition Height="90"/>
+				<!--Participant list and actions-->
+				<RowDefinition />
+				<!--Message list content-->
+				<RowDefinition Height="40"/>
+				<!--Action buttons-->
 			</Grid.RowDefinitions>
 
-			<Grid Grid.Row="0"><!--Alias header-->
+			<Grid Grid.Row="0">
+				<!--Alias header-->
 				<Grid.ColumnDefinitions>
-					<ColumnDefinition Width="1*" MinWidth="150"/><!--Label-->
-					<ColumnDefinition Width="1.5*"/><!--Dropdown-->
-					<ColumnDefinition Width="1*"/><!--filler-->
+					<ColumnDefinition Width="1*" MinWidth="150"/>
+					<!--Label-->
+					<ColumnDefinition Width="1.5*"/>
+					<!--Dropdown-->
+					<ColumnDefinition Width="1*"/>
+					<!--filler-->
 				</Grid.ColumnDefinitions>
 
 				<Label Content="You are participating as..." 
@@ -119,12 +142,16 @@
 						  Grid.Column="1" Margin="5"
 						  SelectionChanged="CboAliasPicker_SelectionChanged" />
 
-			</Grid><!--/Alias header-->
+			</Grid>
+			<!--/Alias header-->
 
-			<Grid Grid.Row="1"><!--Participant list and actions-->
+			<Grid Grid.Row="1">
+				<!--Participant list and actions-->
 				<Grid.ColumnDefinitions>
-					<ColumnDefinition /><!--List-->
-					<ColumnDefinition Width="95"/><!--Buttons-->
+					<ColumnDefinition />
+					<!--List-->
+					<ColumnDefinition Width="95"/>
+					<!--Buttons-->
 				</Grid.ColumnDefinitions>
 
 				<ListView x:Name="lstThreadParticipants"
@@ -132,32 +159,41 @@
 
 				</ListView>
 
-				<Grid Grid.Column="1"><!--Buttons-->
+				<Grid Grid.Column="1">
+					<!--Buttons-->
 					<Grid.RowDefinitions>
-						<RowDefinition /><!--filler-->
-						<RowDefinition Height="35"/><!--Add-->
-						<RowDefinition Height="35"/><!--Remove-->
-						<RowDefinition /><!--filler-->
+						<RowDefinition />
+						<!--filler-->
+						<RowDefinition Height="35"/>
+						<!--Add-->
+						<RowDefinition Height="35"/>
+						<!--Remove-->
+						<RowDefinition />
+						<!--filler-->
 					</Grid.RowDefinitions>
 
 					<Button x:Name="btnThreadParticipantAdd"
 							Content="Add"
-							Grid.Row="1" Margin="5" />
+							Grid.Row="1" Margin="5" 
+							Click="BtnThreadParticipantAdd_Click" />
 
 					<Button x:Name="btnThreadParticipantRemove"
 							Content="Remove"
-							Grid.Row="2" Margin="5" />
+							Grid.Row="2" Margin="5"
+							Click="BtnThreadParticipantRemove_Click" />
 
-				</Grid><!--/Buttons-->
+				</Grid>
+				<!--/Buttons-->
 
-			</Grid><!--/Participant list and actions-->
+			</Grid>
+			<!--/Participant list and actions-->
 
 			<ListBox x:Name="lstThreadMessages"
 					 Grid.Row="2" Margin="5">
 				<ListBox.ItemTemplate>
 					<DataTemplate>
 						<StackPanel Orientation="Vertical">
-							<StackPanel Orientation="Horizontal">								
+							<StackPanel Orientation="Horizontal">
 								<TextBox IsEnabled="False"  Text="{Binding Subject}"/>
 								<TextBox IsEnabled="False" Text="{Binding SenderAlias}" />
 							</StackPanel>
@@ -165,9 +201,10 @@
 						</StackPanel>
 					</DataTemplate>
 				</ListBox.ItemTemplate>
-			</ListBox>				
+			</ListBox>
 
-			<Grid Grid.Row="3"><!--Action buttons-->
+			<Grid Grid.Row="3">
+				<!--Action buttons-->
 				<Grid.ColumnDefinitions>
 					<ColumnDefinition />
 					<ColumnDefinition />
@@ -178,21 +215,26 @@
 						  Content="Hide thread"
 						  VerticalAlignment="Center"
 						  HorizontalAlignment="Center"
-						  Grid.Column="0" Margin="5" Click="ChkThreadHide_Click" />
+						  Grid.Column="0" Margin="5" 
+						  Click="ChkThreadHide_Click" />
 
 				<CheckBox x:Name="chkThreadSilence"
 						  Content="Silence thread"
 						  HorizontalAlignment="Center"
 						  VerticalAlignment="Center"
-						  Grid.Column="1" Margin="5" Click="ChkThreadSilence_Click" />
+						  Grid.Column="1" Margin="5" 
+						  Click="ChkThreadSilence_Click" />
 
 				<Button x:Name="btnThreadReply"
 						Content="Reply to thread"
 						MaxWidth="150"
-						Grid.Column="2" Margin="5" />
+						Grid.Column="2" Margin="5"
+						Click="BtnThreadReply_Click" />
 
-			</Grid><!--/Action buttons-->
+			</Grid>
+			<!--/Action buttons-->
 
-		</Grid><!--/Main content-->		
-    </Grid>
+		</Grid>
+		<!--/Main content-->
+	</Grid>
 </Window>

@@ -29,7 +29,7 @@ namespace Presentation
 	/// <summary>
 	/// Window for creating a new message or a reply to an existing thread of messages.
 	/// </summary>
-	public partial class frmNewMessage : Window
+	public partial class FrmNewMessage : Window
 	{
 		readonly MessageDestination _messageDestination;
 		readonly Employee _sender;
@@ -37,7 +37,7 @@ namespace Presentation
 		readonly IThreadManager _threadManager;
 		readonly IMessageThread _thread;
 
-		public frmNewMessage(MessageDestination state, Employee sender, IMessageThread thread = null)
+		public FrmNewMessage(MessageDestination state, Employee sender, IMessageThread thread = null)
 		{
 			if (null == sender)
 			{
@@ -48,12 +48,8 @@ namespace Presentation
 
 			InitializeComponent();
 
-			//Cannot switch on object types, so here we are using a class ElIf chain
-			if (null == thread)
-			{
-				_defaultSubject = "";
-			}
-			else if (thread is UserThreadView)
+			//Cannot switch on object types, so here we are using a classic ElIf chain
+			if (thread is UserThreadView)
 			{
 				_defaultSubject = (thread as UserThreadView).OpeningSubject;
 			}
@@ -67,8 +63,10 @@ namespace Presentation
 				_defaultSubject = "";
 			}
 
+			_thread = thread;
 			_messageDestination = state;
 			_sender = sender;
+			_threadManager = new RealThreadManager(AppData.DataStoreType.msssql);
 
 			SetupWindow();
 		}
@@ -88,7 +86,11 @@ namespace Presentation
 					ctrlParticipantSelector.IsEnabled = false;
 					break;
 				default:
-					break;
+					ExceptionLogManager.getInstance().LogException(new ApplicationException
+						("Message destination was not set properly, app was unable to determine if message" +
+						" was for a new thread or an existing one."));
+					MessageBox.Show("There was an error, please contact IT or review your error logs.");
+					return;
 			}
 		}
 
