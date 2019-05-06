@@ -361,7 +361,7 @@ namespace UnitTests
                 Assert.IsTrue(true);
             }
         }
-
+        /*
         [TestMethod]
         public void RetrieveAppointmentsByGuestID()
         {
@@ -379,7 +379,7 @@ namespace UnitTests
                 Assert.AreEqual(apptList1[i].Description, _testAppointments[i].Description);
             }
         }
-
+        */
         [TestMethod]
         public void RetrieveAppointmentByID()
         {
