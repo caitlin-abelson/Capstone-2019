@@ -14,6 +14,11 @@ namespace ExceptionLoggerDataAccess
 
 		public void WriteExceptionDataToLog(string message, string stackTrace, string targetSiteName, Exception fullException)
 		{
+			//Exception logger will not log if the startup assembly does not
+			//tell it where it can log to.
+			if (null == AppData.TopRuntimeDirectory)
+			{ return; }
+
 			StringBuilder sb = new StringBuilder();
 
 			sb.Append("<tr>");
