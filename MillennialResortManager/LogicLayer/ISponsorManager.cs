@@ -7,13 +7,11 @@ using System.Threading.Tasks;
 
 namespace LogicLayer
 {
-    /// <summary>
-    /// Author: Gunardi Daputra
-    /// Created : 1/24/2019
-    /// ISponsorManager is an interface meant to be the standard for interacting
-    /// with Sponsors in a storage medium
-    /// </summary>
-    public interface ISponsorManager
+	/// <summary author="Gunardi Daputra" created="2019/01/24">
+	/// ISponsorManager is an interface meant to be the standard for interacting
+	/// with Sponsors in a storage medium
+	/// </summary>
+	public interface ISponsorManager
     {
         void InsertSponsor(Sponsor newSponsor);
         bool UpdateSponsor(Sponsor oldSponsor, Sponsor newSponsor);
@@ -24,6 +22,6 @@ namespace LogicLayer
         //List<string> RetrieveAllSponsorStatus();
         List<string> RetrieveAllStates();
         List<BrowseSponsor> SelectAllVMSponsors();
-        void DeleteSponsor(int sponsorID, bool isActive);//run
+        void DeleteSponsor(int sponsorID, bool isActive);
     }
 }

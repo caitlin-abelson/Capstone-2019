@@ -5,14 +5,13 @@ using System.Text;
 using System.Threading.Tasks;
 using DataAccessLayer;
 using DataObjects;
+using ExceptionLoggerLogic;
 
 namespace LogicLayer
 {
-    /// <summary>
-    /// @Author: Phillip Hansen
-    /// @Created 4/10/2019
-    /// </summary>
-    public class EventPerformanceManager
+	/// <summary author="Phillip Hansen" created="2019/04/10">
+	/// </summary>
+	public class EventPerformanceManager
     {
         private EventPerformanceAccessor _eventPerformanceAccessor;
 
@@ -21,32 +20,29 @@ namespace LogicLayer
             _eventPerformanceAccessor = new EventPerformanceAccessor();
         }
 
-        /// <summary>
-        /// @Author: Phillip Hansen
-        /// 
-        /// Method for calling the insert method in the accessor
-        /// </summary>
-        /// <param name="eventID"></param> The unique EventID
-        /// <param name="performanceID"></param> The unique PerformanceID
-        public void CreateEventSponsor(int eventID, int performanceID)
+		/// <summary author="Phillip Hansen" created="2019/04/10">
+		/// Method for calling the insert method in the accessor
+		/// </summary>
+		/// <param name="eventID"></param> The unique EventID
+		/// <param name="performanceID"></param> The unique PerformanceID
+		public void CreateEventSponsor(int eventID, int performanceID)
         {
             try
             {
                 _eventPerformanceAccessor.insertEventPerformance(eventID, performanceID);
             }
-            catch (Exception)
-            {
-                throw;
-            }
-        }
+			catch (Exception ex)
+			{
+				ExceptionLogManager.getInstance().LogException(ex);
+				throw ex;
+			}
+		}
 
-        /// <summary>
-        /// @Author: Phillip Hansen
-        /// 
-        /// Method for calling the selectAll() accessor method
-        /// </summary>
-        /// <returns></returns>
-        public List<EventPerformance> RetrieveAllEventPerformances()
+		/// <summary author="Phillip Hansen" created="2019/04/10">
+		/// Method for calling the selectAll() accessor method
+		/// </summary>
+		/// <returns></returns>
+		public List<EventPerformance> RetrieveAllEventPerformances()
         {
             List<EventPerformance> eventPerformances;
 
@@ -54,12 +50,13 @@ namespace LogicLayer
             {
                 eventPerformances = _eventPerformanceAccessor.selectAllEventPerformances();
             }
-            catch (Exception)
-            {
-                throw;
-            }
+			catch (Exception ex)
+			{
+				ExceptionLogManager.getInstance().LogException(ex);
+				throw ex;
+			}
 
-            return eventPerformances;
+			return eventPerformances;
         }
     }
 }

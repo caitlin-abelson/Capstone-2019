@@ -1,5 +1,6 @@
 ﻿using DataAccessLayer;
 using DataObjects;
+using ExceptionLoggerLogic;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,12 +9,10 @@ using System.Threading.Tasks;
 
 namespace LogicLayer
 {
-    /// <summary>
-    /// Author: Jared Greenfield
-    /// Created On: 2019-04-25
-    /// Class for interaction with database for GuestRoomAssignment operations
-    /// </summary>
-    public class GuestRoomAssignmentManager : IGuestRoomAssignmentManager
+	/// <summary author="Jared Greenfield" created="2019/04/25">
+	/// Class for interaction with database for GuestRoomAssignment operations
+	/// </summary>
+	public class GuestRoomAssignmentManager : IGuestRoomAssignmentManager
     {
         private IGuestRoomAssignmentAccessor _guestRoomAssignmentAccessor;
 
@@ -22,63 +21,57 @@ namespace LogicLayer
             _guestRoomAssignmentAccessor = new GuestRoomAssignmentAccessor();
         }
 
-        /// <summary>
-        /// Author: Jared Greenfield
-        /// Created On: 2019-04-25
-        /// Test Constructor
-        /// 
-        /// </summary>
-        public GuestRoomAssignmentManager(IGuestRoomAssignmentAccessor mock)
+		/// <summary author="Jared Greenfield" created="2019/04/25">
+		/// Test Constructor
+		/// </summary>
+		public GuestRoomAssignmentManager(IGuestRoomAssignmentAccessor mock)
         {
             _guestRoomAssignmentAccessor = mock;
         }
 
-
-        /// <summary>
-        /// Author: Jared Greenfield
-        /// Created On: 2019-04-25
-        /// Retrieves a list of guest Room Assignment View Models
-        /// 
-        /// </summary>
-        /// <param name="reservationID">ID of Reservation you want Guests of</param>
-        /// <returns>List of Room Assignment View Models</returns>
-        public List<GuestRoomAssignmentVM> SelectGuestRoomAssignmentVMSByReservationID(int reservationID)
+		/// <summary author="Jared Greenfield" created="2019/04/25">
+		/// Retrieves a list of guest Room Assignment View Models
+		/// </summary>
+		/// <param name="reservationID">ID of Reservation you want Guests of</param>
+		/// <returns>List of Room Assignment View Models</returns>
+		public List<GuestRoomAssignmentVM> SelectGuestRoomAssignmentVMSByReservationID(int reservationID)
         {
             List<GuestRoomAssignmentVM> assignments = null;
+
             try
             {
                 assignments = _guestRoomAssignmentAccessor.SelectGuestRoomAssignmentVMSByReservationID(reservationID);
             }
-            catch (Exception)
-            {
+			catch (Exception ex)
+			{
+				ExceptionLogManager.getInstance().LogException(ex);
+				throw ex;
+			}
 
-                throw;
-            }
-            return assignments;
+			return assignments;
         }
 
-        /// <summary>
-        /// Author: Jared Greenfield
-        /// Created On: 2019-04-25
-        /// Updates a guest room assignment to checkedout and sets the date
-        /// 
-        /// </summary>
-        /// <param name="roomReservationID">ID of Room Reservation </param>
-        /// <param name="guestID">ID of Guest</param>
-        /// <returns>True if succeeded, false otherwise</returns>
-        public bool UpdateGuestRoomAssignmentToCheckedOut(int guestID, int roomReservationID)
+		/// <summary author="Jared Greenfield" created="2019/04/25">
+		/// Updates a guest room assignment to checkedout and sets the date
+		/// </summary>
+		/// <param name="roomReservationID">ID of Room Reservation </param>
+		/// <param name="guestID">ID of Guest</param>
+		/// <returns>True if succeeded, false otherwise</returns>
+		public bool UpdateGuestRoomAssignmentToCheckedOut(int guestID, int roomReservationID)
         {
             bool result = false;
+
             try
             {
                 result = 0 < _guestRoomAssignmentAccessor.UpdateGuestRoomAssignmentToCheckedOut(guestID, roomReservationID);
             }
-            catch (Exception)
-            {
+			catch (Exception ex)
+			{
+				ExceptionLogManager.getInstance().LogException(ex);
+				throw ex;
+			}
 
-                throw;
-            }
-            return result;
+			return result;
         }
     }
 }

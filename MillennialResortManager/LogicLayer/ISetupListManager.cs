@@ -7,13 +7,10 @@ using DataObjects;
 
 namespace LogicLayer
 {
-    /// <summary>
-    /// Author: Caitlin Abelson
-    /// Created Date: 2/28/19
-    /// 
-    /// The concrete interface for SetupListManager implementing all CRUD functions
-    /// </summary>
-    public interface ISetupListManager
+	/// <summary author="Caitlin Abelson" created="2019/02/28">
+	/// The concrete interface for SetupListManager implementing all CRUD functions
+	/// </summary>
+	public interface ISetupListManager
     {
         void InsertSetupList(SetupList newSetupList);
         void UpdateSetupList(SetupList newSetupList, SetupList oldSetupList);
@@ -23,6 +20,5 @@ namespace LogicLayer
         List<VMSetupList> SelectAllInActiveSetupLists();
         void DeleteSetupList(int setupListID, bool isActive);
         List<VMSetupList> SelectAllVMSetupLists();
-
     }
 }

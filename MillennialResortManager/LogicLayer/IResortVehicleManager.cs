@@ -3,13 +3,10 @@ using System.Collections.Generic;
 
 namespace LogicLayer
 {
-    /// <summary>
-    /// Francis Mingomba
-    /// Created: 2019/04/03
-    /// 
-    /// Resort Vehicle Manager Interface
-    /// </summary>
-    public interface IResortVehicleManager
+	/// <summary author="Francis Mingomba" created="2019/04/03">
+	/// Resort Vehicle Manager Interface
+	/// </summary>
+	public interface IResortVehicleManager
     {
         void AddVehicle(ResortVehicle resortVehicle);
         void UpdateVehicle(ResortVehicle oldResortVehicle, ResortVehicle newResortVehicle);

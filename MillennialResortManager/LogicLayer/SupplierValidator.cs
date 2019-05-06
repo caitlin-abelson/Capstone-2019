@@ -8,13 +8,10 @@ using System.Threading.Tasks;
 
 namespace LogicLayer
 {
-    /// <summary>
-    /// Author James Heim
-    /// Created 2019/02/05
-    /// 
-    /// Validation class for the Supplier object.
-    /// </summary>
-    public static class SupplierValidator
+	/// <summary author="James Heim" created="2019/02/05">
+	/// Validation class for the Supplier object.
+	/// </summary>
+	public static class SupplierValidator
     {
 
         public static readonly int SUPPLIER_NAME_MAX_LENGTH = 50;
@@ -26,16 +23,12 @@ namespace LogicLayer
         public static readonly int SUPPLIER_CONTACT_FIRST_NAME_MAX_LENGTH = 50;
         public static readonly int SUPPLIER_CONTACT_LAST_NAME_MAX_LENGTH = 100;
         public static readonly int SUPPLIER_DESCRIPTION_MAX_LENGTH = 1000;
-        
 
-        /// <summary>
-        /// Author James Heim
-        /// Created 2019/02/15
-        /// 
-        /// Validate supplier's name.
-        /// </summary>
-        /// <param name="supplier"></param>
-        public static void ValidateName(this Supplier supplier)
+		/// <summary author="James Heim" created="2019/02/15">
+		/// Validate supplier's name.
+		/// </summary>
+		/// <param name="supplier"></param>
+		public static void ValidateName(this Supplier supplier)
         {
             if (supplier.Name == null)
             {
@@ -51,14 +44,11 @@ namespace LogicLayer
             }
         }
 
-        /// <summary>
-        /// Author James Heim
-        /// Created 2019/02/15
-        /// 
-        /// Validate supplier's address.
-        /// </summary>
-        /// <param name="supplier"></param>
-        public static void ValidateAddress(this Supplier supplier)
+		/// <summary author="James Heim" created="2019/02/15">
+		/// Validate supplier's address.
+		/// </summary>
+		/// <param name="supplier"></param>
+		public static void ValidateAddress(this Supplier supplier)
         {
             if (supplier.Address == null)
             {
@@ -74,14 +64,11 @@ namespace LogicLayer
             }
         }
 
-        /// <summary>
-        /// Author James Heim
-        /// Created 2019/02/15
-        /// 
-        /// Validate supplier's city.
-        /// </summary>
-        /// <param name="supplier"></param>
-        public static void ValidateCity(this Supplier supplier)
+		/// <summary author="James Heim" created="2019/02/15">
+		/// Validate supplier's city.
+		/// </summary>
+		/// <param name="supplier"></param>
+		public static void ValidateCity(this Supplier supplier)
         {
             if (supplier.City == null)
             {
@@ -97,14 +84,11 @@ namespace LogicLayer
             }
         }
 
-        /// <summary>
-        /// Author James Heim
-        /// Created 2019/02/15
-        /// 
-        /// Validate supplier's state.
-        /// </summary>
-        /// <param name="supplier"></param>
-        public static void ValidateState(this Supplier supplier)
+		/// <summary author="James Heim" created="2019/02/15">
+		/// Validate supplier's state.
+		/// </summary>
+		/// <param name="supplier"></param>
+		public static void ValidateState(this Supplier supplier)
         {
             if (supplier.State == null)
             {
@@ -121,14 +105,11 @@ namespace LogicLayer
 
         }
 
-        /// <summary>
-        /// Author James Heim
-        /// Created 2019/02/15
-        /// 
-        /// Validate supplier's postal code.
-        /// </summary>
-        /// <param name="supplier"></param>
-        public static void ValidatePostalCode(this Supplier supplier)
+		/// <summary author="James Heim" created="2019/02/15">
+		/// Validate supplier's postal code.
+		/// </summary>
+		/// <param name="supplier"></param>
+		public static void ValidatePostalCode(this Supplier supplier)
         {
             if (supplier.PostalCode == null)
             {
@@ -144,14 +125,11 @@ namespace LogicLayer
             }
         }
 
-        /// <summary>
-        /// Author James Heim
-        /// Created 2019/02/15
-        /// 
-        /// Validate supplier's country.
-        /// </summary>
-        /// <param name="supplier"></param>
-        public static void ValidateCountry(this Supplier supplier)
+		/// <summary author="James Heim" created="2019/02/15">
+		/// Validate supplier's country.
+		/// </summary>
+		/// <param name="supplier"></param>
+		public static void ValidateCountry(this Supplier supplier)
         {
             if (supplier.Country == null)
             {
@@ -167,14 +145,11 @@ namespace LogicLayer
             }
         }
 
-        /// <summary>
-        /// Author James Heim
-        /// Created 2019/02/15
-        /// 
-        /// Validate supplier's phone number.
-        /// </summary>
-        /// <param name="supplier"></param>
-        public static void ValidatePhoneNumber(this Supplier supplier)
+		/// <summary author="James Heim" created="2019/02/15">
+		/// Validate supplier's phone number.
+		/// </summary>
+		/// <param name="supplier"></param>
+		public static void ValidatePhoneNumber(this Supplier supplier)
         {
             if (supplier.PhoneNumber == null)
             {
@@ -194,14 +169,11 @@ namespace LogicLayer
             }
         }
 
-        /// <summary>
-        /// Author James Heim
-        /// Created 2019/02/15
-        /// 
-        /// Validate supplier's email.
-        /// </summary>
-        /// <param name="supplier"></param>
-        public static void ValidateEmail(this Supplier supplier)
+		/// <summary author="James Heim" created="2019/02/15">
+		/// Validate supplier's email.
+		/// </summary>
+		/// <param name="supplier"></param>
+		public static void ValidateEmail(this Supplier supplier)
         {
             if (supplier.Email == null)
             {
@@ -221,14 +193,11 @@ namespace LogicLayer
             }
         }
 
-        /// <summary>
-        /// Author James Heim
-        /// Created 2019/02/15
-        /// 
-        /// Validate Contact's first name.
-        /// </summary>
-        /// <param name="supplier"></param>
-        public static void ValidateContactFirstName(this Supplier supplier)
+		/// <summary author="James Heim" created="2019/02/15">
+		/// Validate Contact's first name.
+		/// </summary>
+		/// <param name="supplier"></param>
+		public static void ValidateContactFirstName(this Supplier supplier)
         {
             if (supplier.ContactFirstName == null)
             {
@@ -245,14 +214,11 @@ namespace LogicLayer
             }
         }
 
-        /// <summary>
-        /// Author James Heim
-        /// Created 2019/02/15
-        /// 
-        /// Validate Contact's last name.
-        /// </summary>
-        /// <param name="supplier"></param>
-        public static void ValidateContactLastName(this Supplier supplier)
+		/// <summary author="James Heim" created="2019/02/15">
+		/// Validate Contact's last name.
+		/// </summary>
+		/// <param name="supplier"></param>
+		public static void ValidateContactLastName(this Supplier supplier)
         {
             if (supplier.ContactLastName == null)
             {
@@ -269,14 +235,11 @@ namespace LogicLayer
             }
         }
 
-        /// <summary>
-        /// Author James Heim
-        /// Created 2019/02/15
-        /// 
-        /// Validate Description.
-        /// </summary>
-        /// <param name="supplier"></param>
-        public static void ValidateDescription(this Supplier supplier)
+		/// <summary author="James Heim" created="2019/02/15">
+		/// Validate Description.
+		/// </summary>
+		/// <param name="supplier"></param>
+		public static void ValidateDescription(this Supplier supplier)
         {
             if (supplier.Description.Length > SUPPLIER_DESCRIPTION_MAX_LENGTH)
             {
@@ -285,14 +248,11 @@ namespace LogicLayer
             }
         }
 
-        /// <summary>
-        /// Author James Heim
-        /// Created 2019/02/15
-        /// 
-        /// Run through all validation methods.
-        /// </summary>
-        /// <param name="supplier"></param>
-        public static void Validate(this Supplier supplier)
+		/// <summary author="James Heim" created="2019/02/15">
+		/// Run through all validation methods.
+		/// </summary>
+		/// <param name="supplier"></param>
+		public static void Validate(this Supplier supplier)
         {
             supplier.ValidateName();
             supplier.ValidateAddress();

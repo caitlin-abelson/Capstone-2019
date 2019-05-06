@@ -6,37 +6,31 @@ using System.Text.RegularExpressions;
 
 namespace LogicLayer
 {
-    /// <summary>
-    /// Francis Mingomba
-    /// Created: 2019/04/03
-    ///
-    /// Generic Property that validates any object given
-    /// a set Validation Rules in a dictionary.
-    ///
-    /// Currently Supports : string null and bounds validation
-    ///                      int bounds validation
-    ///                      DateTime null validation
-    ///                      TODO: nullable int, double/float
-    ///
-    /// Usage: (1) Add 'this.MeetsValidationCriteria(myDataObject, GetValidationCriteria());'
-    ///            in function of choice to validate data object. <see cref="ResortPropertyManager"/> #Line 39
-    ///        (2) Add GetValidationCriteria() getter function which defines validation rules
-    ///            see <see cref="ResortPropertyManager"/> #Line 146
-    /// </summary>
-    public static class GenericPropertyValidator
+	/// <summary author="Francis Mingomba" created="2019/04/03">
+	/// Generic Property that validates any object given
+	/// a set Validation Rules in a dictionary.
+	///
+	/// Currently Supports : string null and bounds validation
+	///                      int bounds validation
+	///                      DateTime null validation
+	///                      TODO: nullable int, double/float
+	///
+	/// Usage: (1) Add 'this.MeetsValidationCriteria(myDataObject, GetValidationCriteria());'
+	///            in function of choice to validate data object. <see cref="ResortPropertyManager"/> #Line 39
+	///        (2) Add GetValidationCriteria() getter function which defines validation rules
+	///            see <see cref="ResortPropertyManager"/> #Line 146
+	/// </summary>
+	public static class GenericPropertyValidator
     {
-        /// <summary>
-        /// Francis Mingomba
-        /// Created: 2019/04/03
-        ///
-        /// Generic extension method used to validate
-        /// object of any type given the dictionary settings
-        /// </summary>
-        /// <typeparam name="T">Type of object</typeparam>
-        /// <param name="o">Extension identifier</param>
-        /// <param name="target">Object to be validated</param>
-        /// <param name="validationCriteria">Validation Instruction Set</param>
-        public static void MeetsValidationCriteria<T>(this object o, T target, Dictionary<string, ValidationCriteria> validationCriteria)
+		/// <summary author="Francis Mingomba" created="2019/04/03">
+		/// Generic extension method used to validate
+		/// object of any type given the dictionary settings
+		/// </summary>
+		/// <typeparam name="T">Type of object</typeparam>
+		/// <param name="o">Extension identifier</param>
+		/// <param name="target">Object to be validated</param>
+		/// <param name="validationCriteria">Validation Instruction Set</param>
+		public static void MeetsValidationCriteria<T>(this object o, T target, Dictionary<string, ValidationCriteria> validationCriteria)
         {
             string validationErrorMessage = "";
 
@@ -65,22 +59,19 @@ namespace LogicLayer
                 if (validationErrorMessage.Length != 0)
                     throw new ArgumentException(validationErrorMessage);
             }
-        }
-
-        /// <summary>
-        /// Francis Mingoimba
-        /// Created: 2019/04/03
-        /// 
-        /// Helper method to validate DateTime objects
-        /// </summary>
-        /// <typeparam name="T">Type of object</typeparam>
-        /// <param name="o">Extension identifier</param>
-        /// <param name="target">Object to be validated</param>
-        /// <param name="validationCriteria">Validation Instruction Set</param>
-        /// <param name="property">Property Reflection Information of object</param>
-        /// <param name="validationErrorMessage">Validation Error Message</param>
-        /// <returns>concatenated list of errors</returns>
-        private static string ValidateDate<T>(T target, Dictionary<string, ValidationCriteria> validationCriteria, PropertyInfo property,
+		}
+		
+		/// <summary author="Francis Mingomba" created="2019/04/03">
+		/// Helper method to validate DateTime objects
+		/// </summary>
+		/// <typeparam name="T">Type of object</typeparam>
+		/// <param name="o">Extension identifier</param>
+		/// <param name="target">Object to be validated</param>
+		/// <param name="validationCriteria">Validation Instruction Set</param>
+		/// <param name="property">Property Reflection Information of object</param>
+		/// <param name="validationErrorMessage">Validation Error Message</param>
+		/// <returns>concatenated list of errors</returns>
+		private static string ValidateDate<T>(T target, Dictionary<string, ValidationCriteria> validationCriteria, PropertyInfo property,
             string validationErrorMessage)
         {
             if (property.PropertyType != typeof(DateTime) && property.PropertyType != typeof(DateTime?))
@@ -95,19 +86,16 @@ namespace LogicLayer
             return validationErrorMessage;
         }
 
-        /// <summary>
-        /// Francis Mingoimba
-        /// Created: 2019/04/03
-        /// 
-        /// Helper method to validate int primitive data type
-        /// </summary>
-        /// <typeparam name="T">Type of object</typeparam>
-        /// <param name="target">Object to be validated</param>
-        /// <param name="validationCriteria">Validation Instruction Set</param>
-        /// <param name="property">Property Reflection Information of object</param>
-        /// <param name="validationErrorMessage">Validation Error Message</param>
-        /// <returns>concatenated list of errors</returns>
-        private static string ValidateInteger<T>(T target, Dictionary<string, ValidationCriteria> validationCriteria, PropertyInfo property,
+		/// <summary author="Francis Mingomba" created="2019/04/03">
+		/// Helper method to validate int primitive data type
+		/// </summary>
+		/// <typeparam name="T">Type of object</typeparam>
+		/// <param name="target">Object to be validated</param>
+		/// <param name="validationCriteria">Validation Instruction Set</param>
+		/// <param name="property">Property Reflection Information of object</param>
+		/// <param name="validationErrorMessage">Validation Error Message</param>
+		/// <returns>concatenated list of errors</returns>
+		private static string ValidateInteger<T>(T target, Dictionary<string, ValidationCriteria> validationCriteria, PropertyInfo property,
             string validationErrorMessage)
         {
             if (property.PropertyType != typeof(int))
@@ -126,20 +114,17 @@ namespace LogicLayer
             return validationErrorMessage;
         }
 
-        /// <summary>
-        /// Francis Mingoimba
-        /// Created: 2019/04/03
-        /// 
-        /// Helper method to validate string primitive data type
-        /// </summary>
-        /// <typeparam name="T">Type of object</typeparam>
-        /// <param name="o">Extension identifier</param>
-        /// <param name="target">Object to be validated</param>
-        /// <param name="validationCriteria">Validation Instruction Set</param>
-        /// <param name="property">Property Reflection Information of object</param>
-        /// <param name="validationErrorMessage">Validation Error Message</param>
-        /// <returns>concatenated list of errors</returns>
-        private static string ValidateString<T>(T target, Dictionary<string, ValidationCriteria> validationCriteria, PropertyInfo property,
+		/// <summary author="Francis Mingomba" created="2019/04/03">
+		/// Helper method to validate string primitive data type
+		/// </summary>
+		/// <typeparam name="T">Type of object</typeparam>
+		/// <param name="o">Extension identifier</param>
+		/// <param name="target">Object to be validated</param>
+		/// <param name="validationCriteria">Validation Instruction Set</param>
+		/// <param name="property">Property Reflection Information of object</param>
+		/// <param name="validationErrorMessage">Validation Error Message</param>
+		/// <returns>concatenated list of errors</returns>
+		private static string ValidateString<T>(T target, Dictionary<string, ValidationCriteria> validationCriteria, PropertyInfo property,
             string validationErrorMessage)
         {
             if (property.PropertyType != typeof(string))

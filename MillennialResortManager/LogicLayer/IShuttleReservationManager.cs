@@ -16,7 +16,6 @@ namespace LogicLayer
         List<int> RetrieveAllEmployeeIDs();
         List<int> RetrieveAllGuestIDs();
         void DeactivateShuttleReservation(int shuttleReservationID, bool isActive);
-
         List<ShuttleReservation> RetrieveAllInActiveShuttleReservations();
         List<ShuttleReservation> RetrieveAllActiveShuttleReservations();
         void UpdateShuttleReservationDropoff(ShuttleReservation oldShuttleReservation);

@@ -7,13 +7,10 @@ using DataObjects;
 
 namespace LogicLayer
 {
-    /// <summary>
-	/// Kevin Broskow
-	/// Created: 2019/01/20
-	/// 
+	/// <summary author="Kevin Broskow" created="2019/01/20">
 	/// Interface for the ItemType managers.
 	/// </summary>
-    public interface IItemTypeManager
+	public interface IItemTypeManager
     {
         void AddItemType(ItemType newItemType);
         void EditItemType(ItemType newItemType, ItemType oldItemType);

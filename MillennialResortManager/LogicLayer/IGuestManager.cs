@@ -3,19 +3,22 @@ using DataObjects;
 
 namespace LogicLayer
 {
-    /// <summary>
-    /// Alisa Roehr
-    /// Created: 2019/02/14
-    /// 
-    /// The IGuestManager interface that has all CRUD methods for Guests for the Logic Layer
-    /// 
-    /// Updated By: Caitlin Abelson
-    /// Date: 2019/04/12
-    /// 
-    /// Added the VMGuest List method in order to pull all of the Guests and 
-    /// their associated Members from the VMGuest class.
-    /// </summary>
-    public interface IGuestManager
+	/// <summary author="Alisa Roehr" created="2019/02/14">
+	/// The IGuestManager interface that has all CRUD methods for Guests for the Logic Layer
+	/// </summary>
+	/// <updates>
+	/// <update author="Caitlin Abelson" created="2019/04/12">
+	/// Added the VMGuest List method in order to pull all of the Guests and 
+	/// their associated Members from the VMGuest class. (SelectAllVMGuests)
+	/// </update>
+	/// <update author="Eduardo Colon" created="2019/03/20">
+	/// Added RetrieveAllGuestInfo and RetrieveGuestInfo.
+	/// </update>
+	/// <update author="Eduardo Colon" created="2019/04/23">
+	/// Added RetrieveAllGuestAppointmentInfo and RetrieveGuestAppointmentInfo.
+	/// </update>
+	/// </updates>
+	public interface IGuestManager
     {
         bool CreateGuest(Guest newGuest);
         bool EditGuest(Guest newGuest, Guest oldGuest);
@@ -29,15 +32,11 @@ namespace LogicLayer
         void CheckInGuest(int guestID);
         void DeleteGuest(int guestID);
         List<Guest> RetrieveGuestNamesAndIds();
-        List<Guest> RetrieveAllGuestInfo(); //eduardo colon 2019-03-20
-        Guest RetrieveGuestInfo(int guestID); //eduardo colon 2019-03-20
-
-        // Added by Caitlin Abelson 2019/04/12
+        List<Guest> RetrieveAllGuestInfo();
+        Guest RetrieveGuestInfo(int guestID);
         List<VMGuest> SelectAllVMGuests();
         Guest RetrieveGuestByEmail(string email);
-
-        List<Guest> RetrieveAllGuestAppointmentInfo(); //Eduardo colon 2019-04-23
-        Guest RetrieveGuestAppointmentInfo(int guestID); //Eduardo colon 2019-04-23
-
+        List<Guest> RetrieveAllGuestAppointmentInfo();
+        Guest RetrieveGuestAppointmentInfo(int guestID);
     }
 }

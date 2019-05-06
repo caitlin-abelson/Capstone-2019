@@ -1,17 +1,15 @@
 ﻿using DataAccessLayer;
 using DataObjects;
+using ExceptionLoggerLogic;
 using System;
 using System.Collections.Generic;
 
 namespace LogicLayer
 {
-    /// <summary>
-    /// Francis Mingomba
-    /// Created: 2019/04/03
-    /// 
-    /// Resort Vehicle Manager
-    /// </summary>
-    public class ResortVehicleManager : IResortVehicleManager
+	/// <summary author="Francis Mingomba" created="2019/04/03">
+	/// Resort Vehicle Manager
+	/// </summary>
+	public class ResortVehicleManager : IResortVehicleManager
     {
         private readonly IResortVehicleAccessor _resortVehicleAccessor;
         private readonly IResortPropertyAccessor _resortPropertyAccessor;
@@ -28,14 +26,11 @@ namespace LogicLayer
 
         public ResortVehicleManager() : this(new ResortVehicleAccessor()) { }
 
-        /// <summary>
-        /// Francis Mingomba
-        /// Created: 2019/04/03
-        ///
-        /// Adds vehicle to database
-        /// </summary>
-        /// <param name="resortVehicle">resort vehicle</param>
-        public void AddVehicle(ResortVehicle resortVehicle)
+		/// <summary author="Francis Mingomba" created="2019/04/03">
+		/// Adds vehicle to database
+		/// </summary>
+		/// <param name="resortVehicle">resort vehicle</param>
+		public void AddVehicle(ResortVehicle resortVehicle)
         {
             try
             {
@@ -43,20 +38,18 @@ namespace LogicLayer
 
                 _resortVehicleAccessor.AddVehicle(resortVehicle);
             }
-            catch (Exception)
-            {
-                throw;
-            }
-        }
+			catch (Exception ex)
+			{
+				ExceptionLogManager.getInstance().LogException(ex);
+				throw ex;
+			}
+		}
 
-        /// <summary>
-        /// Francis Mingomba
-        /// Created: 2019/04/03
-        ///
-        /// Retrieves vehicles from database
-        /// </summary>
-        /// <returns></returns>
-        public IEnumerable<ResortVehicle> RetrieveVehicles()
+		/// <summary author="Francis Mingomba" created="2019/04/03">
+		/// Retrieves vehicles from database
+		/// </summary>
+		/// <returns></returns>
+		public IEnumerable<ResortVehicle> RetrieveVehicles()
         {
             IEnumerable<ResortVehicle> vehicles;
 
@@ -66,24 +59,22 @@ namespace LogicLayer
                 vehicles = _resortVehicleAccessor.RetrieveVehicles()
                             ?? new List<ResortVehicle>();
             }
-            catch (Exception)
-            {
-                throw;
-            }
+			catch (Exception ex)
+			{
+				ExceptionLogManager.getInstance().LogException(ex);
+				throw ex;
+			}
 
-            return vehicles;
+			return vehicles;
         }
 
-        /// <summary>
-        /// Francis Mingomba
-        /// Created: 2019/04/03
-        ///
-        /// Checks employee privileges and deactivates vehicles
-        /// if employee has privileges to do it
-        /// </summary>
-        /// <param name="resortVehicle">resort vehicle</param>
-        /// <param name="employee">employee performing operation</param>
-        public void DeactivateVehicle(ResortVehicle resortVehicle, Employee employee = null)
+		/// <summary author="Francis Mingomba" created="2019/04/03">
+		/// Checks employee privileges and deactivates vehicles
+		/// if employee has privileges to do it
+		/// </summary>
+		/// <param name="resortVehicle">resort vehicle</param>
+		/// <param name="employee">employee performing operation</param>
+		public void DeactivateVehicle(ResortVehicle resortVehicle, Employee employee = null)
         {
             if (!employee.HasRoles(out string errorStr, "Admin"))
                 throw new ApplicationException(errorStr);
@@ -100,22 +91,20 @@ namespace LogicLayer
             {
                 _resortVehicleAccessor.DeactivateVehicle(resortVehicle.Id);
             }
-            catch (Exception)
-            {
-                throw;
-            }
-        }
+			catch (Exception ex)
+			{
+				ExceptionLogManager.getInstance().LogException(ex);
+				throw ex;
+			}
+		}
 
-        /// <summary>
-        /// Francis Mingomba
-        /// Created: 2019/04/03
-        ///
-        /// Checks employee privileges and activates vehicles
-        /// if employee has privileges to do it
-        /// </summary>
-        /// <param name="resortVehicle">resort vehicle</param>
-        /// <param name="employee">employee performing operation</param>
-        public void ActivateVehicle(ResortVehicle resortVehicle, Employee employee = null)
+		/// <summary author="Francis Mingomba" created="2019/04/03">
+		/// Checks employee privileges and activates vehicles
+		/// if employee has privileges to do it
+		/// </summary>
+		/// <param name="resortVehicle">resort vehicle</param>
+		/// <param name="employee">employee performing operation</param>
+		public void ActivateVehicle(ResortVehicle resortVehicle, Employee employee = null)
         {
             try
             {
@@ -133,21 +122,19 @@ namespace LogicLayer
 
                 _resortVehicleAccessor.UpdateVehicle(resortVehicle, newVehicle);
             }
-            catch (Exception)
-            {
-                throw;
-            }
-        }
+			catch (Exception ex)
+			{
+				ExceptionLogManager.getInstance().LogException(ex);
+				throw ex;
+			}
+		}
 
-        /// <summary>
-        /// Francis Mingomba
-        /// Created: 2019/04/03
-        ///
-        /// Retrieves vehicles by id
-        /// </summary>
-        /// <param name="id">vehicle id</param>
-        /// <returns>returns resort vehicle</returns>
-        public ResortVehicle RetrieveVehicleById(int id)
+		/// <summary author="Francis Mingomba" created="2019/04/03">
+		/// Retrieves vehicles by id
+		/// </summary>
+		/// <param name="id">vehicle id</param>
+		/// <returns>returns resort vehicle</returns>
+		public ResortVehicle RetrieveVehicleById(int id)
         {
             ResortVehicle resortVehicle;
 
@@ -155,24 +142,22 @@ namespace LogicLayer
             {
                 resortVehicle = _resortVehicleAccessor.RetrieveVehicleById(id);
             }
-            catch (Exception)
-            {
-                throw;
-            }
+			catch (Exception ex)
+			{
+				ExceptionLogManager.getInstance().LogException(ex);
+				throw ex;
+			}
 
-            return resortVehicle;
+			return resortVehicle;
         }
 
-        /// <summary>
-        /// Francis Mingomba
-        /// Created: 2019/04/03
-        ///
-        /// Performs validation
-        /// Updates vehicle in database
-        /// </summary>
-        /// <param name="oldResortVehicle">old resort vehicle (database copy)</param>
-        /// <param name="newResortVehicle">new resort vehicle (updated copy)</param>
-        public void UpdateVehicle(ResortVehicle oldResortVehicle, ResortVehicle newResortVehicle)
+		/// <summary author="Francis Mingomba" created="2019/04/03">
+		/// Performs validation
+		/// Updates vehicle in database
+		/// </summary>
+		/// <param name="oldResortVehicle">old resort vehicle (database copy)</param>
+		/// <param name="newResortVehicle">new resort vehicle (updated copy)</param>
+		public void UpdateVehicle(ResortVehicle oldResortVehicle, ResortVehicle newResortVehicle)
         {
             try
             {
@@ -180,23 +165,21 @@ namespace LogicLayer
 
                 _resortVehicleAccessor.UpdateVehicle(oldResortVehicle, newResortVehicle);
             }
-            catch (Exception)
-            {
-                throw;
-            }
-        }
+			catch (Exception ex)
+			{
+				ExceptionLogManager.getInstance().LogException(ex);
+				throw ex;
+			}
+		}
 
-        /// <summary>
-        /// Francis Mingomba
-        /// Created: 2019/04/03
-        ///
-        /// Deletes resort vehicle from database.
-        /// This function checks employee privileges
-        /// before functionality is granted
-        /// </summary>
-        /// <param name="resortVehicle"></param>
-        /// <param name="employee"></param>
-        public void DeleteVehicle(ResortVehicle resortVehicle, Employee employee = null)
+		/// <summary author="Francis Mingomba" created="2019/04/03">
+		/// Deletes resort vehicle from database.
+		/// This function checks employee privileges
+		/// before functionality is granted
+		/// </summary>
+		/// <param name="resortVehicle"></param>
+		/// <param name="employee"></param>
+		public void DeleteVehicle(ResortVehicle resortVehicle, Employee employee = null)
         {
             try
             {
@@ -209,58 +192,52 @@ namespace LogicLayer
 
                 _resortVehicleAccessor.DeleteVehicle(resortVehicle.Id);
             }
-            catch (Exception)
-            {
-                throw;
-            }
-        }
+			catch (Exception ex)
+			{
+				ExceptionLogManager.getInstance().LogException(ex);
+				throw ex;
+			}
+		}
 
-        /// <summary>
-        /// Francis Mingomba
-        /// Created: 2019/04/03
-        ///
-        /// Returns a collection of resort properties
-        /// </summary>
-        /// <returns></returns>
-        public IEnumerable<ResortProperty> RetrieveResortProperties()
+		/// <summary author="Francis Mingomba" created="2019/04/03">
+		/// Returns a collection of resort properties
+		/// </summary>
+		/// <returns></returns>
+		public IEnumerable<ResortProperty> RetrieveResortProperties()
         {
             try
             {
                 return _resortPropertyAccessor.RetrieveResortProperties();
             }
-            catch (Exception)
-            {
-                throw;
-            }
-        }
+			catch (Exception ex)
+			{
+				ExceptionLogManager.getInstance().LogException(ex);
+				throw ex;
+			}
+		}
 
-        /// <summary>
-        /// Francis Mingomba
-        /// Created: 2019/04/15
-        ///
-        /// Returns a collection of resort vehicle statuses
-        /// </summary>
-        /// <returns></returns>
-        public IEnumerable<ResortVehicleStatus> RetrieveResortVehicleStatuses()
+		/// <summary author="Francis Mingomba" created="2019/04/15">
+		/// Returns a collection of resort vehicle statuses
+		/// </summary>
+		/// <returns></returns>
+		public IEnumerable<ResortVehicleStatus> RetrieveResortVehicleStatuses()
         {
             try
             {
                 return _resortVehicleStatusAccessor.RetrieveResortVehicleStatuses();
             }
-            catch (Exception)
-            {
-                throw;
-            }
-        }
+			catch (Exception ex)
+			{
+				ExceptionLogManager.getInstance().LogException(ex);
+				throw ex;
+			}
+		}
 
-        /// <summary>
-        /// Francis Mingomba
-        /// Created: 2019/04/03
-        ///
-        /// Validation Rules for ResortVehicle
-        /// </summary>
-        /// <returns>Dictionary containing validation rules</returns>
-        private Dictionary<string, ValidationCriteria> GetResortVehicleValidationCriteria()
+		/// <summary author="Francis Mingomba" created="2019/04/03">
+		/// Validation Rules for ResortVehicle
+		/// </summary>
+		/// <returns>Dictionary containing validation rules</returns>
+		private Dictionary<string, ValidationCriteria> GetResortVehicleValidationCriteria()
         {
             return new Dictionary<string, ValidationCriteria>
             {

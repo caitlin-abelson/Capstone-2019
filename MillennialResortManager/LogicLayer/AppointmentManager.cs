@@ -1,9 +1,4 @@
-﻿/// <summary>
-/// Wes Richardson
-/// Created: 2019/03/07
-/// 
-/// Checks data before sending it to data access
-/// </summary>
+﻿
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,44 +6,45 @@ using System.Text;
 using System.Threading.Tasks;
 using DataAccessLayer;
 using DataObjects;
+using ExceptionLoggerLogic;
 
 namespace LogicLayer
 {
-    public class AppointmentManager : IAppointmentManager
+	/// <summary author="" created="">
+	/// Wes Richardson
+	/// Created: 2019/03/07
+	/// 
+	/// Checks data before sending it to data access
+	/// </summary>
+	public class AppointmentManager : IAppointmentManager
     {
         private IAppointmentAccessor _appointmentAccessor;
         private bool appointmentValid;
 
-        /// <summary>
-        /// Wes Richardson
-        /// Created: 2019/03/07
-        /// 
-        /// Default Constructor for getting the AppointmentAccessor that retrieves data from database
-        /// </summary>
-        public AppointmentManager()
+		/// <summary author="" created="">
+		/// Wes Richardson
+		/// Created: 2019/03/07
+		/// 
+		/// Default Constructor for getting the AppointmentAccessor that retrieves data from database
+		/// </summary>
+		public AppointmentManager()
         {
             _appointmentAccessor = new AppointmentAccessor();
             appointmentValid = false;
         }
 
-        /// <summary>
-        /// Wes Richardson
-        /// Created: 2019/03/07
-        /// 
-        /// Construtor for unit tests
-        /// </summary>
-        public AppointmentManager(IAppointmentAccessor appAccr)
+		/// <summary author="Wes Richardson" created="2019/03/07">
+		/// Construtor for unit tests
+		/// </summary>
+		public AppointmentManager(IAppointmentAccessor appAccr)
         {
             _appointmentAccessor = appAccr;
         }
 
-        /// <summary>
-        /// Wes Richardson
-        /// Created: 2019/03/07
-        /// 
-        /// Validtes and passes new appointment data to the appointment accessor
-        /// </summary>
-        public bool CreateAppointmentByGuest(Appointment appointment)
+		/// <summary author="Wes Richardson" created="2019/03/07">
+		/// Validtes and passes new appointment data to the appointment accessor
+		/// </summary>
+		public bool CreateAppointmentByGuest(Appointment appointment)
         {
             bool results = false;
             int rows = 0;
@@ -64,21 +60,18 @@ namespace LogicLayer
                     }
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
-                throw;
+				ExceptionLogManager.getInstance().LogException(ex);
+                throw ex;
             }
             return results;
         }
 
-        /// <summary>
-        /// Wes Richardson
-        /// Created: 2019/03/07
-        /// 
-        /// gets an appointment based on the given id
-        /// </summary>
-        public Appointment RetrieveAppointmentByID(int id)
+		/// <summary author="Wes Richardson" created="2019/03/07">
+		/// gets an appointment based on the given id
+		/// </summary>
+		public Appointment RetrieveAppointmentByID(int id)
         {
             Appointment appointment = null;
             try
@@ -89,22 +82,19 @@ namespace LogicLayer
                     throw new ApplicationException("No Data");
                 }
             }
-            catch (Exception)
-            {
+			catch (Exception ex)
+			{
+				ExceptionLogManager.getInstance().LogException(ex);
+				throw ex;
+			}
 
-                throw;
-            }
-
-            return appointment;
+			return appointment;
         }
 
-        /// <summary>
-        /// Wes Richardson
-        /// Created: 2019/03/07
-        /// 
-        /// Validtes and passes updated appointment data to the appointment accessor
-        /// </summary>
-        public bool UpdateAppointment(Appointment appointment)
+		/// <summary author="Wes Richardson" created="2019/03/07">
+		/// Validtes and passes updated appointment data to the appointment accessor
+		/// </summary>
+		public bool UpdateAppointment(Appointment appointment)
         {
             int rows = 0;
             bool results = false;
@@ -120,22 +110,19 @@ namespace LogicLayer
                     }
                 }
             }
-            catch (Exception)
-            {
+			catch (Exception ex)
+			{
+				ExceptionLogManager.getInstance().LogException(ex);
+				throw ex;
+			}
 
-                throw;
-            }
-
-            return results;
+			return results;
         }
 
-        /// <summary>
-        /// Wes Richardson
-        /// Created: 2019/03/07
-        /// 
-        /// gets appointment types for the selecting from
-        /// </summary>
-        public List<AppointmentType> RetrieveAppointmentTypes()
+		/// <summary author="Wes Richardson" created="2019/03/07">
+		/// gets appointment types for the selecting from
+		/// </summary>
+		public List<AppointmentType> RetrieveAppointmentTypes()
         {
             List<AppointmentType> appointmentTypes = null;
             try
@@ -146,21 +133,18 @@ namespace LogicLayer
                     throw new ApplicationException("No Appointment Type Data");
                 }
             }
-            catch (Exception)
-            {
-
-                throw;
-            }
-            return appointmentTypes;
+			catch (Exception ex)
+			{
+				ExceptionLogManager.getInstance().LogException(ex);
+				throw ex;
+			}
+			return appointmentTypes;
         }
 
-        /// <summary>
-        /// Wes Richardson
-        /// Created: 2019/03/07
-        /// 
-        /// gets a list of guests to add guestID to the appointment
-        /// </summary>
-        public List<AppointmentGuestViewModel> RetrieveGuestList()
+		/// <summary author="Wes Richardson" created="2019/03/07">
+		/// gets a list of guests to add guestID to the appointment
+		/// </summary>
+		public List<AppointmentGuestViewModel> RetrieveGuestList()
         {
             List<AppointmentGuestViewModel> appointmentGuestViewModelList = null;
             try
@@ -171,23 +155,20 @@ namespace LogicLayer
                     throw new ApplicationException("No Guest Data found");
                 }
             }
-            catch (Exception)
-            {
+			catch (Exception ex)
+			{
+				ExceptionLogManager.getInstance().LogException(ex);
+				throw ex;
+			}
 
-                throw;
-            }
-
-            return appointmentGuestViewModelList;
+			return appointmentGuestViewModelList;
         }
 
-        /// <summary>
-        /// Wes Richardson
-        /// Created: 2019/03/28
-        ///  
-        /// </summary>
-        /// <param name="guestID"></param>
-        /// <returns>A list of appointments</returns>
-        public List<Appointment> RetrieveAppointmentsByGuestID(int guestID)
+		/// <summary author="Wes Richardson" created="2019/03/28">
+		/// </summary>
+		/// <param name="guestID"></param>
+		/// <returns>A list of appointments</returns>
+		public List<Appointment> RetrieveAppointmentsByGuestID(int guestID)
         {
             List<Appointment> appointments = null;
 
@@ -199,23 +180,20 @@ namespace LogicLayer
                     throw new ApplicationException("Appointment for Guest Not found");
                 }
             }
-            catch (Exception)
-            {
+			catch (Exception ex)
+			{
+				ExceptionLogManager.getInstance().LogException(ex);
+				throw ex;
+			}
 
-                throw;
-            }
-
-            return appointments;
+			return appointments;
         }
 
-        /// <summary>
-        /// Wes Richardson
-        /// Created: 2019/03/28
-        /// 
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns>If the record was deleted</returns>
-        public bool DeleteAppointmentByID(int id)
+		/// <summary author="Wes Richardson" created="2019/03/28">
+		/// </summary>
+		/// <param name="id"></param>
+		/// <returns>If the record was deleted</returns>
+		public bool DeleteAppointmentByID(int id)
         {
             bool results = false;
             try
@@ -226,22 +204,19 @@ namespace LogicLayer
                     results = true;
                 }
             }
-            catch (Exception)
-            {
+			catch (Exception ex)
+			{
+				ExceptionLogManager.getInstance().LogException(ex);
+				throw ex;
+			}
 
-                throw;
-            }
-
-            return results;
+			return results;
         }
 
-        /// <summary>
-        /// Wes Richardson
-        /// Created: 2019/03/07
-        /// 
-        /// Validates the data for an appoitment
-        /// </summary>
-        private void validateAppointmentData(Appointment appointment)
+		/// <summary author="Wes Richardson" created="2019/03/07">
+		/// Validates the data for an appoitment
+		/// </summary>
+		private void validateAppointmentData(Appointment appointment)
         {
             if (appointment.AppointmentType == "")
             {
@@ -280,13 +255,11 @@ namespace LogicLayer
             }
             appointmentValid = true;
         }
-        /// <summary>
-        /// Eduardo Colon
-        /// Created: 2019/04/23
-        /// 
-        /// Retrieves  all  appointments
-        /// </summary>
-        public List<Appointment> RetrieveAppointments()
+
+		/// <summary author="Eduardo Colon" created="2019/04/23">
+		/// Retrieves  all  appointments
+		/// </summary>
+		public List<Appointment> RetrieveAppointments()
         {
             var appointments = new List<Appointment>();
             try
@@ -297,14 +270,13 @@ namespace LogicLayer
                     throw new ApplicationException("No Data");
                 }
             }
-            catch (Exception)
-            {
+			catch (Exception ex)
+			{
+				ExceptionLogManager.getInstance().LogException(ex);
+				throw ex;
+			}
 
-                throw;
-            }
-
-            return appointments;
+			return appointments;
         }
     }
 }
-

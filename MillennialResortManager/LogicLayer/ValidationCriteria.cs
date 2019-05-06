@@ -3,48 +3,36 @@ using System.Globalization;
 
 namespace LogicLayer
 {
-    /// <summary>
-    /// Francis Mingomba
-    /// Created: 4/01/2019
-    ///
-    /// Used in conjunction with the GenericPropertyValidator
-    /// for validation of any property.
-    ///
-    /// This class stores the criteria for validation by
-    /// the GenericPropertyValidator
-    ///
-    /// Current supported types: string, int, DateTime
-    /// </summary>
-    public class ValidationCriteria
-    {
-        /// <summary>
-        /// Francis Mingomba
-        /// Created: 2019/04/03
-        /// 
-        /// True if property can be null
-        /// False if property cannot be null
-        /// </summary>
-        public bool CanBeNull { get; set; }
+	/// <summary author="Francis Mingomba" created="2019/04/01">
+	/// Used in conjunction with the GenericPropertyValidator
+	/// for validation of any property.
+	///
+	/// This class stores the criteria for validation by
+	/// the GenericPropertyValidator
+	///
+	/// Current supported types: string, int, DateTime
+	/// </summary>
+	public class ValidationCriteria
+	{
+		/// <summary author="Francis Mingomba" created="2019/04/03">
+		/// True if property can be null
+		/// False if property cannot be null
+		/// </summary>
+		public bool CanBeNull { get; set; }
 
-        /// <summary>
-        /// Francis Mingomba
-        /// Created: 2019/04/03
-        /// 
-        /// (int)    -> lower bound
-        /// (double) -> lower bound
-        /// (string) -> minimum length
-        /// </summary>
-        public double LowerBound { get; set; }
+		/// <summary author="Francis Mingomba" created="2019/04/03">
+		/// (int)    -> lower bound
+		/// (double) -> lower bound
+		/// (string) -> minimum length
+		/// </summary>
+		public double LowerBound { get; set; }
 
-        /// <summary>
-        /// Francis Mingomba
-        /// Created: 2019/04/03
-        /// 
-        /// (int)    -> upper bound
-        /// (double) -> upper bound
-        /// (string) -> maximum length
-        /// </summary>
-        public double UpperBound
+		/// <summary author="Francis Mingomba" created="2019/04/03">
+		/// (int)    -> upper bound
+		/// (double) -> upper bound
+		/// (string) -> maximum length
+		/// </summary>
+		public double UpperBound
         {
             get => _isUpperBoundSet ? _upperBound : ThenOffsetHigherThanLowerBound;
 
@@ -57,14 +45,10 @@ namespace LogicLayer
             }
         }
 
-        /// <summary>
-        /// <summary>
-        /// Francis Mingomba
-        /// Created: 2019/04/03
-        ///
-        /// For Regex Checking
-        /// </summary>
-        public string RegexExpression { get; set; }
+		/// <summary author="Francis Mingomba" created="2019/04/03">
+		/// For Regex Checking
+		/// </summary>
+		public string RegexExpression { get; set; }
 
         #region Helpers
 

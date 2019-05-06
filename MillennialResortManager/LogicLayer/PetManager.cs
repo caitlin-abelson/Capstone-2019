@@ -5,23 +5,16 @@ using System.Text;
 using System.Threading.Tasks;
 using DataAccessLayer;
 using DataObjects;
+using ExceptionLoggerLogic;
 
 namespace LogicLayer
 {
+	/// <summary author="Craig Barkley" created="2019/02/07">
+	/// This class is for the Pets in the logic layer
+	/// </summary>
     public class PetManager : IPetManager
     {
-
-        /// <summary>
-        /// @Author Craig Barkley
-        /// @Created2/7/2019
-        /// 
-        /// This class is for the Pets in the logic layer
-        /// </summary>
-        /// <param name="newPet"></param>
-        /// <returns></returns>
-        /// 
-
-        private IPetAccessor _petAccessor;
+		private IPetAccessor _petAccessor;
 
         public PetManager()
         {
@@ -33,14 +26,12 @@ namespace LogicLayer
             _petAccessor = petAccessor;
         }
 
-        //CreatePet(Pet newPet)
-        /// <summary>
-        /// Method for creating a new Pet
-        /// </summary>
-        /// <param name="Pet newPet">The Create Pet is passes the new pet to the InsertPet.</param>
-        /// <returns>Result</returns>
-        //Method for creating a new Pet
-        public int CreatePet(Pet newPet) // Edited on 3/17/19 by Matt H.
+		/// <summary author="Craig Barkley" created="2019/02/07">
+		/// Method for creating a new Pet
+		/// </summary>
+		/// <param name="Pet newPet">The Create Pet is passes the new pet to the InsertPet.</param>
+		/// <returns>Result</returns>
+		public int CreatePet(Pet newPet) // Edited on 3/17/19 by Matt H.
         {
             int result = 0;
 
@@ -48,22 +39,20 @@ namespace LogicLayer
             {
                 result = _petAccessor.InsertPet(newPet);
             }
-            catch (Exception)
-            {
-                throw;
-            }
+			catch (Exception ex)
+			{
+				ExceptionLogManager.getInstance().LogException(ex);
+				throw ex;
+			}
+			return result;
+		}
 
-            return result;
-        }
-
-
-        //RetrieveAllPets()
-        /// <summary>
-        /// Method for retrieving a Pet.
-        /// </summary>
-        /// <param name="()">The RetrieveAllPets calls SelectAllPets().</param>
-        /// <returns>Pets</returns>
-        public List<Pet> RetrieveAllPets()
+		/// <summary author="Craig Barkley" created="2019/02/07">
+		/// Method for retrieving a Pet.
+		/// </summary>
+		/// <param name="()">The RetrieveAllPets calls SelectAllPets().</param>
+		/// <returns>Pets</returns>
+		public List<Pet> RetrieveAllPets()
         {
             List<Pet> Pets = null;
 
@@ -71,21 +60,20 @@ namespace LogicLayer
             {
                 Pets = _petAccessor.SelectAllPets();
             }
-            catch (Exception)
-            {
-                throw;
-            }
-
-            return Pets;
+			catch (Exception ex)
+			{
+				ExceptionLogManager.getInstance().LogException(ex);
+				throw ex;
+			}
+			return Pets;
         }
 
-        //UpdatePet(Pet oldPet, Pet newPet)
-        /// <summary>
-        /// Method for updating a Pet.
-        /// </summary>
-        /// <param name="Pet oldPet, Pet newPet">The UpdatePet calls UpdatePet(oldPet, newPet).</param>
-        /// <returns>Pets</returns>
-        public bool UpdatePet(Pet oldPet, Pet newPet)
+		/// <summary author="Craig Barkley" created="2019/02/07">
+		/// Method for updating a Pet.
+		/// </summary>
+		/// <param name="Pet oldPet, Pet newPet">The UpdatePet calls UpdatePet(oldPet, newPet).</param>
+		/// <returns>Pets</returns>
+		public bool UpdatePet(Pet oldPet, Pet newPet)
         {
             bool result = false;
 
@@ -93,48 +81,40 @@ namespace LogicLayer
             {
                 result = (1 == _petAccessor.UpdatePet(oldPet, newPet));
             }
-            catch (Exception)
-            {
-                throw;
-            }
-
-            return result;
+			catch (Exception ex)
+			{
+				ExceptionLogManager.getInstance().LogException(ex);
+				throw ex;
+			}
+			return result;
         }
 
-
-
-        //RetrievePetByID(int PetID)
-
-
-        //DeletePet(int PetID)
-        /// <summary>
-        /// Method for deleting a Pet.
-        /// </summary>
-        /// <param name="int petID">The Delete calls DeletePet(oldPet, newPet).</param>
-        /// <returns>result</returns>
-        public bool DeletePet(int petID)
+		/// <summary author="Craig Barkley" created="2019/02/07">
+		/// Method for deleting a Pet.
+		/// </summary>
+		/// <param name="int petID">The Delete calls DeletePet(oldPet, newPet).</param>
+		/// <returns>result</returns>
+		public bool DeletePet(int petID)
         {
             bool result = false;
             try
             {
                 result = (1 == _petAccessor.DeletePet(petID));
             }
-            catch (Exception)
-            {
-                throw;
-            }
-            return result;
+			catch (Exception ex)
+			{
+				ExceptionLogManager.getInstance().LogException(ex);
+				throw ex;
+			}
+			return result;
         }
 
-        ///  @Author Matthew Hill
-        ///  @Created 3/10/19
-        //AddPetImageFilename(string filename, int petID)
-        /// <summary>
-        /// Method for adding a pet image filename.
-        /// </summary>
-        /// <param name="string filename, int petID">The Add calls CreatePetImageFilename(filename, petID).</param>
-        /// <returns>result</returns>
-        public bool AddPetImageFilename(string filename, int petID)
+		/// <summary author="Matthew Hill" created="2019/03/10">
+		/// Method for adding a pet image filename.
+		/// </summary>
+		/// <param name="string filename, int petID">The Add calls CreatePetImageFilename(filename, petID).</param>
+		/// <returns>result</returns>
+		public bool AddPetImageFilename(string filename, int petID)
         {
             bool result = false;
 
@@ -142,22 +122,21 @@ namespace LogicLayer
             {
                 result = (1 == _petAccessor.CreatePetImageFilename(filename, petID));
             }
-            catch (Exception)
-            {
-                throw;
-            }
-            return result;
+			catch (Exception ex)
+			{
+				ExceptionLogManager.getInstance().LogException(ex);
+				throw ex;
+			}
+			return result;
         }
 
-        ///  @Author Matthew Hill
-        ///  @Created 3/10/19
-        //EditPetImageFilename(int petID, string oldFilename, string newFilename)
-        /// <summary>
-        /// Method for updating the filename associated with a specific pet.
-        /// </summary>
-        /// <param name="int petID, string oldFilename, string newFilename">The Edit calls UpdatePetImageFilename(int petID, string oldFilename, string newFilename).</param>
-        /// <returns>result</returns>
-        public bool EditPetImageFilename(int petID, string oldFilename, string newFilename)
+		/// <summary author="Matthew Hill" created="2019/03/10">
+		/// <summary>
+		/// Method for updating the filename associated with a specific pet.
+		/// </summary>
+		/// <param name="int petID, string oldFilename, string newFilename">The Edit calls UpdatePetImageFilename(int petID, string oldFilename, string newFilename).</param>
+		/// <returns>result</returns>
+		public bool EditPetImageFilename(int petID, string oldFilename, string newFilename)
         {
             bool result = false;
 
@@ -165,22 +144,21 @@ namespace LogicLayer
             {
                 result = (1 == _petAccessor.UpdatePetImageFilename(petID, oldFilename, newFilename));
             }
-            catch (Exception)
-            {
-                throw;
-            }
-            return result;
+			catch (Exception ex)
+			{
+				ExceptionLogManager.getInstance().LogException(ex);
+				throw ex;
+			}
+			return result;
         }
 
-        ///  @Author Matthew Hill
-        ///  @Created 3/10/19
-        //RetrievePetImageFilenameByPetID(int petID)
-        /// <summary>
-        /// Method for retrieving a pet image filename by petID.
-        /// </summary>
-        /// <param name="int petID">The Retrieve calls RetrievePetImageFilenameByPetID(petID).</param>
-        /// <returns>result</returns>
-        public string RetrievePetImageFilenameByPetID(int petID)
+		/// <summary author="Matthew Hill" created="2019/03/10">
+		/// <summary>
+		/// Method for retrieving a pet image filename by petID.
+		/// </summary>
+		/// <param name="int petID">The Retrieve calls RetrievePetImageFilenameByPetID(petID).</param>
+		/// <returns>result</returns>
+		public string RetrievePetImageFilenameByPetID(int petID)
         {
             string filename;
 
@@ -188,12 +166,12 @@ namespace LogicLayer
             {
                 filename = _petAccessor.RetrievePetImageFilenameByPetID(petID);
             }
-            catch (Exception)
-            {
-                throw;
-            }
-            return filename;
+			catch (Exception ex)
+			{
+				ExceptionLogManager.getInstance().LogException(ex);
+				throw ex;
+			}
+			return filename;
         }
-
     }
 }

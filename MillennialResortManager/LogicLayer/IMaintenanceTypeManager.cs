@@ -7,11 +7,9 @@ using DataObjects;
 
 namespace LogicLayer
 {
-    /// <summary>
-    /// Author: Dalton Cleveland
-    /// Created : 3/5/2019
-    /// </summary>
-    public interface IMaintenanceTypeManager
+	/// <summary author="Dalton Cleveland" created="2019/03/05">
+	/// </summary>
+	public interface IMaintenanceTypeManager
     {
         void AddMaintenanceType(MaintenanceType newMaintenanceType);
         MaintenanceType RetrieveMaintenanceType();

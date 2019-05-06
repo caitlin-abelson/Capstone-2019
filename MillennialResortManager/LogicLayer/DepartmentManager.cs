@@ -5,10 +5,10 @@ using System.Text;
 using System.Threading.Tasks;
 using DataObjects;
 using DataAccessLayer;
+using ExceptionLoggerLogic;
 
 namespace LogicLayer
 {
-
     public class DepartmentManager : IDepartmentManager
     {
         private DepartmentAccessor _departmentAccessor;
@@ -32,13 +32,10 @@ namespace LogicLayer
             throw new NotImplementedException();
         }
 
-        /// <summary>
-        /// Author: Caitlin Abelson
-        /// Created Date: 1/30/19
-        /// 
-        /// The GetAllDepartments gets a list of all the departments to be used in a dropdown box.
-        /// </summary>
-        public List<Department> GetAllDepartments()
+		/// <summary author="Caitlin Abelson" created="2019/01/30">
+		/// The GetAllDepartments gets a list of all the departments to be used in a dropdown box.
+		/// </summary>
+		public List<Department> GetAllDepartments()
         {
             List<Department> departments;
 
@@ -46,11 +43,13 @@ namespace LogicLayer
             {
                 departments = _departmentAccessor.SelectDepartmentTypes("all");
             }
-            catch (Exception)
-            {
-                throw;
-            }
-            return departments;
+			catch (Exception ex)
+			{
+				ExceptionLogManager.getInstance().LogException(ex);
+				throw ex;
+			}
+
+			return departments;
         }
 
         public Department GetDepartment()

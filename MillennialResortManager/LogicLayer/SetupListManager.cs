@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using DataObjects;
 using DataAccessLayer;
+using ExceptionLoggerLogic;
 
 namespace LogicLayer
 {
@@ -13,39 +14,30 @@ namespace LogicLayer
     {
         private ISetupListAccessor _setupListAccessor;
 
-        /// <summary>
-        /// Author: Caitlin Abelson
-        /// Created Date: 2/28/19
-        /// 
-        /// Constructor for SetupListManager
-        /// </summary>
-        public SetupListManager()
+		/// <summary author="Caitlin Abelson" created="2019/02/28">
+		/// Constructor for SetupListManager
+		/// </summary>
+		public SetupListManager()
         {
             _setupListAccessor = new SetupListAccessor();
         }
 
-        /// <summary>
-        /// Author: James Heim
-        /// Created Date: 5/3/19
-        /// 
-        /// Constructor that takes allows a different accessor.
-        /// Created specificially for supplying the mock accessor for unit testing.
-        /// </summary>
-        /// <param name="accessor"></param>
-        public SetupListManager(ISetupListAccessor accessor)
+		/// <summary author="James Heim" created="2019/05/03">
+		/// Constructor that takes allows a different accessor.
+		/// Created specificially for supplying the mock accessor for unit testing.
+		/// </summary>
+		/// <param name="accessor"></param>
+		public SetupListManager(ISetupListAccessor accessor)
         {
             _setupListAccessor = accessor;
         }
 
-        /// <summary>
-        /// Author: Caitlin Abelson
-        /// Created Date: 2019-02-28
-        /// 
-        /// The method for deactivating and deleting a setupList. 
-        /// </summary>
-        /// <param name="setupListID"></param>
-        /// <param name="isActive"></param>
-        public void DeleteSetupList(int setupListID, bool isActive)
+		/// <summary author="Caitlin Abelson" created="2019/02/28">
+		/// The method for deactivating and deleting a setupList. 
+		/// </summary>
+		/// <param name="setupListID"></param>
+		/// <param name="isActive"></param>
+		public void DeleteSetupList(int setupListID, bool isActive)
         {
             // If the setupList is completed, the setuplist needs to be deactivated or made incomplete
             // before it can be deleted.
@@ -55,11 +47,12 @@ namespace LogicLayer
                 {
                     _setupListAccessor.DeactiveSetupList(setupListID);
                 }
-                catch (Exception)
-                {
-                    throw;
-                }
-            }
+				catch (Exception ex)
+				{
+					ExceptionLogManager.getInstance().LogException(ex);
+					throw ex;
+				}
+			}
             // If the setuplist is incomplete then the setupList can be deleted.
             else
             {
@@ -67,45 +60,37 @@ namespace LogicLayer
                 {
                     _setupListAccessor.DeleteSetupList(setupListID);
                 }
-                catch (Exception)
-                {
-                    throw;
-                }
-            }
+				catch (Exception ex)
+				{
+					ExceptionLogManager.getInstance().LogException(ex);
+					throw ex;
+				}
+			}
         }
 
-        /// <summary>
-        /// Author: Caitlin Abelson
-        /// Created Date: 2019-02-28
-        /// 
-        /// 
-        /// </summary>
-        /// <param name="newSetupList">The object that the new SetupList is being created to</param>
-        /// <returns></returns>
-        public void InsertSetupList(SetupList newSetupList)
+		/// <summary author="Caitlin Abelson" created="2019/02/28">
+		/// </summary>
+		/// <param name="newSetupList">The object that the new SetupList is being created to</param>
+		/// <returns></returns>
+		public void InsertSetupList(SetupList newSetupList)
         {
 
             try
             {
                 _setupListAccessor.InsertSetupList(newSetupList);
             }
-            catch (Exception)
-            {
-                throw;
-            }
+			catch (Exception ex)
+			{
+				ExceptionLogManager.getInstance().LogException(ex);
+				throw ex;
+			}
+		}
 
-
-
-        }
-
-        /// <summary>
-        /// Author: Caitlin Abelson
-        /// Created Date: 2019-02-28
-        /// 
-        /// Get a list of all of the SetupLists.
-        /// </summary>
-        /// <returns></returns>
-        public List<VMSetupList> SelectAllVMSetupLists()
+		/// <summary author="Caitlin Abelson" created="2019/02/28">
+		/// Get a list of all of the SetupLists.
+		/// </summary>
+		/// <returns></returns>
+		public List<VMSetupList> SelectAllVMSetupLists()
         {
             List<VMSetupList> setupLists = new List<VMSetupList>();
 
@@ -113,17 +98,16 @@ namespace LogicLayer
             {
                 setupLists = _setupListAccessor.SelectVMSetupLists();
             }
-            catch (Exception)
-            {
+			catch (Exception ex)
+			{
+				ExceptionLogManager.getInstance().LogException(ex);
+				throw ex;
+			}
 
-                throw;
-            }
-
-            return setupLists;
+			return setupLists;
         }
 
-        //Eduardo
-        /// <summary>
+        /// <summary author="Eduardo Colon">
         /// Updated By: Caitlin Abelson
         /// Updated Date: 2019-03-19
         /// 
@@ -138,57 +122,51 @@ namespace LogicLayer
             {
                 setupLists = _setupListAccessor.SelectActiveSetupLists();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw;
+				ExceptionLogManager.getInstance().LogException(ex);
+                throw ex;
             }
 
             return setupLists;
         }
 
-        /// <summary>
-        /// Author: Caitlin Abelson
-        /// Created Date: 2019-03-19
-        /// 
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        public List<VMSetupList> SelectAllInActiveSetupLists()
+		/// <summary author="Caitlin Abelson" created="2019/03/19">
+		/// </summary>
+		/// <returns></returns>
+		public List<VMSetupList> SelectAllInActiveSetupLists()
         {
             List<VMSetupList> setupList;
             try
             {
                 setupList = _setupListAccessor.SelectInactiveSetupLists();
             }
-            catch (Exception)
-            {
-                throw;
-            }
-            return setupList;
+			catch (Exception ex)
+			{
+				ExceptionLogManager.getInstance().LogException(ex);
+				throw ex;
+			}
+			return setupList;
         }
 
-        /// <summary>
-        /// Author: Caitlin Abelson
-        /// Created Date: 2/28/19
-        /// 
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        public List<SetupList> SelectAllSetupLists()
+		/// <summary author="Caitlin Abelson" created="2019/02/28">
+		/// </summary>
+		/// <returns></returns>
+		public List<SetupList> SelectAllSetupLists()
         {
             List<SetupList> setupLists = new List<SetupList>();
             try
             {
                 setupLists = _setupListAccessor.SelectAllSetupLists();
             }
-            catch (Exception)
-            {
-                throw;
-            }
-            return setupLists;
+			catch (Exception ex)
+			{
+				ExceptionLogManager.getInstance().LogException(ex);
+				throw ex;
+			}
+			return setupLists;
         }
 
-        //Eduardo
         public SetupList SelectSetupList(int setupListID)
         {
             SetupList setupList;
@@ -196,34 +174,29 @@ namespace LogicLayer
             {
                 setupList = _setupListAccessor.SelectSetupList(setupListID);
             }
-            catch (Exception)
-            {
-                throw;
-            }
-            return setupList;
+			catch (Exception ex)
+			{
+				ExceptionLogManager.getInstance().LogException(ex);
+				throw ex;
+			}
+			return setupList;
         }
 
-        /// <summary>
-        /// Author: Caitlin Abelson
-        /// Created Date: 2/28/19
-        /// 
-        /// 
-        /// </summary>
-        /// <param name="newSetupList"></param>
-        /// <param name="oldSetupList"></param>
-        public void UpdateSetupList(SetupList newSetupList, SetupList oldSetupList)
+		/// <summary author="Caitlin Abelson" created="2019/02/28">
+		/// </summary>
+		/// <param name="newSetupList"></param>
+		/// <param name="oldSetupList"></param>
+		public void UpdateSetupList(SetupList newSetupList, SetupList oldSetupList)
         {
-
             try
             {
                 _setupListAccessor.UpdateSetupList(newSetupList, oldSetupList);
             }
-            catch (Exception)
-            {
-                throw;
-            }
-
-
-        }
+			catch (Exception ex)
+			{
+				ExceptionLogManager.getInstance().LogException(ex);
+				throw ex;
+			}
+		}
     }
 }

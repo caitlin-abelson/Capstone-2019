@@ -4,11 +4,9 @@ using DataObjects;
 
 namespace LogicLayer
 {
-    /// <summary>
-    /// Jacob Miller
-    /// Created: 2019/01/22
-    /// </summary>
-    public interface IPerformanceManager
+	/// <summary author="Jacob Miller" created="2019/01/22">
+	/// </summary>
+	public interface IPerformanceManager
     {
         int AddPerformance(Performance perf);
         int EditPerformance(Performance perf);

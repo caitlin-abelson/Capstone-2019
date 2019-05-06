@@ -2,16 +2,14 @@
 using System.Collections.Generic;
 using DataAccessLayer;
 using DataObjects;
+using ExceptionLoggerLogic;
 
 namespace LogicLayer
 {
-    /// <summary>
-    /// Francis Mingomba
-    /// Created: 2019/04/03
-    ///
-    /// Resort Property Type Manager
-    /// </summary>
-    public class ResortPropertyTypeManager : IResortPropertyTypeManager
+	/// <summary author="Francis Mingomba" created="2019/04/03">
+	/// Resort Property Type Manager
+	/// </summary>
+	public class ResortPropertyTypeManager : IResortPropertyTypeManager
     {
         private readonly IResortPropertyTypeAccessor _resortPropertyTypeAccessor;
 
@@ -22,16 +20,12 @@ namespace LogicLayer
 
         public ResortPropertyTypeManager() : this(new ResortPropertyTypeAccessor()) { }
 
-
-        /// <summary>
-        /// Francis Mingomba
-        /// Created: 2019/04/03
-        ///
-        ///Adds Resort Property Type to database
-        /// </summary>
-        /// <param name="resortPropertyType">resort property type object</param>
-        /// <returns>id to new resort property type added</returns>
-        public string AddResortPropertyType(ResortPropertyType resortPropertyType)
+		/// <summary author="Francis Mingomba" created="2019/04/03">
+		///Adds Resort Property Type to database
+		/// </summary>
+		/// <param name="resortPropertyType">resort property type object</param>
+		/// <returns>id to new resort property type added</returns>
+		public string AddResortPropertyType(ResortPropertyType resortPropertyType)
         {
             string resortPropertyTypeId;
 
@@ -41,23 +35,21 @@ namespace LogicLayer
 
                 resortPropertyTypeId = _resortPropertyTypeAccessor.AddResortPropertyType(resortPropertyType);
             }
-            catch (Exception)
-            {
-                throw;
-            }
+			catch (Exception ex)
+			{
+				ExceptionLogManager.getInstance().LogException(ex);
+				throw ex;
+			}
 
-            return resortPropertyTypeId;
+			return resortPropertyTypeId;
         }
 
-        /// <summary>
-        /// Francis Mingomba
-        /// Created: 2019/04/03
-        ///
-        /// Retrieves Resort Property Type Id from database
-        /// </summary>
-        /// <param name="id">Resort Property Type Id</param>
-        /// <returns>Resort Property Type</returns>
-        public ResortPropertyType RetrieveResortPropertyTypeById(string id)
+		/// <summary author="Francis Mingomba" created="2019/04/03">
+		/// Retrieves Resort Property Type Id from database
+		/// </summary>
+		/// <param name="id">Resort Property Type Id</param>
+		/// <returns>Resort Property Type</returns>
+		public ResortPropertyType RetrieveResortPropertyTypeById(string id)
         {
             ResortPropertyType resortPropertyType;
 
@@ -65,22 +57,20 @@ namespace LogicLayer
             {
                 resortPropertyType = _resortPropertyTypeAccessor.RetrieveResortPropertyTypeById(id);
             }
-            catch (Exception)
-            {
-                throw;
-            }
+			catch (Exception ex)
+			{
+				ExceptionLogManager.getInstance().LogException(ex);
+				throw ex;
+			}
 
-            return resortPropertyType;
+			return resortPropertyType;
         }
 
-        /// <summary>
-        /// Francis Mingomba
-        /// Created: 2019/04/03
-        ///
-        /// Retrieves Resort Property Types
-        /// </summary>
-        /// <returns>Resort Property Type Collection</returns>
-        public IEnumerable<ResortPropertyType> RetrieveResortPropertyTypes()
+		/// <summary author="Francis Mingomba" created="2019/04/03">
+		/// Retrieves Resort Property Types
+		/// </summary>
+		/// <returns>Resort Property Type Collection</returns>
+		public IEnumerable<ResortPropertyType> RetrieveResortPropertyTypes()
         {
             IEnumerable<ResortPropertyType> resortPropertyTypes;
 
@@ -88,23 +78,21 @@ namespace LogicLayer
             {
                 resortPropertyTypes = _resortPropertyTypeAccessor.RetrieveResortPropertyTypes();
             }
-            catch (Exception)
-            {
-                throw;
-            }
+			catch (Exception ex)
+			{
+				ExceptionLogManager.getInstance().LogException(ex);
+				throw ex;
+			}
 
-            return resortPropertyTypes;
+			return resortPropertyTypes;
         }
 
-        /// <summary>
-        /// Francis Mingomba
-        /// Created: 2019/04/03
-        ///
-        /// Updates Resort Property Type in database
-        /// </summary>
-        /// <param name="old">Old Resort Property Type</param>
-        /// <param name="newResortPropertyType">New Resort Property Type</param>
-        public void UpdateResortPropertyType(ResortPropertyType old, ResortPropertyType newResortPropertyType)
+		/// <summary author="Francis Mingomba" created="2019/04/03">
+		/// Updates Resort Property Type in database
+		/// </summary>
+		/// <param name="old">Old Resort Property Type</param>
+		/// <param name="newResortPropertyType">New Resort Property Type</param>
+		public void UpdateResortPropertyType(ResortPropertyType old, ResortPropertyType newResortPropertyType)
         {
             try
             {
@@ -112,20 +100,18 @@ namespace LogicLayer
 
                 _resortPropertyTypeAccessor.UpdateResortPropertyType(old, newResortPropertyType);
             }
-            catch (Exception)
-            {
-                throw;
-            }
-        }
+			catch (Exception ex)
+			{
+				ExceptionLogManager.getInstance().LogException(ex);
+				throw ex;
+			}
+		}
 
-        /// <summary>
-        /// Francis Mingomba
-        /// Created: 2019/04/03
-        ///
-        /// Deletes Resort Property Type in database
-        /// </summary>
-        /// <param name="id">Resort Property Type Id</param>
-        public void DeleteResortPropertyType(string id, Employee employee)
+		/// <summary author="Francis Mingomba" created="2019/04/03">
+		/// Deletes Resort Property Type in database
+		/// </summary>
+		/// <param name="id">Resort Property Type Id</param>
+		public void DeleteResortPropertyType(string id, Employee employee)
         {
             try
             {
@@ -134,20 +120,18 @@ namespace LogicLayer
 
                 _resortPropertyTypeAccessor.DeleteResortPropertyType(id);
             }
-            catch (Exception)
-            {
-                throw;
-            }
-        }
+			catch (Exception ex)
+			{
+				ExceptionLogManager.getInstance().LogException(ex);
+				throw ex;
+			}
+		}
 
-        /// <summary>
-        /// Francis Mingomba
-        /// Created: 2019/04/03
-        ///
-        /// Validation Rules for Resort Property Type
-        /// </summary>
-        /// <returns>Dictionary containing validation rules</returns>
-        public Dictionary<string, ValidationCriteria> GetValidationCriteria()
+		/// <summary author="Francis Mingomba" created="2019/04/03">
+		/// Validation Rules for Resort Property Type
+		/// </summary>
+		/// <returns>Dictionary containing validation rules</returns>
+		public Dictionary<string, ValidationCriteria> GetValidationCriteria()
         {
             return new Dictionary<string, ValidationCriteria>
             {

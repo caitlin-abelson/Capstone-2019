@@ -12,7 +12,7 @@ namespace LogicLayer
 	/// </summary>
 	public class FakeThreadManager : IThreadManager
 	{
-		/// <summary>
+		/// <summary name="Austin Delaeny" created="2019/04/14">
 		/// Dummy implementation that just returns true and performs no operations.
 		/// </summary>
 		/// <param name="thread">Redundant.</param>

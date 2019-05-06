@@ -7,18 +7,18 @@ using DataObjects;
 
 namespace LogicLayer
 {
-    /// <summary>
-    /// Author: Caitlin Abelson
-    /// Created Date: 1/30/19
-    /// 
-    /// The IEmployeeManager is the interface for Employees and hold all the CRUD methods for the logic layer.
-    /// 
-    /// Author: Matt LaMarche
-    /// Updated Date: 3/7/19
-    /// 
-    /// Added in AuthenticateEmployee for login features
-    /// </summary>
-    public interface IEmployeeManager
+	/// <summary author="Caitlin Abelson" created="2019/01/30">
+	/// The IEmployeeManager is the interface for Employees and hold all the CRUD methods for the logic layer.
+	/// </summary>
+	/// <updates>
+	/// <update author="Matt LaMarche" date="2019/03/07">
+	/// Added in AuthenticateEmployee for login features
+	/// </update>
+	/// <update author="Eduardo Colon" date="2019/03/20">
+	/// Added RetrieveAllEmployeeInfo and RetrieveEmployeeInfo.
+	/// </update>
+	/// </updates>
+	public interface IEmployeeManager
     {
         void InsertEmployee(Employee newEmployee);
         void UpdateEmployee(Employee newEmployee, Employee oldEmployee);
@@ -32,7 +32,7 @@ namespace LogicLayer
         List<Role> SelectEmployeeRoles(int EmployeeID);
         void AddEmployeeRole(int employeeID, Role role);
         void RemoveEmployeeRole(int employeeID, Role role);
-        List<Employee> RetrieveAllEmployeeInfo(); //eduardo colon 2019-03-20
-        Employee RetrieveEmployeeInfo(int employeeID);//eduardo colon 2019-03-20
+        List<Employee> RetrieveAllEmployeeInfo();
+        Employee RetrieveEmployeeInfo(int employeeID);
     }
 }

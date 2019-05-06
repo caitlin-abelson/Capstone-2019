@@ -10,15 +10,11 @@ namespace LogicLayer
 {
     public class SupplierOrderManager : ISupplierOrderManager
     {
-        /// <summary>
-        /// Eric Bostwick
-        /// Created: 2/26/19
-        /// 
-        /// This is the interface for the Item Supplier Accessor
-        /// for managing relationship between items and supplier 
-        /// </summary>
-
-        private ISupplierOrderAccessor _supplierOrderAccessor;
+		/// <summary author="Eric Bostwick" created="2019/02/26">
+		/// This is the interface for the Item Supplier Accessor
+		/// for managing relationship between items and supplier 
+		/// </summary>
+		private ISupplierOrderAccessor _supplierOrderAccessor;
         public SupplierOrderManager()
         {
             _supplierOrderAccessor = new SupplierOrderAccessor();
@@ -29,17 +25,14 @@ namespace LogicLayer
             _supplierOrderAccessor = _supplierOrderAccessorMock;
         }
 
-        /// <summary>
-        /// Eric Bostwick
-        /// 2/27/19
-        /// Inserts a Supplier Order
-        /// using a SupplierOrder Object and a list of SupplierOrderLines
-        /// </summary>
-        /// <returns>
-        /// List of ItemSupplers
-        /// </returns>
-
-        public int CreateSupplierOrder(SupplierOrder supplierOrder, List<SupplierOrderLine> supplierOrderLines)
+		/// <summary author="Eric Bostwick" created="2019/02/27">
+		/// Inserts a Supplier Order
+		/// using a SupplierOrder Object and a list of SupplierOrderLines
+		/// </summary>
+		/// <returns>
+		/// List of ItemSupplers
+		/// </returns>
+		public int CreateSupplierOrder(SupplierOrder supplierOrder, List<SupplierOrderLine> supplierOrderLines)
         {
             int result;
             try
@@ -65,18 +58,14 @@ namespace LogicLayer
             return result;
         }
 
-
-
-        /// <summary>
-        /// Eric Bostwick
-        /// 2/27/19
-        /// Gets list of itemsuppliers from itemsupplier table
-        /// based upon the supplierID
-        /// </summary>
-        /// <returns>
-        /// List of ItemSupplers
-        /// </returns>
-        public List<VMItemSupplierItem> RetrieveAllItemSuppliersBySupplierID(int supplierID)
+		/// <summary author="Eric Bostwick" created="2019/02/27">
+		/// Gets list of itemsuppliers from itemsupplier table
+		/// based upon the supplierID
+		/// </summary>
+		/// <returns>
+		/// List of ItemSupplers
+		/// </returns>
+		public List<VMItemSupplierItem> RetrieveAllItemSuppliersBySupplierID(int supplierID)
         {
 
             List<VMItemSupplierItem> _itemSuppliers;
@@ -123,17 +112,13 @@ namespace LogicLayer
 
         }
 
-
-
-        /// <summary>
-        /// Richard Carroll
-        /// 4/26/19
-        /// Gets list of Generated Supplier Orders from the SupplierOrder table
-        /// </summary>
-        /// <returns>
-        /// List of SupplierOrders
-        /// </returns>
-        public List<SupplierOrder> RetrieveAllGeneratedOrders()
+		/// <summary author="Richard Carroll" created="2019/04/26">
+		/// Gets list of Generated Supplier Orders from the SupplierOrder table
+		/// </summary>
+		/// <returns>
+		/// List of SupplierOrders
+		/// </returns>
+		public List<SupplierOrder> RetrieveAllGeneratedOrders()
         {
             List<SupplierOrder> _supplierOrders;
             try
@@ -146,10 +131,7 @@ namespace LogicLayer
                 throw ex;
             }
             return _supplierOrders;
-
         }
-
-
 
         public int UpdateSupplierOrder(SupplierOrder supplierOrder, List<SupplierOrderLine> supplierOrderLines)
         {
@@ -191,6 +173,7 @@ namespace LogicLayer
             }
             return result;
         }
+
         public int RetrieveSupplierItemID(int ItemID, int SupplierID)
         {
             int supplierItemID;
@@ -206,6 +189,7 @@ namespace LogicLayer
             
             return supplierItemID;
         }
+
         public SupplierOrder RetrieveSupplierOrderByID(int supplierOrderID)
         {
             SupplierOrder order = new SupplierOrder();

@@ -7,17 +7,13 @@ using System.Threading.Tasks;
 
 namespace LogicLayer
 {
-    /// <summary>
-    /// Eduardo Colon
-    /// Created: 2019/02/09
-    /// 
-    /// the interface IRoleManager
-    /// </summary>
-    public interface IRoleManager
+	/// <summary author="Eduardo Colon" created="2019/02/09">
+	/// the interface IRoleManager
+	/// </summary>
+	public interface IRoleManager
     {
 
         List<Role> RetrieveAllRoles();
-
 		/// <summary author="Eduardo Colon" created="2019/02/08">
 		/// Sends a role to the the DAO to be added to the datastore.
 		/// </summary>
@@ -28,17 +24,10 @@ namespace LogicLayer
 		/// </updates>
 		/// <returns>If the operation was successful.</returns>
 		bool CreateRole(Role newRole);
-
         Role RetrieveRoleByRoleId(string roleID);
         void UpdateRole(Role oldRole, Role newRole);
-
         List<Role> RetrieveAllActiveRoles();
         bool DeleteRole(string roleId);
-
-
         List<Role> RetrieveAllInActiveRoles();
-
-
-
     }
 }

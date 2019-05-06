@@ -11,6 +11,7 @@ using System.Text;
 using System.Threading.Tasks;
 using DataAccessLayer;
 using DataObjects;
+using ExceptionLoggerLogic;
 
 namespace LogicLayer
 {
@@ -33,13 +34,13 @@ namespace LogicLayer
                 statusIDList = _roomAccessor.SelectRoomStatusList();
 
             }
-            catch (Exception)
-            {
+			catch (Exception ex)
+			{
+				ExceptionLogManager.getInstance().LogException(ex);
+				throw ex;
+			}
 
-                throw;
-            }
-
-            CheckBuilding();
+			CheckBuilding();
             CheckRoomType();
             CheckDescription();
             CheckCapacity();

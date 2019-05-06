@@ -1,15 +1,4 @@
-﻿/// <summary>
-/// Danielle Russo
-/// Created: 2019/01/21
-/// 
-/// Class that interacts with the presentation layer and building access layer
-/// </summary>
-///
-/// <remarks>
-/// </remarks>
-/// 
-
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,191 +6,170 @@ using System.Text;
 using System.Threading.Tasks;
 using DataAccessLayer;
 using DataObjects;
+using ExceptionLoggerLogic;
 
 namespace LogicLayer
 {
-    public class BuildingManager : IBuildingManager
-    {
-        IBuildingAccessor buildingAccessor;
+	/// <summary author="Danielle Russo" created="2019/01/21">
+	/// Class that interacts with the presentation layer and building access layer
+	/// </summary>
+	public class BuildingManager : IBuildingManager
+	{
+		IBuildingAccessor buildingAccessor;
 
-        public BuildingManager()
-        {
-            buildingAccessor = new BuildingAccessor();
-        }
-        public BuildingManager(BuildingAccessorMock mockAccessor)
-        {
-            buildingAccessor = new BuildingAccessorMock();
-        }
+		public BuildingManager()
+		{
+			buildingAccessor = new BuildingAccessor();
+		}
+		public BuildingManager(BuildingAccessorMock mockAccessor)
+		{
+			buildingAccessor = new BuildingAccessorMock();
+		}
 
-        /// <summary>
-        /// Danielle Russo
-        /// Created: 2019/01/21
-        /// 
-        /// Adds a new Building obj.
-        /// </summary>
-        ///
-        /// <remarks>
-        /// Danielle Russo
-        /// Updated: 2019/02/28
-        /// 
-        /// Changed 1 to 2 so that it will pass for now
-        /// 
-        /// </remarks>
-        /// <param name="newBuilding">The Building obj to be added</param>
-        /// <exception cref="SQLException">Insert Fails (example of exception tag)</exception>
-        /// <returns>True if Building was successfully added, False if Building was not added.</returns>
-        public bool CreateBuilding(Building newBuilding)
-        {
-            bool result = false;
+		/// <summary author="Danielle Russo" created="2019/01/21">
+		/// Adds a new Building obj.
+		/// </summary>
+		/// <updates>
+		/// <update author="Danielle Russo" date="2019/02/28">
+		/// Changed 1 to 2 so that it will pass for now
+		/// </update>
+		/// <param name="newBuilding">The Building obj to be added</param>
+		/// <exception cref="SQLException">Insert Fails (example of exception tag)</exception>
+		/// <returns>True if Building was successfully added, False if Building was not added.</returns>
+		public bool CreateBuilding(Building newBuilding)
+		{
+			bool result = false;
 
-            try
-            {
-                LogicValidationExtensionMethods.ValidateBuildingID(newBuilding.BuildingID);
-                LogicValidationExtensionMethods.ValidateBuildingName(newBuilding.Name);
-                LogicValidationExtensionMethods.ValidateBuildingAddress(newBuilding.Address);
-                LogicValidationExtensionMethods.ValidateBuildngDescription(newBuilding.Description);
-                LogicValidationExtensionMethods.ValidateBuildingStatusID(newBuilding.StatusID);
+			try
+			{
+				LogicValidationExtensionMethods.ValidateBuildingID(newBuilding.BuildingID);
+				LogicValidationExtensionMethods.ValidateBuildingName(newBuilding.Name);
+				LogicValidationExtensionMethods.ValidateBuildingAddress(newBuilding.Address);
+				LogicValidationExtensionMethods.ValidateBuildngDescription(newBuilding.Description);
+				LogicValidationExtensionMethods.ValidateBuildingStatusID(newBuilding.StatusID);
 
-                result = (2 == buildingAccessor.InsertBuilding(newBuilding));
-            }
-            catch (ArgumentNullException ane)
-            {
-                throw ane;
-            }
-            catch (ArgumentException ae)
-            {
-                throw ae;
-            }
-            catch (Exception)
-            {
+				result = (2 == buildingAccessor.InsertBuilding(newBuilding));
+			}
+			catch (ArgumentNullException ane)
+			{
+				ExceptionLogManager.getInstance().LogException(ane);
+				throw ane;
+			}
+			catch (ArgumentException ae)
+			{
+				ExceptionLogManager.getInstance().LogException(ae);
+				throw ae;
+			}
+			catch (Exception ex)
+			{
+				ExceptionLogManager.getInstance().LogException(ex);
+				throw ex;
+			}
 
-                throw;
-            }
+			return result;
+		}
 
-            return result;
-        }
+		/// <summary author="Danielle Russo" created="2019/01/31">
+		/// Edits building details
+		/// </summary>
+		/// <param name="oldBuilding">The original Building obj to be updated</param>
+		/// <param name="updatedBuilding">The updated Building obj</param>
+		/// <exception cref="SQLException">Insert Fails (example of exception tag)</exception>
+		/// <returns>True if Building was successfully updated, False if Building was not updated.</returns>
+		public bool UpdateBuilding(Building oldBuilding, Building updatedBuilding)
+		{
+			bool result = false;
 
-       
+			try
+			{
+				LogicValidationExtensionMethods.ValdateMatchingIDs(oldBuilding.BuildingID, updatedBuilding.BuildingID);
+				LogicValidationExtensionMethods.ValidateBuildingID(updatedBuilding.BuildingID);
+				LogicValidationExtensionMethods.ValidateBuildingName(updatedBuilding.Name);
+				LogicValidationExtensionMethods.ValidateBuildingAddress(updatedBuilding.Address);
+				LogicValidationExtensionMethods.ValidateBuildngDescription(updatedBuilding.Description);
+				LogicValidationExtensionMethods.ValidateBuildingStatusID(updatedBuilding.StatusID);
 
-        /// <summary>
-        /// Danielle Russo
-        /// Created: 2019/01/31
-        /// 
-        /// Edits building details
-        /// </summary>
-        ///
-        /// <remarks>
-        /// Updater Name
-        /// Updated: yyyy/mm/dd
-        /// 
-        /// </remarks>
-        /// <param name="oldBuilding">The original Building obj to be updated</param>
-        /// <param name="updatedBuilding">The updated Building obj</param>
-        /// <exception cref="SQLException">Insert Fails (example of exception tag)</exception>
-        /// <returns>True if Building was successfully updated, False if Building was not updated.</returns>
-        public bool UpdateBuilding(Building oldBuilding, Building updatedBuilding)
-        {
-            bool result = false;
+				result = (1 == buildingAccessor.UpdateBuilding(oldBuilding, updatedBuilding));
+			}
+			catch (ArgumentNullException ane)
+			{
+				ExceptionLogManager.getInstance().LogException(ane);
+				throw ane;
+			}
+			catch (ArgumentException ae)
+			{
+				ExceptionLogManager.getInstance().LogException(ae);
+				throw ae;
+			}
+			catch (Exception ex)
+			{
+				ExceptionLogManager.getInstance().LogException(ex);
+				throw ex;
+			}
 
-            try
-            {
-                LogicValidationExtensionMethods.ValdateMatchingIDs(oldBuilding.BuildingID, updatedBuilding.BuildingID);
-                LogicValidationExtensionMethods.ValidateBuildingID(updatedBuilding.BuildingID);
-                LogicValidationExtensionMethods.ValidateBuildingName(updatedBuilding.Name);
-                LogicValidationExtensionMethods.ValidateBuildingAddress(updatedBuilding.Address);
-                LogicValidationExtensionMethods.ValidateBuildngDescription(updatedBuilding.Description);
-                LogicValidationExtensionMethods.ValidateBuildingStatusID(updatedBuilding.StatusID);
+			return result;
+		}
 
-                result = (1 == buildingAccessor.UpdateBuilding(oldBuilding, updatedBuilding));
-            }
-            catch (ArgumentNullException ane)
-            {
-                throw ane;
-            }
-            catch (ArgumentException ae)
-            {
-                throw ae;
-            }
-            catch (Exception)
-            {
-                throw;
-            }
+		/// <summary author="Danielle Russo" created="2019/01/30">
+		/// List of all buildings in the Building table.
+		/// <exception cref="SQLException">Insert Fails (example of exception tag)</exception>
+		/// <returns>A list of Building objs.</returns>
+		public List<Building> RetrieveAllBuildings()
+		{
+			List<Building> buildings = null;
 
-            return result;
-        }
+			try
+			{
+				buildings = buildingAccessor.SelectAllBuildings();
+			}
+			catch (Exception ex)
+			{
+				ExceptionLogManager.getInstance().LogException(ex);
+				throw ex;
+			}
+			return buildings;
+		}
 
-        /// <summary>
-        /// Danielle Russo
-        /// Created: 2019/01/30
-        /// 
-        /// List of all buildings in the Building table.
-        /// </summary>
-        ///
-        /// <remarks>
-        /// </remarks>
-        ///
-        /// <exception cref="SQLException">Insert Fails (example of exception tag)</exception>
-        /// <returns>A list of Building objs.</returns>
-        public List<Building> RetrieveAllBuildings()
-        {
-            List<Building> buildings = null;
+		/// <summary author="James Heim" created="2019/04/17">
+		/// Retrieve a building by the specified building id.
+		/// </summary>
+		/// <param name="selectedBuilding"></param>
+		/// <returns></returns>
+		public Building RetrieveBuilding(string buildingID)
+		{
+			Building building = null;
 
-            try
-            {
-                buildings = buildingAccessor.SelectAllBuildings();
-            }
-            catch (Exception)
-            {
+			try
+			{
+				building = buildingAccessor.SelectBuildingByID(buildingID);
+			}
+			catch (Exception ex)
+			{
+				ExceptionLogManager.getInstance().LogException(ex);
+				throw ex;
+			}
 
-                throw;
-            }
-            return buildings;
-        }
+			return building;
+		}
 
-        /// <summary>
-        /// James Heim
-        /// Created 2019-04-17
-        /// 
-        /// Retrieve a building by the specified building id.
-        /// </summary>
-        /// <param name="selectedBuilding"></param>
-        /// <returns></returns>
-        public Building RetrieveBuilding(string buildingID)
-        {
-            Building building = null;
+		/// <summary author="Danielle Russo" created="2019/02/21">
+		/// List of all building status ids.
+		/// </summary>
+		/// <returns>A list of Status Ids.</returns>
+		public List<string> RetrieveAllBuildingStatus()
+		{
+			List<string> buildingStatus = null;
+			try
+			{
+				buildingStatus = buildingAccessor.SelectAllBuildingStatus();
+			}
+			catch (Exception ex)
+			{
+				ExceptionLogManager.getInstance().LogException(ex);
+				throw ex;
+			}
 
-            try
-            {
-                building = buildingAccessor.SelectBuildingByID(buildingID);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-
-
-            return building;
-        }
-
-        /// <summary>
-        /// Danielle Russo
-        /// Created: 2019/02/21
-        /// 
-        /// List of all building status ids.
-        /// </summary>
-        /// <returns>A list of Status Ids.</returns>
-        public List<string> RetrieveAllBuildingStatus()
-        {
-            List<string> buildingStatus = null;
-            try
-            {
-                buildingStatus = buildingAccessor.SelectAllBuildingStatus();
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-            return buildingStatus;
-        }
-    }
+			return buildingStatus;
+		}
+	}
 }

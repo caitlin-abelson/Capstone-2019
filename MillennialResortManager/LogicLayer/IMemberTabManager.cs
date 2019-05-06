@@ -7,50 +7,36 @@ using System.Threading.Tasks;
 
 namespace LogicLayer
 {
-    /// <summary>
-    /// James Heim
-    /// Created 2019-04-18
-    /// 
-    /// <remarks>
-    /// James Heim
-    /// Modified 2019-04-25
-    /// Added more methods.
-    /// </remarks>
-    /// </summary>
-    public interface IMemberTabManager
-    {
-        MemberTab RetrieveMemberTabByID(int id);
+	/// <summary author="James Heim" created="2019/04/18">
+	/// </summary>
+	/// <updates>
+	/// <update author="James Heim" date="2019/04/25">
+	/// Added more methods.
+	/// </update>
+	/// <update author="Jared Greenfield" date="2019/04/30">
+	/// Added RetrieveLastMemberTabByMemberID.
+	/// </update>
+	/// </updates>
+	public interface IMemberTabManager
+	{
+		MemberTab RetrieveMemberTabByID(int id);
+		MemberTab RetrieveActiveMemberTabByMemberID(int memberID);
+		IEnumerable<MemberTab> RetrieveMemberTabsByMemberID(int memberID);
+		IEnumerable<MemberTab> RetrieveAllMemberTabs();
+		bool CreateMemberTab(int memberID);
+		bool DeactivateMemberTab(int memberTabID);
+		bool ReactivateMemberTab(int memberTabID);
+		int CreateMemberTabLine(MemberTabLine memberTabLine);
+		IEnumerable<MemberTabLine> RetrieveMemberTabLinesByMemberTabID(int memberTabID);
+		MemberTabLine RetrieveMemberTabLineByID(int memberTabLineID);
+		bool DeleteMemberTab(int memberTabID);
+		bool DeleteMemberTabLine(int memberTabLineID);
 
-        MemberTab RetrieveActiveMemberTabByMemberID(int memberID);
-
-        IEnumerable<MemberTab> RetrieveMemberTabsByMemberID(int memberID);
-
-        IEnumerable<MemberTab> RetrieveAllMemberTabs();
-
-        bool CreateMemberTab(int memberID);
-
-        bool DeactivateMemberTab(int memberTabID);
-
-        bool ReactivateMemberTab(int memberTabID);
-
-        int CreateMemberTabLine(MemberTabLine memberTabLine);
-
-        IEnumerable<MemberTabLine> RetrieveMemberTabLinesByMemberTabID(int memberTabID);
-
-        MemberTabLine RetrieveMemberTabLineByID(int memberTabLineID);
-
-        bool DeleteMemberTab(int memberTabID);
-
-        bool DeleteMemberTabLine(int memberTabLineID);
-
-        /// <summary>
-        /// Jared Greenfield
-        /// Created 2019-04-30
-        /// 
-        /// Select last tab member had.
-        /// </summary>
-        /// <param name="memberID"></param>
-        /// <returns></returns>
-        MemberTab RetrieveLastMemberTabByMemberID(int memberID);
-    }
-    }
+		/// <summary author="Jared Greenfield" created="2019/04/30">
+		/// Select last tab member had.
+		/// </summary>
+		/// <param name="memberID"></param>
+		/// <returns></returns>
+		MemberTab RetrieveLastMemberTabByMemberID(int memberID);
+	}
+}

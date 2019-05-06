@@ -5,13 +5,11 @@ using System.Text;
 using System.Threading.Tasks;
 using DataAccessLayer;
 using DataObjects;
+using ExceptionLoggerLogic;
 
 namespace LogicLayer
 {
-    /// <summary>
-    /// Author: Richard Carroll
-    /// Created Date: 2/28/19
-    /// 
+    /// <summary author="Richard Carroll" created="2019/02/28">
     /// This Class contains methods for interacting with the Data Acesss Layer
     /// with GuestVehicle Data Objects and 
     /// returns the results of calling those methods.
@@ -30,17 +28,13 @@ namespace LogicLayer
             _guestVehicleAccessor = guestVehicleAccessorMock;
         }
 
-
-        /// <summary>
-        /// Richard Carroll
-        /// Created: 3/1/19
-        /// 
-        /// Takes a Vehicle argument and passes it to the Data 
-        /// Access Layer which attempts to insert it into the 
-        /// Database.
-        /// Returns the result.
-        /// </summary>
-        public bool CreateGuestVehicle(GuestVehicle vehicle)
+		/// <summary author="Richard Carroll" created="2019/03/01">
+		/// Takes a Vehicle argument and passes it to the Data 
+		/// Access Layer which attempts to insert it into the 
+		/// Database.
+		/// Returns the result.
+		/// </summary>
+		public bool CreateGuestVehicle(GuestVehicle vehicle)
         {
             bool result = false;
 
@@ -55,23 +49,20 @@ namespace LogicLayer
                         + vehicle.ToString());
                 }
             }
-            catch (Exception)
-            {
+			catch (Exception ex)
+			{
+				ExceptionLogManager.getInstance().LogException(ex);
+				throw ex;
+			}
 
-                throw;
-            }
-
-            return result;
+			return result;
         }
 
-        /// <summary>
-        /// Richard Carroll
-        /// Created: 3/7/19
-        /// 
-        /// Requests a List of Vehicles from the Data Access
-        /// Layer, Returns the result.
-        /// </summary>
-        public List<VMGuestVehicle> RetrieveAllGuestVehicles()
+		/// <summary author="Richard Carroll" created="2019/03/07">
+		/// Requests a List of Vehicles from the Data Access
+		/// Layer, Returns the result.
+		/// </summary>
+		public List<VMGuestVehicle> RetrieveAllGuestVehicles()
         {
             List<VMGuestVehicle> vehicles = new List<VMGuestVehicle>();
 
@@ -79,25 +70,21 @@ namespace LogicLayer
             {
                 vehicles = _guestVehicleAccessor.SelectAllGuestVehicles();
             }
-            catch (Exception)
-            {
+			catch (Exception ex)
+			{
+				ExceptionLogManager.getInstance().LogException(ex);
+				throw ex;
+			}
 
-                throw;
-            }
-
-            return vehicles;
+			return vehicles;
         }
 
-
-        /// <summary>
-        /// Richard Carroll
-        /// Created: 3/8/19
-        /// 
-        /// Takes two Vehicle arguments and passes them to the 
-        /// Data Access Layer which attempts to update the Vehicle.
-        /// Returns the result.
-        /// </summary>
-        public bool UpdateGuestVehicle(GuestVehicle oldVehicle, GuestVehicle vehicle)
+		/// <summary author="Richard Carroll" created="2019/03/08">
+		/// Takes two Vehicle arguments and passes them to the 
+		/// Data Access Layer which attempts to update the Vehicle.
+		/// Returns the result.
+		/// </summary>
+		public bool UpdateGuestVehicle(GuestVehicle oldVehicle, GuestVehicle vehicle)
         {
             bool result = false;
 
@@ -121,13 +108,13 @@ namespace LogicLayer
                         + vehicle.ToString());
                 }
             }
-            catch (Exception)
-            {
+			catch (Exception ex)
+			{
+				ExceptionLogManager.getInstance().LogException(ex);
+				throw ex;
+			}
 
-                throw;
-            }
-
-            return result;
+			return result;
         }
     }
 }

@@ -7,12 +7,10 @@ using System.Threading.Tasks;
 
 namespace LogicLayer
 {
-    /// <summary>
-    /// Author: Dalton Cleveland
-    /// Created : 2/21/2019
-    /// IMaintenanceWorkOrderManager is an interface meant to be the standard for interacting with WorkOrders in a storage medium
-    /// </summary>
-    public interface IMaintenanceWorkOrderManager
+	/// <summary author="Dalton Cleveland" created="2019/02/21">
+	/// IMaintenanceWorkOrderManager is an interface meant to be the standard for interacting with WorkOrders in a storage medium
+	/// </summary>
+	public interface IMaintenanceWorkOrderManager
     {
         void AddMaintenanceWorkOrder(MaintenanceWorkOrder newMaintenanceWorkOrder);
         void EditMaintenanceWorkOrder(MaintenanceWorkOrder oldMaintenanceWorkOrder, MaintenanceWorkOrder newMaintenanceWorkOrder);
