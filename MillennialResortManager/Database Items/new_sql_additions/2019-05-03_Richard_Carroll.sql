@@ -2,14 +2,6 @@ USE [MillennialResort_DB]
 GO
 DROP TRIGGER generate_supplier_order
 GO
-/**
-* Since EmployeeID isn't nullable we need to make an arbitrary employee for auto generated orders.
-*/
-SET IDENTITY_INSERT Employee ON
-Insert Into Employee(EmployeeID, FirstName, LastName, PhoneNumber, Email, PasswordHash, Active)
-VALUES (1, 'Auto', 'Generator', 1234567890, 'auto@company.com', '9c9064c59f1ffa2e174ee754d2979be80dd30db552ec03e7e327e9b1a4bd594e', 1)
-SET IDENTITY_INSERT EMPLOYEE OFF
-GO
 /*
  * Updated: 2019/05/03
  * By: Richard Carroll

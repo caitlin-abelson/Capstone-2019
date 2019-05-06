@@ -15,6 +15,7 @@ sqlcmd -S localhost -E -i new_sql_additions/2019-04-25JamesJaredCheckout.sql
 sqlcmd -S localhost -E -i new_sql_additions/2019-04-26FrancisMinomba.sql
 sqlcmd -S localhost -E -i new_sql_additions/2019-04-27Eduardo-Colon.sql
 sqlcmd -S localhost -E -i new_sql_additions/2019-05-03_Richard_Carroll.sql
+sqlcmd -S localhost -E -i new_sql_additions/2019-05-04_Richard_Carroll.sql
 
 
 
