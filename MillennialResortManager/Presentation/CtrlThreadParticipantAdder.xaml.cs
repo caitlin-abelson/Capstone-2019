@@ -19,7 +19,7 @@ using ExceptionLoggerLogic;
 namespace Presentation
 {
 	/// <summary>
-	/// Interaction logic for ctrlThreadParticipantAdder.xaml
+	/// Interaction logic for ctrlThreadParticipantAdder.xaml. When instantiating 
 	/// </summary>
 	public partial class CtrlThreadParticipantAdder : UserControl
 	{
@@ -42,7 +42,7 @@ namespace Presentation
 		/// <summary>
 		/// All possible recipients retrieved from the data store at the time of loading the control.
 		/// </summary>
-		private IEnumerable<IMessagable> _possibleRecipients;
+		private List<IMessagable> _possibleRecipients;
 
 		public CtrlThreadParticipantAdder()
 		{
@@ -56,37 +56,110 @@ namespace Presentation
 		/// </summary>
 		public void LoadControl()
 		{
+			//From each manager, retrieve the list of possible recipients
+			//Do this seperate so that if one manager fails, they don't necessarily all fail
+
 			try
 			{
-				RoleManager roleManager = new RoleManager();
 				EmployeeManager employeeManager = new EmployeeManager();
-				GuestManager guestManager = new GuestManager();
-				MemberManagerMSSQL memberManager = new MemberManagerMSSQL();
-				DepartmentManager departmentManager = new DepartmentManager();
-
-				//Get the lists of possible recipients from each manager
-				IEnumerable<IMessagable> roles = (new RoleManager()).RetrieveAllActiveRoles();
 				IEnumerable<IMessagable> employees = (new EmployeeManager()).SelectAllActiveEmployees();
-				IEnumerable<IMessagable> guests = (new GuestManager()).ReadAllGuests().Where(g => g.Active);
-				IEnumerable<IMessagable> members = (new MemberManagerMSSQL()).RetrieveAllMembers().Where(m => m.Active);
-				IEnumerable<IMessagable> departments = (new DepartmentManager()).GetAllDepartments();
-
-				//Populate list controls
 				lstPossibleRecipientsEmployee.ItemsSource = employees.Select(item => item.Alias);
-				lstPossibleRecipientsDepartment.ItemsSource = departments.Select(item => item.Alias);
-				lstPossibleRecipientsRoles.ItemsSource = roles.Select(item => item.Alias);
-				lstPossibleRecipientsMember.ItemsSource = members.Select(item => item.Alias);
-				lstPossibleRecipientsGuest.ItemsSource = guests.Select(item => item.Alias);
-
-				_possibleRecipients = employees.Concat(roles).Concat(guests).Concat(members).Concat(departments);
+				_possibleRecipients = _possibleRecipients.Concat(employees).ToList();
 			}
 			catch (Exception ex)
 			{
 				ExceptionLogManager.getInstance().LogException(ex);
 			}
+			try
+			{
+				RoleManager roleManager = new RoleManager();
+				IEnumerable<IMessagable> roles = (new RoleManager()).RetrieveAllRoles();
+				lstPossibleRecipientsRoles.ItemsSource = roles.Select(item => item.Alias);
+				_possibleRecipients = _possibleRecipients.Concat(roles).ToList();
 
+			}
+			catch (Exception ex)
+			{
+				ExceptionLogManager.getInstance().LogException(ex);
+			}
+			try
+			{
+				GuestManager guestManager = new GuestManager();
+				IEnumerable<IMessagable> guests = (new GuestManager()).ReadAllGuests().Where(g => g.Active);
+				lstPossibleRecipientsGuest.ItemsSource = guests.Select(item => item.Alias);
+				_possibleRecipients = _possibleRecipients.Concat(guests).ToList();
 
+			}
+			catch (Exception ex)
+			{
+				ExceptionLogManager.getInstance().LogException(ex);
+			}
+			try
+			{
+				MemberManagerMSSQL memberManager = new MemberManagerMSSQL();
+				IEnumerable<IMessagable> members = (new MemberManagerMSSQL()).RetrieveAllMembers().Where(m => m.Active);
+				lstPossibleRecipientsMember.ItemsSource = members.Select(item => item.Alias);
+				_possibleRecipients = _possibleRecipients.Concat(members).ToList();
+			}
+			catch (Exception ex)
+			{
+				ExceptionLogManager.getInstance().LogException(ex);
+			}
+			try
+			{
+				DepartmentManager departmentManager = new DepartmentManager();
+				IEnumerable<IMessagable> departments = (new DepartmentManager()).GetAllDepartments();
+				lstPossibleRecipientsDepartment.ItemsSource = departments.Select(item => item.Alias);
+				_possibleRecipients = _possibleRecipients.Concat(departments).ToList();
+			}
+			catch (Exception ex)
+			{
+				ExceptionLogManager.getInstance().LogException(ex);
+			}
+		}
 
+		private void MoveToSelectedParticipantList(object sender, MouseButtonEventArgs e)
+		{
+			//Throw out anything that might be a misclick or would invalidate the operation
+			if (!(sender is ListBox))
+			{ return; }
+
+			ListBox thisList = sender as ListBox;
+
+			lstFinalSelection.Items.Add(thisList.SelectedItem);
+			thisList.Items.Remove(thisList.SelectedItem);
+		}
+
+		private void LstFinalSelection_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+		{
+			IMessagable selectedRecipient = _possibleRecipients.First(r => r.Alias.Equals(lstFinalSelection.SelectedItem.ToString()));
+			ListBox thisList = lstFinalSelection;
+
+			if (selectedRecipient is Role)
+			{
+				lstPossibleRecipientsRoles.Items.Add(thisList.SelectedItem);
+				thisList.Items.Remove(thisList.SelectedItem);
+			}
+			else if (selectedRecipient is Employee)
+			{
+				lstPossibleRecipientsEmployee.Items.Add(thisList.SelectedItem);
+				thisList.Items.Remove(thisList.SelectedItem);
+			}
+			else if (selectedRecipient is Department)
+			{
+				lstPossibleRecipientsDepartment.Items.Add(thisList.SelectedItem);
+				thisList.Items.Remove(thisList.SelectedItem);
+			}
+			else if (selectedRecipient is Guest)
+			{
+				lstPossibleRecipientsGuest.Items.Add(thisList.SelectedItem);
+				thisList.Items.Remove(thisList.SelectedItem);
+			}
+			else if (selectedRecipient is Member)
+			{
+				lstPossibleRecipientsMember.Items.Add(thisList.SelectedItem);
+				thisList.Items.Remove(thisList.SelectedItem);
+			}
 		}
 	}
 }
