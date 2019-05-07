@@ -6,12 +6,15 @@
         xmlns:local="clr-namespace:Presentation"
         mc:Ignorable="d"
         Title="Confirm" Height="200" Width="400">
-    <Grid>
+    <Window.Resources>
+        <ResourceDictionary Source="Stylesheet.xaml"/>
+    </Window.Resources>
+    <Grid Style="{StaticResource DefaultPage}">
         <Grid.RowDefinitions>
             <RowDefinition></RowDefinition>
             <RowDefinition Height="60"></RowDefinition>
         </Grid.RowDefinitions>
-        <Label x:Name="lblPrompt" Grid.Row="0" Content="" FontSize="14" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="10 0" Width="380"></Label>
+        <Label x:Name="lblPrompt" Grid.Row="0" Content="" FontSize="14" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="10 0" MaxWidth="380" Width="380" ></Label>
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition></ColumnDefinition>

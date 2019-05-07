@@ -53,7 +53,7 @@
                             </Grid.ColumnDefinitions>
                         </Grid>
                         <Grid Grid.Row="1">
-                            <DataGrid x:Name="dgEventSponsor" VerticalGridLinesBrush="{x:Null}" SelectionMode="Single" AlternatingRowBackground="#FF3DD8CA" RowBackground="LightGoldenrodYellow"  IsReadOnly="True" MouseDoubleClick="dgEventSponsor_MouseDoubleClick" AutoGeneratingColumn="dgEventSponsor_AutoGeneratingColumn" />
+                            <DataGrid x:Name="dgEventSponsor" VerticalGridLinesBrush="{x:Null}" SelectionMode="Single" IsReadOnly="True" MouseDoubleClick="dgEventSponsor_MouseDoubleClick" AutoGeneratingColumn="dgEventSponsor_AutoGeneratingColumn" />
                         </Grid>
                     </Grid>
                 </TabItem>

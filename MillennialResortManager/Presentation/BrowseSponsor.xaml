@@ -46,7 +46,7 @@
             <Button Grid.Column="4" Content="Filter" x:Name="btnFilter" Margin="5" Click="btnFilter_Click"/>
             <Button Grid.Column="5" Content="Clear" x:Name="btnClearFilters" Margin="5" Click="btnClearFilters_Click"/>
         </Grid>
-        <DataGrid Grid.Row="1" x:Name="dgSponsors" VerticalGridLinesBrush="{x:Null}" SelectionMode="Single" AlternatingRowBackground="#FF3DD8CA" RowBackground="LightGoldenrodYellow" IsReadOnly="True" AutoGeneratingColumn="dgSponsors_AutoGeneratingColumn" MouseDoubleClick="dgSponsors_MouseDoubleClick" Grid.ColumnSpan="2" />
+        <DataGrid Grid.Row="1" x:Name="dgSponsors" VerticalGridLinesBrush="{x:Null}" SelectionMode="Single" IsReadOnly="True" AutoGeneratingColumn="dgSponsors_AutoGeneratingColumn" MouseDoubleClick="dgSponsors_MouseDoubleClick" Grid.ColumnSpan="2" />
         <Grid Grid.Row="2" Grid.ColumnSpan="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>

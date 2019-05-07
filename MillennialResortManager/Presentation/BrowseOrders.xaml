@@ -30,7 +30,7 @@
             <Button Grid.Column="4" Width="120" Margin="5"  x:Name="btnClearFilters" Content="Clear Filters" FontSize="14" Click="BtnClearFilters_Click"></Button>
         </Grid>
         <Grid Grid.Row="1">
-            <DataGrid x:Name="dgInternalOrders" IsReadOnly="True" VerticalGridLinesBrush="{x:Null}" SelectionMode="Single" AlternatingRowBackground="#FF3DD8CA" RowBackground="LightGoldenrodYellow" MouseDoubleClick="DgInternalOrders_MouseDoubleClick"></DataGrid>
+            <DataGrid x:Name="dgInternalOrders" IsReadOnly="True" VerticalGridLinesBrush="{x:Null}" SelectionMode="Single" MouseDoubleClick="DgInternalOrders_MouseDoubleClick"></DataGrid>
         </Grid>
         <Grid Grid.Row="2">
             <Grid.ColumnDefinitions>
