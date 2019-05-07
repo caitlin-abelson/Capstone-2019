@@ -361,6 +361,7 @@
     <!-- Data Grid -->
     <Style TargetType="DataGrid">
         <Setter Property="Background" Value="{StaticResource Dirt}"/>
+        <Setter Property="IsReadOnly" Value="True"/>
     </Style>
 
 

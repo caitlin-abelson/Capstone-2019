@@ -287,7 +287,7 @@ namespace Presentation
                 }
                 if (_offering.OfferingTypeID == "Service")
                 {
-                    MessageBox.Show("Not Implemented Yet.");
+                    //MessageBox.Show("Not Implemented Yet.");
                 }
             }
             catch (Exception ex)
