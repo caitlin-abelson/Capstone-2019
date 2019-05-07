@@ -1,12 +1,4 @@
-﻿/// <summary>
-/// Danielle Russo
-/// Created: 2019/01/21
-/// 
-/// Class that interacts with the Building Table data
-/// </summary>
-/// 
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Data;
@@ -18,7 +10,12 @@ using System.Transactions;
 
 namespace DataAccessLayer
 {
-
+    /// <summary>
+    /// Danielle Russo
+    /// Created: 2019/01/21
+    /// 
+    /// Class that interacts with the Building Table data
+    /// </summary>
     public class BuildingAccessor : IBuildingAccessor
     {
 
@@ -100,10 +97,17 @@ namespace DataAccessLayer
         /// Added StatusID to constructor arguments
         /// 
         /// </remarks>
+        /// <remarks>
         /// Danielle Russo
         /// Updated: 2019/03/01
         /// Added ResortPropertyID to constructor arguments
+        /// </remarks>
+        /// James Heim
+        /// Updated: 2019/05/07
+        /// Added proper handling of null Addresses and Descriptions.
+        /// <remarks>
         /// 
+        /// </remarks>
         /// <exception cref="SQLException">Insert Fails (example of exception tag)</exception>
         /// <returns>A list of Building objs.</returns>
         public List<Building> SelectAllBuildings()
@@ -123,15 +127,36 @@ namespace DataAccessLayer
                 {
                     while (reader.Read())
                     {
-                        buildings.Add(new Building()
+                        var building = new Building()
                         {
                             BuildingID = reader.GetString(0),
                             Name = reader.GetString(1),
-                            Address = reader.GetString(2),
-                            Description = reader.GetString(3),
                             StatusID = reader.GetString(4),
                             ResortPropertyID = reader.GetInt32(5)
-                        });
+                        };
+
+                        // Address is Nullable
+                        if (reader.IsDBNull(2))
+                        {
+                            building.Address = null;
+                        }
+                        else
+                        {
+                            building.Address = reader.GetString(2);
+                        }
+
+                        // Description is Nullable
+                        if (reader.IsDBNull(3))
+                        {
+                            building.Description = null;
+                        }
+                        else
+                        {
+                            building.Description = reader.GetString(3);
+                        }
+
+
+                        buildings.Add(building);
                     }
                 }
             }
@@ -292,7 +317,16 @@ namespace DataAccessLayer
             return rows;
         }
 
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <remarks>
+        /// James Heim
+        /// Modified 2019-05-07
+        /// Properly handles null addresses and descriptions.
+        /// </remarks>
+        /// <param name="statusID"></param>
+        /// <returns></returns>
         public List<Building> SelectAllBuildingsByStatusID(string statusID)
         {
             List<Building> buildings = new List<Building>();
@@ -313,14 +347,34 @@ namespace DataAccessLayer
                 {
                     while (reader.Read())
                     {
-                        buildings.Add(new Building()
+                        var building = new Building()
                         {
                             BuildingID = reader.GetString(0),
                             Name = reader.GetString(1),
-                            Address = reader.GetString(2),
-                            Description = reader.GetString(3),
                             StatusID = reader.GetString(4)
-                        });
+                        };
+
+                        // Address is Nullable
+                        if (reader.IsDBNull(2))
+                        {
+                            building.Address = null;
+                        }
+                        else
+                        {
+                            building.Address = reader.GetString(2);
+                        }
+
+                        // Description is Nullable
+                        if (reader.IsDBNull(3))
+                        {
+                            building.Description = null;
+                        }
+                        else
+                        {
+                            building.Description = reader.GetString(3);
+                        }
+
+                        buildings.Add(building);
                     }
                 }
             }
