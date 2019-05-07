@@ -68,7 +68,7 @@
                             <Button x:Name="btnFilter" Grid.Column="6" Margin="4.8,5,5.2,5" Content="Filter" />
                             <Button x:Name="btnClearBoatTypes"  Grid.Column="7" Content="Clear" Margin="4.8,5,5.2,5" />
                         </Grid>
-                        <DataGrid Grid.Row="1" x:Name="dgRental" VerticalGridLinesBrush="{x:Null}" SelectionMode="Single" AlternatingRowBackground="#FF3DD8CA" RowBackground="LightGoldenrodYellow"  IsReadOnly="True" Grid.ColumnSpan="3" />
+                        <DataGrid Grid.Row="1" x:Name="dgRental" VerticalGridLinesBrush="{x:Null}" SelectionMode="Single" IsReadOnly="True" Grid.ColumnSpan="3" />
                         <TabControl HorizontalAlignment="Left" Height="100" Margin="74,110,0,0" Grid.Row="1" VerticalAlignment="Top" Width="100">
                             <TabItem Header="TabItem">
                                 <Grid Background="#FFE5E5E5">

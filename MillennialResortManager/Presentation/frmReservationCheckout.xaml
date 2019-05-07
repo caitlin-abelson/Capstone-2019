@@ -47,7 +47,7 @@
             <Button Grid.Column="6" Content="Filter" x:Name="btnFilterReservation" Margin="5" Click="BtnFilterReservation_Click"/>
             <Button Grid.Column="7" Content="Clear" x:Name="btnClearFiltersReservation" Margin="5" Click="BtnClearFiltersReservation_Click"/>
         </Grid>
-        <DataGrid Grid.Row="1" x:Name="dgReservationGuests" VerticalGridLinesBrush="{x:Null}" SelectionMode="Single" AlternatingRowBackground="#FF3DD8CA" RowBackground="LightGoldenrodYellow" IsReadOnly="True" AutoGeneratingColumn="DgReservationGuests_AutoGeneratingColumn" SelectionChanged="DgReservationGuests_SelectionChanged"/>
+        <DataGrid Grid.Row="1" x:Name="dgReservationGuests" VerticalGridLinesBrush="{x:Null}" SelectionMode="Single" IsReadOnly="True" AutoGeneratingColumn="DgReservationGuests_AutoGeneratingColumn" SelectionChanged="DgReservationGuests_SelectionChanged"/>
         <Grid Grid.Row="2" Style="{StaticResource BottomBar}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>

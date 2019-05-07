@@ -64,7 +64,7 @@
                         </Grid.ColumnDefinitions>
                     </Grid>
                     <Grid Grid.Row="1">
-                        <DataGrid x:Name="dgProducts" VerticalGridLinesBrush="{x:Null}" SelectionMode="Single" AlternatingRowBackground="#FF3DD8CA" RowBackground="LightGoldenrodYellow"  IsReadOnly="True" MouseDoubleClick="dgProducts_MouseDoubleClick" AutoGeneratingColumn="dgProducts_AutoGeneratingColumn" />
+                        <DataGrid x:Name="dgProducts" VerticalGridLinesBrush="{x:Null}" SelectionMode="Single" IsReadOnly="True" MouseDoubleClick="dgProducts_MouseDoubleClick" AutoGeneratingColumn="dgProducts_AutoGeneratingColumn" />
                     </Grid>
                 </Grid>
             </TabItem>

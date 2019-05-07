@@ -74,8 +74,8 @@
 
 
                     <DataGrid Grid.Row="1" x:Name="dgRole" VerticalGridLinesBrush="{x:Null}" 
-                              SelectionMode="Single" AlternatingRowBackground="#FFDFF7F1" 
-                              RowBackground="#FFF4F7DF"  IsReadOnly="True"
+                              SelectionMode="Single"  
+                                IsReadOnly="True"
                            Grid.ColumnSpan="4"
                               MouseDoubleClick="DgRole_MouseDoubleClick" />
 

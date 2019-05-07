@@ -364,7 +364,7 @@ namespace Presentation
                     NavBarSubHeaderAppointmentTypes.Visibility = Visibility.Collapsed;
                     NavBarSubHeaderGuests.Visibility = Visibility.Collapsed;
                     NavBarSubHeaderGuestTypes.Visibility = Visibility.Collapsed;
-                    NavBarSubHeaderPets.Visibility = Visibility.Collapsed;
+                    //NavBarSubHeaderPets.Visibility = Visibility.Collapsed;
                 }
                 else
                 {
@@ -372,7 +372,7 @@ namespace Presentation
                     NavBarSubHeaderAppointmentTypes.Visibility = Visibility.Collapsed;
                     NavBarSubHeaderGuests.Visibility = Visibility.Collapsed;
                     NavBarSubHeaderGuestVehicles.Visibility = Visibility.Collapsed;
-                    NavBarSubHeaderPets.Visibility = Visibility.Collapsed;
+                    //NavBarSubHeaderPets.Visibility = Visibility.Collapsed;
                     //NavBarSubHeaderReservation.Visibility = Visibility.Collapsed;
                     //NavBarSubHeaderRooms.Visibility = Visibility.Collapsed;
                     NavBarSubHeaderMembers.Visibility = Visibility.Collapsed;
@@ -8057,7 +8057,8 @@ namespace Presentation
 
 
         #endregion
-               #region Offering
+
+        #region Offering
         /*--------------------------- Starting BrowseOffering Code #BrowseOffering --------------------------------*/
 
         /// <summary>

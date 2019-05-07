@@ -75,7 +75,7 @@
         </Grid>
         <DataGrid Grid.Row="4" x:Name="dgItemSupplier" AutoGenerateColumns="False" VerticalGridLinesBrush="{x:Null}" SelectionMode="Single"   
                                   IsReadOnly="True" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="#fff" FontWeight="Bold" Foreground="#525252" 
-                                  ScrollViewer.CanContentScroll="True" AlternatingRowBackground="#FF3DD8CA" RowBackground="LightGoldenrodYellow" 
+                                  ScrollViewer.CanContentScroll="True"  
                                   BorderBrush="#000" BorderThickness="1" ScrollViewer.HorizontalScrollBarVisibility="Visible" ScrollViewer.VerticalScrollBarVisibility="Auto" 
                                   Grid.ColumnSpan="4" Grid.RowSpan="3" Margin="5" MouseDoubleClick="DgItemSupplier_MouseDoubleClick"  >
             <DataGrid.Columns>
