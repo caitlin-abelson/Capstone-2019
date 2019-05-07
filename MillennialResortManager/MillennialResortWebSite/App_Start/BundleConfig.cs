@@ -38,6 +38,12 @@ namespace MillennialResortWebSite
             //css  
             bundles.Add(new StyleBundle("~/Content/cssjqryUi").Include(
                    "~/Content/themes/base/jquery-ui.css"));
+
+
+            //Kevin Broskow
+            //create bundle for knockout
+            bundles.Add(new ScriptBundle("~/bundles/knockout").Include(
+                "~/Scripts/knockout-3.0.0.js"));
         }
     }
 }

@@ -1,0 +1,53 @@
+﻿@model IEnumerable<MillennialResortWebSite.Models.SupplierOrderViewModel>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section Scripts{
+    <script>
+
+        var model = {
+            orders: ko.observableArray()
+        };
+        function sendAjaxRequest(httpMethod, callback, url) {
+            $.ajax("/api/Payables" + (url ? "/" + url : ""), {
+                type: httpMethod, success: callback
+            });
+        }
+        function GetAllSupplierOrders() {
+            sendAjaxRequest("GET", function (data) {
+                model.orders.removeAll();
+                for (var i = 0; i < data.length; i++) {
+                    model.orders.push(data[i]);
+                }
+            })
+        }
+        $(document).ready(function () {
+            GetAllSupplierOrders();
+            ko.applyBindings(model);
+        });
+
+    </script>
+}
+<div>
+    <h2>Index</h2>
+    <table>
+        <thead>
+            <tr><th>Supplier Order ID</th><th>Supplier Name</th><th>Date Received</th><th>Exceptions</th></tr>
+        </thead>
+        <tbody data-bind="foreach: model.orders">
+            <tr>
+                <td data-bind="text: SupplierOrderID"></td>
+                <td data-bind="text: SupplierName"></td>
+                <td data-bind="text: DateReceived"></td>
+                <td data-bind="text: Exceptions"></td>
+            </tr>
+            
+        </tbody>
+    </table>
+</div>
+<div>
+
+</div>
+

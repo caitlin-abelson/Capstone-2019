@@ -61,6 +61,7 @@
                         <li>@Html.ActionLink("Events", "Index", "Event")</li>
 
                         <li>@Html.ActionLink("Venues", "Index", "Building")</li>
+                        
 
                         @if (Request.IsAuthenticated)
                         {
@@ -125,6 +126,9 @@
                                 </li>
                                 <li>
                                     <a href="/content/history.aspx">History</a>
+                                </li>
+                                <li>
+                                    @Html.ActionLink("Accounts Payable", "Index", "PayablesTest")
                                 </li>
                             </ul>
                         </div>
@@ -216,6 +220,7 @@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/jqueryval")
     @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/knockout")
     @RenderSection("scripts", required: false)
     @Scripts.Render("~/bundles/main")
 
