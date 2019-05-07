@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Presentation"
         mc:Ignorable="d"
-        Title="DevLauncher" Height="600" Width="1000">
+        Title="Main Window" Height="600" Width="1000">
     <!-- 
     Dark Blue: #0B2027
     Blue: #40798C
@@ -111,7 +111,7 @@
         <Grid Grid.Row="2" Panel.ZIndex="1" x:Name="Content">
             <!-- Landing Page-->
             <Grid x:Name="LandingPage" Visibility="Visible" Style="{StaticResource LandingPage }">
-                <Label Content="Content Goes Here" Grid.Column="0" Grid.ColumnSpan="2" FontSize="72" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                <Label Content="Content Goes Here" FontSize="72" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                 <Image Source="Resources/MillenialResortDesktop.jpg"/>
             </Grid>
             <!-- Browse Reservation Page-->
@@ -230,25 +230,16 @@
                     </DataGrid.Columns>
                 </DataGrid>
                 <Grid Grid.Row="2" Style="{StaticResource BottomBar}">
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="40" />
-                            <RowDefinition />
-                            <RowDefinition Height="40" />
-                        </Grid.RowDefinitions>
-                        <Grid Grid.Row="0">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="3*"/>
-                                <ColumnDefinition />
-                                <ColumnDefinition />
-                                <ColumnDefinition />
-                            </Grid.ColumnDefinitions>
-                            <Button x:Name="btnAdd" Grid.Column="1" Content="Add Shop" Margin="5" Click="BtnAddShops_Click" ></Button>
-                            <Button x:Name="btnView" Grid.Column="2" Margin="5" Content="View Shop" Click="BtnViewShop_Click" />
-                            <Button x:Name="btnDeactivate" Grid.Column="3" Content="Deactivate" Margin="5" Click="BtnDeactivateShop_Click" />
-                            <Button x:Name="btnDelete" IsEnabled="False" Visibility="Hidden" Grid.Column="4" Content="Delete" Margin="5" />
-                        </Grid>
-                    </Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="3*"/>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <Button x:Name="btnAdd" Grid.Column="1" Content="Add Shop" Margin="5" Click="BtnAddShops_Click" ></Button>
+                    <Button x:Name="btnView" Grid.Column="2" Margin="5" Content="View Shop" Click="BtnViewShop_Click" />
+                    <Button x:Name="btnDeactivate" Grid.Column="3" Content="Deactivate" Margin="5" Click="BtnDeactivateShop_Click" />
+                    <Button x:Name="btnDelete" IsEnabled="False" Visibility="Hidden" Grid.Column="4" Content="Delete" Margin="5" />
                 </Grid>
             </Grid>
             <!-- Browse Employees Page-->
@@ -385,25 +376,16 @@
                     </DataGrid.Columns>
                 </DataGrid>
                 <Grid Grid.Row="2" Style="{StaticResource BottomBar}">
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="40" />
-                            <RowDefinition />
-                            <RowDefinition Height="40" />
-                        </Grid.RowDefinitions>
-                        <Grid Grid.Row="0">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="3*"/>
-                                <ColumnDefinition />
-                                <ColumnDefinition />
-                            </Grid.ColumnDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="3*"/>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
 
-                            <Button x:Name="btnAddSuppliers" Grid.Column="1" Content="Add Supplier" Margin="5" Click="BtnAddSuppliers_Click"></Button>
-                            <Button x:Name="btnReadSuppliers" Grid.Column="2" Margin="5" Content="View Supplier" Click="BtnReadSuppliers_Click"/>
-                            <Button x:Name="btnDeactivateSuppliers" Grid.Column="3" Content="Deactivate" Margin="5" Click="BtnDeactivateSuppliers_Click" />
-                            <Button x:Name="btnDeleteSuppliers" IsEnabled="False" Visibility="Hidden" Grid.Column="3" Content="Delete" Margin="5" Click="BtnDeleteSuppliers_Click" />
-                        </Grid>
-                    </Grid>
+                    <Button x:Name="btnAddSuppliers" Grid.Column="1" Content="Add Supplier" Margin="5" Click="BtnAddSuppliers_Click"></Button>
+                    <Button x:Name="btnReadSuppliers" Grid.Column="2" Margin="5" Content="View Supplier" Click="BtnReadSuppliers_Click"/>
+                    <Button x:Name="btnDeactivateSuppliers" Grid.Column="3" Content="Deactivate" Margin="5" Click="BtnDeactivateSuppliers_Click" />
+                    <Button x:Name="btnDeleteSuppliers" IsEnabled="False" Visibility="Hidden" Grid.Column="3" Content="Delete" Margin="5" Click="BtnDeleteSuppliers_Click" />
                 </Grid>
             </Grid>
             <!-- Browse Item Page-->
@@ -437,7 +419,7 @@
                 <DataGrid x:Name="dgProducts" VerticalGridLinesBrush="{x:Null}" Grid.Row="1"  SelectionMode="Single"  IsReadOnly="True" MouseDoubleClick="dgProducts_MouseDoubleClick" AutoGeneratingColumn="dgProducts_AutoGeneratingColumn" />
                 <Grid Grid.Row="2" Style="{StaticResource BottomBar}">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="3*"/>
+                        <ColumnDefinition Width="2*"/>
                         <ColumnDefinition />
                         <ColumnDefinition />
                         <ColumnDefinition />
@@ -449,31 +431,7 @@
                     <Button x:Name="btnManageItemSuppliers" Content="Item Suppliers" Margin="5" Grid.Column="4" Click="BtnManageItemSuppliers_Click"/>
                 </Grid>
             </Grid>
-            <!-- Browse Building Page-->
-            <!-- Updated: Gunardi Saputra -->
-            <!-- Date: 03/19/2019 -->
-            <!--<Grid x:Name="BrowseBuildingPage" Visibility="Hidden">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="45"/>
-                    <RowDefinition />
-                    <RowDefinition Height="45"/>
-                </Grid.RowDefinitions>
-                <Grid Grid.Row="0" Style="{StaticResource FilterBar}">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition/>
-                        <ColumnDefinition/>
-                        <ColumnDefinition/>
-                        <ColumnDefinition/>
-                        <ColumnDefinition/>
-                    </Grid.ColumnDefinitions>
-                    --><!--<CheckBox x:Name="chkActive" Grid.Column="0" Content="Show only active buildings" IsChecked="True" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="10"/>--><!--
-                    <Label Grid.Column="1" Content="Building Name: " VerticalContentAlignment="Center" HorizontalAlignment="Right"/>
-                    <TextBox Grid.Column="2" x:Name="txtSearch" Margin="5" VerticalAlignment="Center" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" MinWidth="100"/>
-                    <Button Grid.Column="3" Content="Filter" x:Name="btnFilter" Margin="5" Click="btnFilterBuilding_Click" />
-                    <Button Grid.Column="4" Content="Clear" x:Name="btnClearFiltersBuilding" Margin="5" Click="btnClearFiltersBuilding_Click" />-->
 
-   
-                <!--</Grid>-->
                 <!-- Browse Building Page-->
                 <!-- Updated: Gunardi Saputra -->
                 <!-- Date: 03/19/2019 -->
@@ -550,9 +508,9 @@
                             <ColumnDefinition />
                             <ColumnDefinition />
                         </Grid.ColumnDefinitions>
-                        <Button Width="120" x:Name="btnViewDetail" Grid.Column="2" Margin="5" Content="View Details" Click="BtnViewDetail_Click" FontSize="14"/>
-                        <Button Width="120" x:Name="btnAddNewOrder" Grid.Column="1" Margin="5" Content="Add New Order" FontSize="14" Click="BtnAddNewOrder_Click"/>
-                        <Button Width="120" x:Name="btnFillOrder"  Grid.Column="3" Content="Fill Order" Margin="5" Click="BtnFillOrder_Click" FontSize="14" />
+                        <Button x:Name="btnViewDetail" Grid.Column="2" Margin="5" Content="View Details" Click="BtnViewDetail_Click" FontSize="14"/>
+                        <Button x:Name="btnAddNewOrder" Grid.Column="1" Margin="5" Content="Add New Order" FontSize="14" Click="BtnAddNewOrder_Click"/>
+                        <Button x:Name="btnFillOrder"  Grid.Column="3" Content="Fill Order" Margin="5" Click="BtnFillOrder_Click" FontSize="14" />
                     </Grid>
                 </Grid>
                 <!-- Browse Employee Roles Page-->
@@ -586,7 +544,7 @@
                         </Grid.ColumnDefinitions>
                         <!--<Button x:Name="btnCancel" Grid.Column="0" Margin="5" Height="25" Content="Cancel" Click="BtnCancelEmployeeRole_Click" />-->
                         <!--<Button x:Name="btnDeactivateEmployeeRole"  Grid.Column="2" Content="Delete" Margin="5" Height="25" Click="BtnDeactivateEmployeeRole_Click"/>-->
-                        <Button x:Name="btnUpdateEmployeeRole" Grid.Column="2" Margin="5" Content="View" Height="25" Click="BtnUpdateEmployeeRole_Click" />
+                        <Button x:Name="btnUpdateEmployeeRole" Grid.Column="2" Margin="5" Content="View" Click="BtnUpdateEmployeeRole_Click" />
                         <!--
                     <Button x:Name="btnAddEmployeeRole"  Grid.Column="4" Content="Add" Margin="5" Height="25" Click="BtnAddEmployeeRole_Click"/>
                     -->
@@ -600,16 +558,16 @@
                         <RowDefinition/>
                     </Grid.RowDefinitions>
                     <Grid Grid.Row="0" Style="{StaticResource FilterBar}">
-                        <Label Content="Guest Types - Filters go here" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="26" FontWeight="Bold"></Label>
+                        <Label Content="Guest Types" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="26" FontWeight="Bold"></Label>
                     </Grid>
                     <Grid Grid.Row="1">
                         <DataGrid x:Name="dgGuests" IsReadOnly="True"  />
                     </Grid>
                     <Grid Grid.Row="2" Style="{StaticResource BottomBar}">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition/>
-                            <ColumnDefinition Width=".5*"/>
-                            <ColumnDefinition Width=".5*"/>
+                            <ColumnDefinition Width="3*"/>
+                            <ColumnDefinition />
+                            <ColumnDefinition />
                         </Grid.ColumnDefinitions>
                         <Grid Grid.Column="1">
                             <Button x:Name="btnAddRoomGuestType" Margin="5 5" Content="Add" Click="btnAddGuestType_Click"></Button>
@@ -627,16 +585,16 @@
                         <RowDefinition/>
                     </Grid.RowDefinitions>
                     <Grid Grid.Row="0" Style="{StaticResource FilterBar}">
-                        <Label Content="Room Types - Filters go here" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="26" FontWeight="Bold"></Label>
+                        <Label Content="Room Types" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="26" FontWeight="Bold"></Label>
                     </Grid>
                     <Grid Grid.Row="1">
                         <DataGrid x:Name="dgRooms" IsReadOnly="True"  />
                     </Grid>
                     <Grid Grid.Row="2" Style="{StaticResource BottomBar}">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition/>
-                            <ColumnDefinition Width=".5*"/>
-                            <ColumnDefinition Width=".5*"/>
+                            <ColumnDefinition Width="3*"/>
+                            <ColumnDefinition />
+                            <ColumnDefinition />
                         </Grid.ColumnDefinitions>
                         <Grid Grid.Column="1">
                             <Button x:Name="btnAddRoomTypes" Margin="5" Content="Add" Click="btnAddRoomType_Click"></Button>
@@ -667,9 +625,9 @@
                     <DataGrid Grid.Row="1" x:Name="dgPerformaces"   SelectionChanged="dgPerformaces_SelectionChanged" AutoGeneratingColumn="DgPerformaces_AutoGeneratingColumn"/>
                     <Grid Grid.Row="2" Style="{StaticResource BottomBar}">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition/>
-                            <ColumnDefinition Width=".5*"/>
-                            <ColumnDefinition Width=".5*"/>
+                            <ColumnDefinition Width="3*"/>
+                            <ColumnDefinition />
+                            <ColumnDefinition />
                         </Grid.ColumnDefinitions>
                         <Button x:Name="btnAddPerformance" Grid.Column="1" Content="Add" Margin="5" Click="btnAddPerformance_Click"/>
                     </Grid>
@@ -682,16 +640,16 @@
                         <RowDefinition/>
                     </Grid.RowDefinitions>
                     <Grid Grid.Row="0" Style="{StaticResource FilterBar}">
-                        <Label Content="Event Type - Filters go here" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="26" FontWeight="Bold"></Label>
+                        <Label Content="Event Type" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="26" FontWeight="Bold"></Label>
                     </Grid>
                     <Grid Grid.Row="1">
                         <DataGrid CanUserDeleteRows="True"   x:Name="dgEventTypes"></DataGrid>
                     </Grid>
                     <Grid Grid.Row="2" Style="{StaticResource BottomBar}">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition/>
-                            <ColumnDefinition Width=".5*"/>
-                            <ColumnDefinition Width=".5*"/>
+                            <ColumnDefinition Width="3*"/>
+                            <ColumnDefinition />
+                            <ColumnDefinition />
                         </Grid.ColumnDefinitions>
                         <Grid Grid.Column="1">
                             <Button x:Name="btnEventTypeAddAction" Margin="5" Content="Add" Click="BtnEventTypeAddAction_Click"></Button>
@@ -707,45 +665,37 @@
                 <Grid x:Name="BrowseAppointmentTypesPage" Visibility="Hidden">
                     <Grid.RowDefinitions>
                         <RowDefinition/>
-                        <RowDefinition/>
                         <RowDefinition Height="8*"/>
                         <RowDefinition/>
                     </Grid.RowDefinitions>
-                    <Grid Grid.Row="0"  >
-                        <Label Content="Appointment Types" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="16" FontWeight="Bold"></Label>
+                    <Grid Grid.Row="0" Style="{StaticResource FilterBar}">
+                    <Label Content="Appointment Types" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="26" FontWeight="Bold"></Label>
                     </Grid>
-                    <Grid Grid.Row="1" Style="{StaticResource FilterBar}">
-                        <Label>FILTERS TO BE ADDED</Label>
-                    </Grid>
-                    <DataGrid CanUserDeleteRows="True" x:Name="dgAppointmentTypes" Grid.Row="2" IsReadOnly="True"/>
-                    <Grid Grid.Row="3" Style="{StaticResource BottomBar}">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition />
-                            <ColumnDefinition Width="3*"/>
+                    <DataGrid CanUserDeleteRows="True" x:Name="dgAppointmentTypes" Grid.Row="1" IsReadOnly="True"/>
+                    <Grid Grid.Row="2" Style="{StaticResource BottomBar}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="3*"/>
                             <ColumnDefinition />
                             <ColumnDefinition />
                         </Grid.ColumnDefinitions>
-                        <Button x:Name="btnAppointmentTypeAddAction" Grid.Column="2" Margin="5 0" Content="Add" Click="BtnAppointmentTypeAddAction_Click"></Button>
+                        <Button x:Name="btnAppointmentTypeAddAction" Grid.Column="1" Margin="5 0" Content="Add" Click="BtnAppointmentTypeAddAction_Click"></Button>
 
                         <!--Modified by Gunardi Saputra on 5/03/2019, remove note on the screen, no view button function -->
                         <!--<Label Grid.Column="2">View Here</Label>-->
-                        <Button x:Name="btnAppointmentTypeActionDelete" Grid.Column="3" Margin="5 0" Content="Delete"  Click="BtnAppointmentTypeActionDelete_Click" ></Button>
+                        <Button x:Name="btnAppointmentTypeActionDelete" Grid.Column="2" Margin="5 0" Content="Delete"  Click="BtnAppointmentTypeActionDelete_Click" ></Button>
                     </Grid>
                 </Grid>
                 <!-- Browse Guests Page -->
                 <!--Modified by Phil Hansen on 8/22/2019, changed layout and performences-->
                 <Grid x:Name="BrowseGuestsPage" Visibility="Hidden">
-                    <Grid.RowDefinitions>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                        <RowDefinition Height="8*"/>
-                        <RowDefinition/>
-                    </Grid.RowDefinitions>
-                    <Grid Grid.Row="0">
-                        <Label Content="Browse Guests" VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="Bold" FontSize="16" />
-                    </Grid>
-                    <Grid Grid.Row="1" Style="{StaticResource FilterBar}">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="0"/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition Height="8*"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="1" Style="{StaticResource FilterBar}">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="165"/>
                             <ColumnDefinition Width="100"/>
@@ -760,9 +710,8 @@
                         <TextBox x:Name="txtGuestFirst" Grid.Column="1" HorizontalContentAlignment="Center" VerticalAlignment="Center" Margin="5"/>
                         <Label Padding="5" HorizontalAlignment="Right" VerticalContentAlignment="Center" Grid.Column="2" Content="Guest Last Name:" />
                         <TextBox x:Name="txtGuestLast"  Grid.Column="3" HorizontalContentAlignment="Center" VerticalAlignment="Center" Margin="5" />
-                        <Button x:Name="btnGuestSearch" Grid.Column="5" Width="60" Height="25" Content="Search" Click="BtnGuestSearch_Click" />
-
-                    </Grid>
+                    <Button x:Name="btnGuestSearch" Grid.Column="5" Width="60" Height="25" Content="Search" Click="BtnGuestSearch_Click" />
+                </Grid>
                     <!--
                 Updated By: Caitlin Abelson
                 Date: 2019/04/15
@@ -806,7 +755,6 @@
                             <!-- These are the first and last name of the members that are associated with a guest -->
                             <DataGridTextColumn Header="Member First Name" Binding="{Binding MemberFirstName}" />
                             <DataGridTextColumn Header="Member Last Name" Binding="{Binding MemberLastName}" />
-
                             <DataGridTextColumn Header="Minor" Binding="{Binding Minor}" />
                             <DataGridTextColumn Header="Active" Binding="{Binding Active}" />
                             <DataGridTextColumn Header="Checked In" Binding="{Binding CheckedIn}" />
@@ -814,19 +762,18 @@
                     </DataGrid>
                     <Grid Grid.Row="4" Style="{StaticResource BottomBar}">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="100"/>
-                            <ColumnDefinition Width="100"/>
                             <ColumnDefinition />
-                            <ColumnDefinition Width="100"/>
-                            <ColumnDefinition Width="100"/>
-                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                            <ColumnDefinition />
                         </Grid.ColumnDefinitions>
                         <Button x:Name="btnCheckGuest" Grid.Column="0" Margin="5" Content="Check In" Click="btnCheckGuest_Click" />
                         <Button x:Name="btnActivateGuest" Grid.Column="1" Margin="5" Content="Deactivate" Click="btnActivateGuest_Click" />
                         <Button x:Name="btnAddGuest"  Grid.Column="3" Margin="5" Content="Add" Click="btnAddGuest_Click" />
-                        <Button x:Name="btnViewGuest"  Grid.Column="4" Margin="5" Content="View" Click="btnViewGuest_Click" />
-
-                    </Grid>
+                    <Button x:Name="btnViewGuest"  Grid.Column="4" Margin="5" Content="View" Click="btnViewGuest_Click" />
+                </Grid>
                 </Grid>
 
                 <!-- Browse Guest Vehicles Page -->
@@ -945,16 +892,14 @@
                     </DataGrid>
                     <Grid Grid.Row="2" Style="{StaticResource BottomBar}">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition />
-                            <ColumnDefinition />
+                            <ColumnDefinition Width="3*"/>
                             <ColumnDefinition />
                             <ColumnDefinition />
                             <ColumnDefinition />
                         </Grid.ColumnDefinitions>
-                        <Button x:Name="btnBrowseSetupList" Grid.Column="3" Content="View Setup List" Margin="5" Click="btnBrowseSetupList_Click"/>
-                        <Button x:Name="btnAddSetup" Grid.Column="2" Content="Add Setup" Margin="5" Click="btnAddSetup_Click"/>
-                        <Button x:Name="btnDeleteSetup"  Grid.Column="4" Content="Delete" Margin="5" Click="BtnDeleteSetup_Click"  />
-
+                        <Button x:Name="btnBrowseSetupList" Grid.Column="2" Content="View Setup List" Margin="5" Click="btnBrowseSetupList_Click"/>
+                        <Button x:Name="btnAddSetup" Grid.Column="1" Content="Add Setup" Margin="5" Click="btnAddSetup_Click"/>
+                        <Button x:Name="btnDeleteSetup"  Grid.Column="3" Content="Delete" Margin="5" Click="BtnDeleteSetup_Click"  />
                     </Grid>
 
                 </Grid>
@@ -1007,7 +952,7 @@
                 <!--Modified by Phil Hansen on 8/22/2019, changed layout and performences-->
                 <Grid x:Name="BrowseRecipePage" Visibility="Hidden">
                     <Grid.RowDefinitions>
-                        <RowDefinition/>
+                        <RowDefinition Height="0"/>
                         <RowDefinition/>
                         <RowDefinition Height="8*"/>
                         <RowDefinition/>
@@ -1059,8 +1004,8 @@
                         <RowDefinition/>
                     </Grid.RowDefinitions>
                     <Grid Grid.Row="0" Style="{StaticResource FilterBar}">
-                        <Label HorizontalAlignment="Left" VerticalAlignment="Center" Content="Filters Here" Grid.Column="1"/>
-                    </Grid>
+                    <Label Content="Event Sponsors" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="26" FontWeight="Bold"></Label>
+                </Grid>
                     <DataGrid x:Name="dgEventSponsor" Grid.Row="1" VerticalGridLinesBrush="{x:Null}" SelectionMode="Single" IsReadOnly="True" MouseDoubleClick="dgEventSponsor_MouseDoubleClick" AutoGeneratingColumn="dgEventSponsor_AutoGeneratingColumn" />
                     <Grid Grid.Row="2" Style="{StaticResource BottomBar}">
                         <Grid.ColumnDefinitions>
@@ -1078,7 +1023,7 @@
                         <RowDefinition/>
                     </Grid.RowDefinitions>
                     <Grid Grid.Row="0" Style="{StaticResource FilterBar}">
-                        <Label Content="Browse Event Performances" VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="Bold" FontSize="16" />
+                    <Label Content="Event Performances" VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="Bold" FontSize="26" />
                     </Grid>
                     <DataGrid x:Name="dgEventPerformance" VerticalGridLinesBrush="{x:Null}" Grid.Row="1" SelectionMode="Single" IsReadOnly="True" MouseDoubleClick="dgEventPerformance_MouseDoubleClick" AutoGeneratingColumn="dgEventPerformance_AutoGeneratingColumn" />
                     <Grid Grid.Row="2" Style="{StaticResource BottomBar}">
@@ -1128,8 +1073,8 @@
                         <Label Grid.Column="4" HorizontalAlignment="Right" VerticalAlignment="Center">Search Title:</Label>
                         <TextBox x:Name="txtEventSearchName" Grid.Column="5" Height="30" />
 
-                        <Button x:Name="btnEventFilter" Grid.Column="7" Width="90" Height="35" Content="Filter" Click="BtnEventFilter_Click" HorizontalContentAlignment="Center"/>
-                        <Button x:Name="btnEventClearFilter" Grid.Column="9" Width="90" Height="35" Content="Clear" HorizontalContentAlignment="Center" Click="BtnEventClearFilter_Click"/>
+                        <Button x:Name="btnEventFilter" Grid.Column="7"  Height="35" Content="Filter" Click="BtnEventFilter_Click" HorizontalContentAlignment="Center"/>
+                        <Button x:Name="btnEventClearFilter" Grid.Column="9"  Height="35" Content="Clear" HorizontalContentAlignment="Center" Click="BtnEventClearFilter_Click"/>
                     </Grid>
                     <DataGrid Grid.Row="1" x:Name="dgEvents" SelectionMode="Single" IsReadOnly="True" MouseDoubleClick="dgEvents_MouseDoubleClick" AutoGeneratingColumn="DgEvents_AutoGeneratingColumn"/>
                     <Grid Grid.Row="2" Style="{StaticResource BottomBar}">
@@ -1158,9 +1103,9 @@
             -->
                 <Grid x:Name="BrowseSupplierOrdersPage" Visibility="Hidden">
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="55"></RowDefinition>
+                        <RowDefinition Height="45"></RowDefinition>
                         <RowDefinition></RowDefinition>
-                        <RowDefinition Height="55"></RowDefinition>
+                        <RowDefinition Height="45"></RowDefinition>
                     </Grid.RowDefinitions>
                     <Grid Grid.Row="0" Style="{StaticResource FilterBar}">
                         <Grid>
@@ -1214,31 +1159,22 @@
                         </DataGrid.Columns>
                     </DataGrid>
                     <Grid Grid.Row="2" Style="{StaticResource BottomBar}">
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="40" />
-                                <RowDefinition />
-                                <RowDefinition Height="40" />
-                            </Grid.RowDefinitions>
-                            <Grid Grid.Row="0">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="2*"/>
-                                    <ColumnDefinition />
-                                    <ColumnDefinition />
-                                    <ColumnDefinition />
-                                    <ColumnDefinition />
-                                    <ColumnDefinition />
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                        <ColumnDefinition />
 
-                                </Grid.ColumnDefinitions>
-                                <!--<Button Grid.Column="0" x:Name="btnCancelBrowseSupplierOrders" Content="Cancel" Margin="5" Click="BtnCancelBrowseSupplierOrders_Click"/>-->
-                                <Button Grid.Column="1" x:Name="btnReceived" Content="Received" Margin="5" Click="btnReceived_Click"  />
-                                <Button Grid.Column="2" x:Name="btnAddOrder" Content="Add Order" Margin="5" Click="BtnAddOrder_Click" />
-                                <Button Grid.Column="3" x:Name="btnViewOrder" Content="View Order" Margin="5"/>
-                                <Button Grid.Column="4" x:Name="btnDeleteOrder" Content="Delete Order" Margin="5" Click="BtnDeleteOrder_Click" />
-                                <Button Grid.Column="5" x:Name="btnApproveOrder" Content="Approve Order" Margin="5" Click="BtnApproveOrder_Click" />
-                            </Grid>
-                        </Grid>
-                    </Grid>
+                    </Grid.ColumnDefinitions>
+                    <!--<Button Grid.Column="0" x:Name="btnCancelBrowseSupplierOrders" Content="Cancel" Margin="5" Click="BtnCancelBrowseSupplierOrders_Click"/>-->
+                    <Button Grid.Column="1" x:Name="btnReceived" Content="Received" Margin="5" Click="btnReceived_Click"  />
+                    <Button Grid.Column="2" x:Name="btnAddOrder" Content="Add Order" Margin="5" Click="BtnAddOrder_Click" />
+                    <Button Grid.Column="3" x:Name="btnViewOrder" Content="View Order" Margin="5"/>
+                    <Button Grid.Column="4" x:Name="btnDeleteOrder" Content="Delete Order" Margin="5" Click="BtnDeleteOrder_Click" />
+                    <Button Grid.Column="5" x:Name="btnApproveOrder" Content="Approve Order" Margin="5" Click="BtnApproveOrder_Click" />
+                </Grid>
                 </Grid>
                 <!-- Browse Pets Page -->
                 <!-- 
@@ -1255,7 +1191,7 @@
                         <RowDefinition/>
                     </Grid.RowDefinitions>
                     <Grid Grid.Row="0" Style="{StaticResource FilterBar}">
-                        <Label Content="Pet Filters Go Here"/>
+                    <Label Content="Pets" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="26" FontWeight="Bold"/>
                     </Grid>
                     <DataGrid Grid.Row="1" x:Name="dgPets" IsReadOnly="True" AutoGeneratingColumn="DgPets_AutoGeneratingColumn" />
                     <Grid Grid.Row="2" Style="{StaticResource BottomBar}">
@@ -1286,9 +1222,9 @@
             -->
                 <Grid x:Name="BrowseRoomsPage" Visibility="Hidden">
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="55"></RowDefinition>
+                        <RowDefinition Height="45"></RowDefinition>
                         <RowDefinition></RowDefinition>
-                        <RowDefinition Height="55"></RowDefinition>
+                        <RowDefinition Height="45"></RowDefinition>
                     </Grid.RowDefinitions>
                     <Grid Grid.Row="0" Style="{StaticResource FilterBar}">
                         <Grid>
@@ -1319,25 +1255,16 @@
                     </Grid>
                     <DataGrid x:Name="dgRoom" Grid.Row="1" SelectionMode="Single" SelectionUnit="FullRow" IsReadOnly="True" MouseDoubleClick="DgRoom_MouseDoubleClick" />
                     <Grid Grid.Row="2" Style="{StaticResource BottomBar}">
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="40" />
-                                <RowDefinition />
-                                <RowDefinition Height="40" />
-                            </Grid.RowDefinitions>
-                            <Grid Grid.Row="0">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="3*"/>
-                                    <ColumnDefinition />
-                                    <ColumnDefinition />
-                                    <ColumnDefinition />
-                                </Grid.ColumnDefinitions>
-                                <Button Grid.Column="3"  Name="btnDeleteRoom" Content="Delete Room" Margin="5"  Click="BtnDeleteRoom_Click" />
-                                <Button Grid.Column="2"  Name="btnViewRoom" Content="View Details" Margin="5" Click="BtnViewRoom_Click" />
-                                <Button Grid.Column="1"  Name="btnAddRoom" Content="Add Room" Margin="5" Click="BtnAddRoom_Click" />
-                            </Grid>
-                        </Grid>
-                    </Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="3*"/>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <Button Grid.Column="3"  Name="btnDeleteRoom" Content="Delete Room" Margin="5"  Click="BtnDeleteRoom_Click" />
+                    <Button Grid.Column="2"  Name="btnViewRoom" Content="View Details" Margin="5" Click="BtnViewRoom_Click" />
+                    <Button Grid.Column="1"  Name="btnAddRoom" Content="Add Room" Margin="5" Click="BtnAddRoom_Click" />
+                </Grid>
                 </Grid>
                 <!-- Browse Maintenance Types Page-->
                 <Grid x:Name="BrowseMaintenanceTypesPage" Visibility="Hidden">
@@ -1352,7 +1279,7 @@
                     <DataGrid x:Name="dgMaintenanceTypes" Grid.Row="1"/>
                     <Grid Grid.Row="2" Style="{StaticResource BottomBar}">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="2*"></ColumnDefinition>
+                            <ColumnDefinition Width="3*"></ColumnDefinition>
                             <ColumnDefinition></ColumnDefinition>
                             <ColumnDefinition></ColumnDefinition>
                         </Grid.ColumnDefinitions>
@@ -1372,12 +1299,8 @@
                  Made XAML more uniform to match button controls.
                  Added view button.
             -->
-                <Grid x:Name="BrowseMembersPage" Visibility="Hidden">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="200*"/>
-                        <ColumnDefinition Width="53*"/>
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
+            <Grid x:Name="BrowseMembersPage" Visibility="Hidden">
+                <Grid.RowDefinitions>
                         <RowDefinition Height="55"></RowDefinition>
                         <RowDefinition></RowDefinition>
                         <RowDefinition Height="55"></RowDefinition>
@@ -1423,7 +1346,7 @@
                     <DataGrid  x:Name="dgMember" VerticalGridLinesBrush="{x:Null}" SelectionMode="Single"
                      
                    IsReadOnly="True" AutoGenerateColumns="False"  ItemsSource="{Binding}"
-                    Grid.ColumnSpan="2" Margin="0,50,0,5" Grid.RowSpan="2"  MouseDoubleClick="dgMember_MouseDoubleClick" >
+                      Grid.Row="1" MouseDoubleClick="dgMember_MouseDoubleClick" >
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="First Name" Binding="{Binding FirstName}" Width="100"/>
                             <DataGridTextColumn Header="Last Name" Binding="{Binding LastName}"  Width="100"/>
@@ -1432,28 +1355,17 @@
                         </DataGrid.Columns>
                     </DataGrid>
                     <Grid Grid.Row="2" Grid.ColumnSpan="2" Style="{StaticResource BottomBar}">
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="40" />
-                                <RowDefinition />
-                                <RowDefinition Height="40" />
-                            </Grid.RowDefinitions>
-                            <Grid Grid.Row="0">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="25"/>
-                                    <ColumnDefinition />
-                                    <ColumnDefinition Width="125"/>
-                                    <ColumnDefinition Width="125"/>
-                                    <ColumnDefinition Width="125"/>
-                                </Grid.ColumnDefinitions>
-                                <!--<Button x:Name="btnCancelBrowseMembers" Content="Cancel" Grid.Column="0" Margin="5"  Click="btnCancelBrowseMembers_Click"  />-->
-                                <Button x:Name="btnAddMember" Content="Add Member" Grid.Column="2"  Margin="5" Click="btnAddMember_Click"  />
-                                <Button x:Name="btnViewMember" Content="View" Margin="5" Grid.Column="3" Click="btnViewMember_Click"/>
-                                <Button x:Name="btnDeleteBrowseMembers" Content="Delete" Grid.Column="4"  Margin="5" Click="btnDeactivateBrowseMembers_Click" />
-
-                            </Grid>
-                        </Grid>
-                    </Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="3*"/>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <!--<Button x:Name="btnCancelBrowseMembers" Content="Cancel" Grid.Column="0" Margin="5"  Click="btnCancelBrowseMembers_Click"  />-->
+                    <Button x:Name="btnAddMember" Content="Add Member" Grid.Column="1"  Margin="5" Click="btnAddMember_Click"  />
+                    <Button x:Name="btnViewMember" Content="View" Margin="5" Grid.Column="2" Click="btnViewMember_Click"/>
+                    <Button x:Name="btnDeleteBrowseMembers" Content="Delete" Grid.Column="3"  Margin="5" Click="btnDeactivateBrowseMembers_Click" />
+                </Grid>
                 </Grid>
 
                 <!-- Profile Page -->
@@ -1823,10 +1735,10 @@
                     <Grid.RowDefinitions>
                         <RowDefinition Height="50"></RowDefinition>
                         <RowDefinition></RowDefinition>
-                        <RowDefinition Height="75"></RowDefinition>
+                        <RowDefinition Height="50"></RowDefinition>
                     </Grid.RowDefinitions>
                     <Grid Grid.Row="0" Style="{StaticResource FilterBar}">
-                        <Label x:Name="lblReceiving" Content="Receiving Tickets:" VerticalAlignment="Center" HorizontalAlignment="Left"></Label>
+                        <Label x:Name="lblReceiving" Content="Receiving Tickets" VerticalAlignment="Center" FontWeight="Bold" FontSize="26" HorizontalAlignment="Center"></Label>
                     </Grid>
                     <Grid Grid.Row="1">
                         <DataGrid x:Name="dgReceiving" MouseDoubleClick="dgReceiving_MouseDoubleClick" AutoGeneratingColumn="dgReceiving_AutoGeneratingColumn" IsReadOnly="True">
@@ -1835,14 +1747,14 @@
                     </Grid>
                     <Grid Grid.Row="2" Style="{StaticResource BottomBar}">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition></ColumnDefinition>
-                            <ColumnDefinition></ColumnDefinition>
-                            <ColumnDefinition></ColumnDefinition>
-                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
                         <!--<Button x:Name="Cancel" Click="Cancel_Click" Content="Cancel" Margin="10" Grid.Column="0"></Button>-->
-                        <Button x:Name="Edit" Content="Edit" Margin="10" Grid.Column="3" Click="Edit_Click"></Button>
-                        <Button x:Name="Complete" Content="Finish Ticket" Margin="10" Grid.Column="2" Click="Complete_Click" ></Button>
+                        <Button x:Name="Edit" Content="Edit" Margin="5" Grid.Column="3" Click="Edit_Click"></Button>
+                        <Button x:Name="Complete" Content="Finish Ticket" Margin="5" Grid.Column="2" Click="Complete_Click" ></Button>
                     </Grid>
 
                 </Grid>
@@ -1970,7 +1882,7 @@
                         <RowDefinition Height="50"></RowDefinition>
                         <RowDefinition Height="50"></RowDefinition>
                         <RowDefinition  ></RowDefinition>
-                        <RowDefinition Height="40" ></RowDefinition>
+                        <RowDefinition Height="50" ></RowDefinition>
                     </Grid.RowDefinitions>
                     <Grid Grid.Row="0" Style="{StaticResource FilterBar}">
                         <Grid.ColumnDefinitions>
@@ -2032,9 +1944,9 @@
                             <ColumnDefinition/>
 
                         </Grid.ColumnDefinitions>
-                        <Button x:Name="btnDeactivateShuttleReservation" Grid.Column="3" Content="Delete" Margin="5" Height="25" Click="BtnDeactivateShuttleReservation_Click"/>
-                        <Button x:Name="btnUpdateShuttleReservation" Grid.Column="2" Margin="5" Content="View" Height="25" Click="BtnUpdateShuttleReservation_Click" />
-                        <Button x:Name="btnAddShuttleReservation"  Grid.Column="1" Content="Add" Margin="5" Height="25" Click="BtnAddShuttleReservation_Click"/>
+                        <Button x:Name="btnDeactivateShuttleReservation" Grid.Column="3" Content="Delete" Margin="5" Click="BtnDeactivateShuttleReservation_Click"/>
+                        <Button x:Name="btnUpdateShuttleReservation" Grid.Column="2" Margin="5" Content="View" Click="BtnUpdateShuttleReservation_Click" />
+                        <Button x:Name="btnAddShuttleReservation"  Grid.Column="1" Content="Add" Margin="5" Click="BtnAddShuttleReservation_Click"/>
                     </Grid>
                 </Grid>
                 <!-- Browse Departments Page-->
@@ -2066,273 +1978,265 @@
 
             <!--Pick Orders-->
             <Grid x:Name="PickOrdersPage" Visibility="Hidden">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="5"/>
-                    <RowDefinition/>
-                    <RowDefinition Height="5"/>
-                </Grid.RowDefinitions>
+                <TabControl Grid.Row="0" x:Name="tabsetPick" GotFocus="tabsetPick_GotFocus" >
+                    <TabItem x:Name="tabCreatePickSheet" Header="Create Pick Sheet" GotFocus="TabCreatePickSheet_GotFocus">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="50"/>
+                                <RowDefinition/>
+                                <RowDefinition Height="80"/>
+                            </Grid.RowDefinitions>
+                            <Grid Grid.Row="0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition Width="390"/>
+                                    <ColumnDefinition Width="150"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBox Grid.Row="0" x:Name="txtPromptCreatePickSheet" Text="test"  IsReadOnly="True" HorizontalAlignment="Stretch" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="16" Margin="5,2,5,0"/>
 
-                <Grid Grid.Row="1">
-                    <TabControl Grid.Row="0" x:Name="tabsetPick" GotFocus="tabsetPick_GotFocus" >
-                        <TabItem x:Name="tabCreatePickSheet" Header="Create Pick Sheet" GotFocus="TabCreatePickSheet_GotFocus">
-                            <Grid>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="50"/>
-                                    <RowDefinition/>
-                                    <RowDefinition Height="80"/>
-                                </Grid.RowDefinitions>
-                                <Grid Grid.Row="0">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition/>
-                                        <ColumnDefinition Width="390"/>
-                                        <ColumnDefinition Width="150"/>
-                                    </Grid.ColumnDefinitions>
-                                    <TextBox Grid.Row="0" x:Name="txtPromptCreatePickSheet" Text="test"  IsReadOnly="True" HorizontalAlignment="Stretch" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="16" Margin="5,2,5,0"/>
-
-                                    <Grid Grid.Column="1"  >
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition></RowDefinition>
-                                            <RowDefinition></RowDefinition>
-                                        </Grid.RowDefinitions>
-                                        <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,5,0"  >
-                                            <Label Content="Start Date"  HorizontalContentAlignment="Right" VerticalAlignment="Center" VerticalContentAlignment="Center"/>
-                                            <DatePicker x:Name="dtpStartDate" Height="30" VerticalAlignment="Center" VerticalContentAlignment="Center" Margin="0" />
-                                        </StackPanel>
-                                        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" >
-                                            <RadioButton x:Name="rbAllOrdersPick" Content="Show All Orders" Width="130" Margin="0,5,0,3" Checked="rbAllOrdersPick_Checked"  />
-                                            <RadioButton x:Name="rbNewOrdersPick" Content="Show New Orders" Width="130" Margin="0,5,0,3" Checked="rbNewOrdersPick_Checked" />
-                                            <RadioButton x:Name="rbPickedOrders" Content="Show Picked Orders"  Width="130" Margin="0,5,0,3" Checked="rbPickedOrders_Checked"/>
-                                        </StackPanel>
-                                    </Grid>
-
-
-                                    <Grid Grid.Column="3" >
-                                        <Button x:Name="btnRefreshPickCreateGrid" Content="Refresh Grid" Margin="10" Click="btnRefreshPickCreateGrid_Click" />
-                                    </Grid>
-                                </Grid>
-                                <StackPanel Grid.Row="1" x:Name="stpdgPickCreate" Orientation="Vertical">
-                                    <DataGrid x:Name="dgPickCreate" AutoGenerateColumns="False"  Margin="5,5,5.2,5"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" CanUserAddRows="False"
-                                      FontWeight="Bold" Foreground="#525252" ScrollViewer.CanContentScroll="True" Height="385" 
-                                      ScrollViewer.HorizontalScrollBarVisibility="Visible" ScrollViewer.VerticalScrollBarVisibility="Auto" MouseDoubleClick="dgPickCreate_MouseDoubleClick">
-                                        <DataGrid.Columns>
-                                            <DataGridTextColumn x:Name="dgcPickSheetNumber" Header="PickSheet#"  Binding="{Binding Path='PickSheetIDView'}" IsReadOnly="False"/>
-                                            <DataGridTemplateColumn x:Name="dgcPickChkBox" Header="Pick" >
-                                                <DataGridTemplateColumn.CellTemplate>
-                                                    <DataTemplate>
-                                                        <CheckBox x:Name="chkPickItem" Checked="chkPickItem_Checked" Unchecked="chkPickItem_Unchecked" HorizontalAlignment="Center" HorizontalContentAlignment="Center" />
-                                                    </DataTemplate>
-                                                </DataGridTemplateColumn.CellTemplate>
-                                            </DataGridTemplateColumn>
-                                            <DataGridTextColumn Header="Order #" Binding="{Binding Path='InternalOrderID'}" IsReadOnly="True"/>
-                                            <!--<DataGridTextColumn Header="StationID" Binding="{Binding Path='OrderStationID'}" IsReadOnly="True" Visibility="Hidden"/>-->
-                                            <DataGridTextColumn Header="ItemID"  Binding="{Binding Path='ItemID'}" IsReadOnly="True"/>
-                                            <DataGridTextColumn Header="Description" Binding="{Binding Path='ItemDescription'}" IsReadOnly="True"/>
-                                            <DataGridTextColumn Header="Qty" Binding="{Binding Path='OrderQty'}" IsReadOnly="True"/>
-                                            <!--<DataGridTextColumn Header="Cell" Binding="{Binding Path='CellID'}" IsReadOnly="True"/>-->
-                                            <DataGridTextColumn Header="OrderDate" Binding="{Binding Path='OrderDate', StringFormat=\{0:MM/dd/yy HH:mm\}}" IsReadOnly="True"/>
-                                            <DataGridTextColumn Header="Orderer" Binding="{Binding Path='Orderer'}" IsReadOnly="True"/>
-                                            <DataGridTextColumn Header="Department" Binding="{Binding Path='DepartmentID'}" IsReadOnly="True"/>
-                                            <DataGridTextColumn Header="OrderStatus" Binding="{Binding Path='OrderStatusView'}" IsReadOnly="True"/>
-                                        </DataGrid.Columns>
-                                    </DataGrid>
-                                </StackPanel>
-                                <Grid Grid.Row="2">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition></ColumnDefinition>
-                                        <ColumnDefinition></ColumnDefinition>
-                                    </Grid.ColumnDefinitions>
-                                    <StackPanel Grid.Column="0" Orientation="Horizontal" >
-                                        <Button x:Name="btnStartPick" Content="Start PickSheet" Margin="10,20,10,20" Width="135" Click="btnStartPick_Click" />
-                                        <Button x:Name="btnEndPick" Content="Stop Picking" Margin="10,20,10,20" Width="135" HorizontalAlignment="Right" HorizontalContentAlignment="Center" IsEnabled="False" Click="btnEndPick_Click"/>
-                                        <Button x:Name="btnCancelPick" Content="Cancel Picking" Margin="10,20,10,20" Width="135" HorizontalAlignment="Right" HorizontalContentAlignment="Center" IsEnabled="False" Click="btnCancelPick_Click"/>
+                                <Grid Grid.Column="1"  >
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition></RowDefinition>
+                                        <RowDefinition></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                    <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,5,0"  >
+                                        <Label Content="Start Date"  HorizontalContentAlignment="Right" VerticalAlignment="Center" VerticalContentAlignment="Center"/>
+                                        <DatePicker x:Name="dtpStartDate" Height="30" VerticalAlignment="Center" VerticalContentAlignment="Center" Margin="0" />
                                     </StackPanel>
-                                    <TextBox x:Name="txtPickInfo"  FontSize="14" Grid.Column="1"   IsReadOnly="True" TextWrapping="Wrap" Margin="5"></TextBox>
+                                    <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" >
+                                        <RadioButton x:Name="rbAllOrdersPick" Content="Show All Orders" Width="130" Margin="0,5,0,3" Checked="rbAllOrdersPick_Checked"  />
+                                        <RadioButton x:Name="rbNewOrdersPick" Content="Show New Orders" Width="130" Margin="0,5,0,3" Checked="rbNewOrdersPick_Checked" />
+                                        <RadioButton x:Name="rbPickedOrders" Content="Show Picked Orders"  Width="130" Margin="0,5,0,3" Checked="rbPickedOrders_Checked"/>
+                                    </StackPanel>
+                                </Grid>
+
+
+                                <Grid Grid.Column="3" >
+                                    <Button x:Name="btnRefreshPickCreateGrid" Content="Refresh Grid" Margin="10" Click="btnRefreshPickCreateGrid_Click" />
                                 </Grid>
                             </Grid>
-                        </TabItem>
-                        <TabItem x:Name="tabProcessPickSheet" Header="Process Pick Sheet">
-                            <Grid>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="50"/>
-                                    <RowDefinition Height="230"/>
-                                    <RowDefinition Height="*"/>
-                                </Grid.RowDefinitions>
-                                <Grid Grid.Row="0">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition/>
-                                        <ColumnDefinition Width="390"/>
-                                        <ColumnDefinition Width="150"/>
-                                    </Grid.ColumnDefinitions>
+                            <StackPanel Grid.Row="1" x:Name="stpdgPickCreate" Orientation="Vertical">
+                                <DataGrid x:Name="dgPickCreate" AutoGenerateColumns="False"  Margin="5,5,5.2,5"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" CanUserAddRows="False"
+                                      FontWeight="Bold" Foreground="#525252" ScrollViewer.CanContentScroll="True" Height="385" 
+                                      ScrollViewer.HorizontalScrollBarVisibility="Visible" ScrollViewer.VerticalScrollBarVisibility="Auto" MouseDoubleClick="dgPickCreate_MouseDoubleClick">
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn x:Name="dgcPickSheetNumber" Header="PickSheet#"  Binding="{Binding Path='PickSheetIDView'}" IsReadOnly="False"/>
+                                        <DataGridTemplateColumn x:Name="dgcPickChkBox" Header="Pick" >
+                                            <DataGridTemplateColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <CheckBox x:Name="chkPickItem" Checked="chkPickItem_Checked" Unchecked="chkPickItem_Unchecked" HorizontalAlignment="Center" HorizontalContentAlignment="Center" />
+                                                </DataTemplate>
+                                            </DataGridTemplateColumn.CellTemplate>
+                                        </DataGridTemplateColumn>
+                                        <DataGridTextColumn Header="Order #" Binding="{Binding Path='InternalOrderID'}" IsReadOnly="True"/>
+                                        <!--<DataGridTextColumn Header="StationID" Binding="{Binding Path='OrderStationID'}" IsReadOnly="True" Visibility="Hidden"/>-->
+                                        <DataGridTextColumn Header="ItemID"  Binding="{Binding Path='ItemID'}" IsReadOnly="True"/>
+                                        <DataGridTextColumn Header="Description" Binding="{Binding Path='ItemDescription'}" IsReadOnly="True"/>
+                                        <DataGridTextColumn Header="Qty" Binding="{Binding Path='OrderQty'}" IsReadOnly="True"/>
+                                        <!--<DataGridTextColumn Header="Cell" Binding="{Binding Path='CellID'}" IsReadOnly="True"/>-->
+                                        <DataGridTextColumn Header="OrderDate" Binding="{Binding Path='OrderDate', StringFormat=\{0:MM/dd/yy HH:mm\}}" IsReadOnly="True"/>
+                                        <DataGridTextColumn Header="Orderer" Binding="{Binding Path='Orderer'}" IsReadOnly="True"/>
+                                        <DataGridTextColumn Header="Department" Binding="{Binding Path='DepartmentID'}" IsReadOnly="True"/>
+                                        <DataGridTextColumn Header="OrderStatus" Binding="{Binding Path='OrderStatusView'}" IsReadOnly="True"/>
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                            </StackPanel>
+                            <Grid Grid.Row="2">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition></ColumnDefinition>
+                                    <ColumnDefinition></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <StackPanel Grid.Column="0" Orientation="Horizontal" >
+                                    <Button x:Name="btnStartPick" Content="Start PickSheet" Margin="10,20,10,20" Width="135" Click="btnStartPick_Click" />
+                                    <Button x:Name="btnEndPick" Content="Stop Picking" Margin="10,20,10,20" Width="135" HorizontalAlignment="Right" HorizontalContentAlignment="Center" IsEnabled="False" Click="btnEndPick_Click"/>
+                                    <Button x:Name="btnCancelPick" Content="Cancel Picking" Margin="10,20,10,20" Width="135" HorizontalAlignment="Right" HorizontalContentAlignment="Center" IsEnabled="False" Click="btnCancelPick_Click"/>
+                                </StackPanel>
+                                <TextBox x:Name="txtPickInfo"  FontSize="14" Grid.Column="1"   IsReadOnly="True" TextWrapping="Wrap" Margin="5"></TextBox>
+                            </Grid>
+                        </Grid>
+                    </TabItem>
+                    <TabItem x:Name="tabProcessPickSheet" Header="Process Pick Sheet">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="50"/>
+                                <RowDefinition Height="230"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <Grid Grid.Row="0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition Width="390"/>
+                                    <ColumnDefinition Width="150"/>
+                                </Grid.ColumnDefinitions>
 
-                                    <TextBox Grid.Row="0" x:Name="txtPromptProcessPickSheet" Text="Process Pick Sheets" IsReadOnly="True" HorizontalAlignment="Stretch" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="16" Margin="5,2,5,0" />
+                                <TextBox Grid.Row="0" x:Name="txtPromptProcessPickSheet" Text="Process Pick Sheets" IsReadOnly="True" HorizontalAlignment="Stretch" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="16" Margin="5,2,5,0" />
 
-                                    <Grid Grid.Column="1"  >
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition></RowDefinition>
-                                            <RowDefinition></RowDefinition>
-                                        </Grid.RowDefinitions>
-                                        <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,5,0"  >
-                                            <Label Content="Start Date"  VerticalAlignment="Center" VerticalContentAlignment="Center" />
-                                            <DatePicker x:Name="dtpProcessPickStartDate" Height="30"   VerticalAlignment="Center" VerticalContentAlignment="Center"  />
-                                        </StackPanel>
+                                <Grid Grid.Column="1"  >
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition></RowDefinition>
+                                        <RowDefinition></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                    <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,5,0"  >
+                                        <Label Content="Start Date"  VerticalAlignment="Center" VerticalContentAlignment="Center" />
+                                        <DatePicker x:Name="dtpProcessPickStartDate" Height="30"   VerticalAlignment="Center" VerticalContentAlignment="Center"  />
+                                    </StackPanel>
 
-                                    </Grid>
-
-                                    <Grid Grid.Column="3" >
-                                        <Button x:Name="btnRefreshProcessPickGrid" Content="Refresh Grid" Margin="10" Click="btnRefreshProcessPickGrid_Click"  />
-
-                                    </Grid>
                                 </Grid>
-                                <StackPanel Grid.Row="1" x:Name="stpdgProcessPickHeader" Orientation="Vertical">
-                                    <DataGrid x:Name="dgProcessPickHeader" AutoGenerateColumns="False"  Margin="5,5,5,5"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" CanUserAddRows="False"
+
+                                <Grid Grid.Column="3" >
+                                    <Button x:Name="btnRefreshProcessPickGrid" Content="Refresh Grid" Margin="10" Click="btnRefreshProcessPickGrid_Click"  />
+
+                                </Grid>
+                            </Grid>
+                            <StackPanel Grid.Row="1" x:Name="stpdgProcessPickHeader" Orientation="Vertical">
+                                <DataGrid x:Name="dgProcessPickHeader" AutoGenerateColumns="False"  Margin="5,5,5,5"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" CanUserAddRows="False"
                                       ScrollViewer.CanContentScroll="True"  HorizontalContentAlignment="Center" Height="230" FontWeight="Bold" Foreground="#525252"
                                       ScrollViewer.HorizontalScrollBarVisibility="Visible" ScrollViewer.VerticalScrollBarVisibility="Auto" MouseDoubleClick="dgPickCreate_MouseDoubleClick" >
-                                        <DataGrid.Columns>
-                                            <DataGridTextColumn x:Name="dgcProcessPickHeaderPickSheetNumber" Header="PickSheet#"  Binding="{Binding Path='PickSheetID'}" IsReadOnly="False"/>
-                                            <DataGridTemplateColumn x:Name="dgcPPHeader" Header="Show Details" >
-                                                <DataGridTemplateColumn.CellTemplate>
-                                                    <DataTemplate>
-                                                        <Button x:Name="btnPPHeaderShowDetails" Content ="Show Details" HorizontalAlignment="Center" HorizontalContentAlignment="Center" Click="btnPPHeaderShowDetails_Click" />
-                                                    </DataTemplate>
-                                                </DataGridTemplateColumn.CellTemplate>
-                                            </DataGridTemplateColumn>
-                                            <DataGridTemplateColumn x:Name="dgcPPHeaderMarkClosed" Header="Mark Closed" >
-                                                <DataGridTemplateColumn.CellTemplate>
-                                                    <DataTemplate>
-                                                        <Button x:Name="btnPPHeaderMarkClosed" Content="{Binding Path = 'PickSheetStatusView'}" HorizontalAlignment="Center" HorizontalContentAlignment="Center" Click="BtnPPHeaderMarkClosed_Click"  />
-                                                    </DataTemplate>
-                                                </DataGridTemplateColumn.CellTemplate>
-                                            </DataGridTemplateColumn>
-                                            <DataGridTemplateColumn x:Name="dgcPPHeaderPrint" Header="Print PickSheet" >
-                                                <DataGridTemplateColumn.CellTemplate>
-                                                    <DataTemplate>
-                                                        <Button x:Name="btnPPHeaderPrint" Content ="Print Pick Sheet" HorizontalAlignment="Center" HorizontalContentAlignment="Center" Click="btnPPHeaderPrint_Click" />
-                                                    </DataTemplate>
-                                                </DataGridTemplateColumn.CellTemplate>
-                                            </DataGridTemplateColumn>
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn x:Name="dgcProcessPickHeaderPickSheetNumber" Header="PickSheet#"  Binding="{Binding Path='PickSheetID'}" IsReadOnly="False"/>
+                                        <DataGridTemplateColumn x:Name="dgcPPHeader" Header="Show Details" >
+                                            <DataGridTemplateColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <Button x:Name="btnPPHeaderShowDetails" Content ="Show Details" HorizontalAlignment="Center" HorizontalContentAlignment="Center" Click="btnPPHeaderShowDetails_Click" />
+                                                </DataTemplate>
+                                            </DataGridTemplateColumn.CellTemplate>
+                                        </DataGridTemplateColumn>
+                                        <DataGridTemplateColumn x:Name="dgcPPHeaderMarkClosed" Header="Mark Closed" >
+                                            <DataGridTemplateColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <Button x:Name="btnPPHeaderMarkClosed" Content="{Binding Path = 'PickSheetStatusView'}" HorizontalAlignment="Center" HorizontalContentAlignment="Center" Click="BtnPPHeaderMarkClosed_Click"  />
+                                                </DataTemplate>
+                                            </DataGridTemplateColumn.CellTemplate>
+                                        </DataGridTemplateColumn>
+                                        <DataGridTemplateColumn x:Name="dgcPPHeaderPrint" Header="Print PickSheet" >
+                                            <DataGridTemplateColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <Button x:Name="btnPPHeaderPrint" Content ="Print Pick Sheet" HorizontalAlignment="Center" HorizontalContentAlignment="Center" Click="btnPPHeaderPrint_Click" />
+                                                </DataTemplate>
+                                            </DataGridTemplateColumn.CellTemplate>
+                                        </DataGridTemplateColumn>
 
-                                            <DataGridTextColumn Header="Order Count" Binding="{Binding Path='NumberOfOrders'}"  IsReadOnly="True" />
-                                            <!--<DataGridCheckBoxColumn Header="Pick Complete" Binding="{Binding Path='PickComplete'}" IsReadOnly="True" />-->
-                                            <DataGridTextColumn Header="Create Date"  Binding="{Binding Path='CreateDate', StringFormat=\{0:MM/dd/yy HH:mm\}}" IsReadOnly="True"/>
-                                            <DataGridTextColumn Header="Closed By" Binding="{Binding Path='PickCompletedByName'}" IsReadOnly="True"/>
-                                            <DataGridTextColumn Header="Close Date" Binding="{Binding Path='PickCompletedDateView'}" IsReadOnly="True"/>
-                                        </DataGrid.Columns>
-                                    </DataGrid>
-                                </StackPanel>
-                                <StackPanel Grid.Row="2" x:Name="stpdgProcessPickDetail"  Orientation="Vertical">
-                                    <DataGrid x:Name="dgProcessPickDetail" AutoGenerateColumns="False"  Margin="5,5,5,5"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  CanUserAddRows="False"
+                                        <DataGridTextColumn Header="Order Count" Binding="{Binding Path='NumberOfOrders'}"  IsReadOnly="True" />
+                                        <!--<DataGridCheckBoxColumn Header="Pick Complete" Binding="{Binding Path='PickComplete'}" IsReadOnly="True" />-->
+                                        <DataGridTextColumn Header="Create Date"  Binding="{Binding Path='CreateDate', StringFormat=\{0:MM/dd/yy HH:mm\}}" IsReadOnly="True"/>
+                                        <DataGridTextColumn Header="Closed By" Binding="{Binding Path='PickCompletedByName'}" IsReadOnly="True"/>
+                                        <DataGridTextColumn Header="Close Date" Binding="{Binding Path='PickCompletedDateView'}" IsReadOnly="True"/>
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                            </StackPanel>
+                            <StackPanel Grid.Row="2" x:Name="stpdgProcessPickDetail"  Orientation="Vertical">
+                                <DataGrid x:Name="dgProcessPickDetail" AutoGenerateColumns="False"  Margin="5,5,5,5"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  CanUserAddRows="False"
                                       Height="230" ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Auto" MouseDoubleClick="dgPickCreate_MouseDoubleClick"
                                       FontWeight="Bold" Foreground="#525252" >
-                                        <DataGrid.Columns>
-                                            <!--<DataGridTextColumn x:Name="dgcProcessPickDetailOrderNumber" Header="OrderNumber"  Binding="{Binding Path='OrderID'}" IsReadOnly="False"/>-->
-                                            <DataGridTextColumn Header="ItemID" Binding="{Binding Path='ItemID'}" IsReadOnly="True"/>
-                                            <DataGridTextColumn Header="Description" Binding="{Binding Path='ItemDescription'}" IsReadOnly="True"/>
-                                            <DataGridTextColumn Header="Order Qty" Binding="{Binding Path='OrderQty'}" IsReadOnly="True"/>
-                                            <DataGridTextColumn Header="Filled Qty" Binding="{Binding Path='QtyReceived'}" IsReadOnly="True"/>
-                                            <DataGridTemplateColumn x:Name="dgcPPDetailFillQty" Header="New Fill Qty" Width="80" >
-                                                <DataGridTemplateColumn.CellTemplate>
-                                                    <DataTemplate>
-                                                        <TextBox x:Name="txtPPDetailFillQty" Text="{Binding Path = 'QtyReceived'}"  Width ="50" MaxLength="6" HorizontalAlignment="Center" HorizontalContentAlignment="Center"  LostFocus="TxtPPDetailFillQty_LostFocus"/>
-                                                    </DataTemplate>
-                                                </DataGridTemplateColumn.CellTemplate>
-                                            </DataGridTemplateColumn>
-                                            <!--<DataGridTemplateColumn x:Name="dgcPPDetailMarkQtyFilled" Header="Mark Fill Qty" >
+                                    <DataGrid.Columns>
+                                        <!--<DataGridTextColumn x:Name="dgcProcessPickDetailOrderNumber" Header="OrderNumber"  Binding="{Binding Path='OrderID'}" IsReadOnly="False"/>-->
+                                        <DataGridTextColumn Header="ItemID" Binding="{Binding Path='ItemID'}" IsReadOnly="True"/>
+                                        <DataGridTextColumn Header="Description" Binding="{Binding Path='ItemDescription'}" IsReadOnly="True"/>
+                                        <DataGridTextColumn Header="Order Qty" Binding="{Binding Path='OrderQty'}" IsReadOnly="True"/>
+                                        <DataGridTextColumn Header="Filled Qty" Binding="{Binding Path='QtyReceived'}" IsReadOnly="True"/>
+                                        <DataGridTemplateColumn x:Name="dgcPPDetailFillQty" Header="New Fill Qty" Width="80" >
+                                            <DataGridTemplateColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <TextBox x:Name="txtPPDetailFillQty" Text="{Binding Path = 'QtyReceived'}"  Width ="50" MaxLength="6" HorizontalAlignment="Center" HorizontalContentAlignment="Center"  LostFocus="TxtPPDetailFillQty_LostFocus"/>
+                                                </DataTemplate>
+                                            </DataGridTemplateColumn.CellTemplate>
+                                        </DataGridTemplateColumn>
+                                        <!--<DataGridTemplateColumn x:Name="dgcPPDetailMarkQtyFilled" Header="Mark Fill Qty" >
                                         <DataGridTemplateColumn.CellTemplate>
                                             <DataTemplate>
                                                 <CheckBox x:Name="chkPPDetailMarkQtyFilled" HorizontalAlignment="Center" HorizontalContentAlignment="Center" Checked="chkPPDetailMarkQtyFilled_Checked" Unchecked="chkPPDetailMarkQtyFilled_Unchecked" />
                                             </DataTemplate>
                                         </DataGridTemplateColumn.CellTemplate>                                        
                                     </DataGridTemplateColumn>-->
-                                            <DataGridTemplateColumn x:Name="dgcPPbtnDetailMarkQtyFilled" Header="Mark Fill Qty" >
-                                                <DataGridTemplateColumn.CellTemplate>
-                                                    <DataTemplate>
-                                                        <Button x:Name="btnPPDetailMarkQtyFilled" Content="Mark Qty Filled" HorizontalAlignment="Center" HorizontalContentAlignment="Center" Click="BtnPPDetailMarkQtyFilled_Click"  />
-                                                    </DataTemplate>
-                                                </DataGridTemplateColumn.CellTemplate>
-                                            </DataGridTemplateColumn>
-                                            <DataGridTemplateColumn x:Name="dgcPPDetailMarkOutOfStock" Header="Out of Stock" >
-                                                <DataGridTemplateColumn.CellTemplate>
-                                                    <DataTemplate>
-                                                        <CheckBox x:Name="chkPPDetailMarkOutOfStock" IsChecked="{Binding Path = 'OutOfStock'}" HorizontalAlignment="Center" HorizontalContentAlignment="Center" Checked="ChkPPDetailMarkOutOfStock_Checked" Unchecked="ChkPPDetailMarkOutOfStock_Unchecked" />
-                                                    </DataTemplate>
-                                                </DataGridTemplateColumn.CellTemplate>
-                                            </DataGridTemplateColumn>
-                                            <DataGridTextColumn Header="Department For Delivery" Binding="{Binding Path='DeptID'}" IsReadOnly="True"/>
+                                        <DataGridTemplateColumn x:Name="dgcPPbtnDetailMarkQtyFilled" Header="Mark Fill Qty" >
+                                            <DataGridTemplateColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <Button x:Name="btnPPDetailMarkQtyFilled" Content="Mark Qty Filled" HorizontalAlignment="Center" HorizontalContentAlignment="Center" Click="BtnPPDetailMarkQtyFilled_Click"  />
+                                                </DataTemplate>
+                                            </DataGridTemplateColumn.CellTemplate>
+                                        </DataGridTemplateColumn>
+                                        <DataGridTemplateColumn x:Name="dgcPPDetailMarkOutOfStock" Header="Out of Stock" >
+                                            <DataGridTemplateColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <CheckBox x:Name="chkPPDetailMarkOutOfStock" IsChecked="{Binding Path = 'OutOfStock'}" HorizontalAlignment="Center" HorizontalContentAlignment="Center" Checked="ChkPPDetailMarkOutOfStock_Checked" Unchecked="ChkPPDetailMarkOutOfStock_Unchecked" />
+                                                </DataTemplate>
+                                            </DataGridTemplateColumn.CellTemplate>
+                                        </DataGridTemplateColumn>
+                                        <DataGridTextColumn Header="Department For Delivery" Binding="{Binding Path='DeptID'}" IsReadOnly="True"/>
 
-                                        </DataGrid.Columns>
-                                    </DataGrid>
-                                </StackPanel>
-                            </Grid>
-                        </TabItem>
-                        <TabItem x:Name="tabDeliverPickSheet" Header="Deliver Pick Sheet" GotFocus="TabDeliverPickSheet_GotFocus">
-                            <Grid>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="50"/>
-                                    <RowDefinition/>
-                                    <RowDefinition Height="80"/>
-                                </Grid.RowDefinitions>
-                                <Grid Grid.Row="0">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition/>
-                                        <ColumnDefinition Width="450"/>
-                                        <ColumnDefinition Width="150"/>
-                                    </Grid.ColumnDefinitions>
-                                    <TextBox Grid.Column="0" x:Name="txtPromptDeliverPickSheet" Text="Deliver PickSheets" IsReadOnly="True" HorizontalAlignment="Stretch" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="16" Margin="5,2,5,0"/>
-                                    <Grid Grid.Column="1"  >
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition></RowDefinition>
-                                            <RowDefinition></RowDefinition>
-                                        </Grid.RowDefinitions>
-                                        <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,5,0" >
-                                            <Label Content="Start Date" VerticalContentAlignment="Center" />
-                                            <DatePicker x:Name="dtpDeliveryStartDate" Height="30" HorizontalAlignment="Right" VerticalAlignment="Center" VerticalContentAlignment="Center" Margin="0" />
-                                        </StackPanel>
-                                        <StackPanel Grid.Row="1" Orientation="Horizontal" >
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                            </StackPanel>
+                        </Grid>
+                    </TabItem>
+                    <TabItem x:Name="tabDeliverPickSheet" Header="Deliver Pick Sheet" GotFocus="TabDeliverPickSheet_GotFocus">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="50"/>
+                                <RowDefinition/>
+                                <RowDefinition Height="80"/>
+                            </Grid.RowDefinitions>
+                            <Grid Grid.Row="0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition Width="450"/>
+                                    <ColumnDefinition Width="150"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBox Grid.Column="0" x:Name="txtPromptDeliverPickSheet" Text="Deliver PickSheets" IsReadOnly="True" HorizontalAlignment="Stretch" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="16" Margin="5,2,5,0"/>
+                                <Grid Grid.Column="1"  >
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition></RowDefinition>
+                                        <RowDefinition></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                    <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,5,0" >
+                                        <Label Content="Start Date" VerticalContentAlignment="Center" />
+                                        <DatePicker x:Name="dtpDeliveryStartDate" Height="30" HorizontalAlignment="Right" VerticalAlignment="Center" VerticalContentAlignment="Center" Margin="0" />
+                                    </StackPanel>
+                                    <StackPanel Grid.Row="1" Orientation="Horizontal" >
 
-                                        </StackPanel>
-                                    </Grid>
-
-
-                                    <Grid Grid.Column="3">
-                                        <Button x:Name="btnRefreshDeliveryGrid" Content="Refresh Grid" Margin="10" Click="BtnRefreshDeliveryGrid_Click"  />
-                                    </Grid>
+                                    </StackPanel>
                                 </Grid>
-                                <StackPanel Grid.Row="1" x:Name="stpdgDeliverPickSheet" Orientation="Vertical">
-                                    <DataGrid x:Name="dgDeliverPickSheet" AutoGenerateColumns="False"  Margin="5,5,5,5"  HorizontalAlignment="Stretch" VerticalAlignment="Top" CanUserAddRows="False"
+
+
+                                <Grid Grid.Column="3">
+                                    <Button x:Name="btnRefreshDeliveryGrid" Content="Refresh Grid" Margin="10" Click="BtnRefreshDeliveryGrid_Click"  />
+                                </Grid>
+                            </Grid>
+                            <StackPanel Grid.Row="1" x:Name="stpdgDeliverPickSheet" Orientation="Vertical">
+                                <DataGrid x:Name="dgDeliverPickSheet" AutoGenerateColumns="False"  Margin="5,5,5,5"  HorizontalAlignment="Stretch" VerticalAlignment="Top" CanUserAddRows="False"
                                       Background="#fff" FontWeight="Bold" Foreground="#525252" ScrollViewer.CanContentScroll="True" Height="480"  HorizontalContentAlignment="Center"
                                       ScrollViewer.HorizontalScrollBarVisibility="Visible" ScrollViewer.VerticalScrollBarVisibility="Auto"  >
-                                        <DataGrid.Columns>
-                                            <DataGridTextColumn x:Name="dgcDeliverPickHeaderPickSheetNumber" Header="PickSheet#"  Binding="{Binding Path='PickSheetID'}" IsReadOnly="False"/>
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn x:Name="dgcDeliverPickHeaderPickSheetNumber" Header="PickSheet#"  Binding="{Binding Path='PickSheetID'}" IsReadOnly="False"/>
 
-                                            <DataGridTemplateColumn x:Name="dgcDPHeaderMarkDelivered" Header="Mark Delivered" >
-                                                <DataGridTemplateColumn.CellTemplate>
-                                                    <DataTemplate>
-                                                        <Button x:Name="btnDPHeaderMarkDelivered" Content="{Binding Path = 'PickSheetStatusView'}" HorizontalAlignment="Center" HorizontalContentAlignment="Stretch" Click="BtnDPHeaderMarkDelivered_Click"  />
-                                                    </DataTemplate>
-                                                </DataGridTemplateColumn.CellTemplate>
-                                            </DataGridTemplateColumn>
-                                            <DataGridTemplateColumn x:Name="dgcDPHeaderPrint" Header="Print PickSheet" >
-                                                <DataGridTemplateColumn.CellTemplate>
-                                                    <DataTemplate>
-                                                        <Button x:Name="btnDPHeaderPrint" Content ="Print Pick Sheet" HorizontalAlignment="Center" HorizontalContentAlignment="Center" Click="BtnDPHeaderPrint_Click" />
-                                                    </DataTemplate>
-                                                </DataGridTemplateColumn.CellTemplate>
-                                            </DataGridTemplateColumn>
+                                        <DataGridTemplateColumn x:Name="dgcDPHeaderMarkDelivered" Header="Mark Delivered" >
+                                            <DataGridTemplateColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <Button x:Name="btnDPHeaderMarkDelivered" Content="{Binding Path = 'PickSheetStatusView'}" HorizontalAlignment="Center" HorizontalContentAlignment="Stretch" Click="BtnDPHeaderMarkDelivered_Click"  />
+                                                </DataTemplate>
+                                            </DataGridTemplateColumn.CellTemplate>
+                                        </DataGridTemplateColumn>
+                                        <DataGridTemplateColumn x:Name="dgcDPHeaderPrint" Header="Print PickSheet" >
+                                            <DataGridTemplateColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <Button x:Name="btnDPHeaderPrint" Content ="Print Pick Sheet" HorizontalAlignment="Center" HorizontalContentAlignment="Center" Click="BtnDPHeaderPrint_Click" />
+                                                </DataTemplate>
+                                            </DataGridTemplateColumn.CellTemplate>
+                                        </DataGridTemplateColumn>
 
-                                            <DataGridTextColumn Header="Order Count" Binding="{Binding Path='NumberOfOrders'}" IsReadOnly="True" />
-                                            <!--<DataGridCheckBoxColumn Header="Pick Delivered" Binding="{Binding Path='PickDelivered'}" IsReadOnly="True" />-->
-                                            <!--<DataGridTextColumn Header="Create Date"  Binding="{Binding Path='CreateDate'}" IsReadOnly="True"/>-->
-                                            <DataGridTextColumn Header="Delivered By" Binding="{Binding Path='PickDeliveredByName'}" IsReadOnly="True"/>
-                                            <DataGridTextColumn Header="Delivery Date" Binding="{Binding Path='PickDeliveryDateView'}" IsReadOnly="True"/>
-                                            <DataGridTextColumn Header="Completed By" Binding="{Binding Path='PickCompletedByName'}" IsReadOnly="True"/>
-                                            <DataGridTextColumn Header="Completed Date" Binding="{Binding Path='PickCompletedDate', StringFormat=\{0:MM/dd/yy HH:mm\}}" IsReadOnly="True"/>
-                                        </DataGrid.Columns>
-                                    </DataGrid>
-                                </StackPanel>
-                            </Grid>
-                        </TabItem>
-                    </TabControl>
-                </Grid>
+                                        <DataGridTextColumn Header="Order Count" Binding="{Binding Path='NumberOfOrders'}" IsReadOnly="True" />
+                                        <!--<DataGridCheckBoxColumn Header="Pick Delivered" Binding="{Binding Path='PickDelivered'}" IsReadOnly="True" />-->
+                                        <!--<DataGridTextColumn Header="Create Date"  Binding="{Binding Path='CreateDate'}" IsReadOnly="True"/>-->
+                                        <DataGridTextColumn Header="Delivered By" Binding="{Binding Path='PickDeliveredByName'}" IsReadOnly="True"/>
+                                        <DataGridTextColumn Header="Delivery Date" Binding="{Binding Path='PickDeliveryDateView'}" IsReadOnly="True"/>
+                                        <DataGridTextColumn Header="Completed By" Binding="{Binding Path='PickCompletedByName'}" IsReadOnly="True"/>
+                                        <DataGridTextColumn Header="Completed Date" Binding="{Binding Path='PickCompletedDate', StringFormat=\{0:MM/dd/yy HH:mm\}}" IsReadOnly="True"/>
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                            </StackPanel>
+                        </Grid>
+                    </TabItem>
+                </TabControl>
             </Grid>
 
             <!--Pick Orders-->
