@@ -239,15 +239,15 @@ namespace DataAccessLayer
                     {
                         var vmRoom = new VMRoomRoomReservation()
                         {
-                            ReservationID = reservationId,
-                            RoomReservationID = reader.GetInt32(0),
-                            RoomID = reader.GetInt32(1),
-                            RoomNumber = reader.GetInt32(2),
-                            BuildingName = reader.GetString(3), 
-                            CurrentlyAssigned = reader.GetInt32(4), 
-                            Capacity = reader.GetInt32(5)
-
+                            ReservationID = reservationId
                         };
+
+                        vmRoom.RoomReservationID = reader.GetInt32(0);
+                        vmRoom.RoomID = reader.GetInt32(1);
+                        vmRoom.RoomNumber = reader.GetInt32(2);
+                        vmRoom.BuildingName = reader.GetString(3);
+                        vmRoom.CurrentlyAssigned = reader.GetInt32(4);
+                        vmRoom.Capacity = reader.GetInt32(5);
 
                         // Dates are nullable.
                         if (reader.IsDBNull(6))
