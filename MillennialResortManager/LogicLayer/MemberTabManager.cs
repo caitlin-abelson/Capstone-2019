@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Data;
 using System.Text;
 using System.Threading.Tasks;
 using DataAccessLayer;
@@ -369,6 +370,92 @@ namespace LogicLayer
                 throw;
             }
             return tab;
+        }
+
+        /// <summary>
+        /// Carlos Arzu
+        /// Created: 2019/04/29
+        /// 
+        /// Retrieve list of Shops.
+        /// </summary>
+        public List<string> retrieveShops()
+        {
+            List<string> dataString;
+            try
+            {
+
+                dataString = _memberTabAccessor.SelectShop();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            return dataString;
+        }
+
+        /// <summary>
+        /// Carlos Arzu
+        /// Created: 2019/04/26
+        /// 
+        /// Retrieve ShopID.
+        /// </summary>
+        public int retrieveShopID(string name)
+        {
+            int ID = 0;
+
+            try
+            {
+
+                ID = _memberTabAccessor.SelectShopID(name);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            return ID;
+        }
+
+        /// <summary>
+        /// Carlos Arzu
+        /// Created: 2019/04/26
+        /// 
+        /// Retrieve list of members.
+        /// </summary>
+        public DataTable retrieveOfferings(int shopID)
+        {
+            DataTable memberTable;
+
+            try
+            {
+
+                memberTable = _memberTabAccessor.selectOfferings(shopID);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            return memberTable;
+        }
+        /// <summary>
+        /// Carlos Arzu
+        /// Created: 2019/04/26
+        /// 
+        /// Retrieve list of members.
+        /// </summary>
+        public DataTable retrieveSearchMembers(string data)
+        {
+            DataTable memberTable;
+
+            try
+            {
+
+                memberTable = _memberTabAccessor.SelectSearchMember(data);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            return memberTable;
         }
     }
 }

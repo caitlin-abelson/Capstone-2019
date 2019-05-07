@@ -1,4 +1,5 @@
 ﻿using DataObjects;
+using System.Data;
 using System.Collections.Generic;
 
 namespace DataAccessLayer
@@ -42,5 +43,18 @@ namespace DataAccessLayer
         /// <param name="memberID"></param>
         /// <returns></returns>
         MemberTab SelectLastMemberTabByMemberID(int memberID);
+       
+        /// <summary>
+        /// Carlos Arzu
+        /// Created: 2019/04/25
+        /// 
+        /// User inputs a search criteria, if exits, method retrieves the list of 
+        /// members that meet the criteria
+        /// </summary
+        List<string> SelectShop();
+        DataTable selectOfferings(int shopID);
+        int SelectShopID(string name);
+        DataTable SelectSearchMember(string data);
+
     }
 }

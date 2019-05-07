@@ -40,7 +40,7 @@ namespace DataAccessLayer
             {
                 conn.Open();
 
-                rows = cmd.ExecuteNonQuery();                
+                rows = cmd.ExecuteNonQuery();
             }
             catch (Exception)
             {
@@ -89,7 +89,7 @@ namespace DataAccessLayer
                         MemberTabID = reader.GetInt32(0),
                         MemberID = reader.GetInt32(1),
                         Active = reader.GetBoolean(2),
-                        TotalPrice = (decimal) reader.GetSqlMoney(3)
+                        TotalPrice = (decimal)reader.GetSqlMoney(3)
                     };
                 }
             }
@@ -107,7 +107,7 @@ namespace DataAccessLayer
             // Retrieve the tab lines.
             if (memberTab != null)
             {
-               
+
                 memberTab.MemberTabLines = SelectMemberTabLinesByMemberTabID(memberTab.MemberTabID).ToList();
             }
 
@@ -142,7 +142,7 @@ namespace DataAccessLayer
                 {
                     reader1.Read();
 
-                    
+
                     memberTab = new MemberTab()
                     {
                         MemberTabID = reader1.GetInt32(0),
@@ -151,7 +151,7 @@ namespace DataAccessLayer
                         TotalPrice = (decimal)reader1.GetSqlMoney(3)
                     };
 
-                    
+
                 }
             }
             catch (Exception)
@@ -169,7 +169,7 @@ namespace DataAccessLayer
             {
                 memberTab.MemberTabLines = SelectMemberTabLinesByMemberTabID(memberTab.MemberTabID).ToList();
             }
-            
+
 
             return memberTab;
         }
@@ -334,7 +334,7 @@ namespace DataAccessLayer
                             MemberTabID = reader.GetInt32(1),
                             OfferingID = reader.GetInt32(2),
                             Quantity = reader.GetInt32(3),
-                            Price = (decimal) reader.GetSqlMoney(4),
+                            Price = (decimal)reader.GetSqlMoney(4),
                             DatePurchased = reader.GetDateTime(8)
                         };
 
@@ -369,7 +369,7 @@ namespace DataAccessLayer
                             tabLine.GuestID = reader.GetInt32(7);
                         }
 
-                        
+
                         tabLines.Add(tabLine);
                     }
                 }
@@ -415,7 +415,7 @@ namespace DataAccessLayer
                 if (reader.HasRows)
                 {
                     reader.Read();
-                    
+
                     tabLine = new MemberTabLine()
                     {
                         MemberTabLineID = reader.GetInt32(0),
@@ -456,7 +456,7 @@ namespace DataAccessLayer
                     {
                         tabLine.GuestID = reader.GetInt32(7);
                     }
-                    
+
                 }
             }
             catch (Exception ex)
@@ -645,7 +645,7 @@ namespace DataAccessLayer
                         });
                     }
 
-                    
+
                 }
             }
             catch (Exception)
@@ -718,10 +718,143 @@ namespace DataAccessLayer
             {
                 conn.Close();
             }
-            
-            
+
+
 
             return memberTabs;
+        }
+
+        /// <summary>
+        /// Carlos Arzu
+        /// Created: 2019/04/29
+        /// 
+        /// Retrieves the list of shops
+        /// </summary
+        public List<string> SelectShop()
+        {
+            List<string> list = new List<string>();
+            var conn = DBConnection.GetDbConnection();
+            // var cmd = new SqlCommand("sp_retrieve_ShopID_Name", conn);
+            var cmd = new SqlCommand("sp_retrieve_ShopID_Name", conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+
+            try
+            {
+                conn.Open();
+                var reader = cmd.ExecuteReader();
+
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+
+                        list.Add(reader.GetString(0));
+                    }
+                }
+                reader.Close();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+
+            return list;
+        }
+
+        /// <summary>
+        /// Carlos Arzu
+        /// Created: 2019/04/29
+        /// 
+        /// Retrieves the list of Guests first names
+        /// </summary
+        public int SelectShopID(string name)
+        {
+            int ShopID = 0;
+            var conn = DBConnection.GetDbConnection();
+            var cmd = new SqlCommand("sp_retrieve_ShopID", conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@Name", name);
+
+            try
+            {
+                conn.Open();
+                var reader = cmd.ExecuteReader();
+
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        ShopID = reader.GetInt32(0);
+                    }
+                }
+                reader.Close();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            return ShopID;
+        }
+
+
+        /// <summary>
+        /// Carlos Arzu
+        /// Created: 2019/04/25
+        /// 
+        /// Retrieve all the offerings for the specific shop.
+        /// </summary
+        public DataTable selectOfferings(int shopID)
+        {
+            var conn = DBConnection.GetDbConnection();
+            var cmd = new SqlCommand("sp_retrieve_offerings_by_shopID", conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@ShopID", shopID);
+
+
+            var read = new SqlDataAdapter(cmd);
+            var offeringTable = new DataTable();
+            read.Fill(offeringTable);
+
+            conn.Close();
+
+            return offeringTable;
+
+        }
+
+        /// <summary>
+        /// Carlos Arzu
+        /// Created: 2019/04/25
+        /// 
+        /// User inputs a search criteria, if exits, method retrieves the list of 
+        /// members that meet the criteria
+        /// </summary
+        public DataTable SelectSearchMember(string data)
+        {
+            var conn = DBConnection.GetDbConnection();
+            var cmd = new SqlCommand("sp_search_Member", conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@SearchTerm", data);
+
+
+            var read = new SqlDataAdapter(cmd);
+            var memberTable = new DataTable();
+            read.Fill(memberTable);
+
+            conn.Close();
+
+            return memberTable;
+
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Data;
 using System.Text;
 using System.Threading.Tasks;
 using DataObjects;
@@ -179,6 +180,27 @@ namespace DataAccessLayer
         }
 
         public MemberTab SelectActiveMemberTabByMemberID(int memberID)
+        {
+            throw new NotImplementedException();
+        }
+
+        public DataTable selectOfferings(int shopID)
+        {
+            throw new NotImplementedException();
+        }
+
+        public int SelectShopID(string name)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<string> SelectShop()
+        {
+            throw new NotImplementedException();
+        }
+
+
+        public DataTable SelectSearchMember(string data)
         {
             throw new NotImplementedException();
         }
