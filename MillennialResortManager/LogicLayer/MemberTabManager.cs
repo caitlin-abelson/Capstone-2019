@@ -339,8 +339,9 @@ namespace LogicLayer
 
 				dataString = _memberTabAccessor.SelectShop();
 			}
-			catch (Exception)
+			catch (Exception ex)
 			{
+				ExceptionLogManager.getInstance().LogException(ex);
 				throw;
 			}
 			return dataString;
@@ -358,8 +359,9 @@ namespace LogicLayer
 
 				ID = _memberTabAccessor.SelectShopID(name);
 			}
-			catch (Exception)
+			catch (Exception ex)
 			{
+				ExceptionLogManager.getInstance().LogException(ex);
 				throw;
 			}
 			return ID;
@@ -377,8 +379,9 @@ namespace LogicLayer
 
 				memberTable = _memberTabAccessor.selectOfferings(shopID);
 			}
-			catch (Exception)
+			catch (Exception ex)
 			{
+				ExceptionLogManager.getInstance().LogException(ex);
 				throw;
 			}
 			return memberTable;
@@ -396,8 +399,9 @@ namespace LogicLayer
 
 				memberTable = _memberTabAccessor.SelectSearchMember(data);
 			}
-			catch (Exception)
+			catch (Exception ex)
 			{
+				ExceptionLogManager.getInstance().LogException(ex);
 				throw;
 			}
 			return memberTable;
