@@ -10,10 +10,7 @@ using ExceptionLoggerLogic;
 
 namespace LogicLayer
 {
-	/// <summary author="" created="">
-	/// Wes Richardson
-	/// Created: 2019/03/07
-	/// 
+	/// <summary author="Wes Richardson" created="2019/03/07">
 	/// Checks data before sending it to data access
 	/// </summary>
 	public class AppointmentManager : IAppointmentManager
@@ -21,10 +18,7 @@ namespace LogicLayer
         private IAppointmentAccessor _appointmentAccessor;
         private bool appointmentValid;
 
-		/// <summary author="" created="">
-		/// Wes Richardson
-		/// Created: 2019/03/07
-		/// 
+		/// <summary author="Wes Richardson" created="2019/03/07">
 		/// Default Constructor for getting the AppointmentAccessor that retrieves data from database
 		/// </summary>
 		public AppointmentManager()
@@ -257,7 +251,7 @@ namespace LogicLayer
         }
 
 		/// <summary author="Eduardo Colon" created="2019/04/23">
-		/// Retrieves  all  appointments
+		/// Retrieves all appointments
 		/// </summary>
 		public List<Appointment> RetrieveAppointments()
         {
