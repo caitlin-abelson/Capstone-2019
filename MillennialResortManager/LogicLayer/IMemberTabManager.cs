@@ -1,6 +1,7 @@
 ﻿using DataObjects;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -38,5 +39,12 @@ namespace LogicLayer
 		/// <param name="memberID"></param>
 		/// <returns></returns>
 		MemberTab RetrieveLastMemberTabByMemberID(int memberID);
+		/// <summary name="Carlos Arzu" created="2019/04/26">
+		/// Retrieve list of members.
+		/// </summary>
+		List<string> retrieveShops();
+		int retrieveShopID(string name);
+		DataTable retrieveOfferings(int shopID);
+		DataTable retrieveSearchMembers(string data);
 	}
 }
