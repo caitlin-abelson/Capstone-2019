@@ -78,7 +78,7 @@ xmlns:local="clr-namespace:Presentation">
 
             <!--Start Housekeeping Tab-->
             <TabItem x:Name="tabHousekeepingService" Header="Housekeeping">
-                <DataGrid x:Name="dgHouseKeepingRequests" VerticalGridLinesBrush="{x:Null}" SelectionMode="Single" AlternatingRowBackground="#FF3DD8CA" RowBackground="LightGoldenrodYellow" IsReadOnly="True" MouseDoubleClick="dgHouseKeepingRequests_MouseDoubleClick"/>
+                <DataGrid x:Name="dgHouseKeepingRequests" VerticalGridLinesBrush="{x:Null}" SelectionMode="Single"  IsReadOnly="True" MouseDoubleClick="dgHouseKeepingRequests_MouseDoubleClick"/>
             </TabItem>
 
             <!--Start Bell Hop Tab-->

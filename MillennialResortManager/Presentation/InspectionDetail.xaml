@@ -55,7 +55,7 @@
                 <RowDefinition></RowDefinition>
             </Grid.RowDefinitions>
             <Label Grid.Row="0" Content="Problems Found" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="30,5,0,135" Grid.RowSpan="2"/>
-            <TextBox x:Name="txtProblemNotes" Grid.Row="1" Margin="30,20" />
+            <TextBox x:Name="txtProblemNotes" Grid.Row="1" Margin="30,20" VerticalContentAlignment="Top" UseLayoutRounding="False" TextWrapping="Wrap" />
         </Grid>
         <Grid Grid.Row="3">
             <Grid.RowDefinitions>
@@ -63,7 +63,7 @@
                 <RowDefinition></RowDefinition>
             </Grid.RowDefinitions>
             <Label Grid.Row="0" Content="Repair Log" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="30,5,0,135" Grid.RowSpan="2" />
-            <TextBox x:Name="txtFixNotes" Grid.Row="1" Margin="30,20" />
+            <TextBox x:Name="txtFixNotes" Grid.Row="1" Margin="30,20" VerticalContentAlignment="Top" UseLayoutRounding="False" TextWrapping="Wrap"  />
         </Grid>
         <Grid Grid.Row="4">
             <Label x:Name="lblError" Grid.Row="2" Margin="10,0,30,0" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>

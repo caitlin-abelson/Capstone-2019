@@ -29,7 +29,7 @@
         </Grid>
         <Grid Grid.Row="1">
             <DataGrid x:Name="dgGuestVehicles" IsReadOnly="True" VerticalGridLinesBrush="{x:Null}" ItemsSource="{Binding}" SelectionMode="Single"
-                      AlternatingRowBackground="#FF3DD8CA" AutoGenerateColumns="False" RowBackground="LightGoldenrodYellow"
+                      AutoGenerateColumns="False" 
                       MouseDoubleClick="DgGuestVehicles_MouseDoubleClick">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="First Name" Binding="{Binding FirstName}"/>

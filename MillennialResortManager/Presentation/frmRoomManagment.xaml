@@ -35,7 +35,7 @@
         <TextBox Name="txtRoomCapacity" Grid.Column="6" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" MinWidth="25" Tag="2" TextChanged="txtRoomCapacity_TextChanged" />
         <Label Name="lblRoomCapacity" Content="Capacity" Grid.Column="7" HorizontalAlignment="Left" VerticalAlignment="Center" />
         <TextBlock Name="txtRoomSearch" Grid.Column="10" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" MinWidth="100" MinHeight="25" Background="LightGray"/>
-        <DataGrid x:Name="dgRoom" Grid.Row="2" Grid.ColumnSpan="11" VerticalGridLinesBrush="{x:Null}" SelectionMode="Single" SelectionUnit="FullRow" AlternatingRowBackground="#FF3DD8CA" RowBackground="LightGoldenrodYellow" IsReadOnly="True" MouseDoubleClick="DgRoom_MouseDoubleClick" />
+        <DataGrid x:Name="dgRoom" Grid.Row="2" Grid.ColumnSpan="11" VerticalGridLinesBrush="{x:Null}" SelectionMode="Single" SelectionUnit="FullRow"  IsReadOnly="True" MouseDoubleClick="DgRoom_MouseDoubleClick" />
         <Button Grid.Column="8" Grid.Row="3" Name="btnDeleteRoom" Content="Delete Room" HorizontalAlignment="Center" VerticalAlignment="Center" Click="BtnDeleteRoom_Click" />
         <Button Grid.Column="9" Grid.Row="3" Name="btnViewRoom" Content="View Details" HorizontalAlignment="Center" VerticalAlignment="Center" Click="BtnViewRoom_Click" />
         <Button Grid.Column="10" Grid.Row="3" Name="btnAddRoom" Content="Add Room" HorizontalAlignment="Center" VerticalAlignment="Center" Click="BtnAddRoom_Click" />

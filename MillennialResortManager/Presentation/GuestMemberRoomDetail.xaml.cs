@@ -90,18 +90,21 @@ namespace Presentation
             else
             {
                 lblRoomMessage.Content = string.Format(ROOM_ASSIGNED_LABEL_MESSAGE, _room.RoomNumber, _building.Name);
-                btnRoomAssignment.Content = "Unassign";
-                btnCheckIn.IsEnabled = true;
+                btnRoomAssignment.IsEnabled = false;
+                btnRoomAssignment.Content = "Assigned";
             }
             if (_guest.CheckedIn == false)
             {
                 // Guest is assigned a room but not checked in.
                 btnCheckIn.Content = "Check In";
+                btnCheckIn.IsEnabled = true;
+
             }
             else
             {
                 // Guest is assigned a room and checked in.
-                btnCheckIn.Content = "Check Out";
+                btnCheckIn.Content = "Checked In";
+                btnCheckIn.IsEnabled = false;
             }
         }
 
@@ -158,6 +161,12 @@ namespace Presentation
         /// 
         /// Add or Modify a guest assignment to a Room Reservation.
         /// </summary>
+        /// <remarks>
+        /// James Heim
+        /// Modified 2019-05-07
+        /// 
+        /// Display an error message if the retrieve fails, instead of crashing the program horrifically.
+        /// </remarks>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void BtnRoomAssignment_Click(object sender, RoutedEventArgs e)
@@ -166,32 +175,46 @@ namespace Presentation
             {
                 // Assign a guest to a room.
 
+                List<VMRoomRoomReservation> vmRooms = null;
+
                 // Get the list of RoomReservations that can be assigned a guest.
-                List<VMRoomRoomReservation> vmRooms = _roomReservationManager.RetrieveAvailableVMRoomRoomReservations(_reservation.ReservationID);
-
-                BrowseAvailableRooms availableRoomsForm = new BrowseAvailableRooms(_guest.GuestID, vmRooms);
-                var formResult = availableRoomsForm.ShowDialog();
-                if (formResult == true)
+                try
                 {
-                    // Guest was assigned to a room. Refresh the Room info.
-                    _roomReservation = new RoomReservation()
+                    vmRooms = _roomReservationManager.RetrieveAvailableVMRoomRoomReservations(_reservation.ReservationID);
+                }
+                catch (Exception ex)
+                {
+
+                    MessageBox.Show("Error Retrieving Available Rooms: \n" + ex.Message);
+                }
+
+                if (vmRooms != null)
+                {
+                    BrowseAvailableRooms availableRoomsForm = new BrowseAvailableRooms(_guest.GuestID, vmRooms);
+                    var formResult = availableRoomsForm.ShowDialog();
+                    if (formResult == true)
                     {
-                        ReservationID = _reservation.ReservationID,
-                        RoomReservationID = availableRoomsForm.SelectedVM.RoomReservationID,
-                        RoomID = availableRoomsForm.SelectedVM.RoomID,
-                        CheckInDate = availableRoomsForm.SelectedVM.CheckInDate,
-                        CheckOutDate = availableRoomsForm.SelectedVM.CheckOutDate
-                    };
+                        // Guest was assigned to a room. Refresh the Room info.
+                        _roomReservation = new RoomReservation()
+                        {
+                            ReservationID = _reservation.ReservationID,
+                            RoomReservationID = availableRoomsForm.SelectedVM.RoomReservationID,
+                            RoomID = availableRoomsForm.SelectedVM.RoomID,
+                            CheckInDate = availableRoomsForm.SelectedVM.CheckInDate,
+                            CheckOutDate = availableRoomsForm.SelectedVM.CheckOutDate
+                        };
 
-                    _room = _roomManager.RetreieveRoomByID(_roomReservation.RoomID);
-                    _building = _buildingManager.RetrieveBuilding(_room.Building);
+                        _room = _roomManager.RetreieveRoomByID(_roomReservation.RoomID);
+                        _building = _buildingManager.RetrieveBuilding(_room.Building);
 
-                    populateRoomInformation();
-                    
+                        populateRoomInformation();
+
+                    }
                 }
             }
             else
             {
+                // Removed this feature for presentation to prevent unforseen bugs.
 
                 // Unassign the Guest.
                 bool result = false;
@@ -241,22 +264,20 @@ namespace Presentation
                 {
                     try
                     {
-                        // Check if there already exists a Member Tab.
-                        _memberTab = _memberTabManager.RetrieveActiveMemberTabByMemberID(_member.MemberID);
-
-                        // Assign guest to member tab.
-                        // Check if Guest already exists in GuestTabAssignment
-                        // Assign Guest to GuestTabAssignment
-                        MessageBox.Show("Currently the MemberTab is not hooked up to Guest CheckIn.");
-
                         // Set CheckInDate on RoomReservation
                         _roomReservationManager.UpdateCheckInDateToNow(_roomReservation);
 
                         // Set CheckedIn on Guest
                         _guestManager.CheckInGuest(_guest.GuestID);
 
-                        // Update the form.
-                        btnCheckIn.Content = "Check Out";
+                        // Disable the Checkin button.
+                        btnCheckIn.IsEnabled = false;
+
+                        // Inform the user the change has been saved.
+                        MessageBox.Show(_guest.FirstName + " has been checked in.");
+
+                        // Done. Close form.
+                        DialogResult = true;
                     }
                     catch (Exception ex)
                     {
@@ -268,7 +289,8 @@ namespace Presentation
             }
             else
             {
-                // Check out the Guest.
+                // Guest is already checked in -- Do nothing.
+                // Button should have been disabled.
 
             }
         }

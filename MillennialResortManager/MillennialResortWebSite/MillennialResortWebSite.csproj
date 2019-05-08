@@ -66,7 +66,7 @@
     <IntermediateOutputPath>C:\Users\nh229u17\AppData\Local\Temp\vs70E9.tmp\Debug\</IntermediateOutputPath>
     <IntermediateOutputPath>C:\Users\nh229u17\AppData\Local\Temp\vs3139.tmp\Debug\</IntermediateOutputPath>
     <IntermediateOutputPath>C:\Users\shado\AppData\Local\Temp\vsF7BD.tmp\Debug\</IntermediateOutputPath>
-    <IntermediateOutputPath>C:\Users\carzu\AppData\Local\Temp\vs7E63.tmp\Debug\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\nh229u11\AppData\Local\Temp\vsB396.tmp\Debug\</IntermediateOutputPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -106,19 +106,28 @@
     <IntermediateOutputPath>C:\Users\nh229u17\AppData\Local\Temp\vs70E9.tmp\Release\</IntermediateOutputPath>
     <IntermediateOutputPath>C:\Users\nh229u17\AppData\Local\Temp\vs3139.tmp\Release\</IntermediateOutputPath>
     <IntermediateOutputPath>C:\Users\shado\AppData\Local\Temp\vsF7BD.tmp\Release\</IntermediateOutputPath>
-    <IntermediateOutputPath>C:\Users\carzu\AppData\Local\Temp\vs7E63.tmp\Release\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\nh229u11\AppData\Local\Temp\vsB396.tmp\Release\</IntermediateOutputPath>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Http, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.3\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.3\lib\net45\System.Web.Http.WebHost.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
@@ -237,6 +246,7 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AmenitiesController.cs" />
     <Compile Include="Controllers\AppointmentController.cs" />
@@ -247,6 +257,8 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MyAccountController.cs" />
+    <Compile Include="Controllers\PayablesController.cs" />
+    <Compile Include="Controllers\PayablesTestController.cs" />
     <Compile Include="Controllers\RoomsController.cs" />
     <Compile Include="Controllers\SuccessController.cs" />
     <Compile Include="Global.asax.cs">
@@ -269,6 +281,7 @@
     <Compile Include="Models\NewReservation.cs" />
     <Compile Include="Models\ReservationSearchModel.cs" />
     <Compile Include="Models\SuccessViewModel.cs" />
+    <Compile Include="Models\SupplierOrderViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -411,6 +424,8 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\knockout-3.0.0.debug.js" />
+    <Content Include="Scripts\knockout-3.0.0.js" />
     <Content Include="Scripts\main.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Web.config" />
@@ -472,6 +487,9 @@
     <Content Include="Views\Home\_ReservationSearch.cshtml" />
     <Content Include="Views\Success\Index.cshtml" />
     <Content Include="Views\Event\Buy.cshtml" />
+    <Content Include="Views\PayablesTest\Details.cshtml" />
+    <Content Include="Views\PayablesTest\Index.cshtml" />
+    <Content Include="Views\Shared\_LayoutPayable.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

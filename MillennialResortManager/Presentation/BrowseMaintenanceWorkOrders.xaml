@@ -41,7 +41,7 @@
             <Button Grid.Column="6" Content="Filter" x:Name="btnFilter" Margin="5" Click="btnFilter_Click"/>
             <Button Grid.Column="7" Content="Clear" x:Name="btnClearFilters" Margin="5" Click="btnClearFilters_Click"/>
         </Grid>
-        <DataGrid Grid.Row="1" x:Name="dgMaintenanceWorkOrders" VerticalGridLinesBrush="{x:Null}" SelectionMode="Single" AlternatingRowBackground="#FF3DD8CA" RowBackground="LightGoldenrodYellow" IsReadOnly="True" AutoGeneratingColumn="dgMaintenanceWorkOrders_AutoGeneratingColumn" MouseDoubleClick="dgMaintenanceWorkOrders_MouseDoubleClick"/>
+        <DataGrid Grid.Row="1" x:Name="dgMaintenanceWorkOrders" VerticalGridLinesBrush="{x:Null}" SelectionMode="Single" IsReadOnly="True" AutoGeneratingColumn="dgMaintenanceWorkOrders_AutoGeneratingColumn" MouseDoubleClick="dgMaintenanceWorkOrders_MouseDoubleClick"/>
         <Grid Grid.Row="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>

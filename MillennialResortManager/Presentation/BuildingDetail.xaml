@@ -55,7 +55,7 @@
                             <RowDefinition Height="15"></RowDefinition>
                         </Grid.RowDefinitions>
                         <!--Building Description-->
-                        <TextBox x:Name="txtDescription" Grid.Row="0" Margin="30,15" />
+                        <TextBox x:Name="txtDescription" Grid.Row="0" Margin="30,15" TextWrapping="Wrap" />
                         <Label Grid.Row="1" Content="Description" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,-22,0,0"/>
                     </Grid>
                     <Grid Grid.Row="3">
@@ -147,14 +147,14 @@
                             <DataGridTextColumn Header="Complete" Binding="{Binding Complete}" />
                         </DataGrid.Columns>
                     </DataGrid>
-                    <Border Grid.Row="3" BorderThickness="1" Margin="30,5,30,5" OpacityMask="Black" BorderBrush="Black"/>
+                    <Border Grid.Row="3" BorderThickness="1" Margin="30,5,30,5" OpacityMask="Black" BorderBrush="Black" Visibility="Hidden"/>
                     <Grid Grid.Row="3">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition></ColumnDefinition>
                             <ColumnDefinition></ColumnDefinition>
                         </Grid.ColumnDefinitions>
-                        <Button x:Name="btnAddMaintenance" Grid.Column="0" Margin="10,0,30,0" Content="Add Maintenance Ticket" HorizontalAlignment="Center" VerticalAlignment="Center" Click="btnAddMaintenance_Click"/>
-                        <Button x:Name="btnSelectionMaintenance" Grid.Column="1" Margin="10,0,30,0" Content="Select Maintenance Ticket" HorizontalAlignment="Center" VerticalAlignment="Center" Click="btnSelectionMaintenance_Click"/>
+                        <Button x:Name="btnAddMaintenance" Grid.Column="0" Margin="10,0,30,0" Content="Add Maintenance Ticket" HorizontalAlignment="Center" VerticalAlignment="Center" Click="btnAddMaintenance_Click" Visibility="Hidden"/>
+                        <Button x:Name="btnSelectionMaintenance" Grid.Column="1" Margin="10,0,30,0" Content="Select Maintenance Ticket" HorizontalAlignment="Center" VerticalAlignment="Center" Click="btnSelectionMaintenance_Click" Visibility="Hidden"/>
                     </Grid>
                 </Grid>
             </TabItem>

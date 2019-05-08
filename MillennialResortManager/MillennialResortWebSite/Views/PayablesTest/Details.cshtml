@@ -1,0 +1,36 @@
+﻿
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_LayoutPayable.cshtml";
+}
+
+@model IEnumerable<MillennialResortWebSite.Models.SupplierOrderViewModel>
+
+@section Scripts{
+    <script>
+
+        var model = {
+            orders: ko.observableArray()
+        };
+        function sendAjaxRequest(httpMethod, callback, url) {
+            $.ajax("/api/Payables" + (url ? "/" + url : ""), {
+                type: httpMethod, success: callback
+            });
+        }
+        function GetAllSupplierOrders() {
+            sendAjaxRequest("GET", function (data) {
+                model.orders.removeAll();
+                for (var i = 0; i < data.length; i++) {
+                    model.orders.push(data[i]);
+                }
+            })
+        }
+
+        $(document).ready(function () {
+            GetAllSupplierOrders();
+            ko.applyBindings(model);
+        });
+
+    </script>
+}
+

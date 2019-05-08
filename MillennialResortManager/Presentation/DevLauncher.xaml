@@ -54,8 +54,8 @@
                         <MenuItem Header="Guest Types"  x:Name="NavBarSubHeaderGuestTypes" x:Uid="NBGuestTypes" Click="NavBarSubHeaderGuestTypes_Click"/>
                         <MenuItem Header="Room Types"  x:Name="NavBarSubHeaderRoomTypes" x:Uid="NBRoomTypes" Click="NavBarSubHeaderRoomTypes_Click"/>
                         <MenuItem Header="Departments" x:Name="NavBarSubHeaderDepartment" x:Uid="NBDepartment" Click="NavBarSubHeaderDepartment_Click"/>
-                        <MenuItem Header="Resort Property"  x:Name="NavBarSubHeaderResortProperty" x:Uid="NBResortProperty" Click="NavBarSubHeaderResortProperty_Click"/>
-                        <MenuItem Header="Resort Property Type"  x:Name="NavBarSubHeaderResortPropertyType" x:Uid="NBResortPropertyType" Click="NavBarSubHeaderResortPropertyType_OnClick"/>
+                        <!--<MenuItem Header="Resort Property"  x:Name="NavBarSubHeaderResortProperty" x:Uid="NBResortProperty" Click="NavBarSubHeaderResortProperty_Click"/>-->
+                        <!--<MenuItem Header="Resort Property Type"  x:Name="NavBarSubHeaderResortPropertyType" x:Uid="NBResortPropertyType" Click="NavBarSubHeaderResortPropertyType_OnClick"/>-->
                     </MenuItem>
                     <MenuItem Header="_Events" x:Name="_NavBarHeaderEvents" Style="{StaticResource NavBarHeader}" >
                         <MenuItem Header="Performances" x:Name="NavBarSubHeaderPerformances" x:Uid="NBPerformances" Click="NavBarSubHeaderPerformances_Click" />
@@ -89,7 +89,7 @@
                         <!--Uncomment Reservation by Gunardi Saputra on 04/25/2019-->
                         <MenuItem Header="Reservation" x:Name="NavBarSubHeaderReservation" x:Uid="NBReservation" Click="NavBarSubHeaderReservation_Click" />
                         <MenuItem Header="Guest Vehicles" x:Name="NavBarSubHeaderGuestVehicles" x:Uid="NBGuestVehicles" Click="NavBarSubHeaderGuestVehicles_Click"/>
-                        <MenuItem Header="Pets" x:Name="NavBarSubHeaderPets" x:Uid="NBPets" Click="NavBarSubHeaderPets_Click"/>
+                        <!--<MenuItem Header="Pets" x:Name="NavBarSubHeaderPets" x:Uid="NBPets" Click="NavBarSubHeaderPets_Click"/>-->
                         <!--<MenuItem Header="Rooms" x:Name="NavBarSubHeaderRooms" x:Uid="NBRooms" Click="NavBarSubHeaderRooms_Click"/>-->
                         <MenuItem Header="Members" x:Name="NavBarSubHeaderMembers" x:Uid="NBMembers" Click="NavBarSubHeaderMembers_Click"/>
                         <MenuItem Header="Shuttle Vehicles" x:Name="NavBarSubHeaderShuttleVehicles" x:Uid="NBShuttleVehicles" Click="NavBarSubHeaderManageShuttleVehicles_OnClick"/>
@@ -152,7 +152,7 @@
                     <Button Grid.Column="8" Content="Filter" x:Name="btnFilterReservation" MinWidth="60" Margin="5" Click="btnFilterReservation_Click"/>
                     <Button Grid.Column="9" Content="Clear" x:Name="btnClearFiltersReservation" MinWidth="60" Margin="5" Click="btnClearFiltersReservation_Click"/>
                 </Grid>
-                <DataGrid Grid.Row="1" x:Name="dgReservations"   VerticalGridLinesBrush="{x:Null}" SelectionMode="Single" AlternatingRowBackground="#FF3DD8CA" RowBackground="LightGoldenrodYellow" IsReadOnly="True" AutoGeneratingColumn="dgReservations_AutoGeneratingColumn" MouseDoubleClick="dgReservations_MouseDoubleClick" />
+                <DataGrid Grid.Row="1" x:Name="dgReservations"   VerticalGridLinesBrush="{x:Null}" SelectionMode="Single"  IsReadOnly="True" AutoGeneratingColumn="dgReservations_AutoGeneratingColumn" MouseDoubleClick="dgReservations_MouseDoubleClick" />
                 <Grid Grid.Row="2" Style="{StaticResource BottomBar}">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="3*"/>
@@ -384,7 +384,7 @@
 
                     <Button x:Name="btnAddSuppliers" Grid.Column="1" Content="Add Supplier" Margin="5" Click="BtnAddSuppliers_Click"></Button>
                     <Button x:Name="btnReadSuppliers" Grid.Column="2" Margin="5" Content="View Supplier" Click="BtnReadSuppliers_Click"/>
-                    <Button x:Name="btnDeactivateSuppliers" Grid.Column="3" Content="Deactivate" Margin="5" Click="BtnDeactivateSuppliers_Click" />
+                    <!--<Button x:Name="btnDeactivateSuppliers" Grid.Column="3" Content="Deactivate" Margin="5" Click="BtnDeactivateSuppliers_Click" />-->
                     <Button x:Name="btnDeleteSuppliers" IsEnabled="False" Visibility="Hidden" Grid.Column="3" Content="Delete" Margin="5" Click="BtnDeleteSuppliers_Click" />
                 </Grid>
             </Grid>
@@ -791,8 +791,8 @@
 
                     </Grid>
                     <Grid Grid.Row="1" Style="{StaticResource FilterBar}">
-                        <Grid.ColumnDefinitions>
-                            <!--<ColumnDefinition Width="130"></ColumnDefinition>
+                        <!--<Grid.ColumnDefinitions>
+                            --><!--<ColumnDefinition Width="130"></ColumnDefinition>
                         <ColumnDefinition Width="120"></ColumnDefinition>
                         <ColumnDefinition Width="130"></ColumnDefinition>
                         <ColumnDefinition Width="100"></ColumnDefinition>
@@ -800,7 +800,7 @@
                         <ColumnDefinition Width="75"></ColumnDefinition>
                         <ColumnDefinition Width="130"></ColumnDefinition>
                         <ColumnDefinition Width="125"></ColumnDefinition>-->
-                            <!--Modified by Gunardi Saputra on 4/25/2019, adjust the balance and reposition-->
+                            <!--Modified by Gunardi Saputra on 4/25/2019, adjust the balance and reposition--><!--
                             <ColumnDefinition/>
                             <ColumnDefinition/>
                             <ColumnDefinition/>
@@ -813,11 +813,11 @@
                         <ComboBox x:Name="cboSearchCategoryGuestVehicle" Grid.Column="1"  Height="25" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" SelectionChanged="CboSearchCategoryGuestVehicle_SelectionChanged" ></ComboBox>
                         <Label Grid.Column="2" Content="Search By Term: " HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
                         <TextBox x:Name="txtSearchTermGuestVehicle" Grid.Column="3"  Height="25" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" TextChanged="TxtSearchTermGuestVehicle_TextChanged" ></TextBox>
-                        <Button x:Name="btnClearFiltersGuestVehicle" Grid.Column="5" Height="25" Margin="5"  Content="Clear" FontSize="14" Click="BtnClearFiltersGuestVehicle_Click"></Button>
-
-                    </Grid>
+                        <Button x:Name="btnClearFiltersGuestVehicle" Grid.Column="5" Height="25" Margin="5"  Content="Clear" FontSize="14" Click="BtnClearFiltersGuestVehicle_Click"></Button>-->
+                    <Label Content="Guest Vehicles" FontSize="26" FontFamily="Bold" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                </Grid>
                     <DataGrid x:Name="dgGuestVehicles" IsReadOnly="True" Grid.Row="2" VerticalGridLinesBrush="{x:Null}" ItemsSource="{Binding}" SelectionMode="Single"
-									AlternatingRowBackground="#FF3DD8CA" AutoGenerateColumns="False" RowBackground="LightGoldenrodYellow"
+									 AutoGenerateColumns="False" 
 									MouseDoubleClick="DgGuestVehicles_MouseDoubleClick">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="First Name" Binding="{Binding FirstName}"/>
@@ -993,7 +993,7 @@
                         </Grid.ColumnDefinitions>
                         <Button x:Name="btnCreateRecipe" Grid.Column="3" Content="Add" Margin="5" Click="BtnCreateRecipe_Click"></Button>
                         <Button x:Name="btnViewRecipe" Grid.Column="4" Content="Read" Margin="5" Click="BtnViewRecipe_Click_1"></Button>
-                        <Button x:Name="btnDeleteRecipe" Grid.Column="5" Content="Delete" Margin="5" Click="BtnDeleteRecipe_Click"></Button>
+                        <!--<Button x:Name="btnDeleteRecipe" Grid.Column="5" Content="Delete" Margin="5" Click="BtnDeleteRecipe_Click"></Button>-->
                     </Grid>
                 </Grid>
                 <!-- Browse Event Sponsors List Page-->
@@ -1479,7 +1479,7 @@
                         <Button Grid.Column="6" Content="Filter" x:Name="btnFilterMaintenanceWorkOrder" Margin="5" Click="btnFilterMaintenanceWorkOrder_Click"/>
                         <Button Grid.Column="7" Content="Clear" x:Name="btnClearFiltersMaintenanceWorkOrder" Margin="5" Click="btnClearFiltersMaintenanceWorkOrder_Click"/>
                     </Grid>
-                    <DataGrid Grid.Row="1" x:Name="dgMaintenanceWorkOrders"   VerticalGridLinesBrush="{x:Null}" SelectionMode="Single" AlternatingRowBackground="#FF3DD8CA" RowBackground="LightGoldenrodYellow" IsReadOnly="True" AutoGeneratingColumn="dgMaintenanceWorkOrders_AutoGeneratingColumn" MouseDoubleClick="dgMaintenanceWorkOrders_MouseDoubleClick"/>
+                    <DataGrid Grid.Row="1" x:Name="dgMaintenanceWorkOrders"   VerticalGridLinesBrush="{x:Null}" SelectionMode="Single" IsReadOnly="True" AutoGeneratingColumn="dgMaintenanceWorkOrders_AutoGeneratingColumn" MouseDoubleClick="dgMaintenanceWorkOrders_MouseDoubleClick"/>
                     <Grid Grid.Row="2" Style="{StaticResource BottomBar}">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition/>
@@ -1772,7 +1772,7 @@
 
                         <!--Start Housekeeping Tab-->
                         <TabItem x:Name="tabHousekeepingService" Header="Housekeeping">
-                            <DataGrid x:Name="dgHouseKeepingRequests" VerticalGridLinesBrush="{x:Null}" SelectionMode="Single" AlternatingRowBackground="#FF3DD8CA" RowBackground="LightGoldenrodYellow" IsReadOnly="True" MouseDoubleClick="dgHouseKeepingRequests_MouseDoubleClick"/>
+                            <DataGrid x:Name="dgHouseKeepingRequests" VerticalGridLinesBrush="{x:Null}" SelectionMode="Single" IsReadOnly="True" MouseDoubleClick="dgHouseKeepingRequests_MouseDoubleClick"/>
                         </TabItem>
 
                         <!--Start Bell Hop Tab-->
@@ -1858,7 +1858,7 @@
                         <Button Grid.Column="5" Content="Filter" x:Name="btnFilterOfferings" Margin="5" Click="btnFilterOfferings_Click"/>
                         <Button Grid.Column="6" Content="Clear" x:Name="btnClearFiltersOfferings" Margin="5" Click="BtnClearFiltersOfferings_Click" />
                     </Grid>
-                    <DataGrid Grid.Row="1" x:Name="dgOfferings" VerticalGridLinesBrush="{x:Null}" SelectionMode="Single" AlternatingRowBackground="#FF3DD8CA" RowBackground="LightGoldenrodYellow" IsReadOnly="True" AutoGeneratingColumn="DgOfferings_AutoGeneratingColumn" MouseDoubleClick="DgOfferings_MouseDoubleClick" SelectionChanged="DgOfferings_SelectionChanged" />
+                    <DataGrid Grid.Row="1" x:Name="dgOfferings" VerticalGridLinesBrush="{x:Null}" SelectionMode="Single" IsReadOnly="True" AutoGeneratingColumn="DgOfferings_AutoGeneratingColumn" MouseDoubleClick="DgOfferings_MouseDoubleClick" SelectionChanged="DgOfferings_SelectionChanged" />
                     <Grid Grid.Row="2" Style="{StaticResource BottomBar}">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition/>

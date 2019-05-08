@@ -364,7 +364,7 @@ namespace Presentation
                     NavBarSubHeaderAppointmentTypes.Visibility = Visibility.Collapsed;
                     NavBarSubHeaderGuests.Visibility = Visibility.Collapsed;
                     NavBarSubHeaderGuestTypes.Visibility = Visibility.Collapsed;
-                    NavBarSubHeaderPets.Visibility = Visibility.Collapsed;
+                    //NavBarSubHeaderPets.Visibility = Visibility.Collapsed;
                 }
                 else
                 {
@@ -372,7 +372,7 @@ namespace Presentation
                     NavBarSubHeaderAppointmentTypes.Visibility = Visibility.Collapsed;
                     NavBarSubHeaderGuests.Visibility = Visibility.Collapsed;
                     NavBarSubHeaderGuestVehicles.Visibility = Visibility.Collapsed;
-                    NavBarSubHeaderPets.Visibility = Visibility.Collapsed;
+                    //NavBarSubHeaderPets.Visibility = Visibility.Collapsed;
                     //NavBarSubHeaderReservation.Visibility = Visibility.Collapsed;
                     //NavBarSubHeaderRooms.Visibility = Visibility.Collapsed;
                     NavBarSubHeaderMembers.Visibility = Visibility.Collapsed;
@@ -4240,34 +4240,34 @@ namespace Presentation
         /// </summary>
         private void TxtSearchTermGuestVehicle_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (cboSearchCategoryGuestVehicle.SelectedIndex != -1)
-            {
-                switch (cboSearchCategoryGuestVehicle.SelectedIndex)
-                {
-                    case 0:
-                        _currentListGuestVehicle = _vehicles.FindAll(v => v.FirstName.ToLower().Contains(txtSearchTerm.Text));
-                        applyFiltersGuestVehicle();
-                        break;
-                    case 1:
-                        _currentListGuestVehicle = _vehicles.FindAll(v => v.LastName.ToLower().Contains(txtSearchTerm.Text));
-                        applyFiltersGuestVehicle();
-                        break;
-                    case 2:
-                        _currentListGuestVehicle = _vehicles.FindAll(v => v.Make.ToLower().Contains(txtSearchTerm.Text));
-                        applyFiltersGuestVehicle();
-                        break;
-                    case 3:
-                        _currentListGuestVehicle = _vehicles.FindAll(v => v.Model.ToLower().Contains(txtSearchTerm.Text));
-                        applyFiltersGuestVehicle();
-                        break;
-                    case 4:
-                        _currentListGuestVehicle = _vehicles.FindAll(v => v.Color.ToLower().Contains(txtSearchTerm.Text));
-                        applyFiltersGuestVehicle();
-                        break;
-                    default:
-                        break;
-                }
-            }
+            //if (cboSearchCategoryGuestVehicle.SelectedIndex != -1)
+            //{
+            //    switch (cboSearchCategoryGuestVehicle.SelectedIndex)
+            //    {
+            //        case 0:
+            //            _currentListGuestVehicle = _vehicles.FindAll(v => v.FirstName.ToLower().Contains(txtSearchTerm.Text));
+            //            applyFiltersGuestVehicle();
+            //            break;
+            //        case 1:
+            //            _currentListGuestVehicle = _vehicles.FindAll(v => v.LastName.ToLower().Contains(txtSearchTerm.Text));
+            //            applyFiltersGuestVehicle();
+            //            break;
+            //        case 2:
+            //            _currentListGuestVehicle = _vehicles.FindAll(v => v.Make.ToLower().Contains(txtSearchTerm.Text));
+            //            applyFiltersGuestVehicle();
+            //            break;
+            //        case 3:
+            //            _currentListGuestVehicle = _vehicles.FindAll(v => v.Model.ToLower().Contains(txtSearchTerm.Text));
+            //            applyFiltersGuestVehicle();
+            //            break;
+            //        case 4:
+            //            _currentListGuestVehicle = _vehicles.FindAll(v => v.Color.ToLower().Contains(txtSearchTerm.Text));
+            //            applyFiltersGuestVehicle();
+            //            break;
+            //        default:
+            //            break;
+            //    }
+            //}
         }
 
         /// <summary>
@@ -4361,7 +4361,7 @@ namespace Presentation
             _searchOptions.Add("Make");
             _searchOptions.Add("Model");
             _searchOptions.Add("Color");
-            cboSearchCategoryGuestVehicle.ItemsSource = _searchOptions;
+            //cboSearchCategoryGuestVehicle.ItemsSource = _searchOptions;
         }
 
         /// <summary>
@@ -4385,34 +4385,34 @@ namespace Presentation
         /// <param name="e"></param>
         private void CboSearchCategoryGuestVehicle_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (cboSearchCategoryGuestVehicle.SelectedIndex != -1)
-            {
-                switch (cboSearchCategoryGuestVehicle.SelectedIndex)
-                {
-                    case 0:
-                        _currentListGuestVehicle = _vehicles.FindAll(v => v.FirstName.ToLower().Contains(txtSearchTerm.Text));
-                        applyFiltersGuestVehicle();
-                        break;
-                    case 1:
-                        _currentListGuestVehicle = _vehicles.FindAll(v => v.LastName.ToLower().Contains(txtSearchTerm.Text));
-                        applyFiltersGuestVehicle();
-                        break;
-                    case 2:
-                        _currentListGuestVehicle = _vehicles.FindAll(v => v.Make.ToLower().Contains(txtSearchTerm.Text));
-                        applyFiltersGuestVehicle();
-                        break;
-                    case 3:
-                        _currentListGuestVehicle = _vehicles.FindAll(v => v.Model.ToLower().Contains(txtSearchTerm.Text));
-                        applyFiltersGuestVehicle();
-                        break;
-                    case 4:
-                        _currentListGuestVehicle = _vehicles.FindAll(v => v.Color.ToLower().Contains(txtSearchTerm.Text));
-                        applyFiltersGuestVehicle();
-                        break;
-                    default:
-                        break;
-                }
-            }
+            //if (cboSearchCategoryGuestVehicle.SelectedIndex != -1)
+            //{
+            //    switch (cboSearchCategoryGuestVehicle.SelectedIndex)
+            //    {
+            //        case 0:
+            //            _currentListGuestVehicle = _vehicles.FindAll(v => v.FirstName.ToLower().Contains(txtSearchTerm.Text));
+            //            applyFiltersGuestVehicle();
+            //            break;
+            //        case 1:
+            //            _currentListGuestVehicle = _vehicles.FindAll(v => v.LastName.ToLower().Contains(txtSearchTerm.Text));
+            //            applyFiltersGuestVehicle();
+            //            break;
+            //        case 2:
+            //            _currentListGuestVehicle = _vehicles.FindAll(v => v.Make.ToLower().Contains(txtSearchTerm.Text));
+            //            applyFiltersGuestVehicle();
+            //            break;
+            //        case 3:
+            //            _currentListGuestVehicle = _vehicles.FindAll(v => v.Model.ToLower().Contains(txtSearchTerm.Text));
+            //            applyFiltersGuestVehicle();
+            //            break;
+            //        case 4:
+            //            _currentListGuestVehicle = _vehicles.FindAll(v => v.Color.ToLower().Contains(txtSearchTerm.Text));
+            //            applyFiltersGuestVehicle();
+            //            break;
+            //        default:
+            //            break;
+            //    }
+            //}
         }
         /*--------------------------- Ending BrowseRoom Code --------------------------------*/
         #endregion
@@ -8057,7 +8057,8 @@ namespace Presentation
 
 
         #endregion
-               #region Offering
+
+        #region Offering
         /*--------------------------- Starting BrowseOffering Code #BrowseOffering --------------------------------*/
 
         /// <summary>
