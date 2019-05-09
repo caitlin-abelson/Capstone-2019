@@ -1683,7 +1683,7 @@
 								<StackPanel Orientation="Vertical">
 									<StackPanel Orientation="Horizontal">
 										<TextBox IsEnabled="False"  Text="{Binding Subject}"/>
-										<TextBox IsEnabled="False" Text="{Binding SenderAlias}" />
+										<TextBox IsEnabled="False" Text="{Binding SenderEmail}" />
 									</StackPanel>
 									<TextBlock Text="{Binding Body}" />
 								</StackPanel>

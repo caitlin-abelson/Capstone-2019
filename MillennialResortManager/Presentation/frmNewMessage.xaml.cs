@@ -105,22 +105,28 @@ namespace Presentation
 
 			if (message.IsValid() && _sender.Aliases.Contains(cboMessageAliasPicker.SelectedItem.ToString()))
 			{
-				switch (_messageDestination)
+				try
 				{
-					case MessageDestination.newThread:
-						_threadManager.CreateNewThread(message, null);
-						break;
-					case MessageDestination.existingThread:
-						_threadManager.ReplyToThread(_thread, message);
-						break;
-					default:
-						ExceptionLogManager.getInstance().LogException(new ApplicationException
-							("Message destination was not set properly, app was unable to determine if message" +
-							" was for a new thread or an existing one."));
-						MessageBox.Show("There was an error, please contact IT or review your error logs.");
-						return;
-				}
+					switch (_messageDestination)
+					{
 
+						case MessageDestination.newThread:
+							_threadManager.CreateNewThread(message, ctrlParticipantSelector.SelectedParticipants);
+							break;
+						case MessageDestination.existingThread:
+							_threadManager.ReplyToThread(_thread, message);
+							break;
+						default:
+							throw new ApplicationException("Message destination was not set properly, app was unable to determine if message" +
+								" was for a new thread or an existing one.");
+					}
+				}
+				catch (Exception ex)
+				{
+					MessageBox.Show("There was an error, please contact IT or review your error logs.");
+					ExceptionLogManager.getInstance().LogException(ex);
+					return;
+				}
 				//You win, close the window buddy
 				Close();
 			}

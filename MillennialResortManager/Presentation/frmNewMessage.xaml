@@ -28,7 +28,7 @@
 
 			<Grid Grid.Row="0">
 				<Grid.ColumnDefinitions>
-					<ColumnDefinition Width="60"/>
+					<ColumnDefinition Width="65"/>
 					<!--Labels-->
 					<ColumnDefinition />
 					<!--Content-->
@@ -62,6 +62,12 @@
 
 			<TextBox Margin="5"
 					 Grid.Row="1"
+					 Cursor="IBeam"
+					 AcceptsReturn="True"
+					 AcceptsTab="True"
+					 AllowDrop="True"
+					 VerticalScrollBarVisibility="Auto"
+					 TextWrapping="Wrap"
 					 x:Name="txtNewMessageBody"/>
 
 			<Grid Grid.Row="2">

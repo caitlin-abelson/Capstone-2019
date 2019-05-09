@@ -47,6 +47,7 @@ namespace Presentation
 		public CtrlThreadParticipantAdder()
 		{
 			InitializeComponent();
+			_possibleRecipients = new List<IMessagable>();
 		}
 
 		/// <summary>
@@ -63,7 +64,8 @@ namespace Presentation
 			{
 				EmployeeManager employeeManager = new EmployeeManager();
 				IEnumerable<IMessagable> employees = (new EmployeeManager()).SelectAllActiveEmployees();
-				lstPossibleRecipientsEmployee.ItemsSource = employees.Select(item => item.Alias);
+				foreach (string alias in employees.Select(item => item.Alias))
+				{ lstPossibleRecipientsEmployee.Items.Add(alias); }
 				_possibleRecipients = _possibleRecipients.Concat(employees).ToList();
 			}
 			catch (Exception ex)
@@ -74,7 +76,8 @@ namespace Presentation
 			{
 				RoleManager roleManager = new RoleManager();
 				IEnumerable<IMessagable> roles = (new RoleManager()).RetrieveAllRoles();
-				lstPossibleRecipientsRoles.ItemsSource = roles.Select(item => item.Alias);
+				foreach (string alias in roles.Select(item => item.Alias))
+				{ lstPossibleRecipientsRoles.Items.Add(alias); }
 				_possibleRecipients = _possibleRecipients.Concat(roles).ToList();
 
 			}
@@ -86,7 +89,8 @@ namespace Presentation
 			{
 				GuestManager guestManager = new GuestManager();
 				IEnumerable<IMessagable> guests = (new GuestManager()).ReadAllGuests().Where(g => g.Active);
-				lstPossibleRecipientsGuest.ItemsSource = guests.Select(item => item.Alias);
+				foreach (string alias in guests.Select(item => item.Alias))
+				{ lstPossibleRecipientsGuest.Items.Add(alias); }
 				_possibleRecipients = _possibleRecipients.Concat(guests).ToList();
 
 			}
@@ -98,7 +102,8 @@ namespace Presentation
 			{
 				MemberManagerMSSQL memberManager = new MemberManagerMSSQL();
 				IEnumerable<IMessagable> members = (new MemberManagerMSSQL()).RetrieveAllMembers().Where(m => m.Active);
-				lstPossibleRecipientsMember.ItemsSource = members.Select(item => item.Alias);
+				foreach (string alias in members.Select(item => item.Alias))
+				{ lstPossibleRecipientsMember.Items.Add(alias); }
 				_possibleRecipients = _possibleRecipients.Concat(members).ToList();
 			}
 			catch (Exception ex)
@@ -109,7 +114,8 @@ namespace Presentation
 			{
 				DepartmentManager departmentManager = new DepartmentManager();
 				IEnumerable<IMessagable> departments = (new DepartmentManager()).GetAllDepartments();
-				lstPossibleRecipientsDepartment.ItemsSource = departments.Select(item => item.Alias);
+				foreach (string alias in departments.Select(item => item.Alias))
+				{ lstPossibleRecipientsDepartment.Items.Add(alias); }
 				_possibleRecipients = _possibleRecipients.Concat(departments).ToList();
 			}
 			catch (Exception ex)

@@ -41,6 +41,7 @@ namespace DataAccessLayer
 			cmd.Parameters.AddWithValue("@DateTimeSent", message.DateTimeSent);
 			cmd.Parameters.AddWithValue("@Subject", message.Subject);
 			cmd.Parameters.AddWithValue("@Body", message.Body);
+			cmd.Parameters.AddWithValue("@ThreadID", -1);
 
 			try
 			{
@@ -92,7 +93,7 @@ namespace DataAccessLayer
 			{
 				conn.Open();
 
-				result = (int) cmd.ExecuteScalar();
+				result = (int) cmd.ExecuteNonQuery();
 			}
 			catch (Exception ex)
 			{
@@ -104,7 +105,7 @@ namespace DataAccessLayer
 				conn.Close();
 			}
 
-			throw new NotImplementedException();
+			return (result == 1);
 		}
 
 		/// <summary author="Austin Delaney" created="2019/04/25">
@@ -123,6 +124,9 @@ namespace DataAccessLayer
 			var procedure = @"sp_get_thread_messages";
 			var cmd = new SqlCommand(procedure, conn)
 			{ CommandType = CommandType.StoredProcedure };
+
+			cmd.Parameters.AddWithValue("@ThreadID", threadID);
+
 
 			try
 			{
@@ -170,7 +174,7 @@ namespace DataAccessLayer
 		public Message SelectNewestThreadMessage(int threadID)
 		{
 			var conn = DBConnection.GetDbConnection();
-			var procedure = @"";
+			var procedure = @"sp_select_newest_thread_message";
 			var cmd = new SqlCommand(procedure, conn)
 			{ CommandType = CommandType.StoredProcedure};
 

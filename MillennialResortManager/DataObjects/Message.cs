@@ -27,7 +27,6 @@ namespace DataObjects
 		/// <summary>
 		/// Message subject line
 		/// </summary>
-		/// 
 		public string Subject { get; set; }
 		/// <summary>
 		/// The main text body of the message

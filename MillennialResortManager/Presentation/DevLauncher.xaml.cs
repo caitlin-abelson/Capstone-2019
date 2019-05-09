@@ -8776,7 +8776,7 @@ namespace Presentation
 			catch (Exception ex)
 			{
 				ExceptionLogManager.getInstance().LogException(ex);
-				MessageBox.Show(ex.Message);
+				MessageBox.Show("No threads were found for this user. If you believe this to be in error, please contact IT.");
 				threads = new List<UserThreadView>();
 			}
 

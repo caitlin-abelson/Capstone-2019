@@ -41,7 +41,7 @@ namespace DataAccessLayer
 			{
 				conn.Open();
 
-				result = (int)cmd.ExecuteScalar();
+				result = (int)cmd.ExecuteNonQuery();
 			}
 			catch (Exception ex)
 			{
@@ -81,7 +81,7 @@ namespace DataAccessLayer
 			{
 				conn.Open();
 
-				result = (int)cmd.ExecuteScalar();
+				result = (int)cmd.ExecuteNonQuery();
 			}
 			catch (Exception ex)
 			{
@@ -121,7 +121,7 @@ namespace DataAccessLayer
 			{
 				conn.Open();
 
-				result = (int)cmd.ExecuteScalar();
+				result = (int)cmd.ExecuteNonQuery();
 			}
 			catch (Exception ex)
 			{
@@ -161,7 +161,7 @@ namespace DataAccessLayer
 			{
 				conn.Open();
 
-				result = (int)cmd.ExecuteScalar();
+				result = (int)cmd.ExecuteNonQuery();
 			}
 			catch (Exception ex)
 			{
@@ -201,7 +201,7 @@ namespace DataAccessLayer
 			{
 				conn.Open();
 
-				result = (int)cmd.ExecuteScalar();
+				result = (int)cmd.ExecuteNonQuery();
 			}
 			catch (Exception ex)
 			{
@@ -367,7 +367,8 @@ namespace DataAccessLayer
 							Alias = reader.GetString(3),
 							ThreadOwner = reader.GetString(4),
 							OpeningSubject = reader.GetString(5),
-							DateOpened = reader.GetDateTime(6)
+							DateOpened = reader.GetDateTime(6),
+							ThreadID = reader.GetInt32(7)
 						});
 					}
 				}
@@ -414,7 +415,7 @@ namespace DataAccessLayer
 			{
 				conn.Open();
 
-				result = (int)cmd.ExecuteScalar();
+				result = (int)cmd.ExecuteNonQuery();
 			}
 			catch (Exception ex)
 			{
@@ -451,7 +452,7 @@ namespace DataAccessLayer
 			{
 				conn.Open();
 
-				result = (int)cmd.ExecuteScalar();
+				result = (int)cmd.ExecuteNonQuery();
 			}
 			catch (Exception ex)
 			{
@@ -495,7 +496,7 @@ namespace DataAccessLayer
 			{
 				conn.Open();
 
-				result = (int)cmd.ExecuteScalar();
+				result = (int)cmd.ExecuteNonQuery();
 			}
 			catch (Exception ex)
 			{
@@ -536,7 +537,7 @@ namespace DataAccessLayer
 			{
 				conn.Open();
 
-				result = (int)cmd.ExecuteScalar();
+				result = (int)cmd.ExecuteNonQuery();
 			}
 			catch (Exception ex)
 			{
@@ -578,7 +579,7 @@ namespace DataAccessLayer
 			{
 				conn.Open();
 
-				result = (int)cmd.ExecuteScalar();
+				result = (int)cmd.ExecuteNonQuery();
 			}
 			catch (Exception ex)
 			{
@@ -622,7 +623,7 @@ namespace DataAccessLayer
 			{
 				conn.Open();
 
-				result = (int)cmd.ExecuteScalar();
+				result = (int)cmd.ExecuteNonQuery();
 			}
 			catch (Exception ex)
 			{

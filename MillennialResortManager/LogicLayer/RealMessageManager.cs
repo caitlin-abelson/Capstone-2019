@@ -22,6 +22,7 @@ namespace LogicLayer
 					dao = new MessageAccessorMock();
 					break;
 				case AppData.DataStoreType.msssql:
+					dao = new MessageAccessorMSSQL();
 					break;
 			}
 

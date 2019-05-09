@@ -26,6 +26,7 @@ namespace LogicLayer
 					dao = new ThreadAccessorMock();
 					break;
 				case AppData.DataStoreType.msssql:
+					dao = new ThreadAccessorMSSQL();
 					break;
 			}
 			daoType = dataStoreType;
