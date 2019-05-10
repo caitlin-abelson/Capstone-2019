@@ -1,0 +1,69 @@
+body{
+    width: 80%;
+    margin: 0px auto;
+}
+.middle{
+    text-align: center;
+}
+th{
+    margin: 5%;
+    padding: 1em 1.5em;
+    border: 1px solid black;
+}
+table{
+    border: 1px solid black;
+    margin: 0px auto;
+    width: 100%;
+    border-collapse: collapse;
+}
+section{
+    margin: 0px auto;
+    display: inline-block;
+    width: 100%;
+}
+#summaryTitle{
+    font-size: 2.5em;
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+.total{
+    float: right;
+    clear: both;
+}
+th.datePurchased{
+    width: 15%;
+}
+.price{
+    width: 10%;
+}
+.quantity{
+    width: 10%;
+}
+.totalColumn{
+    width: 10%;
+}
+div.guestTab{
+    border-top: 1px solid black;
+    clear: both;
+}
+#memberInfo{
+    display: block;
+    border-bottom: 1px solid black;
+}
+footer{
+    font-size: 1.5em;
+    margin-top: 1em;
+}
+.tableHeader{
+    font-size: 1.25em;
+}
+div.left{
+    position: relative;
+    float: left;
+    width: 50%;
+}
+div.right{
+    position: relative;
+    float: right;
+    width: 50%;
+}

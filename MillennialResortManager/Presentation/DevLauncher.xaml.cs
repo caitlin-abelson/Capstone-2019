@@ -1392,6 +1392,7 @@ namespace Presentation
             {
                 var checkoutForm = new frmReservationCheckout(((VMBrowseReservation)dgReservations.SelectedItem).ReservationID);
                 var result = checkoutForm.ShowDialog();
+                refreshAllReservations();
             }
         }
 

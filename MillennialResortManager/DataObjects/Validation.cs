@@ -1358,14 +1358,17 @@ namespace DataObjects
         public static string ToFormattedPhoneNumber(this string phoneNumber)
         {
             string formattedPhoneNumber = phoneNumber;
+            long phoneNumberNumVal = long.Parse(phoneNumber);
+
 
             if (phoneNumber.Length == 10)
             {
-                formattedPhoneNumber = "(" + phoneNumber.Substring(0, 3) + ") " + phoneNumber.Substring(3, 3) + "-" + phoneNumber.Substring(6, phoneNumber.Length - 1);
+                formattedPhoneNumber = String.Format("{0:###-###-####}", phoneNumberNumVal);
+                
             }
             else if (phoneNumber.Length == 11)
-            { 
-                formattedPhoneNumber = phoneNumber.Substring(0, 1) + "-" + phoneNumber.Substring(1, 3) + "-" + phoneNumber.Substring(4, 3) + "-" + phoneNumber.Substring(7, 4);
+            {
+                formattedPhoneNumber = String.Format("{0:#-###-###-####}", phoneNumberNumVal);
 
             }
             return formattedPhoneNumber;

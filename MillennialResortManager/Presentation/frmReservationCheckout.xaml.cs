@@ -63,6 +63,7 @@ namespace Presentation
                 {
                     MessageBox.Show("Receipt Error");
                 }
+                this.DialogResult = true;
             }
         }
 
@@ -73,7 +74,7 @@ namespace Presentation
         /// </summary>
         private string generateReportHTML()
         {
-            String filepath = AppDomain.CurrentDomain.BaseDirectory + @"Receipts";
+            String filepath = AppDomain.CurrentDomain.BaseDirectory + @"../../../Receipts";
             Reservation reservation = _reservationManager.RetrieveReservation(_reservationID);
             Member member = _memberManager.RetrieveMember(reservation.MemberID);
             List<OfferingVM> allOfferings = _offeringManager.RetrieveAllOfferingViewModels();
@@ -157,6 +158,15 @@ namespace Presentation
             {
                 (e.Column as DataGridTextColumn).Binding.StringFormat = "MM/dd/yyyy";
             }
+            switch (e.Column.Header.ToString())
+            {
+                case "RoomReservationID":
+                    e.Column.Visibility = Visibility.Collapsed;
+                    break;
+                case "GuestID":
+                    e.Column.Visibility = Visibility.Collapsed;
+                    break;
+            }
 
         }
 
@@ -201,8 +211,8 @@ namespace Presentation
                             }
                         }
                     }
-
                 }
+                
             }
             catch (Exception ex)
             {
