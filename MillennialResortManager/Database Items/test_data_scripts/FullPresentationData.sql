@@ -370,11 +370,11 @@ INSERT INTO [dbo].[Inspection]
 		([ResortPropertyID], [Name], [DateInspected], [Rating], 
 		[ResortInspectionAffiliation], [InspectionProblemNotes], [InspectionFixNotes])
 	VALUES
-		(100032, 'Sprinker Systems' ,'2018-01-01', 'Pass', 
-			"", "", ""),
-		(100032, 'Elevator' ,'2018-08-12', 'Pass', 
-			"", "", ""),
-		(100031, 'Sprinker Systems' ,'2018-01-01', 'Pass', 
+		(100011, 'Sprinker Systems' ,'2018-01-01', 'Pass', 
+			"Internal", "Leaky Sprinklers", ""),
+		(100011, 'Elevator' ,'2018-08-12', 'Pass', 
+			"Internal", "Alarm doesn't work", ""),
+		(100011, 'Sprinker Systems' ,'2018-01-01', 'Pass', 
 			"", "", ""),
 		(100031, 'Elevator' ,'2018-08-12', 'Pass', 
 			"", "", ""),
