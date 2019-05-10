@@ -5887,6 +5887,18 @@ namespace Presentation
             LoadSupplierOrderGrid();
         }
 
+        private void btnGenerateOrders_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                _supplierOrderManager.GenerateOrders();
+                LoadSupplierOrderGrid();
+            }
+            catch (Exception)
+            {
+            }
+        }
+
         /// <summary>
         /// Author: ??????
         /// Created: 2019/02/16
@@ -9921,6 +9933,7 @@ namespace Presentation
         }
 
         #endregion
+
         
     }
 }

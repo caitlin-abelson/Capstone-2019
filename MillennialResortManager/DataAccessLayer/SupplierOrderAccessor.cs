@@ -531,6 +531,30 @@ namespace DataAccessLayer
             return supplierItemID;
 
         }
+
+        /// <summary>
+        /// Author: Jared Greenfield, James Heim, Richard Caroll
+        /// Date: 2019-05-09
+        /// </summary>
+        public void GenerateOrders()
+        {
+            var conn = DBConnection.GetDbConnection();
+            var cmdText = "sp_generate_supplier_orders";
+            var cmd = new SqlCommand(cmdText, conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            try
+            {
+                conn.Open();
+                cmd.ExecuteScalar();
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            
+        }
     }
 
 }

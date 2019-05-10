@@ -734,3 +734,68 @@ VALUES
 (100024,0,100000,1,1, 50.00, 1),
 (100025,0,100000,1,1, 25.00, 1)
 GO
+
+INSERT INTO [dbo].[InternalOrder]
+		([EmployeeID], [DepartmentID], [Description], [OrderComplete], [DateOrdered])
+	VALUES
+		(100000, "FoodService", "MORE NYQUIL", 0, "2019-05-01"),
+		(100000, "FoodService", "Tranquilizer and Cat food", 0, "2019-05-03"),
+		(100000, "ResortOperations", "Office Supplies", 0, GetDate())
+		
+GO
+
+INSERT INTO [dbo].[InternalOrderLine]
+		([InternalOrderID], [ItemID], [OrderQty], [QtyReceived], [PickSheetID], 
+		 [OrderReceivedDate], [PickCompleteDate], 
+		 [DeliveryDate], [OrderStatus], [OutOfStock])
+	VALUES
+		(100000, 100022, 900, 0, 100000, 
+		"2019-05-01", "2019-05-01",
+		"2019-05-05", 1, 0),	
+		(100000, 100015, 899, 0, 100000, 
+		"2019-05-01", "2019-05-01",
+		"2019-05-05", 1, 0)
+GO
+
+INSERT INTO [dbo].[InternalOrderLine]
+		([InternalOrderID], [ItemID], [OrderQty], [QtyReceived], [PickSheetID], 
+		 [OrderReceivedDate], [PickCompleteDate], 
+		 [DeliveryDate], [OrderStatus], [OutOfStock])
+	VALUES
+		(100001, 100022, 25, 0, 100000, 
+		"2019-05-01", "2019-05-01",
+		"2019-05-05", 1, 0),	
+		(100001, 100019, 25, 0, 100000, 
+		"2019-05-01", "2019-05-01",
+		"2019-05-05", 1, 0)
+GO
+
+INSERT INTO [dbo].[InternalOrderLine]
+		([InternalOrderID], [ItemID], [OrderQty], [QtyReceived], [PickSheetID], 
+		 [OrderReceivedDate], [PickCompleteDate], 
+		 [DeliveryDate], [OrderStatus], [OutOfStock])
+	VALUES
+		(100002, 100023, 1, 0, 100000, 
+		GetDate(), GetDate(),
+		"2019-05-05", 1, 0),	
+		(100002, 100024, 2, 0, 100000, 
+		GetDate(), GetDate(),
+		"2019-05-11", 1, 0)
+GO
+		
+
+INSERT INTO [dbo].[SupplierOrder]
+		([EmployeeID], [Description], [OrderComplete], [DateOrdered], [SupplierID])
+	VALUES
+		(100000, "Restock our NyQuil supply", 1, "2019-04-07", 100000),
+		(100000, "Kitchen Stuffs", 0, GetDate(), 100001)
+GO
+print'HECKK' 
+INSERT INTO [dbo].[SupplierOrderLine]
+		([SupplierOrderID], [ItemID], [Description], [OrderQty], [QtyReceived], [UnitPrice])
+	VALUES
+		(100005, 100022, "NyQuil", 500, 500, 3.49),
+		(100006, 100018, "", 100, 0, 5.99),
+		(100006, 100019, "", 100, 0, 5.99)
+GO
+

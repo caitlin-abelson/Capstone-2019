@@ -316,5 +316,10 @@ namespace DataAccessLayer
         {
             throw new NotImplementedException();
         }
+
+        public void GenerateOrders()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -234,5 +234,22 @@ namespace LogicLayer
 
             return result;
         }
+
+        /// <summary>
+        /// Author: Jared Greenfield, James Heim, Richard Caroll
+        /// Date: 2019-05-09
+        /// </summary>
+        public void GenerateOrders()
+        {
+            try
+            {
+                _supplierOrderAccessor.GenerateOrders();
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
     }
 }

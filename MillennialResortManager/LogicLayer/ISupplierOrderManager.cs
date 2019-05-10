@@ -20,5 +20,6 @@ namespace LogicLayer
 		SupplierOrder RetrieveSupplierOrderByID(int supplierOrderID);
 		void CompleteSupplierOrder(int supplierOrderID);
 		bool UpdateGeneratedOrder(int supplierOrderID, int employeeID);
+        void GenerateOrders();
 	}
 }
