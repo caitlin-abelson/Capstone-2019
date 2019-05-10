@@ -798,4 +798,9 @@ INSERT INTO [dbo].[SupplierOrderLine]
 		(100006, 100018, "", 100, 0, 5.99),
 		(100006, 100019, "", 100, 0, 5.99)
 GO
-
+INSERT INTO [Inspection]
+	([ResortPropertyID], [Name], [DateInspected], [Rating], [ResortInspectionAffiliation], [InspectionProblemNotes], [InspectionFixNotes] )
+	VALUES
+	(100011, "Smoke Detector Inspection", '2019-03-25', "Pass", "Local Island Authority", "All smoke detectors in buildings were to code.", "No fixes needed."),
+	(100011, "Swimming pool Inspection", '2019-09-12', "Pass", "Millennial Resorts", "Chlorine levels are to code.", "No fixes needed.")
+GO
