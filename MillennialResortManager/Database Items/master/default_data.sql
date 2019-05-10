@@ -60,21 +60,7 @@ INSERT INTO [dbo].[OfferingType]
 		   ('Item','Offering that has not been assigned a type'),
 		   ('Room','A room is a space people stay in.')
 GO
-print 'Department Types'
-GO
-INSERT INTO [dbo].[Department]
-	([DepartmentID], [Description])
-	VALUES
-	('Admin', 'Has access to everything'),
-	('Maintenance', 'Fixes everything'),
-	('Events', 'Makes sure parties go as planned'),
-    ('ResortOperations', 'Makes sure everything runs smoothly'),
-    ('Pet', 'Makes every animal feel happy'),
-    ('FoodService', 'Fills customer bellies'),
-	('Ordering', 'Gets stuff in, moves stuff out'),
-    ('NewEmployee', 'Has no duties')
-	GO
-	
+
 print 'Role'
 GO
 INSERT INTO [dbo].[Role]
