@@ -97,7 +97,7 @@ INSERT INTO [Employee]
 	[FirstName], [LastName], [PhoneNumber], [Email], [DepartmentID]
 )
 VALUES
-	("Bob", "Trap", "1234567890", "BTrapp@gmail.com", "Admin")
+	("Bob", "Trapp", "1234567890", "BTrapp@gmail.com", "Admin")
 GO
 
 print 'Resort Property Types'
